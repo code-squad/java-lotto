@@ -1,6 +1,6 @@
-# 자동차 경주 게임
+# 로또
 ## 진행 방법
-* 자동차 경주 게임에 대한 [요구사항](https://nextstep.camp/courses/-KtTrisFbiAQW0Sgo7SV/-KtTwBuUZ1LpPGD3vc8o/lessons)을 파악한다.
+* 로또에 대한 [요구사항](https://nextstep.camp/courses/-KtTrisFbiAQW0Sgo7SV/-KtTwG8F5nCyhtAgNkt-/lessons)을 파악한다.
 * 요구사항에 대한 구현을 완료한 후 자신의 github 아이디에 해당하는 브랜치에 Pull Request(이하 PR)를 통해 코드 리뷰 요청을 한다.
 * 코드 리뷰 피드백에 대한 개선 작업을 하고 다시 PUSH한다.
 * 모든 피드백을 완료하면 다음 단계를 도전하고 앞의 과정을 반복한다.
@@ -16,13 +16,13 @@
 2. fork한 프로젝트를 자신의 컴퓨터로 clone한다.
 ```
 git clone https://github.com/{본인_아이디}/{저장소 아이디}
-ex) https://github.com/javajigi/java-racingcar
+ex) https://github.com/javajigi/java-lotto
 ```
 
 3. clone한 프로젝트 이동
 ```
 cd {저장소 아이디}
-ex) cd java-racingcar
+ex) cd java-lotto
 ```
 
 4. 본인 아이디로 브랜치를 만들기 위한 checkout
