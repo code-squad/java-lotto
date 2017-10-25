@@ -1,10 +1,10 @@
-package lotto.service;
+package lotto.view;
 
 import java.util.Scanner;
 
 import lotto.model.Lottos;
 
-public class LottosService {
+public class InputView {
 	private void printLottos(Lottos lottos) {
 		for (int i = 0; i < lottos.size(); i++) {
 			System.out.println("[" + lottos.getString(i) + "]");

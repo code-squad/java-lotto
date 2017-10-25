@@ -4,43 +4,45 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class WinPrice {
-	// HashMap key = 	matchNumber (일치한 개수)
-	// 					int[0] = price (상금)
-	// 					int[1] = matchCount (일치한 로또 수)
-	private HashMap<Integer, int[]> winPrices = new HashMap<Integer, int[]>();
+	private HashMap<Integer, WinPriceValue> winPrices = new HashMap<Integer, WinPriceValue>();
 
 	public void addWinPrice(int matchNumber, int price) {
-		int[] value = { price, 0 };
-		winPrices.put(matchNumber, value);
+		winPrices.put(matchNumber, new WinPriceValue(price));
 	}
 
-	public void addMatchCount(int matchNumber) {		
-		if(winPrices.containsKey(matchNumber)) {
-			int value[] = winPrices.get(matchNumber);
-			value[1]++;
+	public void addMatchCount(int matchNumber) {
+		if (winPrices.containsKey(matchNumber)) {
+			WinPriceValue value = winPrices.get(matchNumber);
+			value.addMatchCount();
 			winPrices.put(matchNumber, value);
-		}		
+		}
 	}
-	
-	public int[] get(int key) {
-		return winPrices.get(key);
-	}
-	
+
 	// 테스트용
 	public int getMatchSumPrice(int matchNumber) {
-		int value[] = winPrices.get(matchNumber);
-		return value[0] * value[1];
+		return winPrices.get(matchNumber).getMatchCount();
 	}
 
 	public int getTotalSumPrice() {
 		int totalPrice = 0;
 		for (int key : winPrices.keySet()) {
-			int value[] = winPrices.get(key);
-			totalPrice += value[0] * value[1];
+			WinPriceValue value = winPrices.get(key);
+			totalPrice += value.getTotalPrice();
 		}
 		return totalPrice;
 	}
-	public Set<Integer> keySet(){
+
+	public Set<Integer> keySet() {
 		return winPrices.keySet();
+	}
+
+	public int getPrice(int key) {
+		WinPriceValue winPriceValue = winPrices.get(key);
+		return winPriceValue.getPrice();
+	}
+
+	public int getMatchCount(int key) {
+		WinPriceValue winPriceValue = winPrices.get(key);
+		return winPriceValue.getMatchCount();
 	}
 }

@@ -1,23 +1,42 @@
-package lotto.service;
+package lotto.view;
 
 import lotto.model.Lotto;
 import lotto.model.Lottos;
 import lotto.model.WinPrice;
 
-public class WinPriceService {
+enum WinValue {
+	FIFTH(3, 5000), FOURTH(4, 50000), THRD(5, 1500000), FIRST(6, 2000000000);
+	private final int value;
+	private final int price;
+
+	WinValue(int value, int price) {
+		this.value = value;
+		this.price = price;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+}
+
+public class ResultView {
 	private Lotto winnerLotto = null;
 	private WinPrice winPrice = new WinPrice();
 
-	public WinPriceService() {
+	public ResultView() {
 		winnerNumbersInput();
 		setWinPrice();
 	}
 
 	private void setWinPrice() {
-		winPrice.addWinPrice(3, 5000);
-		winPrice.addWinPrice(4, 50000);
-		winPrice.addWinPrice(5, 1500000);
-		winPrice.addWinPrice(6, 2000000000);
+		winPrice.addWinPrice(WinValue.FIFTH.getValue(), WinValue.FIFTH.getPrice());
+		winPrice.addWinPrice(WinValue.FOURTH.getValue(), WinValue.FOURTH.getPrice());
+		winPrice.addWinPrice(WinValue.THRD.getValue(), WinValue.THRD.getPrice());
+		winPrice.addWinPrice(WinValue.FIRST.getValue(), WinValue.FIRST.getPrice());
 	}
 
 	private void winnerNumbersInput() {
@@ -36,8 +55,7 @@ public class WinPriceService {
 	public void checkLottosWinner(Lottos lottos) {
 		lottoCheck(lottos);
 		for (int key : winPrice.keySet()) {
-			int value[] = winPrice.get(key);
-			System.out.println(key + "개 일치 (" + value[0] + "원) - " + value[1] + "개");
+			System.out.println(key + "개 일치 (" + winPrice.getPrice(key) + "원) - " + winPrice.getMatchCount(key) + "개");
 		}
 	}
 

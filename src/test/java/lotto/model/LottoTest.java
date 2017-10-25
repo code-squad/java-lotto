@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import lotto.service.LottosService;
+import lotto.view.InputView;
 
 public class LottoTest {
 	Lotto lotto = new Lotto();
@@ -28,7 +28,7 @@ public class LottoTest {
 	
 	@Test
 	public void testInputView() {
-		LottosService lottosService = new LottosService();
-		lottosService.inputPrice();
+		InputView inputView = new InputView();
+		inputView.inputPrice();
 	}
 }
