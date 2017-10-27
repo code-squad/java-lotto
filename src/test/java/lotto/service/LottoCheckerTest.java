@@ -6,9 +6,9 @@ import lotto.model.Lottos;
 import lotto.model.WinLotto;
 
 public class LottoCheckerTest {
-	Lottos lottos = null;
-	WinLotto winLotto = null;
-	LottoChecker lottoChecker = null;
+	private Lottos lottos = null;
+	private WinLotto winLotto = null;
+	private LottoChecker lottoChecker = null;
 
 	public void testSetLottoChecker() {
 		lottos = new Lottos();

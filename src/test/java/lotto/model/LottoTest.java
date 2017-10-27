@@ -7,7 +7,7 @@ import org.junit.Test;
 import lotto.view.InputView;
 
 public class LottoTest {
-	Lotto lotto = new NomalLotto();
+	private Lotto lotto = new NomalLotto();
 	
 	@Test
 	public void testLotto() {

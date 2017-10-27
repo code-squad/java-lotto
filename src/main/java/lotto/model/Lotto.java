@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 
 public abstract class Lotto {
 	List<Integer> numbers = null;
-	final int MIN_NUMBER = 1;
-	final int MAX_NUMBER = 45;
-	final int LOTTOCOUNT = 6;
-	List<Integer> inputNumberList = new ArrayList<>();
+	private final int MIN_NUMBER = 1;
+	private final int MAX_NUMBER = 45;
+	protected final int LOTTOCOUNT = 6;
+	protected List<Integer> inputNumberList = new ArrayList<>();
 
 	// 생성자 입력내용 없으면 자동생성
 	public Lotto() {

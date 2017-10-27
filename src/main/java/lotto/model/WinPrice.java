@@ -72,6 +72,8 @@ public class WinPrice {
 		case 6:
 			winValue = WinValue.FIRST;
 			break;
+		default:
+			break;
 		}
 		return winValue;
 	}
