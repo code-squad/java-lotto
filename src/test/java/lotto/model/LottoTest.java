@@ -7,12 +7,12 @@ import org.junit.Test;
 import lotto.view.InputView;
 
 public class LottoTest {
-	Lotto lotto = new Lotto();
+	Lotto lotto = new NomalLotto();
 	
 	@Test
 	public void testLotto() {
-		Lotto lotto1 = new Lotto("1, 2, 3, 4, 5, 6");
-		Lotto lotto2 = new Lotto("4, 5, 6, 7, 8, 9");
+		Lotto lotto1 = new NomalLotto("1, 2, 3, 4, 5, 6");
+		Lotto lotto2 = new NomalLotto("4, 5, 6, 7, 8, 9");
 		assertEquals(lotto1.getNumber(1), 2);
 		assertEquals(lotto2.getNumber(1), 5);
 		assertEquals(lotto1.matchingNumber(2), true);

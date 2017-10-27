@@ -1,42 +1,53 @@
 package lotto.model;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import lotto.model.WinPrice.WinValue;
+
 public class WinPriceTest {
 
-	private WinPrice winPrice = new WinPrice();
-
 	@Test
-	public void testAddWinPrice() {
-		winPrice.addWinPrice(3, 5000);
-		winPrice.addWinPrice(4, 50000);
-		winPrice.addWinPrice(5, 1500000);
-		winPrice.addWinPrice(6, 2000000000);
+	public void testWinValue() {
+		WinPrice winPrice = new WinPrice();
+		assertEquals(WinValue.FIFTH, winPrice.valueOf(3, false));
+		assertEquals(WinValue.FOURTH, winPrice.valueOf(4, false));
+		assertEquals(WinValue.THIRD, winPrice.valueOf(5, false));
+		assertEquals(WinValue.SECOND, winPrice.valueOf(5, true));
+		assertEquals(WinValue.FIRST, winPrice.valueOf(6, false));
+
+		assertEquals(WinValue.FIFTH.getPrice(), 5000);
+
+		assertEquals(WinValue.FIFTH.getSumPrice(3), 5000 * 3);
 	}
 
 	@Test
-	public void testAddMatchCount() {
-		testAddWinPrice();
-		winPrice.addMatchCount(3);
-		winPrice.addMatchCount(3);
-		winPrice.addMatchCount(5);
-		winPrice.addMatchCount(5);
-	}
+	public void testGetSumPrice() {
+		WinPrice winPrice = new WinPrice();
+		winPrice.addMatchCount(3, false);
+		winPrice.addMatchCount(3, false);
 
-	@Test
-	public void testGetMatchSumPrice() {
-		testAddWinPrice();
-		testAddMatchCount();
-		assertEquals(winPrice.getMatchSumPrice(3), 10000);
-		assertEquals(winPrice.getMatchSumPrice(5), 3000000);
+		int sumPrice = winPrice.getSumPrice(WinValue.FIFTH);
+		assertEquals(sumPrice, WinValue.FIFTH.getSumPrice(2));
 	}
 
 	@Test
 	public void testGetTotalSumPrice() {
-		testAddWinPrice();
-		testAddMatchCount();
-		assertEquals(winPrice.getTotalSumPrice(), 3010000);
+		WinPrice winPrice = new WinPrice();
+		winPrice.addMatchCount(3, false);
+		winPrice.addMatchCount(3, false);
+
+		winPrice.addMatchCount(4, false);
+		winPrice.addMatchCount(4, false);
+		winPrice.addMatchCount(5, true);
+		winPrice.addMatchCount(5, false);
+
+		int totalSumPrice = winPrice.getSumPrice(WinValue.FIFTH);
+		totalSumPrice += winPrice.getSumPrice(WinValue.FOURTH);
+		totalSumPrice += winPrice.getSumPrice(WinValue.SECOND);
+		totalSumPrice += winPrice.getSumPrice(WinValue.THIRD);
+
+		assertEquals(winPrice.getTotalSumPrice(), totalSumPrice);
 	}
 }

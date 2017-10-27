@@ -12,7 +12,7 @@ public class Lottos {
 
 	public void purchasePrice(int price) {
 		for (int i = 0; i < price / 1000; i++) {
-			lottos.add(new Lotto());
+			lottos.add(new NomalLotto());
 		}
 	}
 

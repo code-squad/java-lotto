@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Lotto {
+public abstract class Lotto {
 	List<Integer> numbers = null;
 	final int MIN_NUMBER = 1;
 	final int MAX_NUMBER = 45;
@@ -36,12 +36,8 @@ public class Lotto {
 		}
 	}
 
-	// 로또 추첨번호들이 들어간 리스트를 셔플하고 로또의 번호 숫자만큼 잘라내 로또 생성
-	private void purchaseAuto() {
-		Collections.shuffle(inputNumberList);
-		numbers.addAll(inputNumberList.subList(0, LOTTOCOUNT));
-		Collections.sort(numbers);
-	}
+	// 로또 추첨번호들이 들어간 리스트를 셔플하고 로또의 번호 숫자만큼 잘라내 로또 생성 winLottos에서는 보너스 볼까지 생성
+	protected abstract void purchaseAuto();
 
 	// 로또 번호를 스트링으로 출력
 	public String getString() {
