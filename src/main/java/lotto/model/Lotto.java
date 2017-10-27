@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class Lotto {
-	List<Integer> numbers = null;
+	protected List<Integer> numbers = null;
 	private final int MIN_NUMBER = 1;
 	private final int MAX_NUMBER = 45;
 	protected final int LOTTOCOUNT = 6;

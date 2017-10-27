@@ -7,9 +7,9 @@ import lotto.model.WinPrice;
 import lotto.model.WinPrice.WinValue;
 
 public class LottoChecker {
-	private WinLotto winLotto = null;
-	private Lottos lottos = null;
-	private WinPrice winPrice = null;
+	private WinLotto winLotto;
+	private Lottos lottos;
+	private WinPrice winPrice;
 
 	public LottoChecker(Lottos lottos, WinLotto winLotto) {
 		this.lottos = lottos;
