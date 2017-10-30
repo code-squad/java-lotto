@@ -18,18 +18,6 @@ public class WinPriceTest {
 		assertEquals(WinValue.FIRST, winPrice.valueOf(6, false));
 
 		assertEquals(WinValue.FIFTH.getPrice(), 5000);
-
-		assertEquals(WinValue.FIFTH.getSumPrice(3), 5000 * 3);
-	}
-
-	@Test
-	public void testGetSumPrice() {
-		WinPrice winPrice = new WinPrice();
-		winPrice.addMatchCount(3, false);
-		winPrice.addMatchCount(3, false);
-
-		int sumPrice = winPrice.getSumPrice(WinValue.FIFTH);
-		assertEquals(sumPrice, WinValue.FIFTH.getSumPrice(2));
 	}
 
 	@Test

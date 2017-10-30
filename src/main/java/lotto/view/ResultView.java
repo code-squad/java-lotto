@@ -2,6 +2,8 @@ package lotto.view;
 
 import lotto.model.Lottos;
 import lotto.model.WinLotto;
+import lotto.model.WinPrice;
+import lotto.model.WinPrice.WinValue;
 import lotto.service.LottoChecker;
 
 public class ResultView {
@@ -11,6 +13,10 @@ public class ResultView {
 	public ResultView(Lottos lottos) {
 		winnerNumbersInput();
 		lottoChecker = new LottoChecker(lottos, winnerLotto);
+	}
+	
+	public ResultView(Lottos lottos, WinLotto winLotto) {
+		lottoChecker = new LottoChecker(lottos, winLotto);
 	}
 
 	private void winnerNumbersInput() {
@@ -24,7 +30,11 @@ public class ResultView {
 	public void resultPrint() {
 		System.out.println("당첨 통계");
 		System.out.println("---------");
-		lottoChecker.checkLottosWinner();
+		WinPrice winPrice = lottoChecker.getWinPrice();
+		for (WinValue winValue : winPrice.keySet()) {
+			System.out.println(winValue.getMatchNum() + "개 일치 " + winValue.getRankString() + " (" + winValue.getPrice()
+					+ "원) - " + winPrice.getMatchCount(winValue) + "개");
+		}
 		System.out.println("총 수입금은 " + lottoChecker.getTotalSumPrice() + "원 입니다.");
 		System.out.println("총 수익률은 " + lottoChecker.incomeRatio() + "%입니다.");
 	}

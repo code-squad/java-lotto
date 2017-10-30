@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public abstract class Lotto {
-	protected List<Integer> numbers = null;
-	private final int MIN_NUMBER = 1;
-	private final int MAX_NUMBER = 45;
+	protected List<Integer> numbers;
 	protected final int LOTTOCOUNT = 6;
 	protected List<Integer> inputNumberList = new ArrayList<>();
 
@@ -31,9 +30,7 @@ public abstract class Lotto {
 
 	// 로또 추첨번호들이 들어갈 리스트 생성
 	private void autoInputNumberList() {
-		for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++) {
-			inputNumberList.add(i);
-		}
+		IntStream.range(1, 45).forEach(i->inputNumberList.add(i));
 	}
 
 	// 로또 추첨번호들이 들어간 리스트를 셔플하고 로또의 번호 숫자만큼 잘라내 로또 생성 winLottos에서는 보너스 볼까지 생성
@@ -57,5 +54,9 @@ public abstract class Lotto {
 	// 인덱스번호로 로또번호 출력 (테스트용)
 	public int getNumber(int index) {
 		return numbers.get(index);
+	}
+	
+	public boolean contains(int bonusBall) {
+		return numbers.contains(bonusBall);
 	}
 }

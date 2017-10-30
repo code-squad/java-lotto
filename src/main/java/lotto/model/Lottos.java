@@ -15,17 +15,17 @@ public class Lottos {
 			lottos.add(new NomalLotto());
 		}
 	}
+	
+	public void addLotto(String lottoString) {
+		lottos.add(new NomalLotto(lottoString));
+	}
 
 	public int size() {
 		return lottos.size();
 	}
 
-	public int getPrice() {
-		return lottos.size() * 1000;
-	}
-
 	public String getString(int i) {
-		return lottos.get(i).getString();
+		return getLotto(i).getString();
 	}
 
 	public Lotto getLotto(int index) {

@@ -1,6 +1,8 @@
 package lotto.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -15,8 +17,8 @@ public class LottoTest {
 		Lotto lotto2 = new NomalLotto("4, 5, 6, 7, 8, 9");
 		assertEquals(lotto1.getNumber(1), 2);
 		assertEquals(lotto2.getNumber(1), 5);
-		assertEquals(lotto1.matchingNumber(2), true);
-		assertEquals(lotto1.matchingNumber(9), false);
+		assertTrue(lotto1.matchingNumber(2));
+		assertFalse(lotto1.matchingNumber(9));
 		
 		assertEquals(lotto1.compareLottoCount(lotto2), 3);
 	}
