@@ -35,7 +35,6 @@ public class InputView {
 		for(int i=0; i < money.coutTicket(); i++) {
 			lottoNumbers.add(sc.nextLine());
 		}
-		System.out.println(lottoNumbers);
 		return lottoNumbers;
 	}
 	

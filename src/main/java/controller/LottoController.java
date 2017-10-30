@@ -2,45 +2,42 @@ package controller;
 
 import java.util.Scanner;
 
-import model.LottoService;
 import model.Lottos;
 import model.Money;
+import model.WinningLotto;
 import view.InputView;
 import view.ResultView;
 
 public class LottoController {
 
-	private static LottoService service = null;
-	
-	public Lottos beginAuto(Money money) {
-		return service.beginAuto(money.coutTicket());
-	}
-
-	public Lottos beginManual(Money money, InputView input) {
-		return service.beginManual(money.coutTicket(), input.getLottoNumbers(money));
-	}
-	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		InputView input = new InputView(scanner);
 		ResultView print = new ResultView();
 		LottoController controller = new LottoController();
+		WinningLotto winningLotto = new WinningLotto();
 		Money money = new Money();
-		service = new LottoService();
+		Lottos lottos = new Lottos();
+		
 		input.getMoney(money);
-		Lottos lottos = null;
+		print.num(money.coutTicket());
+		
 		if(input.chooseType().trim().equals("자동")) {
-			lottos = controller.beginAuto(money);
+			lottos.makeLottos(money.coutTicket());
 			print.lottery(lottos);
 		}else {
-			lottos = controller.beginManual(money, input);
+			lottos.makeManualLottos(money.coutTicket(), input.getLottoNumbers(money));
 		}
 		if(input.getCommand().equals("lottery")){
-			service.makeWinningLotto();
-			print.winningNumber(lottos);
+			winningLotto.makeLotto();
+			print.winningNumber(winningLotto);
 		}
-		service.checkLottos();
+		
+		lottos.checkLottos(winningLotto);
+		lottos.statistic(winningLotto.getBonus());
 		print.statistic(lottos);
+		print.earningRate(lottos.earningRate(money.getMoney()));
+		
 		scanner.close();
 	}
 }

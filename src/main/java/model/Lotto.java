@@ -9,19 +9,10 @@ import java.util.stream.IntStream;
 public class Lotto {
 	int commonCount = 0;
 	boolean isBonus = false;
+	List <Integer> list = null;
 	
 	public int getCommonCount() {
 		return commonCount;
-	}
-
-	List <Integer> list = null;
-	
-	public Lotto() {
-		makeLotto();
-	}
-
-	public Lotto(String manualLotto) {
-		makeManualLotto(manualLotto);
 	}
 	
 	public List<Integer> getList() {
@@ -52,17 +43,13 @@ public class Lotto {
 	
 	public void isCommon(int num) {
 		for(int lottoNum : list) {
-			if(lottoNum == num) {
-				addCommonCount();
-			}
+			if(lottoNum == num) addCommonCount();
 		}
 	}
 	
 	public boolean isBonusCommon(int bonus) {
 		for(int lottoNum : list) {
-			if(lottoNum == bonus) {
-				isBonus = true;
-			}
+			if(lottoNum == bonus) isBonus = true;
 		}
 		return isBonus;
 	}
