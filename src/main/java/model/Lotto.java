@@ -20,7 +20,7 @@ public class Lotto {
 	}
 
 	public void makeLotto() {
-		list = new ArrayList<Integer>();
+		list = new ArrayList<>();
 		List<Integer> range = IntStream.range(1, 45).boxed().collect(Collectors.toList());
 		Collections.shuffle(range);
 		for(int i=0; i < 6; i++) {
@@ -28,9 +28,9 @@ public class Lotto {
 		}
 		Collections.sort(list);
 	}
-
+	
 	public void makeManualLotto(String manualLotto) {
-		list = new ArrayList<Integer>();
+		list = new ArrayList<>();
 		for(String num : manualLotto.split(",")) {
 			list.add(Integer.parseInt(num.trim()));
 		}
