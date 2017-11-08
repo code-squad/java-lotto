@@ -102,7 +102,7 @@ public class WinStats {
 		return results;
 	}
 	public String calTotalProfit(int investingAmount){
-		double profit = (double)getTotalWinnedMoney() / investingAmount *100;
+		double profit = Math.round((double)getTotalWinnedMoney() / investingAmount *100);
 		if(profit>=0) {
 			return "총 수익률은" + profit + "%입니다.";
 		}

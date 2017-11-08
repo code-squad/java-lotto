@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 import com.jiwon.lotto.lotto.Lotto;
 
 public class AutoLotto extends Lotto {
-	static List<Integer> numList;
+	protected static List<Integer> numList;
 	protected Lotto lotto;
 	private List<Lotto> autoLottos = new ArrayList<Lotto>();
 	

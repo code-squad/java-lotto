@@ -36,9 +36,4 @@ public class InputView {
 		// exception 처리 가능.
 		return (new Scanner(System.in)).next();
 	}
-	public void autoDraw() {
-		if(sc.next() == "lottery") {
-			WinningLotto winningLotto = new WinningLotto();
-		}
-	}
 }

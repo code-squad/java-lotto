@@ -19,9 +19,6 @@ public class LottoDrawing {
 	}
 	
 	public boolean isMatchUpWithBonus(Lotto lotto) {
-		if(lotto.getNumbers().contains(winningLotto.getBonusNum()) ) {
-			return true;
-		}
-		return false;	
+		return lotto.getNumbers().contains(winningLotto.getBonusNum());	
 	}
 }
