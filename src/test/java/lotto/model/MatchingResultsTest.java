@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import lotto.model.Result.Match;
+import lotto.model.MatchingResults.Match;
 
-public class ResultTest {
+public class MatchingResultsTest {
     @Test
     public void match_valid() throws Exception {
         assertEquals(Match.MATCH3, Match.valueOf(3));
@@ -30,7 +30,7 @@ public class ResultTest {
     
     @Test
     public void getProfit() {
-        Result result = new Result(5);
+        MatchingResults result = new MatchingResults(5);
         result.add(Match.MATCH3);
         assertEquals(100.0, result.getProfit(), 0.001);
         

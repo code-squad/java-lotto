@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import lotto.model.LottoGenerator;
 import lotto.model.Lottos;
-import lotto.model.Result;
+import lotto.model.MatchingResults;
 import lotto.model.WinningLotto;
 import lotto.view.LottoFormView;
 import lotto.view.LottoResultView;
@@ -18,7 +18,7 @@ public class LottoGame {
         Lottos lottos = LottoGenerator.generateByMoney(money);
         System.out.println(lottos);
         
-        Result result = lottos.match(winningLotto);
+        MatchingResults result = lottos.match(winningLotto);
 
         LottoResultView.show(result);
         scanner.close();

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Result {
+public class MatchingResults {
     private List<MatchingResult> results = new ArrayList<>();
     
     private int countOfLotto;
 
-    public Result(int countOfLotto) {
+    public MatchingResults(int countOfLotto) {
         this.countOfLotto = countOfLotto;
         
         results.add(new MatchingResult(Match.MATCH3));

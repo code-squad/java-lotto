@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import lotto.model.LottoGenerator;
 import lotto.model.Lottos;
-import lotto.model.Result;
+import lotto.model.MatchingResults;
 import lotto.model.WinningLotto;
 import lotto.view.LottoResultView;
 
@@ -14,7 +14,7 @@ public class LottoGameTest {
         WinningLotto winningLotto = new WinningLotto("5,15,20,31,34,42");
         Lottos lottos = LottoGenerator.generateByMoney(100000000);
         
-        Result result = lottos.match(winningLotto);
+        MatchingResults result = lottos.match(winningLotto);
 
         LottoResultView.show(result);
     }

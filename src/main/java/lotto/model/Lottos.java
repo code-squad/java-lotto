@@ -13,8 +13,8 @@ public class Lottos {
         return lottos.size();
     }
 
-    public Result match(WinningLotto winningLotto) {
-        Result result = new Result(lottos.size());
+    public MatchingResults match(WinningLotto winningLotto) {
+        MatchingResults result = new MatchingResults(lottos.size());
         for (UserLotto userLotto : lottos) {
             result.add(userLotto.countOfMatch(winningLotto));
         }

@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import lotto.model.Result.Match;
+import lotto.model.MatchingResults.Match;
 
 public class UserLottoTest {
     @Test

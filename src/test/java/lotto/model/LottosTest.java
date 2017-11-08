@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import lotto.model.Result.MatchingResult;
+import lotto.model.MatchingResults.MatchingResult;
 
 public class LottosTest {
 
@@ -22,7 +22,7 @@ public class LottosTest {
         
         Lottos lottos = new Lottos(userLottos);
         WinningLotto lotto = new WinningLotto("1, 2, 3, 4, 5, 6");
-        Result result = lottos.match(lotto);
+        MatchingResults result = lottos.match(lotto);
         List<MatchingResult> matchingResult = result.getResults();
         
         assertEquals(4, result.getCountOfLotto());

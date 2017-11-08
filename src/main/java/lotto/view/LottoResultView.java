@@ -1,15 +1,15 @@
 package lotto.view;
 
-import lotto.model.Result;
-import lotto.model.Result.Match;
-import lotto.model.Result.MatchingResult;
+import lotto.model.MatchingResults;
+import lotto.model.MatchingResults.Match;
+import lotto.model.MatchingResults.MatchingResult;
 
 public class LottoResultView {
     public static final String NEWLINE = System.getProperty("line.separator");
     public static final String LOTTO_REPORT_HEADER = "당첨 통계" + NEWLINE + "----" + NEWLINE;
     public static final String LOTTO_REPORT_FOOTER = "총 수익률은 %d 입니다.";
     
-    public static void show(Result result) {
+    public static void show(MatchingResults result) {
         StringBuilder sb = new StringBuilder(LOTTO_REPORT_HEADER);
         
         Iterable<MatchingResult> matchingResults = result.getResults();
