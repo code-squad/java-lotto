@@ -1,10 +1,8 @@
 package lotto.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
-import lotto.model.MatchingResults.Match;
 
 public class MatchingResultsTest {
     @Test

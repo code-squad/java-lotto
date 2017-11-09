@@ -1,7 +1,7 @@
 package lotto.view;
 
+import lotto.model.Match;
 import lotto.model.MatchingResults;
-import lotto.model.MatchingResults.Match;
 import lotto.model.MatchingResults.MatchingResult;
 
 public class LottoResultView {

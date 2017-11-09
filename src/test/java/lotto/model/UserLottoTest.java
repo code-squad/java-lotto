@@ -6,8 +6,6 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import lotto.model.MatchingResults.Match;
-
 public class UserLottoTest {
     @Test
     public void match() throws Exception {

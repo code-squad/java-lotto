@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import lotto.model.MatchingResults.Match;
-
 public class WinningLotto {
     private List<Integer> lotto;
 

@@ -3,8 +3,6 @@ package lotto.model;
 import java.util.Collections;
 import java.util.List;
 
-import lotto.model.MatchingResults.Match;
-
 public class UserLotto {
     public static final int MONEY_PER_TICKET = 1000;
     
