@@ -3,107 +3,92 @@ package com.jiwon.lotto.winstats;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jiwon.lotto.lotto.CandidateLottoSet;
 import com.jiwon.lotto.lotto.Lotto;
-import com.jiwon.lotto.lottocreator.AutoLotto;
-import com.jiwon.lotto.lottocreator.ManualLotto;
-import com.jiwon.lotto.lottodrawing.LottoDrawing;
+import com.jiwon.lotto.lotto.WinningLotto;
 
 public class WinStats {
-// 당첨통계 관리 클래스.
-	private List<Lotto> candidateLottos = new ArrayList<>();
-	List<Integer> counts = new ArrayList<>();
-	
-	public List<Lotto> getCandidateLottos() {
-		return candidateLottos;
-	}
-
-	public WinStats(int numOfManualLotto, int numOfAutoLotto, List<String> usrInputs) {
-		AutoLotto autoLotto = new AutoLotto();
-		autoLotto.makeAutoLottos(numOfAutoLotto).stream().forEach(s -> candidateLottos.add(s));
-		ManualLotto manualLotto = new ManualLotto();
-		manualLotto.makeManualLottos(numOfManualLotto, usrInputs).stream().forEach(s -> candidateLottos.add(s));
-	}
-
+	// 당첨통계 관리 클래스.
 	public enum Result {
-		RANK1(6, 2000000000, 0, false), RANK2(5, 30000000, 0, true), 
-		RANK3(5, 1500000, 0, false), RANK4(4, 50000, 0, false), RANK5(3, 5000, 0, false);
-		
+		RANK1(6, 2000000000, 0, false), RANK2(5, 30000000, 0, true), RANK3(5, 1500000, 0, false), RANK4(4, 50000, 0,
+				false), RANK5(3, 5000, 0, false);
+
 		private int money;
 		private int matchUpNum;
 		private int count;
 		private boolean isMatchUpWithBonus;
-		
-		Result(int matchUpNum, int money, int count, boolean isMatchUpWithBonus){
+
+		Result(int matchUpNum, int money, int count, boolean isMatchUpWithBonus) {
 			this.matchUpNum = matchUpNum;
 			this.money = money;
 			this.count = count;
 			this.isMatchUpWithBonus = isMatchUpWithBonus;
 		}
-		
+
 		public int getCount() {
 			return count;
 		}
-		
+
 		public void updateCount() {
 			this.count++;
 		}
-		
-		public static Result selectTargetResult(int matchUpNum) {
+
+		public static Result selectTargetResult(int matchUpNum, boolean isMatchUpWithBonus) {
 			// 해당 Result 반환하는 메소드.
-			for(Result r : Result.values()) {
-				if(r.matchUpNum == matchUpNum) {
+			for (Result r : values()) {
+				if (r.matchUpNum == matchUpNum && r.isMatchUpWithBonus == isMatchUpWithBonus) {
 					return r;
 				}
-				if(matchUpNum == 5 && r.isMatchUpWithBonus) {
-					return RANK2;
-				}		
 			}
 			return null;
 		}
-		
-		
+
 	}
-	public void confirmCounts(List<Lotto> lottos) {
+
+	public static void confirmCounts(CandidateLottoSet candidateLottoSet, WinningLotto winningLotto) {
 		// count 확정하는 메소드.
-		LottoDrawing lottoDrawing = new LottoDrawing();
-			for(Lotto lotto : lottos) {
-				if(lottoDrawing.compare(lotto) >= 3) {
-					Result targetResult = Result.selectTargetResult(lottoDrawing.compare(lotto));
-					targetResult.updateCount();
+		for(Lotto candidateLotto : candidateLottoSet.getCandidateLottoSet()) {
+			int num = winningLotto.compare(candidateLotto, winningLotto);
+			if(num >= 3) {
+				boolean flag = false;
+				if (num == 5) {
+					flag = winningLotto.isMatchUpWithBonus(candidateLotto, winningLotto);
 				}
-		}
+				Result result = Result.selectTargetResult(num, flag);
+				result.updateCount();
+			}
+		}			
 	}
-
-
-	public String createResult(Result r, List<Lotto> lottos) {
-		confirmCounts(lottos);
-		String result = "";
-		if(r.isMatchUpWithBonus) {
-			result = r.matchUpNum + "개 일치, 보너스 볼 일치"+
-						"(" + r.money + ")" + "-" + r.count + "개";
-				return result;
-		}
-		result = r.matchUpNum + "개 일치" +
-				"(" + r.money + "원)" + "-" + r.count + "개";
-		return result;			
-	}
-	public int getTotalWinnedMoney() {
+	
+	public static int getTotalWinnedMoney() {
 		int totalMoney = 0;
-		for(Result r : Result.values()) {
+		for (Result r : Result.values()) {
 			totalMoney += r.count * r.money;
 		}
 		return totalMoney;
 	}
-	public List<String> createResults(List<Lotto> lottos){
+
+	public static String createResult(Result r, CandidateLottoSet candidateLottoSet, WinningLotto winningLotto) {
+		String result = "";
+		if (r.isMatchUpWithBonus) {
+			result = r.matchUpNum + "개 일치, 보너스 볼 일치" + "(" + r.money + ")" + "-" + r.count + "개";
+			return result;
+		}
+		result = r.matchUpNum + "개 일치" + "(" + r.money + "원)" + "-" + r.count + "개";
+		return result;
+	}
+
+	public static List<String> createResults(CandidateLottoSet candidateLottoSet, WinningLotto winningLotto) {
 		List<String> results = new ArrayList<>();
-		for(Result r : Result.values()) {
-			results.add(createResult(r, lottos));
+		for (Result r : Result.values()) {
+			results.add(createResult(r, candidateLottoSet, winningLotto));
 		}
 		return results;
 	}
-	public String calTotalProfit(int investingAmount){
-		double profit = Math.round((double)getTotalWinnedMoney() / investingAmount *100);
-		if(profit>=0) {
+
+	public static String calculateTotalProfit(int investingAmount, int totalWinnedMoney) {
+		double profit = Math.round((double)totalWinnedMoney / investingAmount * 100);
+		if (profit >= 0) {
 			return "총 수익률은" + profit + "%입니다.";
 		}
 		return "총 수익률은" + "-" + profit + "%입니다.";

@@ -1,26 +1,34 @@
 package com.jiwon.lotto.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.jiwon.lotto.lotto.AutoLotto;
+import com.jiwon.lotto.lotto.CandidateLottoSet;
+import com.jiwon.lotto.lotto.ManualLotto;
+import com.jiwon.lotto.lotto.WinningLotto;
+import com.jiwon.lotto.lottocreator.LottoCreator;
 import com.jiwon.lotto.winstats.WinStats;
 
 public class Main {
 
+
 	public static void main(String[] args) {
-		InputView inputView = new InputView();
-		ResultView resultView = new ResultView();
-		int investingAmount = inputView.getMoney();
-		resultView.printNumOfLotto(investingAmount/1000);
-		int numOfAutoLotto = inputView.getNumOfAutoLotto();
-		int numOfManualLotto = inputView.getNumOfManualLotto();
-		List<String> usrInputs = inputView.getManualLottoNum(numOfManualLotto);
-		WinStats winStats = new WinStats(numOfManualLotto, numOfAutoLotto, usrInputs);
-		resultView.printAllLottos(winStats.getCandidateLottos());
-		if(inputView.getLottery().equals("lottery")) {
-			resultView.printWinningNum();
-		}
-		resultView.printWinStats(winStats.createResults(winStats.getCandidateLottos()));
-		System.out.println(winStats.calTotalProfit(investingAmount));
+		int investingAmount = InputView.getMoney();
+		ResultView.printNumOfLotto(investingAmount / 1000);
+		int numOfAutoLotto = InputView.getNumOfAutoLotto();
+		int numOfManualLotto = InputView.getNumOfManualLotto();
+		List<String> lottoNumStrings = InputView.getManualLottoNum(numOfManualLotto);
+		List<AutoLotto> autoLottos = LottoCreator.makeAutoLottos(numOfAutoLotto);
+		List<ManualLotto> manualLottos = LottoCreator.makeManualLottos(numOfManualLotto, lottoNumStrings);
+		CandidateLottoSet candidateLottoSet = new CandidateLottoSet(manualLottos, autoLottos);
+		ResultView.printAllLottos(candidateLottoSet);
+		WinningLotto winningLotto = LottoCreator.makeWinningLotto();
+		ResultView.printWinningNum(winningLotto);
+		WinStats.confirmCounts(candidateLottoSet, winningLotto);
+		ResultView.printWinStats(WinStats.createResults(candidateLottoSet, winningLotto));
+		String totalProfit = WinStats.calculateTotalProfit(investingAmount, WinStats.getTotalWinnedMoney());
+		ResultView.printTotalProfit(totalProfit);
 	}
 
 }
