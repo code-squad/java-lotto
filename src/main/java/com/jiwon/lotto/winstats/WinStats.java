@@ -48,11 +48,11 @@ public class WinStats {
 	public static void confirmCounts(CandidateLottoSet candidateLottoSet, WinningLotto winningLotto) {
 		// count 확정하는 메소드.
 		for(Lotto candidateLotto : candidateLottoSet.getCandidateLottoSet()) {
-			int num = winningLotto.compare(candidateLotto, winningLotto);
+			int num = winningLotto.compare(candidateLotto);
 			if(num >= 3) {
 				boolean flag = false;
 				if (num == 5) {
-					flag = winningLotto.isMatchUpWithBonus(candidateLotto, winningLotto);
+					flag = winningLotto.isMatchUpWithBonus(candidateLotto);
 				}
 				Result result = Result.selectTargetResult(num, flag);
 				result.updateCount();

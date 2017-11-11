@@ -17,13 +17,13 @@ public class WinningLotto extends Lotto {
 		return bonusNum;
 	}
 
-	public int compare(Lotto lotto, WinningLotto winningLotto) {
-		return (int)(winningLotto.getNumbers().subList(0, 6)).stream() // stream으로 만들고,
-		.filter(s -> lotto.getNumbers().contains(s) == true) // winningLotto 와 lotto 일치하는 숫자 filter 하기.
-		.count(); // 일치하는 숫자 개수 세기.
-		// winningLotto 생성.
+	public int compare(Lotto lotto) {
+		// 당첨로또와 후보로또 비교해 일치하는 갯수 반환.
+		return countMatchedUpNums(lotto);
+		
 	}
-	public boolean isMatchUpWithBonus(Lotto lotto, WinningLotto winningLotto) {
-		return lotto.getNumbers().contains(this.bonusNum);
+	/*회고*/
+	public boolean isMatchUpWithBonus(Lotto lotto) {
+		return matchUpWithBonus(this.bonusNum, lotto);
 	}
 }

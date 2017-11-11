@@ -1,6 +1,4 @@
 package com.jiwon.lotto.view;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import com.jiwon.lotto.lotto.AutoLotto;
