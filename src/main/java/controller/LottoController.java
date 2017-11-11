@@ -2,6 +2,10 @@ package controller;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import model.Lotto;
 import model.Lottos;
 import model.Money;
 import model.WinningLotto;
@@ -9,35 +13,50 @@ import view.InputView;
 import view.ResultView;
 
 public class LottoController {
+	private static final Logger log = LoggerFactory.getLogger(LottoController.class);
+
+	Lottos lottos = new Lottos();
+	
+	public void makeLotto(InputView input, ResultView print, Money money) {
+		if(input.chooseType().trim().equals("자동")) {
+			lottos.makeLottos(money.coutTicket());
+			print.lottery(lottos);
+			return;
+		}
+		lottos.makeManualLottos(input.getLottoNumbers(money));
+	}
+	
+	public void beginLottery(ResultView print, Money money) {
+		WinningLotto winningLotto = WinningLotto.initLotto();
+		print.winningNumber(winningLotto);
+		lottos.checkLottos(winningLotto);
+		lottos.statistic(winningLotto.getBonus());
+		print.statistic2(lottos);
+		print.earningRate(lottos.earningRate(money.getMoney()));
+	}
 
 	public static void main(String[] args) {
+/*		로그 예시
+  		log.debug("log 시작" + "a"); //연산 - 비용발생
+		log.debug("log 시작{}", "a"); //가변인자
+		int age = 30;
+		log.debug("log 시작{}, my age: {}", "a", age);
+*/		
 		Scanner scanner = new Scanner(System.in);
 		InputView input = new InputView(scanner);
 		ResultView print = new ResultView();
 		LottoController controller = new LottoController();
-		WinningLotto winningLotto = new WinningLotto();
-		Money money = new Money();
-		Lottos lottos = new Lottos();
+		Money money = new Money(input.getMoney());
 		
-		input.getMoney(money);
+//		포비코드 DTO 사용
+//		InputValue iv = InputView.inputValue();
+//		if (iv.isAuto()){ 내용 생략		} 
+
 		print.num(money.coutTicket());
-		
-		if(input.chooseType().trim().equals("자동")) {
-			lottos.makeLottos(money.coutTicket());
-			print.lottery(lottos);
-		}else {
-			lottos.makeManualLottos(money.coutTicket(), input.getLottoNumbers(money));
-		}
+		controller.makeLotto(input, print, money);
 		if(input.getCommand().equals("lottery")){
-			winningLotto.makeLotto();
-			print.winningNumber(winningLotto);
+			controller.beginLottery(print, money);
 		}
-		
-		lottos.checkLottos(winningLotto);
-		lottos.statistic(winningLotto.getBonus());
-		print.statistic(lottos);
-		print.earningRate(lottos.earningRate(money.getMoney()));
-		
 		scanner.close();
 	}
 }

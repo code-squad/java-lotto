@@ -6,19 +6,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.slf4j.Logger; //slf4j는 인터페이스
+import org.slf4j.LoggerFactory;
+
 public class Lotto {
 	int commonCount = 0;
 	boolean isBonus = false;
 	List <Integer> list = null;
 	
+
 	public int getCommonCount() {
 		return commonCount;
 	}
-	
+	//출력용
 	public List<Integer> getList() {
 		return list;
 	}
-
+	//test용
+	public void setList(List<Integer> list) {
+		this.list = list;
+	}
+	
 	public void makeLotto() {
 		list = new ArrayList<>();
 		List<Integer> range = IntStream.range(1, 45).boxed().collect(Collectors.toList());
@@ -36,25 +44,25 @@ public class Lotto {
 		}
 		Collections.sort(list);
 	}
-
-	public void addCommonCount() {
-		commonCount ++;
+	
+	public void addCommonCount(int num) {
+		commonCount += num;
 	}
 	
-	public void isCommon(int num) {
-		for(int lottoNum : list) {
-			if(lottoNum == num) addCommonCount();
-		}
+	//getList() 대신! 이게 객체지향적 사고
+	public boolean hasNum(int num) {
+		return list.contains(num);
 	}
 	
 	public boolean isBonusCommon(int bonus) {
-		for(int lottoNum : list) {
-			if(lottoNum == bonus) isBonus = true;
-		}
-		return isBonus;
+		return list.contains(bonus); 
 	}
-
-	public boolean isBonus() {
-		return isBonus;
+	//lotto.getCommonCount()를 하지 않기 위해 메소드를 Lottos에서 Lotto로 옮김 
+	public Prize getPrize(int bonus) {
+		return Prize.valueOf(getCommonCount(), isBonusCommon(bonus));
+	}
+	
+	public int getPrice(int bonus) {
+		return getPrize(bonus).getPrice();
 	}
 }

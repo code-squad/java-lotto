@@ -21,6 +21,15 @@ public class WinningLotto extends Lotto {
 		this.bonus = bonus;
 	}
 
+	public void match(Lotto lotto) {
+		int count = (int) numbers.stream().filter(num -> lotto.hasNum(num)).count();
+		lotto.addCommonCount(count);
+	}
+	//print용
+	public List<Integer> getList() {
+		return numbers;
+	}
+	
 	public static WinningLotto initLotto() {
 		List<Integer> list = new ArrayList<>();
 		List<Integer> range = IntStream.range(1, 45).boxed().collect(Collectors.toList());
@@ -39,7 +48,7 @@ public class WinningLotto extends Lotto {
 	private void makeBonus(int bonus) {
 		this.bonus = bonus;
 	}
-
+/* makeLotto를 쓸 경우에는 오버라이드 하지 않고 생성자에서 makeBonus를 따로 부르는 게 좋을 것 같다
 	@Override
 	public void makeLotto() {
 		list = new ArrayList<>();
@@ -51,4 +60,5 @@ public class WinningLotto extends Lotto {
 		Collections.sort(list);
 		makeBonus(range.get(6));
 	}
+*/
 }

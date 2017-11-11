@@ -17,10 +17,22 @@ public class InputView {
 	public void endConsole() {
 		this.sc.close();
 	}
-	
-	public void getMoney(Money money) {
+	/* 포비코드. DTO 사용
+	public static InputValue inputValue(){
+		Scanner sc = new Scanner(System.in);
+		InputValue iv = new InputValue();
 		System.out.println("구입금액을 입력해 주세요.");
-		money.setMoney(sc.nextInt());
+		iv.money = sc.nextInt();
+		
+		System.out.println("로또 방식 선택 [입력은 자동 or 수동]")
+		iv.chhoseType = sc.next();
+		sc.close();
+		return iv;
+	}
+	*/
+	public int getMoney() {
+		System.out.println("구입금액을 입력해 주세요.");
+		return sc.nextInt();
 	}
 
 	public String chooseType() {
