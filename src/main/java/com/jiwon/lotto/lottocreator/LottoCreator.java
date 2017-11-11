@@ -31,14 +31,6 @@ public class LottoCreator {
 		return manualLottoNums;
 	}
 	
-	public static AutoLotto makeAutoLotto() {
-		// 로또 하나 자동생성 [1,2,3,4,5,6]
-		List<Integer> numbers = makeNum();
-		Collections.shuffle(numbers);
-		Collections.sort(numbers.subList(0, 6));
-		return new AutoLotto(numbers.subList(0, 6));
-	}
-	
 	public static ManualLotto makeManualLotto(String lottoNumString) {
 		// lotto 하나 생성.
 		List<Integer> numbers = processUsrInput(lottoNumString);
@@ -46,12 +38,21 @@ public class LottoCreator {
 		return new ManualLotto(numbers);
 	}
 	
-	public static WinningLotto makeWinningLotto() {
+	private static List<Integer> setUpForGenerateAutoLotto() {
 		List<Integer> numbers = makeNum();
 		Collections.shuffle(numbers);
-		Collections.sort(numbers.subList(0, 6));
+		return numbers;
+	}
+	
+	public static WinningLotto makeWinningLotto() {
+		List<Integer> numbers = setUpForGenerateAutoLotto();
 		/* 회고글에 기록하기 */
 		return new WinningLotto(numbers.subList(0, 6), numbers.get(6));
+	}
+	public static AutoLotto makeAutoLotto() {
+		// 로또 하나 자동생성 [1,2,3,4,5,6]
+		List<Integer> numbers = setUpForGenerateAutoLotto();
+		return new AutoLotto(numbers.subList(0, 6));
 	}
 	
 	public static List<AutoLotto> makeAutoLottos(int numOfAutoLotto){
