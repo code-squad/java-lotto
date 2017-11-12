@@ -1,46 +1,40 @@
 package com.lotto.container;
 
-import java.util.List;
-
 import com.lotto.model.Game;
-import com.lotto.model.UserLotto;
-import com.lotto.model.WinningLotto;
 import com.lotto.model.strategy.LottoPurchaseStrategyFactory;
 import com.lotto.model.strategy.NumberGenerateStrategyFactory;
 import com.lotto.view.Console;
 
 public class LottoContainer {
-	
-	private static final LottoContainer lc = new LottoContainer();
-	
-	private LottoContainer() {}
-	
-	public static LottoContainer getInstance() {
-		return lc;
-	}
-	
+
 	private static final LottoPurchaseStrategyFactory lpsf = LottoPurchaseStrategyFactory.getInstance();
 	private static final NumberGenerateStrategyFactory ngs = NumberGenerateStrategyFactory.getInstance();
 	private Game game;
-	private List<UserLotto> inputLottos;
-	private WinningLotto winNumbers;
-	private Console console;
-	
-	
+
+
+
+	private static final LottoContainer lc = new LottoContainer();
+
+	private LottoContainer() {
+	}
+
+	public static LottoContainer getInstance() {
+		return lc;
+	}
+
 	public void initialize() {
 		lpsf.initialize();
 		ngs.initialize();
-		this.console = new Console (lpsf, ngs);
-		this.console.prompt();
-		this.inputLottos = this.console.getUserLottos();
-		this.winNumbers = this.console.getWinningLotto();
-		this.game = new Game(this.inputLottos, this.winNumbers);
+		Console console = new Console(lpsf, ngs);
+		console.prompt();
+
+		this.game = new Game(console.getUserLottos(), console.getWinningLotto());
 	}
-	
+
 	public void destroy() {
-		
+		//TODO 컨테이너 생명주기 관리를 위한 destroy() 구현
 	}
-	
+
 	public void execute() {
 		System.out.println(this.game.getResultsByString());
 	}
