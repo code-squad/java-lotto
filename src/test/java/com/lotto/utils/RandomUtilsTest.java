@@ -23,16 +23,8 @@ public class RandomUtilsTest {
 
 	@Test
 	public void 리스트생성_잘되는지() {
-		assertEquals(6, RandomUtils.getRandomLottoList(this.rnd).size());
+		assertEquals(6, RandomUtils.getRandomLottoList(new Random()).size());
 	}
-
-	@Test
-	public void 랜덤값_의도대로_생성되는지() {
-		List<Integer> numbers = RandomUtils.getRandomLottoListByStream(new Random());
-		logger.debug(numbers.toString());
-		assertEquals(6, numbers.size());
-	}
-
 
 	class TestableRandom extends Random {
 		@Override
