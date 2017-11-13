@@ -7,37 +7,50 @@ import java.util.Map;
 
 public class Lottos {
 
-	List<Lotto> lottos = new ArrayList<>();
-	List<Prize> prizes = new ArrayList<>();
+	List<Lotto> lottos;
+	List<Prize> prizes;
 	int earningMoney = 0;
 	
-	public Lottos() {}
+	private Lottos(List<Lotto> lottos){
+		this.lottos = lottos;
+	}
+	
 	//테스트용
 	public Lottos(List<Prize> prizes, int earningMoney) {
 		this.prizes = prizes;
 		this.earningMoney = earningMoney;
 	}
 	
+	public static Lottos of(int count) {
+		return new Lottos(makeLottos(count));
+	}
+	
+	public static Lottos of(List<String> manualLottos) {
+		return new Lottos(makeManualLottos(manualLottos));
+	}
+
+	public static List<Lotto> makeLottos(int count) {
+		List<Lotto> lottos = new ArrayList<>();
+		for(int i=0; i < count; i++) {
+			Lotto lo = Lotto.of();
+			lottos.add(lo);
+		}
+		return lottos;
+	}
+	
+	public static List<Lotto> makeManualLottos(List<String> manualLottos) {
+		List<Lotto> lottos = new ArrayList<>();
+		for(String manualLotto : manualLottos) {
+			Lotto lo = Lotto.of(manualLotto);
+			lottos.add(lo);
+		}
+		return lottos;
+	}
+	
 	public List<Lotto> getLottos() {
 		return lottos;
 	}
 
-	public void makeLottos(int count) {
-		for(int i=0; i < count; i++) {
-			Lotto lo = new Lotto();
-			lo.makeLotto();
-			lottos.add(lo);
-		}
-	}
-	
-	public void makeManualLottos(List<String> manualLottos) {
-		for(String manualLotto : manualLottos) {
-			Lotto lo = new Lotto();
-			lo.makeManualLotto(manualLotto);
-			lottos.add(lo);
-		}
-	}
-	
 	public void checkLottos(WinningLotto winningLotto) {
 		for(Lotto lotto : lottos) {
 			winningLotto.match(lotto);
@@ -49,6 +62,7 @@ public class Lottos {
 	}
 	
 	public void statistic(int bonus) {
+		 prizes = new ArrayList<>();
 		for(Lotto lotto : lottos) {
 			sumMoney(lotto, bonus);
 			prizes.add(lotto.getPrize(bonus)); 

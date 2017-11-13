@@ -15,15 +15,15 @@ import view.ResultView;
 public class LottoController {
 	private static final Logger log = LoggerFactory.getLogger(LottoController.class);
 
-	Lottos lottos = new Lottos();
+	Lottos lottos;
 	
 	public void makeLotto(InputView input, ResultView print, Money money) {
 		if(input.chooseType().trim().equals("자동")) {
-			lottos.makeLottos(money.coutTicket());
+			this.lottos = lottos.of(money.coutTicket());
 			print.lottery(lottos);
 			return;
 		}
-		lottos.makeManualLottos(input.getLottoNumbers(money));
+		this.lottos = lottos.of(input.getLottoNumbers(money));
 	}
 	
 	public void beginLottery(ResultView print, Money money) {
@@ -31,7 +31,7 @@ public class LottoController {
 		print.winningNumber(winningLotto);
 		lottos.checkLottos(winningLotto);
 		lottos.statistic(winningLotto.getBonus());
-		print.statistic2(lottos);
+		print.statistic(lottos);
 		print.earningRate(lottos.earningRate(money.getMoney()));
 	}
 
