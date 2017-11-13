@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+<!-- ConsoleAppender라서 콘솔에 찍히는데 다른 파일에 저장되게 바꿀 수 있음(logFileAppender) -->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+      <layout class="ch.qos.logback.classic.PatternLayout">
+          <Pattern>%d{HH:mm:ss.SSS} [%-5level] [%thread] [%logger{36}] - %m%n</Pattern>
+      </layout>
+  </appender>
+
+<!-- 자바 패키지별 log level을 설정한다. -->
+<!-- 패키지 설정. 그 안에 있는 걸 해당 레벨로 찍음. 개발은 debug로 하고 서버 올릴 때는 윗단계로 바꾸면 성능 이슈에 해결됨.  -->
+  <logger name="controller" level="DEBUG" />
+
+<!-- 기본 log level을 설정한다. -->
+  <root level="INFO">
+      <appender-ref ref="STDOUT" />
+  </root>
+</configuration>
