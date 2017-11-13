@@ -13,32 +13,29 @@ public class WinningLotto extends Lotto {
 	//그 뒤 자식 생성자를 호출하면서 bonus = 0; 해버리니까 초기화되는 것. 
 	//해결 방법: 생성자에서 객체를 makeLotto()를 부르지 않고 따로 호출한다. 
 	
-	private List<Integer> numbers;
+	private List<Integer> winningLotto;
 	private int bonus = 0; 
 
-	public WinningLotto(List<Integer> list, Integer bonus) {
-		this.numbers = list;
+	public WinningLotto(List<Integer> winningLotto, Integer bonus) {
+		this.winningLotto = winningLotto;
 		this.bonus = bonus;
 	}
 
 	public void match(Lotto lotto) {
-		int count = (int) numbers.stream().filter(num -> lotto.hasNum(num)).count();
+		int count = (int) winningLotto.stream().filter(num -> lotto.hasNum(num)).count();
 		lotto.addCommonCount(count);
 	}
 	//print용
 	public List<Integer> getList() {
-		return numbers;
+		return winningLotto;
 	}
 	
 	public static WinningLotto initLotto() {
-		List<Integer> list = new ArrayList<>();
 		List<Integer> range = IntStream.range(1, 45).boxed().collect(Collectors.toList());
 		Collections.shuffle(range);
-		for(int i=0; i < 6; i++) {
-			list.add(range.get(i));
-		}
-		Collections.sort(list);
-		return new WinningLotto(list, range.get(6));
+		List<Integer> winningLotto = range.subList(0, 6); //API를 찾아보기
+		Collections.sort(winningLotto);
+		return new WinningLotto(winningLotto, range.get(6));
 	}
 	
 	public int getBonus() {
