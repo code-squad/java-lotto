@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.jiwon.exception.ValidLottoNumException;
+import com.jiwon.exception.ValidStringNumException;
 import com.jiwon.lotto.lotto.AutoLotto;
-import com.jiwon.lotto.lotto.CandidateLottoSet;
-import com.jiwon.lotto.lotto.Lotto;
 import com.jiwon.lotto.lotto.ManualLotto;
 import com.jiwon.lotto.lotto.WinningLotto;
 
@@ -24,9 +24,10 @@ public class LottoCreator {
 	public static List<Integer> processUsrInput(String lottoNumString) {
 		List<Integer> manualLottoNums = new ArrayList<>();
 		for (String s : lottoNumString.split(",")) {
-			if (Integer.parseInt(s) < 46) {
-				manualLottoNums.add(Integer.parseInt(s));
+			if (Integer.parseInt(s) > 46) {
+				throw new ValidLottoNumException("로또 숫자는 45이하 여야 합니다.");
 			}
+			manualLottoNums.add(Integer.parseInt(s));
 		}
 		return manualLottoNums;
 	}
@@ -68,6 +69,7 @@ public class LottoCreator {
 			manualLottos.add(LottoCreator.makeManualLotto(lottoNumString));
 		}
 		return manualLottos;
+
 	}
 
 }

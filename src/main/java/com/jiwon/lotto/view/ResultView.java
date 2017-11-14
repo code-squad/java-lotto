@@ -1,14 +1,20 @@
 package com.jiwon.lotto.view;
 
-import java.util.List;
-
 import com.jiwon.lotto.lotto.CandidateLottoSet;
 import com.jiwon.lotto.lotto.Lotto;
 import com.jiwon.lotto.lotto.WinningLotto;
+import com.jiwon.lotto.winstats.WinStats;
 
 public class ResultView {
 	public static void printNumOfLotto(int value) {
 		System.out.println(value + "개를 구매했습니다.");
+	}
+	
+	public static void print(CandidateLottoSet candidateLottoSet, WinningLotto winningLotto, WinStats winStats, int investingAmount) {
+		printAllLottos(candidateLottoSet);
+		printWinningNum(winningLotto);
+		printWinStats(winStats);
+		printTotalProfit(winStats, investingAmount);
 	}
 	
 	public static void printAllLottos(CandidateLottoSet candidateLottoSet) {
@@ -28,15 +34,15 @@ public class ResultView {
 		System.out.println(winningLotto.getBonusNum());
 	}
 
-	public static void printWinStats(List<String> results) {
+	public static void printWinStats(WinStats winStats) {
 		System.out.println("당첨 통계");
 		System.out.println("----------");
-		for (String result : results) {
+		for (String result : winStats.makeStatsResults()) {
 			System.out.println(result);
 		}
 	}
-	public static void printTotalProfit(String totalProfit) {
-		System.out.println(totalProfit);
+	public static void printTotalProfit(WinStats winStats, int investingAmount) {
+		System.out.println(winStats.calculateTotalProfit(investingAmount));
 	}
 
 }
