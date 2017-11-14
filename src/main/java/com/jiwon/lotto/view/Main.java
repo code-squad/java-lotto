@@ -16,7 +16,8 @@ public class Main {
 		InputValue inputValue = InputView.createValue();
 		int investingAmount = inputValue.getMoney();
 		List<AutoLotto> autoLottos = LottoCreator.makeAutoLottos(inputValue.getNumOfAutoLotto());
-		List<ManualLotto> manualLottos = LottoCreator.makeManualLottos(inputValue.getNumOfManualLotto(), inputValue.getManualLottoNums());
+		List<ManualLotto> manualLottos = LottoCreator.makeManualLottos(inputValue.getNumOfManualLotto(),
+				inputValue.getManualLottoNums());
 		CandidateLottoSet candidateLottoSet = new CandidateLottoSet(manualLottos, autoLottos);
 		WinningLotto winningLotto = LottoCreator.makeWinningLotto();
 		WinStats winStats = winningLotto.makeStats(candidateLottoSet);

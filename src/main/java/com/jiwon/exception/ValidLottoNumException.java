@@ -22,6 +22,5 @@ public class ValidLottoNumException extends RuntimeException {
 	public ValidLottoNumException(Throwable cause) {
 		super(cause);
 	}
-	
 
 }

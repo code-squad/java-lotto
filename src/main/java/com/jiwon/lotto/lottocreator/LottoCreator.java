@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import com.jiwon.exception.ValidLottoNumException;
-import com.jiwon.exception.ValidStringNumException;
 import com.jiwon.lotto.lotto.AutoLotto;
 import com.jiwon.lotto.lotto.ManualLotto;
 import com.jiwon.lotto.lotto.WinningLotto;
@@ -20,7 +19,7 @@ public class LottoCreator {
 		}
 		return numbers;
 	}
-	
+
 	public static List<Integer> processUsrInput(String lottoNumString) {
 		List<Integer> manualLottoNums = new ArrayList<>();
 		for (String s : lottoNumString.split(",")) {
@@ -31,41 +30,43 @@ public class LottoCreator {
 		}
 		return manualLottoNums;
 	}
-	
+
 	public static ManualLotto makeManualLotto(String lottoNumString) {
 		// lotto 하나 생성.
 		List<Integer> numbers = processUsrInput(lottoNumString);
 		Collections.sort(numbers);
 		return new ManualLotto(numbers);
 	}
-	
+
 	private static List<Integer> setUpForGenerateAutoLotto() {
 		List<Integer> numbers = makeNum();
 		Collections.shuffle(numbers);
 		return numbers;
 	}
-	
+
 	public static WinningLotto makeWinningLotto() {
 		List<Integer> numbers = setUpForGenerateAutoLotto();
 		/* 회고글에 기록하기 */
 		return new WinningLotto(numbers.subList(0, 6), numbers.get(6));
 	}
+
 	public static AutoLotto makeAutoLotto() {
 		// 로또 하나 자동생성 [1,2,3,4,5,6]
 		List<Integer> numbers = setUpForGenerateAutoLotto();
 		return new AutoLotto(numbers.subList(0, 6));
 	}
-	
-	public static List<AutoLotto> makeAutoLottos(int numOfAutoLotto){
-		List<AutoLotto> autoLottos = new ArrayList<>(); 
-		for (int i=0; i < numOfAutoLotto; i++) {
+
+	public static List<AutoLotto> makeAutoLottos(int numOfAutoLotto) {
+		List<AutoLotto> autoLottos = new ArrayList<>();
+		for (int i = 0; i < numOfAutoLotto; i++) {
 			autoLottos.add(LottoCreator.makeAutoLotto());
 		}
 		return autoLottos;
 	}
-	public static List<ManualLotto> makeManualLottos(int numOfManualLotto, List<String> lottoNumStrings){
+
+	public static List<ManualLotto> makeManualLottos(int numOfManualLotto, List<String> lottoNumStrings) {
 		List<ManualLotto> manualLottos = new ArrayList<>();
-		for(String lottoNumString : lottoNumStrings) {
+		for (String lottoNumString : lottoNumStrings) {
 			manualLottos.add(LottoCreator.makeManualLotto(lottoNumString));
 		}
 		return manualLottos;

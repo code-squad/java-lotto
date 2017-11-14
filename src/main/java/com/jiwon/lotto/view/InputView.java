@@ -13,7 +13,7 @@ public class InputView {
 		System.out.println("구입금액을 입력해 주세요.");
 		Scanner sc = new Scanner(System.in);
 		iv.setMoney(sc.nextInt());
-		ResultView.printNumOfLotto(iv.getMoney()/1000);
+		ResultView.printNumOfLotto(iv.getMoney() / 1000);
 		System.out.println("자동생성할 로또 개수를 입력하세요.");
 		iv.setNumOfAutoLotto(sc.nextInt());
 		System.out.println("수동생성할 로또 개수를 입력하세요.");
