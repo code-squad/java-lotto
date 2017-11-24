@@ -1,3 +1,4 @@
+import java.util.List;
 
 public class Main {
 	public static void main(String[] args) {
@@ -6,6 +7,7 @@ public class Main {
 		int howMany = Input.getHowMany(money);
 		result.showMyNumber(money, howMany);
 		String[] temp = Input.getLuckyNumber();
-		result.showMyStatistics(temp, money);
+		List<Integer> luckyNumber = Input.makeStringToInt(temp);
+		result.showMyStatistics(temp, money, luckyNumber);
 	}
 }
