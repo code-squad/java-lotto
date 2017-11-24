@@ -36,14 +36,19 @@ public class Statistics {
 	static int[] checkMatchingCount(List<List<Integer>> numberSet, List<Integer> luckyNumber) {
 		int[] matchingCounts = new int[numberSet.size()];
 		for (int i = 0; i < numberSet.size(); i++) {
-			matchingCounts[i] = 0;
-			for (int j = 0; j < luckyNumber.size(); j++) {
-				if (luckyNumber.contains(numberSet.get(i).get(j))) {
-					matchingCounts[i]++;
-				}
-			}
+			checkMatchingCount2(numberSet, luckyNumber, matchingCounts, i);
 		}
 		return matchingCounts;
+	}
+
+	private static void checkMatchingCount2(List<List<Integer>> numberSet, List<Integer> luckyNumber,
+			int[] matchingCounts, int i) {
+		matchingCounts[i] = 0;
+		for (int j = 0; j < luckyNumber.size(); j++) {
+			if (luckyNumber.contains(numberSet.get(i).get(j))) {
+				matchingCounts[i]++;
+			}
+		}
 	}
 	
 	void checkMatchingTicketNum(int[] matchingCounts, List<Statistics> statistics) {
