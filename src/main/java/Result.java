@@ -13,10 +13,9 @@ public class Result {
 		System.out.println("");
 	}
 	
-	void showMyStatistics(String[] temp, int money) {
+	void showMyStatistics(String[] temp, int money, List<Integer> luckyNumber) {
 		System.out.println("당첨 통계");
 		System.out.println("-------");
-		List<Integer> luckyNumber = Input.makeStringToInt(temp);
 		List<Statistics> statistics = Statistics.makeStatisticsList();
 		int[] matchingCounts = Statistics.checkMatchingCount(numberSet, luckyNumber);
 		Statistics.runCheckingMatchingTicketNum(statistics, matchingCounts);
