@@ -6,8 +6,7 @@ public class Main {
 		int money = Input.getMoney();
 		int howMany = Input.getHowMany(money);
 		result.showMyNumber(money, howMany);
-		String[] temp = Input.getLuckyNumber();
-		List<Integer> luckyNumber = Input.makeStringToInt(temp);
-		result.showMyStatistics(temp, money, luckyNumber);
+		List<Integer> luckyNumber = Input.getLuckyNumber();
+		result.showMyStatistics(money, luckyNumber);
 	}
 }

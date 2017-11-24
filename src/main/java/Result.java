@@ -3,23 +3,21 @@ import java.util.List;
 
 public class Result {
 	
-	private List<List<Integer>> numberSet;
+	private List<Lotto> numberSet;
 	
 	void showMyNumber(int money, int howMany) {
-		numberSet = Lotto.makeNumberSet(howMany);
-		for (List<Integer> eachSet : numberSet) {
-			System.out.println(eachSet);
+		numberSet = Lotto.createLottoList(howMany);
+		for (Lotto eachSet : numberSet) {
+			System.out.println(eachSet.lottoNumbers);
 		}
 		System.out.println("");
 	}
 	
-	void showMyStatistics(String[] temp, int money, List<Integer> luckyNumber) {
-		System.out.println("당첨 통계");
-		System.out.println("-------");
+	void showMyStatistics(int money, List<Integer> luckyNumber) {
+		System.out.println("\n당첨 통계\n-------");
 		List<Statistics> statistics = Statistics.makeStatisticsList();
 		int[] matchingCounts = Statistics.checkMatchingCount(numberSet, luckyNumber);
 		Statistics.runCheckingMatchingTicketNum(statistics, matchingCounts);
-		System.out.println("");
 		for (Statistics eachStatistics : statistics) {
 			System.out.println(eachStatistics.getMatchingCount() + "개 일치, " + eachStatistics.getPrize() +
 					 "원 - " + eachStatistics.getMatchingTicketNum() + "개");

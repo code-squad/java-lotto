@@ -4,41 +4,33 @@ import java.util.List;
 
 public class Lotto {
 	
-	private static List<Integer> makeNumber() {
-		List<Integer> number = new ArrayList<>();
+	List<Integer> lottoNumbers;
+	
+	Lotto(List<Integer> lottoNumbers) {
+		this.lottoNumbers = lottoNumbers;
+	}
+	
+	static List<Integer> makeNumbers() {
+		List<Integer> numbers = new ArrayList<>();
 		for (int i = 1; i <= 45; i++) {
-			number.add(i);
+			numbers.add(i);
 		}
-		return number;
+		return numbers;
 	}
 	
-	private static List<Integer> shuffleNumber(List<Integer> number) {
-		Collections.shuffle(number);
-		return number;
+	private static List<Integer> createLottoNumbers() {
+		List<Integer> numbers = makeNumbers();
+		Collections.shuffle(numbers);
+		List<Integer> lotto = numbers.subList(0, 6);
+		Collections.sort(lotto);
+		return lotto;
 	}
 	
-	private static List<Integer> extractNumber(List<Integer> number) {
-		List<Integer> myNumber = new ArrayList<>();
-		for (int i = 0; i < 6; i++) {
-			myNumber.add(number.get(i));
-		}
-		return myNumber;
-	}
-	
-	private static List<Integer> sortNumber(List<Integer> myNumber) {
-		Collections.sort(myNumber);
-		return myNumber;
-	}
-	
-	static List<List<Integer>> makeNumberSet(int howMany) {
-		List<List<Integer>> numberSet = new ArrayList<>();
-		List<Integer> number = makeNumber();
+	static List<Lotto> createLottoList(int howMany) {
+		List<Lotto> lotto = new ArrayList<>();
 		for (int i = 0; i < howMany; i++) {
-			List<Integer> shuffledNumber = shuffleNumber(number);
-			List<Integer> myNumber = extractNumber(shuffledNumber);
-			List<Integer> sortedNumber = sortNumber(myNumber);
-			numberSet.add(sortedNumber);
+			lotto.add(new Lotto(createLottoNumbers()));
 		}
-		return numberSet;
+		return lotto;
 	}
 }

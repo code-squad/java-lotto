@@ -5,35 +5,35 @@ public class Statistics {
 	private int matchingCount;
 	private int prize;
 	private int matchingTicketNum = 0;
-	
+
 	Statistics(int matchingCount, int prize) {
 		this.matchingCount = matchingCount;
 		this.prize = prize;
 	}
-	
+
 	int getMatchingCount() {
 		return this.matchingCount;
 	}
-	
+
 	int getPrize() {
 		return this.prize;
 	}
-	
+
 	int getMatchingTicketNum() {
 		return this.matchingTicketNum;
 	}
-	
+
 	static List<Statistics> makeStatisticsList() {
 		List<Statistics> statistics = new ArrayList<>();
-		int[] matchingCount = {3, 4, 5, 6};
-		int[] prize = {5000, 50000, 1500000, 2000000000};
+		int[] matchingCount = { 3, 4, 5, 6 };
+		int[] prize = { 5000, 50000, 1500000, 2000000000 };
 		for (int i = 0; i < 4; i++) {
-			statistics.add(new Statistics(matchingCount[i], prize[i]));			
+			statistics.add(new Statistics(matchingCount[i], prize[i]));
 		}
 		return statistics;
 	}
-	
-	static int[] checkMatchingCount(List<List<Integer>> numberSet, List<Integer> luckyNumber) {
+
+	static int[] checkMatchingCount(List<Lotto> numberSet, List<Integer> luckyNumber) {
 		int[] matchingCounts = new int[numberSet.size()];
 		for (int i = 0; i < numberSet.size(); i++) {
 			checkMatchingCount2(numberSet, luckyNumber, matchingCounts, i);
@@ -41,35 +41,35 @@ public class Statistics {
 		return matchingCounts;
 	}
 
-	private static void checkMatchingCount2(List<List<Integer>> numberSet, List<Integer> luckyNumber,
+	private static void checkMatchingCount2(List<Lotto> numberSet, List<Integer> luckyNumber,
 			int[] matchingCounts, int i) {
 		matchingCounts[i] = 0;
 		for (int j = 0; j < luckyNumber.size(); j++) {
-			if (luckyNumber.contains(numberSet.get(i).get(j))) {
+			if (luckyNumber.contains(numberSet.get(i).lottoNumbers.get(j))) {
 				matchingCounts[i]++;
 			}
 		}
 	}
-	
-	void checkMatchingTicketNum(int[] matchingCounts, List<Statistics> statistics) {
+
+	private void checkMatchingTicketNum(int[] matchingCounts, List<Statistics> statistics) {
 		for (int i = 0; i < matchingCounts.length; i++) {
 			if (matchingCounts[i] == this.matchingCount) {
 				this.matchingTicketNum++;
 			}
 		}
 	}
-	
+
 	static void runCheckingMatchingTicketNum(List<Statistics> statistics, int[] matchingCounts) {
 		for (Statistics eachStatistics : statistics) {
 			eachStatistics.checkMatchingTicketNum(matchingCounts, statistics);
 		}
 	}
-	
-	static int makeRateOfReturn(List<Statistics> statistics, int money) {
+
+	static double makeRateOfReturn(List<Statistics> statistics, int money) {
 		int sum = 0;
 		for (Statistics eachStatistics : statistics) {
 			sum += eachStatistics.getMatchingTicketNum() * eachStatistics.getPrize();
 		}
-		return sum / money * 100;
+		return (1.0 * sum / money) * 100;
 	}
 }
