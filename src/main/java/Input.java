@@ -22,10 +22,10 @@ public class Input {
 	}
 	
 	static List<Integer> getLuckyNumber() {
-		String temp = inputLuckyNumber();
-		String[] temp2 = makeArray(temp);
+		String input = inputLuckyNumber();
+		String[] splittedInput = makeArray(input);
 		List<Integer> luckyNumber = new ArrayList<>();
-		for (String number : temp2) {
+		for (String number : splittedInput) {
 			luckyNumber.add(Integer.parseInt(number));
 		}
 		if ( !checkLottoNo(luckyNumber) ) {
@@ -43,13 +43,13 @@ public class Input {
 		return true;
 	}
 
-	private static String[] makeArray(String temp) {
-		String[] stringNumber = temp.split(",");
-		if (stringNumber.length != 6) {
+	private static String[] makeArray(String input) {
+		String[] splittedInput = input.split(",");
+		if (splittedInput.length != 6) {
 			System.out.println("1 ~ 45 중 6개의 숫자를 골라주세요!");
 			return makeArray(inputLuckyNumber());
 		}
-		return stringNumber;
+		return splittedInput;
 	}
 
 	private static String inputLuckyNumber() {
@@ -57,7 +57,7 @@ public class Input {
 		return sc.nextLine();
 	}
 	
-	static List<Integer> checkLength(String[] temp2) {
+	static List<Integer> checkLength(String[] splittedInput) {
 		System.out.println("1 ~ 45 중 6개의 숫자를 골라주세요!");
 		return getLuckyNumber();
 	}
