@@ -4,12 +4,22 @@ import java.util.List;
 
 public class Lotto {
 	
-	List<Integer> lottoNumbers;
+	List<Integer> numbers;
 	
-	Lotto(List<Integer> lottoNumbers) {
-		this.lottoNumbers = lottoNumbers;
+	Lotto(List<Integer> numbers) {
+		this.numbers = numbers;
 	}
-	
+
+	int matchingCount(List<Integer> luckyNumbers) {
+		int matchCount = 0;
+		for (Integer number : luckyNumbers) {
+			if (this.numbers.contains(number)) {
+				matchCount++;
+			}
+		}
+		return matchCount;
+	}
+
 	static List<Integer> makeNumbers() {
 		List<Integer> numbers = new ArrayList<>();
 		for (int i = 1; i <= 45; i++) {

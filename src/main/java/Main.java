@@ -2,11 +2,15 @@ import java.util.List;
 
 public class Main {
 	public static void main(String[] args) {
-		Result result = new Result();
 		int money = Input.getMoney();
 		int howMany = Input.getHowMany(money);
+		Result result = new Result();
 		result.showMyNumber(money, howMany);
-		List<Integer> luckyNumber = Input.getLuckyNumber();
-		result.showMyStatistics(money, luckyNumber);
+		List<Integer> luckyNumbers = Input.getLuckyNumber();
+		List<Statistics> statistics = Statistics.makeStatisticsList();
+		List<Lotto> numberSet = result.getNumberSet();
+		int[] matchingCounts = Statistics.checkMatchingCount(numberSet, luckyNumbers);
+		Statistics.runCheckingMatchingTicketNum(statistics, matchingCounts);
+		result.showMyStatistics(money, luckyNumbers, statistics);
 	}
 }
