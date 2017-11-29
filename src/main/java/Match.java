@@ -7,11 +7,11 @@ public enum Match {
     MATCH6(7, 5, "보너스 번호 일치, ", 30000000),
     MATCH7(6, 6, "", 2000000000);
 	
-	private int bonusTag;
-	private int matchingCount;
-	private int prize;
-	private String bonus;
-	private int matchingTicketNum = 0;
+	int bonusTag;
+	int matchingCount;
+	int prize;
+	String bonus;
+	int matchingTicketNum = 0;
 
 	private Match(int bonusTag, int matchingCount, String bonus, int prize) {
     		this.bonusTag = bonusTag;
@@ -20,28 +20,27 @@ public enum Match {
         this.prize = prize;
     }
     
-    int getMatchingCount() {
-		return this.matchingCount;
-	}
-
-	int getPrize() {
-		return this.prize;
-	}
-	
-	String getBonus() {
-		return this.bonus;
-	}
-
-	int getMatchingTicketNum() {
-		return this.matchingTicketNum;
-	}
+//    int getMatchingCount() {
+//		return this.matchingCount;
+//	}
+//
+//	int getPrize() {
+//		return this.prize;
+//	}
+//	
+//	String getBonus() {
+//		return this.bonus;
+//	}
+//
+//	int getMatchingTicketNum() {
+//		return this.matchingTicketNum;
+//	}
     
 	static int[] checkMatchingCount(List<Lotto> numberSet, List<Integer> luckyNumbers, int bonusNum) {
 		int[] matchingCounts = new int[numberSet.size()];
 		for (int i = 0; i < numberSet.size(); i++) {
-			Lotto lotto = new Lotto(numberSet.get(i).numbers);
-			matchingCounts[i] = lotto.matchingCount(luckyNumbers);
-			if (matchingCounts[i] == 5 && lotto.numbers.contains(bonusNum)) {
+			matchingCounts[i] = numberSet.get(i).matchingCount(luckyNumbers);
+			if (matchingCounts[i] == 5 && numberSet.get(i).numbers.contains(bonusNum)) {
 				matchingCounts[i] = 7;
 			}
 		}
@@ -56,7 +55,8 @@ public enum Match {
 		}
 	}
 	
-	static void runCheckingMatchingTicketNum(Match[] match, int[] matchingCounts) {
+	static void runCheckingMatchingTicketNum(int[] matchingCounts) {
+		Match[] match = values();
 		for (Match eachMatch : match) {
 			eachMatch.checkMatchingTicketNum(matchingCounts);
 		}
@@ -65,7 +65,7 @@ public enum Match {
 	static double makeRateOfReturn(Match[] match, int money) {
 		int sum = 0;
 		for (Match eachMatch : match) {
-			sum += eachMatch.getMatchingTicketNum() * eachMatch.getPrize();
+			sum += eachMatch.matchingTicketNum * eachMatch.prize;
 		}
 		return (1.0 * sum / money) * 100;
 	}

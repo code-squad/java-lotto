@@ -8,10 +8,9 @@ public class Main {
 		result.showMyNumber(money, howMany);
 		List<Integer> luckyNumbers = Input.getLuckyNumber();
 		int bonusNum = Input.getBonusNumber();
-		Match[] match = Match.values();
 		List<Lotto> lotto = result.getNumberSet();
 		int[] matchingCounts = Match.checkMatchingCount(lotto, luckyNumbers, bonusNum);
-		Match.runCheckingMatchingTicketNum(match, matchingCounts);
-		result.showMyStatistics(money, luckyNumbers, match);
+		Match.runCheckingMatchingTicketNum(matchingCounts);
+		result.showMyStatistics(money, luckyNumbers);
 	}
 }
