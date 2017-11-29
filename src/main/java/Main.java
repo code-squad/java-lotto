@@ -11,6 +11,6 @@ public class Main {
 		List<Lotto> lotto = result.getNumberSet();
 		int[] matchingCounts = Match.checkMatchingCount(lotto, luckyNumbers, bonusNum);
 		Match.runCheckingMatchingTicketNum(matchingCounts);
-		result.showMyStatistics(money, luckyNumbers);
+		Result.showMyStatistics(money, luckyNumbers);
 	}
 }

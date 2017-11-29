@@ -20,7 +20,7 @@ public enum Match {
         this.prize = prize;
     }
     
-//    int getMatchingCount() {
+//	int getMatchingCount() {
 //		return this.matchingCount;
 //	}
 //

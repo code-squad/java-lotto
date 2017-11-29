@@ -16,7 +16,7 @@ public class Result {
 		}
 	}
 	
-	void showMyStatistics(int money, List<Integer> luckyNumber) {
+	static void showMyStatistics(int money, List<Integer> luckyNumber) {
 		System.out.println("\n당첨 통계\n-------");
 		Match[] match = Match.values();
 		for (Match eachMatch : match) {
