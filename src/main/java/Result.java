@@ -15,7 +15,7 @@ public class Result {
 			System.out.println(eachSet.numbers);
 		}
 	}
-	
+
 	void showMyStatistics(int money, List<Integer> luckyNumber, Match[] match) {
 		System.out.println("\n당첨 통계\n-------");
 		match = Match.values();
@@ -24,6 +24,4 @@ public class Result {
 					 "원 - " + eachMatch.getMatchingTicketNum() + "개");
 		}
 		System.out.println("총 수익률은 " + Match.makeRateOfReturn(match, money) + "% 입니다");
-	}
-
 }
