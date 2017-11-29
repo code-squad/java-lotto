@@ -1,4 +1,5 @@
-package Lotto;
+package lotto;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
