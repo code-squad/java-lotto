@@ -26,7 +26,6 @@ public class Input {
 		String[] splittedInputNum = makeArray(inputNum);
 		List<Integer> luckyNumber = new ArrayList<>();
 		for (String number : splittedInputNum) {
-
 			luckyNumber.add(Integer.parseInt(number));
 		}
 		if ( !checkLottoNo(luckyNumber) ) {
@@ -44,7 +43,6 @@ public class Input {
 		return true;
 	}
 
-
 	private static String[] makeArray(String inputNum) {
 		String[] splittedInputNum = inputNum.split(",");
 		if (splittedInputNum.length != 6) {
@@ -59,9 +57,9 @@ public class Input {
 		return sc.nextLine();
 	}
 	
-
 	static int getBonusNumber() {
 		System.out.println("보너스 번호를 입력해주세요");
 		int bonusNum = sc.nextInt();
 		return bonusNum;
+	}
 }
