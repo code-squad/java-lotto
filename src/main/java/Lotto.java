@@ -36,7 +36,7 @@ public class Lotto {
 		return lotto;
 	}
 	
-	static List<Lotto> createLottoList(int howMany) {
+	static List<Lotto> createLotto(int howMany) {
 		List<Lotto> lotto = new ArrayList<>();
 		for (int i = 0; i < howMany; i++) {
 			lotto.add(new Lotto(createLottoNumbers()));
