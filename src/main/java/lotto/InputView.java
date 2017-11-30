@@ -22,11 +22,12 @@ public class InputView {
 	}
 	//input 값이 6개가 아니면 제대로 입력될 때까지 계속해서 루프!!
 	public static ArrayList<String> checkInput(ArrayList<String> input) {
-		while (input.size() != 6) {
+		ArrayList<String> checkList = input;
+		while (checkList.size() != 6) {
 			ResultView.errorMsg();
-			input = InputView.takeWinningNum();
+			checkList = InputView.takeWinningNum();
 		}
-		return input;
+		return checkList;
 	}
 	//문자열을 ", "를 기준으로 배열에 넣어주는 메소드.
 	private static String[] splitNumber(String input) {

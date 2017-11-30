@@ -28,7 +28,6 @@ public class ResultView {
 	}
 	//맞은 숫자의 갯수에 따라 최종 결과 리스트에 넣어주는 메소드.
 	public static int makeResult(ArrayList<Lotto> tickets, int findNum) {
-		findNum += 3;
 		int count = 0;
 		for (int i = 0; i < tickets.size(); i++) {
 			count += howManyCorrect(tickets.get(i).getNum().get(6), findNum);

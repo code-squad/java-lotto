@@ -13,10 +13,10 @@ public class Money {
 		return (money / 1000);
 	}
 	//맞은 갯수 비례 금액을 계산하여 총 딴 돈을 구한다. (내가 건 돈 만큼은 뺀다.)
-	public static int calculateMoney(ArrayList<Integer> result, int money) {
+	public static void calculateMoney(ArrayList<Integer> result, int money) {
 		int earnMoney = (result.get(0) * 5000) + (result.get(1) * 50000) + (result.get(2) * 1500000) + (result.get(3) * 2000000000) - money;
 		int yield = (earnMoney / money) * 100;		//건 돈 비례 번 돈을 계산한다. (수익률을 계산한다.)
 		
-		return yield;
+		ResultView.printResult(result, yield);		//결과를 출력해준다.
 	}
 }
