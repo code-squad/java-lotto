@@ -5,16 +5,16 @@ import java.util.ArrayList;
 
 public class Main {
 	//거스름돈을 계산하여 반환해주는 메소드.
-	public static int giveChange(int money) {
+	static int giveChange(int money) {
 		ResultView.giveChangeMsg(money, money % 1000);
 		return (money - (money % 1000));
 	}
 	//입금된 가격만큼 산 티켓의 갯수를 반환해주는 메소드.
-	public static int buyLotto(int money) {
+	static int buyLotto(int money) {
 		return (money / 1000);
 	}
 	//입력받은 티켓의 수만큼 티켓을 만들어주는 메소드. (총 만들어진 티켓모두를 리턴한다.)
-	public static ArrayList<Lotto> buyTicket (int ticketNum, ArrayList<Lotto> tickets) {
+	private static ArrayList<Lotto> buyTicket (int ticketNum, ArrayList<Lotto> tickets) {
 		for (int i = 0; i < ticketNum; i++) {
 			ArrayList<Integer> ticket = new ArrayList<Integer> ();
 			tickets.add(new Lotto(ticket));		//자동으로 6개의 번호를 골라서 티켓을 생성한다.
@@ -22,7 +22,7 @@ public class Main {
 		return tickets;
 	}
 	//input 값이 6개가 아니면 제대로 입력될 때까지 계속해서 루프!!
-	public static ArrayList<String> checkInput(ArrayList<String> input) {
+	static ArrayList<String> checkInput(ArrayList<String> input) {
 		while (input.size() != 6) {
 			ResultView.errorMsg();
 			input = InputView.takeWinningNum();
@@ -30,7 +30,7 @@ public class Main {
 		return input;
 	}
 	//문자열로 받은 입력값을 정수형으로 변환해주는 메소드.
-	public static ArrayList<Integer> convertInput(ArrayList<String> input) {
+	static ArrayList<Integer> convertInput(ArrayList<String> input) {
 		ArrayList<Integer> output = new ArrayList<Integer> ();
 		for (int i = 0; i < input.size(); i++) {
 			output.add(Integer.parseInt(input.get(i)));
@@ -38,7 +38,7 @@ public class Main {
 		return output;
 	}
 	//맞은 숫자의 갯수에 따라 최종 결과 리스트에 넣어주는 메소드.
-	public static int makeResult(ArrayList<Lotto> tickets, int findNum) {
+	private static int makeResult(ArrayList<Lotto> tickets, int findNum) {
 		findNum += 3;
 		int count = 0;
 		for (int i = 0; i < tickets.size(); i++) {
@@ -46,15 +46,15 @@ public class Main {
 		}
 		return count;
 	}
-	//findNum (3 ~ 6) 개 맞은 적이 몇 번 있는지 count를 이용해 세고, count를 리턴하는 메소드.
-	public static int howManyCorrect(int correct, int findNum) {
+	//findNum 이 있으면 1 리턴, 없으면 0 리턴하는 메소드. 리턴값을 가지고 상위 메소드에서 count값을 증가시킴.
+	private static int howManyCorrect(int correct, int findNum) {
 		if(correct == findNum) {
 			return 1;
 		}
 		return 0;
 	}
 	//맞은 갯수 비례 금액을 계산하여 총 딴 돈을 구한다. (내가 건 돈 만큼은 뺀다.)
-	public static int calculateMoney(ArrayList<Integer> result, int money) {
+	private static int calculateMoney(ArrayList<Integer> result, int money) {
 		int moneyResult = (result.get(0) * 5000) + (result.get(1) * 50000) + (result.get(2) * 1500000) + (result.get(3) * 2000000000) - money;
 		
 		return moneyResult;
