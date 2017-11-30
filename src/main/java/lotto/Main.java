@@ -17,7 +17,7 @@ public class Main {
 	public static ArrayList<Lotto> buyTicket (int ticketNum, ArrayList<Lotto> tickets) {
 		for (int i = 0; i < ticketNum; i++) {
 			ArrayList<Integer> ticket = new ArrayList<Integer> ();
-			tickets.add(new Lotto(Lotto.selectAutoNum(ticket)));		//자동으로 6개의 번호를 골라서 티켓을 생성한다.
+			tickets.add(new Lotto(ticket));		//자동으로 6개의 번호를 골라서 티켓을 생성한다.
 		}
 		return tickets;
 	}
@@ -37,44 +37,21 @@ public class Main {
 		}
 		return output;
 	}
-	//뽑은 로또 번호들 중, 당첨 숫자가 있는지 체크하는 메소드.
-	public static ArrayList<Integer> checkTickets(ArrayList<Lotto> tickets, ArrayList<Integer> winningNum) {
-		ArrayList<Integer> correctList = new ArrayList<Integer> ();
-		for (int i = 0; i < tickets.size(); i++) {
-			correctList.add(checkOneTicket(tickets.get(i).getNum(), winningNum));
-		}
-		return correctList;
-	}
-	//한 티켓 안에 몇개의 맞는 번호가 있는지 확인하고, 맞은 갯수를 리턴하는 메소드.
-	public static int checkOneTicket(ArrayList<Integer> ticket, ArrayList<Integer> winningNum) {
-		int count = 0;
-		for (int i = 0; i < ticket.size(); i++) {
-			count = countNumExist(ticket.get(i), winningNum, count);
-		}
-		return count;
-	}
-	//한 티켓 안의 한 숫자가 당첨 숫자중에 있는 숫자인지 파악하고, 있다면 count값을 증가시켜 리턴하는 메소드.
-	public static int countNumExist(int ticketNum, ArrayList<Integer> winningNum, int count) {
-		if(winningNum.contains(ticketNum)) {
-			count++;
-		}
-		return count;
-	}
 	//맞은 숫자의 갯수에 따라 최종 결과 리스트에 넣어주는 메소드.
-	public static int makeResult(ArrayList<Integer> correct, int findNum) {
+	public static int makeResult(ArrayList<Lotto> tickets, int findNum) {
 		findNum += 3;
 		int count = 0;
-		for (int i = 0; i < correct.size(); i++) {
-			count = howManyCorrect(correct, findNum, count, i);
+		for (int i = 0; i < tickets.size(); i++) {
+			count += howManyCorrect(tickets.get(i).getNum().get(6), findNum);
 		}
 		return count;
 	}
 	//findNum (3 ~ 6) 개 맞은 적이 몇 번 있는지 count를 이용해 세고, count를 리턴하는 메소드.
-	public static int howManyCorrect(ArrayList<Integer> correct, int findNum, int count, int i) {
-		if(correct.get(i) == findNum) {
-			count++;
+	public static int howManyCorrect(int correct, int findNum) {
+		if(correct == findNum) {
+			return 1;
 		}
-		return count;
+		return 0;
 	}
 	//맞은 갯수 비례 금액을 계산하여 총 딴 돈을 구한다. (내가 건 돈 만큼은 뺀다.)
 	public static int calculateMoney(ArrayList<Integer> result, int money) {
@@ -99,12 +76,14 @@ public class Main {
 		ArrayList<String> winningString = InputView.takeWinningNum();		//지난 주 당첨 번호를 입력받는다. (String type)
 		ArrayList<Integer> winningNum = convertInput(winningString);		//String 타입의 지난 당첨번호를 int 타입으로 변경한다.
 		
-		ArrayList<Integer> correctList = checkTickets(tickets, winningNum);		//correctList 생성 후, 각 티켓마다의 맞은 갯수를 저장.
+		for (int i = 0; i < tickets.size(); i++) {
+			tickets.get(i).matchCount(winningNum);		//각 티켓마다 winningNum과 일치하는 수가 있는지 계산하여 티켓 맨 뒤에 일치하는 수를 추가해준다.
+		}
 		
 		ArrayList<Integer> result = new ArrayList<Integer> ();
 		
 		for(int i = 0; i < 4; i++) {
-			result.add(i, makeResult(correctList, i));		//3개 맞은 횟수 ~ 6개 맞은 횟수 까지를 result 리스트에 추가해 카운트한다.
+			result.add(i, makeResult(tickets, i));		//3개 맞은 횟수 ~ 6개 맞은 횟수 까지를 result 리스트에 추가해 카운트한다.
 		}
 		
 		int earnMoney = calculateMoney(result, money);		//총 번 돈을 계산한다.

@@ -21,7 +21,7 @@ public class InputView {
 		return winningList;
 	}
 	//문자열을 ", "를 기준으로 배열에 넣어주는 메소드.
-	public static String[] splitNumber(String input) {
+	 static String[] splitNumber(String input) {
 		return input.split(", ");
 	}
 }
