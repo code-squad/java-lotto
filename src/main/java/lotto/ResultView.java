@@ -7,14 +7,6 @@ public class ResultView {
 	public static void startMsg() {
 		System.out.println("구입 금액을 입력해 주세요. (1장에 1000원 입니다.)");
 	}
-	//당첨번호 입력을 원하는 메시지 출력.
-	public static void takeWinnerMsg() {
-		System.out.println("지난 주 당첨 번호를 입력해 주세요. 숫자 사이에는 , 와 (스페이스바)를 입력해주세요.");
-	}
-	//지난 주 당첨 번호를 잘못 입력했을 때, 알려주는 메소드.
-	public static void errorMsg() {
-		System.out.println("잘 못 입력하셨습니다.\n다시 입력해 주세요.");
-	}
 	//거스름돈과 로또 구입금액을 알려준다.
 	public static void giveChangeMsg(int money, int change) {
 		System.out.println("거스름돈 " + change + " 원을 돌려 드리겠습니다.");
@@ -25,6 +17,30 @@ public class ResultView {
 		for (int i = 0; i < tickets.size(); i++) {
 			System.out.println(tickets.get(i).getNum());
 		}
+	}
+	//당첨번호 입력을 원하는 메시지 출력.
+	public static void takeWinnerMsg() {
+		System.out.println("지난 주 당첨 번호를 입력해 주세요. 숫자 사이에는 , 와 (스페이스바)를 입력해주세요.");
+	}
+	//지난 주 당첨 번호를 잘못 입력했을 때, 알려주는 메소드.
+	public static void errorMsg() {
+		System.out.println("잘 못 입력하셨습니다.\n다시 입력해 주세요.");
+	}
+	//맞은 숫자의 갯수에 따라 최종 결과 리스트에 넣어주는 메소드.
+	public static int makeResult(ArrayList<Lotto> tickets, int findNum) {
+		findNum += 3;
+		int count = 0;
+		for (int i = 0; i < tickets.size(); i++) {
+			count += howManyCorrect(tickets.get(i).getNum().get(6), findNum);
+		}
+		return count;
+	}
+	//findNum 이 있으면 1 리턴, 없으면 0 리턴하는 메소드. 리턴값을 가지고 상위 메소드에서 count값을 증가시킴.
+	private static int howManyCorrect(int correct, int findNum) {
+		if(correct == findNum) {
+			return 1;
+		}
+		return 0;
 	}
 	//맞은 번호의 갯수만큼 결과를 출력해주는 메소드.
 	public static void printResult(ArrayList<Integer> result, int yield) {
