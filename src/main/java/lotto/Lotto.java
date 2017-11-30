@@ -10,7 +10,7 @@ public class Lotto {
 		this.num = selectAutoNum(ticket);
 	}
 	//가능한 모든 로또 번호들을 List에 넣어서, 랜덤 수를 뽑아내는 모집단 List를 만든다. 
-	private static ArrayList<Integer> makeTotalNum () {
+	private ArrayList<Integer> makeTotalNum () {
 		ArrayList<Integer> numCollection = new ArrayList<Integer> ();
 		for (int i = 1; i <= 45; i++) {
 			numCollection.add(i);
@@ -31,11 +31,11 @@ public class Lotto {
 		return ticket;
 	}
 	//각 로또 티켓마다의 번호를 확인하는 (리턴하는) 메소드.
-	ArrayList<Integer> getNum() {
+	public ArrayList<Integer> getNum() {
 		return this.num;
 	}
 	//각 티켓마다 winningNum과 일치하는 숫자의 수를 계산하고, 티켓의 마지막에 그 수를 추가해준다.
-	void matchCount(ArrayList<Integer> winningNum) {
+	public void matchCount(ArrayList<Integer> winningNum) {
 		int count = 0;
 		
 		for (int i = 0; i < winningNum.size(); i++) {
@@ -44,7 +44,7 @@ public class Lotto {
 		this.num.add(count);		//num의 마지막 값에 맞은 갯수를 추가한다.
 	}
 	//winningNum의 숫자가 티켓 안에 있다면 1을 리턴, 없다면 0을 리턴.
-	int findToMatch(int winningNum) {
+	public int findToMatch(int winningNum) {
 		if (this.num.contains(winningNum)) {
 			return 1;
 		}

@@ -20,8 +20,24 @@ public class InputView {
 		ArrayList<String> winningList = new ArrayList<String>(Arrays.asList(splitNumber(scan.nextLine())));
 		return winningList;
 	}
+	//input 값이 6개가 아니면 제대로 입력될 때까지 계속해서 루프!!
+	public static ArrayList<String> checkInput(ArrayList<String> input) {
+		while (input.size() != 6) {
+			ResultView.errorMsg();
+			input = InputView.takeWinningNum();
+		}
+		return input;
+	}
 	//문자열을 ", "를 기준으로 배열에 넣어주는 메소드.
 	private static String[] splitNumber(String input) {
 		return input.split(", ");
+	}
+	//문자열로 받은 입력값을 정수형으로 변환해주는 메소드.
+	public static ArrayList<Integer> convertInput(ArrayList<String> input) {
+		ArrayList<Integer> output = new ArrayList<Integer> ();
+		for (int i = 0; i < input.size(); i++) {
+			output.add(Integer.parseInt(input.get(i)));
+		}
+		return output;
 	}
 }
