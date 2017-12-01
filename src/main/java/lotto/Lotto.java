@@ -35,16 +35,16 @@ public class Lotto {
 	public ArrayList<Integer> getNum() {
 		return this.num;
 	}
-	//각 티켓마다 winningNum과 일치하는 숫자의 수를 계산하고, 티켓의 마지막에 그 수를 추가해준다.
-	public void matchCount(ArrayList<Integer> winningNum) {
+	//각 티켓마다 winningNum과 일치하는 숫자의 수를 계산하고, 일치하는 숫자의 수를 (count) 리턴한다.
+	public int matchCount(ArrayList<Integer> winningNum) {
 		int count = 0;
 		
 		for (int i = 0; i < winningNum.size(); i++) {
 			count += findToMatch(winningNum.get(i));
 		}
-		this.num.add(count);		//num의 마지막 값에 맞은 갯수를 추가한다.
+		return count;
 	}
-	//winningNum의 숫자가 티켓 안에 있다면 1을 리턴, 없다면 0을 리턴.
+	//winningNum의 숫자가 티켓 안에 있다면 1을 리턴, 없다면 0을 리턴. (상위 메소드에서 count값을 증가시키기 위함)
 	public int findToMatch(int winningNum) {
 		if (this.num.contains(winningNum)) {
 			return 1;
