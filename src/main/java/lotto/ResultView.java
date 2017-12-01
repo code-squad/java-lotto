@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class ResultView {
 	//구입 금액만큼 산 로또 티켓의 번호들을 모두 출력해주는 메소드.
-	public static void printTicket(ArrayList<Lotto> tickets) {
-		for (int i = 0; i < tickets.size(); i++) {
-			System.out.println(tickets.get(i).getNum());
+	public static void printTicket(Lottos tickets) {
+		for (int i = 0; i < tickets.get().size(); i++) {
+			System.out.println(tickets.get().get(i).getNum());
 		}
 	}
 	//맞은 숫자의 갯수에 따라 최종 결과 리스트에 넣어주는 메소드.
