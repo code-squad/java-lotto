@@ -6,7 +6,7 @@ public class Statistics {
 	Match match;
 	int matchingTicketNum = 0;
 	
-	Statistics(Match match) {
+	private Statistics(Match match) {
 		this.match = match;
 	}
 	
@@ -30,7 +30,7 @@ public class Statistics {
 		return matchingCounts;
 	}
 
-	void checkMatchingTicketNum(int[] matchingCounts) {
+	private void checkMatchingTicketNum(int[] matchingCounts) {
 		for (int i = 0; i < matchingCounts.length; i++) {
 			if (matchingCounts[i] == this.match.bonusTag) {
 				this.matchingTicketNum++;
@@ -51,5 +51,4 @@ public class Statistics {
 		}
 		return (1.0 * sum / money) * 100;
 	}
-	
 }

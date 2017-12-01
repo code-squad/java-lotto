@@ -17,5 +17,4 @@ public class Result {
 		}
 		System.out.println("총 수익률은 " + Statistics.makeRateOfReturn(statistics, money) + "% 입니다");
 	}
-
 }
