@@ -62,4 +62,22 @@ public class Input {
 		int bonusNum = sc.nextInt();
 		return bonusNum;
 	}
+	
+	static int getHowManyManual() {
+		System.out.println("수동으로 구매할 장수를 입력해주세요");
+		return sc.nextInt();
+	}
+	
+	static List<Integer> inputManualLotto() {
+		System.out.println("수동으로 구매할 로또 번호를 입력해주세요");
+		System.out.println("debug");
+		String inputManualLotto = sc.nextLine();
+		String[] splittedManualLotto = inputManualLotto.split(",");
+		List<Integer> manualLotto = new ArrayList<>();
+		for (String number : splittedManualLotto) {
+			System.out.println(number);
+			manualLotto.add(Integer.parseInt(number));
+		}
+		return manualLotto;
+	}
 }
