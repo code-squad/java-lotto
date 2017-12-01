@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-	
+
 	List<Integer> numbers;
 	
 	Lotto(List<Integer> numbers) {
@@ -36,9 +36,12 @@ public class Lotto {
 		return lotto;
 	}
 	
-	static List<Lotto> createLotto(int howMany) {
+	static List<Lotto> createLotto(int howManyManual, int howManyAuto) {
 		List<Lotto> lotto = new ArrayList<>();
-		for (int i = 0; i < howMany; i++) {
+		for (int i = 0; i < howManyManual; i++) {
+			lotto.add(new Lotto(Input.inputManualLotto()));
+		}
+		for (int i = 0; i < howManyAuto; i++) {
 			lotto.add(new Lotto(createLottoNumbers()));
 		}
 		return lotto;

@@ -4,7 +4,9 @@ public class Main {
 	public static void main(String[] args) {
 		int money = Input.getMoney();
 		int howMany = Input.getHowMany(money);
-		List<Lotto> lottos = Lotto.createLotto(howMany);
+		int howManyManual = Input.getHowManyManual();
+		int howManyAuto = howMany - howManyManual;
+		List<Lotto> lottos = Lotto.createLotto(howManyManual, howManyAuto);
 		Result.showMyNumber(lottos, money, howMany);
 		List<Integer> luckyNumbers = Input.getLuckyNumber();
 		int bonusNum = Input.getBonusNumber();
