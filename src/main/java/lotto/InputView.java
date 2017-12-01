@@ -34,7 +34,7 @@ public class InputView {
 	private static ArrayList<String> checkInput(ArrayList<String> input) {
 		ArrayList<String> checkList = input;
 		while (checkList.size() != 6) {
-			ResultView.errorMsg();		//에러메시지 출력.
+			System.out.println("잘 못 입력하셨습니다.\n다시 입력해 주세요.");		//에러메시지 출력.
 			checkList = InputView.takeWinningNum();
 		}
 		return checkList;

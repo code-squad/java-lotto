@@ -45,7 +45,7 @@ public class Lotto {
 		return count;
 	}
 	//winningNum의 숫자가 티켓 안에 있다면 1을 리턴, 없다면 0을 리턴. (상위 메소드에서 count값을 증가시키기 위함)
-	public int findToMatch(int winningNum) {
+	private int findToMatch(int winningNum) {
 		if (this.num.contains(winningNum)) {
 			return 1;
 		}

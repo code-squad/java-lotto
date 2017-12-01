@@ -30,7 +30,7 @@ public class Main {
 			correctList.add(tickets.get(i).matchCount(winningNum));		//각 티켓마다 winningNum과 일치하는 수가 있는지 계산하여 몇개가 일치하는지를 리스트에 넣어줌.
 		}
 		
-		ArrayList<Integer> result = new ArrayList<Integer> ();
+		ArrayList<Integer> result = new ArrayList<Integer> ();		//최종 결과를 저장할 리스트.
 		
 		for(int i = 0; i < 4; i++) {
 			int findNum = i + 3;		//3, 4, 5, 6개 맞은 티켓의 수를 구하기 위한 변수.

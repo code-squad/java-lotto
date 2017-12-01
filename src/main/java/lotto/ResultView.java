@@ -9,10 +9,6 @@ public class ResultView {
 			System.out.println(tickets.get(i).getNum());
 		}
 	}
-	//지난 주 당첨 번호를 잘못 입력했을 때, 알려주는 메소드.
-	public static void errorMsg() {
-		System.out.println("잘 못 입력하셨습니다.\n다시 입력해 주세요.");
-	}
 	//맞은 숫자의 갯수에 따라 최종 결과 리스트에 넣어주는 메소드.
 	public static int makeResult(ArrayList<Integer> correct, int findNum) {
 		int count = 0;
