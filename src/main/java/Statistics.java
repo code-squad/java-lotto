@@ -19,28 +19,30 @@ public class Statistics {
 		return statistics;
 	}
 	
-	static int[] checkMatchingCount(List<Lotto> numberSet, List<Integer> luckyNumbers, int bonusNum) {
-		int[] matchingCounts = new int[numberSet.size()];
-		for (int i = 0; i < numberSet.size(); i++) {
-			matchingCounts[i] = numberSet.get(i).matchingCount(luckyNumbers);
-			if (matchingCounts[i] == 5 && numberSet.get(i).numbers.contains(bonusNum)) {
-				matchingCounts[i] = 7;
+	static List<Match> createMatches(List<Lotto> lottos, List<Integer> luckyNumbers, int bonusNumber) {
+		List<Match> matches = new ArrayList<>();
+		for (int i = 0; i < lottos.size(); i++) {
+			int matchingCount = lottos.get(i).makeMatchingCount(luckyNumbers);
+			boolean bonusTag = lottos.get(i).makeMatchingBonusTag(luckyNumbers, bonusNumber);
+			Match match = Match.findMatch(matchingCount, bonusTag);
+			if (match != null) {
+				matches.add(match);				
 			}
 		}
-		return matchingCounts;
+		return matches;
 	}
 
-	private void checkMatchingTicketNum(int[] matchingCounts) {
-		for (int i = 0; i < matchingCounts.length; i++) {
-			if (matchingCounts[i] == this.match.bonusTag) {
+	private void checkMatchingTicketNum(List<Match> matches) {
+		for (int i = 0; i < matches.size(); i++) {
+			if (matches.get(i) == this.match) {
 				this.matchingTicketNum++;
 			}
 		}
 	}
 
-	static void runCheckingMatchingTicketNum(List<Statistics> statistics, int[] matchingCounts) {
+	static void runCheckingMatchingTicketNum(List<Statistics> statistics, List<Match> matches) {
 		for (Statistics eachStatistics : statistics) {
-			eachStatistics.checkMatchingTicketNum(matchingCounts);
+			eachStatistics.checkMatchingTicketNum(matches);
 		}
 	}
 
