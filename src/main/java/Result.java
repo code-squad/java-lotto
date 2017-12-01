@@ -9,14 +9,13 @@ public class Result {
 		}
 	}
 	
-	static void showMyStatistics(int money, List<Integer> luckyNumber) {
+	static void showMyStatistics(List<Statistics> statistics, int money) {
 		System.out.println("\n당첨 통계\n-------");
-		Match[] match = Match.values();
-		for (Match eachMatch : match) {
-			System.out.println(eachMatch.matchingCount + "개 일치, " + eachMatch.bonus + eachMatch.prize +
-					 "원 - " + eachMatch.matchingTicketNum + "개");
+		for (Statistics eachStatistics : statistics) {
+			System.out.println(eachStatistics.match.matchingCount + "개 일치, " + eachStatistics.match.bonus
+					+ eachStatistics.match.prize + "원 - " + eachStatistics.matchingTicketNum + "개");
 		}
-		System.out.println("총 수익률은 " + Match.makeRateOfReturn(money) + "% 입니다");
+		System.out.println("총 수익률은 " + Statistics.makeRateOfReturn(statistics, money) + "% 입니다");
 	}
 
 }

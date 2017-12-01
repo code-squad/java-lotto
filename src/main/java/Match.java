@@ -1,4 +1,3 @@
-import java.util.List;
 
 public enum Match {
 	MATCH3(3, 3, "", 5000),
@@ -11,47 +10,11 @@ public enum Match {
 	int matchingCount;
 	int prize;
 	String bonus;
-	int matchingTicketNum = 0;
 
 	private Match(int bonusTag, int matchingCount, String bonus, int prize) {
 		this.bonusTag = bonusTag;
 		this.matchingCount = matchingCount;
 		this.bonus = bonus;
 		this.prize = prize;
-	}
-
-	static int[] checkMatchingCount(List<Lotto> numberSet, List<Integer> luckyNumbers, int bonusNum) {
-		int[] matchingCounts = new int[numberSet.size()];
-		for (int i = 0; i < numberSet.size(); i++) {
-			matchingCounts[i] = numberSet.get(i).matchingCount(luckyNumbers);
-			if (matchingCounts[i] == 5 && numberSet.get(i).numbers.contains(bonusNum)) {
-				matchingCounts[i] = 7;
-			}
-		}
-		return matchingCounts;
-	}
-
-	void checkMatchingTicketNum(int[] matchingCounts) {
-		for (int i = 0; i < matchingCounts.length; i++) {
-			if (matchingCounts[i] == this.bonusTag) {
-				this.matchingTicketNum++;
-			}
-		}
-	}
-
-	static void runCheckingMatchingTicketNum(int[] matchingCounts) {
-		Match[] match = values();
-		for (Match eachMatch : match) {
-			eachMatch.checkMatchingTicketNum(matchingCounts);
-		}
-	}
-
-	static double makeRateOfReturn(int money) {
-		int sum = 0;
-		Match[] match = values();
-		for (Match eachMatch : match) {
-			sum += eachMatch.matchingTicketNum * eachMatch.prize;
-		}
-		return (1.0 * sum / money) * 100;
 	}
 }

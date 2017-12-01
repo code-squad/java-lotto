@@ -3,10 +3,20 @@ import java.util.List;
 
 public class Statistics {
 
+	Match match;
 	int matchingTicketNum = 0;
 	
-	int getMatchingTicketNum() {
-		return this.matchingTicketNum;
+	Statistics(Match match) {
+		this.match = match;
+	}
+	
+	static List<Statistics> createStatistics() {
+		List<Statistics> statistics = new ArrayList<>();
+		Match[] match = Match.values();
+		for (Match eachMatch : match) {
+			statistics.add(new Statistics(eachMatch));
+		}
+		return statistics;
 	}
 	
 	static int[] checkMatchingCount(List<Lotto> numberSet, List<Integer> luckyNumbers, int bonusNum) {
@@ -19,14 +29,11 @@ public class Statistics {
 		}
 		return matchingCounts;
 	}
-	
+
 	void checkMatchingTicketNum(int[] matchingCounts) {
-		Match[] match = Match.values();
-		for (int i = 0; i < match.length; i++) {
-			for (int j = 0; j < matchingCounts.length; j++) {
-				if (matchingCounts[j] == match[i].bonusTag) {
-					this.matchingTicketNum++;
-				}
+		for (int i = 0; i < matchingCounts.length; i++) {
+			if (matchingCounts[i] == this.match.bonusTag) {
+				this.matchingTicketNum++;
 			}
 		}
 	}
@@ -39,9 +46,8 @@ public class Statistics {
 
 	static double makeRateOfReturn(List<Statistics> statistics, int money) {
 		int sum = 0;
-		Match[] match = Match.values();
-		for (int i = 0; i < statistics.size(); i++) {
-			sum += statistics.get(i).matchingTicketNum * match[i].prize;
+		for (Statistics eachStatistics : statistics) {
+			sum += eachStatistics.matchingTicketNum * eachStatistics.match.prize;
 		}
 		return (1.0 * sum / money) * 100;
 	}
