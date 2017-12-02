@@ -10,7 +10,7 @@ public class Statistics {
 		this.match = match;
 	}
 	
-	static List<Statistics> createStatistics() {
+	static List<Statistics> createStatisticsSet() {
 		List<Statistics> statistics = new ArrayList<>();
 		Match[] match = Match.values();
 		for (Match eachMatch : match) {

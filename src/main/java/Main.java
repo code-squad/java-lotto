@@ -9,7 +9,7 @@ public class Main {
 		List<Integer> luckyNumbers = Input.getLuckyNumber();
 		int bonusNum = Input.getBonusNumber();
 		List<Match> matches = lottos.createMatches(luckyNumbers, bonusNum);
-		StatisticsSet statisticsSet = new StatisticsSet(Statistics.createStatistics());
+		StatisticsSet statisticsSet = new StatisticsSet(Statistics.createStatisticsSet());
 		Statistics.runCheckingMatchingTicketNum(statisticsSet, matches);
 		Result.showMyStatistics(statisticsSet, money);
 	}
