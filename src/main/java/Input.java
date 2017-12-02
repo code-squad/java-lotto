@@ -68,7 +68,7 @@ public class Input {
 		return sc.nextInt();
 	}
 	
-	static List<Integer> inputManualLotto() {
+	static List<Integer> createManualLotto() {
 		System.out.println("수동으로 구매할 로또 번호를 입력해주세요");
 		System.out.println("debug");
 		String inputManualLotto = sc.nextLine();

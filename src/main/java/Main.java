@@ -6,13 +6,13 @@ public class Main {
 		int howMany = Input.getHowMany(money);
 		int howManyManual = Input.getHowManyManual();
 		int howManyAuto = howMany - howManyManual;
-		List<Lotto> lottos = Lotto.createLotto(howManyManual, howManyAuto);
-		Result.showMyNumber(lottos, money, howMany);
+		Lottos lottos = new Lottos(Lotto.createLottos(howManyManual, howManyAuto));
+		Result.showMyLottos(lottos);
 		List<Integer> luckyNumbers = Input.getLuckyNumber();
 		int bonusNum = Input.getBonusNumber();
-		int[] matchingCounts = Statistics.checkMatchingCount(lottos, luckyNumbers, bonusNum);
-		List<Statistics> statistics = Statistics.createStatistics();
-		Statistics.runCheckingMatchingTicketNum(statistics, matchingCounts);
-		Result.showMyStatistics(statistics, money);
+		List<Match> matches = lottos.createMatches(luckyNumbers, bonusNum);
+		StatisticsSet statisticsSet = new StatisticsSet(Statistics.createStatisticsSet());
+		Statistics.runCheckingMatchingTicketNum(statisticsSet, matches);
+		Result.showMyStatistics(statisticsSet, money);
 	}
 }

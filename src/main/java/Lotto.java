@@ -3,21 +3,31 @@ import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-
+	
 	List<Integer> numbers;
 	
 	Lotto(List<Integer> numbers) {
 		this.numbers = numbers;
 	}
 
-	int matchingCount(List<Integer> luckyNumbers) {
-		int matchCount = 0;
+	int makeMatchingCount(List<Integer> luckyNumbers) {
+		int matchingCount = 0;
 		for (Integer number : luckyNumbers) {
 			if (this.numbers.contains(number)) {
-				matchCount++;
+				matchingCount++;
 			}
 		}
-		return matchCount;
+		return matchingCount;
+	}
+	
+	boolean makeMatchingBonusTag(List<Integer> luckyNumbers, int bonusNumber) {
+		boolean matchingBonusTag = false;
+		for (int i = 0; i < luckyNumbers.size(); i++) {
+			if (this.numbers.contains(bonusNumber)) {
+				matchingBonusTag = true;
+			}
+		}
+		return matchingBonusTag;
 	}
 
 	static List<Integer> makeNumbers() {
@@ -28,7 +38,7 @@ public class Lotto {
 		return numbers;
 	}
 	
-	private static List<Integer> createLottoNumbers() {
+	static List<Integer> createLottoNumbers() {
 		List<Integer> numbers = makeNumbers();
 		Collections.shuffle(numbers);
 		List<Integer> lotto = numbers.subList(0, 6);
@@ -36,14 +46,14 @@ public class Lotto {
 		return lotto;
 	}
 	
-	static List<Lotto> createLotto(int howManyManual, int howManyAuto) {
-		List<Lotto> lotto = new ArrayList<>();
+	static List<Lotto> createLottos(int howManyManual, int howManyAuto) {
+		List<Lotto> lottos = new ArrayList<>();
 		for (int i = 0; i < howManyManual; i++) {
-			lotto.add(new Lotto(Input.inputManualLotto()));
+			lottos.add(new Lotto(Input.createManualLotto()));
 		}
 		for (int i = 0; i < howManyAuto; i++) {
-			lotto.add(new Lotto(createLottoNumbers()));
+			lottos.add(new Lotto(createLottoNumbers()));
 		}
-		return lotto;
+		return lottos;
 	}
 }
