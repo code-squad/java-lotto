@@ -22,10 +22,10 @@ public class Input {
 	}
 	
 	static List<Integer> getLuckyNumber() {
-		String input = inputLuckyNumber();
-		String[] splittedInput = makeArray(input);
+		String inputNum = inputLuckyNumber();
+		String[] splittedInputNum = makeArray(inputNum);
 		List<Integer> luckyNumber = new ArrayList<>();
-		for (String number : splittedInput) {
+		for (String number : splittedInputNum) {
 			luckyNumber.add(Integer.parseInt(number));
 		}
 		if ( !checkLottoNo(luckyNumber) ) {
@@ -43,13 +43,13 @@ public class Input {
 		return true;
 	}
 
-	private static String[] makeArray(String input) {
-		String[] splittedInput = input.split(",");
-		if (splittedInput.length != 6) {
+	private static String[] makeArray(String inputNum) {
+		String[] splittedInputNum = inputNum.split(",");
+		if (splittedInputNum.length != 6) {
 			System.out.println("1 ~ 45 중 6개의 숫자를 골라주세요!");
 			return makeArray(inputLuckyNumber());
 		}
-		return splittedInput;
+		return splittedInputNum;
 	}
 
 	private static String inputLuckyNumber() {
@@ -57,8 +57,27 @@ public class Input {
 		return sc.nextLine();
 	}
 	
-	static List<Integer> checkLength(String[] splittedInput) {
-		System.out.println("1 ~ 45 중 6개의 숫자를 골라주세요!");
-		return getLuckyNumber();
+	static int getBonusNumber() {
+		System.out.println("보너스 번호를 입력해주세요");
+		int bonusNum = sc.nextInt();
+		return bonusNum;
+	}
+	
+	static int getHowManyManual() {
+		System.out.println("수동으로 구매할 장수를 입력해주세요");
+		return sc.nextInt();
+	}
+	
+	static List<Integer> inputManualLotto() {
+		System.out.println("수동으로 구매할 로또 번호를 입력해주세요");
+		System.out.println("debug");
+		String inputManualLotto = sc.nextLine();
+		String[] splittedManualLotto = inputManualLotto.split(",");
+		List<Integer> manualLotto = new ArrayList<>();
+		for (String number : splittedManualLotto) {
+			System.out.println(number);
+			manualLotto.add(Integer.parseInt(number));
+		}
+		return manualLotto;
 	}
 }

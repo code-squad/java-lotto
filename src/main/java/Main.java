@@ -4,13 +4,13 @@ public class Main {
 	public static void main(String[] args) {
 		int money = Input.getMoney();
 		int howMany = Input.getHowMany(money);
-		Result result = new Result();
-		result.showMyNumber(money, howMany);
+		Lottos lottos = new Lottos(Lotto.createLottos(howMany));
+		Result.showMyLottos(lottos);
 		List<Integer> luckyNumbers = Input.getLuckyNumber();
-		List<Statistics> statistics = Statistics.makeStatisticsList();
-		List<Lotto> numberSet = result.getNumberSet();
-		int[] matchingCounts = Statistics.checkMatchingCount(numberSet, luckyNumbers);
-		Statistics.runCheckingMatchingTicketNum(statistics, matchingCounts);
-		result.showMyStatistics(money, luckyNumbers, statistics);
+		int bonusNum = Input.getBonusNumber();
+		List<Match> matches = lottos.createMatches(luckyNumbers, bonusNum);
+		StatisticsSet statisticsSet = new StatisticsSet(Statistics.createStatisticsSet());
+		Statistics.runCheckingMatchingTicketNum(statisticsSet, matches);
+		Result.showMyStatistics(statisticsSet, money);
 	}
 }

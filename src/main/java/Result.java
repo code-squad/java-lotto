@@ -1,28 +1,19 @@
 
-import java.util.List;
 
 public class Result {
 	
-	private List<Lotto> numberSet;
-	
-	List<Lotto> getNumberSet() {
-		return this.numberSet;
-	}
-	
-	void showMyNumber(int money, int howMany) {
-		numberSet = Lotto.createLottoList(howMany);
-		for (Lotto eachSet : numberSet) {
-			System.out.println(eachSet.numbers);
+	static void showMyLottos(Lottos lottos) {
+		for (Lotto eachLotto : lottos.lottos) {
+			System.out.println(eachLotto.numbers);
 		}
 	}
 	
-	void showMyStatistics(int money, List<Integer> luckyNumber, List<Statistics> statistics) {
+	static void showMyStatistics(StatisticsSet statisticsSet, int money) {
 		System.out.println("\n당첨 통계\n-------");
-		for (Statistics eachStatistics : statistics) {
-			System.out.println(eachStatistics.getMatchingCount() + "개 일치, " + eachStatistics.getPrize() +
-					 "원 - " + eachStatistics.getMatchingTicketNum() + "개");
+		for (Statistics eachStatistics : statisticsSet.statisticsSet) {
+			System.out.println(eachStatistics.match.matchingCount + "개 일치, " + eachStatistics.match.bonus
+					+ eachStatistics.match.prize + "원 - " + eachStatistics.matchingTicketNum + "개");
 		}
-		System.out.println("총 수익률은 " + Statistics.makeRateOfReturn(statistics, money) + "% 입니다");
+		System.out.println("총 수익률은 " + statisticsSet.makeRateOfReturn(money) + "% 입니다");
 	}
-
 }
