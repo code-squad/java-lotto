@@ -49,11 +49,12 @@ public class Lotto {
 	static List<Lotto> createLottos(int howManyManual, int howManyAuto) {
 		List<Lotto> lottos = new ArrayList<>();
 		for (int i = 0; i < howManyManual; i++) {
-			lottos.add(new Lotto(Input.createManualLotto()));
+//			lottos.add(new Lotto(Input.inputManualLotto()));
+			System.out.println(Input.inputManualLotto());
 		}
-		for (int i = 0; i < howManyAuto; i++) {
-			lottos.add(new Lotto(createLottoNumbers()));
-		}
+//		for (int i = 0; i < howManyAuto; i++) {
+//			lottos.add(new Lotto(createLottoNumbers()));
+//		}
 		return lottos;
 	}
 }
