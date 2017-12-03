@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Input {
 	private static final int MONEY_PER_LOTTO = 1000;
-	private static Scanner sc = new Scanner(System.in);
+	private static Scanner sc = new Scanner (System.in);
 
 	static int getMoney() {
 		System.out.println("구입 금액을 입력해주세요");
