@@ -1,5 +1,4 @@
 
-
 public class Result {
 	
 	static void showMyLottos(Lottos lottos) {
