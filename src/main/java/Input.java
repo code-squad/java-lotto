@@ -65,7 +65,8 @@ public class Input {
 	
 	static int getHowManyManual() {
 		System.out.println("수동으로 구매할 장수를 입력해주세요");
-		return sc.nextInt();
+		String num = sc.nextLine();
+		return Integer.parseInt(num);
 	}
 	
 	static List<Integer> inputManualLotto() {
