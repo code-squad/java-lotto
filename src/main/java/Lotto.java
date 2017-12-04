@@ -21,13 +21,7 @@ public class Lotto {
 	}
 	
 	boolean makeMatchingBonusTag(List<Integer> luckyNumbers, int bonusNumber) {
-		boolean matchingBonusTag = false;
-		for (int i = 0; i < luckyNumbers.size(); i++) {
-			if (this.numbers.contains(bonusNumber)) {
-				matchingBonusTag = true;
-			}
-		}
-		return matchingBonusTag;
+		return this.numbers.contains(bonusNumber);
 	}
 
 	static List<Integer> makeNumbers() {
