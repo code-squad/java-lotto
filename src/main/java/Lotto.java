@@ -20,7 +20,7 @@ public class Lotto {
 		return matchingCount;
 	}
 	
-	boolean makeMatchingBonusTag(List<Integer> luckyNumbers, int bonusNumber) {
+	boolean makeMatchingBonusTag(int bonusNumber) {
 		return this.numbers.contains(bonusNumber);
 	}
 
