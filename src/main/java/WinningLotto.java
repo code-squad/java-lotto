@@ -20,7 +20,7 @@ public class WinningLotto extends Lotto{
 		return winningLotto;
 	}
 	
-	static String[] makeArray(String inputNum) {
+	private static String[] makeArray(String inputNum) {
 		String[] splittedInputNum = inputNum.split(",");
 		if (splittedInputNum.length != 6) {
 			System.out.println("1 ~ 45 중 6개의 숫자를 골라주세요!");
@@ -29,7 +29,7 @@ public class WinningLotto extends Lotto{
 		return splittedInputNum;
 	}
 	
-	static boolean checkLottoNumRange(List<Integer> winningLotto) {
+	private static boolean checkLottoNumRange(List<Integer> winningLotto) {
 		for (int numbers : winningLotto) {
 			if (!(Lotto.makeNumbers().contains(numbers))) {
 				return false;

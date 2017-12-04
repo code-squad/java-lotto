@@ -32,7 +32,7 @@ public class Lotto {
 		return numbers;
 	}
 	
-	static List<Integer> createLottoNumbers() {
+	private static List<Integer> createLottoNumbers() {
 		List<Integer> numbers = makeNumbers();
 		Collections.shuffle(numbers);
 		List<Integer> userLotto = numbers.subList(0, 6);
