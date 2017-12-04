@@ -9,23 +9,23 @@ import org.junit.Test;
 
 public class LottoTest {
 	
-	Lotto lotto;
+	UserLotto userLotto;
 	
 	@Before
 	public void setup() {
 		List<Integer> numbers = Arrays.asList(1,2,3,4,5,6);
-		lotto = new Lotto(numbers);
+		userLotto = new UserLotto(numbers);
 	}
 
 	@Test
 	public void test() {
 		List<Integer> luckyNumbers = Arrays.asList(1,2,3,45,44,43);
-		assertEquals(3, lotto.makeMatchingCount(luckyNumbers));
+		assertEquals(3, userLotto.makeMatchingCount(luckyNumbers));
 	}
 	
 	@After
 	public void tearDown() {
-		lotto = null;
+		userLotto = null;
 	}
 
 }

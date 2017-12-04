@@ -31,7 +31,7 @@ public class WinningLotto extends Lotto{
 	
 	private static boolean checkLottoNumRange(List<Integer> winningLotto) {
 		for (int numbers : winningLotto) {
-			if (!(Lotto.makeNumbers().contains(numbers))) {
+			if (!(UserLotto.makeNumbers().contains(numbers))) {
 				return false;
 			}
 		}
