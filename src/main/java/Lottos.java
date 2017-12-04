@@ -13,7 +13,7 @@ public class Lottos {
 		List<Match> matches = new ArrayList<>();
 		for (Lotto eachLotto : this.lottos) {
 			int matchingCount = eachLotto.makeMatchingCount(luckyNumbers);
-			boolean bonusTag = eachLotto.makeMatchingBonusTag(luckyNumbers, bonusNumber);
+			boolean bonusTag = eachLotto.makeMatchingBonusTag(bonusNumber);
 			Match match = Match.findMatch(matchingCount, bonusTag);
 			if (match != null) {
 				matches.add(match);				
