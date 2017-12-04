@@ -20,39 +20,8 @@ public class Input {
 	static int getHowMany(int money) {
 		return money / MONEY_PER_LOTTO;
 	}
-	
-	static List<Integer> getLuckyNumber() {
-		String inputNum = inputLuckyNumber();
-		String[] splittedInputNum = makeArray(inputNum);
-		List<Integer> luckyNumber = new ArrayList<>();
-		for (String number : splittedInputNum) {
-			luckyNumber.add(Integer.parseInt(number));
-		}
-		if ( !checkLottoNo(luckyNumber) ) {
-			return getLuckyNumber();
-		}
-		return luckyNumber;
-	}
 
-	private static boolean checkLottoNo(List<Integer> luckyNumber) {
-		for (int numbers : luckyNumber) {
-			if (!(Lotto.makeNumbers().contains(numbers))) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private static String[] makeArray(String inputNum) {
-		String[] splittedInputNum = inputNum.split(",");
-		if (splittedInputNum.length != 6) {
-			System.out.println("1 ~ 45 중 6개의 숫자를 골라주세요!");
-			return makeArray(inputLuckyNumber());
-		}
-		return splittedInputNum;
-	}
-
-	private static String inputLuckyNumber() {
+	static String inputWinningLotto() {
 		System.out.println("\n지난 주 당첨 번호를 입력해주세요");
 		return sc.nextLine();
 	}
@@ -65,8 +34,7 @@ public class Input {
 	
 	static int getHowManyManual() {
 		System.out.println("수동으로 구매할 장수를 입력해주세요");
-		String num = sc.nextLine();
-		return Integer.parseInt(num);
+		return Integer.parseInt(sc.nextLine());
 	}
 	
 	static List<Integer> inputManualLotto() {

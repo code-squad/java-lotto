@@ -9,10 +9,10 @@ public class Lottos {
 		this.lottos = lottos;
 	}
 
-	List<Match> createMatches(List<Integer> luckyNumbers, int bonusNumber) {
+	List<Match> createMatches(List<Integer> winningLotto, int bonusNumber) {
 		List<Match> matches = new ArrayList<>();
 		for (Lotto eachLotto : this.lottos) {
-			int matchingCount = eachLotto.makeMatchingCount(luckyNumbers);
+			int matchingCount = eachLotto.makeMatchingCount(winningLotto);
 			boolean bonusTag = eachLotto.makeMatchingBonusTag(bonusNumber);
 			Match match = Match.findMatch(matchingCount, bonusTag);
 			if (match != null) {

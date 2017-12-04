@@ -10,9 +10,9 @@ public class Lotto {
 		this.numbers = numbers;
 	}
 
-	int makeMatchingCount(List<Integer> luckyNumbers) {
+	int makeMatchingCount(List<Integer> winningLotto) {
 		int matchingCount = 0;
-		for (Integer number : luckyNumbers) {
+		for (Integer number : winningLotto) {
 			if (this.numbers.contains(number)) {
 				matchingCount++;
 			}
@@ -35,9 +35,9 @@ public class Lotto {
 	static List<Integer> createLottoNumbers() {
 		List<Integer> numbers = makeNumbers();
 		Collections.shuffle(numbers);
-		List<Integer> lotto = numbers.subList(0, 6);
-		Collections.sort(lotto);
-		return lotto;
+		List<Integer> userLotto = numbers.subList(0, 6);
+		Collections.sort(userLotto);
+		return userLotto;
 	}
 	
 	static List<Lotto> createLottos(int howManyManual, int howManyAuto) {
