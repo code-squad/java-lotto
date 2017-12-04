@@ -10,14 +10,18 @@ public class Lotto {
 		this.numbers = numbers;
 	}
 
-	int matchingCount(List<Integer> luckyNumbers) {
-		int matchCount = 0;
+	int makeMatchingCount(List<Integer> luckyNumbers) {
+		int matchingCount = 0;
 		for (Integer number : luckyNumbers) {
 			if (this.numbers.contains(number)) {
-				matchCount++;
+				matchingCount++;
 			}
 		}
-		return matchCount;
+		return matchingCount;
+	}
+	
+	boolean makeMatchingBonusTag(int bonusNumber) {
+		return this.numbers.contains(bonusNumber);
 	}
 
 	static List<Integer> makeNumbers() {
@@ -28,7 +32,7 @@ public class Lotto {
 		return numbers;
 	}
 	
-	private static List<Integer> createLottoNumbers() {
+	static List<Integer> createLottoNumbers() {
 		List<Integer> numbers = makeNumbers();
 		Collections.shuffle(numbers);
 		List<Integer> lotto = numbers.subList(0, 6);
@@ -36,11 +40,14 @@ public class Lotto {
 		return lotto;
 	}
 	
-	static List<Lotto> createLottoList(int howMany) {
-		List<Lotto> lotto = new ArrayList<>();
-		for (int i = 0; i < howMany; i++) {
-			lotto.add(new Lotto(createLottoNumbers()));
+	static List<Lotto> createLottos(int howManyManual, int howManyAuto) {
+		List<Lotto> lottos = new ArrayList<>();
+		for (int i = 0; i < howManyManual; i++) {
+			lottos.add(new Lotto(Input.inputManualLotto()));
 		}
-		return lotto;
+		for (int i = 0; i < howManyAuto; i++) {
+			lottos.add(new Lotto(createLottoNumbers()));
+		}
+		return lottos;
 	}
 }

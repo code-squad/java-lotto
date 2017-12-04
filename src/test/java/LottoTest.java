@@ -20,7 +20,7 @@ public class LottoTest {
 	@Test
 	public void test() {
 		List<Integer> luckyNumbers = Arrays.asList(1,2,3,45,44,43);
-		assertEquals(3, lotto.matchingCount(luckyNumbers));
+		assertEquals(3, lotto.makeMatchingCount(luckyNumbers));
 	}
 	
 	@After
