@@ -3,11 +3,6 @@ package lotto;
 import java.util.ArrayList;
 
 public class Lottos {
-	private static final int MATCH3_MONEY = 5000;		//X개 맞았을 때의 상금을 상수값으로 지정.
-	private static final int MATCH4_MONEY = 50000;
-	private static final int MATCH5_MONEY = 1500000;
-	private static final int MATCH6_MONEY = 2000000000;
-	
 	private ArrayList<Lotto> tickets = new ArrayList<Lotto> ();
 	
 	//lotto 추가 메소드.
@@ -53,8 +48,8 @@ public class Lottos {
 	}
 	//맞은 갯수 비례 금액을 계산하여 총 딴 돈을 구한다. (내가 건 돈 만큼은 뺀다.)
 	public void calculateMoney(ArrayList<Integer> result, int money) {
-		int earnMoney = (result.get(0) * MATCH3_MONEY) + (result.get(1) * MATCH4_MONEY)
-						+ (result.get(2) * MATCH5_MONEY) + (result.get(3) * MATCH6_MONEY) - money;
+		int earnMoney = (result.get(0) * Match.valueOf(3).getWinningMoney()) + (result.get(1) * Match.valueOf(4).getWinningMoney())
+						+ (result.get(2) * Match.valueOf(5).getWinningMoney()) + (result.get(3) * Match.valueOf(6).getWinningMoney()) - money;
 		int yield = (earnMoney / money) * 100;		//건 돈 비례 번 돈을 계산한다. (수익률을 계산한다.)
 		
 		ResultView.printResult(result, yield);		//결과를 출력해준다.

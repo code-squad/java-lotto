@@ -25,6 +25,7 @@ public class Main {
 		
 		ArrayList<Integer> winningNum = InputView.inputWinningNum();		//지난 주 당첨 번호를 입력 받는다.
 		ArrayList<Integer> result = lottos.makeResult(winningNum);		//최종 결과를 저장할 리스트.
+		
 		lottos.calculateMoney(result, money.getPrice());		//번 돈과 투자한 돈을 가지고 수익률을 계산한다.
 	}
 }
