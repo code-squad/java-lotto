@@ -35,6 +35,6 @@ public enum Match {
     }
     
     public String getWinningMsg() {
-    	return message;
+    		return message;
     }
 }
