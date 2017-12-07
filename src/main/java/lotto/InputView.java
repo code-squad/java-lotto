@@ -30,6 +30,14 @@ public class InputView {
 		ArrayList<String> winningList = new ArrayList<String>(Arrays.asList(splitNumber(scan.nextLine())));
 		return winningList;
 	}
+	//보너스 번호를 입력 받는다.
+	public static int takeBonusNum() {
+		System.out.println("보너스 번호를 입력해주세요.");
+		Scanner scan = new Scanner(System.in);
+		int bonus = scan.nextInt();
+		
+		return bonus;
+	}
 	//input 값이 6개가 아니면 제대로 입력될 때까지 계속해서 루프!!
 	private static ArrayList<String> checkInput(ArrayList<String> input) {
 		ArrayList<String> checkList = input;

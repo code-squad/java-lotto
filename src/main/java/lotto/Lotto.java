@@ -39,9 +39,10 @@ public class Lotto {
 	public int matchCount(ArrayList<Integer> winningNum) {
 		int count = 0;
 		
-		for (int i = 0; i < winningNum.size(); i++) {
+		for (int i = 0; i < winningNum.size() - 1; i++) {		//보너스 번호를 제외한 6개의 숫자만 비교하여 몇개 일치하는지 리턴해준다.(size - 1)
 			count += findToMatch(winningNum.get(i));
 		}
+		count = makeRank(count, winningNum);
 		return count;
 	}
 	//winningNum의 숫자가 티켓 안에 있다면 1을 리턴, 없다면 0을 리턴. (상위 메소드에서 count값을 증가시키기 위함)
@@ -50,5 +51,21 @@ public class Lotto {
 			return 1;
 		}
 		return 0;
+	}
+	//맞은 갯수를 가지고 등수로 변환시켜주는 메소드.
+	private int makeRank(int count, ArrayList<Integer> winningNum) {
+		if (count == 5) {
+			return checkBonusRight(winningNum);
+		}else if (count == 6) {
+			return 1;
+		}
+		return 8 - count;
+	}
+	//보너스 번호가 맞는지(2등인지 3등인지) 체크하는 메소드.
+	private int checkBonusRight(ArrayList<Integer> winningNum) {
+		if (this.num.contains(winningNum.get(winningNum.size() - 1))) {		//보너스 번호가 일치 한다면,
+			return 2;		//2등 리턴.
+		}
+		return 3;		//아니면 3등 리턴.
 	}
 }
