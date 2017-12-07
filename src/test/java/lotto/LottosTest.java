@@ -62,7 +62,7 @@ public class LottosTest {
 		for (int i = 0; i < 5; i++) {
 			resultTest.add(1);		//3개, 4개, 5개, 5개 + 보너스, 6개 맞은것이 모두 1개씩 증가해야 한다. 이를 테스트 하기위한 리스트 만듬.
 		}
-		ArrayList<Integer> compareResult = lottos.makeResult(winningList);
+		ArrayList<Integer> compareResult = lottos.makeResult(winningList, 12);
 		assertEquals(resultTest, compareResult);		//예측한 [1, 1, 1, 1, 1]이 제대로 나오는지 테스트.
 	}
 }

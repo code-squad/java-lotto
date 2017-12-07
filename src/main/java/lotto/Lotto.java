@@ -35,15 +35,15 @@ public class Lotto {
 	public ArrayList<Integer> getNum() {
 		return this.num;
 	}
-	//각 티켓마다 winningNum과 일치하는 숫자의 수를 계산하고, 일치하는 숫자의 수를 (count) 리턴한다.
-	public int matchCount(ArrayList<Integer> winningNum) {
+	//각 티켓마다 winningNum과 일치하는 숫자의 수를 계산하고, 일치하는 숫자의 수에 해당하는 등수(rank)를 리턴한다.
+	public int matchCount(ArrayList<Integer> winningNum, int bonus) {
 		int count = 0;
 		
-		for (int i = 0; i < winningNum.size() - 1; i++) {		//보너스 번호를 제외한 6개의 숫자만 비교하여 몇개 일치하는지 리턴해준다.(size - 1)
+		for (int i = 0; i < winningNum.size(); i++) {		//보너스 번호를 제외한 6개의 숫자만 비교하여 몇개 일치하는지 리턴해준다.
 			count += findToMatch(winningNum.get(i));
 		}
-		count = makeRank(count, winningNum);
-		return count;
+		int rank = makeRank(count, bonus);
+		return rank;
 	}
 	//winningNum의 숫자가 티켓 안에 있다면 1을 리턴, 없다면 0을 리턴. (상위 메소드에서 count값을 증가시키기 위함)
 	private int findToMatch(int winningNum) {
@@ -53,17 +53,21 @@ public class Lotto {
 		return 0;
 	}
 	//맞은 갯수를 가지고 등수로 변환시켜주는 메소드.
-	private int makeRank(int count, ArrayList<Integer> winningNum) {
-		if (count == 5) {
-			return checkBonusRight(winningNum);
-		}else if (count == 6) {
-			return 1;
+	private int makeRank(int count, int bonus) {
+		if (count == 6) {		//6개가 다 맞았다면,
+			return 1;		//1등 리턴.
+		}else if (count == 5) {		//5개가 맞았다면,
+			return checkBonusRight(bonus);		//2등인지 3등인지 확인해본다.
+		}else if (count == 4) {		//4개가 맞았다면,
+			return 4;		//4등 리턴.
+		}else if (count == 3) {		//3개가 맞았다면,
+			return 5;		//5등 리턴.
 		}
-		return 8 - count;
+		return 0;		//그 외는 0을 리턴해버림.
 	}
 	//보너스 번호가 맞는지(2등인지 3등인지) 체크하는 메소드.
-	private int checkBonusRight(ArrayList<Integer> winningNum) {
-		if (this.num.contains(winningNum.get(winningNum.size() - 1))) {		//보너스 번호가 일치 한다면,
+	private int checkBonusRight(int bonus) {
+		if (this.num.contains(bonus)) {		//보너스 번호가 일치 한다면,
 			return 2;		//2등 리턴.
 		}
 		return 3;		//아니면 3등 리턴.

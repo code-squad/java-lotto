@@ -36,10 +36,10 @@ public class LottoTest {
 		lottoTestTwo.getNum().add(12);		//보너스 번호 추가.
 		
 		assertEquals(6, lottoTestOne.getNum().size());		//6개의 숫자가 들어갔는지 테스트.
-		assertEquals(3, lottoTestOne.matchCount(winningTest));		//2~6까지 총 5개가 일치하여 3등이 되었는지 확인.
+		assertEquals(3, lottoTestOne.matchCount(winningTest, 12));		//2~6까지 총 5개가 일치하여 3등이 되었는지 확인.
 		
 		assertEquals(6, lottoTestTwo.getNum().size());		//6개의 숫자가 들어갔는지 테스트.
-		assertEquals(2, lottoTestTwo.matchCount(winningTest));		//2~6까지 총 5개가 일치하고, 보너스 번호도 맞아서 2등이 되었는지 확인.
+		assertEquals(2, lottoTestTwo.matchCount(winningTest, 12));		//2~6까지 총 5개가 일치하고, 보너스 번호도 맞아서 2등이 되었는지 확인.
 		
 	}
 }
