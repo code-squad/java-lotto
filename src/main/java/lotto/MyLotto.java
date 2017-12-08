@@ -1,6 +1,7 @@
 package lotto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class MyLotto {
@@ -14,23 +15,25 @@ public class MyLotto {
 	public ArrayList<Integer> getMyLotto() {
 		return this.myLotto;
 	}
-	
-	private int getSize(){
+
+	private int getSize() {
 		return this.size;
 	}
-	
-	private void upSize(){
+
+	private void upSize() {
 		this.size++;
 	}
 
 	public ArrayList<Integer> createRanLotto(int num) {
+		Random random = new Random();
 		while (getSize() != 6) {
-			int ran = new Random().nextInt(46);
-			if (!myLotto.contains(ran) && ran != 0) {
+			int ran = random.nextInt(45) + 1;
+			if (!myLotto.contains(ran)) {
 				myLotto.add(ran);
 				upSize();
 			}
 		}
+		Collections.shuffle(myLotto);
 		return myLotto;
 	}
 

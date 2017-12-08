@@ -1,22 +1,18 @@
 package lotto;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ResultView {
-	public static void printStatus(ArrayList<Integer> result, int money) {
-		System.out.println("3개 일치 (5000원)- " + result.get(3));
-		System.out.println("4개 일치 (50000원)- " + result.get(4));
-		System.out.println("5개 일치 (1500000원)- " + result.get(5));
-		System.out.println("6개 일치 (2000000000원)- " + result.get(6));
-		printBenefit(result, money);
+	private static final int CORRECT_THREE = 3;
+	private static final int CORRECT_FOUR = 4;
+	private static final int CORRECT_FIVE = 5;
+	private static final int CORRECT_SIX = 6;
 
-	}
-
-	private static void printBenefit(ArrayList<Integer> result, int money) {
-
-		Double total = (double) ((5000 * result.get(3))
-				+ (50000 * result.get(4) + (1500000 * result.get(5)) + (2000000000 * result.get(6))));
-		System.out.println("수익률은 " + Math.floor(total / money * 10) * 10 + "% 입니다.");
+	public static void printStatus(HashMap<Integer, Integer> result) {
+		System.out.println("3개 일치 (5000원)- " + result.get(CORRECT_THREE));
+		System.out.println("4개 일치 (50000원)- " + result.get(CORRECT_FOUR));
+		System.out.println("5개 일치 (1500000원)- " + result.get(CORRECT_FIVE));
+		System.out.println("6개 일치 (2000000000원)- " + result.get(CORRECT_SIX));
 	}
 
 	public static void printLotto(Lottos lottos) {
