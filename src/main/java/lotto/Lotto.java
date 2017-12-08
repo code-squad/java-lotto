@@ -54,22 +54,7 @@ public class Lotto {
 	}
 	//맞은 갯수를 가지고 등수로 변환시켜주는 메소드.
 	private int makeRank(int count, int bonus) {
-		if (count == 6) {		//6개가 다 맞았다면,
-			return 1;		//1등 리턴.
-		}else if (count == 5) {		//5개가 맞았다면,
-			return checkBonusRight(bonus);		//2등인지 3등인지 확인해본다.
-		}else if (count == 4) {		//4개가 맞았다면,
-			return 4;		//4등 리턴.
-		}else if (count == 3) {		//3개가 맞았다면,
-			return 5;		//5등 리턴.
-		}
-		return 0;		//그 외는 0을 리턴해버림.
-	}
-	//보너스 번호가 맞는지(2등인지 3등인지) 체크하는 메소드.
-	private int checkBonusRight(int bonus) {
-		if (this.num.contains(bonus)) {		//보너스 번호가 일치 한다면,
-			return 2;		//2등 리턴.
-		}
-		return 3;		//아니면 3등 리턴.
+		Match match = Match.valueOf(count, this.num.contains(bonus));		//맞은 갯수와 보너스 번호가 일치하는지 여부를 보내서 일치하는 Match를 불러온다.
+		return match.getRank();		//그 Match 의 등수 값을 받아와서 리턴한다.
 	}
 }
