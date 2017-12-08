@@ -25,8 +25,6 @@ public class LottosTest {
 		Lotto fourRightLotto = new Lotto();
 		Lotto threeRightLotto = new Lotto();		//로또 5개를 만든다.
 		
-		assertEquals(0, lottos.get().size());		//현재 lottos의 길이가 0이 맞는지 확인.
-		
 		allRightLotto.getNum().clear();
 		fiveAndBonusLotto.getNum().clear();
 		fiveRightLotto.getNum().clear();
@@ -49,20 +47,19 @@ public class LottosTest {
 		lottos.add(fourRightLotto);
 		lottos.add(threeRightLotto);		//5개의 로또를 lottos 객체 안에 넣는다.
 		
-		assertEquals(5, lottos.get().size());		//lottos 객체의 길이가 5가 맞는지 확인.
-		
 		ArrayList<Integer> winningList = new ArrayList<Integer> ();
 		for (int i = 0; i < 6; i++) {
 			winningList.add(i + 1);		//[1, 2, 3, 4, 5, 6] 을 당첨 번호로 지정.
 		}
 		
-		winningList.add(12);		//보너스 번호 12도 추가. -> [1, 2, 3, 4, 5, 6, 12] 상태로 변환.
+		int bonus = 12;		//보너스 번호 12 추가. -> [1, 2, 3, 4, 5, 6, 12] 상태로 변환.
 		
 		ArrayList<Integer> resultTest = new ArrayList<Integer> ();
 		for (int i = 0; i < 5; i++) {
 			resultTest.add(1);		//3개, 4개, 5개, 5개 + 보너스, 6개 맞은것이 모두 1개씩 증가해야 한다. 이를 테스트 하기위한 리스트 만듬.
 		}
-		ArrayList<Integer> compareResult = lottos.makeResult(winningList, 12);
+		ArrayList<Integer> compareResult = lottos.makeResult(winningList, bonus);
+		
 		assertEquals(resultTest, compareResult);		//예측한 [1, 1, 1, 1, 1]이 제대로 나오는지 테스트.
 	}
 }
