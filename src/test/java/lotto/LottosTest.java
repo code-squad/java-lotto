@@ -54,12 +54,20 @@ public class LottosTest {
 		
 		int bonus = 12;		//보너스 번호 12 추가. -> [1, 2, 3, 4, 5, 6, 12] 상태로 변환.
 		
-		ArrayList<Integer> resultTest = new ArrayList<Integer> ();
-		for (int i = 0; i < 5; i++) {
-			resultTest.add(1);		//3개, 4개, 5개, 5개 + 보너스, 6개 맞은것이 모두 1개씩 증가해야 한다. 이를 테스트 하기위한 리스트 만듬.
+		ArrayList<MatchingResult> resultTest = new ArrayList<MatchingResult> ();
+		for(Match match: Match.values()) {
+			resultTest.add(new MatchingResult(match));
 		}
-		ArrayList<Integer> compareResult = lottos.makeResult(winningList, bonus);
+		for (int i = 0; i < resultTest.size(); i++) {
+			resultTest.get(i).match();		//3개, 4개, 5개, 5개 + 보너스, 6개 맞은것이 모두 1개씩 증가해야 한다. 이를 테스트 하기위한 리스트 만듬.
+		}
+		ArrayList<Match> matchList = lottos.makeMatchList(winningList, bonus);
+		ArrayList<MatchingResult> compareResult = lottos.makeResult();
+		compareResult = Lottos.fillResult(matchList, compareResult);
 		
-		assertEquals(resultTest, compareResult);		//예측한 [1, 1, 1, 1, 1]이 제대로 나오는지 테스트.
+		for (int i = 0; i < resultTest.size(); i++) {
+			assertEquals(resultTest.get(i).returnMatch(), compareResult.get(i).returnMatch());		//각각의 매치가 같은 매치인지 테스트.
+			assertEquals(resultTest.get(i).returnCount(), compareResult.get(i).returnCount());		//예측한 [1, 1, 1, 1, 1]이 제대로 나오는지 테스트.
+		}
 	}
 }
