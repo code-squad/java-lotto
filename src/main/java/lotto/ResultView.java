@@ -25,11 +25,14 @@ public class ResultView {
 		return 0;
 	}
 	//맞은 번호의 갯수만큼 결과를 출력해주는 메소드.
-	public static void printResult(ArrayList<Integer> result, int yield) {
-		System.out.println("3개 일치 (5000원) : " + result.get(0) + " 개");
-		System.out.println("4개 일치 (50000원) : " + result.get(1) + " 개");
-		System.out.println("5개 일치 (1500000원) : " + result.get(2) + " 개");
-		System.out.println("6개 일치 (2000000000원) : " + result.get(3) + " 개");
+	public static void printResult(ArrayList<MatchingResult> result) {
+		for (int i = 0; i < result.size(); i++) {
+			MatchingResult matchingResult = result.get(i);
+			System.out.println(matchingResult.returnMsg() + matchingResult.returnCount() + " 개");
+		}
+	}
+	//총 수익률을 계산해주는 메소드.
+	public static void printProfit(double yield) {
 		System.out.println("총 수익률은 " + yield + "% 입니다.");
 	}
 }

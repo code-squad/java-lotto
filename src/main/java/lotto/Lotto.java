@@ -9,6 +9,11 @@ public class Lotto {
 	public Lotto() {
 		this.num = selectAutoNum();
 	}
+	
+	public Lotto(ArrayList<Integer> num) {
+		this.num = num;
+	}
+	
 	//가능한 모든 로또 번호들을 List에 넣어서, 랜덤 수를 뽑아내는 모집단 List를 만든다. 
 	private ArrayList<Integer> makeTotalNum () {
 		ArrayList<Integer> numCollection = new ArrayList<Integer> ();
@@ -35,14 +40,14 @@ public class Lotto {
 	public ArrayList<Integer> getNum() {
 		return this.num;
 	}
-	//각 티켓마다 winningNum과 일치하는 숫자의 수를 계산하고, 일치하는 숫자의 수를 (count) 리턴한다.
-	public int matchCount(ArrayList<Integer> winningNum) {
+	//각 티켓마다 winningNum과 일치하는 숫자의 수를 계산하고, 일치하는 숫자의 수에 해당하는 등수(rank)를 리턴한다.
+	public Match matchCount(ArrayList<Integer> winningNum, int bonus) {
 		int count = 0;
 		
-		for (int i = 0; i < winningNum.size(); i++) {
+		for (int i = 0; i < winningNum.size(); i++) {		//보너스 번호를 제외한 6개의 숫자만 비교하여 몇개 일치하는지 리턴해준다.
 			count += findToMatch(winningNum.get(i));
 		}
-		return count;
+		return makeRank(count, bonus);
 	}
 	//winningNum의 숫자가 티켓 안에 있다면 1을 리턴, 없다면 0을 리턴. (상위 메소드에서 count값을 증가시키기 위함)
 	private int findToMatch(int winningNum) {
@@ -50,5 +55,10 @@ public class Lotto {
 			return 1;
 		}
 		return 0;
+	}
+	//맞은 갯수를 가지고 등수로 변환시켜주는 메소드.
+	private Match makeRank(int count, int bonus) {
+		Match match = Match.valueOf(count, this.num.contains(bonus));		//맞은 갯수와 보너스 번호가 일치하는지 여부를 보내서 일치하는 Match를 불러온다.
+		return match;		//그 Match 를 받아와서 리턴한다.
 	}
 }

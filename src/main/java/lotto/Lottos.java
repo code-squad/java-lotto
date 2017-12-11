@@ -3,11 +3,6 @@ package lotto;
 import java.util.ArrayList;
 
 public class Lottos {
-	private static final int MATCH3_MONEY = 5000;		//X개 맞았을 때의 상금을 상수값으로 지정.
-	private static final int MATCH4_MONEY = 50000;
-	private static final int MATCH5_MONEY = 1500000;
-	private static final int MATCH6_MONEY = 2000000000;
-	
 	private ArrayList<Lotto> tickets = new ArrayList<Lotto> ();
 	
 	//lotto 추가 메소드.
@@ -19,44 +14,51 @@ public class Lottos {
 		return this.tickets;
 	}
 	//각 티켓 별 맞은 갯수를 리스트에 저장하고, 리턴해주는 메소드.
-	private ArrayList<Integer> correctList(ArrayList<Integer> winningNum) {
-		ArrayList<Integer> correctList = new ArrayList<Integer> ();		//티켓 별 맞은 번호 수를 저장하는 리스트를 만들어준다.
-		
+	public ArrayList<Match> makeMatchList(ArrayList<Integer> winningNum, int bonus) {
+		ArrayList<Match> matchList = new ArrayList<Match> ();		//티켓 별 맞은 번호 수를 일치하는 Match로 변환하여 저장하는 리스트를 만들어준다.
 		for (int i = 0; i < tickets.size(); i++) {
-			correctList.add(tickets.get(i).matchCount(winningNum));		//각 티켓마다 winningNum과 일치하는 수가 있는지 계산하여 몇개가 일치하는지를 리스트에 넣어줌.
+			Lotto oneTicket = tickets.get(i);
+			matchList.add(oneTicket.matchCount(winningNum, bonus));		//각 티켓마다 winningNum과 몇개가 일치하는지를 Match로 변환하여 리스트에 넣어줌.
 		}
-		return correctList;
+		return matchList;		//Match들이 저장되어 있는 리스트를 리턴한다.
 	}
 	//최종 결과 리스트를 만들어주는 메소드.
-	public ArrayList<Integer> makeResult(ArrayList<Integer> winningNum) {
-		ArrayList<Integer> result = new ArrayList<Integer> ();		//최종 결과를 저장할 리스트.
-		for(int i = 0; i < 4; i++) {
-			int findNum = i + 3;		//3, 4, 5, 6개 맞은 티켓의 수를 구하기 위한 변수.
-			result.add(i, countResult(correctList(winningNum), findNum));		//3개 맞은 횟수 ~ 6개 맞은 횟수 까지를 result 리스트에 추가해 카운트한다.
+	public ArrayList<MatchingResult> makeResult() {
+		ArrayList<MatchingResult> result = new ArrayList<MatchingResult> ();		//최종 결과를 저장할 리스트.
+		for(Match match: Match.values()) {
+			result.add(new MatchingResult(match));
 		}
 		return result;
 	}
-	//맞은 숫자의 갯수를 카운트하고, 그 값을 리턴하는 메소드.
-	private static int countResult(ArrayList<Integer> correct, int findNum) {
-		int count = 0;
-		for (int i = 0; i < correct.size(); i++) {
-			count += howManyCorrect(correct.get(i), findNum);
+	//MatchingResult ArrayList의 속성값들을 Update 해주는 메소드. (어떤 Match가 몇 개 맞았는지 Update)
+	public static void fillResult(ArrayList<Match> matchList, ArrayList<MatchingResult> result) {
+		for (int i = 0; i < matchList.size(); i++) {
+			Match findMatch = matchList.get(i);
+			exploreResult(findMatch, result);
 		}
-		return count;
 	}
-	//findNum 이 있으면 1 리턴, 없으면 0 리턴하는 메소드. 리턴값을 가지고 상위 메소드에서 count값을 증가시킴.
-	private static int howManyCorrect(int correct, int findNum) {
-		if(correct == findNum) {
-			return 1;
+	//result 를 돌면서 확인해주는 메소드.
+	private static void exploreResult(Match match, ArrayList<MatchingResult> result) {
+		for (int i = 0; i < result.size(); i++) {
+			MatchingResult matchingResult = result.get(i);
+			matchResultCount(match, matchingResult);
 		}
-		return 0;
+	}
+	//result 안의 Match 와 일치하는 Match 라면, Match의 수를 1 늘려주는 .match() 메소드 실행.
+	private static void matchResultCount(Match match, MatchingResult matchingResult) {
+		if (matchingResult.isMatch(match)) {
+			matchingResult.match();
+		}
 	}
 	//맞은 갯수 비례 금액을 계산하여 총 딴 돈을 구한다. (내가 건 돈 만큼은 뺀다.)
-	public void calculateMoney(ArrayList<Integer> result, int money) {
-		int earnMoney = (result.get(0) * MATCH3_MONEY) + (result.get(1) * MATCH4_MONEY)
-						+ (result.get(2) * MATCH5_MONEY) + (result.get(3) * MATCH6_MONEY) - money;
-		int yield = (earnMoney / money) * 100;		//건 돈 비례 번 돈을 계산한다. (수익률을 계산한다.)
+	public double calculateMoney(ArrayList<MatchingResult> result, Money money) {
+		double profit = 0;
+		for (int i = 0; i < result.size(); i++) {
+			MatchingResult matchingResult = result.get(i);
+			profit += matchingResult.winningMoney();		//총 수익을 계산한다.
+		}
+		double yield = ((profit - money.getPrice()) / money.getPrice()) * 100;		//건 돈 비례 번 돈을 계산한다. (수익률을 계산한다.)
 		
-		ResultView.printResult(result, yield);		//결과를 출력해준다.
+		return yield;		//수익률을 리턴한다.
 	}
 }

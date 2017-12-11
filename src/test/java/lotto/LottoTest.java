@@ -18,15 +18,28 @@ public class LottoTest {
 	//matchCount() method 와 findToMatch() method 가 제대로 작동 하는지 테스트.
 	@Test
 	public void matchCountTest() {
-		Lotto lottoTest = new Lotto();
-		lottoTest.getNum().clear();
-		ArrayList<Integer> winningTest = new ArrayList<Integer> ();
+		Lotto lottoTestOne = new Lotto();		//보너스 번호는 안맞고 5개 숫자가 맞는(3등) 로또 생성.
+		lottoTestOne.getNum().clear();
+		
+		Lotto lottoTestTwo = new Lotto();		//보너스 번호도 맞고 5개 숫자가 맞는(2등) 로또 생성.
+		lottoTestTwo.getNum().clear();
+		
+		ArrayList<Integer> winningTest = new ArrayList<Integer> ();		//당첨번호 리스트 생성.
 		for (int i = 0; i < 6; i++) {
-			lottoTest.getNum().add(i + 2);		//새로 생성한 lotto에 2~7 까지 숫자를 넣는다.
+			lottoTestOne.getNum().add(i + 2);		//새로 생성한 lotto에 2~7 까지 숫자를 넣는다.
+			lottoTestTwo.getNum().add(i + 2);
+			
 			winningTest.add(i + 1);			//당첨 번호를 1~6까지 숫자를 넣는다.
 		}
-		assertEquals(6, lottoTest.getNum().size());		//6개의 숫자가 들어갔는지 테스트.
-		assertEquals(5, lottoTest.matchCount(winningTest));		//2~6까지 총 5개의 숫자가 일치하는지 확인.
+		
+		lottoTestTwo.getNum().remove(5);		//마지막 숫자 7 삭제. (보너스 번호로 채우기 위함.)
+		lottoTestTwo.getNum().add(12);		//보너스 번호 추가.
+		
+		assertEquals(6, lottoTestOne.getNum().size());		//6개의 숫자가 들어갔는지 테스트.
+		assertEquals("RANKTHIRD", lottoTestOne.matchCount(winningTest, 12).name());		//2~6까지 총 5개가 일치하여 3등이 되었는지 확인.
+		
+		assertEquals(6, lottoTestTwo.getNum().size());		//6개의 숫자가 들어갔는지 테스트.
+		assertEquals("RANKSECOND", lottoTestTwo.matchCount(winningTest, 12).name());		//2~6까지 총 5개가 일치하고, 보너스 번호도 맞아서 2등이 되었는지 확인.
 		
 	}
 }

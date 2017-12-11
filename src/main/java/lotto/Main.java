@@ -24,7 +24,16 @@ public class Main {
 		ResultView.printTicket(lottos);		//티켓의 번호들 출력.
 		
 		ArrayList<Integer> winningNum = InputView.inputWinningNum();		//지난 주 당첨 번호를 입력 받는다.
-		ArrayList<Integer> result = lottos.makeResult(winningNum);		//최종 결과를 저장할 리스트.
-		lottos.calculateMoney(result, money.getPrice());		//번 돈과 투자한 돈을 가지고 수익률을 계산한다.
+		int bonusNum = InputView.takeBonusNum();		//보너스 번호를 입력받는다.
+		
+		ArrayList<Match> matchList = lottos.makeMatchList(winningNum, bonusNum);
+		ArrayList<MatchingResult> result = lottos.makeResult();
+		
+		Lottos.fillResult(matchList, result);		//당첨 번호들을 가지고 최신 result 로 채워준다.(Update해준다.)
+		
+		double profit = lottos.calculateMoney(result, money);		//번 돈과 투자한 돈을 가지고 수익률을 계산한다.
+		
+		ResultView.printResult(result);		//결과를 출력해준다. (등수 별로)
+		ResultView.printProfit(profit);		//총 이익(수익률)을 출력해준다.
 	}
 }

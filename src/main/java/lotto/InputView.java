@@ -9,9 +9,7 @@ public class InputView {
 	public static int takeMoney() {
 		System.out.println("구입 금액을 입력해 주세요. (1장에 1000원 입니다.)");
 		Scanner scan = new Scanner(System.in);
-		int money = scan.nextInt();
-		
-		return money;
+		return scan.nextInt();
 	}
 	//지난 주 당첨 번호를 입력받아서 (String 형태로), int형 arraylist로 변환하여 리턴해주는 메소드.
 	public static ArrayList<Integer> inputWinningNum() {
@@ -29,6 +27,12 @@ public class InputView {
 		//","를 기준으로 단어를 나누어 ArrayList에 저장.
 		ArrayList<String> winningList = new ArrayList<String>(Arrays.asList(splitNumber(scan.nextLine())));
 		return winningList;
+	}
+	//보너스 번호를 입력 받는다.
+	public static int takeBonusNum() {
+		System.out.println("보너스 번호를 입력해주세요.");
+		Scanner scan = new Scanner(System.in);
+		return scan.nextInt();
 	}
 	//input 값이 6개가 아니면 제대로 입력될 때까지 계속해서 루프!!
 	private static ArrayList<String> checkInput(ArrayList<String> input) {
