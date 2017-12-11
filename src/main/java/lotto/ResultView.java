@@ -3,18 +3,13 @@ package lotto;
 import java.util.HashMap;
 
 public class ResultView {
-	private static final int CORRECT_THREE = 3;
-	private static final int CORRECT_FOUR = 4;
-	private static final int CORRECT_FIVE = 5;
-	private static final int CORRECT_SIX = 6;
-	private static final int CORRECT_BONUS = 100;
 
 	public static void printStatus(HashMap<Integer, Integer> result) {
-		System.out.println("3개 일치 (5000원) - " + result.get(CORRECT_THREE));
-		System.out.println("4개 일치 (50000원) - " + result.get(CORRECT_FOUR));
-		System.out.println("5개 일치 (1500000원) - " + result.get(CORRECT_FIVE));
-		System.out.println("5개 일치, 보너스 볼 일치(30000000원) - " + result.get(CORRECT_BONUS));
-		System.out.println("6개 일치 (2000000000원) - " + result.get(CORRECT_SIX));
+		System.out.println("3개 일치 (5000원) - " + result.get(Match.MATCH3.getSameNum()));
+		System.out.println("4개 일치 (50000원) - " + result.get(Match.MATCH4.getSameNum()));
+		System.out.println("5개 일치 (1500000원) - " + result.get(Match.MATCH5.getSameNum()));
+		System.out.println("5개 일치, 보너스 볼 일치(30000000원) - " + result.get(Match.MATCH_BONUS.getSameNum()));
+		System.out.println("6개 일치 (2000000000원) - " + result.get(Match.MATCH6.getSameNum()));
 	}
 
 	public static void printLotto(Lottos lottos) {
