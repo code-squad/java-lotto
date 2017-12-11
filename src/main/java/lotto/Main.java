@@ -29,7 +29,7 @@ public class Main {
 		ArrayList<Match> matchList = lottos.makeMatchList(winningNum, bonusNum);
 		ArrayList<MatchingResult> result = lottos.makeResult();
 		
-		result = Lottos.fillResult(matchList, result);
+		Lottos.fillResult(matchList, result);		//당첨 번호들을 가지고 최신 result 로 채워준다.(Update해준다.)
 		
 		double profit = lottos.calculateMoney(result, money);		//번 돈과 투자한 돈을 가지고 수익률을 계산한다.
 		

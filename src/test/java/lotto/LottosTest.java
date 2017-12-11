@@ -63,7 +63,7 @@ public class LottosTest {
 		}
 		ArrayList<Match> matchList = lottos.makeMatchList(winningList, bonus);
 		ArrayList<MatchingResult> compareResult = lottos.makeResult();
-		compareResult = Lottos.fillResult(matchList, compareResult);
+		Lottos.fillResult(matchList, compareResult);
 		
 		for (int i = 0; i < resultTest.size(); i++) {
 			assertEquals(resultTest.get(i).returnMatch(), compareResult.get(i).returnMatch());		//각각의 매치가 같은 매치인지 테스트.
