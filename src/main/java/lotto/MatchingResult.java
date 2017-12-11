@@ -15,7 +15,7 @@ public class MatchingResult {
 	public int returnCount() {
 		return this.countOfMatch;
 	}
-	//
+	//test code를 위해 match를 반환하는 메소드.
 	public Match returnMatch() {
 		return this.match;
 	}
