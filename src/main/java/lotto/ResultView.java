@@ -29,11 +29,6 @@ public class ResultView {
 		for (int i = 0; i < result.size(); i++) {
 			System.out.println(result.get(i).returnMatch().getWinningMsg() + result.get(i).returnCount() + " 개");
 		}
-//		System.out.println(result.get + result.get(4) + " 개");
-//		System.out.println(Match.valueOf(4, false).getWinningMsg() + result.get(3) + " 개");
-//		System.out.println(Match.valueOf(5, false).getWinningMsg() + result.get(2) + " 개");
-//		System.out.println(Match.valueOf(5, true).getWinningMsg() + result.get(1) + " 개");
-//		System.out.println(Match.valueOf(6, false).getWinningMsg() + result.get(0) + " 개");
 	}
 	//총 수익률을 계산해주는 메소드.
 	public static void printProfit(double yield) {
