@@ -66,8 +66,10 @@ public class LottosTest {
 		Lottos.fillResult(matchList, compareResult);
 		
 		for (int i = 0; i < resultTest.size(); i++) {
-			assertEquals(resultTest.get(i).returnMatch(), compareResult.get(i).returnMatch());		//각각의 매치가 같은 매치인지 테스트.
-			assertEquals(resultTest.get(i).returnCount(), compareResult.get(i).returnCount());		//예측한 [1, 1, 1, 1, 1]이 제대로 나오는지 테스트.
+			MatchingResult resultT = resultTest.get(i);
+			MatchingResult compareResultT = compareResult.get(i);
+			assertTrue(resultT.isMatch(compareResultT.returnMatch()));		//각각의 매치가 같은 매치인지 테스트.
+			assertEquals(resultT.returnCount(), compareResultT.returnCount());		//예측한 [1, 1, 1, 1, 1]이 제대로 나오는지 테스트.
 		}
 	}
 }

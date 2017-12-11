@@ -15,10 +15,13 @@ public class MatchingResult {
 	public int returnCount() {
 		return this.countOfMatch;
 	}
-
-	//현재 어떤 Match가 ArrayList안에 들어있는지 확인하기 위해 Match를 리턴한다.
+	//
 	public Match returnMatch() {
 		return this.match;
+	}
+	//출력부를 위해 현재의 Match에 해당하는 메시지를 리턴해준다.
+	public String returnMsg() {
+		return this.match.getWinningMsg();
 	}
 	//현재의 Match 가 몇 개 있고, 그 갯수만큼 벌어들인 돈이 얼마인지 계산해준다.
 	public int winningMoney() {

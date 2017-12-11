@@ -27,7 +27,8 @@ public class ResultView {
 	//맞은 번호의 갯수만큼 결과를 출력해주는 메소드.
 	public static void printResult(ArrayList<MatchingResult> result) {
 		for (int i = 0; i < result.size(); i++) {
-			System.out.println(result.get(i).returnMatch().getWinningMsg() + result.get(i).returnCount() + " 개");
+			MatchingResult matchingResult = result.get(i);
+			System.out.println(matchingResult.returnMsg() + matchingResult.returnCount() + " 개");
 		}
 	}
 	//총 수익률을 계산해주는 메소드.
