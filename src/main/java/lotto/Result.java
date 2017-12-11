@@ -13,7 +13,7 @@ public class Result {
 	}
 
 	private static int getPrizeMoney(HashMap<Integer, Integer> result, int money) {
-		return (CORRECT_THREE_MONEY * result.get(3)) + (CORRECT_FOUR_MONEY * result.get(4)
-				+ (CORRECT_FIVE_MONEY * result.get(5)) + (CORRECT_SIX_MONEY * result.get(6))) / money * 10;
+		return ((CORRECT_THREE_MONEY * result.get(3)) + (CORRECT_FOUR_MONEY * result.get(4))
+				+ (CORRECT_FIVE_MONEY * result.get(5)) + (CORRECT_SIX_MONEY * result.get(6))) / money * 100;
 	}
 }

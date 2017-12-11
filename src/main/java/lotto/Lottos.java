@@ -1,10 +1,8 @@
 package lotto;
 
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
 
 public class Lottos {
 	private ArrayList<MyLotto> lottos = new ArrayList<>();
@@ -30,26 +28,14 @@ public class Lottos {
 	public HashMap<Integer, Integer> compareLotto(ArrayList<Integer> prizeNum) {
 		HashMap<Integer, Integer> result = new HashMap<>();
 		initMap(result);
-		for (int i = 0; i < lottos.size(); i++) {
-			int sameNum = compareNum(prizeNum, getLottos(i));
-			result = makeStatics(result, sameNum);
-		}
+		for (int i = 0; i < lottos.size(); i++)
+			result = makeStatics(result, lottos.get(i).compareNum(prizeNum));
 		return result;
 	}
 
-	public int compareNum(ArrayList<Integer> prizeNum, MyLotto myLotto) {
-		int sameNum = 0;
-		for (int num : myLotto.getMyLotto()) {
-			if (prizeNum.contains(num))
-				sameNum++;
-		}
-		return sameNum;
-	}
-
 	private HashMap<Integer, Integer> makeStatics(HashMap<Integer, Integer> result, int sameNum) {
-		if (result.keySet().contains(sameNum)) {
+		if (result.get(sameNum) != null)
 			result.put(sameNum, result.get(sameNum) + 1);
-		}
 		return result;
 	}
 
@@ -60,8 +46,4 @@ public class Lottos {
 		map.put(CORRECT_SIX, 0);
 	}
 
-	public void sortLottos() {
-		for (int i = 0; i < lottos.size(); i++)
-			Collections.sort(getLottos(i).getMyLotto());
-	}
 }

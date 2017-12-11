@@ -1,7 +1,6 @@
 package lotto;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class InputView {
@@ -12,16 +11,15 @@ public class InputView {
 	public static int inputMoney(Scanner sc) {
 		System.out.println("구입금액을 입력해 주세요.");
 
-		return validateMoney(sc.nextInt());
+		return validateMoney(sc);
 	}
 
-	private static int validateMoney(int money) {
-		Scanner sc = new Scanner(System.in);
-		
+	private static int validateMoney(Scanner sc) {
+		int money = sc.nextInt();
+		sc.reset();
 		if (money < 1000) {
 			System.out.println("다시 입력해 주세요. 최소 금액은 1000원입니다.");
-			money = sc.nextInt();
-			return validateMoney(money);
+			return validateMoney(sc);
 		}
 		return money;
 	}

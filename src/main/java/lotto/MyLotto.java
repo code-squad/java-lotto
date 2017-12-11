@@ -2,39 +2,43 @@ package lotto;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class MyLotto {
 	private ArrayList<Integer> myLotto = new ArrayList<>();
-	private int size = 0;
 
 	MyLotto(int num) {
 		this.myLotto = createRanLotto(num);
 	}
 
-	public ArrayList<Integer> getMyLotto() {
-		return this.myLotto;
+	
+	@Override
+	public String toString() {
+		return (myLotto != null ? myLotto : "") + "";
 	}
 
-	private int getSize() {
-		return this.size;
-	}
-
-	private void upSize() {
-		this.size++;
+	private ArrayList<Integer> wholeLottoNum(){
+		ArrayList<Integer> wholeNum = new ArrayList<>();
+		for (int i = 1;i < 46; i++) {
+			wholeNum.add(i);
+		}
+		return wholeNum;
 	}
 
 	public ArrayList<Integer> createRanLotto(int num) {
-		Random random = new Random();
-		while (getSize() != 6) {
-			int ran = random.nextInt(45) + 1;
-			if (!myLotto.contains(ran)) {
-				myLotto.add(ran);
-				upSize();
-			}
-		}
-		Collections.shuffle(myLotto);
+		ArrayList<Integer> wholeNum = wholeLottoNum();
+		Collections.shuffle(wholeNum);
+		for (int i = 0; i < 6; i++) 
+			myLotto.add(wholeNum.subList(0,45).get(i));
 		return myLotto;
 	}
 
+	public int compareNum(ArrayList<Integer> prizeNum) {
+		int sameNum = 0;
+		for (int num : this.myLotto) {
+			if (prizeNum.contains(num))
+				sameNum++;
+		}
+		return sameNum;
+	}
+	
 }
