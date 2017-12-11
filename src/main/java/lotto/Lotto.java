@@ -9,6 +9,11 @@ public class Lotto {
 	public Lotto() {
 		this.num = selectAutoNum();
 	}
+	
+	public Lotto(ArrayList<Integer> num) {
+		this.num = num;
+	}
+	
 	//가능한 모든 로또 번호들을 List에 넣어서, 랜덤 수를 뽑아내는 모집단 List를 만든다. 
 	private ArrayList<Integer> makeTotalNum () {
 		ArrayList<Integer> numCollection = new ArrayList<Integer> ();
@@ -54,6 +59,6 @@ public class Lotto {
 	//맞은 갯수를 가지고 등수로 변환시켜주는 메소드.
 	private Match makeRank(int count, int bonus) {
 		Match match = Match.valueOf(count, this.num.contains(bonus));		//맞은 갯수와 보너스 번호가 일치하는지 여부를 보내서 일치하는 Match를 불러온다.
-		return match;		//그 Match 의 등수 값을 받아와서 리턴한다.
+		return match;		//그 Match 를 받아와서 리턴한다.
 	}
 }

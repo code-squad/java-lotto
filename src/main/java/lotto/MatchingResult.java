@@ -23,9 +23,9 @@ public class MatchingResult {
 	public String returnMsg() {
 		return this.match.getWinningMsg();
 	}
-	//현재의 Match 가 몇 개 있고, 그 갯수만큼 벌어들인 돈이 얼마인지 계산해준다.
+	//현재의 Match 가 있는 갯수만큼 벌어들인 돈이 얼마인지 계산해준다.
 	public int winningMoney() {
-		return this.match.getWinningMoney() * this.countOfMatch;
+		return match.winningMoney(countOfMatch);
 	}
 	//parameter로 받은 Match와 현재의 Match가 같은 것인지 확인하여 True/False 를 리턴해주는 메소드.
 	public boolean isMatch(Match match) {

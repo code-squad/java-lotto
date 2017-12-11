@@ -15,12 +15,12 @@ public class Lottos {
 	}
 	//각 티켓 별 맞은 갯수를 리스트에 저장하고, 리턴해주는 메소드.
 	public ArrayList<Match> makeMatchList(ArrayList<Integer> winningNum, int bonus) {
-		ArrayList<Match> matchList = new ArrayList<Match> ();		//티켓 별 맞은 번호 수를 등수로 변환하여 저장하는 리스트를 만들어준다.
+		ArrayList<Match> matchList = new ArrayList<Match> ();		//티켓 별 맞은 번호 수를 일치하는 Match로 변환하여 저장하는 리스트를 만들어준다.
 		for (int i = 0; i < tickets.size(); i++) {
 			Lotto oneTicket = tickets.get(i);
-			matchList.add(oneTicket.matchCount(winningNum, bonus));		//각 티켓마다 winningNum과 일치하는 수가 있는지 계산하여 몇개가 일치하는지를 등수로 변환하여 리스트에 넣어줌.
+			matchList.add(oneTicket.matchCount(winningNum, bonus));		//각 티켓마다 winningNum과 몇개가 일치하는지를 Match로 변환하여 리스트에 넣어줌.
 		}
-		return matchList;		//등수들이 저장되어 있는 리스트를 리턴한다.
+		return matchList;		//Match들이 저장되어 있는 리스트를 리턴한다.
 	}
 	//최종 결과 리스트를 만들어주는 메소드.
 	public ArrayList<MatchingResult> makeResult() {

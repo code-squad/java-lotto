@@ -29,6 +29,11 @@ public enum Match {
         }
         return null;
     }
+    //Match 별 맞은 갯수만큼의 상금을 리턴해준다.
+    public int winningMoney(int num) {
+    		int result = this.winningMoney * num;
+    		return result;
+    }
     //몇 개 맞았는지 리턴.
     public int getCountOfMatch() {
         return countOfMatch;
