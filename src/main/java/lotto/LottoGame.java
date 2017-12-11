@@ -10,9 +10,9 @@ public class LottoGame {
 		int money = InputView.inputMoney(new Scanner(System.in));
 		LottoGame lottoGame = new LottoGame();
 		Lottos lottos = lottoGame.createLottos(money);
-		
 		ResultView.printLotto(lottos);
-		HashMap<Integer, Integer> result = lottos.compareLotto(InputView.inputWinNum(new Scanner(System.in)));
+		HashMap<Integer, Integer> result = lottos.compareLotto(new WinningLotto(
+				InputView.inputWinNum(new Scanner(System.in)), InputView.inputBonus(new Scanner(System.in))));
 		ResultView.printStatus(result);
 		Result.printBenefit(result, money);
 	}
