@@ -35,6 +35,11 @@ public class InputView {
 		}
 		return prizeNum;
 	}
+	
+	public static int inputBonus(Scanner sc){
+		System.out.println("보너스 볼을 입력해주세요.");
+		return sc.nextInt();
+	}
 
 	private static ArrayList<Integer> validateArrSize(ArrayList<Integer> prizeNum) {
 		if (prizeNum.size() != 6){
