@@ -1,15 +1,16 @@
 package lotto;
 
 import java.util.ArrayList;
+import static lotto.Rank.RANK_FIRST;
+import static lotto.Rank.RANK_SECOND;
+import static lotto.Rank.RANK_THIRD;
+import static lotto.Rank.RANK_FOURTH;
+import static lotto.Rank.RANK_BONUS;
 
 import java.util.HashMap;
 
 public class Lottos {
 	private ArrayList<MyLotto> lottos = new ArrayList<>();
-	private static final int CORRECT_THREE = 3;
-	private static final int CORRECT_FOUR = 4;
-	private static final int CORRECT_FIVE = 5;
-	private static final int CORRECT_SIX = 6;
 
 	Lottos(int num) {
 		for (int i = 0; i < num; i++) {
@@ -25,25 +26,26 @@ public class Lottos {
 		return lottos.get(index);
 	}
 
-	public HashMap<Integer, Integer> compareLotto(ArrayList<Integer> prizeNum) {
-		HashMap<Integer, Integer> result = new HashMap<>();
+	public HashMap<Rank, Integer> compareLotto(WinningLotto winLotto) {
+		HashMap<Rank, Integer> result = new HashMap<>();
 		initMap(result);
-		for (int i = 0; i < lottos.size(); i++)
-			result = makeStatics(result, lottos.get(i).compareNum(prizeNum));
+		for (MyLotto myLotto : lottos)
+			result = makeStatics(result, myLotto.compareNum(winLotto));
 		return result;
 	}
 
-	private HashMap<Integer, Integer> makeStatics(HashMap<Integer, Integer> result, int sameNum) {
-		if (result.get(sameNum) != null)
-			result.put(sameNum, result.get(sameNum) + 1);
+	private HashMap<Rank, Integer> makeStatics(HashMap<Rank, Integer> result, Rank rank) {
+		if (result.get(rank) != null)
+			result.put(rank, result.get(rank) + 1);
 		return result;
 	}
 
-	private void initMap(HashMap<Integer, Integer> map) {
-		map.put(CORRECT_THREE, 0);
-		map.put(CORRECT_FOUR, 0);
-		map.put(CORRECT_FIVE, 0);
-		map.put(CORRECT_SIX, 0);
+	private void initMap(HashMap<Rank, Integer> map) {
+		map.put(RANK_FOURTH, 0);
+		map.put(RANK_THIRD, 0);
+		map.put(RANK_SECOND, 0);
+		map.put(RANK_FIRST, 0);
+		map.put(RANK_BONUS, 0);
 	}
 
 }

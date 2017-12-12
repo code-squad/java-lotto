@@ -7,12 +7,14 @@ public class LottoGame {
 	private static final int LOTTO_BUYING_MONEY = 1000;
 
 	public static void main(String[] args) {
-		int money = InputView.inputMoney(new Scanner(System.in));
+		Scanner sc = new Scanner(System.in);
+		int money = InputView.inputMoney(sc);
 		LottoGame lottoGame = new LottoGame();
 		Lottos lottos = lottoGame.createLottos(money);
-		
 		ResultView.printLotto(lottos);
-		HashMap<Integer, Integer> result = lottos.compareLotto(InputView.inputWinNum(new Scanner(System.in)));
+		sc.reset();
+		HashMap<Rank, Integer> result = lottos.compareLotto(new WinningLotto(InputView.inputWinNum(sc),
+										InputView.inputBonus(sc)));
 		ResultView.printStatus(result);
 		Result.printBenefit(result, money);
 	}

@@ -10,7 +10,6 @@ public class InputView {
 
 	public static int inputMoney(Scanner sc) {
 		System.out.println("구입금액을 입력해 주세요.");
-
 		return validateMoney(sc);
 	}
 
@@ -27,27 +26,33 @@ public class InputView {
 	public static ArrayList<Integer> inputWinNum(Scanner sc) {
 		ArrayList<Integer> prizeNum = new ArrayList<>();
 		try {
-			System.out.println("당첨 숫자를 입력해주세요.(','로 구분)");
-			String[] input = sc.nextLine().split(",");
-			prizeNum = validateArrSize(changeNumToArray(changeToInteger(input)));
+			sc.reset();
+			System.out.println("당첨 숫자를 입력해주세요.(','로 구분)g");
+			prizeNum = validateArrSize(changeNumToArray(changeToInteger(sc)));
 		} catch (Exception e) {
 			return inputWinNum(sc);
 		}
 		return prizeNum;
 	}
 
+	public static int inputBonus(Scanner sc) {
+		System.out.println("보너스 볼을 입력해주세요.");
+		return sc.nextInt();
+	}
+
 	private static ArrayList<Integer> validateArrSize(ArrayList<Integer> prizeNum) {
-		if (prizeNum.size() != 6){
+		if (prizeNum.size() != 6) {
 			System.out.println("당첨 번호는 6개 입력하셔야 합니다.");
 			return inputWinNum(new Scanner(System.in));
 		}
 		return prizeNum;
 	}
 
-	private static ArrayList<Integer> changeToInteger(String[] s) {
+	private static ArrayList<Integer> changeToInteger(Scanner sc) {
 		ArrayList<Integer> prizeNum = new ArrayList<>();
-		for (int i = 0; i < s.length; i++)
-			prizeNum.add(Integer.parseInt(s[i]));
+		String[] input = sc.nextLine().split(",");
+		for (int i = 0; i < input.length; i++)
+			prizeNum.add(Integer.parseInt(input[i]));
 		return prizeNum;
 	}
 
