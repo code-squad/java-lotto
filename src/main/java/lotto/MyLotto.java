@@ -25,20 +25,12 @@ public class MyLotto {
 		return new ArrayList<>(wholeNum.subList(0, 6));
 	}
 
-	public Match compareNum(WinningLotto winLotto) {
-		Boolean isBonusExist = compareBonusNum(winLotto);
+	public Rank compareNum(WinningLotto winLotto) {
+		Boolean isBonus = winLotto.compareBonusNum(this.myLotto);
 		this.myLotto.retainAll(winLotto.getWinLotto());
-		if (isBonusExist && this.myLotto.size() == 5)
-			return Match.MATCH_BONUS;
-		for (Match match : Match.values())
-			if (match.ordinal() + 3 == this.myLotto.size())
-				return match;
-		return null;
+		return Rank.valueOf(this.myLotto.size(), isBonus);
 	}
 
-	private Boolean compareBonusNum(WinningLotto winLotto) {
-		return this.myLotto.contains(winLotto.getBonusBall());
-	}
 
 	@Override
 	public String toString() {

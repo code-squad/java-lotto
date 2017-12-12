@@ -16,8 +16,10 @@ public class WinningLotto { // 기계가 가지고 있는 로또
 		return this.winningLotto;
 	}
 
-	public int getBonusBall() {
-		return bonusBall;
+
+	public Boolean compareBonusNum(ArrayList<Integer> myLotto) {
+		return myLotto.contains(this.bonusBall);
 	}
+
 
 }
