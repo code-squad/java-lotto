@@ -9,12 +9,13 @@ public class Main {
 		System.out.println("수동으로 구매하실 번호를 입력해 주세요. 숫자 사이에는 ,와 (스페이스바)를 입력해주세요.");
 		System.out.println("수동 입력이 끝나면 'ENTER'를 눌러주세요.");
 		Lottos lottos = new Lottos();
+		int count = ticketNum;
 		ArrayList<String> input = new ArrayList<String> ();
 		
-		while (input != null && ticketNum > 0) {
+		while (input != null && count > 0) {
 			input = InputView.inputManualNum();		//수동 번호를 입력 받는다.(String형으로)
 			lottos = addManualLotto(input, lottos);		//수동 로또를 추가한다.
-			ticketNum--;		//1장 만들고 난 뒤, 티켓 수를 1 줄인다.
+			count--;		//1장 만들고 난 뒤, 티켓 수를 1 줄인다.
 		}
 		return lottos;
 	}
