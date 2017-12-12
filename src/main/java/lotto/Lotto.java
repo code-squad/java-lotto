@@ -5,11 +5,11 @@ import java.util.Collections;
 
 public class Lotto {
 	private ArrayList<Integer> num = new ArrayList<Integer> ();
-	//생성자.
+	//자동 번호 로또를 생성해주는 생성자.
 	public Lotto() {
 		this.num = selectAutoNum();
 	}
-	
+	//수동 번호 로또를 생성해주는 생성자.
 	public Lotto(ArrayList<Integer> num) {
 		this.num = num;
 	}
