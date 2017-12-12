@@ -17,7 +17,7 @@ public class InputView {
 		String input = scan.nextLine();
 		
 		if (input.length() == 0) {
-			return null;		//빈 엔터만 입력 받았을 때는 null 리턴.
+			return new ArrayList<String> ();		//빈 엔터만 입력 받았을 때는 빈 ArrayList 리턴.
 		}
 		ArrayList<String> manualList = new ArrayList<String>(Arrays.asList(splitNumber(input)));
 		
@@ -26,7 +26,7 @@ public class InputView {
 	//번호를 입력받아서 (String 형태로), int형 arraylist로 변환하여 리턴해주는 메소드.
 	public static ArrayList<Integer> inputNum() {
 		ArrayList<String> inputList = takeNum();		//String 형 데이터를 입력받는다.
-		inputList = checkInput(inputList);			//제대로 된 데이터가 입력 되었는지 확인.
+		inputList = checkInput(inputList);
 		ArrayList<Integer> winningNum = convertInput(inputList);		//String 을 Integer 형으로 변환.
 		
 		return winningNum;

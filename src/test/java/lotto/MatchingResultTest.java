@@ -52,8 +52,10 @@ public class MatchingResultTest {
 		for (int i = 0; i < 6; i++) {
 			winningNum.add(i + 1);		//winningNum = [1, 2, 3, 4, 5, 6]
 		}
+		int bonus = 12;
 		
-		ArrayList<Match> matchList = lottos.makeMatchList(winningNum, 12);
+		WinningLotto winningLotto = new WinningLotto(winningNum, bonus);
+		ArrayList<Match> matchList = lottos.makeMatchList(winningLotto);
 		
 		assertTrue(resultTest.get(4).isMatch(matchList.get(0)));		//matchList 0번째와 resultTest 4번째는 1등 로또 이므로 같아야 한다.
 		assertTrue(resultTest.get(2).isMatch(matchList.get(1)));		//matchList 1번째와 resultTest 2번째는 3등 로또 이므로 같아야 한다.

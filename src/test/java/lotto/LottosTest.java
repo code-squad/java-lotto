@@ -35,7 +35,8 @@ public class LottosTest {
 		
 		int bonus = 1;		//bonus number is 1. / [2, 3, 4, 5, 6]과 보너스 넘버 1이 일치하여 2등이 되어야 한다.
 		
-		ArrayList<Match> matchList = lottos.makeMatchList(winningNum, bonus);		//1장의 티켓이 어떤 Match 와 일치하는지 담겨진 ArrayList를 받아준다.
+		WinningLotto winningLotto = new WinningLotto(winningNum, bonus);
+		ArrayList<Match> matchList = lottos.makeMatchList(winningLotto);		//1장의 티켓이 어떤 Match 와 일치하는지 담겨진 ArrayList를 받아준다.
 		assertEquals("RANKSECOND", matchList.get(0).name());		//matchList에 들어가 있는 Match 의 이름이 "RANKSECOND" (2등) 인지 확인해본다.
 	}
 	//최종 결과 ArrayList가 잘 생성 되는지(처음 생성만) 확인하는 메소드.
@@ -87,7 +88,8 @@ public class LottosTest {
 		
 		int bonus = 12;		//보너스 번호 12 추가.
 		
-		ArrayList<Match> matchList = lottos.makeMatchList(winningList, bonus);		//matchingList 를 만들어준다.
+		WinningLotto winningLotto = new WinningLotto(winningList, bonus);
+		ArrayList<Match> matchList = lottos.makeMatchList(winningLotto);		//matchingList 를 만들어준다.
 		ArrayList<MatchingResult> result = new ArrayList<MatchingResult> ();
 		Lottos.fillResult(matchList, result);		//최종 MatchingResult 리스트를 만들어준다.
 		
