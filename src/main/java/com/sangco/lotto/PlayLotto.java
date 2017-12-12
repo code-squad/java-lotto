@@ -12,6 +12,6 @@ public class PlayLotto {
 		Lottos lottos = InputView.buyLotto(scanner);
 		OutputView.printBuyLotto(lottos);
 		lottos = InputView.getWinNumb(lottos, scanner);
-		OutputView.printLottoResult(lottos);
+		OutputView.printLottoResult(lottos.findWin(), lottos.getLottoArray().size());
 	}
 }

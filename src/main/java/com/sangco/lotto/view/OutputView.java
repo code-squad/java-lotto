@@ -2,6 +2,7 @@ package com.sangco.lotto.view;
 
 import com.sangco.lotto.Match;
 import com.sangco.lotto.model.Lottos;
+import com.sangco.lotto.model.WinLottoState;
 
 public class OutputView {
 	public static void printBuyLotto(Lottos lottos) {
@@ -21,14 +22,13 @@ public class OutputView {
 		}
 	}
 
-	public static void printLottoResult(Lottos lottos) {
+	public static void printLottoResult(WinLottoState winLottoState, int howMany) {
 		System.out.println("당첨 통계\r\n---------");
-		System.out.println("3개 일치 (5000원) - " + lottos.findWin().getWinnerData(3, false) + "개");
-		System.out.println("4개 일치 (50000원) - " + lottos.findWin().getWinnerData(4, false) + "개");
-		System.out.println("5개 일치 (1500000원) - " + lottos.findWin().getWinnerData(5, false) + "개");
-		System.out.println("5개 일치, 보너스 볼 일치(30000000원) - " + lottos.findWin().getWinnerData(5, true) + "개");
-		System.out.println("6개 일치 (2000000000원) - " + lottos.findWin().getWinnerData(6, false) + "개");
-		System.out.println(
-				"총 수익률은 " + (lottos.findLottoRateOfProfit() / (lottos.getLottoArray().size() * 1000)) * 100 + "%입니다.");
+		System.out.println("3개 일치 (5000원) - " + winLottoState.getEachWinNumb(3, false) + "개");
+		System.out.println("4개 일치 (50000원) - " + winLottoState.getEachWinNumb(4, false) + "개");
+		System.out.println("5개 일치 (1500000원) - " + winLottoState.getEachWinNumb(5, false) + "개");
+		System.out.println("5개 일치, 보너스 볼 일치(30000000원) - " + winLottoState.getEachWinNumb(5, true) + "개");
+		System.out.println("6개 일치 (2000000000원) - " + winLottoState.getEachWinNumb(6, false) + "개");
+		System.out.println("총 수익률은 " + (winLottoState.findLottoRateOfProfit() / (howMany * 1000)) * 100 + "%입니다.");
 	}
 }

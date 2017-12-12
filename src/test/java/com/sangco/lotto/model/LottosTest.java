@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.sangco.lotto.Match;
+
 public class LottosTest {
 	private Lottos lottos;
 	
@@ -43,6 +45,9 @@ public class LottosTest {
 	
 	@Test
 	public void TestfindLottoRateOfProfit() {
-		assertEquals(2060000000, lottos.findLottoRateOfProfit());
+		assertEquals(2060000000, lottos.findWin().findLottoRateOfProfit());
 	}
+	
+
+	
 }

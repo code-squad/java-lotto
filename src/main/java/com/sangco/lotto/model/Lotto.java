@@ -2,48 +2,39 @@ package com.sangco.lotto.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+
+import com.sangco.lotto.Match;
 
 public class Lotto {
-	private ArrayList<Integer> pickedNumb = new ArrayList<>();
-	private int matchLotto = 0;
-	private boolean isBonus = false;
+	public List<Integer> pickedNumb = new ArrayList<>();
+	// private 안된다? 질묻드리기
 
-	public void findWinOrNot(String winNumb, int bonus) {
+	public Match findWinMatch(String winNumb, int bonus) {
+		boolean isBonus = false;
+		isBonus = machBonus(bonus);
+		int matchLotto = 0;
 		for (String string : winNumb.split(",")) {
-			machNumb(Integer.parseInt(string));
+			matchLotto += matchNumb(Integer.parseInt(string));
 		}
-		machBonus(bonus);
+		return Match.valueOf(matchLotto, isBonus);
 	}
 
-	private void machNumb(int numb) {
+	private int matchNumb(int numb) {
 		if (pickedNumb.contains(numb)) {
-			matchLotto++;
+			return 1;
 		}
+		return 0;
 	}
 
-	private void machBonus(int bonus) {
+	private boolean machBonus(int bonus) {
 		if (pickedNumb.contains(bonus)) {
-			isBonus = true;
+			return true;
 		}
+		return false;
 	}
 
-	public ArrayList<Integer> getPickedNumb() {
+	public List<Integer> getPickedNumb() {
 		return pickedNumb;
-	}
-
-	public void setPickedNumb(int numb) {
-		this.pickedNumb.add(numb);
-	}
-
-	public int getMatchLotto() {
-		return matchLotto;
-	}
-
-	public boolean isBonus() {
-		return isBonus;
-	}
-
-	public void doSort() {
-		Collections.sort(this.pickedNumb);
 	}
 }
