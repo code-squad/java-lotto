@@ -11,21 +11,34 @@ public class InputView {
 		Scanner scan = new Scanner(System.in);
 		return scan.nextInt();
 	}
-	//지난 주 당첨 번호를 입력받아서 (String 형태로), int형 arraylist로 변환하여 리턴해주는 메소드.
-	public static ArrayList<Integer> inputWinningNum() {
-		ArrayList<String> winningList = takeWinningNum();		//String 형 데이터를 입력받는다.
-		winningList = checkInput(winningList);			//제대로 된 데이터가 입력 되었는지 확인.
-		ArrayList<Integer> winningNum = convertInput(winningList);		//String 을 Integer 형으로 변환.
+	//번호를 입력받아서 (String 형태로), String형 arraylist로 변환하여 리턴해주는 메소드.
+	public static ArrayList<String> inputManualNum() {
+		Scanner scan = new Scanner(System.in);
+		String input = scan.nextLine();
+		
+		if (input.length() == 0) {
+			return null;		//빈 엔터만 입력 받았을 때는 null 리턴.
+		}
+		ArrayList<String> manualList = new ArrayList<String>(Arrays.asList(splitNumber(input)));
+		
+		return manualList;
+	}
+	//번호를 입력받아서 (String 형태로), int형 arraylist로 변환하여 리턴해주는 메소드.
+	public static ArrayList<Integer> inputNum() {
+		ArrayList<String> inputList = takeNum();		//String 형 데이터를 입력받는다.
+		inputList = checkInput(inputList);			//제대로 된 데이터가 입력 되었는지 확인.
+		ArrayList<Integer> winningNum = convertInput(inputList);		//String 을 Integer 형으로 변환.
 		
 		return winningNum;
 	}
-	//지난 주 당첨 번호를 입력 받는다.
-	private static ArrayList<String> takeWinningNum() {
+	//지난 주 당첨 번호를 입력 받는다. 입력받은 String 를 ArrayList에 넣어서 리턴한다.
+	private static ArrayList<String> takeNum() {
 		System.out.println("지난 주 당첨 번호를 입력해 주세요. 숫자 사이에는 , 와 (스페이스바)를 입력해주세요.");
 		Scanner scan = new Scanner(System.in);
+		String inputValue = scan.nextLine();
 		
 		//","를 기준으로 단어를 나누어 ArrayList에 저장.
-		ArrayList<String> winningList = new ArrayList<String>(Arrays.asList(splitNumber(scan.nextLine())));
+		ArrayList<String> winningList = new ArrayList<String>(Arrays.asList(splitNumber(inputValue)));
 		return winningList;
 	}
 	//보너스 번호를 입력 받는다.
@@ -39,7 +52,7 @@ public class InputView {
 		ArrayList<String> checkList = input;
 		while (checkList.size() != 6) {
 			System.out.println("잘 못 입력하셨습니다.\n다시 입력해 주세요.");		//에러메시지 출력.
-			checkList = InputView.takeWinningNum();
+			checkList = takeNum();
 		}
 		return checkList;
 	}
@@ -48,7 +61,10 @@ public class InputView {
 		return input.split(", ");
 	}
 	//문자열로 받은 입력값을 정수형으로 변환해주는 메소드.
-	private static ArrayList<Integer> convertInput(ArrayList<String> input) {
+	public static ArrayList<Integer> convertInput(ArrayList<String> input) {
+		if ( input == null ) {
+			return null;
+		}
 		ArrayList<Integer> output = new ArrayList<Integer> ();
 		for (int i = 0; i < input.size(); i++) {
 			output.add(Integer.parseInt(input.get(i)));

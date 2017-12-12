@@ -4,9 +4,30 @@ import java.util.ArrayList;
 
 
 public class Main {
-	//입력받은 티켓의 수만큼 티켓을 만들어주는 메소드. (총 만들어진 티켓모두를 리턴한다.)
-	private static Lottos buyTicket (int ticketNum) {
+	//제대로 된 번호를 입력받는 만큼 수동번호 티켓을 만들어주는 메소드. (총 만들어진 티켓모두를 리턴한다.)
+	private static Lottos buyManualTicket (int ticketNum) {
+		System.out.println("수동으로 구매하실 번호를 입력해 주세요. 숫자 사이에는 ,와 (스페이스바)를 입력해주세요.");
+		System.out.println("수동 입력이 끝나면 'ENTER'를 눌러주세요.");
 		Lottos lottos = new Lottos();
+		ArrayList<String> input = new ArrayList<String> ();
+		
+		while (input != null && ticketNum > 0) {
+			input = InputView.inputManualNum();		//수동 번호를 입력 받는다.(String형으로)
+			lottos = addManualLotto(input, lottos);		//수동 로또를 추가한다.
+			ticketNum--;		//1장 만들고 난 뒤, 티켓 수를 1 줄인다.
+		}
+		return lottos;
+	}
+	//수동 번호 로또를 추가해주는 메소드.
+	private static Lottos addManualLotto(ArrayList<String> input, Lottos lottos) {
+		if (input != null) {
+			lottos.add(new Lotto(InputView.convertInput(input)));
+			return lottos;
+		}
+		return lottos;
+	}
+	//입력받은 티켓의 수만큼 자동번호 티켓을 만들어주는 메소드. (총 만들어진 티켓모두를 리턴한다.)
+	private static Lottos buyAutoTicket (Lottos lottos, int ticketNum) {
 		for (int i = 0; i < ticketNum; i++) {
 			lottos.add(new Lotto());
 		}
@@ -19,11 +40,17 @@ public class Main {
 		money.giveChange();		//1000원 미만의 거스름돈을 반환 해준다.
 		int lottoTicketNum = money.buyLotto();		//몇 장의 로또 티켓을 샀는지 계산하여 lottoTicket에 넣어준다.
 		
-		Lottos lottos = buyTicket(lottoTicketNum);		//총 입력 금액만큼의 티켓을 만들어 준다.
+		Lottos lottos = buyManualTicket(lottoTicketNum);		//수동으로 번호를 입력받아 티켓을 만든다.
+		int manualTicketNum = lottos.get().size();		//수동으로 만든 티켓의 갯수.
+		lottoTicketNum = lottoTicketNum - manualTicketNum;		//수동으로 만든만큼의 티켓 갯수를 뺴준다.
+		
+		ResultView.printAutoOrManual(manualTicketNum, lottoTicketNum);		//자동이 몇장, 수동이 몇장인지 알려주는 메세지 출력.
+		
+		lottos = buyAutoTicket(lottos, lottoTicketNum);		//남은 티켓 수만큼 자동 티켓을 만들어 준다.
 		
 		ResultView.printTicket(lottos);		//티켓의 번호들 출력.
 		
-		ArrayList<Integer> winningNum = InputView.inputWinningNum();		//지난 주 당첨 번호를 입력 받는다.
+		ArrayList<Integer> winningNum = InputView.inputNum();		//지난 주 당첨 번호를 입력 받는다.
 		int bonusNum = InputView.takeBonusNum();		//보너스 번호를 입력받는다.
 		
 		ArrayList<Match> matchList = lottos.makeMatchList(winningNum, bonusNum);

@@ -9,6 +9,9 @@ public class ResultView {
 			System.out.println(tickets.get().get(i).getNum());
 		}
 	}
+	public static void printAutoOrManual(int manualNum, int autoNum) {
+		System.out.println("수동으로 " + manualNum + "장, 자동으로 " + autoNum + "장 만들었습니다.");
+	}
 	//맞은 숫자의 갯수에 따라 최종 결과 리스트에 넣어주는 메소드.
 	public static int makeResult(ArrayList<Integer> correct, int findNum) {
 		int count = 0;
