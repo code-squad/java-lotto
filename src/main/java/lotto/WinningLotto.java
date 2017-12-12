@@ -11,11 +11,11 @@ public class WinningLotto {
 		this.winningNum = winningNum;
 		this.bonus = bonus;
 	}
-	
+	//당첨번호를 리턴.
 	public ArrayList<Integer> getWinNum() {
 		return this.winningNum;
 	}
-	
+	//보너스 번호를 리턴.
 	public int getBonusNum() {
 		return this.bonus;
 	}
