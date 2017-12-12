@@ -2,11 +2,9 @@ package lotto;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class MyLotto {
 	private ArrayList<Integer> myLotto = new ArrayList<>();
-	private static final int BONUSBALL_SCORE = 100;
 
 	MyLotto(int num) {
 		this.myLotto = createRanLotto(num);
@@ -27,11 +25,19 @@ public class MyLotto {
 		return new ArrayList<>(wholeNum.subList(0, 6));
 	}
 
-	public int compareNum(WinningLotto winLotto) {
+	public Match compareNum(WinningLotto winLotto) {
+		Boolean isBonusExist = compareBonusNum(winLotto);
 		this.myLotto.retainAll(winLotto.getWinLotto());
-		if (this.myLotto.contains(winLotto.getBonusBall()) && this.myLotto.size() == 6)
-			return BONUSBALL_SCORE;
-		return this.myLotto.size();
+		if (isBonusExist && this.myLotto.size() == 5)
+			return Match.MATCH_BONUS;
+		for (Match match : Match.values())
+			if (match.ordinal() + 3 == this.myLotto.size())
+				return match;
+		return null;
+	}
+
+	private Boolean compareBonusNum(WinningLotto winLotto) {
+		return this.myLotto.contains(winLotto.getBonusBall());
 	}
 
 	@Override
