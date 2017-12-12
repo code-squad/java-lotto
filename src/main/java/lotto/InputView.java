@@ -62,9 +62,6 @@ public class InputView {
 	}
 	//문자열로 받은 입력값을 정수형으로 변환해주는 메소드.
 	public static ArrayList<Integer> convertInput(ArrayList<String> input) {
-		if ( input == null ) {
-			return null;
-		}
 		ArrayList<Integer> output = new ArrayList<Integer> ();
 		for (int i = 0; i < input.size(); i++) {
 			output.add(Integer.parseInt(input.get(i)));
