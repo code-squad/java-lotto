@@ -18,7 +18,7 @@ public class Lottos {
 		ArrayList<Match> matchList = new ArrayList<Match> ();		//티켓 별 맞은 번호 수를 일치하는 Match로 변환하여 저장하는 리스트를 만들어준다.
 		for (int i = 0; i < tickets.size(); i++) {
 			Lotto oneTicket = tickets.get(i);
-			matchList.add(oneTicket.matchCount(winningLotto.getWinNum(), winningLotto.getBonusNum()));
+			matchList.add(oneTicket.matchCount(winningLotto));
 		}
 		return matchList;		//Match들이 저장되어 있는 리스트를 리턴한다.
 	}

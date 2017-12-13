@@ -11,7 +11,7 @@ public class LottosTest {
 	@Test
 	public void makeLottos() {
 		Lottos lottos = new Lottos();
-		lottos.add(new Lotto());
+		lottos.add(new AutoLotto());
 		assertEquals(1, lottos.get().size());		//로또 1장이 생성 되었는지 확인.
 		assertEquals(6, lottos.get().get(0).getNum().size());		//생성된 로또가 6개의 번호가 들어가 있는지 확인
 	}
