@@ -30,7 +30,7 @@ public class Main {
 	//입력받은 티켓의 수만큼 자동번호 티켓을 만들어주는 메소드. (총 만들어진 티켓모두를 리턴한다.)
 	private static Lottos buyAutoTicket (Lottos lottos, int ticketNum) {
 		for (int i = 0; i < ticketNum; i++) {
-			lottos.add(new Lotto());
+			lottos.add(new AutoLotto());
 		}
 		return lottos;
 	}
