@@ -1,7 +1,7 @@
 package com.sangco.lotto;
 
 public enum Match {
-	MATCH3(3, 5000, false), MATCH4(4, 50000, false), MATCH5(5, 1500000, false), MATCHBONUS(5, 30000000, true), MATCH6(6,
+	FIFTH(3, 5000, false), FOURTH(4, 50000, false), THIRD(5, 1500000, false), SECOND(5, 30000000, true), FIRST(6,
 			2000000000, false);
 
 	private int countOfMatch;
@@ -24,15 +24,11 @@ public enum Match {
 		return null;
 	}
 
-	public boolean isBonus() {
-		return bonus;
-	}
-
 	public int getCountOfMatch() {
 		return countOfMatch;
 	}
 
-	public long getWinningMoney() {
-		return winningMoney;
+	public long getWinningMoney(int numb) {
+		return winningMoney * numb;
 	}
 }

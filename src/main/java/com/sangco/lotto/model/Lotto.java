@@ -7,15 +7,14 @@ import java.util.List;
 import com.sangco.lotto.Match;
 
 public class Lotto {
-	public List<Integer> pickedNumb = new ArrayList<>();
-	// private 안된다? 질묻드리기
+	protected List<Integer> pickedNumb = new ArrayList<>();
 
-	public Match findWinMatch(String winNumb, int bonus) {
+	public Match findWinMatch(ArrayList<String> winNumb, int bonus) throws Exception {
 		boolean isBonus = false;
 		isBonus = machBonus(bonus);
 		int matchLotto = 0;
-		for (String string : winNumb.split(",")) {
-			matchLotto += matchNumb(Integer.parseInt(string));
+		for (String string : winNumb) {
+			matchLotto += matchNumb(winNumbValidation(string));
 		}
 		return Match.valueOf(matchLotto, isBonus);
 	}
@@ -28,13 +27,18 @@ public class Lotto {
 	}
 
 	private boolean machBonus(int bonus) {
-		if (pickedNumb.contains(bonus)) {
-			return true;
-		}
-		return false;
+		return pickedNumb.contains(bonus) ? true : false;
 	}
 
 	public List<Integer> getPickedNumb() {
 		return pickedNumb;
+	}
+	
+	private int winNumbValidation(String string) throws Exception {
+		int numb = 0;
+		if(!(1 <= Integer.parseInt(string) & Integer.parseInt(string) <= 45)) {
+			throw new Exception();
+		}
+		return Integer.parseInt(string);
 	}
 }

@@ -24,11 +24,12 @@ public class OutputView {
 
 	public static void printLottoResult(WinLottoState winLottoState, int howMany) {
 		System.out.println("당첨 통계\r\n---------");
-		System.out.println("3개 일치 (5000원) - " + winLottoState.getEachWinNumb(3, false) + "개");
-		System.out.println("4개 일치 (50000원) - " + winLottoState.getEachWinNumb(4, false) + "개");
-		System.out.println("5개 일치 (1500000원) - " + winLottoState.getEachWinNumb(5, false) + "개");
-		System.out.println("5개 일치, 보너스 볼 일치(30000000원) - " + winLottoState.getEachWinNumb(5, true) + "개");
-		System.out.println("6개 일치 (2000000000원) - " + winLottoState.getEachWinNumb(6, false) + "개");
+		System.out.println("3개 일치 (5000원) - " + winLottoState.getWinData().get(Match.FIFTH) + "개");
+		System.out.println("4개 일치 (50000원) - " + winLottoState.getWinData().get(Match.FOURTH) + "개");
+		System.out.println("5개 일치 (1500000원) - " + winLottoState.getWinData().get(Match.THIRD) + "개");
+		System.out.println("5개 일치, 보너스 볼 일치(30000000원) - " + winLottoState.getWinData().get(Match.SECOND) + "개");
+		System.out.println("6개 일치 (2000000000원) - " + winLottoState.getWinData().get(Match.FIRST) + "개");
 		System.out.println("총 수익률은 " + (winLottoState.findLottoRateOfProfit() / (howMany * 1000)) * 100 + "%입니다.");
 	}
+
 }

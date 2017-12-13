@@ -3,6 +3,7 @@ package com.sangco.lotto.model;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class LottosTest {
 		pickInPerson.add("21,22,23,24,25,29");
 		pickInPerson.add("31,32,33,34,35,39");
 		lottos = new Lottos(10, pickInPerson);
-		lottos.doMatchEachLotto("1,2,3,4,5,6", 9);
+		lottos.doMatchEachLotto(new ArrayList<String>(Arrays.asList("1,2,3,4,5,6")), 9);
 	}
 	
 	@Test
