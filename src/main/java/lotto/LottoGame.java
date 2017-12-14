@@ -20,7 +20,7 @@ public class LottoGame {
 		Result.printBenefit(result, money);
 	}
 
-	private Lottos createLottos(int money, ArrayList<Integer> userLotto) {
+	private Lottos createLottos(int money, ArrayList<MyLotto> userLotto) {
 		return new Lottos(userLotto, howmanyLotto(money));
 	}
 

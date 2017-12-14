@@ -10,13 +10,10 @@ public class MyLotto {
 		this.myLotto = createRanLotto(num);
 	}
 	
-	MyLotto(ArrayList<Integer> userLottos, int index) {
-			this.myLotto = createUserLotto(userLottos, index);
+	MyLotto(ArrayList<Integer> userLotto) {
+			this.myLotto = userLotto;
 	}
 
-	private ArrayList<Integer> createUserLotto(ArrayList<Integer> userLottos, int index) {
-		return new ArrayList<>(userLottos.subList(index, index + 6));
-	}
 
 	private ArrayList<Integer> wholeLottoNum() {
 		ArrayList<Integer> wholeNum = new ArrayList<>();

@@ -1,5 +1,6 @@
 package lotto;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,24 +24,27 @@ public class InputView {
 		return money;
 	}
 
-	public static ArrayList<Integer> inputUserLotto(Scanner sc) {
+	public static ArrayList<MyLotto> inputUserLotto(Scanner sc) {
 		System.out.println("수동으로 구매할 번호를 입력해주세요. ");
 		sc.nextLine();
 
 		return makeUserLotto(sc);
 	}
 
-	private static ArrayList<Integer> makeUserLotto(Scanner sc) {
-		ArrayList<Integer> userLotto = new ArrayList<>();
+	private static ArrayList<MyLotto> makeUserLotto(Scanner sc) {
+		ArrayList<MyLotto> userLottos = new ArrayList<>();
+		
 		while (sc.hasNextLine()) {
 			String input = sc.nextLine();
+			ArrayList<Integer> userLotto = new ArrayList<>();
 			if (input.equals(""))
 				break;
 			String[] user = input.split(",");
 			for (int i = 0; i < user.length; i++)
 				userLotto.add(Integer.parseInt(user[i]));
+			userLottos.add(new MyLotto(userLotto));
 		}
-		return userLotto;
+		return userLottos;
 	}
 
 	public static ArrayList<Integer> inputWinNum(Scanner sc) {

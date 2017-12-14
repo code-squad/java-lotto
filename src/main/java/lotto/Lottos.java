@@ -13,12 +13,11 @@ public class Lottos {
 	private ArrayList<MyLotto> lottos = new ArrayList<>();
 	private int userLottoNum;
 
-	Lottos(ArrayList<Integer> userLottos, int lottoNum) {
-		this.userLottoNum = userLottos.size()/ 6;
-		int autoLottoNum = lottoNum - userLottoNum;
-		for (int i = 0; i < userLottos.size();){
-			lottos.add(new MyLotto(userLottos, i));
-			i += 6;
+	Lottos(ArrayList<MyLotto> userLottos, int lottoNum) {
+		this.userLottoNum = userLottos.size();
+		int autoLottoNum = lottoNum - userLottos.size();
+		for (int index = 0; index < userLottos.size(); index++){
+			lottos.add(userLottos.get(index));
 		}
 		for (int i = 0; i < autoLottoNum; i++)
 			lottos.add(new MyLotto(autoLottoNum));
