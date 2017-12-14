@@ -23,11 +23,35 @@ public class InputView {
 		return money;
 	}
 
+	public static ArrayList<ArrayList<Integer>> inputUserLotto(Scanner sc) {
+		System.out.println("수동으로 구매할 번호를 입력해주세요. ");
+		ArrayList<ArrayList<Integer>> userLottos = new ArrayList<>();
+		sc.nextLine();
+
+		while (sc.hasNextLine()){
+			String input = sc.nextLine();
+			if (input.equals("")) 
+				break;
+			changeToDoubleArraylist(input, userLottos);
+		}
+		return userLottos;
+	}
+	
+	private static ArrayList<ArrayList<Integer>> changeToDoubleArraylist(String input, ArrayList<ArrayList<Integer>> userLottos){
+		String[] user = input.split(",");
+		ArrayList<Integer> userLotto = new ArrayList<>();
+		for (int i = 0; i < user.length; i++) {
+			userLotto.add(Integer.parseInt(user[i]));
+		}
+		userLottos.add(userLotto);
+		return userLottos;
+	}
+
 	public static ArrayList<Integer> inputWinNum(Scanner sc) {
 		ArrayList<Integer> prizeNum = new ArrayList<>();
 		try {
 			sc.reset();
-			System.out.println("당첨 숫자를 입력해주세요.(','로 구분)g");
+			System.out.println("당첨 숫자를 입력해주세요.(','로 구분)");
 			prizeNum = validateArrSize(changeNumToArray(changeToInteger(sc)));
 		} catch (Exception e) {
 			return inputWinNum(sc);

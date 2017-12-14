@@ -9,6 +9,10 @@ public class MyLotto {
 	MyLotto(int num) {
 		this.myLotto = createRanLotto(num);
 	}
+	
+	MyLotto(ArrayList<Integer> userLotto) {
+		this.myLotto = userLotto;
+	}
 
 	private ArrayList<Integer> wholeLottoNum() {
 		ArrayList<Integer> wholeNum = new ArrayList<>();
@@ -30,7 +34,6 @@ public class MyLotto {
 		this.myLotto.retainAll(winLotto.getWinLotto());
 		return Rank.valueOf(this.myLotto.size(), isBonus);
 	}
-
 
 	@Override
 	public String toString() {

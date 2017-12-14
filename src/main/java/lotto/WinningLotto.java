@@ -21,5 +21,4 @@ public class WinningLotto { // 기계가 가지고 있는 로또
 		return myLotto.contains(this.bonusBall);
 	}
 
-
 }

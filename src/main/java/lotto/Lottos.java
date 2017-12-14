@@ -9,17 +9,23 @@ import static lotto.Rank.RANK_BONUS;
 
 import java.util.HashMap;
 
-public class Lottos {
+
+public class Lottos{
 	private ArrayList<MyLotto> lottos = new ArrayList<>();
+	private int userLottoNum;
 
-	Lottos(int num) {
-		for (int i = 0; i < num; i++) {
-			lottos.add(new MyLotto(num));
-		}
+	Lottos(ArrayList<ArrayList<Integer>> userLottos, int autoLottoNum){
+		this.userLottoNum = userLottos.size();
+		for (int i = 0; i < this.userLottoNum; i++) 
+			lottos.add(new MyLotto(userLottos.get(i)));
+		for (int i = 0; i < autoLottoNum; i++) 
+			lottos.add(new MyLotto(autoLottoNum));
 	}
-
 	public int getBuyNum() {
 		return this.lottos.size();
+	}
+	public int getUserNum(){
+		return this.userLottoNum;
 	}
 
 	public MyLotto getLottos(int index) {
