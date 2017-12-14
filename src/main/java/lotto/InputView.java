@@ -25,22 +25,22 @@ public class InputView {
 
 	public static ArrayList<Integer> inputUserLotto(Scanner sc) {
 		System.out.println("수동으로 구매할 번호를 입력해주세요. ");
-		ArrayList<Integer> userLotto = new ArrayList<>();
 		sc.nextLine();
 
+		return makeUserLotto(sc);
+	}
+
+	private static ArrayList<Integer> makeUserLotto(Scanner sc) {
+		ArrayList<Integer> userLotto = new ArrayList<>();
 		while (sc.hasNextLine()) {
 			String input = sc.nextLine();
 			if (input.equals(""))
 				break;
-			makeUserLotto(input, userLotto);
+			String[] user = input.split(",");
+			for (int i = 0; i < user.length; i++)
+				userLotto.add(Integer.parseInt(user[i]));
 		}
 		return userLotto;
-	}
-
-	private static void makeUserLotto(String input, ArrayList<Integer> userLotto) {
-		String[] user = input.split(",");
-		for (int i = 0; i < user.length; i++)
-			userLotto.add(Integer.parseInt(user[i]));
 	}
 
 	public static ArrayList<Integer> inputWinNum(Scanner sc) {
