@@ -1,5 +1,6 @@
 package lotto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -10,7 +11,7 @@ public class LottoGame {
 		Scanner sc = new Scanner(System.in);
 		int money = InputView.inputMoney(sc);
 		LottoGame lottoGame = new LottoGame();
-		Lottos lottos = lottoGame.createLottos(money);
+		Lottos lottos = lottoGame.createLottos(money,InputView.inputUserLotto(sc));
 		ResultView.printLotto(lottos);
 		sc.reset();
 		HashMap<Rank, Integer> result = lottos.compareLotto(new WinningLotto(InputView.inputWinNum(sc),
@@ -19,8 +20,8 @@ public class LottoGame {
 		Result.printBenefit(result, money);
 	}
 
-	private Lottos createLottos(int money) {
-		return new Lottos(howmanyLotto(money));
+	private Lottos createLottos(int money, ArrayList<MyLotto> userLotto) {
+		return new Lottos(userLotto, howmanyLotto(money));
 	}
 
 	public static int howmanyLotto(int inputMoney) {

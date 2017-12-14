@@ -11,15 +11,25 @@ import java.util.HashMap;
 
 public class Lottos {
 	private ArrayList<MyLotto> lottos = new ArrayList<>();
+	private int userLottoNum;
 
-	Lottos(int num) {
-		for (int i = 0; i < num; i++) {
-			lottos.add(new MyLotto(num));
+	Lottos(ArrayList<MyLotto> userLottos, int lottoNum) {
+		this.userLottoNum = userLottos.size();
+		int autoLottoNum = lottoNum - userLottos.size();
+		for (int index = 0; index < userLottos.size(); index++){
+			lottos.add(userLottos.get(index));
 		}
+		for (int i = 0; i < autoLottoNum; i++)
+			lottos.add(new MyLotto(autoLottoNum));
+
 	}
 
 	public int getBuyNum() {
 		return this.lottos.size();
+	}
+
+	public int getUserNum() {
+		return this.userLottoNum;
 	}
 
 	public MyLotto getLottos(int index) {

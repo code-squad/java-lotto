@@ -18,7 +18,7 @@ public class ResultView {
 	}
 
 	public static void printLotto(Lottos lottos) {
-		System.out.println(lottos.getBuyNum() + "개를 구매했습니다.");
+		System.out.println("수동으로 " + lottos.getUserNum() + "개, 자동으로 " + (lottos.getBuyNum() - lottos.getUserNum()) + "개를 구매했습니다.");
 		for (int i = 0; i < lottos.getBuyNum(); i++)
 			System.out.println(lottos.getLottos(i).toString());
 		System.out.println();
