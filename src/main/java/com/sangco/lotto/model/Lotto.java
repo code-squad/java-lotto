@@ -7,21 +7,21 @@ import java.util.List;
 public class Lotto {
 	protected List<Integer> pickedNumb = new ArrayList<>();
 
-	public Match findWinMatch(ArrayList<String> winNumb, int bonus) {
+	public Match findWinMatch(ArrayList<String> winNumberList, int bonus) {
 		boolean isBonus = false;
-		isBonus = machBonus(bonus);
+		isBonus = matchBonusNumberUpWithLottoNumber (bonus);
 		int matchLotto = 0;
-		for (String string : winNumb) {
-			matchLotto += matchNumb(Integer.parseInt(string));
+		for (String eachWinNumberStr : winNumberList) {
+			matchLotto += matchLottoNumber(Integer.parseInt(eachWinNumberStr));
 		}
 		return Match.valueOf(matchLotto, isBonus);
 	}
 
-	private int matchNumb(int numb) {
-		return pickedNumb.contains(numb) ? 1 : 0;
+	private int matchLottoNumber(int eachWinNumber) {
+		return pickedNumb.contains(eachWinNumber) ? 1 : 0;
 	}
 
-	private boolean machBonus(int bonus) {
+	private boolean matchBonusNumberUpWithLottoNumber(int bonus) {
 		return pickedNumb.contains(bonus) ? true : false;
 	}
 
