@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.sangco.lotto.Match;
-
 public class WinLottoState {
 	private static WinLottoState list;
 	private Map<Match, Integer> winData;
@@ -34,5 +32,9 @@ public class WinLottoState {
 
 	public Map<Match, Integer> getWinData() {
 		return winData;
+	}
+
+	public int getMatchCount(Match match) {
+		return winData.get(match);
 	}
 }
