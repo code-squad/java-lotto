@@ -23,28 +23,24 @@ public class InputView {
 		return money;
 	}
 
-	public static ArrayList<ArrayList<Integer>> inputUserLotto(Scanner sc) {
+	public static ArrayList<Integer> inputUserLotto(Scanner sc) {
 		System.out.println("수동으로 구매할 번호를 입력해주세요. ");
-		ArrayList<ArrayList<Integer>> userLottos = new ArrayList<>();
+		ArrayList<Integer> userLotto = new ArrayList<>();
 		sc.nextLine();
 
-		while (sc.hasNextLine()){
+		while (sc.hasNextLine()) {
 			String input = sc.nextLine();
-			if (input.equals("")) 
+			if (input.equals(""))
 				break;
-			changeToDoubleArraylist(input, userLottos);
+			makeUserLotto(input, userLotto);
 		}
-		return userLottos;
+		return userLotto;
 	}
-	
-	private static ArrayList<ArrayList<Integer>> changeToDoubleArraylist(String input, ArrayList<ArrayList<Integer>> userLottos){
+
+	private static void makeUserLotto(String input, ArrayList<Integer> userLotto) {
 		String[] user = input.split(",");
-		ArrayList<Integer> userLotto = new ArrayList<>();
-		for (int i = 0; i < user.length; i++) {
+		for (int i = 0; i < user.length; i++)
 			userLotto.add(Integer.parseInt(user[i]));
-		}
-		userLottos.add(userLotto);
-		return userLottos;
 	}
 
 	public static ArrayList<Integer> inputWinNum(Scanner sc) {

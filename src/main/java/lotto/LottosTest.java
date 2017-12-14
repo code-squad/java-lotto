@@ -19,16 +19,13 @@ public class LottosTest {
 	WinningLotto winLotto;
 	MyLotto myLotto;
 	HashMap<Rank, Integer> result = new HashMap<>();
-	ArrayList<Integer> prizeNum;
+	ArrayList<Integer> prizeNum = new ArrayList<>();
 	ArrayList<Integer> userLotto = new ArrayList<>();;
-	ArrayList<ArrayList<Integer>> userLottos = new ArrayList<>();
 
 	@Before
 	public void setUp() {
 		int bonusBall = 1;
-
 		int[] winLottoArray = { 2, 3, 4, 5, 6, 7 };
-		prizeNum = new ArrayList<>();
 		for (int i = 0; i < winLottoArray.length; i++)
 			prizeNum.add(winLottoArray[i]);
 
@@ -40,9 +37,8 @@ public class LottosTest {
 		int[] manualLotto = { 1, 2, 3, 4, 5, 6 };
 		for (int i = 0; i < manualLotto.length; i++)
 			userLotto.add(manualLotto[i]);
-		userLottos.add(userLotto);
-		myLotto = new MyLotto(userLotto);
-		lottos = new Lottos(userLottos, 1);
+		myLotto = new MyLotto(userLotto,0);
+		lottos = new Lottos(userLotto, 1);
 		assertEquals(RANK_BONUS, myLotto.compareNum(winLotto));
 	}
 
@@ -51,9 +47,8 @@ public class LottosTest {
 		int[] manualLotto = { 4, 5, 6, 8, 9, 10 };
 		for (int i = 0; i < manualLotto.length; i++)
 			userLotto.add(manualLotto[i]);
-		userLottos.add(userLotto);
-		myLotto = new MyLotto(userLotto);
-		lottos = new Lottos(userLottos, 1);
+		myLotto = new MyLotto(userLotto,0);
+		lottos = new Lottos(userLotto, 1);
 		assertEquals(RANK_FOURTH, myLotto.compareNum(winLotto));
 	}
 
@@ -62,9 +57,8 @@ public class LottosTest {
 		int[] manualLotto = { 3, 4, 5, 6, 8, 9 };
 		for (int i = 0; i < manualLotto.length; i++)
 			userLotto.add(manualLotto[i]);
-		userLottos.add(userLotto);
-		myLotto = new MyLotto(userLotto);
-		lottos = new Lottos(userLottos, 1);
+		myLotto = new MyLotto(userLotto,0);
+		lottos = new Lottos(userLotto, 1);
 		assertEquals(RANK_THIRD, myLotto.compareNum(winLotto));
 	}
 
@@ -73,9 +67,8 @@ public class LottosTest {
 		int[] manualLotto = { 2, 3, 4, 5, 6, 8 };
 		for (int i = 0; i < manualLotto.length; i++)
 			userLotto.add(manualLotto[i]);
-		userLottos.add(userLotto);
-		myLotto = new MyLotto(userLotto);
-		lottos = new Lottos(userLottos, 1);
+		myLotto = new MyLotto(userLotto,0);
+		lottos = new Lottos(userLotto, 1);
 		assertEquals(RANK_SECOND, myLotto.compareNum(winLotto));
 	}
 
@@ -84,9 +77,8 @@ public class LottosTest {
 		int[] manualLotto = { 2, 3, 4, 5, 6, 7 };
 		for (int i = 0; i < manualLotto.length; i++)
 			userLotto.add(manualLotto[i]);
-		userLottos.add(userLotto);
-		myLotto = new MyLotto(userLotto);
-		lottos = new Lottos(userLottos, 1);
+		myLotto = new MyLotto(userLotto,0);
+		lottos = new Lottos(userLotto, 1);
 		assertEquals(RANK_FIRST, myLotto.compareNum(winLotto));
 	}
 	
@@ -96,9 +88,8 @@ public class LottosTest {
 		int[] manualLotto = { 1, 2, 3, 4, 5, 6 };
 		for (int i = 0; i < manualLotto.length; i++)
 			userLotto.add(manualLotto[i]);
-		userLottos.add(userLotto);
-		myLotto = new MyLotto(userLotto);
-		lottos = new Lottos(userLottos, 1);
+		myLotto = new MyLotto(userLotto,0);
+		lottos = new Lottos(userLotto, 1);
 		
 		result.put(RANK_BONUS, 1);
 		assertEquals(result.get(RANK_BONUS), lottos.compareLotto(winLotto).get(RANK_BONUS));
@@ -108,9 +99,8 @@ public class LottosTest {
 		int[] manualLotto = { 4, 5, 6, 8, 9, 10 };
 		for (int i = 0; i < manualLotto.length; i++)
 			userLotto.add(manualLotto[i]);
-		userLottos.add(userLotto);
-		myLotto = new MyLotto(userLotto);
-		lottos = new Lottos(userLottos, 1);
+		myLotto = new MyLotto(userLotto,0);
+		lottos = new Lottos(userLotto, 1);
 		
 		result.put(RANK_FOURTH, 1);
 		assertEquals(result.get(RANK_FOURTH), lottos.compareLotto(winLotto).get(RANK_FOURTH));
@@ -121,9 +111,8 @@ public class LottosTest {
 		int[] manualLotto = { 3, 4, 5, 6, 8, 9 };
 		for (int i = 0; i < manualLotto.length; i++)
 			userLotto.add(manualLotto[i]);
-		userLottos.add(userLotto);
-		myLotto = new MyLotto(userLotto);
-		lottos = new Lottos(userLottos, 1);
+		myLotto = new MyLotto(userLotto,0);
+		lottos = new Lottos(userLotto, 1);
 		
 		result.put(RANK_THIRD, 1);
 		assertEquals(result.get(RANK_THIRD), lottos.compareLotto(winLotto).get(RANK_THIRD));
@@ -134,9 +123,8 @@ public class LottosTest {
 		int[] manualLotto = { 2, 3, 4, 5, 6, 8 };
 		for (int i = 0; i < manualLotto.length; i++)
 			userLotto.add(manualLotto[i]);
-		userLottos.add(userLotto);
-		myLotto = new MyLotto(userLotto);
-		lottos = new Lottos(userLottos, 1);
+		myLotto = new MyLotto(userLotto,0);
+		lottos = new Lottos(userLotto, 1);
 		
 		result.put(RANK_SECOND, 1);
 		assertEquals(result.get(RANK_SECOND), lottos.compareLotto(winLotto).get(RANK_SECOND));
@@ -147,9 +135,8 @@ public class LottosTest {
 		int[] manualLotto = { 2, 3, 4, 5, 6, 7 };
 		for (int i = 0; i < manualLotto.length; i++)
 			userLotto.add(manualLotto[i]);
-		userLottos.add(userLotto);
-		myLotto = new MyLotto(userLotto);
-		lottos = new Lottos(userLottos, 1);
+		myLotto = new MyLotto(userLotto,0);
+		lottos = new Lottos(userLotto, 1);
 		
 		result.put(RANK_FIRST, 1);
 		assertEquals(result.get(RANK_FIRST), lottos.compareLotto(winLotto).get(RANK_FIRST));
