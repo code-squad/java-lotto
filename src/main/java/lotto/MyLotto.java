@@ -3,19 +3,20 @@ package lotto;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MyLotto {
+public class MyLotto extends Lotto {
 	private ArrayList<Integer> myLotto = new ArrayList<>();
 
 	MyLotto(int num) {
+		super(createRanLotto(num));
 		this.myLotto = createRanLotto(num);
 	}
-	
+
 	MyLotto(ArrayList<Integer> userLotto) {
-			this.myLotto = userLotto;
+		super(userLotto);
+		this.myLotto = userLotto;
 	}
 
-
-	private ArrayList<Integer> wholeLottoNum() {
+	private static ArrayList<Integer> wholeLottoNum() {
 		ArrayList<Integer> wholeNum = new ArrayList<>();
 		for (int i = 1; i < 46; i++) {
 			wholeNum.add(i);
@@ -23,7 +24,7 @@ public class MyLotto {
 		return wholeNum;
 	}
 
-	public ArrayList<Integer> createRanLotto(int num) {
+	public static ArrayList<Integer> createRanLotto(int num) {
 		ArrayList<Integer> wholeNum = wholeLottoNum();
 		Collections.shuffle(wholeNum);
 

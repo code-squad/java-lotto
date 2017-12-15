@@ -2,11 +2,12 @@ package lotto;
 
 import java.util.ArrayList;
 
-public class WinningLotto { // 기계가 가지고 있는 로또
+public class WinningLotto extends Lotto{ // 기계가 가지고 있는 로또
 	private ArrayList<Integer> winningLotto = new ArrayList<>();
 	private int bonusBall;
 
 	WinningLotto(ArrayList<Integer> prizeNum, int bonusBall) {
+		super(prizeNum);
 		this.winningLotto = prizeNum;
 		this.bonusBall = bonusBall;
 	}
