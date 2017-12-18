@@ -25,22 +25,11 @@ public class LottoGroup {
 	}
 
 	public void doMatchEachLotto(ArrayList<String> winNumberList, int bonus) {
-		Map<Match, Integer> winData = getWinDataMap();
+		Map<Match, Integer> winData = winLottoState.getWinDataMap();
 		for (Lotto lotto : lottoList) {
 			Match match = lotto.findWinMatch(winNumberList, bonus);
-			Integer count = winData.get(match);
-			winData.put(match, (count == null) ? 1 : count + 1);
+			winLottoState.matchWindataWithUserLotto(match);
 		}
-		winLottoState.setWinData(winData);
-	}
-
-	private Map<Match, Integer> getWinDataMap() {
-		Map<Match, Integer> winData = new HashMap<>();
-		Match[] values = Match.values();
-		for (Match match : values) {
-			winData.put(match, 0);
-		}
-		return winData;
 	}
 
 	public ArrayList<Lotto> getLottoArray() {

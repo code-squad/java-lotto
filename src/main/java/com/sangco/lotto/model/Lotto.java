@@ -9,7 +9,7 @@ public class Lotto {
 
 	public Match findWinMatch(ArrayList<String> winNumberList, int bonus) {
 		boolean isBonus = false;
-		isBonus = matchBonusNumberUpWithLottoNumber (bonus);
+		isBonus = matchBonusNumberWithLottoNumber (bonus);
 		int matchLotto = 0;
 		for (String eachWinNumberStr : winNumberList) {
 			matchLotto += matchLottoNumber(Integer.parseInt(eachWinNumberStr));
@@ -21,7 +21,7 @@ public class Lotto {
 		return pickedNumb.contains(eachWinNumber) ? 1 : 0;
 	}
 
-	private boolean matchBonusNumberUpWithLottoNumber(int bonus) {
+	private boolean matchBonusNumberWithLottoNumber(int bonus) {
 		return pickedNumb.contains(bonus) ? true : false;
 	}
 

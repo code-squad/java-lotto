@@ -29,12 +29,21 @@ public class WinLottoState {
 	public void setWinData(Map<Match, Integer> data) {
 		winData = data;
 	}
-
-	public Map<Match, Integer> getWinData() {
-		return winData;
-	}
-
+	
 	public int getMatchCount(Match match) {
 		return winData.get(match);
+	}
+	
+	public Map<Match, Integer> getWinDataMap() {
+		Match[] values = Match.values();
+		for (Match match : values) {
+			winData.put(match, 0);
+		}
+		return winData;
+	}
+	
+	public void matchWindataWithUserLotto(Match match) {
+		Integer count = winData.get(match);
+		winData.put(match, (count == null) ? 1 : count + 1);
 	}
 }
