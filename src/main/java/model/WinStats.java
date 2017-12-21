@@ -1,9 +1,7 @@
-package com.jiwon.lotto.winstats;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.jiwon.lotto.lottocount.Count;
 
 public class WinStats {
 	// 당첨통계 관리 클래스.

@@ -1,13 +1,10 @@
-package com.jiwon.lotto.lottocreator;
+package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import com.jiwon.exception.ValidLottoNumException;
-import com.jiwon.lotto.lotto.AutoLotto;
-import com.jiwon.lotto.lotto.ManualLotto;
-import com.jiwon.lotto.lotto.WinningLotto;
 
 public class LottoCreator {
 	// 메소드 안에 상태 instance 변수가 포함된 로직이 아예 존재하지 않으므로 static으로 설정하는 것이 적당.

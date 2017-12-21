@@ -1,10 +1,9 @@
-package com.jiwon.lotto.lottocount;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jiwon.lotto.winstats.WinStats;
-import com.jiwon.lotto.winstats.WinStats.Result;
+import model.WinStats.Result;
 
 public class Count {
 	private List<Integer> counts;
