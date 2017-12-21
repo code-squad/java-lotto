@@ -1,10 +1,10 @@
-package com.jiwon.lotto.view;
+package view;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.jiwon.lotto.data.InputValue;
+import dto.InputValue;
 
 public class InputView {
 	public static InputValue createValue() {

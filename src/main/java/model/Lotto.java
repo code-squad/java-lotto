@@ -1,4 +1,4 @@
-package com.jiwon.lotto.lotto;
+package model;
 
 import java.util.ArrayList;
 import java.util.Collections;

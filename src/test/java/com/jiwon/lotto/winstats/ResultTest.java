@@ -1,7 +1,7 @@
 package com.jiwon.lotto.winstats;
 
+import static model.WinStats.*;
 import static org.junit.Assert.*;
-import static com.jiwon.lotto.winstats.WinStats.*;
 
 import org.junit.Test;
 

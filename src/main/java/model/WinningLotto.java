@@ -1,9 +1,6 @@
-package com.jiwon.lotto.lotto;
+package model;
 
 import java.util.List;
-
-import com.jiwon.lotto.lottocount.Count;
-import com.jiwon.lotto.winstats.WinStats;
 
 public class WinningLotto extends Lotto {
 	private int bonusNum; 

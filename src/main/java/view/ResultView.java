@@ -1,9 +1,9 @@
-package com.jiwon.lotto.view;
+package view;
 
-import com.jiwon.lotto.lotto.CandidateLottoSet;
-import com.jiwon.lotto.lotto.Lotto;
-import com.jiwon.lotto.lotto.WinningLotto;
-import com.jiwon.lotto.winstats.WinStats;
+import model.CandidateLottoSet;
+import model.Lotto;
+import model.WinStats;
+import model.WinningLotto;
 
 public class ResultView {
 	public static void printNumOfLotto(int value) {

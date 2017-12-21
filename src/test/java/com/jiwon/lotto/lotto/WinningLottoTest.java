@@ -9,6 +9,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.Lotto;
+import model.WinningLotto;
+
 public class WinningLottoTest {
 
 	WinningLotto winningLotto;
