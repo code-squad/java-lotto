@@ -36,4 +36,14 @@ public class LottoGameResultTest {
         int profitPercentage = lottoGameResult.getProfitPercentage();
         assertThat(profitPercentage).isEqualTo(-50);
     }
+
+    @Test
+    public void getResultState() {
+        assertThat(lottoGameResult.toString()).isEqualTo(
+                        "3개 일치 (5000원)- 1개\n" +
+                        "4개 일치 (50000원)- 1개\n" +
+                        "5개 일치 (1500000원)- 1개\n" +
+                        "6개 일치 (2000000000원)- 1개\n"
+        );
+    }
 }

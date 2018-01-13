@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,5 +37,16 @@ public class LottoGameResult {
 
     private int getSum(int correspond, int size) {
         return prices.get(correspond) * size;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 3 ; i <= 6 ; ++i) {
+            sb.append(i).append("개 일치 (").append(prices.get(i)).append("원)- ")
+                    .append(winnerLottos.get(i).size()).append("개\n");
+        }
+
+        return sb.toString();
     }
 }
