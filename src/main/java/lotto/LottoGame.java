@@ -3,11 +3,8 @@ package lotto;
 
 import lotto.domain.CustomerLottoTickets;
 import lotto.domain.LottoResult;
-import lotto.domain.LottoTicket;
 import lotto.view.InputView;
 import lotto.view.ResultView;
-
-import java.util.List;
 
 public class LottoGame {
     private InputView inputView;

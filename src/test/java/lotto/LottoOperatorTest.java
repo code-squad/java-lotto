@@ -7,7 +7,6 @@ import lotto.domain.LottoTicket;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.rmi.server.ExportException;
 import java.util.ArrayList;
 import java.util.List;
 

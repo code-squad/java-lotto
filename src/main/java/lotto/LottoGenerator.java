@@ -1,7 +1,6 @@
 package lotto;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class LottoGenerator {
     private static final int LAST_NUMBER = 45;
