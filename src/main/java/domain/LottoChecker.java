@@ -16,7 +16,7 @@ public class LottoChecker {
         return winnersLottos;
     }
 
-    private static Map<Integer, List<Lotto>> initWinnersLottos() {
+    public static Map<Integer, List<Lotto>> initWinnersLottos() {
         Map<Integer, List<Lotto>> winnersLottos = new HashMap<>();
         for(int i = 3 ; i <= 6 ; ++i)
             winnersLottos.put(i, new ArrayList<Lotto>());
@@ -24,16 +24,13 @@ public class LottoChecker {
         return winnersLottos;
     }
 
-    private static void checkWinnigLotto(List<Integer> winnigNums, Map<Integer, List<Lotto>> resultMap, Lotto lotto) {
-        int correspond = lotto.howManyCorrespond(winnigNums);
-        if(correspond >= 3)
-            putLottoInResultMap(resultMap, lotto, correspond);
+    public static void checkWinnigLotto(List<Integer> winnigNums, Map<Integer, List<Lotto>> resultMap, Lotto lotto) {
+        int numOfCorrespond = lotto.howManyCorrespond(winnigNums);
+        if(numOfCorrespond >= 3)
+            putLottoInResultMap(resultMap, lotto, numOfCorrespond);
     }
 
-    private static void putLottoInResultMap(Map<Integer, List<Lotto>> resultMap, Lotto lotto, int correspond) {
-        if(!resultMap.containsKey(correspond))
-            resultMap.put(correspond, new ArrayList<Lotto>());
-
-        resultMap.get(correspond).add(lotto);
+    private static void putLottoInResultMap(Map<Integer, List<Lotto>> resultMap, Lotto lotto, int numOfCorrespon) {
+        resultMap.get(numOfCorrespon).add(lotto);
     }
 }

@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static domain.LottoChecker.checkWinnigLotto;
+import static domain.LottoChecker.initWinnersLottos;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class LottoCheckerTest {
@@ -27,5 +29,15 @@ public class LottoCheckerTest {
         assertThat(winnerLottos.get(4).size()).isEqualTo(1);
         assertThat(winnerLottos.get(5).size()).isEqualTo(0);
         assertThat(winnerLottos.get(6).size()).isEqualTo(1);
+    }
+
+    @Test
+    public void checkWinnigLottoTest() {
+        Map<Integer, List<Lotto>> winnerLottos = initWinnersLottos();
+        Lotto lotto = new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6));
+        List<Integer> winnerNums = Arrays.asList(1, 2, 3, 4, 7, 8);
+
+        checkWinnigLotto(winnerNums, winnerLottos, lotto);
+        assertThat(winnerLottos.get(4).size()).isEqualTo(1);
     }
 }
