@@ -55,7 +55,7 @@ public class LottoGameResult {
 
     public int getProfitPercentage(List<Integer> winningNums) {
         int sum = getProfit(winningNums);
-        return (sum - investment) / investment * 100;
+        return (int) (((double)sum - investment) / investment * 100);
     }
 
     private int getSub(int correspond, int size) {

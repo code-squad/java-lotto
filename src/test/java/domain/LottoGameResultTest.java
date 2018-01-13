@@ -1,5 +1,6 @@
 package domain;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,15 +11,19 @@ import java.util.Map;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class LottoGameResultTest {
-    @Test
-    public void getResultSetTest() {
+    private LottoGameResult lottoGameResult;
+    @Before
+    public void init() {
         List<Lotto> lottos = new ArrayList<>();
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 7, 8, 9)));
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 7, 8)));
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
-        LottoGameResult lottoGameResult = new LottoGameResult(lottos, 4000);
 
+        lottoGameResult = new LottoGameResult(lottos, 4000);
+    }
+    @Test
+    public void getResultSetTest() {
         Map<Integer, List<Lotto>> lottoResult = lottoGameResult.getResult(Arrays.asList(1, 2, 3, 4, 5, 6));
 
         assertThat(lottoResult.get(3).get(0)).isEqualTo(new Lotto(() -> Arrays.asList(1, 2, 3, 7, 8, 9)));
@@ -29,19 +34,16 @@ public class LottoGameResultTest {
 
     @Test
     public void getProfitTest() {
-        List<Lotto> lottos = new ArrayList<>();
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 7, 8, 9)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 7, 8)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
-        LottoGameResult lottoGameResult = new LottoGameResult(lottos, 4000);
-
         int profit = lottoGameResult.getProfit(Arrays.asList(1, 2, 3, 4, 5, 6));
         assertThat(profit).isEqualTo(2001555000);
     }
 
-/*    @Test
+    @Test
     public void getProfitPercentageTest() {
-
-    }*/
+        List<Lotto> lottos = new ArrayList<>();
+        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 7, 8, 9)));
+        lottoGameResult = new LottoGameResult(lottos, 10000);
+        int profitPercentage = lottoGameResult.getProfitPercentage(Arrays.asList(1, 2, 3, 4, 5, 6));
+        assertThat(profitPercentage).isEqualTo(-50);
+    }
 }
