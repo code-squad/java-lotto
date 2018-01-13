@@ -11,5 +11,7 @@ public class Main {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         sc.nextLine();
         result.insertLastWinningNumbers(sc.nextLine());
+        result.statistics();
+        result.revenue();
     }
 }
