@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoGameResult {
-    private List<Lotto> lottos;
+    private Map<Integer, List<Lotto>> winnerLottos;
     private int investment;
     private static final Map<Integer, Integer> prices;
     static {
@@ -17,44 +17,22 @@ public class LottoGameResult {
         prices.put(6, 2000000000);
     }
 
-    public LottoGameResult(List<Lotto> lottos, int investment) {
-        this.lottos = lottos;
+    public LottoGameResult(Map<Integer, List<Lotto>> winnerLottos, int investment) {
+        this.winnerLottos = winnerLottos;
         this.investment = investment;
     }
 
-    public Map<Integer, List<Lotto>> getResult(List<Integer> winnigNums) {
-        Map<Integer, List<Lotto>> resultMap = new HashMap<>();
-        for(Lotto lotto : lottos)
-            checkWinnigLotto(winnigNums, resultMap, lotto);
-
-        return resultMap;
-    }
-
-    private void checkWinnigLotto(List<Integer> winnigNums, Map<Integer, List<Lotto>> resultMap, Lotto lotto) {
-        int correspond = lotto.howManyCorrespond(winnigNums);
-        if(correspond >= 3)
-            putLottoInResultMap(resultMap, lotto, correspond);
-    }
-
-    private void putLottoInResultMap(Map<Integer, List<Lotto>> resultMap, Lotto lotto, int correspond) {
-        if(!resultMap.containsKey(correspond))
-            resultMap.put(correspond, new ArrayList<Lotto>());
-
-        resultMap.get(correspond).add(lotto);
-    }
-
-    public int getProfit(List<Integer> winningNums) {
-        Map<Integer, List<Lotto>> result = getResult(winningNums);
+    public int getProfit() {
         int sum = 0;
 
-        for(int correspond : result.keySet())
-            sum += getSum(correspond, result.get(correspond).size());
+        for(int correspond : winnerLottos.keySet())
+            sum += getSum(correspond, winnerLottos.get(correspond).size());
 
         return sum;
     }
 
-    public int getProfitPercentage(List<Integer> winningNums) {
-        int sum = getProfit(winningNums);
+    public int getProfitPercentage() {
+        int sum = getProfit();
         return (int) (((double)sum - investment) / investment * 100);
     }
 
