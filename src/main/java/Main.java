@@ -1,4 +1,3 @@
-import model.Lotto;
 import view.Result;
 
 import java.util.Scanner;

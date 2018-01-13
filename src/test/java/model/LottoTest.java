@@ -1,21 +1,14 @@
 package model;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.*;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoTest {
-    private Lotto lotto;
-
-    @Before
-    public void setup() {
-        lotto = new Lotto(14000);
-    }
-
     @Test
-    public void countOfLotto() {
-        assertThat(lotto.countOfLotto()).isEqualTo(14);
+    public void 중복되지_않는_여섯개의_숫자() {
+        Lotto lotto = new Lotto();
+        String[] tests = lotto.toString().substring(1).split("(, )|\\]");
+        assertThat(tests).hasSize(6);
     }
 }
