@@ -1,4 +1,4 @@
-package lotto;
+package dto;
 
 import java.util.Arrays;
 
@@ -9,8 +9,8 @@ public enum Rank {
     FOURTH(3, 5000),
     FAIL(0, 0);
 
-    private int countOfMatch;
-    private int winningMoney;
+    private final int countOfMatch;
+    private final int winningMoney;
 
     Rank(int countOfMatch, int winningMoney) {
         this.countOfMatch = countOfMatch;

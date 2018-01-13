@@ -1,4 +1,4 @@
-package lotto;
+package domain;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +15,8 @@ public class RandomLottoNumbersGeneratorTest {
     }
 
     @Test
-    public void countOfWinningNumber() throws Exception {
-        LottoNumbers lottoNumbers = generator.getRandomLottoNumbers();
+    public void createRandomLottoNumbers() throws Exception {
+        LottoNumbers lottoNumbers = generator.createRandomLottoNumbers();
 
         assertThat(lottoNumbers).isNotNull();
     }

@@ -1,10 +1,12 @@
-package lotto;
+package domain;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.IntStream;
 
-import static common.Constant.THE_NUMBER_OF_LOTTO_NUMBERS;
+import static common.Constant.COUNT_OF_LOTTO_NUMBERS;
 import static java.util.stream.Collectors.toList;
 
 public class RandomLottoNumbersGenerator {
@@ -13,9 +15,14 @@ public class RandomLottoNumbersGenerator {
                                                                 .mapToObj(LottoNumber::new)
                                                                 .collect(toList());
 
-    public LottoNumbers getRandomLottoNumbers() {
-        Collections.shuffle(RANGE_OF_NUMBERS);
+    public LottoNumbers createRandomLottoNumbers() {
+        Collections.shuffle(RANGE_OF_NUMBERS, new Random(System.nanoTime()));
 
-        return new LottoNumbers(RANGE_OF_NUMBERS.subList(0, THE_NUMBER_OF_LOTTO_NUMBERS));
+        return new LottoNumbers(getSubList());
     }
+
+    private List<LottoNumber> getSubList() {
+        return new ArrayList<>(RANGE_OF_NUMBERS.subList(0, COUNT_OF_LOTTO_NUMBERS));
+    }
+
 }

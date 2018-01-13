@@ -1,4 +1,4 @@
-package lotto;
+package dto;
 
 import org.junit.Test;
 

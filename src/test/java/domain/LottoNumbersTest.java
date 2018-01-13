@@ -1,5 +1,7 @@
-package lotto;
+package domain;
 
+import dto.LottoResult;
+import dto.Rank;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -45,7 +47,7 @@ public class LottoNumbersTest {
 
         WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 7, 8, 9});
 
-        Result result = lottoNumbers.getWinResult(winningNumbers);
+        LottoResult result = lottoNumbers.getWinResult(winningNumbers);
 
         assertThat(result.getCountOfMatch()).isEqualTo(3);
         assertThat(result.getRank()).isEqualTo(Rank.FOURTH);

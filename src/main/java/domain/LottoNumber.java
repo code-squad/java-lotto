@@ -1,4 +1,4 @@
-package lotto;
+package domain;
 
 public class LottoNumber {
     private final int number;
@@ -27,5 +27,10 @@ public class LottoNumber {
     @Override
     public int hashCode() {
         return number;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(number);
     }
 }

@@ -1,10 +1,10 @@
-package lotto;
+package domain;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static lotto.Lotto.getCount;
+import static domain.Lotto.getCountOfBuy;
 
 public class LottoSeller {
 
@@ -12,13 +12,13 @@ public class LottoSeller {
 
     public List<Lotto> buyRandomNumberLottos(int money) {
         checkArgument(money);
-        return IntStream.range(0, getCount(money))
-                        .mapToObj(i -> new Lotto(generator.getRandomLottoNumbers()))
+        return IntStream.range(0, getCountOfBuy(money))
+                        .mapToObj(i -> new Lotto(generator.createRandomLottoNumbers()))
                         .collect(Collectors.toList());
     }
 
     private void checkArgument(int money) {
-        if (getCount(money) <= 0) {
+        if (getCountOfBuy(money) <= 0) {
             throw new IllegalArgumentException();
         }
     }

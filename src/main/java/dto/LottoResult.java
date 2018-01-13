@@ -1,12 +1,15 @@
-package lotto;
+package dto;
 
-public class Result {
+public class LottoResult {
 
     private final Rank rank;
 
     private final int countOfMatch;
 
-    public Result(int countOfMatch) {
+    public LottoResult(int countOfMatch) {
+        if (countOfMatch < 0) {
+            throw new IllegalArgumentException();
+        }
         this.countOfMatch = countOfMatch;
         this.rank = Rank.valueOf(countOfMatch);
     }
@@ -17,5 +20,9 @@ public class Result {
 
     public int getCountOfMatch() {
         return countOfMatch;
+    }
+
+    public int getWinningMoney() {
+        return rank.getWinningMoney();
     }
 }
