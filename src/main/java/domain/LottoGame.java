@@ -15,6 +15,9 @@ public class LottoGame {
 
     @Override
     public String toString() {
-        return lottos.toString();
+        StringBuilder sb = new StringBuilder();
+        for(Lotto lotto : lottos)
+            sb.append(lotto.toString()).append('\n');
+        return sb.toString();
     }
 }
