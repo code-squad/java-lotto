@@ -48,6 +48,14 @@ public class LottoGameResultTest {
     }
 
     @Test
+    public void getSumTest() {
+        assertThat(lottoGameResult.getSum(3, 1)).isEqualTo(5000);
+        assertThat(lottoGameResult.getSum(4, 2)).isEqualTo(50000 * 2);
+        assertThat(lottoGameResult.getSum(5, 3)).isEqualTo(1500000 * 3);
+        assertThat(lottoGameResult.getSum(6, 1)).isEqualTo(2000000000);
+    }
+
+    @Test
     public void getResultState() {
         assertThat(lottoGameResult.toString()).isEqualTo(
                         "3개 일치 (5000원)- 1개\n" +

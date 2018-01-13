@@ -35,7 +35,7 @@ public class LottoGameResult {
         return (int) (((double)sum - investment) / investment * 100);
     }
 
-    private int getSum(int correspond, int size) {
+    public int getSum(int correspond, int size) {
         return prices.get(correspond) * size;
     }
 
