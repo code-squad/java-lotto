@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LottoTicket {
-    List<Integer> numbers;
+    private List<Integer> numbers;
 
     public LottoTicket(List<Integer> integers) {
         numbers = integers;
