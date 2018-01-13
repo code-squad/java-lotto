@@ -3,6 +3,8 @@ package lotto.domain;
 import java.util.Map;
 
 public class LottoResult {
+    private static final int HUNDRED = 100;
+
     private final Map<LottoPrize, Integer> lottoPrizeResults;
     private final int ticketTotalPrice;
 
@@ -17,9 +19,9 @@ public class LottoResult {
     }
 
     public int calculateProfitRatio() {
-        int ratio = calculateTotalProfit() * 100 / ticketTotalPrice;
-        if (ratio < 100) {
-            return (100 - ratio) * -1;
+        int ratio = calculateTotalProfit() * HUNDRED / ticketTotalPrice;
+        if (ratio < HUNDRED) {
+            return (HUNDRED - ratio) * -1;
         }
         return ratio;
     }
