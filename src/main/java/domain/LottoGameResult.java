@@ -48,7 +48,7 @@ public class LottoGameResult {
         int sum = 0;
 
         for(int correspond : result.keySet())
-            sum += getSub(correspond, result.get(correspond).size());
+            sum += getSum(correspond, result.get(correspond).size());
 
         return sum;
     }
@@ -58,7 +58,7 @@ public class LottoGameResult {
         return (int) (((double)sum - investment) / investment * 100);
     }
 
-    private int getSub(int correspond, int size) {
+    private int getSum(int correspond, int size) {
         return prices.get(correspond) * size;
     }
 }
