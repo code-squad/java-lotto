@@ -2,6 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static domain.LottoNumCreator.LOTTO_POOL_NUM;
 
@@ -28,6 +29,20 @@ public class Lotto {
     private void checkCorrespond(List<Integer> correspondNums, int targetNum) {
         if(nums.contains(targetNum))
             correspondNums.add(targetNum);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lotto lotto = (Lotto) o;
+        return Objects.equals(nums, lotto.nums);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(nums);
     }
 
     @Override
