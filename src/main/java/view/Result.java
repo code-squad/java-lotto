@@ -3,6 +3,7 @@ package view;
 import model.Lotto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Result {
@@ -31,5 +32,29 @@ public class Result {
         for (Lotto lotto : lottos) {
             System.out.println(lotto);
         }
+    }
+
+    public void insertLastWinningNumbers(String numbersText) {
+        List<Integer> numbers = parseInts(split(numbersText));
+        for (Lotto lotto : lottos) {
+            System.out.println(lotto.checkTheAnswerNumbers(numbers));
+        }
+    }
+
+    private String[] split(String text) {
+        return text.split("(, )");
+    }
+
+    private List<Integer> parseInts(String[] numbersText) {
+        List<Integer> numbers = new ArrayList<>();
+        for (String numberText : numbersText) {
+            int a = parseInt(numberText);
+            numbers.add(a);
+        }
+        return numbers;
+    }
+
+    private int parseInt(String numberText) {
+        return Integer.parseInt(numberText);
     }
 }

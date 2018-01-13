@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class Lotto {
-    private List<Integer> numbers;
+    private LottoNumbers lottoNumbers;
 
     public Lotto() {
-        numbers = sortNumbers(cutNumberSix(makeNumbers()));
+        lottoNumbers = new LottoNumbers(cutNumberSix(makeNumbers()));
     }
 
     private List<Integer> makeNumbers() {
@@ -25,20 +25,15 @@ public class Lotto {
         return cutNumbers;
     }
 
-    private List<Integer> sortNumbers(List<Integer> numbers) {
-        Collections.sort(numbers);
-        return numbers;
+    public int checkTheAnswerNumbers(List<Integer> numbers) {
+        return lottoNumbers.checkTheWinningNumbers(numbers);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        for (int number : numbers) {
-            sb.append(number);
-            sb.append(", ");
-        }
-        sb.delete(sb.length() - 2, sb.length());
+        sb.append(lottoNumbers.toString());
         sb.append("]");
         return sb.toString();
     }
