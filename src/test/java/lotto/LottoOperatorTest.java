@@ -45,7 +45,7 @@ public class LottoOperatorTest {
 
         CustomerLottoTickets customerLottoTickets = new CustomerLottoTickets(lottoTickets);
 
-        int ticketTotalPrice = 2000;
+        int ticketTotalPrice = getTicketTotalPrice(lottoTickets);
 
         LottoResult lottoResult = lottoOperator.match(customerLottoTickets, ticketTotalPrice);
         assertEquals(1, lottoResult.getPrizeCount(LottoPrize.NONE));
@@ -54,8 +54,56 @@ public class LottoOperatorTest {
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.SIX));
 
-        assertEquals(LottoPrize.THREE.getPrizeAmount() * 100 / ticketTotalPrice, lottoResult.calculateProfitRatio());
+        assertEquals(250, lottoResult.calculateProfitRatio());
     }
+
+    @Test
+    public void matchTicketsWithNothing() throws Exception {
+        List<LottoTicket> lottoTickets = new ArrayList<>();
+        lottoTickets.add(LottoStore.buyExplicitTicket("10, 11, 12, 7, 8, 9"));
+
+        CustomerLottoTickets customerLottoTickets = new CustomerLottoTickets(lottoTickets);
+
+        int ticketTotalPrice = getTicketTotalPrice(lottoTickets);
+
+        LottoResult lottoResult = lottoOperator.match(customerLottoTickets, ticketTotalPrice);
+        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.NONE));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.THREE));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.SIX));
+
+        assertEquals(-100, lottoResult.calculateProfitRatio());
+    }
+
+    @Test
+    public void matchTicketsWithNoProfit() throws Exception {
+        List<LottoTicket> lottoTickets = new ArrayList<>();
+        lottoTickets.add(LottoStore.buyExplicitTicket("10, 11, 12, 7, 8, 9"));
+        lottoTickets.add(LottoStore.buyExplicitTicket("1, 2, 3, 7, 8, 9"));
+        lottoTickets.add(LottoStore.buyExplicitTicket("7, 8, 9, 45, 43, 23"));
+        lottoTickets.add(LottoStore.buyExplicitTicket("7, 8, 9, 13, 12, 11"));
+        lottoTickets.add(LottoStore.buyExplicitTicket("7, 8, 9, 23, 42, 31"));
+        lottoTickets.add(LottoStore.buyExplicitTicket("7, 8, 1, 23, 42, 31"));
+
+        CustomerLottoTickets customerLottoTickets = new CustomerLottoTickets(lottoTickets);
+
+        int ticketTotalPrice = getTicketTotalPrice(lottoTickets);
+
+        LottoResult lottoResult = lottoOperator.match(customerLottoTickets, ticketTotalPrice);
+        assertEquals(5, lottoResult.getPrizeCount(LottoPrize.NONE));
+        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.THREE));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.SIX));
+
+        assertEquals(-17, lottoResult.calculateProfitRatio());
+    }
+
+    private int getTicketTotalPrice(List<LottoTicket> lottoTickets) {
+        return lottoTickets.size() * 1000;
+    }
+
 
     @Test
     public void check0Match() throws Exception {

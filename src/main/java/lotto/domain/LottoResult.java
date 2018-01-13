@@ -17,7 +17,11 @@ public class LottoResult {
     }
 
     public int calculateProfitRatio() {
-        return calculateTotalProfit() * 100 / ticketTotalPrice;
+        int ratio = calculateTotalProfit() * 100 / ticketTotalPrice;
+        if (ratio < 100) {
+            return (100 - ratio) * -1;
+        }
+        return ratio;
     }
 
     private int calculateTotalProfit() {
