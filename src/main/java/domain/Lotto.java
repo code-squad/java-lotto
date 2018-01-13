@@ -9,7 +9,7 @@ import static domain.LottoNumCreator.LOTTO_POOL_NUM;
 public class Lotto {
     private List<Integer> nums;
 
-    Lotto(LottoNumberCreationStrategy lottoNumCreator) {
+    public Lotto(LottoNumberCreationStrategy lottoNumCreator) {
         nums = lottoNumCreator.createLottoNums();
     }
 
