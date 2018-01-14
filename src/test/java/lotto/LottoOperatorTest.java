@@ -104,11 +104,6 @@ public class LottoOperatorTest {
         assertEquals(-17, lottoResult.calculateProfitRatio());
     }
 
-    private int getTicketTotalPrice(List<LottoTicket> lottoTickets) {
-        return lottoTickets.size() * 1000;
-    }
-
-
     @Test
     public void check0Match() throws Exception {
         LottoTicket lottoTicket = LottoStore.buyExplicitTicket("10, 11, 12, 7, 8, 9");
