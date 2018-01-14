@@ -44,7 +44,7 @@
 
 ## Step2
 * repo : https://github.com/trytocloud/java-lotto/tree/step2
-* pr : 
+* pr : https://github.com/code-squad/java-lotto/pull/27
 
 ### 기능 요구사항
 * 2등을 위해 추가 번호를 하나 더 추첨한다.
