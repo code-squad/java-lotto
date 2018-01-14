@@ -108,6 +108,45 @@ public class LottoOperatorTest {
         assertEquals(-17, lottoResult.calculateProfitRatio());
     }
 
+
+    @Test
+    public void matchTicketsWithBonus() throws Exception {
+        List<LottoTicket> lottoTickets = new ArrayList<>();
+        lottoTickets.add(LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 7"));
+
+        LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
+
+        LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.NONE));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.THREE));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE));
+        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.FIVE_BONUS));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.SIX));
+
+        assertEquals(3000000, lottoResult.calculateProfitRatio());
+    }
+
+    @Test
+    public void matchTicketsWithFirstPrize() throws Exception {
+        List<LottoTicket> lottoTickets = new ArrayList<>();
+        lottoTickets.add(LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 6"));
+        lottoTickets.add(LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 8"));
+        lottoTickets.add(LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 7"));
+
+        LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
+
+        LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.NONE));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.THREE));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
+        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.FIVE));
+        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.FIVE_BONUS));
+        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.SIX));
+
+        assertEquals(67716666, lottoResult.calculateProfitRatio());
+    }
+
     @Test
     public void check0Match() throws Exception {
         LottoTicket lottoTicket = LottoStore.buyExplicitTicket("10, 11, 12, 7, 8, 9");
