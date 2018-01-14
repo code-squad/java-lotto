@@ -1,6 +1,5 @@
 import domain.*;
 
-import java.util.List;
 
 import static domain.LottoSeller.sellLotto;
 import static view.InputView.*;
@@ -14,9 +13,7 @@ public class Main {
         showNumOfBuyLotto(lottoGame.getNumOfLottos());
         showLottos(lottoGame);
 
-        List<Integer> winnigNums = getWinnerNums();
-        int bonusNum = getBonusNum();
-        LottoGameResult lottoGameResult = new LottoGameResult(lottoGame.matchLottosWithWinnigNums(winnigNums, bonusNum), investMoney);
+        LottoGameResult lottoGameResult = new LottoGameResult(lottoGame.matchLottosWithWinnigNums(getWinningLotto()), investMoney);
 
         showResult(lottoGameResult);
     }
