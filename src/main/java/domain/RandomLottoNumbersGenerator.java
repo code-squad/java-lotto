@@ -15,10 +15,10 @@ public class RandomLottoNumbersGenerator {
                                                                 .mapToObj(LottoNumber::new)
                                                                 .collect(toList());
 
-    public LottoNumbers createRandomLottoNumbers() {
+    public Lotto createRandomLottoNumbers() {
         Collections.shuffle(RANGE_OF_NUMBERS, new Random(System.nanoTime()));
 
-        return new LottoNumbers(getSubList());
+        return new Lotto(getSubList());
     }
 
     private List<LottoNumber> getSubList() {

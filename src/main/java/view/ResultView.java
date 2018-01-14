@@ -24,7 +24,7 @@ public class ResultView {
 
     public static void printLottoResults(List<LottoResult> results) {
         Arrays.stream(Rank.values())
-              .filter(r -> r != Rank.FAIL)
+              .filter(r -> !r.isFail())
               .sorted(Comparator.comparingInt(Rank::getWinningMoney))
               .forEach(r -> printLottoResult(r, results));
     }

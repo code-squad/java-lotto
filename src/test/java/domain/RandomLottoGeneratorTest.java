@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-public class RandomLottoNumbersGeneratorTest {
+public class RandomLottoGeneratorTest {
 
     private RandomLottoNumbersGenerator generator;
 
@@ -16,9 +16,9 @@ public class RandomLottoNumbersGeneratorTest {
 
     @Test
     public void createRandomLottoNumbers() throws Exception {
-        LottoNumbers lottoNumbers = generator.createRandomLottoNumbers();
+        Lotto lotto = generator.createRandomLottoNumbers();
 
-        assertThat(lottoNumbers).isNotNull();
+        assertThat(lotto).isNotNull();
     }
 
 }

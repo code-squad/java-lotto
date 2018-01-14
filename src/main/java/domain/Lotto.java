@@ -2,32 +2,64 @@ package domain;
 
 import dto.LottoResult;
 
-import static common.Constant.LOTTO_PRICE;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static common.Constant.COUNT_OF_LOTTO_NUMBERS;
 
 public class Lotto {
 
-    private final LottoNumbers lottoNumbers;
+    private final List<LottoNumber> numbers;
 
-    public Lotto(LottoNumbers lottoNumbers) {
-        if (lottoNumbers == null) {
+    public Lotto(List<LottoNumber> numbers) {
+        checkSizeOfLottoNumbers(numbers);
+        checkDuplicatedLottoNumbers(numbers);
+        this.numbers = numbers;
+    }
+
+    public Lotto(int[] numbers) {
+        List<LottoNumber> lottoNumbers = convertIntArrayToLottoNumbers(numbers);
+        checkSizeOfLottoNumbers(lottoNumbers);
+        checkDuplicatedLottoNumbers(lottoNumbers);
+        this.numbers = lottoNumbers;
+    }
+
+    private List<LottoNumber> convertIntArrayToLottoNumbers(int[] numbers) {
+        return Arrays.stream(numbers)
+                     .mapToObj(LottoNumber::new)
+                     .collect(Collectors.toList());
+    }
+
+    private void checkDuplicatedLottoNumbers(List<LottoNumber> numbers) {
+        if (hasDuplicatedLottoNumbers(numbers)) {
             throw new IllegalArgumentException();
         }
-        this.lottoNumbers = lottoNumbers;
     }
 
-    public static int getCountOfBuy(int money) {
-        if (money < 0) {
-            throw new IllegalArgumentException("인자는 0보다 커야 합니다");
+    private boolean hasDuplicatedLottoNumbers(List<LottoNumber> numbers) {
+        return new HashSet<>(numbers).size() < numbers.size();
+    }
+
+    private void checkSizeOfLottoNumbers(List<LottoNumber> numbers) {
+        if (numbers.size() != COUNT_OF_LOTTO_NUMBERS) {
+            throw new IllegalArgumentException();
         }
-        return money / LOTTO_PRICE;
     }
 
-    public LottoResult getLottoResult(WinningNumbers winningNumber) {
-        return lottoNumbers.getWinResult(winningNumber);
+    public LottoResult getWinResult(WinningNumbers winningNumbers) {
+        return new LottoResult(getCountOfMatch(winningNumbers));
+    }
+
+    private int getCountOfMatch(WinningNumbers winningNumbers) {
+        return (int) numbers.stream()
+                            .filter(winningNumbers::contain)
+                            .count();
     }
 
     @Override
     public String toString() {
-        return lottoNumbers.toString();
+        return numbers.toString();
     }
 }

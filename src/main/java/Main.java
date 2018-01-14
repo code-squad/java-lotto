@@ -1,5 +1,4 @@
 import domain.Lotto;
-import domain.LottoExecutor;
 import domain.LottoSeller;
 import domain.WinningNumbers;
 import dto.LottoResult;
@@ -19,7 +18,7 @@ public class Main {
 
         WinningNumbers winningNumbers = InputView.getWinningNumbers();
 
-        List<LottoResult> results = LottoExecutor.execute(lottos, winningNumbers);
+        List<LottoResult> results = winningNumbers.match(lottos);
         ResultView.printLottoResults(results);
         ResultView.printRevenue(RevenueCalculator.calculate(results));
     }

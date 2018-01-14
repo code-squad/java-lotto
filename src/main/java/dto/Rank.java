@@ -34,4 +34,8 @@ public enum Rank {
     public int getWinningMoney() {
         return winningMoney;
     }
+
+    public boolean isFail() {
+        return this == Rank.FAIL;
+    }
 }
