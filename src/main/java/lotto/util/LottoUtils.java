@@ -27,6 +27,16 @@ public class LottoUtils {
                 .collect(groupingBy(LottoUtils::makeCorrectKey, Collectors.summingInt(LottoResult::sumCount)));
     }
 
+    public static int getProfit(Map<LottoCorrectCount, Integer> resultMap) {
+        return resultMap.entrySet().stream()
+                .mapToInt(map -> map.getKey().getProfit() * map.getValue())
+                .sum();
+    }
+
+    public static float getProfitRate(int totalProfit, int money) {
+        return (float) totalProfit * 100 / (float) money;
+    }
+
     private static LottoCorrectCount makeCorrectKey(LottoResult result) {
         int count = result.getCorrectCount();
 

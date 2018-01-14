@@ -38,4 +38,9 @@ public class Output {
     public static void printLottoCount(int count) {
         print(String.format("%d개를 구매했습니다.", count));
     }
+
+    public static void printProfit(Map<LottoCorrectCount, Integer> resultMap, int money) {
+        print(String.format("총 수익률은 %f%%입니다.", LottoUtils.getProfitRate(LottoUtils.getProfit(resultMap), money)));
+    }
+
 }

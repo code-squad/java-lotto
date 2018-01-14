@@ -11,7 +11,9 @@ import java.util.Map;
 
 import static java.util.Optional.of;
 import static lotto.domain.enums.LottoCorrectCount.*;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class LottoMachineTest {
 
@@ -29,6 +31,26 @@ public class LottoMachineTest {
 
     @Test
     public void 당첨번호_통계결과가_일치하는가() {
+        Map<LottoCorrectCount, Integer> resultMap = initResultMap();
+
+        assertEquals(of(3).get(), resultMap.get(THREE));
+        assertEquals(of(2).get(), resultMap.get(FOUR));
+        assertEquals(of(1).get(), resultMap.get(SIX));
+    }
+
+    @Test
+    public void 총수익이_올바른가() {
+        Map<LottoCorrectCount, Integer> resultMap = initResultMap();
+        assertEquals(2000115000, LottoUtils.getProfit(resultMap));
+    }
+
+    @Test
+    public void 총수익률이_올바른가() {
+        Map<LottoCorrectCount, Integer> resultMap = initResultMap();
+        assertThat(LottoUtils.getProfitRate(LottoUtils.getProfit(resultMap), 6000), is(3.333525E7F));
+    }
+
+    private Map<LottoCorrectCount, Integer> initResultMap() {
         List<Lotto> lottos = new ArrayList<>();
         lottos.add(Lotto.generate(() -> new int[]{1, 2, 3, 40, 41, 42})); //THREE
         lottos.add(Lotto.generate(() -> new int[]{10, 20, 30, 4, 5, 6})); //THREE
@@ -38,10 +60,6 @@ public class LottoMachineTest {
         lottos.add(Lotto.generate(() -> new int[]{1, 2, 3, 4, 5, 6})); //SIX
 
         List<Integer> winNumbers = Input.init("1, 2, 3, 4, 5, 6").winNumbers();
-        Map<LottoCorrectCount, Integer> result = LottoUtils.resultToMap(LottoMachine.getLottoResults(lottos, winNumbers));
-
-        assertEquals(of(3).get(), result.get(THREE));
-        assertEquals(of(2).get(), result.get(FOUR));
-        assertEquals(of(1).get(), result.get(SIX));
+        return LottoUtils.resultToMap(LottoMachine.getLottoResults(lottos, winNumbers));
     }
 }
