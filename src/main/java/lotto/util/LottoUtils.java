@@ -1,5 +1,6 @@
 package lotto.util;
 
+import lotto.domain.enums.LottoCorrectCount;
 import lotto.dto.LottoResult;
 
 import java.util.Arrays;
@@ -20,26 +21,22 @@ public class LottoUtils {
         return Arrays.stream(numbers).mapToObj(String::valueOf).toArray(String[]::new);
     }
 
-    public static List<Integer> convertStringToIntList(String[] stringWinNumbers) {
-        return Arrays.stream(stringWinNumbers).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
-    }
-
-    public static Map<String, Integer> resultToMap(List<LottoResult> lottoResults) {
+    public static Map<LottoCorrectCount, Integer> resultToMap(List<LottoResult> lottoResults) {
         return lottoResults.stream()
                 .filter(lottoResult -> lottoResult.getCorrectCount() >= THREE.getValue())
                 .collect(groupingBy(LottoUtils::makeCorrectKey, Collectors.summingInt(LottoResult::sumCount)));
     }
 
-    private static String makeCorrectKey(LottoResult result) {
+    private static LottoCorrectCount makeCorrectKey(LottoResult result) {
         int count = result.getCorrectCount();
 
         if (THREE.isCorrect(count)) {
-            return THREE.name();
+            return THREE;
         } else if (FOUR.isCorrect(count)) {
-            return FOUR.name();
+            return FOUR;
         } else if (FIVE.isCorrect(count)) {
-            return FIVE.name();
+            return FIVE;
         }
-        return SIX.name();
+        return SIX;
     }
 }

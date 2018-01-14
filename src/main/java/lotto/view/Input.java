@@ -5,6 +5,10 @@ import lotto.util.LottoUtils;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.toList;
+import static lotto.util.LottoUtils.LOTTO_MAX_COUNT;
 
 public class Input {
     private Scanner scanner;
@@ -23,6 +27,7 @@ public class Input {
     }
 
     public int getMoney() {
+        Output.print("구입금액을 입력해 주세요.");
         int money = scanner.nextInt();
         if(!checkThousandUnit(money)) { throw new IllegalArgumentException(); }
 
@@ -30,8 +35,11 @@ public class Input {
     }
 
     public List<Integer> winNumbers() {
-        String[] stringWinNumbers = scanner.nextLine().split(LottoUtils.REGEX);
-        return LottoUtils.convertStringToIntList(stringWinNumbers);
+        Output.print("지난 주 당첨 번호를 입력해 주세요.");
+        return IntStream.range(0, LOTTO_MAX_COUNT)
+                .map(i -> Integer.parseInt(scanner.next().substring(0, 1)))
+                .boxed()
+                .collect(toList());
     }
 
 

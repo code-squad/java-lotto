@@ -1,5 +1,6 @@
 import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
+import lotto.domain.enums.LottoCorrectCount;
 import lotto.util.LottoUtils;
 import lotto.view.Input;
 import org.junit.Test;
@@ -9,9 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Optional.of;
-import static lotto.domain.enums.LottoCorrectCount.FOUR;
-import static lotto.domain.enums.LottoCorrectCount.SIX;
-import static lotto.domain.enums.LottoCorrectCount.THREE;
+import static lotto.domain.enums.LottoCorrectCount.*;
 import static org.junit.Assert.assertEquals;
 
 public class LottoMachineTest {
@@ -39,10 +38,10 @@ public class LottoMachineTest {
         lottos.add(Lotto.generate(() -> new int[]{1, 2, 3, 4, 5, 6})); //SIX
 
         List<Integer> winNumbers = Input.init("1, 2, 3, 4, 5, 6").winNumbers();
-        Map<String, Integer> result = LottoUtils.resultToMap(LottoMachine.getLottoResults(lottos, winNumbers));
+        Map<LottoCorrectCount, Integer> result = LottoUtils.resultToMap(LottoMachine.getLottoResults(lottos, winNumbers));
 
-        assertEquals(of(3).get(), result.get(THREE.name()));
-        assertEquals(of(2).get(), result.get(FOUR.name()));
-        assertEquals(of(1).get(), result.get(SIX.name()));
+        assertEquals(of(3).get(), result.get(THREE));
+        assertEquals(of(2).get(), result.get(FOUR));
+        assertEquals(of(1).get(), result.get(SIX));
     }
 }
