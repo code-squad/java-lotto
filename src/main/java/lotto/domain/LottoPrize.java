@@ -23,11 +23,15 @@ public enum LottoPrize {
 
     public static LottoPrize letMeKnowPrize(int matchCount) {
         for (LottoPrize lottoPrize : LottoPrize.values()) {
-            if (lottoPrize.successCount == matchCount) {
+            if (lottoPrize.isMatch(matchCount)) {
                 return lottoPrize;
             }
         }
         return LottoPrize.NONE;
+    }
+
+    public boolean isMatch(int matchCount) {
+        return this.successCount == matchCount;
     }
 
     public int getPrizeAmount() {
