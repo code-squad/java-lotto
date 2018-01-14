@@ -30,7 +30,7 @@ public class LottoGameTest {
 
     @Test
     public void getLottoResultTest() {
-        Map<Integer, Integer> winnerLottos = lottoGame.checkLottos(Arrays.asList(1, 2, 3, 4, 5, 6));
+        Map<Integer, Integer> winnerLottos = lottoGame.matchLottosWithWinnigNums(Arrays.asList(1, 2, 3, 4, 5, 6));
         assertThat(winnerLottos.get(3)).isEqualTo(1);
         assertThat(winnerLottos.get(4)).isEqualTo(2);
         assertThat(winnerLottos.get(5)).isEqualTo(0);

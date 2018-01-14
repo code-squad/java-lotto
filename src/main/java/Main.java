@@ -14,8 +14,8 @@ public class Main {
         showNumOfBuyLotto(lottoGame.getNumOfLottos());
         showLottos(lottoGame);
 
-        List<Integer> winnerNums = getWinnerNums();
-        LottoGameResult lottoGameResult = new LottoGameResult(lottoGame.checkLottos(winnerNums), investMoney);
+        List<Integer> winnigNums = getWinnerNums();
+        LottoGameResult lottoGameResult = new LottoGameResult(lottoGame.matchLottosWithWinnigNums(winnigNums), investMoney);
 
         showResult(lottoGameResult);
     }
