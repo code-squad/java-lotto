@@ -33,7 +33,7 @@ public class LottoGameTest {
     @Test
     public void getLottoResultTest() {
         Map<LottoPrize, Integer> winnerLottos = lottoGame.matchLottosWithWinnigNums(
-                new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6), 7));
+                new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7));
         assertThat(winnerLottos.get(FIFTH)).isEqualTo(1);
         assertThat(winnerLottos.get(FOURTH)).isEqualTo(2);
         assertThat(winnerLottos.get(THIRD)).isEqualTo(0);

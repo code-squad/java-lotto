@@ -16,7 +16,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class LottoCheckerTest {
     private List<Lotto> lottos;
-    private WinningLotto winningLotto;
+    private WinningNumber winningNumber;
     @Before
     public void init() {
         lottos = new ArrayList<>();
@@ -24,12 +24,12 @@ public class LottoCheckerTest {
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
 
-        winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6), 7);
+        winningNumber = new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7);
     }
     @Test
     public void lottoCheckerTest() {
         //당첨 번호랑 로또 리스트를 받아서 맞춘 숫자별 리스트를 가지고 있는 셋을 반환
-        Map<LottoPrize, Integer> winnerLottos = LottoChecker.getWinnerLottos(lottos, winningLotto);
+        Map<LottoPrize, Integer> winnerLottos = LottoChecker.getWinnerLottos(lottos, winningNumber);
 
         assertThat(winnerLottos.get(FIFTH)).isEqualTo(0);
         assertThat(winnerLottos.get(FOURTH)).isEqualTo(1);
@@ -43,7 +43,7 @@ public class LottoCheckerTest {
         Map<LottoPrize, Integer> winnerLottos = initWinnersLottos();
         Lotto lotto = new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6));
 
-        checkWinnigLotto(winningLotto, winnerLottos, lotto);
+        checkWinnigLotto(winningNumber, winnerLottos, lotto);
         assertThat(winnerLottos.get(FIRST)).isEqualTo(1);
     }
 }

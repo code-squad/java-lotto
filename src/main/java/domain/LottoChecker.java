@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoChecker {
-    public static Map<LottoPrize, Integer> getWinnerLottos(List<Lotto> lottos, WinningLotto winningLotto) {
+    public static Map<LottoPrize, Integer> getWinnerLottos(List<Lotto> lottos, WinningNumber winningNumber) {
         Map<LottoPrize, Integer> winnersLottos = initWinnersLottos();
 
         for(Lotto lotto : lottos)
-            checkWinnigLotto(winningLotto, winnersLottos , lotto);
+            checkWinnigLotto(winningNumber, winnersLottos , lotto);
 
         return winnersLottos;
     }
@@ -24,9 +24,9 @@ public class LottoChecker {
         return winnersLottos;
     }
 
-    public static void checkWinnigLotto(WinningLotto winningLotto, Map<LottoPrize, Integer> resultMap, Lotto lotto) {
-        int numOfCorrespond = lotto.howManyCorrespond(winningLotto.getWinningLottos());
-        boolean matchBonusNum = lotto.isBonusNumMatch(winningLotto.getBonusNum());
+    public static void checkWinnigLotto(WinningNumber winningNumber, Map<LottoPrize, Integer> resultMap, Lotto lotto) {
+        int numOfCorrespond = lotto.howManyCorrespond(winningNumber.getWinningLottos());
+        boolean matchBonusNum = lotto.isBonusNumMatch(winningNumber.getBonusNum());
 
         if(numOfCorrespond >= 3) {
             LottoPrize prize = LottoPrize.valueOf(numOfCorrespond, matchBonusNum);
