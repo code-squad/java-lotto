@@ -18,7 +18,7 @@ public class LottoOperatorTest {
 
     @Before
     public void setUp() throws Exception {
-        lottoOperator = new LottoOperator("1, 2, 3, 4, 5, 6");
+        lottoOperator = new LottoOperator("1, 2, 3, 4, 5, 6", "7");
     }
 
     @Test
@@ -34,17 +34,17 @@ public class LottoOperatorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void putLastWeekSuccessNumberWithIllegalArgument() {
-        new LottoOperator("1, 2, 3, 4, 5");
+        new LottoOperator("1, 2, 3, 4, 5", "7");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void putLastWeekSuccessNumberWithIllegalArgumentOverflow() {
-        new LottoOperator("1, 2, 3, 4, 5, 46");
+        new LottoOperator("1, 2, 3, 4, 5, 46", "7");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void putLastWeekSuccessNumberWithIllegalArgumentUnderflow() {
-        new LottoOperator("0, 2, 3, 4, 5, 6");
+        new LottoOperator("0, 2, 3, 4, 5, 6", "7");
     }
 
     @Test
@@ -60,6 +60,7 @@ public class LottoOperatorTest {
         assertEquals(1, lottoResult.getPrizeCount(LottoPrize.THREE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE_BONUS));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.SIX));
 
         assertEquals(250, lottoResult.calculateProfitRatio());
@@ -77,6 +78,8 @@ public class LottoOperatorTest {
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.THREE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE_BONUS));
+
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.SIX));
 
         assertEquals(-100, lottoResult.calculateProfitRatio());
@@ -99,6 +102,7 @@ public class LottoOperatorTest {
         assertEquals(1, lottoResult.getPrizeCount(LottoPrize.THREE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE));
+        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE_BONUS));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.SIX));
 
         assertEquals(-17, lottoResult.calculateProfitRatio());

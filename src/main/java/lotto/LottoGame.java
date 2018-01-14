@@ -21,7 +21,9 @@ public class LottoGame {
         LottoCustomer lottoCustomer = LottoStore.buyRandomTickets(LottoStore.countTicket(ticketTotalPrice));
         resultView.printTickets(lottoCustomer);
 
-        LottoOperator lottoOperator = new LottoOperator(inputView.requestToInputLastWeekSuccessNumbers());
+        String successNumberString = inputView.requestToInputLastWeekSuccessNumbers();
+        String bonusNumberString = inputView.requestToInputLastWeekBonusNumber();
+        LottoOperator lottoOperator = new LottoOperator(successNumberString, bonusNumberString);
         LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
 
         resultView.printResult(lottoResult);

@@ -34,15 +34,10 @@ public class LottoResult {
         return totalProfit;
     }
 
-    // 3개 일치 (5000원)- 1개
     public String showResultMessage(LottoPrize prize) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(prize.getSuccessCount())
-                .append("개 일치 (")
-                .append(prize.getPrizeAmount())
-                .append("원)- ")
-                .append(lottoPrizeResults.get(prize))
-                .append("개");
-        return sb.toString();
+        return prize.showMessage() +
+                "- " +
+                lottoPrizeResults.get(prize) +
+                "개";
     }
 }
