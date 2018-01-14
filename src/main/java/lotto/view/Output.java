@@ -2,7 +2,7 @@ package lotto.view;
 
 import lotto.util.LottoUtils;
 
-public class OutputView {
+public class Output {
     private static final String UI_FORMAT = "[%s]";
 
     public static String lottoNumbersFormatting(int[] numbers) {
