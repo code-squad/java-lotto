@@ -19,6 +19,10 @@ public enum LottoPrize {
         return this.numOfMatch == numOfMatch;
     }
 
+    public int getTotalPrize(int numOfLotto) {
+        return this.cashPrize * numOfLotto;
+    }
+
     public static LottoPrize valueOf(int numOfMatch, boolean matchBonus) {
         if(numOfMatch == 5)
             return matchBonus ? SECOND : THIRD;

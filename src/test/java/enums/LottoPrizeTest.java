@@ -14,4 +14,12 @@ public class LottoPrizeTest {
         assertThat(LottoPrize.valueOf(4, false)).isEqualTo(FOURTH);
         assertThat(LottoPrize.valueOf(3, false)).isEqualTo(FIFTH);
     }
+
+    @Test
+    public void totalCashPrizeTest() {
+        assertThat(LottoPrize.FIRST.getTotalPrize(1)).isEqualTo(2000000000);
+        assertThat(LottoPrize.SECOND.getTotalPrize(2)).isEqualTo(60000000);
+        assertThat(LottoPrize.THIRD.getTotalPrize(3)).isEqualTo(4500000);
+        assertThat(LottoPrize.FOURTH.getTotalPrize(4)).isEqualTo(200000);
+    }
 }
