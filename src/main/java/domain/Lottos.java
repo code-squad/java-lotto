@@ -28,14 +28,14 @@ public class Lottos {
                      .collect(Collectors.toList());
     }
 
-    @Override
-    public String toString() {
-        return String.join("\n", convertLottoToString());
-    }
-
     private List<String> convertLottoToString() {
         return lottos.stream()
                      .map(Lotto::toString)
                      .collect(Collectors.toList());
+    }
+
+    @Override
+    public String toString() {
+        return String.join("\n", convertLottoToString());
     }
 }
