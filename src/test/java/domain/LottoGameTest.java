@@ -1,5 +1,6 @@
 package domain;
 
+import enums.LottoPrize;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static enums.LottoPrize.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class LottoGameTest {
@@ -30,10 +32,10 @@ public class LottoGameTest {
 
     @Test
     public void getLottoResultTest() {
-        Map<Integer, Integer> winnerLottos = lottoGame.matchLottosWithWinnigNums(Arrays.asList(1, 2, 3, 4, 5, 6));
-        assertThat(winnerLottos.get(3)).isEqualTo(1);
-        assertThat(winnerLottos.get(4)).isEqualTo(2);
-        assertThat(winnerLottos.get(5)).isEqualTo(0);
-        assertThat(winnerLottos.get(6)).isEqualTo(0);
+        Map<LottoPrize, Integer> winnerLottos = lottoGame.matchLottosWithWinnigNums(Arrays.asList(1, 2, 3, 4, 5, 6));
+        assertThat(winnerLottos.get(FIFTH)).isEqualTo(1);
+        assertThat(winnerLottos.get(FOURTH)).isEqualTo(2);
+        assertThat(winnerLottos.get(THIRD)).isEqualTo(0);
+        assertThat(winnerLottos.get(FIRST)).isEqualTo(0);
     }
 }

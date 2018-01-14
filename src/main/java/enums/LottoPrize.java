@@ -15,6 +15,14 @@ public enum LottoPrize {
         this.cashPrize = prize;
     }
 
+    public int getNumOfMatch() {
+        return numOfMatch;
+    }
+
+    public int getCashPrize() {
+        return cashPrize;
+    }
+
     public boolean isMatch(int numOfMatch) {
         return this.numOfMatch == numOfMatch;
     }

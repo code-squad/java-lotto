@@ -48,20 +48,13 @@ public class LottoGameResultTest {
     }
 
     @Test
-    public void getSumTest() {
-        assertThat(lottoGameResult.getSum(3, 1)).isEqualTo(5000);
-        assertThat(lottoGameResult.getSum(4, 2)).isEqualTo(50000 * 2);
-        assertThat(lottoGameResult.getSum(5, 3)).isEqualTo(1500000 * 3);
-        assertThat(lottoGameResult.getSum(6, 1)).isEqualTo(2000000000);
-    }
-
-    @Test
     public void getResultState() {
         assertThat(lottoGameResult.toString()).isEqualTo(
-                        "3개 일치 (5000원)- 1개\n" +
-                        "4개 일치 (50000원)- 1개\n" +
-                        "5개 일치 (1500000원)- 1개\n" +
-                        "6개 일치 (2000000000원)- 1개\n"
+            "6개 일치 (2000000000원)- 1개\n" +
+            "5개 일치, 보너스 볼 일치 (30000000원)- 0개\n" +
+            "5개 일치 (1500000원)- 1개\n" +
+            "4개 일치 (50000원)- 1개\n" +
+            "3개 일치 (5000원)- 1개\n"
         );
     }
 }

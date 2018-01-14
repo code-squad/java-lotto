@@ -1,12 +1,14 @@
 package domain;
 
+import enums.LottoPrize;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class LottoChecker {
-    public static Map<Integer, Integer> getWinnerLottos(List<Lotto> lottos, List<Integer> winnigNums) {
-        Map<Integer, Integer> winnersLottos = initWinnersLottos();
+    public static Map<LottoPrize, Integer> getWinnerLottos(List<Lotto> lottos, List<Integer> winnigNums) {
+        Map<LottoPrize, Integer> winnersLottos = initWinnersLottos();
 
         for(Lotto lotto : lottos)
             checkWinnigLotto(winnigNums, winnersLottos , lotto);
@@ -14,21 +16,24 @@ public class LottoChecker {
         return winnersLottos;
     }
 
-    public static Map<Integer, Integer> initWinnersLottos() {
-        Map<Integer, Integer> winnersLottos = new HashMap<>();
-        for(int i = 3 ; i <= 6 ; ++i)
-            winnersLottos.put(i, 0);
+    public static Map<LottoPrize, Integer> initWinnersLottos() {
+        Map<LottoPrize, Integer> winnersLottos = new HashMap<>();
+        for(LottoPrize prize : LottoPrize.values())
+            winnersLottos.put(prize, 0);
 
         return winnersLottos;
     }
 
-    public static void checkWinnigLotto(List<Integer> winnigNums, Map<Integer, Integer> resultMap, Lotto lotto) {
+    public static void checkWinnigLotto(List<Integer> winnigNums, Map<LottoPrize, Integer> resultMap, Lotto lotto) {
         int numOfCorrespond = lotto.howManyCorrespond(winnigNums);
-        if(numOfCorrespond >= 3)
-            putLottoInResultMap(resultMap, numOfCorrespond);
+
+        if(numOfCorrespond >= 3) {
+            LottoPrize prize = LottoPrize.valueOf(numOfCorrespond, false);
+            putLottoInResultMap(resultMap, prize);
+        }
     }
 
-    private static void putLottoInResultMap(Map<Integer, Integer> resultMap, int numOfCorrespon) {
-        resultMap.put(numOfCorrespon, resultMap.get(numOfCorrespon) + 1);
+    private static void putLottoInResultMap(Map<LottoPrize, Integer> resultMap, LottoPrize prize) {
+        resultMap.put(prize, resultMap.get(prize) + 1);
     }
 }

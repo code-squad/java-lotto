@@ -1,22 +1,14 @@
 package domain;
 
-import java.util.HashMap;
+import enums.LottoPrize;
+
 import java.util.Map;
 
 public class LottoGameResult {
-    private static final Map<Integer, Integer> prices;
-    private Map<Integer, Integer> winnerLottos;
+    private Map<LottoPrize, Integer> winnerLottos;
     private int investment;
 
-    static {
-        prices = new HashMap<>();
-        prices.put(3, 5000);
-        prices.put(4, 50000);
-        prices.put(5, 1500000);
-        prices.put(6, 2000000000);
-    }
-
-    public LottoGameResult(Map<Integer, Integer> winnerLottos, int investment) {
+    public LottoGameResult(Map<LottoPrize, Integer> winnerLottos, int investment) {
         this.winnerLottos = winnerLottos;
         this.investment = investment;
     }
@@ -24,8 +16,8 @@ public class LottoGameResult {
     public int getProfit() {
         int sum = 0;
 
-        for(int correspond : winnerLottos.keySet())
-            sum += getSum(correspond, winnerLottos.get(correspond));
+        for(LottoPrize prize : winnerLottos.keySet())
+            sum += prize.getTotalPrize(winnerLottos.get(prize));
 
         return sum;
     }
@@ -35,16 +27,14 @@ public class LottoGameResult {
         return (int) (((double)sum - investment) / investment * 100);
     }
 
-    public int getSum(int correspond, int size) {
-        return prices.get(correspond) * size;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(int i = 3 ; i <= 6 ; ++i) {
-            sb.append(i).append("개 일치 (").append(prices.get(i)).append("원)- ")
-                    .append(winnerLottos.get(i)).append("개\n");
+        for(LottoPrize prize : LottoPrize.values()) {
+            sb.append(prize.getNumOfMatch()).append("개 일치")
+                    .append(prize.equals(LottoPrize.SECOND) ? ", 보너스 볼 일치 (" : " (")
+                    .append(prize.getCashPrize()).append("원)- ")
+                    .append(winnerLottos.get(prize)).append("개\n");
         }
 
         return sb.toString();
