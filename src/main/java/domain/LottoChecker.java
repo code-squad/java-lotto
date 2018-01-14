@@ -26,9 +26,10 @@ public class LottoChecker {
 
     public static void checkWinnigLotto(List<Integer> winnigNums, int bonusNum, Map<LottoPrize, Integer> resultMap, Lotto lotto) {
         int numOfCorrespond = lotto.howManyCorrespond(winnigNums);
+        boolean matchBonusNum = lotto.isBonusNumMatch(bonusNum);
 
         if(numOfCorrespond >= 3) {
-            LottoPrize prize = LottoPrize.valueOf(numOfCorrespond, false);
+            LottoPrize prize = LottoPrize.valueOf(numOfCorrespond, matchBonusNum);
             putLottoInResultMap(resultMap, prize);
         }
     }

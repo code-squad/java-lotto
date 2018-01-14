@@ -8,7 +8,8 @@ import java.util.Arrays;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class LottoTest {
-    Lotto lotto;
+    private Lotto lotto;
+
     @Before
     public void init() {
         lotto = new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6));
