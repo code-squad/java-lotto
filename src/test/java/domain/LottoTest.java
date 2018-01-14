@@ -52,6 +52,8 @@ public class LottoTest {
         new Lotto(Arrays.asList(new LottoNumber(1), new LottoNumber(2),
                                 new LottoNumber(3), new LottoNumber(4),
                                 new LottoNumber(5), new LottoNumber(6)));
+
+        new Lotto(new int[]{1, 2, 3, 4, 5, 6});
     }
 
     @Test

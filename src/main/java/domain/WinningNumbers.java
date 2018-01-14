@@ -1,8 +1,5 @@
 package domain;
 
-import dto.LottoResult;
-import spark.utils.CollectionUtils;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,14 +49,5 @@ public class WinningNumbers {
     public boolean contain(LottoNumber number) {
         return winningNumbers.stream()
                              .anyMatch(i -> i.equals(number));
-    }
-
-    public List<LottoResult> match(List<Lotto> lottos) {
-        if (CollectionUtils.isEmpty(lottos)) {
-            throw new IllegalArgumentException();
-        }
-        return lottos.stream()
-                     .map(lotto -> lotto.getWinResult(this))
-                     .collect(Collectors.toList());
     }
 }

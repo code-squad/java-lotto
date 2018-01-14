@@ -1,5 +1,5 @@
-import domain.Lotto;
 import domain.LottoSeller;
+import domain.Lottos;
 import domain.WinningNumbers;
 import dto.LottoResult;
 import utils.RevenueCalculator;
@@ -13,12 +13,12 @@ public class Main {
         int purchaseAmount = InputView.getPurchaseAmount();
 
         LottoSeller seller = new LottoSeller();
-        List<Lotto> lottos = seller.buyRandomNumberLottos(purchaseAmount);
+        Lottos lottos = seller.buyRandomNumberLottos(purchaseAmount);
         ResultView.printLottos(lottos);
 
         WinningNumbers winningNumbers = InputView.getWinningNumbers();
 
-        List<LottoResult> results = winningNumbers.match(lottos);
+        List<LottoResult> results = lottos.match(winningNumbers);
         ResultView.printLottoResults(results);
         ResultView.printRevenue(RevenueCalculator.calculate(results));
     }

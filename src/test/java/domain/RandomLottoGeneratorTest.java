@@ -7,16 +7,16 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class RandomLottoGeneratorTest {
 
-    private RandomLottoNumbersGenerator generator;
+    private RandomLottoGenerator generator;
 
     @Before
     public void setUp() throws Exception {
-        generator = new RandomLottoNumbersGenerator();
+        generator = new RandomLottoGenerator();
     }
 
     @Test
-    public void createRandomLottoNumbers() throws Exception {
-        Lotto lotto = generator.createRandomLottoNumbers();
+    public void createRandomLotto() throws Exception {
+        Lotto lotto = generator.createRandomLotto();
 
         assertThat(lotto).isNotNull();
     }

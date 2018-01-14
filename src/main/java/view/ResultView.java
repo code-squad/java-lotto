@@ -1,6 +1,6 @@
 package view;
 
-import domain.Lotto;
+import domain.Lottos;
 import dto.LottoResult;
 import dto.Rank;
 
@@ -17,9 +17,9 @@ public class ResultView {
         System.out.println(String.valueOf(numberOfPurchase) + "개를 구매했습니다");
     }
 
-    public static void printLottos(List<Lotto> lottos) {
+    public static void printLottos(Lottos lottos) {
         printNumberOfPurchase(lottos.size());
-        lottos.forEach(lotto -> System.out.println(lotto.toString()));
+        System.out.println(lottos.toString());
     }
 
     public static void printLottoResults(List<LottoResult> results) {

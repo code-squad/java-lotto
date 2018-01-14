@@ -25,4 +25,13 @@ public class RankTest {
         Rank.valueOf(-1);
     }
 
+    @Test
+    public void isFail() throws Exception {
+        assertThat(Rank.FAIL.isFail()).isTrue();
+
+        assertThat(Rank.FIRST.isFail()).isFalse();
+        assertThat(Rank.SECOND.isFail()).isFalse();
+        assertThat(Rank.THIRD.isFail()).isFalse();
+        assertThat(Rank.FOURTH.isFail()).isFalse();
+    }
 }
