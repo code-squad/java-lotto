@@ -20,17 +20,18 @@ public class LottoCheckerTest {
     public void init() {
         lottos = new ArrayList<>();
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 7, 8)));
+        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
     }
     @Test
     public void lottoCheckerTest() {
         //당첨 번호랑 로또 리스트를 받아서 맞춘 숫자별 리스트를 가지고 있는 셋을 반환
-        Map<LottoPrize, Integer> winnerLottos = LottoChecker.getWinnerLottos(lottos, Arrays.asList(1, 2, 3, 4, 5, 6));
+        Map<LottoPrize, Integer> winnerLottos = LottoChecker.getWinnerLottos(lottos, Arrays.asList(1, 2, 3, 4, 5, 6), 7);
 
         assertThat(winnerLottos.get(FIFTH)).isEqualTo(0);
         assertThat(winnerLottos.get(FOURTH)).isEqualTo(1);
         assertThat(winnerLottos.get(THIRD)).isEqualTo(0);
-        assertThat(winnerLottos.get(SECOND)).isEqualTo(0);
+        assertThat(winnerLottos.get(SECOND)).isEqualTo(1);
         assertThat(winnerLottos.get(FIRST)).isEqualTo(1);
     }
 
@@ -39,8 +40,9 @@ public class LottoCheckerTest {
         Map<LottoPrize, Integer> winnerLottos = initWinnersLottos();
         Lotto lotto = new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6));
         List<Integer> winnerNums = Arrays.asList(1, 2, 3, 4, 7, 8);
+        int bonusNum = 6;
 
-        checkWinnigLotto(winnerNums, winnerLottos, lotto);
+        checkWinnigLotto(winnerNums, bonusNum, winnerLottos, lotto);
         assertThat(winnerLottos.get(FOURTH)).isEqualTo(1);
     }
 }

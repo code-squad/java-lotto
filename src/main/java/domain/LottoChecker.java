@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoChecker {
-    public static Map<LottoPrize, Integer> getWinnerLottos(List<Lotto> lottos, List<Integer> winnigNums) {
+    public static Map<LottoPrize, Integer> getWinnerLottos(List<Lotto> lottos, List<Integer> winnigNums, int bonusNum) {
         Map<LottoPrize, Integer> winnersLottos = initWinnersLottos();
 
         for(Lotto lotto : lottos)
-            checkWinnigLotto(winnigNums, winnersLottos , lotto);
+            checkWinnigLotto(winnigNums, bonusNum, winnersLottos , lotto);
 
         return winnersLottos;
     }
@@ -24,7 +24,7 @@ public class LottoChecker {
         return winnersLottos;
     }
 
-    public static void checkWinnigLotto(List<Integer> winnigNums, Map<LottoPrize, Integer> resultMap, Lotto lotto) {
+    public static void checkWinnigLotto(List<Integer> winnigNums, int bonusNum, Map<LottoPrize, Integer> resultMap, Lotto lotto) {
         int numOfCorrespond = lotto.howManyCorrespond(winnigNums);
 
         if(numOfCorrespond >= 3) {
