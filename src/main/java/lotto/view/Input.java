@@ -1,4 +1,9 @@
+package lotto.view;
+
+import lotto.util.LottoUtils;
+
 import java.io.InputStream;
+import java.util.List;
 import java.util.Scanner;
 
 public class Input {
@@ -23,4 +28,11 @@ public class Input {
 
         return money;
     }
+
+    public List<Integer> winNumbers() {
+        String[] stringWinNumbers = scanner.nextLine().split(LottoUtils.REGEX);
+        return LottoUtils.convertStringToIntList(stringWinNumbers);
+    }
+
+
 }
