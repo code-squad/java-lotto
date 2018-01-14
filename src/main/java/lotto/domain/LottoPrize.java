@@ -30,7 +30,7 @@ public enum LottoPrize {
         return LottoPrize.NONE;
     }
 
-    public boolean isMatch(int matchCount) {
+    private boolean isMatch(int matchCount) {
         return this.successCount == matchCount;
     }
 

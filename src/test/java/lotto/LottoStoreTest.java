@@ -23,7 +23,7 @@ public class LottoStoreTest {
 
     @Test
     public void buyRandomTickets() throws Exception {
-        assertEquals(14, LottoStore.buyRandomTickets(14).getTickets().size());
-        assertEquals(1, LottoStore.buyRandomTickets(1).getTickets().size());
+        assertEquals(14, LottoStore.buyRandomTickets(14).showTicketMessages().size());
+        assertEquals(1, LottoStore.buyRandomTickets(1).showTicketMessages().size());
     }
 }

@@ -1,6 +1,6 @@
 package lotto;
 
-import lotto.domain.CustomerLottoTickets;
+import lotto.domain.LottoCustomer;
 import lotto.domain.LottoPrize;
 import lotto.domain.LottoResult;
 import lotto.domain.LottoTicket;
@@ -53,11 +53,9 @@ public class LottoOperatorTest {
         lottoTickets.add(LottoStore.buyExplicitTicket("10, 11, 12, 7, 8, 9"));
         lottoTickets.add(LottoStore.buyExplicitTicket("1, 2, 3, 7, 8, 9"));
 
-        CustomerLottoTickets customerLottoTickets = new CustomerLottoTickets(lottoTickets);
+        LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
 
-        int ticketTotalPrice = getTicketTotalPrice(lottoTickets);
-
-        LottoResult lottoResult = lottoOperator.match(customerLottoTickets, ticketTotalPrice);
+        LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
         assertEquals(1, lottoResult.getPrizeCount(LottoPrize.NONE));
         assertEquals(1, lottoResult.getPrizeCount(LottoPrize.THREE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
@@ -72,11 +70,9 @@ public class LottoOperatorTest {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         lottoTickets.add(LottoStore.buyExplicitTicket("10, 11, 12, 7, 8, 9"));
 
-        CustomerLottoTickets customerLottoTickets = new CustomerLottoTickets(lottoTickets);
+        LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
 
-        int ticketTotalPrice = getTicketTotalPrice(lottoTickets);
-
-        LottoResult lottoResult = lottoOperator.match(customerLottoTickets, ticketTotalPrice);
+        LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
         assertEquals(1, lottoResult.getPrizeCount(LottoPrize.NONE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.THREE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
@@ -96,11 +92,9 @@ public class LottoOperatorTest {
         lottoTickets.add(LottoStore.buyExplicitTicket("7, 8, 9, 23, 42, 31"));
         lottoTickets.add(LottoStore.buyExplicitTicket("7, 8, 1, 23, 42, 31"));
 
-        CustomerLottoTickets customerLottoTickets = new CustomerLottoTickets(lottoTickets);
+        LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
 
-        int ticketTotalPrice = getTicketTotalPrice(lottoTickets);
-
-        LottoResult lottoResult = lottoOperator.match(customerLottoTickets, ticketTotalPrice);
+        LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
         assertEquals(5, lottoResult.getPrizeCount(LottoPrize.NONE));
         assertEquals(1, lottoResult.getPrizeCount(LottoPrize.THREE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));

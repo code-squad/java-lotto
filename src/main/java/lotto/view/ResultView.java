@@ -1,16 +1,15 @@
 package lotto.view;
 
-import lotto.domain.CustomerLottoTickets;
+import lotto.domain.LottoCustomer;
 import lotto.domain.LottoPrize;
 import lotto.domain.LottoResult;
-import lotto.domain.LottoTicket;
 
 public class ResultView {
-    public void printTickets(CustomerLottoTickets lottoTickets) {
+    public void printTickets(LottoCustomer lottoTickets) {
         System.out.println(lottoTickets.showCountMessage());
 
-        for (LottoTicket lottoTicket : lottoTickets.getTickets()) {
-            System.out.println(lottoTicket);
+        for (String message : lottoTickets.showTicketMessages()) {
+            System.out.println(message);
         }
     }
 

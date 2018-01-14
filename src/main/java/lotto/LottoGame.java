@@ -1,7 +1,7 @@
 package lotto;
 
 
-import lotto.domain.CustomerLottoTickets;
+import lotto.domain.LottoCustomer;
 import lotto.domain.LottoResult;
 import lotto.view.InputView;
 import lotto.view.ResultView;
@@ -10,19 +10,19 @@ public class LottoGame {
     private InputView inputView;
     private ResultView resultView;
 
-    public LottoGame() {
+    private LottoGame() {
         this.resultView = new ResultView();
         this.inputView = new InputView();
     }
 
-    public void start() {
+    private void start() {
         int ticketTotalPrice = inputView.requestToInputTicketTotalPrice();
 
-        CustomerLottoTickets customerLottoTickets = LottoStore.buyRandomTickets(LottoStore.countTicket(ticketTotalPrice));
-        resultView.printTickets(customerLottoTickets);
+        LottoCustomer lottoCustomer = LottoStore.buyRandomTickets(LottoStore.countTicket(ticketTotalPrice));
+        resultView.printTickets(lottoCustomer);
 
         LottoOperator lottoOperator = new LottoOperator(inputView.requestToInputLastWeekSuccessNumbers());
-        LottoResult lottoResult = lottoOperator.match(customerLottoTickets, ticketTotalPrice);
+        LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
 
         resultView.printResult(lottoResult);
     }
