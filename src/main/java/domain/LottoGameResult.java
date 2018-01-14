@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoGameResult {
+    private static final Map<Integer, Integer> prices;
     private Map<Integer, List<Lotto>> winnerLottos;
     private int investment;
-    private static final Map<Integer, Integer> prices;
+
     static {
         prices = new HashMap<>();
         prices.put(3, 5000);
