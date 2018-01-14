@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoChecker {
-
     public static Map<Integer, Integer> getWinnerLottos(List<Lotto> lottos, List<Integer> winnigNums) {
         Map<Integer, Integer> winnersLottos = initWinnersLottos();
 

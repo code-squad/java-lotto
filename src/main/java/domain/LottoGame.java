@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+import java.util.Map;
 
 public class LottoGame {
     private List<Lotto> lottos;
@@ -9,8 +10,12 @@ public class LottoGame {
         this.lottos = lottos;
     }
 
-    public List<Lotto> getLottos() {
-        return lottos;
+    public int getNumOfLottos() {
+        return lottos.size();
+    }
+
+    public Map<Integer,Integer> checkLottos(List<Integer> winnigNums) {
+        return LottoChecker.getWinnerLottos(lottos, winnigNums);
     }
 
     @Override
