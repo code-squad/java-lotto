@@ -16,8 +16,8 @@ public class LottoGame {
         return lottos.size();
     }
 
-    public Map<LottoPrize,Integer> matchLottosWithWinnigNums(List<Integer> winnigNums) {
-        return LottoChecker.getWinnerLottos(lottos, winnigNums, 7);
+    public Map<LottoPrize,Integer> matchLottosWithWinnigNums(List<Integer> winnigNums, int bonusNum) {
+        return LottoChecker.getWinnerLottos(lottos, winnigNums, bonusNum);
     }
 
     @Override

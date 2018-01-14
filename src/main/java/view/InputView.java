@@ -19,6 +19,11 @@ public class InputView {
         return toInts(inputs);
     }
 
+    public static int getBonusNum() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return Integer.parseInt(sc.nextLine());
+    }
+
     private static List<Integer> toInts(String[] inputs) {
         List<Integer> winnerNums = new ArrayList<>();
         for(int i = 0 ; i < inputs.length ; i++)
