@@ -13,7 +13,8 @@ public class CustomerLottoTickets {
         return tickets;
     }
 
-    public int count() {
-        return tickets.size();
+    public String showCountMessage() {
+        return tickets.size() + "개를 구매했습니다.";
     }
+
 }

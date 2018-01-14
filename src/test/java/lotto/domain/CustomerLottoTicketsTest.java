@@ -7,9 +7,10 @@ import static org.junit.Assert.*;
 
 public class CustomerLottoTicketsTest {
     @Test
-    public void count() throws Exception {
-        CustomerLottoTickets customerLottoTickets = LottoStore.buyRandomTickets(10);
-        assertEquals(10, customerLottoTickets.count());
+    public void showCountMessage() throws Exception {
+        int ticketCount = 10;
+        CustomerLottoTickets customerLottoTickets = LottoStore.buyRandomTickets(ticketCount);
+        assertEquals(ticketCount + "개를 구매했습니다.", customerLottoTickets.showCountMessage());
     }
 
 }

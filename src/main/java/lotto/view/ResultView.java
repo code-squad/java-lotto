@@ -7,7 +7,7 @@ import lotto.domain.LottoTicket;
 
 public class ResultView {
     public void printTickets(CustomerLottoTickets lottoTickets) {
-        System.out.println(lottoTickets.count() + "개를 구매했습니다.");
+        System.out.println(lottoTickets.showCountMessage());
 
         for (LottoTicket lottoTicket : lottoTickets.getTickets()) {
             System.out.println(lottoTicket);
