@@ -1,9 +1,6 @@
 package lotto;
 
-import lotto.domain.CustomerLottoTickets;
-import lotto.domain.LottoPrize;
-import lotto.domain.LottoResult;
-import lotto.domain.LottoTicket;
+import lotto.domain.*;
 import lotto.util.TicketNumberParser;
 
 import java.util.HashMap;
@@ -16,8 +13,26 @@ public class LottoOperator {
     public LottoOperator(String successNumberString) {
         this.successNumbers = TicketNumberParser.parse(successNumberString);
 
-        if (successNumbers.size() != 6) {
+        validateCountOfLottoNumbers();
+        validateLottoNumbers();
+    }
+
+    private void validateLottoNumbers() {
+        for (Integer successNumber : successNumbers) {
+            validateLottoNumber(successNumber);
+
+        }
+    }
+
+    private void validateCountOfLottoNumbers() {
+        if (successNumbers.size() != LottoConstants.NUMBER_COUNT) {
             throw new IllegalArgumentException("successNumbers=" + successNumbers.toString());
+        }
+    }
+
+    private void validateLottoNumber(Integer successNumber) {
+        if (successNumber < LottoConstants.FIRST_NUMBER || successNumber > LottoConstants.LAST_NUMBER) {
+            throw new IllegalArgumentException("successNumber=" + successNumber);
         }
     }
 

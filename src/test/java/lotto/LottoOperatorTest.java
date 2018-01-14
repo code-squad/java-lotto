@@ -37,6 +37,16 @@ public class LottoOperatorTest {
         new LottoOperator("1, 2, 3, 4, 5");
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void putLastWeekSuccessNumberWithIllegalArgumentOverflow() {
+        new LottoOperator("1, 2, 3, 4, 5, 46");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void putLastWeekSuccessNumberWithIllegalArgumentUnderflow() {
+        new LottoOperator("0, 2, 3, 4, 5, 6");
+    }
+
     @Test
     public void matchTickets() throws Exception {
         List<LottoTicket> lottoTickets = new ArrayList<>();
