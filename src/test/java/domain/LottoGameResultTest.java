@@ -20,8 +20,7 @@ public class LottoGameResultTest {
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
 
         lottoGameResult = new LottoGameResult(
-                LottoChecker.getWinnerLottos(lottos, new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7)),
-                4000
+                LottoChecker.getWinnerLottos(lottos, new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7))
         );
     }
 
@@ -40,10 +39,9 @@ public class LottoGameResultTest {
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
 
         lottoGameResult = new LottoGameResult(
-                LottoChecker.getWinnerLottos(lottos, new WinningNumber(Arrays.asList(11, 12, 13, 14, 15, 16), 7)),
-                4000
+                LottoChecker.getWinnerLottos(lottos, new WinningNumber(Arrays.asList(11, 12, 13, 14, 15, 16), 7))
         );
-        int profitPercentage = lottoGameResult.getProfitPercentage();
+        int profitPercentage = lottoGameResult.getProfitPercentage(4000);
         assertThat(profitPercentage).isEqualTo(-100);
     }
 

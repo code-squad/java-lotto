@@ -6,11 +6,9 @@ import java.util.Map;
 
 public class LottoGameResult {
     private Map<LottoPrize, Integer> winnerLottos;
-    private int investment;
 
-    public LottoGameResult(Map<LottoPrize, Integer> winnerLottos, int investment) {
+    public LottoGameResult(Map<LottoPrize, Integer> winnerLottos) {
         this.winnerLottos = winnerLottos;
-        this.investment = investment;
     }
 
     public int getProfit() {
@@ -22,7 +20,7 @@ public class LottoGameResult {
         return sum;
     }
 
-    public int getProfitPercentage() {
+    public int getProfitPercentage(int investment) {
         int sum = getProfit();
         return (int) (((double)sum - investment) / investment * 100);
     }

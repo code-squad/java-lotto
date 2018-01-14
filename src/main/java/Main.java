@@ -13,8 +13,8 @@ public class Main {
         showNumOfBuyLotto(lottoGame.getNumOfLottos());
         showLottos(lottoGame);
 
-        LottoGameResult lottoGameResult = new LottoGameResult(lottoGame.matchLottosWithWinnigNums(getWinningLotto()), investMoney);
+        LottoGameResult lottoGameResult = new LottoGameResult(lottoGame.matchLottosWithWinnigNums(getWinningLotto()));
 
-        showResult(lottoGameResult);
+        showResult(lottoGameResult, investMoney);
     }
 }
