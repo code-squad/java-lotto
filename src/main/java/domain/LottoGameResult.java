@@ -1,12 +1,11 @@
 package domain;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class LottoGameResult {
     private static final Map<Integer, Integer> prices;
-    private Map<Integer, List<Lotto>> winnerLottos;
+    private Map<Integer, Integer> winnerLottos;
     private int investment;
 
     static {
@@ -17,7 +16,7 @@ public class LottoGameResult {
         prices.put(6, 2000000000);
     }
 
-    public LottoGameResult(Map<Integer, List<Lotto>> winnerLottos, int investment) {
+    public LottoGameResult(Map<Integer, Integer> winnerLottos, int investment) {
         this.winnerLottos = winnerLottos;
         this.investment = investment;
     }
@@ -26,7 +25,7 @@ public class LottoGameResult {
         int sum = 0;
 
         for(int correspond : winnerLottos.keySet())
-            sum += getSum(correspond, winnerLottos.get(correspond).size());
+            sum += getSum(correspond, winnerLottos.get(correspond));
 
         return sum;
     }
@@ -45,7 +44,7 @@ public class LottoGameResult {
         StringBuilder sb = new StringBuilder();
         for(int i = 3 ; i <= 6 ; ++i) {
             sb.append(i).append("개 일치 (").append(prices.get(i)).append("원)- ")
-                    .append(winnerLottos.get(i).size()).append("개\n");
+                    .append(winnerLottos.get(i)).append("개\n");
         }
 
         return sb.toString();

@@ -23,21 +23,21 @@ public class LottoCheckerTest {
     @Test
     public void lottoCheckerTest() {
         //당첨 번호랑 로또 리스트를 받아서 맞춘 숫자별 리스트를 가지고 있는 셋을 반환
-        Map<Integer, List<Lotto>> winnerLottos = LottoChecker.getWinnerLottos(lottos, Arrays.asList(1, 2, 3, 4, 5, 6));
+        Map<Integer, Integer> winnerLottos = LottoChecker.getWinnerLottos(lottos, Arrays.asList(1, 2, 3, 4, 5, 6));
 
-        assertThat(winnerLottos.get(3).size()).isEqualTo(0);
-        assertThat(winnerLottos.get(4).size()).isEqualTo(1);
-        assertThat(winnerLottos.get(5).size()).isEqualTo(0);
-        assertThat(winnerLottos.get(6).size()).isEqualTo(1);
+        assertThat(winnerLottos.get(3)).isEqualTo(0);
+        assertThat(winnerLottos.get(4)).isEqualTo(1);
+        assertThat(winnerLottos.get(5)).isEqualTo(0);
+        assertThat(winnerLottos.get(6)).isEqualTo(1);
     }
 
     @Test
     public void checkWinnigLottoTest() {
-        Map<Integer, List<Lotto>> winnerLottos = initWinnersLottos();
+        Map<Integer, Integer> winnerLottos = initWinnersLottos();
         Lotto lotto = new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6));
         List<Integer> winnerNums = Arrays.asList(1, 2, 3, 4, 7, 8);
 
         checkWinnigLotto(winnerNums, winnerLottos, lotto);
-        assertThat(winnerLottos.get(4).size()).isEqualTo(1);
+        assertThat(winnerLottos.get(4)).isEqualTo(1);
     }
 }
