@@ -16,7 +16,9 @@ public class RevenueCalculatorTest {
 
     @Before
     public void setUp() throws Exception {
-        result = Arrays.asList(new LottoResult(3), new LottoResult(1), new LottoResult(4));
+        result = Arrays.asList(new LottoResult(3, false),
+                               new LottoResult(1, false),
+                               new LottoResult(4, false));
     }
 
     @Test(expected = IllegalArgumentException.class)

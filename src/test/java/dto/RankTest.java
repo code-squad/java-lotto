@@ -7,22 +7,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RankTest {
     @Test
     public void valueOf() throws Exception {
-        assertThat(Rank.valueOf(6)).isEqualTo(Rank.FIRST);
-        assertThat(Rank.valueOf(5)).isEqualTo(Rank.SECOND);
-        assertThat(Rank.valueOf(4)).isEqualTo(Rank.THIRD);
-        assertThat(Rank.valueOf(3)).isEqualTo(Rank.FOURTH);
-        assertThat(Rank.valueOf(2)).isEqualTo(Rank.FAIL);
-        assertThat(Rank.valueOf(1)).isEqualTo(Rank.FAIL);
+        assertThat(Rank.valueOf(6, false)).isEqualTo(Rank.FIRST);
+        assertThat(Rank.valueOf(5, true)).isEqualTo(Rank.SECOND);
+        assertThat(Rank.valueOf(5, false)).isEqualTo(Rank.THIRD);
+        assertThat(Rank.valueOf(4, false)).isEqualTo(Rank.FOURTH);
+        assertThat(Rank.valueOf(3, false)).isEqualTo(Rank.FIFTH);
+        assertThat(Rank.valueOf(2, false)).isEqualTo(Rank.FAIL);
+        assertThat(Rank.valueOf(1, false)).isEqualTo(Rank.FAIL);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void valueOf_6보다큰값() throws Exception {
-        Rank.valueOf(7);
+        Rank.valueOf(7, false);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void valueOf_음수() throws Exception {
-        Rank.valueOf(-1);
+        Rank.valueOf(-1, false);
     }
 
     @Test
@@ -33,5 +34,6 @@ public class RankTest {
         assertThat(Rank.SECOND.isFail()).isFalse();
         assertThat(Rank.THIRD.isFail()).isFalse();
         assertThat(Rank.FOURTH.isFail()).isFalse();
+        assertThat(Rank.FIFTH.isFail()).isFalse();
     }
 }

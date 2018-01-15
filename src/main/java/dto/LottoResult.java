@@ -6,12 +6,12 @@ public class LottoResult {
 
     private final int countOfMatch;
 
-    public LottoResult(int countOfMatch) {
-        if (countOfMatch < 0) {
+    public LottoResult(int countOfMatch, boolean matchBonus) {
+        if (countOfMatch < 0 || countOfMatch > 6) {
             throw new IllegalArgumentException();
         }
         this.countOfMatch = countOfMatch;
-        this.rank = Rank.valueOf(countOfMatch);
+        this.rank = Rank.valueOf(countOfMatch, matchBonus);
     }
 
     public Rank getRank() {

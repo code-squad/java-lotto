@@ -49,7 +49,7 @@ public class Lotto {
     }
 
     public LottoResult getWinResult(WinningNumbers winningNumbers) {
-        return new LottoResult(getCountOfMatch(winningNumbers));
+        return new LottoResult(getCountOfMatch(winningNumbers), false);
     }
 
     private int getCountOfMatch(WinningNumbers winningNumbers) {
