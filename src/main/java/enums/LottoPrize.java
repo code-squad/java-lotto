@@ -15,14 +15,6 @@ public enum LottoPrize {
         this.cashPrize = prize;
     }
 
-    public int getNumOfMatch() {
-        return numOfMatch;
-    }
-
-    public int getCashPrize() {
-        return cashPrize;
-    }
-
     public boolean isMatch(int numOfMatch) {
         return this.numOfMatch == numOfMatch;
     }
@@ -31,8 +23,18 @@ public enum LottoPrize {
         return this.cashPrize * numOfLotto;
     }
 
+    public String getState(int numOfMatchLotto) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.numOfMatch).append("개 일치")
+                .append(this.equals(LottoPrize.SECOND) ? ", 보너스 볼 일치 (" : " (")
+                .append(this.cashPrize).append("원)- ")
+                .append(numOfMatchLotto).append("개\n");
+
+        return sb.toString();
+    }
+
     public static LottoPrize valueOf(int numOfMatch, boolean matchBonus) {
-        if(numOfMatch == 5)
+        if(isMatchNumIsFIVE(numOfMatch))
             return matchBonus ? SECOND : THIRD;
 
         for(LottoPrize prize : values())
@@ -40,5 +42,9 @@ public enum LottoPrize {
                 return prize;
 
         return null;
+    }
+
+    private static boolean isMatchNumIsFIVE(int num) {
+        return num == 5;
     }
 }

@@ -17,6 +17,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class LottoCheckerTest {
     private List<Lotto> lottos;
     private WinningNumber winningNumber;
+
     @Before
     public void init() {
         lottos = new ArrayList<>();
@@ -26,6 +27,7 @@ public class LottoCheckerTest {
 
         winningNumber = new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7);
     }
+
     @Test
     public void lottoCheckerTest() {
         //당첨 번호랑 로또 리스트를 받아서 맞춘 숫자별 리스트를 가지고 있는 셋을 반환

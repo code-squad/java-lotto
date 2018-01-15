@@ -22,18 +22,16 @@ public class LottoGameResult {
 
     public int getProfitPercentage(int investment) {
         int sum = getProfit();
+
         return (int) (((double)sum - investment) / investment * 100);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(LottoPrize prize : LottoPrize.values()) {
-            sb.append(prize.getNumOfMatch()).append("개 일치")
-                    .append(prize.equals(LottoPrize.SECOND) ? ", 보너스 볼 일치 (" : " (")
-                    .append(prize.getCashPrize()).append("원)- ")
-                    .append(winnerLottos.get(prize)).append("개\n");
-        }
+
+        for(LottoPrize prize : LottoPrize.values())
+            sb.append(prize.getState(winnerLottos.get(prize)));
 
         return sb.toString();
     }
