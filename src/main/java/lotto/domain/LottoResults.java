@@ -1,13 +1,21 @@
 package lotto.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import lotto.domain.enums.LottoCorrectCount;
 import lotto.dto.LottoResult;
 
-public class LottoResults extends ArrayList<LottoResult> {
+import java.util.List;
+import java.util.Map;
+
+public class LottoResults {
+    private List<LottoResult> lottoResults;
+
+    private LottoResults(List<LottoResult> lottoResults) {
+        this.lottoResults = lottoResults;
+    }
+
+    public static LottoResults generate(List<LottoResult> lottoResults) {
+        return new LottoResults(lottoResults);
+    }
 
     public static int getProfit(Map<LottoCorrectCount, Integer> resultMap) {
         return resultMap.entrySet().stream()
@@ -20,6 +28,6 @@ public class LottoResults extends ArrayList<LottoResult> {
     }
 
     public List<LottoResult> getLottoResults() {
-        return this;
+        return lottoResults;
     }
 }

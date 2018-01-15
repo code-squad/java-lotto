@@ -19,8 +19,8 @@ public class Main {
 
         LottoMachine lottoMachine = LottoMachine.init(money);
         Lottos lottos = lottoMachine.generateLottos();
-        Output.printLottoCount(lottos.size());
-        Output.printLottos(lottos);
+        Output.printLottoCount(lottos.getLottos().size());
+        Output.printLottos(lottos.getLottos());
 
         Lotto winningLotto = Lotto.generate(new CustomLottoNumberGenerator(input.winNumbers()));
         Map<LottoCorrectCount, Integer> resultMap = LottoUtils.resultToMap(lottos.match(winningLotto));

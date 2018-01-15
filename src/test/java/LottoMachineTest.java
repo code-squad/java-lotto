@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class LottoMachineTest {
     @Test
     public void 입력된_개수에_맞는_로또가_생성되는가() {
         LottoMachine lottoMachine = LottoMachine.init(Input.init("14000").getMoney());
-        assertEquals(14, lottoMachine.generateLottos().size());
+        assertEquals(14, lottoMachine.generateLottos().getLottos().size());
     }
 
     @Test
@@ -58,8 +59,7 @@ public class LottoMachineTest {
     }
 
     private Map<LottoCorrectCount, Integer> initResultMap() {
-        Lottos lottos = new Lottos();
-
+        List<Lotto> lottos = new ArrayList<>();
         lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{1, 2, 3, 40, 41, 42}).boxed().collect(Collectors.toList()))); //THREE
         lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{10, 20, 30, 4, 5, 6}).boxed().collect(Collectors.toList()))); //THREE
         lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{10, 2, 3, 4, 15, 16}).boxed().collect(Collectors.toList()))); //THREE
@@ -68,6 +68,6 @@ public class LottoMachineTest {
         lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{1, 2, 3, 4, 5, 6}).boxed().collect(Collectors.toList()))); //SIX
 
         List<Integer> winNumbers = Input.init("1, 2, 3, 4, 5, 6").winNumbers();
-        return LottoUtils.resultToMap(lottos.match(Lotto.generate(new CustomLottoNumberGenerator(winNumbers))));
+        return LottoUtils.resultToMap(Lottos.generate(lottos).match(Lotto.generate(new CustomLottoNumberGenerator(winNumbers))));
     }
 }
