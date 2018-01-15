@@ -1,7 +1,8 @@
-import lotto.view.Input;
 import org.junit.Test;
 
 import java.util.List;
+
+import lotto.view.Input;
 
 import static java.util.Optional.of;
 import static org.junit.Assert.assertEquals;

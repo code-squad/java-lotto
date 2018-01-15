@@ -1,18 +1,22 @@
 package lotto.util;
 
-import lotto.domain.enums.LottoCorrectCount;
-import lotto.dto.LottoResult;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import lotto.domain.enums.LottoCorrectCount;
+import lotto.dto.LottoResult;
+
 import static java.util.stream.Collectors.groupingBy;
-import static lotto.domain.enums.LottoCorrectCount.*;
+import static lotto.domain.enums.LottoCorrectCount.FIVE;
+import static lotto.domain.enums.LottoCorrectCount.FOUR;
+import static lotto.domain.enums.LottoCorrectCount.SIX;
+import static lotto.domain.enums.LottoCorrectCount.THREE;
 
 public class LottoUtils {
     public static final int THOUSAND = 1000;
+    public static final int LOTTO_MIN_NUMBER = 1;
     public static final int LOTTO_MAX_NUMBER = 45;
     public static final int LOTTO_MAX_COUNT = 6;
     public static final String REGEX = ", ";

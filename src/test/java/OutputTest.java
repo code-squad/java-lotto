@@ -1,5 +1,6 @@
-import lotto.view.Output;
 import org.junit.Test;
+
+import lotto.view.Output;
 
 import static org.junit.Assert.assertEquals;
 

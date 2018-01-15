@@ -1,16 +1,19 @@
-import lotto.domain.Lotto;
-import lotto.domain.LottoMachine;
-import lotto.domain.enums.LottoCorrectCount;
-import lotto.util.LottoUtils;
-import lotto.view.Input;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import lotto.domain.Lotto;
+import lotto.domain.LottoMachine;
+import lotto.domain.enums.LottoCorrectCount;
+import lotto.util.LottoUtils;
+import lotto.view.Input;
+
 import static java.util.Optional.of;
-import static lotto.domain.enums.LottoCorrectCount.*;
+import static lotto.domain.enums.LottoCorrectCount.FOUR;
+import static lotto.domain.enums.LottoCorrectCount.SIX;
+import static lotto.domain.enums.LottoCorrectCount.THREE;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;

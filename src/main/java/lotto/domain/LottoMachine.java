@@ -1,12 +1,12 @@
 package lotto.domain;
 
-import lotto.dto.LottoResult;
-import lotto.util.LottoUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import lotto.dto.LottoResult;
+import lotto.util.LottoUtils;
 
 public class LottoMachine {
     private int lottoCount;
