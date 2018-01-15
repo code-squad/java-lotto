@@ -43,4 +43,10 @@ public class Input {
     }
 
 
+    public int getBonusBall(List<Integer> winNumbers) {
+        Output.print("보너스 볼을 입력해 주세요.");
+        int bonusBall = scanner.nextInt();
+        if(winNumbers.contains(bonusBall)) { throw new IllegalArgumentException("중복된 번호입니다."); }
+        return bonusBall;
+    }
 }

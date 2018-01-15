@@ -25,6 +25,7 @@ public class Output {
         return String.format(UI_FORMAT, String.join(LottoUtils.REGEX, LottoUtils.convertIntToString(numbers)));
     }
 
+    //TODO: 여기 반복문으로 수정
     public static void printResult(Map<LottoCorrectCount, Integer> resultMap, int money) {
         print("");
         print("당첨 통계");

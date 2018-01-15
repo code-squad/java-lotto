@@ -4,6 +4,7 @@ public enum LottoCorrectCount {
     THREE(3, 5000),
     FOUR(4, 50000),
     FIVE(5, 1500000),
+    FIVE_DOUBLE(5, 30000000),
     SIX(6, 2000000000);
 
     private int value;

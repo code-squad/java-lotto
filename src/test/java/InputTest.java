@@ -1,6 +1,8 @@
 import org.junit.Test;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import lotto.view.Input;
 
@@ -20,5 +22,11 @@ public class InputTest {
         assertEquals(of(1).get(), winNumbers.get(0));
         assertEquals(of(2).get(), winNumbers.get(1));
         assertEquals(of(3).get(), winNumbers.get(2));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 중복된_보너스_값을_입력받았을때_에러를_발생시키는가() {
+        Input input = Input.init("1");
+        input.getBonusBall(IntStream.range(1, 6).boxed().collect(Collectors.toList()));
     }
 }

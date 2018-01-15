@@ -1,9 +1,6 @@
 package lotto.domain;
 
-import lotto.dto.LottoResult;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Lottos {
     private List<Lotto> lottos;
@@ -14,12 +11,6 @@ public class Lottos {
 
     public static Lottos generate(List<Lotto> lottos) {
         return new Lottos(lottos);
-    }
-
-    public LottoResults match(Lotto winningLotto) {
-        return LottoResults.generate(lottos.stream()
-                .map(lotto -> new LottoResult(lotto.getCorrectCount(winningLotto.getNumbers())))
-                .collect(Collectors.toList()));
     }
 
     public List<Lotto> getLottos() {
