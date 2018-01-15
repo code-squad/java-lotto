@@ -1,9 +1,11 @@
 package lotto.domain;
 
-import java.util.stream.IntStream;
-
 import lotto.domain.generator.RandomLottoNumberGenerator;
 import lotto.util.LottoUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
 
 public class LottoMachine {
     private int lottoCount;
@@ -21,10 +23,10 @@ public class LottoMachine {
     }
 
     public Lottos generateLottos() {
-        Lottos lottos = new Lottos();
+        List<Lotto> lottos = new ArrayList<>();
         IntStream.range(0, lottoCount).forEach(i -> lottos.add(Lotto.generate(new RandomLottoNumberGenerator())));
 
-        return lottos;
+        return Lottos.generate(lottos);
     }
 
 }
