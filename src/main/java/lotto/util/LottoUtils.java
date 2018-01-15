@@ -1,13 +1,6 @@
 package lotto.util;
 
-import lotto.domain.enums.LottoCorrectCount;
-
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.groupingBy;
 
 public class LottoUtils {
     public static final int THOUSAND = 1000;
@@ -20,8 +13,4 @@ public class LottoUtils {
         return numbers.stream().map(String::valueOf).toArray(String[]::new);
     }
 
-    public static Map<LottoCorrectCount, Integer> resultToMap(List<LottoCorrectCount> lottoCorrectCounts) {
-        return lottoCorrectCounts.stream()
-                .collect(groupingBy(Function.identity(), Collectors.summingInt(i->1)));
-    }
 }

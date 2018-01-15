@@ -1,18 +1,16 @@
 package lotto.view;
 
-import java.util.List;
-import java.util.Map;
-
 import lotto.domain.Lotto;
-import lotto.domain.LottoResults;
-import lotto.domain.enums.LottoCorrectCount;
+import lotto.domain.LottoResult;
+import lotto.domain.enums.Rank;
 import lotto.util.LottoUtils;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static java.util.Optional.ofNullable;
-import static lotto.domain.enums.LottoCorrectCount.FIVE;
-import static lotto.domain.enums.LottoCorrectCount.FOUR;
-import static lotto.domain.enums.LottoCorrectCount.SIX;
-import static lotto.domain.enums.LottoCorrectCount.THREE;
+import static lotto.domain.LottoResult.getProfit;
+import static lotto.domain.LottoResult.getProfitRate;
 
 public class Output {
     private static final String UI_FORMAT = "[%s]";
@@ -25,16 +23,20 @@ public class Output {
         return String.format(UI_FORMAT, String.join(LottoUtils.REGEX, LottoUtils.convertIntToString(numbers)));
     }
 
-    //TODO: 여기 반복문으로 수정
-    public static void printResult(Map<LottoCorrectCount, Integer> resultMap, int money) {
+    public static void printResult(LottoResult lottoResult, int money) {
         print("");
         print("당첨 통계");
         print("----------");
-        print(String.format("3개 일치(5000원) - %d개", ofNullable(resultMap.get(THREE)).orElse(0)));
-        print(String.format("4개 일치(50000원) - %d개", ofNullable(resultMap.get(FOUR)).orElse(0)));
-        print(String.format("5개 일치(1500000원) - %d개", ofNullable(resultMap.get(FIVE)).orElse(0)));
-        print(String.format("6개 일치(2000000000원) - %d개", ofNullable(resultMap.get(SIX)).orElse(0)));
-        print(String.format("총 수익률은 %f%%입니다.", LottoResults.getProfitRate(LottoResults.getProfit(resultMap), money)));
+        winningLottoprintLoop(lottoResult);
+        print(String.format("총 수익률은 %f%%입니다.", getProfitRate(getProfit(lottoResult.getWinningLottoMap()), money)));
+    }
+
+    private static void winningLottoprintLoop(LottoResult lottoResult) {
+        Arrays.stream(Rank.values())
+                .forEach(count -> print(String.format("%d개 일치(%d원) - %d개",
+                                count.getValue(),
+                                count.getProfit(),
+                                ofNullable(lottoResult.getWinningLottoMap().get(count)).orElse(0))));
     }
 
     public static void printLottos(List<Lotto> lottos) {
