@@ -1,14 +1,18 @@
 package lotto.view;
 
-import lotto.domain.Lotto;
-import lotto.domain.enums.LottoCorrectCount;
-import lotto.util.LottoUtils;
-
 import java.util.List;
 import java.util.Map;
 
+import lotto.domain.Lotto;
+import lotto.domain.LottoResults;
+import lotto.domain.enums.LottoCorrectCount;
+import lotto.util.LottoUtils;
+
 import static java.util.Optional.ofNullable;
-import static lotto.domain.enums.LottoCorrectCount.*;
+import static lotto.domain.enums.LottoCorrectCount.FIVE;
+import static lotto.domain.enums.LottoCorrectCount.FOUR;
+import static lotto.domain.enums.LottoCorrectCount.SIX;
+import static lotto.domain.enums.LottoCorrectCount.THREE;
 
 public class Output {
     private static final String UI_FORMAT = "[%s]";
@@ -29,7 +33,7 @@ public class Output {
         print(String.format("4개 일치(50000원) - %d개", ofNullable(resultMap.get(FOUR)).orElse(0)));
         print(String.format("5개 일치(1500000원) - %d개", ofNullable(resultMap.get(FIVE)).orElse(0)));
         print(String.format("6개 일치(2000000000원) - %d개", ofNullable(resultMap.get(SIX)).orElse(0)));
-        print(String.format("총 수익률은 %f%%입니다.", LottoUtils.getProfitRate(LottoUtils.getProfit(resultMap), money)));
+        print(String.format("총 수익률은 %f%%입니다.", LottoResults.getProfitRate(LottoResults.getProfit(resultMap), money)));
     }
 
     public static void printLottos(List<Lotto> lottos) {

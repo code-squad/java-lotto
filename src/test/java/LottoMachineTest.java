@@ -6,6 +6,7 @@ import java.util.Map;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
+import lotto.domain.LottoResults;
 import lotto.domain.enums.LottoCorrectCount;
 import lotto.util.LottoUtils;
 import lotto.view.Input;
@@ -44,13 +45,13 @@ public class LottoMachineTest {
     @Test
     public void 총수익이_올바른가() {
         Map<LottoCorrectCount, Integer> resultMap = initResultMap();
-        assertEquals(2000115000, LottoUtils.getProfit(resultMap));
+        assertEquals(2000115000, LottoResults.getProfit(resultMap));
     }
 
     @Test
     public void 총수익률이_올바른가() {
         Map<LottoCorrectCount, Integer> resultMap = initResultMap();
-        assertThat(LottoUtils.getProfitRate(LottoUtils.getProfit(resultMap), 6000), is(3.333525E7F));
+        assertThat(LottoResults.getProfitRate(LottoResults.getProfit(resultMap), 6000), is(3.333525E7F));
     }
 
     private Map<LottoCorrectCount, Integer> initResultMap() {
@@ -63,6 +64,6 @@ public class LottoMachineTest {
         lottos.add(Lotto.generate(() -> new int[]{1, 2, 3, 4, 5, 6})); //SIX
 
         List<Integer> winNumbers = Input.init("1, 2, 3, 4, 5, 6").winNumbers();
-        return LottoUtils.resultToMap(LottoMachine.getLottoResults(lottos, winNumbers));
+        return LottoUtils.resultToMap(LottoResults.generateLottoResults(lottos, winNumbers));
     }
 }

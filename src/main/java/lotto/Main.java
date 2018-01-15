@@ -2,6 +2,7 @@ package lotto;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
+import lotto.domain.LottoResults;
 import lotto.domain.enums.LottoCorrectCount;
 import lotto.dto.LottoResult;
 import lotto.util.LottoUtils;
@@ -22,8 +23,7 @@ public class Main {
         Output.printLottoCount(lottos.size());
         Output.printLottos(lottos);
 
-        List<LottoResult> lottoResults = LottoMachine.getLottoResults(lottos, input.winNumbers());
-        Map<LottoCorrectCount, Integer> resultMap = LottoUtils.resultToMap(lottoResults);
+        Map<LottoCorrectCount, Integer> resultMap = LottoUtils.resultToMap(LottoResults.generateLottoResults(lottos, input.winNumbers()));
         Output.printResult(resultMap, money);
     }
 }

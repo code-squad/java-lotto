@@ -2,10 +2,8 @@ package lotto.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import lotto.dto.LottoResult;
 import lotto.util.LottoUtils;
 
 public class LottoMachine {
@@ -28,12 +26,6 @@ public class LottoMachine {
         IntStream.range(0, lottoCount).forEach(i -> lottos.add(Lotto.generate(new RandomLottoNumberGenerator())));
 
         return lottos;
-    }
-
-    public static List<LottoResult> getLottoResults(List<Lotto> lottos, List<Integer> winNumbers) {
-        return lottos.stream()
-                .map(lotto -> new LottoResult(lotto.getCorrectCount(winNumbers)))
-                .collect(Collectors.toList());
     }
 
 }
