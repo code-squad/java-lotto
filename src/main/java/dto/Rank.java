@@ -1,13 +1,14 @@
 package dto;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 
 public enum Rank {
     FIRST(6, 2000000000),
     SECOND(5, 30000000) {
         @Override
-        public boolean matchBonusCondition(boolean matchBonus) {
-            return matchBonus;
+        public boolean shouldMatchBonus() {
+            return true;
         }
     },
     THIRD(5, 1500000),
@@ -15,6 +16,7 @@ public enum Rank {
     FIFTH(3, 5000),
     FAIL(0, 0);
 
+    private static final String TO_STRING_FORMAT = "{0}개 일치{1} ({2}원)";
     private final int countOfMatch;
     private final int winningMoney;
 
@@ -28,7 +30,7 @@ public enum Rank {
             throw new IllegalArgumentException();
         }
         return Arrays.stream(Rank.values())
-                     .filter(r -> r.checkRankCondition(countOfMatch, matchBonus))
+                     .filter(r -> r.isSatisfyRankCondition(countOfMatch, matchBonus))
                      .findFirst()
                      .orElse(FAIL);
     }
@@ -45,11 +47,26 @@ public enum Rank {
         return this == Rank.FAIL;
     }
 
-    private boolean checkRankCondition(int countOfMatch, boolean matchBonus) {
-        return getCountOfMatch() == countOfMatch && matchBonusCondition(matchBonus);
+    public boolean shouldMatchBonus() {
+        return false;
     }
 
-    public boolean matchBonusCondition(boolean matchBonus) {
-        return true;
+    private boolean isSatisfyRankCondition(int countOfMatch, boolean matchBonus) {
+        return getCountOfMatch() == countOfMatch && (!shouldMatchBonus() || matchBonus);
+    }
+
+    private String getMatchBonusMessage() {
+        if (shouldMatchBonus()) {
+            return ", 보너스 볼 일치";
+        }
+        return "";
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format(TO_STRING_FORMAT,
+                                    countOfMatch,
+                                    getMatchBonusMessage(),
+                                    winningMoney);
     }
 }

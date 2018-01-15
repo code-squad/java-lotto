@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ResultView {
 
-    private static final String RESULT_PATTERN = "{0}개 일치 ({1}원) - {2}개";
+    private static final String RESULT_PATTERN = "{0} - {1}개";
 
     private static void printNumberOfPurchase(int numberOfPurchase) {
         System.out.println(String.valueOf(numberOfPurchase) + "개를 구매했습니다");
@@ -31,7 +31,7 @@ public class ResultView {
 
     private static void printLottoResult(Rank rank, List<LottoResult> results) {
         int count = getCountOfRank(rank, results);
-        System.out.println(MessageFormat.format(RESULT_PATTERN, rank.getCountOfMatch(), rank.getWinningMoney(), count));
+        System.out.println(MessageFormat.format(RESULT_PATTERN, rank, count));
     }
 
     private static int getCountOfRank(Rank rank, List<LottoResult> results) {
