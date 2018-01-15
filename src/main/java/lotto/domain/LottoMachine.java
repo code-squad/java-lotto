@@ -25,7 +25,7 @@ public class LottoMachine {
 
     public List<Lotto> generateLottos() {
         List<Lotto> lottos = new ArrayList<>();
-        IntStream.range(0, lottoCount).forEach(i -> lottos.add(Lotto.generate(new LottoNumberGeneratorImpl())));
+        IntStream.range(0, lottoCount).forEach(i -> lottos.add(Lotto.generate(new RandomLottoNumberGenerator())));
 
         return lottos;
     }

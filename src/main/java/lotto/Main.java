@@ -24,7 +24,6 @@ public class Main {
 
         List<LottoResult> lottoResults = LottoMachine.getLottoResults(lottos, input.winNumbers());
         Map<LottoCorrectCount, Integer> resultMap = LottoUtils.resultToMap(lottoResults);
-        Output.printResult(resultMap);
-        Output.printProfit(resultMap, money);
+        Output.printResult(resultMap, money);
     }
 }
