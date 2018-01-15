@@ -1,13 +1,21 @@
 package lotto;
 
-import java.lang.reflect.Array;
+import static spark.Spark.get;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class InputView {
 
 	private static final int NUM_MAX = 45;
 	private static final int NUM_MIN = 0;
+	private static final Logger log = LoggerFactory.getLogger(LottoGame.class);
 
 	public static int inputMoney(Scanner sc) {
 		System.out.println("구입금액을 입력해 주세요.");
@@ -24,39 +32,25 @@ public class InputView {
 		return money;
 	}
 
-	public static ArrayList<MyLotto> inputUserLotto(Scanner sc) {
-		System.out.println("수동으로 구매할 번호를 입력해주세요. ");
-		sc.nextLine();
-
-		return makeUserLotto(sc);
-	}
-
-	private static ArrayList<MyLotto> makeUserLotto(Scanner sc) {
+	public static ArrayList<MyLotto> makeUserLotto(String lotto) {
 		ArrayList<MyLotto> userLottos = new ArrayList<>();
 		
-		while (sc.hasNextLine()) {
-			String input = sc.nextLine();
+		String[] users = lotto.split("\n");
+		for (String lottoNum : users) {
+			String[] user = lottoNum.split(",");
 			ArrayList<Integer> userLotto = new ArrayList<>();
-			if (input.equals(""))
-				break;
-			String[] user = input.split(",");
-			for (int i = 0; i < user.length; i++)
-				userLotto.add(Integer.parseInt(user[i]));
+			for (String num : user) {
+				userLotto.add(Integer.parseInt(num.trim()));
+			}
 			userLottos.add(new MyLotto(userLotto));
 		}
 		return userLottos;
 	}
 
-	public static ArrayList<Integer> inputWinNum(Scanner sc) {
-		ArrayList<Integer> prizeNum = new ArrayList<>();
-		try {
-			sc.reset();
-			System.out.println("당첨 숫자를 입력해주세요.(','로 구분)");
-			prizeNum = validateArrSize(changeNumToArray(changeToInteger(sc)));
-		} catch (Exception e) {
-			return inputWinNum(sc);
-		}
-		return prizeNum;
+	public static String inputWinNum(String winLotto) {
+		if(changeNumToArray(winLotto) && validateArrSize(winLotto))
+			return winLotto;
+		return null;
 	}
 
 	public static int inputBonus(Scanner sc) {
@@ -64,29 +58,20 @@ public class InputView {
 		return sc.nextInt();
 	}
 
-	private static ArrayList<Integer> validateArrSize(ArrayList<Integer> prizeNum) {
-		if (prizeNum.size() != 6) {
-			System.out.println("당첨 번호는 6개 입력하셔야 합니다.");
-			return inputWinNum(new Scanner(System.in));
+	private static boolean validateArrSize(String winLotto) {
+		if (winLotto.split(",").length != 6) {
+			return false;
 		}
-		return prizeNum;
+		return true;
 	}
 
-	private static ArrayList<Integer> changeToInteger(Scanner sc) {
-		ArrayList<Integer> prizeNum = new ArrayList<>();
-		String[] input = sc.nextLine().split(",");
+	private static boolean changeNumToArray(String winLotto) {
+		String[] input = winLotto.split(",");
 		for (int i = 0; i < input.length; i++)
-			prizeNum.add(Integer.parseInt(input[i]));
-		return prizeNum;
-	}
-
-	private static ArrayList<Integer> changeNumToArray(ArrayList<Integer> prizeNum) {
-		for (int i = 0; i < prizeNum.size(); i++)
-			if (prizeNum.get(i) == NUM_MIN || prizeNum.get(i) > NUM_MAX) {
-				System.out.println("숫자의 범위를 초과하셨습니다.");
-				return inputWinNum(new Scanner(System.in));
+			if (Integer.parseInt(input[i]) == NUM_MIN || Integer.parseInt(input[i]) > NUM_MAX) {
+				return false;
 			}
-		return prizeNum;
+		return true;
 
 	}
 
