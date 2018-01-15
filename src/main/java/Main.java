@@ -13,7 +13,7 @@ public class Main {
         showNumOfBuyLotto(lottos.getNumOfLottos());
         showLottos(lottos);
 
-        WinningLottos winningLottos = new WinningLottos(lottos.matchLottosWithWinnigNums(getWinningLotto()));
+        WinningLottos winningLottos = lottos.getWinningLottos(getWinningLotto());
 
         showResult(winningLottos, investMoney);
     }

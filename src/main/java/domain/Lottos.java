@@ -1,9 +1,7 @@
 package domain;
 
-import enums.LottoPrize;
 
 import java.util.List;
-import java.util.Map;
 
 public class Lottos {
     private List<Lotto> lottos;
@@ -16,8 +14,13 @@ public class Lottos {
         return lottos.size();
     }
 
-    public Map<LottoPrize,Integer> matchLottosWithWinnigNums(WinningNumber winningNumber) {
-        return LottoChecker.getWinnerLottos(lottos, winningNumber);
+    public WinningLottos getWinningLottos(WinningNumber winningNumber) {
+        WinningLottos winningLottos = new WinningLottos();
+
+        for(Lotto lotto : lottos)
+            winningLottos.addLotto(winningNumber.getPrize(lotto));
+
+        return winningLottos;
     }
 
     @Override

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static enums.LottoPrize.FIRST;
+import static enums.LottoPrize.THIRD;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class WinningLottosTest {
@@ -20,9 +22,18 @@ public class WinningLottosTest {
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
 
-        winningLottos = new WinningLottos(
-                LottoChecker.getWinnerLottos(lottos, new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7))
-        );
+        winningLottos = new Lottos(lottos).getWinningLottos(new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7));
+    }
+
+    @Test
+    public void addLottoTest() {
+        winningLottos.addLotto(THIRD);
+        assertThat(winningLottos.getNumOfWinnerLottoByPrize(THIRD)).isEqualTo(1);
+    }
+
+    @Test
+    public void getNumOfWinnerLottoByPrizeTest() {
+        assertThat(winningLottos.getNumOfWinnerLottoByPrize(FIRST)).isEqualTo(1);
     }
 
     @Test
@@ -39,9 +50,7 @@ public class WinningLottosTest {
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
 
-        winningLottos = new WinningLottos(
-                LottoChecker.getWinnerLottos(lottos, new WinningNumber(Arrays.asList(11, 12, 13, 14, 15, 16), 7))
-        );
+        winningLottos = new Lottos(lottos).getWinningLottos(new WinningNumber(Arrays.asList(11, 12, 13, 14, 15, 16), 7));
         int profitPercentage = winningLottos.getProfitPercentage(4000);
         assertThat(profitPercentage).isEqualTo(-100);
     }

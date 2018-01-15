@@ -1,19 +1,18 @@
 package domain;
 
-import enums.LottoPrize;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import static enums.LottoPrize.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class LottosTest {
     private Lottos lottos;
+    private WinningNumber winningNumber;
 
     @Before
     public void init() {
@@ -21,22 +20,26 @@ public class LottosTest {
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 10, 15, 16)));
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 15, 16)));
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 15, 16)));
+        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
+        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
 
         this.lottos = new Lottos(lottos);
+        winningNumber = new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7);
     }
 
     @Test
     public void getNumOfLottosTest() {
-        assertThat(lottos.getNumOfLottos()).isEqualTo(3);
+        assertThat(lottos.getNumOfLottos()).isEqualTo(5);
     }
 
     @Test
-    public void getLottoResultTest() {
-        Map<LottoPrize, Integer> winnerLottos = lottos.matchLottosWithWinnigNums(
-                new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7));
-        assertThat(winnerLottos.get(FIFTH)).isEqualTo(1);
-        assertThat(winnerLottos.get(FOURTH)).isEqualTo(2);
-        assertThat(winnerLottos.get(THIRD)).isEqualTo(0);
-        assertThat(winnerLottos.get(FIRST)).isEqualTo(0);
+    public void getWinningLottoTest() {
+        WinningLottos winningLottos = lottos.getWinningLottos(winningNumber);
+
+        assertThat(winningLottos.getNumOfWinnerLottoByPrize(FIFTH)).isEqualTo(1);
+        assertThat(winningLottos.getNumOfWinnerLottoByPrize(FOURTH)).isEqualTo(2);
+        assertThat(winningLottos.getNumOfWinnerLottoByPrize(THIRD)).isEqualTo(0);
+        assertThat(winningLottos.getNumOfWinnerLottoByPrize(SECOND)).isEqualTo(1);
+        assertThat(winningLottos.getNumOfWinnerLottoByPrize(FIRST)).isEqualTo(1);
     }
 }

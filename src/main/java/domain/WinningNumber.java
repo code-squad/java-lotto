@@ -1,5 +1,7 @@
 package domain;
 
+import enums.LottoPrize;
+
 import java.util.List;
 
 import static domain.LottoNumCreator.LOTTO_POOL_MAX_NUM;
@@ -15,6 +17,13 @@ public class WinningNumber {
 
         this.winningLottos = winningLottos;
         this.bonusNum = bonusNum;
+    }
+
+    public LottoPrize getPrize(Lotto lotto) {
+        int numOfCorrespond = lotto.howManyCorrespond(winningLottos);
+        boolean matchBonusNum = lotto.isBonusNumMatch(bonusNum);
+
+        return LottoPrize.valueOf(numOfCorrespond, matchBonusNum);
     }
 
     private boolean inputValidationCheck(List<Integer> winningLottos, int bonusNum) {
