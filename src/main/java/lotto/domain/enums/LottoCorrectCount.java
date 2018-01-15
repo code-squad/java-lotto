@@ -1,6 +1,6 @@
 package lotto.domain.enums;
 
-public enum  LottoCorrectCount {
+public enum LottoCorrectCount {
     THREE(3, 5000),
     FOUR(4, 50000),
     FIVE(5, 1500000),

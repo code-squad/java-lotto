@@ -9,9 +9,6 @@ import lotto.domain.enums.LottoCorrectCount;
 import lotto.dto.LottoResult;
 
 import static java.util.stream.Collectors.groupingBy;
-import static lotto.domain.enums.LottoCorrectCount.FIVE;
-import static lotto.domain.enums.LottoCorrectCount.FOUR;
-import static lotto.domain.enums.LottoCorrectCount.SIX;
 import static lotto.domain.enums.LottoCorrectCount.THREE;
 
 public class LottoUtils {
@@ -42,15 +39,8 @@ public class LottoUtils {
     }
 
     private static LottoCorrectCount makeCorrectKey(LottoResult result) {
-        int count = result.getCorrectCount();
-
-        if (THREE.isCorrect(count)) {
-            return THREE;
-        } else if (FOUR.isCorrect(count)) {
-            return FOUR;
-        } else if (FIVE.isCorrect(count)) {
-            return FIVE;
-        }
-        return SIX;
+        return Arrays.stream(LottoCorrectCount.values())
+                .filter(lottoCorrectCount -> lottoCorrectCount.isCorrect(result.getCorrectCount()))
+                .findFirst().get();
     }
 }
