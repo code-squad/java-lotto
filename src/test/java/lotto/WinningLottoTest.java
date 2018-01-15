@@ -13,17 +13,17 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
-public class LottoOperatorTest {
-    private LottoOperator lottoOperator;
+public class WinningLottoTest {
+    private WinningLotto winningLotto;
 
     @Before
     public void setUp() throws Exception {
-        lottoOperator = new LottoOperator("1, 2, 3, 4, 5, 6", "7");
+        winningLotto = new WinningLotto("1, 2, 3, 4, 5, 6", "7");
     }
 
     @Test
     public void putLastWeekSuccessNumber() {
-        List<Integer> lottoNumbers = lottoOperator.getSuccessNumbers();
+        List<Integer> lottoNumbers = winningLotto.getSuccessNumbers();
         assertTrue(lottoNumbers.contains(1));
         assertTrue(lottoNumbers.contains(2));
         assertTrue(lottoNumbers.contains(3));
@@ -34,17 +34,17 @@ public class LottoOperatorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void putLastWeekSuccessNumberWithIllegalArgument() {
-        new LottoOperator("1, 2, 3, 4, 5", "7");
+        new WinningLotto("1, 2, 3, 4, 5", "7");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void putLastWeekSuccessNumberWithIllegalArgumentOverflow() {
-        new LottoOperator("1, 2, 3, 4, 5, 46", "7");
+        new WinningLotto("1, 2, 3, 4, 5, 46", "7");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void putLastWeekSuccessNumberWithIllegalArgumentUnderflow() {
-        new LottoOperator("0, 2, 3, 4, 5, 6", "7");
+        new WinningLotto("0, 2, 3, 4, 5, 6", "7");
     }
 
     @Test
@@ -55,7 +55,7 @@ public class LottoOperatorTest {
 
         LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
 
-        LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
+        LottoResult lottoResult = lottoCustomer.matchTickets(winningLotto);
         assertEquals(1, lottoResult.getPrizeCount(LottoPrize.NONE));
         assertEquals(1, lottoResult.getPrizeCount(LottoPrize.THREE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
@@ -73,7 +73,7 @@ public class LottoOperatorTest {
 
         LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
 
-        LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
+        LottoResult lottoResult = lottoCustomer.matchTickets(winningLotto);
         assertEquals(1, lottoResult.getPrizeCount(LottoPrize.NONE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.THREE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
@@ -97,7 +97,7 @@ public class LottoOperatorTest {
 
         LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
 
-        LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
+        LottoResult lottoResult = lottoCustomer.matchTickets(winningLotto);
         assertEquals(5, lottoResult.getPrizeCount(LottoPrize.NONE));
         assertEquals(1, lottoResult.getPrizeCount(LottoPrize.THREE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
@@ -116,7 +116,7 @@ public class LottoOperatorTest {
 
         LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
 
-        LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
+        LottoResult lottoResult = lottoCustomer.matchTickets(winningLotto);
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.NONE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.THREE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
@@ -136,7 +136,7 @@ public class LottoOperatorTest {
 
         LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
 
-        LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
+        LottoResult lottoResult = lottoCustomer.matchTickets(winningLotto);
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.NONE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.THREE));
         assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
@@ -150,42 +150,42 @@ public class LottoOperatorTest {
     @Test
     public void check0Match() throws Exception {
         LottoTicket lottoTicket = LottoStore.buyExplicitTicket("10, 11, 12, 7, 8, 9");
-        assertEquals(LottoPrize.NONE, lottoOperator.match(lottoTicket));
+        assertEquals(LottoPrize.NONE, winningLotto.match(lottoTicket));
     }
 
     @Test
     public void check1Match() throws Exception {
         LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 10, 11, 7, 8, 9");
-        assertEquals(LottoPrize.NONE, lottoOperator.match(lottoTicket));
+        assertEquals(LottoPrize.NONE, winningLotto.match(lottoTicket));
     }
 
     @Test
     public void check2Match() throws Exception {
         LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 2, 10, 7, 8, 9");
-        assertEquals(LottoPrize.NONE, lottoOperator.match(lottoTicket));
+        assertEquals(LottoPrize.NONE, winningLotto.match(lottoTicket));
     }
 
     @Test
     public void check3Match() throws Exception {
         LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 2, 3, 7, 8, 9");
-        assertEquals(LottoPrize.THREE, lottoOperator.match(lottoTicket));
+        assertEquals(LottoPrize.THREE, winningLotto.match(lottoTicket));
     }
 
     @Test
     public void check4Match() throws Exception {
         LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 2, 3, 4, 8, 9");
-        assertEquals(LottoPrize.FOUR, lottoOperator.match(lottoTicket));
+        assertEquals(LottoPrize.FOUR, winningLotto.match(lottoTicket));
     }
 
     @Test
     public void check5Match() throws Exception {
         LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 9");
-        assertEquals(LottoPrize.FIVE, lottoOperator.match(lottoTicket));
+        assertEquals(LottoPrize.FIVE, winningLotto.match(lottoTicket));
     }
 
     @Test
     public void check6Match() throws Exception {
         LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 6");
-        assertEquals(LottoPrize.SIX, lottoOperator.match(lottoTicket));
+        assertEquals(LottoPrize.SIX, winningLotto.match(lottoTicket));
     }
 }

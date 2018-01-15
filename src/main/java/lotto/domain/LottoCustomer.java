@@ -1,6 +1,6 @@
 package lotto.domain;
 
-import lotto.LottoOperator;
+import lotto.WinningLotto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,14 +14,14 @@ public class LottoCustomer {
         this.tickets = tickets;
     }
 
-    public LottoResult matchTickets(LottoOperator lottoOperator) {
+    public LottoResult matchTickets(WinningLotto winningLotto) {
         Map<LottoPrize, Integer> lottoPrizeResults = new HashMap<>();
         for (LottoPrize lottoPrize : LottoPrize.values()) {
             lottoPrizeResults.put(lottoPrize, 0);
         }
 
         for (LottoTicket lottoTicket : tickets) {
-            LottoPrize lottoPrize = lottoOperator.match(lottoTicket);
+            LottoPrize lottoPrize = winningLotto.match(lottoTicket);
             lottoPrizeResults.put(lottoPrize, lottoPrizeResults.get(lottoPrize) + 1);
         }
         return new LottoResult(lottoPrizeResults, tickets.size() * LottoConstants.UNIT_PRICE);

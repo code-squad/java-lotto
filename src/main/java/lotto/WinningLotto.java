@@ -5,11 +5,11 @@ import lotto.util.TicketNumberParser;
 
 import java.util.List;
 
-public class LottoOperator {
+public class WinningLotto {
     private List<Integer> successNumbers;
     private int bonusNumber;
 
-    public LottoOperator(String successNumberString, String bonusNumberString) {
+    public WinningLotto(String successNumberString, String bonusNumberString) {
         this.successNumbers = TicketNumberParser.parse(successNumberString);
         this.bonusNumber = Integer.parseInt(bonusNumberString);
 
