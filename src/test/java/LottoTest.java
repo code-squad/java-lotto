@@ -3,7 +3,7 @@ import org.junit.Test;
 import java.util.List;
 
 import lotto.domain.Lotto;
-import lotto.domain.lottogenerator.RandomLottoNumberGenerator;
+import lotto.domain.generator.RandomLottoNumberGenerator;
 import lotto.util.LottoUtils;
 
 import static org.junit.Assert.assertEquals;

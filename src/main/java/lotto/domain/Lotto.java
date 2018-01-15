@@ -2,7 +2,7 @@ package lotto.domain;
 
 import java.util.List;
 
-import lotto.domain.lottogenerator.LottoNumberGenerator;
+import lotto.domain.generator.LottoNumberGenerator;
 
 public class Lotto {
     private List<Integer> numbers;

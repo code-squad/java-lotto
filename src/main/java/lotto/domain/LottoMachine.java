@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import lotto.domain.lottogenerator.RandomLottoNumberGenerator;
+import lotto.domain.generator.RandomLottoNumberGenerator;
 import lotto.util.LottoUtils;
 
 public class LottoMachine {

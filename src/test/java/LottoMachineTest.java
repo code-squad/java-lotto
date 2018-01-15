@@ -10,7 +10,7 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
 import lotto.domain.LottoResults;
 import lotto.domain.enums.LottoCorrectCount;
-import lotto.domain.lottogenerator.CustomLottoNumberGenerator;
+import lotto.domain.generator.CustomLottoNumberGenerator;
 import lotto.util.LottoUtils;
 import lotto.view.Input;
 
