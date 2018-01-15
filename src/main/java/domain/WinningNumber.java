@@ -19,7 +19,7 @@ public class WinningNumber {
         this.bonusNum = bonusNum;
     }
 
-    public LottoPrize getPrize(Lotto lotto) {
+    public LottoPrize matchLottoAndGetPrize(Lotto lotto) {
         int numOfCorrespond = lotto.howManyCorrespond(winningLottos);
         boolean matchBonusNum = lotto.isBonusNumMatch(bonusNum);
 

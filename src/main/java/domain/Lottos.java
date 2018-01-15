@@ -18,7 +18,7 @@ public class Lottos {
         WinningLottos winningLottos = new WinningLottos();
 
         for(Lotto lotto : lottos)
-            winningLottos.addLotto(winningNumber.getPrize(lotto));
+            winningLottos.addLotto(winningNumber.matchLottoAndGetPrize(lotto));
 
         return winningLottos;
     }
