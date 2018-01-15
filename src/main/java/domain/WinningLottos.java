@@ -4,12 +4,13 @@ import enums.LottoPrize;
 
 import java.util.Map;
 
-public class LottoGameResult {
+public class WinningLottos {
     private Map<LottoPrize, Integer> winnerLottos;
 
-    public LottoGameResult(Map<LottoPrize, Integer> winnerLottos) {
+    public WinningLottos(Map<LottoPrize, Integer> winnerLottos) {
         this.winnerLottos = winnerLottos;
     }
+
 
     public int getProfit() {
         int sum = 0;
@@ -21,9 +22,7 @@ public class LottoGameResult {
     }
 
     public int getProfitPercentage(int investment) {
-        int sum = getProfit();
-
-        return (int) (((double)sum - investment) / investment * 100);
+        return (int) (((double)getProfit() - investment) / investment * 100);
     }
 
     @Override

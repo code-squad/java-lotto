@@ -5,10 +5,10 @@ import enums.LottoPrize;
 import java.util.List;
 import java.util.Map;
 
-public class LottoGame {
+public class Lottos {
     private List<Lotto> lottos;
 
-    public LottoGame(List<Lotto> lottos) {
+    public Lottos(List<Lotto> lottos) {
         this.lottos = lottos;
     }
 

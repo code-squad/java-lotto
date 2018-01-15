@@ -1,19 +1,19 @@
 package view;
 
-import domain.LottoGame;
-import domain.LottoGameResult;
+import domain.Lottos;
+import domain.WinningLottos;
 
 public class ResultView {
 
-    public static void showLottos(LottoGame lottos) {
+    public static void showLottos(Lottos lottos) {
         System.out.println(lottos.toString());
     }
 
-    public static void showResult(LottoGameResult lottoGameResult, int investment) {
+    public static void showResult(WinningLottos winningLottos, int investment) {
         System.out.println("당첨 통계");
         System.out.println("-----------");
-        System.out.println(lottoGameResult.toString());
-        System.out.println("총 수익률은 " + lottoGameResult.getProfitPercentage(investment) + "%입니다.");
+        System.out.println(winningLottos.toString());
+        System.out.println("총 수익률은 " + winningLottos.getProfitPercentage(investment) + "%입니다.");
     }
 
     public static void showNumOfBuyLotto(int size) {

@@ -9,8 +9,9 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class LottoGameResultTest {
-    private LottoGameResult lottoGameResult;
+public class WinningLottosTest {
+    private WinningLottos winningLottos;
+
     @Before
     public void init() {
         List<Lotto> lottos = new ArrayList<>();
@@ -19,14 +20,14 @@ public class LottoGameResultTest {
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
 
-        lottoGameResult = new LottoGameResult(
+        winningLottos = new WinningLottos(
                 LottoChecker.getWinnerLottos(lottos, new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7))
         );
     }
 
     @Test
     public void getProfitTest() {
-        int profit = lottoGameResult.getProfit();
+        int profit = winningLottos.getProfit();
         assertThat(profit).isEqualTo(2030055000);
     }
 
@@ -38,16 +39,16 @@ public class LottoGameResultTest {
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
         lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
 
-        lottoGameResult = new LottoGameResult(
+        winningLottos = new WinningLottos(
                 LottoChecker.getWinnerLottos(lottos, new WinningNumber(Arrays.asList(11, 12, 13, 14, 15, 16), 7))
         );
-        int profitPercentage = lottoGameResult.getProfitPercentage(4000);
+        int profitPercentage = winningLottos.getProfitPercentage(4000);
         assertThat(profitPercentage).isEqualTo(-100);
     }
 
     @Test
     public void getResultState() {
-        assertThat(lottoGameResult.toString()).isEqualTo(
+        assertThat(winningLottos.toString()).isEqualTo(
             "3개 일치 (5000원)- 1개\n" +
             "4개 일치 (50000원)- 1개\n" +
             "5개 일치 (1500000원)- 0개\n" +

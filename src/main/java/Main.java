@@ -9,12 +9,12 @@ public class Main {
     public static void main(String[] args) {
         int investMoney = getInvestMoney();
 
-        LottoGame lottoGame = new LottoGame(sellLotto(investMoney, new LottoNumCreator()));
-        showNumOfBuyLotto(lottoGame.getNumOfLottos());
-        showLottos(lottoGame);
+        Lottos lottos = new Lottos(sellLotto(investMoney, new LottoNumCreator()));
+        showNumOfBuyLotto(lottos.getNumOfLottos());
+        showLottos(lottos);
 
-        LottoGameResult lottoGameResult = new LottoGameResult(lottoGame.matchLottosWithWinnigNums(getWinningLotto()));
+        WinningLottos winningLottos = new WinningLottos(lottos.matchLottosWithWinnigNums(getWinningLotto()));
 
-        showResult(lottoGameResult, investMoney);
+        showResult(winningLottos, investMoney);
     }
 }
