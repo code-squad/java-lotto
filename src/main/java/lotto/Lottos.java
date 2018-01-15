@@ -13,6 +13,9 @@ public class Lottos {
 	public ArrayList<Lotto> get() {
 		return this.tickets;
 	}
+	public int getSize() {
+		return this.tickets.size();
+	}
 	//각 티켓 별 맞은 갯수를 리스트에 저장하고, 리턴해주는 메소드.
 	public ArrayList<Match> makeMatchList(WinningLotto winningLotto) {
 		ArrayList<Match> matchList = new ArrayList<Match> ();		//티켓 별 맞은 번호 수를 일치하는 Match로 변환하여 저장하는 리스트를 만들어준다.

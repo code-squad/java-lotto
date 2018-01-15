@@ -79,16 +79,16 @@ body {
 		</div>
 	</form>
 	<pre class="pre-scrollable">
-	<h4 class="text-center"><5개를 구매 하셨습니다></h4>
+	<h4 class="text-center"><{{size}}개를 구매 하셨습니다></h4>
 	<table class="table">
 		<thead>
 			<th></th>
 			<th class="text-center">로또 번호</th>
 		</thead>
 		<tbody>
-			{{#lottos}}
-			<div id="standings"> {{manualNumber}}</div>
-			{{/lottos}}
+			{{#lotto}}
+			<div id="standings"> {{num}}</div>
+			{{/lotto}}
 		</tbody>
 	</table>
 </pre>
