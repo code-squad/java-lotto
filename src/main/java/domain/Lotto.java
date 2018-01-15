@@ -1,41 +1,23 @@
-package model;
+package domain;
 
 import java.util.Collections;
 import java.util.List;
 
-public class LottoNumbers {
+public class Lotto {
     private List<Integer> numbers;
 
-    public LottoNumbers(List<Integer> numbers) {
+    public Lotto(List<Integer> numbers) {
         numbersCheck(numbers);
         sortNumbers(numbers);
         this.numbers = numbers;
     }
 
-    public int checkTheWinningNumbers(List<Integer> numbers) {
-        numbersCheck(numbers);
-        sortNumbers(numbers);
-
+    public int checkTheWinningNumbers(Lotto lotto) {
+        List<Integer> checkNumbers = lotto.numbers;
         int count = 0;
-        boolean done = true;
-        int i = 0;
-        int j = 0;
-        while (done) {
-            int number = this.numbers.get(i);
-            int checkNumber = numbers.get(j);
-            if (number == checkNumber) {
+        for (int i = 0; i < 6; i++) {
+            if (numbers.contains(checkNumbers.get(i))) {
                 count++;
-                i++;
-                j++;
-            }
-            if (number > checkNumber) {
-                j++;
-            }
-            if (number < checkNumber) {
-                i++;
-            }
-            if (i >= 6 || j >= 6) {
-                done = false;
             }
         }
         return count;
@@ -54,11 +36,13 @@ public class LottoNumbers {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("[");
         for (int number : numbers) {
             sb.append(number);
             sb.append(", ");
         }
         sb.delete(sb.length() - 2, sb.length());
+        sb.append("]");
         return sb.toString();
     }
 }

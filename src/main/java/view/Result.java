@@ -1,6 +1,7 @@
 package view;
 
-import model.Lotto;
+import domain.Lotto;
+import domain.LottoFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,14 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Result {
-    private List<Lotto> lottos;
     private int price;
     private Map<Integer, Integer> winningPrice;
     private Map<Integer, Integer> winningCount;
 
     public Result(int price) {
         this.price = price;
-        lottos = makeLotto(countOfLotto());
         winningPrice = new HashMap<>();
         winningPrice.put(3, 5000);
         winningPrice.put(4, 50000);
@@ -28,12 +27,10 @@ public class Result {
         winningCount.put(6, 0);
     }
 
-    private List<Lotto> makeLotto(int count) {
-        List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            lottos.add(new Lotto());
+    public void makeLottos() {
+        for (int i = 0; i < countOfLotto(); i++) {
+            LottoFactory.makeLotto();
         }
-        return lottos;
     }
 
     public int countOfLotto() {
@@ -42,15 +39,15 @@ public class Result {
 
     public void printResult() {
         System.out.printf("%d개를 구매했습니다.\n", countOfLotto());
-        for (Lotto lotto : lottos) {
+        for (Lotto lotto : LottoFactory.lottos) {
             System.out.println(lotto);
         }
     }
 
     public void insertLastWinningNumbers(String numbersText) {
-        List<Integer> numbers = parseInts(split(numbersText));
-        for (Lotto lotto : lottos) {
-            int count = lotto.checkTheAnswerNumbers(numbers);
+        Lotto numbers = new Lotto(parseInts(split(numbersText)));
+        for (Lotto lotto : LottoFactory.lottos) {
+            int count = lotto.checkTheWinningNumbers(numbers);
             if (winningCount.containsKey(count)) {
                 winningCount.put(count, winningCount.get(count) + 1);
             }
@@ -84,10 +81,10 @@ public class Result {
         System.out.printf("총 수익률은 %d%%입니다.", calRevenue());
     }
 
-    private int calRevenue() {
+    public int calRevenue() {
         float max = 0;
-        for(int i = 3; i <= 6; i++) {
-            if(winningCount.get(i) > 0) {
+        for (int i = 3; i <= 6; i++) {
+            if (winningCount.get(i) > 0) {
                 max += winningCount.get(i) * winningPrice.get(i);
             }
         }
