@@ -1,8 +1,8 @@
 package lotto.domain;
 
-import java.util.List;
-
 import lotto.domain.generator.LottoNumberGenerator;
+
+import java.util.List;
 
 public class Lotto {
     private List<Integer> numbers;
@@ -19,9 +19,7 @@ public class Lotto {
         return numbers;
     }
 
-    public int getCorrectCount(List<Integer> winNumbers) {
-        return (int) numbers.stream()
-                .filter(winNumbers::contains)
-                .count();
+    public boolean hasBonusBall(int bonusBall) {
+        return numbers.contains(bonusBall);
     }
 }

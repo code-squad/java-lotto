@@ -1,11 +1,17 @@
+import lotto.domain.WinningLotto;
+import lotto.domain.enums.LottoCorrectCount;
+import lotto.domain.generator.CustomLottoNumberGenerator;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lotto.domain.Lotto;
 import lotto.domain.generator.RandomLottoNumberGenerator;
 import lotto.util.LottoUtils;
 
+import static lotto.domain.enums.LottoCorrectCount.FIVE_DOUBLE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -25,4 +31,13 @@ public class LottoTest {
         assertTrue(numbers.get(3) < numbers.get(4));
     }
 
+    @Test
+    public void 보너스볼을_받은_로또를_표시하는가() {
+        List<Integer> winningLottos = Arrays.stream(new int[]{1, 2, 3, 40, 41, 42}).boxed().collect(Collectors.toList());
+        List<Integer> testLottos = Arrays.stream(new int[]{1, 7, 6, 40, 41, 42}).boxed().collect(Collectors.toList());
+
+        WinningLotto winningLotto = WinningLotto.generate(winningLottos, 7);
+        LottoCorrectCount lottoCorrectCount = winningLotto.match(Lotto.generate(new CustomLottoNumberGenerator(testLottos)));
+        assertEquals(FIVE_DOUBLE, lottoCorrectCount);
+    }
 }
