@@ -52,6 +52,7 @@ public class Order {
 
     public int getEarningsRate(){
         double totalEarnings = getTotalPrizes() - totalCost;
+
         return (int) (totalEarnings / totalCost * 100);
     }
 

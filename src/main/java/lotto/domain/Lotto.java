@@ -9,7 +9,6 @@ public class Lotto {
     public static final int LOTTO_PICK_COUNT = 6;
 
     private static final int LOTTO_MAX_NUMBER = 45;
-
     private static List<Integer> TARGET_NUMBER;
 
     private List<Integer> numbers;
@@ -60,6 +59,7 @@ public class Lotto {
     @Override
     public String toString() {
         numbers.sort(Comparator.comparingInt(o -> o));
+
         return Arrays.toString(numbers.toArray());
     }
 }
