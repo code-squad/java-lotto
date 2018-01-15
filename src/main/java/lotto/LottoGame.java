@@ -17,13 +17,14 @@ public class LottoGame {
 
     private void start() {
         int ticketTotalPrice = inputView.requestToInputTicketTotalPrice();
-
         LottoCustomer lottoCustomer = LottoStore.buyRandomTickets(LottoStore.countTicket(ticketTotalPrice));
         resultView.printTickets(lottoCustomer);
 
-        LottoOperator lottoOperator = new LottoOperator(inputView.requestToInputLastWeekSuccessNumbers());
-        LottoResult lottoResult = lottoCustomer.matchTickets(lottoOperator);
+        String successNumberString = inputView.requestToInputLastWeekSuccessNumbers();
+        String bonusNumberString = inputView.requestToInputLastWeekBonusNumber();
+        WinningLotto winningLotto = new WinningLotto(successNumberString, bonusNumberString);
 
+        LottoResult lottoResult = lottoCustomer.matchTickets(winningLotto);
         resultView.printResult(lottoResult);
     }
 

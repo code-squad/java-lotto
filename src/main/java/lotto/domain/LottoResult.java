@@ -1,16 +1,18 @@
 package lotto.domain;
 
+import java.math.BigInteger;
 import java.util.Map;
 
 public class LottoResult {
+    private static final BigInteger HUNDRED_BIGINTEGER = new BigInteger("100");
     private static final int HUNDRED = 100;
 
     private final Map<LottoPrize, Integer> lottoPrizeResults;
-    private final int ticketTotalPrice;
+    private final BigInteger ticketTotalPrice;
 
     public LottoResult(Map<LottoPrize, Integer> lottoPrizeResults, int ticketTotalPrice) {
         this.lottoPrizeResults = lottoPrizeResults;
-        this.ticketTotalPrice = ticketTotalPrice;
+        this.ticketTotalPrice = new BigInteger(String.valueOf(ticketTotalPrice));
     }
 
     public int getPrizeCount(LottoPrize lottoPrize) {
@@ -19,30 +21,27 @@ public class LottoResult {
     }
 
     public int calculateProfitRatio() {
-        int ratio = calculateTotalProfit() * HUNDRED / ticketTotalPrice;
+        int ratio = calculateTotalProfit().multiply(HUNDRED_BIGINTEGER).divide(ticketTotalPrice).intValue();
         if (ratio < HUNDRED) {
             return (HUNDRED - ratio) * -1;
         }
         return ratio;
     }
 
-    private int calculateTotalProfit() {
-        int totalProfit = 0;
+    private BigInteger calculateTotalProfit() {
+        BigInteger totalProfit = BigInteger.ZERO;
         for (LottoPrize lottoPrize : lottoPrizeResults.keySet()) {
-            totalProfit += lottoPrize.getPrizeAmount() * lottoPrizeResults.get(lottoPrize);
+            BigInteger amount = new BigInteger(String.valueOf(lottoPrize.getPrizeAmount()));
+            BigInteger count = new BigInteger(String.valueOf(lottoPrizeResults.get(lottoPrize)));
+            totalProfit = totalProfit.add(amount.multiply(count));
         }
         return totalProfit;
     }
 
-    // 3개 일치 (5000원)- 1개
     public String showResultMessage(LottoPrize prize) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(prize.getSuccessCount())
-                .append("개 일치 (")
-                .append(prize.getPrizeAmount())
-                .append("원)- ")
-                .append(lottoPrizeResults.get(prize))
-                .append("개");
-        return sb.toString();
+        return prize.showMessage() +
+                "- " +
+                lottoPrizeResults.get(prize) +
+                "개";
     }
 }
