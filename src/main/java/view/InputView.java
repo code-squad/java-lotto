@@ -1,5 +1,7 @@
 package view;
 
+import domain.WinningNumber;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,6 +9,12 @@ import java.util.Scanner;
 public class InputView {
     private static final Scanner sc = new Scanner(System.in);
 
+    public static WinningNumber getWinningLotto() {
+        List<Integer> winnerNums = getWinnerNums();
+        int bonusNum = getBonusNum();
+
+        return new WinningNumber(winnerNums, bonusNum);
+    }
     public static int getInvestMoney() {
         System.out.println("구입 금액을 입력해 주세요.");
         return Integer.parseInt(sc.nextLine());
@@ -17,6 +25,11 @@ public class InputView {
         String[] inputs = sc.nextLine().split(", ");
 
         return toInts(inputs);
+    }
+
+    public static int getBonusNum() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return Integer.parseInt(sc.nextLine());
     }
 
     private static List<Integer> toInts(String[] inputs) {

@@ -31,6 +31,10 @@ public class Lotto {
             correspondNums.add(targetNum);
     }
 
+    public boolean isBonusNumMatch(int bonusNum) {
+        return nums.contains(bonusNum);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

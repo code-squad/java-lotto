@@ -1,12 +1,12 @@
 package domain;
 
-import java.util.List;
-import java.util.Map;
 
-public class LottoGame {
+import java.util.List;
+
+public class Lottos {
     private List<Lotto> lottos;
 
-    public LottoGame(List<Lotto> lottos) {
+    public Lottos(List<Lotto> lottos) {
         this.lottos = lottos;
     }
 
@@ -14,8 +14,13 @@ public class LottoGame {
         return lottos.size();
     }
 
-    public Map<Integer,Integer> matchLottosWithWinnigNums(List<Integer> winnigNums) {
-        return LottoChecker.getWinnerLottos(lottos, winnigNums);
+    public WinningLottos getWinningLottos(WinningNumber winningNumber) {
+        WinningLottos winningLottos = new WinningLottos();
+
+        for(Lotto lotto : lottos)
+            winningLottos.addLotto(winningNumber.matchLottoAndGetPrize(lotto));
+
+        return winningLottos;
     }
 
     @Override
