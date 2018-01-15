@@ -67,6 +67,6 @@ public class LottoMachineTest {
         lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{1, 2, 3, 4, 5, 6}).boxed().collect(Collectors.toList()))); //SIX
 
         List<Integer> winNumbers = Input.init("1, 2, 3, 4, 5, 6").winNumbers();
-        return LottoUtils.resultToMap(LottoResults.generateLottoResults(lottos, new CustomLottoNumberGenerator(winNumbers)));
+        return LottoUtils.resultToMap(LottoResults.generateLottoResults(lottos, Lotto.generate(new CustomLottoNumberGenerator(winNumbers))));
     }
 }

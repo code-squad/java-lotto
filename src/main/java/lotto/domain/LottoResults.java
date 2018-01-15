@@ -5,23 +5,22 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import lotto.domain.enums.LottoCorrectCount;
-import lotto.domain.lottogenerator.LottoNumberGenerator;
 import lotto.dto.LottoResult;
 
 public class LottoResults {
     private List<LottoResult> lottoResults;
 
-    private LottoResults(List<Lotto> lottos, LottoNumberGenerator lottoNumberGenerator) {
-        lottoResults = generateFinalResult(lottos, lottoNumberGenerator);
+    private LottoResults(List<Lotto> lottos, Lotto winningLotto) {
+        lottoResults = generateFinalResult(lottos, winningLotto);
     }
 
-    public static LottoResults generateLottoResults(List<Lotto> lottos, LottoNumberGenerator lottoNumberGenerator) {
-        return new LottoResults(lottos, lottoNumberGenerator);
+    public static LottoResults generateLottoResults(List<Lotto> lottos, Lotto winningLotto) {
+        return new LottoResults(lottos, winningLotto);
     }
 
-    private static List<LottoResult> generateFinalResult(List<Lotto> lottos, LottoNumberGenerator lottoNumberGenerator) {
+    private static List<LottoResult> generateFinalResult(List<Lotto> lottos, Lotto winningLotto) {
         return lottos.stream()
-                .map(lotto -> new LottoResult(lotto.getCorrectCount(lottoNumberGenerator.generate())))
+                .map(lotto -> new LottoResult(lotto.getCorrectCount(winningLotto.getNumbers())))
                 .collect(Collectors.toList());
     }
 
