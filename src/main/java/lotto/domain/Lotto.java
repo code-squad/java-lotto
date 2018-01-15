@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -75,5 +76,10 @@ public class Lotto {
     public int containCount(Lotto lotto) {
         Objects.requireNonNull(lotto);
         return (int) Stream.of(lotto.lotto).filter(contain).count();
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(lotto);
     }
 }

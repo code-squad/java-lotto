@@ -21,7 +21,7 @@ public class LottoRecorder {
     }
 
     public int getLottoCount(LottoRank lottoRank) {
-        return lottoResult.getLottoMap().computeIfAbsent(lottoRank, k -> new ArrayList<>()).size();
+        return lottoResult.getLottoCount(lottoRank);
     }
 
     public int getPrize(LottoRank lottoRank) {
@@ -33,6 +33,6 @@ public class LottoRecorder {
     }
 
     public int getProfitRatio() {
-        return (int)((getProfit() / (lottoResult.getLottoMap().size()*1000f)) * 100);
+        return (int)((getProfit() / (lottoResult.totalCount()*1000f)) * 100);
     }
 }

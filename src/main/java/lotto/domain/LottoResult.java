@@ -55,7 +55,11 @@ public class LottoResult {
         return rankedList;
     }
 
-    public Map<LottoRank,List<Lotto>> getLottoMap() {
-        return lottoMap;
+    public int totalCount() {
+        return lottoMap.values().stream().mapToInt(lottoList->lottoList.size()).sum();
+    }
+
+    public int getLottoCount(LottoRank lottoRank) {
+        return lottoMap.computeIfAbsent(lottoRank, k -> new ArrayList<>()).size();
     }
 }

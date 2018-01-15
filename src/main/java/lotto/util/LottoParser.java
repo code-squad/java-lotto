@@ -28,6 +28,11 @@ public class LottoParser {
         return new Lotto(numberArr);
     }
 
+    public static boolean canParsing(String numbers) {
+        String[] split = numbers.split(PARSING_SYMBOL);
+        return isBlank(numbers) || numbers.contains(PARSING_SYMBOL) || !isNumeric(split) || !isNumeric(split) || isBlank(toIntegerList(split));
+    }
+
     private static List<Integer> toIntegerList(String[] numbers) {
         return Stream.of(numbers).map(Integer::parseInt).collect(Collectors.toList());
     }
