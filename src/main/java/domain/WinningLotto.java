@@ -1,12 +1,12 @@
-package dto;
+package domain;
 
-public class LottoResult {
+public class WinningLotto {
 
     private final Rank rank;
 
     private final int countOfMatch;
 
-    public LottoResult(int countOfMatch, boolean matchBonus) {
+    public WinningLotto(int countOfMatch, boolean matchBonus) {
         if (countOfMatch < 0 || countOfMatch > 6) {
             throw new IllegalArgumentException();
         }

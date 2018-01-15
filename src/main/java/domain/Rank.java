@@ -1,4 +1,4 @@
-package dto;
+package domain;
 
 import java.text.MessageFormat;
 import java.util.Arrays;

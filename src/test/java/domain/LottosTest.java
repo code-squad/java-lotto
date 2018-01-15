@@ -1,12 +1,9 @@
 package domain;
 
-import dto.LottoResult;
-import dto.Rank;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,15 +22,15 @@ public class LottosTest {
 
     @Test
     public void match() throws Exception {
-        List<LottoResult> results = lottos.match(winningNumbers);
+        WinningLottos winningLottos = lottos.match(winningNumbers);
 
-        assertThat(results).isNotEmpty();
-        assertThat(results.size()).isEqualTo(2);
-        assertThat(results.get(0).getCountOfMatch()).isEqualTo(3);
-        assertThat(results.get(0).getRank()).isEqualTo(Rank.FIFTH);
+        assertThat(winningLottos.getCountOfRank(Rank.FIFTH)).isEqualTo(1);
+        assertThat(winningLottos.getCountOfRank(Rank.FAIL)).isEqualTo(1);
 
-        assertThat(results.get(1).getCountOfMatch()).isEqualTo(0);
-        assertThat(results.get(1).getRank()).isEqualTo(Rank.FAIL);
+        assertThat(winningLottos.getCountOfRank(Rank.FIRST)).isEqualTo(0);
+        assertThat(winningLottos.getCountOfRank(Rank.SECOND)).isEqualTo(0);
+        assertThat(winningLottos.getCountOfRank(Rank.THIRD)).isEqualTo(0);
+        assertThat(winningLottos.getCountOfRank(Rank.FOURTH)).isEqualTo(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -45,14 +42,14 @@ public class LottosTest {
     public void match_2등인경우() throws Exception {
         WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 3, 5, 7, 9, 10}, new LottoNumber(11));
 
-        List<LottoResult> results = lottos.match(winningNumbers);
+        WinningLottos winningLottos = lottos.match(winningNumbers);
 
-        assertThat(results).isNotEmpty();
-        assertThat(results.size()).isEqualTo(2);
-        assertThat(results.get(0).getCountOfMatch()).isEqualTo(5);
-        assertThat(results.get(0).getRank()).isEqualTo(Rank.SECOND);
+        assertThat(winningLottos.getCountOfRank(Rank.SECOND)).isEqualTo(1);
+        assertThat(winningLottos.getCountOfRank(Rank.FAIL)).isEqualTo(1);
 
-        assertThat(results.get(1).getCountOfMatch()).isEqualTo(2);
-        assertThat(results.get(1).getRank()).isEqualTo(Rank.FAIL);
+        assertThat(winningLottos.getCountOfRank(Rank.FIRST)).isEqualTo(0);
+        assertThat(winningLottos.getCountOfRank(Rank.THIRD)).isEqualTo(0);
+        assertThat(winningLottos.getCountOfRank(Rank.FOURTH)).isEqualTo(0);
+        assertThat(winningLottos.getCountOfRank(Rank.FIFTH)).isEqualTo(0);
     }
 }

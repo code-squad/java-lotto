@@ -1,7 +1,5 @@
 package domain;
 
-import dto.LottoResult;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -48,11 +46,11 @@ public class Lotto {
         }
     }
 
-    public LottoResult getWinResult(WinningNumbers winningNumbers) {
+    public WinningLotto getWinResult(WinningNumbers winningNumbers) {
         if (winningNumbers == null) {
             throw new IllegalArgumentException();
         }
-        return new LottoResult(getCountOfMatch(winningNumbers), isMatchBonus(winningNumbers));
+        return new WinningLotto(getCountOfMatch(winningNumbers), isMatchBonus(winningNumbers));
     }
 
     private boolean isMatchBonus(WinningNumbers winningNumbers) {

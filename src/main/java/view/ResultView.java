@@ -1,13 +1,12 @@
 package view;
 
 import domain.Lottos;
-import dto.LottoResult;
-import dto.Rank;
+import domain.Rank;
+import domain.WinningLottos;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 
 public class ResultView {
 
@@ -22,25 +21,17 @@ public class ResultView {
         System.out.println(lottos.toString());
     }
 
-    public static void printLottoResults(List<LottoResult> results) {
+    public static void printLottoResults(WinningLottos results) {
         Arrays.stream(Rank.values())
               .filter(r -> !r.isFail())
               .sorted(Comparator.comparingInt(Rank::getWinningMoney))
-              .forEach(r -> printLottoResult(r, results));
+              .forEach(r -> System.out.println(MessageFormat.format(RESULT_PATTERN,
+                                                                    r,
+                                                                    results.getCountOfRank(r))));
+        printRevenue(results);
     }
 
-    private static void printLottoResult(Rank rank, List<LottoResult> results) {
-        int count = getCountOfRank(rank, results);
-        System.out.println(MessageFormat.format(RESULT_PATTERN, rank, count));
-    }
-
-    private static int getCountOfRank(Rank rank, List<LottoResult> results) {
-        return (int) results.stream()
-                            .filter(r -> r.getRank() == rank)
-                            .count();
-    }
-
-    public static void printRevenue(double calculate) {
-        System.out.printf("총 수익률은 %.1f 입니다.", calculate);
+    private static void printRevenue(WinningLottos results) {
+        System.out.printf("총 수익률은 %.1f 입니다.", results.getRevenue());
     }
 }

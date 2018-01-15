@@ -1,7 +1,5 @@
 package domain;
 
-import dto.LottoResult;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,10 +17,14 @@ public class Lottos {
         return lottos.size();
     }
 
-    public List<LottoResult> match(WinningNumbers winningNumbers) {
+    public WinningLottos match(WinningNumbers winningNumbers) {
         if (winningNumbers == null) {
             throw new IllegalArgumentException();
         }
+        return new WinningLottos(getWinningLottos(winningNumbers));
+    }
+
+    private List<WinningLotto> getWinningLottos(WinningNumbers winningNumbers) {
         return lottos.stream()
                      .map(lotto -> lotto.getWinResult(winningNumbers))
                      .collect(Collectors.toList());

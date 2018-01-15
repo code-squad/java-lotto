@@ -1,7 +1,5 @@
 package domain;
 
-import dto.LottoResult;
-import dto.Rank;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -70,7 +68,7 @@ public class LottoTest {
         WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 7, 8, 9},
                                                            new LottoNumber(5));
 
-        LottoResult result = lotto.getWinResult(winningNumbers);
+        WinningLotto result = lotto.getWinResult(winningNumbers);
 
         assertThat(result.getCountOfMatch()).isEqualTo(3);
         assertThat(result.getRank()).isEqualTo(Rank.FIFTH);
@@ -83,7 +81,7 @@ public class LottoTest {
         WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 4, 5, 7},
                                                            new LottoNumber(6));
 
-        LottoResult result = lotto.getWinResult(winningNumbers);
+        WinningLotto result = lotto.getWinResult(winningNumbers);
 
         assertThat(result.getCountOfMatch()).isEqualTo(5);
         assertThat(result.getRank()).isEqualTo(Rank.SECOND);
@@ -96,7 +94,7 @@ public class LottoTest {
         WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 4, 5, 7},
                                                            new LottoNumber(11));
 
-        LottoResult result = lotto.getWinResult(winningNumbers);
+        WinningLotto result = lotto.getWinResult(winningNumbers);
 
         assertThat(result.getCountOfMatch()).isEqualTo(5);
         assertThat(result.getRank()).isEqualTo(Rank.THIRD);
