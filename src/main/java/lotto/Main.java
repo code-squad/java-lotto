@@ -4,6 +4,7 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
 import lotto.domain.LottoResults;
 import lotto.domain.enums.LottoCorrectCount;
+import lotto.domain.lottogenerator.CustomLottoNumberGenerator;
 import lotto.dto.LottoResult;
 import lotto.util.LottoUtils;
 import lotto.view.Input;
@@ -23,7 +24,7 @@ public class Main {
         Output.printLottoCount(lottos.size());
         Output.printLottos(lottos);
 
-        Map<LottoCorrectCount, Integer> resultMap = LottoUtils.resultToMap(LottoResults.generateLottoResults(lottos, input.winNumbers()));
+        Map<LottoCorrectCount, Integer> resultMap = LottoUtils.resultToMap(LottoResults.generateLottoResults(lottos, new CustomLottoNumberGenerator(input.winNumbers())));
         Output.printResult(resultMap, money);
     }
 }

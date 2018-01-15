@@ -1,13 +1,16 @@
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
 import lotto.domain.LottoResults;
 import lotto.domain.enums.LottoCorrectCount;
+import lotto.domain.lottogenerator.CustomLottoNumberGenerator;
 import lotto.util.LottoUtils;
 import lotto.view.Input;
 
@@ -56,14 +59,14 @@ public class LottoMachineTest {
 
     private Map<LottoCorrectCount, Integer> initResultMap() {
         List<Lotto> lottos = new ArrayList<>();
-        lottos.add(Lotto.generate(() -> new int[]{1, 2, 3, 40, 41, 42})); //THREE
-        lottos.add(Lotto.generate(() -> new int[]{10, 20, 30, 4, 5, 6})); //THREE
-        lottos.add(Lotto.generate(() -> new int[]{10, 2, 3, 4, 15, 16})); //THREE
-        lottos.add(Lotto.generate(() -> new int[]{1, 2, 3, 4, 15, 16})); //FOUR
-        lottos.add(Lotto.generate(() -> new int[]{11, 20, 3, 4, 5, 6})); //FOUR
-        lottos.add(Lotto.generate(() -> new int[]{1, 2, 3, 4, 5, 6})); //SIX
+        lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{1, 2, 3, 40, 41, 42}).boxed().collect(Collectors.toList()))); //THREE
+        lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{10, 20, 30, 4, 5, 6}).boxed().collect(Collectors.toList()))); //THREE
+        lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{10, 2, 3, 4, 15, 16}).boxed().collect(Collectors.toList()))); //THREE
+        lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{1, 2, 3, 4, 15, 16}).boxed().collect(Collectors.toList()))); //FOUR
+        lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{11, 20, 3, 4, 5, 6}).boxed().collect(Collectors.toList()))); //FOUR
+        lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{1, 2, 3, 4, 5, 6}).boxed().collect(Collectors.toList()))); //SIX
 
         List<Integer> winNumbers = Input.init("1, 2, 3, 4, 5, 6").winNumbers();
-        return LottoUtils.resultToMap(LottoResults.generateLottoResults(lottos, winNumbers));
+        return LottoUtils.resultToMap(LottoResults.generateLottoResults(lottos, new CustomLottoNumberGenerator(winNumbers)));
     }
 }

@@ -1,10 +1,11 @@
 package lotto.domain;
 
-import java.util.Arrays;
 import java.util.List;
 
+import lotto.domain.lottogenerator.LottoNumberGenerator;
+
 public class Lotto {
-    private int[] numbers;
+    private List<Integer> numbers;
 
     private Lotto(LottoNumberGenerator lottoNumberGenerator) {
         numbers = lottoNumberGenerator.generate();
@@ -14,13 +15,12 @@ public class Lotto {
         return new Lotto(lottoNumberGenerator);
     }
 
-    public int[] getNumbers() {
+    public List<Integer> getNumbers() {
         return numbers;
     }
 
     public int getCorrectCount(List<Integer> winNumbers) {
-        return (int) Arrays.stream(numbers)
-                .boxed()
+        return (int) numbers.stream()
                 .filter(winNumbers::contains)
                 .count();
     }

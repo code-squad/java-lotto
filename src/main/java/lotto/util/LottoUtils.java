@@ -1,6 +1,7 @@
 package lotto.util;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -18,8 +19,8 @@ public class LottoUtils {
     public static final int LOTTO_MAX_COUNT = 6;
     public static final String REGEX = ", ";
 
-    public static String[] convertIntToString(int[] numbers) {
-        return Arrays.stream(numbers).mapToObj(String::valueOf).toArray(String[]::new);
+    public static String[] convertIntToString(List<Integer> numbers) {
+        return numbers.stream().map(String::valueOf).toArray(String[]::new);
     }
 
     public static Map<LottoCorrectCount, Integer> resultToMap(LottoResults lottoResults) {

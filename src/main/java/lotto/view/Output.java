@@ -21,7 +21,7 @@ public class Output {
         System.out.println(value);
     }
 
-    public static String lottoNumbersFormatting(int[] numbers) {
+    public static String lottoNumbersFormatting(List<Integer> numbers) {
         return String.format(UI_FORMAT, String.join(LottoUtils.REGEX, LottoUtils.convertIntToString(numbers)));
     }
 
