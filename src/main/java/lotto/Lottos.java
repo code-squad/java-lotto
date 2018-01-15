@@ -8,10 +8,12 @@ import static lotto.Rank.RANK_FOURTH;
 import static lotto.Rank.RANK_BONUS;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Lottos {
 	private ArrayList<MyLotto> lottos = new ArrayList<>();
 	private int userLottoNum;
+	HashMap<Rank, Integer> result = new HashMap<>();
 
 	Lottos(ArrayList<MyLotto> userLottos, int lottoNum) {
 		this.userLottoNum = userLottos.size();
@@ -23,6 +25,9 @@ public class Lottos {
 			lottos.add(new MyLotto(autoLottoNum));
 
 	}
+	public ArrayList<MyLotto> getLottos() {
+		return lottos;
+	}
 
 	public int getBuyNum() {
 		return this.lottos.size();
@@ -31,13 +36,13 @@ public class Lottos {
 	public int getUserNum() {
 		return this.userLottoNum;
 	}
+	
 
-	public MyLotto getLottos(int index) {
+	public MyLotto getLotto(int index) {
 		return lottos.get(index);
 	}
 
 	public HashMap<Rank, Integer> compareLotto(WinningLotto winLotto) {
-		HashMap<Rank, Integer> result = new HashMap<>();
 		initMap(result);
 		for (MyLotto myLotto : lottos)
 			result = makeStatics(result, myLotto.compareNum(winLotto));
@@ -57,5 +62,22 @@ public class Lottos {
 		map.put(RANK_FIRST, 0);
 		map.put(RANK_BONUS, 0);
 	}
+	
+	public int getFourth() {
+		return result.get(RANK_FOURTH);
+	}
+	public int getThird() {
+		return result.get(RANK_THIRD);
+	}
+	public int getSecond() {
+		return result.get(RANK_SECOND);
+	}
+	public int getFirst() {
+		return result.get(RANK_FIRST);
+	}
+	public int getBonus() {
+		return result.get(RANK_BONUS);
+	}
+	
 
 }

@@ -6,6 +6,10 @@ import java.util.Collections;
 public class MyLotto extends Lotto {
 	private ArrayList<Integer> myLotto = new ArrayList<>();
 
+	public ArrayList<Integer> getMyLotto() {
+		return myLotto;
+	}
+
 	MyLotto(int num) {
 		super(createRanLotto(num));
 		this.myLotto = createRanLotto(num);
