@@ -1,12 +1,11 @@
 package lotto.domain;
 
-import lotto.domain.enums.LottoCorrectCount;
+import lotto.domain.enums.Rank;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static lotto.domain.enums.LottoCorrectCount.FIVE_DOUBLE;
-import static lotto.domain.enums.LottoCorrectCount.FOUR;
+import static lotto.domain.enums.Rank.*;
 
 public class WinningLotto {
     private static List<Integer> winningLottos;
@@ -21,13 +20,19 @@ public class WinningLotto {
         return new WinningLotto(winningLottos, bonusBall);
     }
 
-    //TODO: 앞단에 3개 이하는 들어오지 못하도록 막는 로직이 필요
-    public static LottoCorrectCount match(Lotto lotto) {
-        int count = (int) winningLottos.stream().filter(lotto.getNumbers()::contains).count();
+    public static Rank match(Lotto lotto) {
+        if(FOUR.isEqualCount(getWinningCount(lotto)) && lotto.hasBonusBall(bonusBall)) return FIVE_DOUBLE;
 
-        if(FOUR.isCorrect(count) && lotto.hasBonusBall(bonusBall)) return FIVE_DOUBLE;
-        return Arrays.stream(LottoCorrectCount.values())
-                .filter(lottoCorrectCount -> lottoCorrectCount.isCorrect(count))
+        return Arrays.stream(Rank.values())
+                .filter(lottoCorrectCount -> lottoCorrectCount.isEqualCount(getWinningCount(lotto)))
                 .findFirst().get();
+    }
+
+    public static boolean isWinningTarget(Lotto lotto) {
+        return getWinningCount(lotto) >= THREE.getValue();
+    }
+
+    private static int getWinningCount(Lotto lotto) {
+        return (int) winningLottos.stream().filter(lotto.getNumbers()::contains).count();
     }
 }

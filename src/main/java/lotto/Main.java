@@ -4,15 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import lotto.domain.Lotto;
-import lotto.domain.LottoMachine;
-import lotto.domain.Lottos;
-import lotto.domain.WinningLotto;
-import lotto.domain.enums.LottoCorrectCount;
-import lotto.domain.generator.CustomLottoNumberGenerator;
+import lotto.domain.*;
+import lotto.domain.enums.Rank;
 import lotto.util.LottoUtils;
 import lotto.view.Input;
 import lotto.view.Output;
+
+import static lotto.domain.LottoResult.getWinningRank;
 
 public class Main {
 
@@ -27,7 +25,6 @@ public class Main {
 
         List<Integer> winNumbers = input.winNumbers();
         WinningLotto.generate(winNumbers, input.getBonusBall(winNumbers));
-        Map<LottoCorrectCount, Integer> resultMap = LottoUtils.resultToMap(lottos.getLottos().stream().map(WinningLotto::match).collect(Collectors.toList()));
-        Output.printResult(resultMap, money);
+        Output.printResult(LottoResult.generate(getWinningRank(lottos)), money);
     }
 }

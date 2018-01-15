@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import lotto.domain.enums.LottoCorrectCount;
-import lotto.domain.generator.CustomLottoNumberGenerator;
+import lotto.domain.enums.Rank;
 import lotto.util.LottoUtils;
 import lotto.view.Input;
 
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
-import static lotto.domain.enums.LottoCorrectCount.*;
+import static lotto.domain.LottoResult.getWinningRank;
+import static lotto.domain.enums.Rank.*;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -35,7 +35,7 @@ public class LottoMachineTest {
 
     @Test
     public void 당첨번호_통계결과가_일치하는가() {
-        Map<LottoCorrectCount, Integer> resultMap = initResultMap();
+        Map<Rank, Integer> resultMap = initResultMap();
 
         assertEquals(of(2).get(), ofNullable(resultMap.get(THREE)).orElse(0));
         assertEquals(of(0).get(), ofNullable(resultMap.get(FOUR)).orElse(0));
@@ -46,17 +46,17 @@ public class LottoMachineTest {
 
     @Test
     public void 총수익이_올바른가() {
-        Map<LottoCorrectCount, Integer> resultMap = initResultMap();
-        assertEquals(2031510000, LottoResults.getProfit(resultMap));
+        Map<Rank, Integer> resultMap = initResultMap();
+        assertEquals(2031510000, LottoResult.getProfit(resultMap));
     }
 
     @Test
     public void 총수익률이_올바른가() {
-        Map<LottoCorrectCount, Integer> resultMap = initResultMap();
-        assertThat(LottoResults.getProfitRate(LottoResults.getProfit(resultMap), 6000), is(3.38585E7F));
+        Map<Rank, Integer> resultMap = initResultMap();
+        assertThat(LottoResult.getProfitRate(LottoResult.getProfit(resultMap), 6000), is(3.38585E7F));
     }
 
-    private Map<LottoCorrectCount, Integer> initResultMap() {
+    private Map<Rank, Integer> initResultMap() {
         List<Lotto> lottos = new ArrayList<>();
         lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{1, 2, 3, 40, 41, 42}).boxed().collect(Collectors.toList()))); //THREE
         lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{1, 2, 3, 14, 15, 16}).boxed().collect(Collectors.toList()))); //THREE
@@ -66,6 +66,6 @@ public class LottoMachineTest {
 
         List<Integer> winNumbers = Input.init("1, 2, 3, 4, 5, 6").winNumbers();
         WinningLotto.generate(winNumbers, 7);
-        return LottoUtils.resultToMap(Lottos.generate(lottos).getLottos().stream().map(WinningLotto::match).collect(Collectors.toList()));
+        return LottoResult.generate(getWinningRank(Lottos.generate(lottos))).getWinningLottoMap();
     }
 }

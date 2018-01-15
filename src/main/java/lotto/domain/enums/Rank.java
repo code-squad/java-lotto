@@ -1,6 +1,6 @@
 package lotto.domain.enums;
 
-public enum LottoCorrectCount {
+public enum Rank {
     THREE(3, 5000),
     FOUR(4, 50000),
     FIVE(5, 1500000),
@@ -10,12 +10,12 @@ public enum LottoCorrectCount {
     private int value;
     private int profit;
 
-    LottoCorrectCount(int value, int profit) {
+    Rank(int value, int profit) {
         this.value = value;
         this.profit = profit;
     }
 
-    public boolean isCorrect(int count) {
+    public boolean isEqualCount(int count) {
         return value == count;
     }
 
