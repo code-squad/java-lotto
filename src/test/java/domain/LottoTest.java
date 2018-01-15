@@ -34,17 +34,17 @@ public class LottoTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void LottoNumbers_int생성자_로또번호개수가6보다작은경우() throws Exception {
-        new Lotto(new int[]{1, 2, 3, 4, 5});
+        new Lotto(1, 2, 3, 4, 5);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void LottoNumbers_int생성자_로또번호개수가6보다큰경우() throws Exception {
-        new Lotto(new int[]{1, 2, 3, 4, 5, 6, 7});
+        new Lotto(1, 2, 3, 4, 5, 6, 7);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void LottoNumbers__int생성자_로또번호에중복이있는경우() throws Exception {
-        new Lotto(new int[]{1, 2, 3, 4, 5, 5});
+        new Lotto(1, 2, 3, 4, 5, 5);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class LottoTest {
                                 new LottoNumber(3), new LottoNumber(4),
                                 new LottoNumber(5), new LottoNumber(6)));
 
-        new Lotto(new int[]{1, 2, 3, 4, 5, 6});
+        new Lotto(1, 2, 3, 4, 5, 6);
     }
 
     @Test

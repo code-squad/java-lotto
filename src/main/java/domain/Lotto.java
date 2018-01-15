@@ -19,7 +19,7 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    public Lotto(int[] numbers) {
+    public Lotto(int... numbers) {
         List<LottoNumber> lottoNumbers = convertIntArrayToLottoNumbers(numbers);
         checkSizeOfLottoNumbers(lottoNumbers);
         checkDuplicatedLottoNumbers(lottoNumbers);
