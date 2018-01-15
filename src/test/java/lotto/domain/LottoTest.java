@@ -43,8 +43,20 @@ public class LottoTest {
         new Lotto(numbers);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void 사용자_지정_로또_생성_같은_숫자_배열_포함() {
+        LottoNumber[] numbers = new LottoNumber[]{new LottoNumber(1), new LottoNumber(1), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)};
+        new Lotto(numbers);
+    }
+
     @Test
-    public void 사용지_지정값과_동일한_값을_갖고_있는지() {
+    public void 사용자_지정_로또_생성() {
+        LottoNumber[] numbers = new LottoNumber[]{new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)};
+        new Lotto(numbers);
+    }
+
+    @Test
+    public void 사용지_지정값과_생성값이_같은지() {
         LottoNumber[] numbers = new LottoNumber[6];
         IntStream.range(0,6).forEach(i->numbers[i]=new LottoNumber(i+1));
         Lotto customLotto = new Lotto(numbers);

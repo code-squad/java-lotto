@@ -36,6 +36,11 @@ public class LottoVendorTest {
     }
 
     @Test
+    public void 지난주_로또_같은_번호를_입력() {
+        LottoVendor.getInstance().setLastJackpotLotto("1,1,1,1,1,1");
+    }
+
+    @Test
     public void 지난주_로또_당첨_번호를_입력() {
         LottoVendor.getInstance().setLastJackpotLotto("1,2,3,4,5,6");
     }

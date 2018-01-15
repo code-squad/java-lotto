@@ -11,17 +11,19 @@ public class LottoVendor {
 
     private final static int LOTTO_PRICE = 1000;
     private final static String PARSING_SYMBOL = ",";
+    private final static String INIT_JACKPOT_NUMBER = "1,2,3,4,5,6";
     private static LottoVendor instance;
-    private int orderCount;
+
     private Lotto lastJackpotLotto;
 
     private LottoVendor() {
-
+        setLastJackpotLotto(INIT_JACKPOT_NUMBER);
     }
 
     public static LottoVendor getInstance() {
-        if ( instance == null )
+        if ( instance == null ) {
             instance = new LottoVendor();
+        }
         return instance;
     }
 
@@ -47,7 +49,6 @@ public class LottoVendor {
         ArrayList<Lotto> lottery = new ArrayList<>();
         for (Integer i = 0; i < count; i++) {
             lottery.add(new Lotto());
-            orderCount++;
         }
         return lottery;
     }
@@ -69,5 +70,9 @@ public class LottoVendor {
 
     private boolean isNumeric(String[] split) {
         return Stream.of(split).allMatch(this::isNumeric);
+    }
+
+    public Lotto getLastJackpotLotto() {
+        return lastJackpotLotto;
     }
 }
