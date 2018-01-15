@@ -49,7 +49,15 @@ public class Lotto {
     }
 
     public LottoResult getWinResult(WinningNumbers winningNumbers) {
-        return new LottoResult(getCountOfMatch(winningNumbers), false);
+        if (winningNumbers == null) {
+            throw new IllegalArgumentException();
+        }
+        return new LottoResult(getCountOfMatch(winningNumbers), isMatchBonus(winningNumbers));
+    }
+
+    private boolean isMatchBonus(WinningNumbers winningNumbers) {
+        return numbers.stream()
+                      .anyMatch(winningNumbers::isMatchBonus);
     }
 
     private int getCountOfMatch(WinningNumbers winningNumbers) {

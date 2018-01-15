@@ -26,7 +26,7 @@ public class InputView {
         System.out.println("지난 주 당첨 번호를 입력해주세요");
 
         String input = scanner.nextLine();
-        return new WinningNumbers(toIntArray(removeWhiteSpace(splitInput(input))));
+        return new WinningNumbers(toIntArray(removeWhiteSpace(splitInput(input))), null);
     }
 
     private static String[] removeWhiteSpace(String[] inputs) {

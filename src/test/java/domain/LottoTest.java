@@ -56,17 +56,49 @@ public class LottoTest {
         new Lotto(1, 2, 3, 4, 5, 6);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void getWinResult_인자가NULL인경우() throws Exception {
+        Lotto lotto = new Lotto(1, 2, 3, 4, 5, 6);
+
+        lotto.getWinResult(null);
+    }
+
     @Test
     public void getWinResult() throws Exception {
-        Lotto lotto = new Lotto(Arrays.asList(new LottoNumber(1), new LottoNumber(2),
-                                              new LottoNumber(3), new LottoNumber(4),
-                                              new LottoNumber(5), new LottoNumber(6)));
+        Lotto lotto = new Lotto(1, 2, 3, 4, 5, 6);
 
-        WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 7, 8, 9});
+        WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 7, 8, 9},
+                                                           new LottoNumber(5));
 
         LottoResult result = lotto.getWinResult(winningNumbers);
 
         assertThat(result.getCountOfMatch()).isEqualTo(3);
-        assertThat(result.getRank()).isEqualTo(Rank.FOURTH);
+        assertThat(result.getRank()).isEqualTo(Rank.FIFTH);
+    }
+
+    @Test
+    public void getWinResult_2등당첨() throws Exception {
+        Lotto lotto = new Lotto(1, 2, 3, 4, 5, 6);
+
+        WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 4, 5, 7},
+                                                           new LottoNumber(6));
+
+        LottoResult result = lotto.getWinResult(winningNumbers);
+
+        assertThat(result.getCountOfMatch()).isEqualTo(5);
+        assertThat(result.getRank()).isEqualTo(Rank.SECOND);
+    }
+
+    @Test
+    public void getWinResult_3등당첨() throws Exception {
+        Lotto lotto = new Lotto(1, 2, 3, 4, 5, 6);
+
+        WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 4, 5, 7},
+                                                           new LottoNumber(11));
+
+        LottoResult result = lotto.getWinResult(winningNumbers);
+
+        assertThat(result.getCountOfMatch()).isEqualTo(5);
+        assertThat(result.getRank()).isEqualTo(Rank.THIRD);
     }
 }

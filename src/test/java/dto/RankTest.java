@@ -16,6 +16,15 @@ public class RankTest {
         assertThat(Rank.valueOf(1, false)).isEqualTo(Rank.FAIL);
     }
 
+    @Test
+    public void valueOf_2등이외matchBonus가true인경우() throws Exception {
+        assertThat(Rank.valueOf(6, true)).isEqualTo(Rank.FIRST);
+        assertThat(Rank.valueOf(4, true)).isEqualTo(Rank.FOURTH);
+        assertThat(Rank.valueOf(3, true)).isEqualTo(Rank.FIFTH);
+        assertThat(Rank.valueOf(2, true)).isEqualTo(Rank.FAIL);
+        assertThat(Rank.valueOf(1, true)).isEqualTo(Rank.FAIL);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void valueOf_6보다큰값() throws Exception {
         Rank.valueOf(7, false);

@@ -6,8 +6,8 @@ public enum Rank {
     FIRST(6, 2000000000),
     SECOND(5, 30000000) {
         @Override
-        public boolean isMatchBonus() {
-            return true;
+        public boolean matchBonusCondition(boolean matchBonus) {
+            return matchBonus;
         }
     },
     THIRD(5, 1500000),
@@ -28,7 +28,7 @@ public enum Rank {
             throw new IllegalArgumentException();
         }
         return Arrays.stream(Rank.values())
-                     .filter(r -> r.isSameMatchCountAndBonus(countOfMatch, matchBonus))
+                     .filter(r -> r.checkRankCondition(countOfMatch, matchBonus))
                      .findFirst()
                      .orElse(FAIL);
     }
@@ -45,11 +45,11 @@ public enum Rank {
         return this == Rank.FAIL;
     }
 
-    private boolean isSameMatchCountAndBonus(int countOfMatch, boolean matchBonus) {
-        return getCountOfMatch() == countOfMatch && isMatchBonus() == matchBonus;
+    private boolean checkRankCondition(int countOfMatch, boolean matchBonus) {
+        return getCountOfMatch() == countOfMatch && matchBonusCondition(matchBonus);
     }
 
-    public boolean isMatchBonus() {
-        return false;
+    public boolean matchBonusCondition(boolean matchBonus) {
+        return true;
     }
 }
