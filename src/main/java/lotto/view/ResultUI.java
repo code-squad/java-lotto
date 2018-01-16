@@ -1,12 +1,16 @@
-package lotto;
+package lotto.view;
 
 import java.util.Map;
+import lotto.domain.Lotto;
+import lotto.domain.LottoResult;
+import lotto.domain.LottoStore;
+import lotto.domain.PriceType;
 
 public class ResultUI {
 
     private LottoStore lottoStore;
     
-    private LottoResult lottoResult;    
+    private LottoResult lottoResult;
 
     public ResultUI(LottoStore result) {
         this.lottoStore = result;
@@ -32,9 +36,9 @@ public class ResultUI {
     }
     
     public void printStatistics() {
-        Map<Integer, Integer> result = lottoResult.getStatistics();
-        for (Integer integer : result.keySet()) {
-            System.out.println(integer+"개 일치 ("+PriceType.getPriceType(integer).getPrice()+") - "+result.get(integer)+"개" );
+        Map<PriceType, Integer> result = lottoResult.getStatistics();
+        for (PriceType priceType : result.keySet()) {
+            System.out.println(priceType.getCount()+"개 일치 ("+ priceType.getPrice()+") - "+result.get(priceType)+"개" );
         }
     }
 

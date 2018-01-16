@@ -1,6 +1,9 @@
-package lotto;
+package lotto.domain;
 
 
+import lotto.domain.Lotto;
+import lotto.domain.LottoResult;
+import lotto.domain.LottoStore;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,10 +44,18 @@ public class LottoResultTest {
     }
 
     @Test
-    public void 당첨_통계() {
-        Map<Integer, Integer> result = lottoResult.getStatistics();
+    public void getStatistics() {
+        Map<PriceType, Integer> result = lottoResult.getStatistics();
         assertThat(result.get(5)).isEqualTo(1);
     }
+
+    @Test
+    public void getPercentage() {
+        long result = lottoResult.getPercentage();
+        assertThat(result).isEqualTo(1500L);
+    }
+
+
 
 
 }

@@ -1,4 +1,4 @@
-package lotto;
+package lotto.domain;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -10,6 +10,8 @@ public class LottoResult {
 
     private Set<Integer> winners;
     private LottoStore lottoStore;
+
+    private static int LOTTO_PRICE = 1000;
 
     public LottoResult(String result, LottoStore lottoStore) {
         nonNull(result);
@@ -24,25 +26,25 @@ public class LottoResult {
         return winners;
     }
 
-    public Map<Integer, Integer> getStatistics() {
-        Map<Integer, Integer> statistics = new HashMap<>();
-        statistics.put(3, 0);
-        statistics.put(4, 0);
-        statistics.put(5, 0);
-        statistics.put(6, 0);
+    public Map<PriceType, Integer> getStatistics() {
+        Map<PriceType, Integer> statistics = new HashMap<>();
+        statistics.put(PriceType.FORTH, 0);
+        statistics.put(PriceType.THIRD, 0);
+        statistics.put(PriceType.SECOND, 0);
+        statistics.put(PriceType.FIRST, 0);
 
         for (Lotto lotto : lottoStore.getLottos()) {
             int count = lotto.getResult(winners).size();
             if (count > 2) {
-                int value = statistics.get(count)+1;
-                statistics.put(count, value);
+                int value = statistics.get(PriceType.getPriceType(count))+1;
+                statistics.put(PriceType.getPriceType(count), value);
             }
         }
         return statistics;
     }
 
     public long getPercentage(){
-        BigDecimal price =  new BigDecimal(lottoStore.getCount() * 1000);
+        BigDecimal price =  new BigDecimal(lottoStore.getCount() * LOTTO_PRICE);
         BigDecimal earning =  new BigDecimal(getEarnings());
         if (earning.intValue() == 0) {
             return 0;
@@ -52,8 +54,8 @@ public class LottoResult {
 
     private int getEarnings() {
         int earning = 0;
-        for (Map.Entry<Integer,Integer> lotto : getStatistics().entrySet()) {
-            earning += PriceType.getPriceType(lotto.getKey()).getPrice() * lotto.getValue();
+        for (Map.Entry<PriceType,Integer> lotto : getStatistics().entrySet()) {
+            earning += lotto.getKey().getPrice() * lotto.getValue();
         }
         return earning;
     }
