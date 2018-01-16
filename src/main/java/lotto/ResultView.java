@@ -1,6 +1,7 @@
 package lotto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +34,16 @@ public class ResultView {
 		return 0;
 	}
 	//맞은 번호의 갯수만큼 결과를 출력해주는 메소드.
-	public static void printResult(ArrayList<MatchingResult> result) {
+	public static List<String> printResult(ArrayList<MatchingResult> result) {
+		List<String> noticeResult = new ArrayList<String> ();
+		log.info("result size : {}", result.size());
 		for (int i = 0; i < result.size(); i++) {
 			MatchingResult matchingResult = result.get(i);
+			
+			noticeResult.add(matchingResult.returnMsg() + matchingResult.returnCount() + " 개");
 			log.info(matchingResult.returnMsg() + matchingResult.returnCount() + " 개");
 		}
+		return noticeResult;
 	}
 	//총 수익률을 계산해주는 메소드.
 	public static void printProfit(double yield) {

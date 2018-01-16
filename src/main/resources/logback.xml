@@ -10,7 +10,7 @@
  <logger name="car" level="DEBUG" />
  
 <!-- 기본 log level을 설정한다. -->
-  <root level="WARN">
+  <root level="INFO">
       <appender-ref ref="STDOUT" />
   </root>
 </configuration>

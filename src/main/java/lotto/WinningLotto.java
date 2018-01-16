@@ -1,12 +1,12 @@
 package lotto;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class WinningLotto extends Lotto {
 	private int bonus;
 	
 	//생성자.
-	public WinningLotto(ArrayList<Integer> winningNum, int bonus) {
+	public WinningLotto(List<Integer> winningNum, int bonus) {
 		super(winningNum);
 		this.bonus = bonus;
 	}

@@ -55,13 +55,16 @@ public class Lottos {
 	}
 	//맞은 갯수 비례 금액을 계산하여 총 딴 돈을 구한다. (내가 건 돈 만큼은 뺀다.)
 	public double calculateMoney(ArrayList<MatchingResult> result, Money money) {
-		double profit = 0;
+		int profit = 0;
 		for (int i = 0; i < result.size(); i++) {
 			MatchingResult matchingResult = result.get(i);
 			profit += matchingResult.winningMoney();		//총 수익을 계산한다.
 		}
-		double yield = ((profit - money.getPrice()) / money.getPrice()) * 100;		//건 돈 비례 번 돈을 계산한다. (수익률을 계산한다.)
+		System.out.println(profit);
+		System.out.println(money.getPrice());
 		
+		double yield = ((profit - money.getPrice()) / money.getPrice()) * 100;		//건 돈 비례 번 돈을 계산한다. (수익률을 계산한다.)
+		System.out.println(yield);
 		return yield;		//수익률을 리턴한다.
 	}
 }

@@ -28,67 +28,40 @@ public class InputView {
 		return manualList;
 	}
 
-	public static List<Integer> inputNum() {
-		List<String> inputList = takeNum();
-		inputList = checkInput(inputList);
+	public static List<Integer> inputNum(String inputValue) {
+		List<String> inputList = takeNum(inputValue);
 		List<Integer> winningNum = convertInput(inputList);
 		
 		return winningNum;
 	}
 
-	private static ArrayList<String> takeNum() {
-		log.info("지난 주 당첨 번호를 입력해 주세요. 숫자 사이에는 , 와 (스페이스바)를 입력해주세요.");
-		Scanner scan = new Scanner(System.in);
-		String inputValue = scan.nextLine();
+	private static ArrayList<String> takeNum(String inputValue) {
+		log.info("지난 주 당첨 번호를 입력해 주세요.");
 		
 		//","를 기준으로 단어를 나누어 ArrayList에 저장.
 		ArrayList<String> winningList = new ArrayList<String>(Arrays.asList(splitNumber(inputValue)));
 		return winningList;
 	}
 
-	public static int takeBonusNum() {
+	public static int takeBonusNum(String inputValue) {
 		log.info("보너스 번호를 입력해주세요.");
-		Scanner scan = new Scanner(System.in);
-		return scan.nextInt();
-	}
-
-	private static List<String> checkInput(List<String> input) {
-		List<String> checkList = input;
-		while (checkList.size() != 6) {
-			log.info("잘 못 입력하셨습니다.\n다시 입력해 주세요.");
-			checkList = takeNum();
-		}
-		return checkList;
+		return Integer.parseInt(inputValue);
 	}
 
 	private static List<String> splitLotto(String input) {
-		List<String> lottoList = new ArrayList<String> ();
-		
 		String[] values = input.split("\n");
 		List<String> result = new ArrayList<String> ();
+		List<String> lottoList = new ArrayList<String> ();
+		
 		for (String value : values) {
-			result.add(value.trim());
+			lottoList.add(value.trim());
 		}
 		
-		for (String value : result) {
+		for (String value : lottoList) {
 			String[] splited = value.split(",");
-			lottoList.addAll(Arrays.asList(splited));
+			result.addAll(Arrays.asList(splited));
 		}
-//		List<String> lottoList = new ArrayList<String>(Arrays.asList(input.split("\n")));
-//		
-//		
-//		for (int i = 0; i < lottoList.size(); i++) {
-//			lottoList.set(i, lottoList.get(i).trim());
-//		}
-//		
-//		for (String strNum : lottoList) {
-//			result.addAll(Arrays.asList(splitNumber(strNum)));
-//		}
-//		
-		for (int i = 0; i < lottoList.size(); i++) {
-			log.error(lottoList.get(i));
-		}
-		return lottoList;
+		return result;
 	}
 	
 	private static String[] splitNumber(String input) {

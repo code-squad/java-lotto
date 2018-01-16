@@ -13,15 +13,21 @@ import org.slf4j.LoggerFactory;
 
 
 public class Main {
+	static Lottos lottos = new Lottos();
+	static Money money;
+	
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
 
 	private static Lottos buyManualTicket (int ticketNum, String inputManualNum) {
 		log.info("수동으로 구매하실 번호를 입력해 주세요. 숫자 사이에는 ,와 (스페이스바)를 입력해주세요.");
-		Lottos lottos = new Lottos();
+		
 		List<String> input = new ArrayList<String> ();
 
 		input = InputView.inputManualNum(inputManualNum);	
-		lottos = addManualLotto(input, lottos);
+		
+		for (int i = 0; i < input.size() / 6; i++) {
+			lottos = addManualLotto(input.subList(i * 6, (i + 1) * 6), lottos);
+		}
 		
 		return lottos;
 	}
@@ -43,6 +49,8 @@ public class Main {
 
 	//===========================MAIN START===============================
 	public static void main (String[] args) {
+		Map<String, Object> model = new HashMap<>();
+		
 		port(8080);
 
 		get("/", (req, res) -> {
@@ -50,7 +58,7 @@ public class Main {
 		});
 
 		post("/buyLotto", (req, res) -> {
-			Money money = new Money(Integer.parseInt(req.queryParams("inputMoney")));
+			money = new Money(Integer.parseInt(req.queryParams("inputMoney")));
 			int lottoTicketNum = money.buyLotto();
 			Lottos lottos = buyManualTicket(lottoTicketNum, req.queryParams("manualNumber"));
 			int manualTicketNum = lottos.get().size();
@@ -59,50 +67,31 @@ public class Main {
 			//log.error(Integer.toString(lottoTicketNum));
 			lottos = buyAutoTicket(lottos, lottoTicketNum);
 
-			Map<String, Object> model = new HashMap<>();
 			model.put("lotto", lottos.get());
 			model.put("size", lottos.getSize());
+			model.put("manualTicketNo", manualTicketNum);
+			model.put("autoTicketNo", lottoTicketNum);
 			return render(model, "show.html");
-
-			//			String inputName = req.queryParams("names");
-			//			ArrayList<String> carNameList = new ArrayList<String>(Arrays.asList(RacingCar.splitName(inputName)));
-			//			for (String name : carNameList) {
-			//				cars.add(new Car(name));
-			//			}
-			//			Map<String, Object> model = new HashMap<>();
-			//			model.put("cars", cars);
-			//			return render(model, "game.html");
 		});
-
-		//Money money = new Money(InputView.takeMoney());		//돈을 입력 받는다.
-
-		//int lottoTicketNum = money.buyLotto();
-
-		//Lottos lottos = buyManualTicket(lottoTicketNum);		//수동으로 번호를 입력받아 티켓을 만든다.
-		//int manualTicketNum = lottos.get().size();		//수동으로 만든 티켓의 갯수.
-
-		//		lottoTicketNum = lottoTicketNum - manualTicketNum;
-		//		ResultView.printAutoOrManual(manualTicketNum, lottoTicketNum);
-
-		//lottos = buyAutoTicket(lottos, lottoTicketNum);		//남은 티켓 수만큼 자동 티켓을 만들어 준다.
-
-		//ResultView.printTicket(lottos);
-		//---
-
-
-		//		ArrayList<Integer> winningNum = InputView.inputNum();		//지난 주 당첨 번호를 입력 받는다.
-		//		int bonusNum = InputView.takeBonusNum();
-		//		WinningLotto winningLotto = new WinningLotto(winningNum, bonusNum);
-		//		
-		//		ArrayList<Match> matchList = lottos.makeMatchList(winningLotto);
-		//		ArrayList<MatchingResult> result = lottos.makeResult();
-		//		
-		//		Lottos.fillResult(matchList, result);		//당첨 번호들을 가지고 최신 result 로 채워준다.(Update해준다.)
-		//		
-		//		double profit = lottos.calculateMoney(result, money);		//번 돈과 투자한 돈을 가지고 수익률을 계산한다.
-		//		
-		//		ResultView.printResult(result);
-		//		ResultView.printProfit(profit);
+		
+		post("/matchLotto", (req, res) -> {
+			List<Integer> winningNum = InputView.inputNum(req.queryParams("winningNumber"));	
+			int bonusNum = InputView.takeBonusNum(req.queryParams("bonusNumber"));
+			WinningLotto winningLotto = new WinningLotto(winningNum, bonusNum);
+			
+			ArrayList<Match> matchList = lottos.makeMatchList(winningLotto);
+			ArrayList<MatchingResult> result = lottos.makeResult();
+			
+			Lottos.fillResult(matchList, result);
+			
+			double profit = lottos.calculateMoney(result, money);	
+			List<String> noticeResult = ResultView.printResult(result);
+			
+			model.put("notice", noticeResult);
+			model.put("profit", profit);
+			
+			return render(model, "result.html");
+		});
 	}
 
 	public static String render(Map<String, Object> model, String templatePath) {
