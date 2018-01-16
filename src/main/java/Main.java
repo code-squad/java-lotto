@@ -1,10 +1,9 @@
 import domain.*;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static domain.LottoSeller.buyLotto;
+import static domain.LottoSeller.*;
 import static view.InputView.*;
 import static view.ResultView.*;
 
@@ -13,8 +12,8 @@ public class Main {
         int investMoney = getInvestMoney();
         int numOfManualLotto = getNumOfManualLotto();
         List<List<Integer>> nums = getManualNums(numOfManualLotto);
-        //List<Ticket> tickets = LottoSeller.buyTicket(nums);
-        Lottos lottos = new Lottos(buyLotto(new BuyInfo(investMoney, new Tickets(new ArrayList<>())), new LottoNumCreator()));
+
+        Lottos lottos = new Lottos(buyLotto(new BuyInfo(investMoney, buyTickets(nums)), new LottoNumCreator()));
         showNumOfBuyLotto(lottos.getNumOfLottos());
         showLottos(lottos);
 
