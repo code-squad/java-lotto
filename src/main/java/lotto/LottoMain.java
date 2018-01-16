@@ -7,14 +7,13 @@ public class LottoMain {
         int amount = inputUI.inputAmount();
         LottoStore lottoStore = new LottoStore(amount);
 
-        ResultUI resultUI = new ResultUI(lottoStore);
-        resultUI.printCount();
-        resultUI.printLottos();
+        ResultUI.printCount(lottoStore);
+        ResultUI.printLottos(lottoStore);
 
         String winNumbers = inputUI.inputLastWinNumber();
+        LottoResult lottoResult = new LottoResult(winNumbers, lottoStore);
+        ResultUI.printStatistics(lottoResult);
+        ResultUI.printPercentage(lottoResult);
 
-        resultUI.setLottoResult(new LottoResult(winNumbers, lottoStore));
-        resultUI.printStatistics();
-        resultUI.printPercentage();
     }
 }
