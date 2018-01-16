@@ -1,12 +1,9 @@
 package domain;
 
-import dto.LottoResult;
-import dto.Rank;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,26 +15,41 @@ public class LottosTest {
 
     @Before
     public void setUp() throws Exception {
-        lottos = new Lottos(Arrays.asList(new Lotto(new int[]{1, 3, 5, 7, 9, 11}),
-                                          new Lotto(new int[]{8, 9, 10, 11, 12, 13})));
-        winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 4, 5, 6});
+        lottos = new Lottos(Arrays.asList(new Lotto(1, 3, 5, 7, 9, 11),
+                                          new Lotto(8, 9, 10, 11, 12, 13)));
+        winningNumbers = new WinningNumbers(new Lotto(1, 2, 3, 4, 5, 6), new LottoNumber(7));
     }
 
     @Test
     public void match() throws Exception {
-        List<LottoResult> results = lottos.match(winningNumbers);
+        WinningLottos winningLottos = lottos.match(winningNumbers);
 
-        assertThat(results).isNotEmpty();
-        assertThat(results.size()).isEqualTo(2);
-        assertThat(results.get(0).getCountOfMatch()).isEqualTo(3);
-        assertThat(results.get(0).getRank()).isEqualTo(Rank.FOURTH);
+        assertThat(winningLottos.getCountOfRank(Rank.FIFTH)).isEqualTo(1);
+        assertThat(winningLottos.getCountOfRank(Rank.FAIL)).isEqualTo(1);
 
-        assertThat(results.get(1).getCountOfMatch()).isEqualTo(0);
-        assertThat(results.get(1).getRank()).isEqualTo(Rank.FAIL);
+        assertThat(winningLottos.getCountOfRank(Rank.FIRST)).isEqualTo(0);
+        assertThat(winningLottos.getCountOfRank(Rank.SECOND)).isEqualTo(0);
+        assertThat(winningLottos.getCountOfRank(Rank.THIRD)).isEqualTo(0);
+        assertThat(winningLottos.getCountOfRank(Rank.FOURTH)).isEqualTo(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void match_널인경우() throws Exception {
         lottos.match(null);
+    }
+
+    @Test
+    public void match_2등인경우() throws Exception {
+        WinningNumbers winningNumbers = new WinningNumbers(new Lotto(1, 3, 5, 7, 9, 10), new LottoNumber(11));
+
+        WinningLottos winningLottos = lottos.match(winningNumbers);
+
+        assertThat(winningLottos.getCountOfRank(Rank.SECOND)).isEqualTo(1);
+        assertThat(winningLottos.getCountOfRank(Rank.FAIL)).isEqualTo(1);
+
+        assertThat(winningLottos.getCountOfRank(Rank.FIRST)).isEqualTo(0);
+        assertThat(winningLottos.getCountOfRank(Rank.THIRD)).isEqualTo(0);
+        assertThat(winningLottos.getCountOfRank(Rank.FOURTH)).isEqualTo(0);
+        assertThat(winningLottos.getCountOfRank(Rank.FIFTH)).isEqualTo(0);
     }
 }

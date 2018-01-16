@@ -1,5 +1,7 @@
 package view;
 
+import domain.Lotto;
+import domain.LottoNumber;
 import domain.WinningNumbers;
 import org.apache.commons.lang3.StringUtils;
 
@@ -24,9 +26,12 @@ public class InputView {
 
     public static WinningNumbers getWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해주세요");
-
         String input = scanner.nextLine();
-        return new WinningNumbers(toIntArray(removeWhiteSpace(splitInput(input))));
+        System.out.println("보너스 볼을 입력해주세요");
+        int bonusNumber = scanner.nextInt();
+        scanner.nextLine();
+
+        return new WinningNumbers(new Lotto(toIntArray(removeWhiteSpace(splitInput(input)))), new LottoNumber(bonusNumber));
     }
 
     private static String[] removeWhiteSpace(String[] inputs) {
