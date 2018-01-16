@@ -30,26 +30,25 @@ public class InputView {
         List<List<Integer>> nums = new ArrayList<>(numOfManualLotto);
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
 
-        for(int i = 0 ; i < nums.size() ; ++i)
+        for(int i = 0 ; i < numOfManualLotto ; ++i)
             nums.add(getNumber());
 
         return nums;
     }
 
-    public static List<Integer> getNumber() {
+    private static List<Integer> getNumber() {
         String[] inputs = sc.nextLine().split(", ");
 
         return toInts(inputs);
     }
 
-    public static List<Integer> getWinnerNums() {
+    private static List<Integer> getWinnerNums() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        String[] inputs = sc.nextLine().split(", ");
 
-        return toInts(inputs);
+        return getNumber();
     }
 
-    public static int getBonusNum() {
+    private static int getBonusNum() {
         System.out.println("보너스 볼을 입력해 주세요.");
         return Integer.parseInt(sc.nextLine());
     }
