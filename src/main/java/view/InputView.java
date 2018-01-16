@@ -2,11 +2,17 @@ package view;
 
 import domain.Lotto;
 import domain.LottoNumber;
+import domain.Lottos;
 import domain.WinningNumbers;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static common.Constant.LOTTO_PRICE;
 
 public class InputView {
 
@@ -18,10 +24,25 @@ public class InputView {
         int amount = scanner.nextInt();
         scanner.nextLine();
 
-        if (amount < 0) {
-            throw new IllegalArgumentException("구매 금액은 0보다 커야 합니다");
+        if (amount < 1000) {
+            throw new IllegalArgumentException("구매 금액은 1000보다 크거나 같아야 합니다");
         }
         return amount;
+    }
+
+    public static Optional<Lottos> getManualLottos(int purchaseAmount) {
+        System.out.println("수동으로 구매할 로또 수를 입력해주세요");
+        int count = scanner.nextInt();
+        scanner.nextLine();
+        checkInput(count, purchaseAmount);
+        System.out.println("수동으로 구매할 번호를 입력해주세요");
+
+        if (count == 0) {
+            return Optional.empty();
+        }
+        return Optional.of(new Lottos(IntStream.range(0, count)
+                                               .mapToObj(i -> getManualLotto())
+                                               .collect(Collectors.toList())));
     }
 
     public static WinningNumbers getWinningNumbers() {
@@ -32,6 +53,12 @@ public class InputView {
         scanner.nextLine();
 
         return new WinningNumbers(new Lotto(toIntArray(removeWhiteSpace(splitInput(input)))), new LottoNumber(bonusNumber));
+    }
+
+    private static void checkInput(int count, int purchaseAmount) {
+        if (count * LOTTO_PRICE > purchaseAmount) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private static String[] removeWhiteSpace(String[] inputs) {
@@ -50,4 +77,12 @@ public class InputView {
         return StringUtils.split(input, ',');
     }
 
+    private static Lotto getManualLotto() {
+        return new Lotto(getManualLottoNumber());
+    }
+
+    private static int[] getManualLottoNumber() {
+        String input = scanner.nextLine();
+        return toIntArray(removeWhiteSpace(splitInput(input)));
+    }
 }
