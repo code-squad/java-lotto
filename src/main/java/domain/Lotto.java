@@ -46,7 +46,7 @@ public class Lotto {
         }
     }
 
-    public WinningLotto getWinResult(WinningNumbers winningNumbers) {
+    public WinningLotto match(WinningNumbers winningNumbers) {
         if (winningNumbers == null) {
             throw new IllegalArgumentException();
         }
@@ -62,6 +62,10 @@ public class Lotto {
         return (int) numbers.stream()
                             .filter(winningNumbers::contain)
                             .count();
+    }
+
+    List<LottoNumber> getNumbers() {
+        return numbers;
     }
 
     @Override

@@ -17,7 +17,7 @@ public class LottosTest {
     public void setUp() throws Exception {
         lottos = new Lottos(Arrays.asList(new Lotto(1, 3, 5, 7, 9, 11),
                                           new Lotto(8, 9, 10, 11, 12, 13)));
-        winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 4, 5, 6}, new LottoNumber(7));
+        winningNumbers = new WinningNumbers(new Lotto(1, 2, 3, 4, 5, 6), new LottoNumber(7));
     }
 
     @Test
@@ -40,7 +40,7 @@ public class LottosTest {
 
     @Test
     public void match_2등인경우() throws Exception {
-        WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 3, 5, 7, 9, 10}, new LottoNumber(11));
+        WinningNumbers winningNumbers = new WinningNumbers(new Lotto(1, 3, 5, 7, 9, 10), new LottoNumber(11));
 
         WinningLottos winningLottos = lottos.match(winningNumbers);
 

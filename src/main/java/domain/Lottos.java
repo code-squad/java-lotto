@@ -21,12 +21,12 @@ public class Lottos {
         if (winningNumbers == null) {
             throw new IllegalArgumentException();
         }
-        return new WinningLottos(getWinningLottos(winningNumbers));
+        return new WinningLottos(matchLottos(winningNumbers));
     }
 
-    private List<WinningLotto> getWinningLottos(WinningNumbers winningNumbers) {
+    private List<WinningLotto> matchLottos(WinningNumbers winningNumbers) {
         return lottos.stream()
-                     .map(lotto -> lotto.getWinResult(winningNumbers))
+                     .map(lotto -> lotto.match(winningNumbers))
                      .collect(Collectors.toList());
     }
 

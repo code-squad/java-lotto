@@ -5,12 +5,7 @@ import java.util.Arrays;
 
 public enum Rank {
     FIRST(6, 2000000000),
-    SECOND(5, 30000000) {
-        @Override
-        public boolean shouldMatchBonus() {
-            return true;
-        }
-    },
+    SECOND(5, 30000000),
     THIRD(5, 1500000),
     FOURTH(4, 50000),
     FIFTH(3, 5000),
@@ -29,14 +24,14 @@ public enum Rank {
         if (countOfMatch < 0 || countOfMatch > 6) {
             throw new IllegalArgumentException();
         }
+        if (countOfMatch == 5 && matchBonus) {
+            return SECOND;
+        }
         return Arrays.stream(Rank.values())
-                     .filter(r -> r.isSatisfyRankCondition(countOfMatch, matchBonus))
+                     .filter(r -> r != SECOND)
+                     .filter(r -> r.countOfMatch == countOfMatch)
                      .findFirst()
                      .orElse(FAIL);
-    }
-
-    public int getCountOfMatch() {
-        return countOfMatch;
     }
 
     public int getWinningMoney() {
@@ -47,16 +42,8 @@ public enum Rank {
         return this == Rank.FAIL;
     }
 
-    public boolean shouldMatchBonus() {
-        return false;
-    }
-
-    private boolean isSatisfyRankCondition(int countOfMatch, boolean matchBonus) {
-        return getCountOfMatch() == countOfMatch && (!shouldMatchBonus() || matchBonus);
-    }
-
     private String getMatchBonusMessage() {
-        if (shouldMatchBonus()) {
+        if (this == SECOND) {
             return ", 보너스 볼 일치";
         }
         return "";

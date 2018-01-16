@@ -55,46 +55,46 @@ public class LottoTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getWinResult_인자가NULL인경우() throws Exception {
+    public void match_인자가NULL인경우() throws Exception {
         Lotto lotto = new Lotto(1, 2, 3, 4, 5, 6);
 
-        lotto.getWinResult(null);
+        lotto.match(null);
     }
 
     @Test
-    public void getWinResult() throws Exception {
+    public void match() throws Exception {
         Lotto lotto = new Lotto(1, 2, 3, 4, 5, 6);
 
-        WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 7, 8, 9},
+        WinningNumbers winningNumbers = new WinningNumbers(new Lotto(1, 2, 3, 7, 8, 9),
                                                            new LottoNumber(5));
 
-        WinningLotto result = lotto.getWinResult(winningNumbers);
+        WinningLotto result = lotto.match(winningNumbers);
 
         assertThat(result.getCountOfMatch()).isEqualTo(3);
         assertThat(result.getRank()).isEqualTo(Rank.FIFTH);
     }
 
     @Test
-    public void getWinResult_2등당첨() throws Exception {
+    public void match_2등당첨() throws Exception {
         Lotto lotto = new Lotto(1, 2, 3, 4, 5, 6);
 
-        WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 4, 5, 7},
+        WinningNumbers winningNumbers = new WinningNumbers(new Lotto(1, 2, 3, 4, 5, 7),
                                                            new LottoNumber(6));
 
-        WinningLotto result = lotto.getWinResult(winningNumbers);
+        WinningLotto result = lotto.match(winningNumbers);
 
         assertThat(result.getCountOfMatch()).isEqualTo(5);
         assertThat(result.getRank()).isEqualTo(Rank.SECOND);
     }
 
     @Test
-    public void getWinResult_3등당첨() throws Exception {
+    public void match_3등당첨() throws Exception {
         Lotto lotto = new Lotto(1, 2, 3, 4, 5, 6);
 
-        WinningNumbers winningNumbers = new WinningNumbers(new int[]{1, 2, 3, 4, 5, 7},
+        WinningNumbers winningNumbers = new WinningNumbers(new Lotto(1, 2, 3, 4, 5, 7),
                                                            new LottoNumber(11));
 
-        WinningLotto result = lotto.getWinResult(winningNumbers);
+        WinningLotto result = lotto.match(winningNumbers);
 
         assertThat(result.getCountOfMatch()).isEqualTo(5);
         assertThat(result.getRank()).isEqualTo(Rank.THIRD);
