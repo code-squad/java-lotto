@@ -8,6 +8,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
     }
 
     public static LottoNumber newInstance(int integer) {
+        validate(integer);
         return new LottoNumber(integer);
     }
 
@@ -15,9 +16,9 @@ public class LottoNumber implements Comparable<LottoNumber> {
         return LottoNumber.newInstance(Integer.parseInt(numberString));
     }
 
-    public void validate() {
-        if (this.number < LottoConstants.FIRST_NUMBER || this.number > LottoConstants.LAST_NUMBER) {
-            throw new IllegalArgumentException("lottoNumber=" + this.number);
+    private static void validate(int number) {
+        if (number < LottoConstants.FIRST_NUMBER || number > LottoConstants.LAST_NUMBER) {
+            throw new IllegalArgumentException("lottoNumber=" + number);
         }
     }
 

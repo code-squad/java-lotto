@@ -16,7 +16,6 @@ public class WinningLotto {
         this.bonusNumber = LottoNumber.newInstance(bonusNumberString);
 
         validateCountOfLottoNumbers();
-        validateLottoNumbers();
         validateDuplicatedNumbers();
     }
 
@@ -29,13 +28,6 @@ public class WinningLotto {
             throw new IllegalArgumentException("successNumbers=" + successNumbers.toString()
                     + ", bonusNumber=" + bonusNumber);
         }
-    }
-
-    private void validateLottoNumbers() {
-        for (LottoNumber successNumber : successNumbers) {
-            successNumber.validate();
-        }
-        bonusNumber.validate();
     }
 
     private void validateCountOfLottoNumbers() {
