@@ -1,7 +1,13 @@
 package lotto;
 
+import lotto.domain.LottoCustomerTicket;
+import lotto.domain.LottoManualTicketRequest;
+import lotto.domain.LottoNumber;
 import lotto.domain.LottoTicket;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -12,18 +18,49 @@ public class LottoStoreTest {
     }
 
     @Test
-    public void countTicket() {
-        assertEquals(14, LottoStore.countTicket(14000));
+    public void countTicketNormal1() {
+        assertEquals(4, LottoStore.countRandomTicket(14000, 10));
+    }
+
+    @Test
+    public void countTicketNormal2() {
+        assertEquals(0, LottoStore.countRandomTicket(14000, 14));
+    }
+
+    @Test
+    public void countTicketNormal3() {
+        assertEquals(14, LottoStore.countRandomTicket(14000, 0));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void countTicketAsManualTicketCountIsTooBig() {
+        LottoStore.countRandomTicket(14000, 15);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void countTicketWithIllegalAmount() {
-        LottoStore.countTicket(13500);
+        LottoStore.countRandomTicket(13500, 10);
     }
 
     @Test
     public void buyRandomTickets() throws Exception {
         assertEquals(14, LottoStore.buyRandomTickets(14).showTicketMessages().size());
         assertEquals(1, LottoStore.buyRandomTickets(1).showTicketMessages().size());
+    }
+
+    @Test
+    public void buyExplicitTickets() {
+        List<String> ticketRequests = new ArrayList<>();
+        ticketRequests.add("1, 2, 3, 4, 5, 6");
+        ticketRequests.add("1, 2, 3, 4, 5, 7");
+        LottoManualTicketRequest lottoManualTicketRequest = new LottoManualTicketRequest(ticketRequests);
+        LottoCustomerTicket lottoCustomerTicket = LottoStore.buyExplicitTickets(lottoManualTicketRequest);
+        assertEquals(2, lottoCustomerTicket.getTickets().size());
+        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(1)));
+        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(2)));
+        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(3)));
+        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(4)));
+        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(5)));
+        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(6)));
     }
 }

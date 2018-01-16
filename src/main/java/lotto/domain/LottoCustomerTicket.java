@@ -7,13 +7,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LottoCustomer {
+public class LottoCustomerTicket {
     private List<LottoTicket> tickets;
+    private int randomTicketCount = 0;
+    private int explicitTicketCount = 0;
 
-    public LottoCustomer(List<LottoTicket> tickets) {
+    public LottoCustomerTicket(List<LottoTicket> tickets) {
         this.tickets = tickets;
     }
 
+    public LottoCustomerTicket(LottoCustomerTicket customerRandomTickets, LottoCustomerTicket customerExplicitTickets) {
+        List<LottoTicket> randomTickets = customerRandomTickets.getTickets();
+        List<LottoTicket> explicitTickets = customerExplicitTickets.getTickets();
+
+        this.tickets = new ArrayList<>();
+        tickets.addAll(randomTickets);
+        tickets.addAll(explicitTickets);
+        this.randomTicketCount = randomTickets.size();
+        this.explicitTicketCount = explicitTickets.size();
+    }
+    
     public LottoResult matchTickets(WinningLotto winningLotto) {
         Map<LottoPrize, Integer> lottoPrizeResults = new HashMap<>();
         for (LottoPrize lottoPrize : LottoPrize.values()) {
@@ -28,7 +41,7 @@ public class LottoCustomer {
     }
 
     public String showCountMessage() {
-        return tickets.size() + "개를 구매했습니다.";
+        return "수동으로 " + explicitTicketCount + "장, 자동으로 " + randomTicketCount + "장을 구매했습니다.";
     }
 
     public List<String> showTicketMessages() {
@@ -37,5 +50,9 @@ public class LottoCustomer {
             messages.add(lottoTicket.toString());
         }
         return messages;
+    }
+
+    public List<LottoTicket> getTickets() {
+        return tickets;
     }
 }
