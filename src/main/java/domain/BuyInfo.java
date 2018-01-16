@@ -5,7 +5,18 @@ public class BuyInfo {
     private Tickets tickets;
 
     public BuyInfo(int totalMoney, Tickets tickets) {
+        if(totalMoney < 0 || tickets == null)
+            throw new IllegalArgumentException("Invalid input exception");
+
         this.totalMoney = totalMoney;
         this.tickets = tickets;
+    }
+
+    public int getPurchasableQuantity(int lottoPrice) {
+        int remainMoney = totalMoney - tickets.getNumberOfTickets() * lottoPrice;
+        if(remainMoney < lottoPrice)
+            throw new IllegalArgumentException("Out of money");
+
+        return remainMoney / lottoPrice;
     }
 }
