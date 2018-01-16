@@ -46,7 +46,7 @@ public class LottoTest {
 
     @Test
     public void getResult() {
-        Set<Integer> winNums = new HashSet<>(Arrays.asList(1,2,3,4,6,13));
+        List<Integer> winNums = new ArrayList<>(Arrays.asList(1,2,3,4,6,13));
         assertThat(lotto.getResult(winNums).size()).isEqualTo(5);
 
     }

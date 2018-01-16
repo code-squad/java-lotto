@@ -31,8 +31,8 @@ public class Lotto {
         return this.numbers.stream().map(i -> String.valueOf(i)).collect(Collectors.joining(","));
     }
 
-    public Set<Integer> getResult(Set<Integer> winNumbers) {
-        Set<Integer> result = new HashSet<>();
+    public List<Integer> getResult(List<Integer> winNumbers) {
+        List<Integer> result = new ArrayList<>();
         for (Integer number : numbers) {
             if (winNumbers.contains(number)) {
                 result.add(number);
