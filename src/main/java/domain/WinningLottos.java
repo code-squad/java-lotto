@@ -26,17 +26,17 @@ public class WinningLottos {
         return winnerLottos.get(prize);
     }
 
-    public int getProfit() {
-        int sum = 0;
+    public Money getProfit() {
+        Money sum = new Money(0);
 
         for(LottoPrize prize : winnerLottos.keySet())
-            sum += prize.getTotalPrize(winnerLottos.get(prize));
+            sum = sum.add(prize.getTotalPrize(winnerLottos.get(prize)));
 
         return sum;
     }
 
-    public int getProfitPercentage(int investment) {
-        return (int) (((double)getProfit() - investment) / investment * 100);
+    public int getProfitPercentage(Money investment) {
+        return getProfit().sub(investment).devide(investment) * 100;
     }
 
     @Override

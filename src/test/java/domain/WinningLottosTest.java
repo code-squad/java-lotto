@@ -41,8 +41,8 @@ public class WinningLottosTest {
 
     @Test
     public void getProfitTest() {
-        int profit = winningLottos.getProfit();
-        assertThat(profit).isEqualTo(2030055000);
+        Money profit = winningLottos.getProfit();
+        assertThat(profit).isEqualTo(new Money(2030055000));
     }
 
     @Test
@@ -56,7 +56,7 @@ public class WinningLottosTest {
         winningLottos = new Lottos(lottos).getWinningLottos(
                 new WinningNumber(toLottoNos(Arrays.asList(11, 12, 13, 14, 15, 16)), new LottoNo(7))
         );
-        int profitPercentage = winningLottos.getProfitPercentage(4000);
+        int profitPercentage = winningLottos.getProfitPercentage(new Money(4000));
         assertThat(profitPercentage).isEqualTo(-100);
     }
 

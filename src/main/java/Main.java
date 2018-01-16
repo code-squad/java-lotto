@@ -9,7 +9,7 @@ import static view.ResultView.*;
 
 public class Main {
     public static void main(String[] args) {
-        int investMoney = getInvestMoney();
+        Money investMoney = new Money(getInvestMoney());
         int numOfManualLotto = getNumOfManualLotto();
         List<List<LottoNo>> nums = getManualNums(numOfManualLotto);
         BuyInfo buyInfo = new BuyInfo(investMoney, buyTickets(nums));

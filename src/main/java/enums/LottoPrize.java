@@ -1,16 +1,18 @@
 package enums;
 
+import domain.Money;
+
 public enum LottoPrize {
-    FIFTH(3, 5000),
-    FOURTH(4, 50000),
-    THIRD(5, 1500000),
-    SECOND(5, 30000000),
-    FIRST(6, 2000000000);
+    FIFTH(3, new Money(5000)),
+    FOURTH(4, new Money(50000)),
+    THIRD(5, new Money(1500000)),
+    SECOND(5, new Money(30000000)),
+    FIRST(6, new Money(2000000000));
 
     private int numOfMatch;
-    private int cashPrize;
+    private Money cashPrize;
 
-    LottoPrize(int rank, int prize) {
+    LottoPrize(int rank, Money prize) {
         this.numOfMatch = rank;
         this.cashPrize = prize;
     }
@@ -19,8 +21,8 @@ public enum LottoPrize {
         return this.numOfMatch == numOfMatch;
     }
 
-    public int getTotalPrize(int numOfLotto) {
-        return this.cashPrize * numOfLotto;
+    public Money getTotalPrize(int numOfLotto) {
+        return this.cashPrize.multi(numOfLotto);
     }
 
     public String getState(int numOfMatchLotto) {

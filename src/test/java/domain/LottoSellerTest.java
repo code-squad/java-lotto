@@ -22,7 +22,7 @@ public class LottoSellerTest {
             ticketList.add(new Ticket(toLottoNos(Arrays.asList(10, 11, 12, 13, 14, 15))));
 
         Tickets tickets = new Tickets(ticketList);
-        buyInfo = new BuyInfo(10000, tickets);
+        buyInfo = new BuyInfo(new Money(10000), tickets);
     }
 
     @Test

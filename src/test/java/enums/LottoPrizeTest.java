@@ -1,5 +1,6 @@
 package enums;
 
+import domain.Money;
 import org.junit.Test;
 
 import static enums.LottoPrize.*;
@@ -17,9 +18,9 @@ public class LottoPrizeTest {
 
     @Test
     public void totalCashPrizeTest() {
-        assertThat(LottoPrize.FIRST.getTotalPrize(1)).isEqualTo(2000000000);
-        assertThat(LottoPrize.SECOND.getTotalPrize(2)).isEqualTo(60000000);
-        assertThat(LottoPrize.THIRD.getTotalPrize(3)).isEqualTo(4500000);
-        assertThat(LottoPrize.FOURTH.getTotalPrize(4)).isEqualTo(200000);
+        assertThat(LottoPrize.FIRST.getTotalPrize(1)).isEqualTo(new Money(2000000000));
+        assertThat(LottoPrize.SECOND.getTotalPrize(2)).isEqualTo(new Money(60000000));
+        assertThat(LottoPrize.THIRD.getTotalPrize(3)).isEqualTo(new Money(4500000));
+        assertThat(LottoPrize.FOURTH.getTotalPrize(4)).isEqualTo(new Money(200000));
     }
 }

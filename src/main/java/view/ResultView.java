@@ -2,6 +2,7 @@ package view;
 
 import domain.BuyInfo;
 import domain.Lottos;
+import domain.Money;
 import domain.WinningLottos;
 
 import static domain.LottoSeller.LOTTO_PRICE;
@@ -12,7 +13,7 @@ public class ResultView {
         System.out.println(lottos.toString());
     }
 
-    public static void showResult(WinningLottos winningLottos, int investment) {
+    public static void showResult(WinningLottos winningLottos, Money investment) {
         System.out.println("당첨 통계");
         System.out.println("-----------");
         System.out.println(winningLottos.toString());

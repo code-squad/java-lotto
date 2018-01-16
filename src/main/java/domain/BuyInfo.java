@@ -4,30 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BuyInfo {
-    private int totalMoney;
+    private Money totalMoney;
     private Tickets tickets;
 
-    public BuyInfo(int totalMoney, Tickets tickets) {
-        if(totalMoney < 0 || tickets == null)
+    public BuyInfo(Money totalMoney, Tickets tickets) {
+        if(totalMoney == null || tickets == null)
             throw new IllegalArgumentException("Invalid input exception");
 
         this.totalMoney = totalMoney;
         this.tickets = tickets;
     }
 
-    public int getPurchasableQuantity(int lottoPrice) {
-        int remainMoney = totalMoney - tickets.getNumberOfTickets() * lottoPrice;
-        if(remainMoney < lottoPrice)
+    public int getPurchasableQuantity(Money lottoPrice) {
+        Money remainMoney = totalMoney.sub(lottoPrice.multi(tickets.getNumberOfTickets()));
+        if(remainMoney.isLowerThan(lottoPrice))
             throw new IllegalArgumentException("Out of money");
 
-        return remainMoney / lottoPrice;
+        return remainMoney.devide(lottoPrice);
     }
 
-    public int getPurchasableTotalQuantity(int lottoPrice) {
-        return totalMoney / lottoPrice;
+    public int getPurchasableTotalQuantity(Money lottoPrice) {
+        return totalMoney.devide(lottoPrice);
     }
 
-    public List<Lotto> addManualLotto(int lottoPrice) {
+    public List<Lotto> addManualLotto(Money lottoPrice) {
         List<Lotto> lottos = new ArrayList<>(getPurchasableTotalQuantity(lottoPrice));
         tickets.createLottos(lottos);
 

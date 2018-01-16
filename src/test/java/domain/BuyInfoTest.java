@@ -21,27 +21,27 @@ public class BuyInfoTest {
         tickets.add(new Ticket(toLottoNos(Arrays.asList(1, 2, 3, 4, 5, 6))));
         tickets.add(new Ticket(toLottoNos(Arrays.asList(1, 2, 3, 4, 5, 6))));
         tickets.add(new Ticket(toLottoNos(Arrays.asList(1, 2, 3, 4, 5, 6))));
-        buyInfo = new BuyInfo(10000, new Tickets(tickets));
+        buyInfo = new BuyInfo(new Money(10000), new Tickets(tickets));
     }
 
     @Test
     public void buyInfoTest() {
-        BuyInfo buyInfo = new BuyInfo(10000, new Tickets(new ArrayList<Ticket>()));
+        BuyInfo buyInfo = new BuyInfo(new Money(10000), new Tickets(new ArrayList<Ticket>()));
     }
 
     @Test
     public void getPurchasableAutoLottoQuantityTest() {
-        assertThat(buyInfo.getPurchasableQuantity(1000)).isEqualTo(7);
+        assertThat(buyInfo.getPurchasableQuantity(new Money(1000))).isEqualTo(7);
     }
 
     @Test
     public void getPurchasableTotalLottoQuantityTest() {
-        assertThat(buyInfo.getPurchasableTotalQuantity(1000)).isEqualTo(10);
+        assertThat(buyInfo.getPurchasableTotalQuantity(new Money(1000))).isEqualTo(10);
     }
 
     @Test
     public void addManualLotto() {
-        List<Lotto> lottos = buyInfo.addManualLotto(1000);
+        List<Lotto> lottos = buyInfo.addManualLotto(new Money(1000));
         assertThat(lottos.size()).isEqualTo(3);
     }
 }
