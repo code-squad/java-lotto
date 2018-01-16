@@ -8,18 +8,19 @@ import static java.util.Objects.nonNull;
 
 public class LottoResult {
 
-    private Set<Integer> winners;
-    private LottoStore lottoStore;
-
     private static int LOTTO_PRICE = 1000;
 
-    public LottoResult(String result, LottoStore lottoStore) {
+    private Set<Integer> winners;
+    private List<Lotto> myLottos;
+
+
+    public LottoResult(String result, List<Lotto> myLottos) {
         nonNull(result);
         winners = Arrays.stream(result.split(",")).map(i -> Integer.parseInt(i)).collect(Collectors.toSet());
         if (winners.size() != 6) {
             throw new IllegalArgumentException();
         }
-        this.lottoStore = lottoStore;
+        this.myLottos = myLottos;
     }
 
     public Set<Integer> getWinners() {
@@ -33,7 +34,7 @@ public class LottoResult {
         statistics.put(PriceType.SECOND, 0);
         statistics.put(PriceType.FIRST, 0);
 
-        for (Lotto lotto : lottoStore.getLottos()) {
+        for (Lotto lotto : this.myLottos) {
             int count = lotto.getResult(winners).size();
             if (count > 2) {
                 int value = statistics.get(PriceType.getPriceType(count))+1;
@@ -44,7 +45,7 @@ public class LottoResult {
     }
 
     public long getPercentage(){
-        BigDecimal price =  new BigDecimal(lottoStore.getCount() * LOTTO_PRICE);
+        BigDecimal price =  new BigDecimal(this.myLottos.size() * LOTTO_PRICE);
         BigDecimal earning =  new BigDecimal(getEarnings());
         if (earning.intValue() == 0) {
             return 0;

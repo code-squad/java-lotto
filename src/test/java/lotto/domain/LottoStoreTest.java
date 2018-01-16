@@ -27,11 +27,4 @@ public class LottoStoreTest {
         lottoStore = new LottoStore(1000000000);
     }
 
-    @Test
-    public void getCount(){
-        assertThat(lottoStore.getCount()).isEqualTo(10);
-    }
-
-
-
 }

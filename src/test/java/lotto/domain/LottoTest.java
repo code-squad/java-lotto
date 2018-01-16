@@ -1,11 +1,9 @@
 package lotto.domain;
 
-import lotto.domain.Lotto;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,13 +13,7 @@ public class LottoTest {
 
     @Before
     public void setUp() throws Exception {
-        Set<Integer> number = new HashSet<>();
-        number.add(1);
-        number.add(2);
-        number.add(3);
-        number.add(4);
-        number.add(5);
-        number.add(6);
+        List<Integer> number = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
         lotto = new Lotto(number);
     }
 
@@ -54,13 +46,7 @@ public class LottoTest {
 
     @Test
     public void getResult() {
-        Set<Integer> winNums = new HashSet<>();
-        winNums.add(1);
-        winNums.add(2);
-        winNums.add(3);
-        winNums.add(4);
-        winNums.add(6);
-        winNums.add(13);
+        Set<Integer> winNums = new HashSet<>(Arrays.asList(1,2,3,4,6,13));
         assertThat(lotto.getResult(winNums).size()).isEqualTo(5);
 
     }

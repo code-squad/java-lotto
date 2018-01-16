@@ -16,7 +16,7 @@ public class LottoMain {
         ResultUI.printLottos(lottoStore);
 
         String winNumbers = inputUI.inputLastWinNumber();
-        LottoResult lottoResult = new LottoResult(winNumbers, lottoStore);
+        LottoResult lottoResult = lottoStore.match(winNumbers);
         ResultUI.printStatistics(lottoResult);
         ResultUI.printPercentage(lottoResult);
 

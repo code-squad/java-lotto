@@ -19,28 +19,22 @@ public class LottoResultTest {
 
     @Before
     public void setUp() {
-        Set<Integer> number = new HashSet<>();
-        number.add(1);
-        number.add(2);
-        number.add(3);
-        number.add(4);
-        number.add(5);
-        number.add(6);
+        List<Integer> number = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
         Lotto lotto = new Lotto(number);
         lottoStore = new LottoStore(Arrays.asList(lotto));
-        lottoResult = new LottoResult("1,2,3,4,5,7", lottoStore);
+        lottoResult = lottoStore.match("1,2,3,4,5,6,7");
     }
 
     @Test
     public void lottoResult_생성() {
-        lottoResult = new LottoResult("1,2,3,4,5,6", lottoStore);
+        lottoResult = lottoStore.match("1,2,3,4,5,6,7");
         assertThat(lottoResult.getWinners().size()).isEqualTo(6);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void lottoResult_생성_에러_테스트() {
-        lottoResult = new LottoResult("", lottoStore);
-        lottoResult = new LottoResult("1,2,3,4,5,6,7,7,5,4,3", lottoStore);
+        lottoResult = new LottoResult("", lottoStore.getLottos());
+        lottoResult = new LottoResult("1,2,3,4,5,6,7,7,5,4,3", lottoStore.getLottos());
     }
 
     @Test
