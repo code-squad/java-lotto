@@ -75,7 +75,7 @@
 
 ## Step3
 * repo : https://github.com/trytocloud/java-lotto/tree/step3
-* pr : 
+* pr : https://github.com/code-squad/java-lotto/pull/43
 
 ### 기능 요구사항
 * 현재 로또 생성기는 자동 생성 기능만 제공한다. 사용자가 수동으로 추첨 번호를 입력할 수 있도록 해야 한다.
