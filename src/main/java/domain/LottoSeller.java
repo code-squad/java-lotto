@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoSeller {
-    private static final int LOTTO_PRICE = 1000;
+    public static final int LOTTO_PRICE = 1000;
 
     public static List<Lotto> buyLotto(BuyInfo buyInfo, LottoNumberCreationStrategy lottoNumberCreationStrategy) {
         List<Lotto> lottos = buyInfo.addManualLotto(LOTTO_PRICE);

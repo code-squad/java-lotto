@@ -1,7 +1,10 @@
 package view;
 
+import domain.BuyInfo;
 import domain.Lottos;
 import domain.WinningLottos;
+
+import static domain.LottoSeller.LOTTO_PRICE;
 
 public class ResultView {
 
@@ -16,7 +19,11 @@ public class ResultView {
         System.out.println("총 수익률은 " + winningLottos.getProfitPercentage(investment) + "%입니다.");
     }
 
-    public static void showNumOfBuyLotto(int size) {
-        System.out.println(size + "개를 구매했습니다.");
+    public static void showNumOfBuyLotto(BuyInfo buyInfo) {
+        int totalLottoNo = buyInfo.getPurchasableTotalQuantity(LOTTO_PRICE);
+        int autoLottoNo = buyInfo.getPurchasableQuantity(LOTTO_PRICE);
+        int manualLottoNo = totalLottoNo - autoLottoNo;
+
+        System.out.println("수동으로 " + manualLottoNo + "장, 자동으로 " + autoLottoNo + "개를 구매했습니다.");
     }
 }

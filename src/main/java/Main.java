@@ -12,13 +12,13 @@ public class Main {
         int investMoney = getInvestMoney();
         int numOfManualLotto = getNumOfManualLotto();
         List<List<LottoNo>> nums = getManualNums(numOfManualLotto);
+        BuyInfo buyInfo = new BuyInfo(investMoney, buyTickets(nums));
 
-        Lottos lottos = new Lottos(buyLotto(new BuyInfo(investMoney, buyTickets(nums)), new LottoNumCreator()));
-        showNumOfBuyLotto(lottos.getNumOfLottos());
+        Lottos lottos = new Lottos(buyLotto(buyInfo, new LottoNumCreator()));
+        showNumOfBuyLotto(buyInfo);
         showLottos(lottos);
 
         WinningLottos winningLottos = lottos.getWinningLottos(getWinningLotto());
-
         showResult(winningLottos, investMoney);
     }
 }
