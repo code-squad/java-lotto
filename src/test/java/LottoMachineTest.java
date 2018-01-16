@@ -71,8 +71,8 @@ public class LottoMachineTest {
         testLottos.add(Lotto.generate(() -> Arrays.asList(1, 2, 3, 4, 5, 6))); //SIX
 
         List<Integer> winNumbers = Input.init("1, 2, 3, 4, 5, 6").winNumbers();
-        WinningLotto.generate(winNumbers, 7);
+        WinningLotto winningLotto = WinningLotto.generate(winNumbers, 7);
         Lottos lottos = Lottos.generate(testLottos);
-        return LottoResult.generate(lottos.getWinningRank()).getWinningLottoMap();
+        return LottoResult.generate(lottos.getWinningRank(winningLotto)).getWinningLottoMap();
     }
 }

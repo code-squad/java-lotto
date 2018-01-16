@@ -18,7 +18,7 @@ public class Main {
         Output.printLottoCount(lottos.getLottos().size());
         Output.printLottos(lottos.getLottos());
 
-        WinningLotto.generate(input.winNumbers(), input.getBonusBall());
-        Output.printResult(lottos.matchResult(), money);
+        WinningLotto winningLotto = WinningLotto.generate(input.winNumbers(), input.getBonusBall());
+        Output.printResult(lottos.matchResult(winningLotto), money);
     }
 }

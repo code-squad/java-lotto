@@ -6,7 +6,7 @@ import static lotto.domain.enums.Rank.THREE;
 
 public class WinningLotto {
     private static List<Integer> winningLottos;
-    private static int bonusBall;
+    private int bonusBall;
 
     private WinningLotto(List<Integer> winningLottos, int bonusBall) {
         this.winningLottos = winningLottos;
@@ -17,11 +17,11 @@ public class WinningLotto {
         return new WinningLotto(winningLottos, bonusBall);
     }
 
-    public static boolean isWinningTarget(Lotto lotto) {
+    public boolean isWinningTarget(Lotto lotto) {
         return getWinningCount(lotto) >= THREE.getValue();
     }
 
-    public static int getWinningCount(Lotto lotto) {
+    public int getWinningCount(Lotto lotto) {
         return (int) winningLottos.stream().filter(lotto.getNumbers()::contains).count();
     }
 
@@ -29,7 +29,7 @@ public class WinningLotto {
         return winningLottos;
     }
 
-    public static int getBonusBall() {
+    public int getBonusBall() {
         return bonusBall;
     }
 }

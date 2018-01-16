@@ -40,9 +40,9 @@ public class LottoTest {
         List<Integer> winningLottos = Arrays.asList(1, 2, 3, 40, 41, 42);
         List<Integer> testLottos = Arrays.asList(1, 7, 6, 40, 41, 42);
 
-        WinningLotto.generate(winningLottos, 7);
+        WinningLotto winningLotto = WinningLotto.generate(winningLottos, 7);
         Lottos lottos = LottoMachine.init(1000).generateLottos(new CustomLottoNumberGenerator(testLottos));
-        Map<Rank, Integer> resultMap = LottoResult.generate(lottos.getWinningRank()).getWinningLottoMap();
+        Map<Rank, Integer> resultMap = LottoResult.generate(lottos.getWinningRank(winningLotto)).getWinningLottoMap();
         assertEquals(of(1).get(), resultMap.get(FIVE_DOUBLE));
     }
 }

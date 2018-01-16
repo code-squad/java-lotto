@@ -5,8 +5,6 @@ import java.util.stream.Collectors;
 
 import lotto.domain.enums.Rank;
 
-import static lotto.domain.WinningLotto.getWinningCount;
-
 public class Lottos {
     private List<Lotto> lottos;
 
@@ -18,14 +16,14 @@ public class Lottos {
         return new Lottos(lottos);
     }
 
-    public LottoResult matchResult() {
-        return LottoResult.generate(getWinningRank());
+    public LottoResult matchResult(WinningLotto winningLotto) {
+        return LottoResult.generate(getWinningRank(winningLotto));
     }
 
-    public List<Rank> getWinningRank() {
+    public List<Rank> getWinningRank(WinningLotto winningLotto) {
         return this.lottos.stream()
-                .filter(WinningLotto::isWinningTarget)
-                .map(lotto -> Rank.match(getWinningCount(lotto), lotto.hasBonusBall(WinningLotto.getBonusBall())))
+                .filter(winningLotto::isWinningTarget)
+                .map(lotto -> Rank.match(winningLotto.getWinningCount(lotto), lotto.hasBonusBall(winningLotto.getBonusBall())))
                 .collect(Collectors.toList());
     }
 
