@@ -7,7 +7,7 @@ import java.util.List;
 public class LottoSeller {
     private static final int LOTTO_PRICE = 1000;
 
-    public static List<Lotto> sellLotto(int totalPrice, LottoNumberCreationStrategy lottoNumberCreationStrategy) {
+    public static List<Lotto> buyLotto(int totalPrice, LottoNumberCreationStrategy lottoNumberCreationStrategy) {
         int quantity = totalPrice / LOTTO_PRICE;
         List<Lotto> lottos = new ArrayList<>(quantity);
 
