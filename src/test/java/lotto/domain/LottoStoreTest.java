@@ -1,7 +1,8 @@
-package lotto;
+package lotto.domain;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
+import lotto.domain.LottoStore;
 import org.junit.Before;
 import org.junit.Test;
 
