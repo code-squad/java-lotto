@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static domain.LottoNoTest.toLottoNos;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class BuyInfoTest {
@@ -17,9 +18,9 @@ public class BuyInfoTest {
     @Before
     public void init() {
         List<Ticket> tickets = new ArrayList<>();
-        tickets.add(new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6)));
-        tickets.add(new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6)));
-        tickets.add(new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6)));
+        tickets.add(new Ticket(toLottoNos(Arrays.asList(1, 2, 3, 4, 5, 6))));
+        tickets.add(new Ticket(toLottoNos(Arrays.asList(1, 2, 3, 4, 5, 6))));
+        tickets.add(new Ticket(toLottoNos(Arrays.asList(1, 2, 3, 4, 5, 6))));
         buyInfo = new BuyInfo(10000, new Tickets(tickets));
     }
 

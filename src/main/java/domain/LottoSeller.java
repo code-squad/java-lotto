@@ -17,7 +17,7 @@ public class LottoSeller {
         return lottos;
     }
 
-    public static Tickets buyTickets(List<List<Integer>> nums) {
+    public static Tickets buyTickets(List<List<LottoNo>> nums) {
         List<Ticket> tickets = new ArrayList<>();
 
         for(int i = 0 ; i < nums.size() ; i++)

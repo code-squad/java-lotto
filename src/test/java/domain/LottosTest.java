@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static domain.LottoNoTest.toLottoNos;
 import static enums.LottoPrize.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -17,14 +18,14 @@ public class LottosTest {
     @Before
     public void init() {
         List<Lotto> lottos = new ArrayList<>();
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 10, 15, 16)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 15, 16)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 15, 16)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
+        lottos.add(new Lotto(() -> toLottoNos(Arrays.asList(1, 2, 3, 10, 15, 16))));
+        lottos.add(new Lotto(() -> toLottoNos(Arrays.asList(1, 2, 3, 4, 15, 16))));
+        lottos.add(new Lotto(() -> toLottoNos(Arrays.asList(1, 2, 3, 4, 15, 16))));
+        lottos.add(new Lotto(() -> toLottoNos(Arrays.asList(1, 2, 3, 4, 5, 6))));
+        lottos.add(new Lotto(() -> toLottoNos(Arrays.asList(1, 2, 3, 4, 5, 7))));
 
         this.lottos = new Lottos(lottos);
-        winningNumber = new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7);
+        winningNumber = new WinningNumber(toLottoNos(Arrays.asList(1, 2, 3, 4, 5, 6)), new LottoNo(7));
     }
 
     @Test

@@ -7,18 +7,18 @@ import java.util.Objects;
 import static domain.LottoNumCreator.LOTTO_POOL_NUM;
 
 public class Lotto {
-    private List<Integer> nums;
+    private List<LottoNo> nums;
 
     public Lotto(LottoNumberCreationStrategy lottoNumCreator) {
         nums = lottoNumCreator.createLottoNums();
     }
 
-    public int howManyCorrespond(List<Integer> winningNumber) {
+    public int howManyCorrespond(List<LottoNo> winningNumber) {
         return correspondNums(winningNumber).size();
     }
 
-    public List<Integer> correspondNums(List<Integer> winnigNumber) {
-        List<Integer> correspondNums = new ArrayList<>(LOTTO_POOL_NUM);
+    public List<LottoNo> correspondNums(List<LottoNo> winnigNumber) {
+        List<LottoNo> correspondNums = new ArrayList<>(LOTTO_POOL_NUM);
 
         for (int i = 0 ; i < winnigNumber.size() ; i++)
             checkCorrespond(correspondNums, winnigNumber.get(i));
@@ -26,12 +26,12 @@ public class Lotto {
         return correspondNums;
     }
 
-    private void checkCorrespond(List<Integer> correspondNums, int targetNum) {
+    private void checkCorrespond(List<LottoNo> correspondNums, LottoNo targetNum) {
         if(nums.contains(targetNum))
             correspondNums.add(targetNum);
     }
 
-    public boolean isBonusNumMatch(int bonusNum) {
+    public boolean isBonusNumMatch(LottoNo bonusNum) {
         return nums.contains(bonusNum);
     }
 

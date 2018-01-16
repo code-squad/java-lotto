@@ -3,13 +3,13 @@ package domain;
 import java.util.List;
 
 public class Ticket {
-    private List<Integer> nums;
+    private List<LottoNo> nums;
 
-    public Ticket(List<Integer> nums) {
+    public Ticket(List<LottoNo> nums) {
         this.nums = nums;
     }
 
-    public List<Integer> getNums() {
+    public List<LottoNo> getNums() {
         return nums;
     }
 

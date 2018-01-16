@@ -18,6 +18,9 @@ public class LottoNo {
         return no > 0 && no <= LOTTO_POOL_MAX_NUM;
     }
 
+    public boolean isValid() {
+        return isValidNo(this.no);
+    }
 
     @Override
     public boolean equals(Object o) {

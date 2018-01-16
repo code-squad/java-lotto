@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         int investMoney = getInvestMoney();
         int numOfManualLotto = getNumOfManualLotto();
-        List<List<Integer>> nums = getManualNums(numOfManualLotto);
+        List<List<LottoNo>> nums = getManualNums(numOfManualLotto);
 
         Lottos lottos = new Lottos(buyLotto(new BuyInfo(investMoney, buyTickets(nums)), new LottoNumCreator()));
         showNumOfBuyLotto(lottos.getNumOfLottos());
