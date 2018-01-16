@@ -16,7 +16,7 @@ public class LottoSellerTest {
 
     @Before
     public void init() {
-        List<Ticket> ticketList = new ArrayList<>();
+        ticketList = new ArrayList<>();
         for(int i = 0 ; i < 3 ; ++i)
             ticketList.add(new Ticket(Arrays.asList(10, 11, 12, 13, 14, 15)));
 
@@ -30,8 +30,8 @@ public class LottoSellerTest {
 
         assertThat(lottos.size()).isEqualTo(10);
         for (int i = 0 ; i < ticketList.size() ; i++)
-            assertThat(lottos.get(i).toString()).isEqualTo(Arrays.asList(10, 11, 12, 13, 14, 15).toString());
+            assertThat(lottos.get(i)).isEqualTo(new Lotto(() -> Arrays.asList(10, 11, 12, 13, 14, 15)));
         for (int i = ticketList.size() ; i < 10 ; i++)
-            assertThat(lottos.get(i).toString()).isEqualTo(Arrays.asList(1, 2, 3, 4, 5, 6).toString());
+            assertThat(lottos.get(i)).isEqualTo(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
     }
 }
