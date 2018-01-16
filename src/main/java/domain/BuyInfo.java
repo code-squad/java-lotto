@@ -1,5 +1,8 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BuyInfo {
     private int totalMoney;
     private Tickets tickets;
@@ -22,5 +25,10 @@ public class BuyInfo {
 
     public int getPurchasableTotalQuantity(int lottoPrice) {
         return totalMoney / lottoPrice;
+    }
+
+    public List<Lotto> addManualLotto(ArrayList<Lotto> lottos) {
+       // tickets(lottos)
+        return null;
     }
 }

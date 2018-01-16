@@ -12,4 +12,8 @@ public class Ticket {
     public List<Integer> getNums() {
         return nums;
     }
+
+    public Lotto createLotto() {
+        return new Lotto(() -> nums);
+    }
 }

@@ -16,4 +16,9 @@ public class Tickets {
     public int getNumberOfTickets() {
         return tickets.size();
     }
+
+    public void createLottos(List<Lotto> lottos) {
+        for(Ticket ticket : tickets)
+            lottos.add(ticket.createLotto());
+    }
 }
