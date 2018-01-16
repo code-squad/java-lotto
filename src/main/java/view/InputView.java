@@ -15,9 +15,31 @@ public class InputView {
 
         return new WinningNumber(winnerNums, bonusNum);
     }
+
     public static int getInvestMoney() {
         System.out.println("구입 금액을 입력해 주세요.");
         return Integer.parseInt(sc.nextLine());
+    }
+
+    public static int getNumOfManualLotto() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return Integer.parseInt(sc.nextLine());
+    }
+
+    public static List<List<Integer>> getManualNums(int numOfManualLotto) {
+        List<List<Integer>> nums = new ArrayList<>(numOfManualLotto);
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+
+        for(int i = 0 ; i < nums.size() ; ++i)
+            nums.add(getNumber());
+
+        return nums;
+    }
+
+    public static List<Integer> getNumber() {
+        String[] inputs = sc.nextLine().split(", ");
+
+        return toInts(inputs);
     }
 
     public static List<Integer> getWinnerNums() {
