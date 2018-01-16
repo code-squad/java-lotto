@@ -1,6 +1,6 @@
 package lotto.io;
 
-import lotto.util.LottoParser;
+import lotto.util.LottoUtil;
 
 import java.util.Scanner;
 
@@ -11,7 +11,7 @@ public class InputView {
         Scanner scanner = new Scanner(System.in);
         String money = scanner.nextLine();
 
-        while(!LottoParser.isNumeric(money) || Integer.parseInt(money) < 1000) {
+        while(!LottoUtil.isNumeric(money) || Integer.parseInt(money) < 1000) {
             System.out.println("구입금액을 입력해 주세요.");
             money = scanner.nextLine();
         }
@@ -23,7 +23,7 @@ public class InputView {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         Scanner scanner = new Scanner(System.in);
         String numbers = scanner.nextLine();
-        while(!LottoParser.canParsing(numbers)) {
+        while(!LottoUtil.canParsing(numbers)) {
             System.out.println("지난 주 당첨 번호를 입력해 주세요.");
             numbers = scanner.nextLine();
         }

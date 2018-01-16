@@ -8,7 +8,7 @@ public enum LottoRank {
     SECOND(5, 1500000),
     THIRD(4, 50000),
     FOURTH(3, 5000),
-    REST(9999,0);
+    REST(0,0);
 
     private int matchingCount;
     private int price;
@@ -28,10 +28,13 @@ public enum LottoRank {
 
     public static LottoRank getLottoRank(int count) {
         if (!hasCount(count)) throw new IllegalArgumentException();
-        return Stream.of(LottoRank.values()).filter(sameCount(count)).findFirst().get();
+        return Stream.of(LottoRank.values()).filter(sameCount(count)).findFirst().orElseThrow(IllegalArgumentException::new);
     }
 
     private static boolean hasCount(int count) {
+        if (count < LottoRank.FOURTH.matchingCount) {
+            count = LottoRank.REST.matchingCount;
+        }
         return Stream.of(LottoRank.values()).anyMatch(sameCount(count));
     }
 

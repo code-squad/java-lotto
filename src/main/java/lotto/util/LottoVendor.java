@@ -21,7 +21,7 @@ public class LottoVendor {
     }
 
     public int parseMoney(String money) {
-        if (!LottoParser.isNumeric(money)) new IllegalArgumentException();
+        if (!LottoUtil.isNumeric(money)) new IllegalArgumentException();
         return Integer.parseInt(money);
     }
 

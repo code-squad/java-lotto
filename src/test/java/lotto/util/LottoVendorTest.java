@@ -1,5 +1,7 @@
 package lotto.util;
 
+import lotto.domain.Lotto;
+import lotto.domain.LottoResult;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -22,26 +24,26 @@ public class LottoVendorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void 지난주_로또_당첨_번호를_null() {
-        LottoParser.parseLotto("   \n");
+        new Lotto("   \n");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 지난주_로또_당첨_번호를_입력_기호_예외처리() {
-        LottoParser.parseLotto("r1,2,3,4,5,6d");
+        new Lotto("r1,2,3,4,5,6d");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 지난주_로또_당첨_번호를_입력_개수_부족() {
-        LottoParser.parseLotto("1,2");
+        new Lotto("1,2");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 지난주_로또_같은_번호를_입력() {
-        LottoParser.parseLotto("1,1,1,1,1,1");
+        new Lotto("1,1,1,1,1,1");
     }
 
     @Test
     public void 지난주_로또_당첨_번호를_입력() {
-        LottoParser.parseLotto("1,2,3,4,5,6");
+        new Lotto("1,2,3,4,5,6");
     }
 }

@@ -1,59 +1,51 @@
 package lotto.domain;
 
-import java.util.Arrays;
-import java.util.Objects;
+import lotto.util.LottoUtil;
+import lotto.util.LottoRecorder;
+
+import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 
 public class Lotto {
 
     private final static int LOTTO_SELECT_COUNT = 6;
 
-    private LottoNumber[] lotto;
+    private List<LottoNumber> lotto;
     private Predicate<LottoNumber> contain = number -> contains(number);
 
     public Lotto() {
-        lotto = new LottoNumber[LOTTO_SELECT_COUNT];
-        while (hasNull()) {
-            fill(noneExistsNumber());
+        lotto = new ArrayList<>();
+        while (!isFull()) {
+            lotto.add(noneExistsNumber());
         }
+        Collections.sort(lotto,LottoNumber::compareTo);
     }
 
-    public Lotto(LottoNumber[] numbers) {
-        lotto = numbers;
-        customNumberValidationCheck();
+    public Lotto(String numbers) {
+        if(!LottoUtil.canParsing(numbers)) new IllegalArgumentException();
+        makeLotto(LottoUtil.toLottoNumberList(numbers));
     }
 
-    private void customNumberValidationCheck() {
-        if (isBlank()) throw new IllegalArgumentException();
-        if (hasNull()) throw new IllegalArgumentException();
-        if (!equalSelectCount()) throw new IllegalArgumentException();
-        if (sameNumberInLotto(lotto.length-1)) throw new IllegalArgumentException();
+    public Lotto(List<LottoNumber> numbers) {
+        Objects.requireNonNull(numbers);
+        makeLotto(numbers);
     }
 
-    private boolean sameNumberInLotto(int count) {
-        if (count == 1) {
-            return lotto[count].equals(lotto[--count]);
-        }
-        return lotto[count].equals(lotto[--count]) ? true : sameNumberInLotto(count);
+    private void makeLotto(List<LottoNumber> numbers) {
+        lotto = numberingJob(numbers);
+        if (!isFull()) throw new IllegalArgumentException();
     }
 
-    private boolean hasNull() {
-        return Stream.of(lotto).anyMatch(number -> number == null);
+    private List<LottoNumber> numberingJob(List<LottoNumber> numbers) {
+        return removeSameNumber(numbers).stream()
+                .sorted(LottoNumber::compareTo)
+                .collect(Collectors.toList());
     }
 
-    private void fill(LottoNumber number) {
-        lotto[indexOfFirstEmpty()] = number;
-    }
-
-    private int indexOfFirstEmpty() {
-        for (int i = 0; i < lotto.length; i++) {
-            if (lotto[i]==null) {
-                return i;
-            }
-        }
-        throw new IllegalStateException();
+    private Set<LottoNumber> removeSameNumber(List<LottoNumber> numbers) {
+        return numbers.stream().collect(Collectors.toSet());
     }
 
     private LottoNumber noneExistsNumber() {
@@ -62,24 +54,24 @@ public class Lotto {
     }
 
     public boolean contains(LottoNumber number) {
-        return Stream.of(lotto).anyMatch(no -> number.equals(no));
+        return lotto.stream().anyMatch(no -> number.equals(no));
     }
 
-    private boolean isBlank() {
-        return lotto == null || lotto.length == 0;
-    }
-
-    private boolean equalSelectCount() {
-        return LOTTO_SELECT_COUNT == lotto.length;
+    private boolean isFull() {
+        return LOTTO_SELECT_COUNT == lotto.size();
     }
 
     public int containCount(Lotto lotto) {
         Objects.requireNonNull(lotto);
-        return (int) Stream.of(lotto.lotto).filter(contain).count();
+        return (int) lotto.lotto.stream().filter(contain).count();
+    }
+
+    public LottoRecorder match(List<Lotto> lottoList) {
+        return new LottoRecorder(this, lottoList);
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(lotto);
+        return  "" + lotto;
     }
 }

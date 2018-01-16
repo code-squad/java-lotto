@@ -4,7 +4,6 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoRank;
 import lotto.domain.LottoResult;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,7 +28,10 @@ public class LottoRecorder {
     }
 
     public int getProfit() {
-        return Arrays.asList(LottoRank.values()).stream().map(lottoRank -> getPrize(lottoRank)).mapToInt(Integer::intValue).sum();
+        return Arrays.asList(LottoRank.values()).stream()
+                .map(lottoRank -> getPrize(lottoRank))
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public int getProfitRatio() {
