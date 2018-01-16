@@ -19,4 +19,8 @@ public class BuyInfo {
 
         return remainMoney / lottoPrice;
     }
+
+    public int getPurchasableTotalQuantity(int lottoPrice) {
+        return totalMoney / lottoPrice;
+    }
 }

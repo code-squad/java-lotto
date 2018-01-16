@@ -21,8 +21,13 @@ public class BuyInfoTest {
     }
 
     @Test
-    public void getPurchasableQuantityTest() {
+    public void getPurchasableAutoLottoQuantityTest() {
         assertThat(buyInfo.getPurchasableQuantity(1000)).isEqualTo(10);
+    }
+
+    @Test
+    public void getPurchasableTotalLottoQuantityTest() {
+        assertThat(buyInfo.getPurchasableTotalQuantity(1000)).isEqualTo(10);
     }
 
     @Test
