@@ -1,20 +1,26 @@
-import lotto.domain.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
+import lotto.domain.Lotto;
+import lotto.domain.LottoMachine;
+import lotto.domain.LottoResult;
+import lotto.domain.Lottos;
+import lotto.domain.WinningLotto;
 import lotto.domain.enums.Rank;
-import lotto.util.LottoUtils;
+import lotto.domain.generator.RandomLottoNumberGenerator;
 import lotto.view.Input;
 
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
-import static lotto.domain.LottoResult.getWinningRank;
-import static lotto.domain.enums.Rank.*;
+import static lotto.domain.enums.Rank.FIVE;
+import static lotto.domain.enums.Rank.FIVE_DOUBLE;
+import static lotto.domain.enums.Rank.FOUR;
+import static lotto.domain.enums.Rank.SIX;
+import static lotto.domain.enums.Rank.THREE;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -30,7 +36,7 @@ public class LottoMachineTest {
     @Test
     public void 입력된_개수에_맞는_로또가_생성되는가() {
         LottoMachine lottoMachine = LottoMachine.init(Input.init("14000").getMoney());
-        assertEquals(14, lottoMachine.generateLottos().getLottos().size());
+        assertEquals(14, lottoMachine.generateLottos(new RandomLottoNumberGenerator()).getLottos().size());
     }
 
     @Test
@@ -57,15 +63,16 @@ public class LottoMachineTest {
     }
 
     private Map<Rank, Integer> initResultMap() {
-        List<Lotto> lottos = new ArrayList<>();
-        lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{1, 2, 3, 40, 41, 42}).boxed().collect(Collectors.toList()))); //THREE
-        lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{1, 2, 3, 14, 15, 16}).boxed().collect(Collectors.toList()))); //THREE
-        lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{1, 2, 3, 4, 5, 16}).boxed().collect(Collectors.toList()))); //FIVE
-        lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{11, 2, 7, 4, 5, 6}).boxed().collect(Collectors.toList()))); //FIVE_DOUBLE
-        lottos.add(Lotto.generate(() -> Arrays.stream(new int[]{1, 2, 3, 4, 5, 6}).boxed().collect(Collectors.toList()))); //SIX
+        List<Lotto> testLottos = new ArrayList<>();
+        testLottos.add(Lotto.generate(() -> Arrays.asList(1, 2, 3, 40, 41, 42))); //THREE
+        testLottos.add(Lotto.generate(() -> Arrays.asList(1, 2, 3, 14, 15, 16))); //THREE
+        testLottos.add(Lotto.generate(() -> Arrays.asList(1, 2, 3, 4, 5, 16))); //FIVE
+        testLottos.add(Lotto.generate(() -> Arrays.asList(11, 2, 7, 4, 5, 6))); //FIVE_DOUBLE
+        testLottos.add(Lotto.generate(() -> Arrays.asList(1, 2, 3, 4, 5, 6))); //SIX
 
         List<Integer> winNumbers = Input.init("1, 2, 3, 4, 5, 6").winNumbers();
         WinningLotto.generate(winNumbers, 7);
-        return LottoResult.generate(getWinningRank(Lottos.generate(lottos))).getWinningLottoMap();
+        Lottos lottos = Lottos.generate(testLottos);
+        return LottoResult.generate(lottos.getWinningRank()).getWinningLottoMap();
     }
 }

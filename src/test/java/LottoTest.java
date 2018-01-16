@@ -1,16 +1,20 @@
-import lotto.domain.WinningLotto;
-import lotto.domain.enums.Rank;
-import lotto.domain.generator.CustomLottoNumberGenerator;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import lotto.domain.Lotto;
+import lotto.domain.LottoMachine;
+import lotto.domain.LottoResult;
+import lotto.domain.Lottos;
+import lotto.domain.WinningLotto;
+import lotto.domain.enums.Rank;
+import lotto.domain.generator.CustomLottoNumberGenerator;
 import lotto.domain.generator.RandomLottoNumberGenerator;
 import lotto.util.LottoUtils;
 
+import static java.util.Optional.of;
 import static lotto.domain.enums.Rank.FIVE_DOUBLE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -33,11 +37,12 @@ public class LottoTest {
 
     @Test
     public void 보너스볼을_받은_로또를_표시하는가() {
-        List<Integer> winningLottos = Arrays.stream(new int[]{1, 2, 3, 40, 41, 42}).boxed().collect(Collectors.toList());
-        List<Integer> testLottos = Arrays.stream(new int[]{1, 7, 6, 40, 41, 42}).boxed().collect(Collectors.toList());
+        List<Integer> winningLottos = Arrays.asList(1, 2, 3, 40, 41, 42);
+        List<Integer> testLottos = Arrays.asList(1, 7, 6, 40, 41, 42);
 
-        WinningLotto winningLotto = WinningLotto.generate(winningLottos, 7);
-        Rank rank = winningLotto.match(Lotto.generate(new CustomLottoNumberGenerator(testLottos)));
-        assertEquals(FIVE_DOUBLE, rank);
+        WinningLotto.generate(winningLottos, 7);
+        Lottos lottos = LottoMachine.init(1000).generateLottos(new CustomLottoNumberGenerator(testLottos));
+        Map<Rank, Integer> resultMap = LottoResult.generate(lottos.getWinningRank()).getWinningLottoMap();
+        assertEquals(of(1).get(), resultMap.get(FIVE_DOUBLE));
     }
 }

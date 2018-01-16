@@ -1,5 +1,7 @@
 package lotto.domain.enums;
 
+import java.util.Arrays;
+
 public enum Rank {
     THREE(3, 5000),
     FOUR(4, 50000),
@@ -25,5 +27,13 @@ public enum Rank {
 
     public int getProfit() {
         return profit;
+    }
+
+    public static Rank match(int count, boolean matchBall) {
+        if(FOUR.isEqualCount(count) && matchBall) return FIVE_DOUBLE;
+
+        return Arrays.stream(Rank.values())
+                .filter(lottoCorrectCount -> lottoCorrectCount.isEqualCount(count))
+                .findFirst().get();
     }
 }

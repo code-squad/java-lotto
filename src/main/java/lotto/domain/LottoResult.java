@@ -1,11 +1,11 @@
 package lotto.domain;
 
-import lotto.domain.enums.Rank;
-
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import lotto.domain.enums.Rank;
 
 import static java.util.stream.Collectors.groupingBy;
 
@@ -34,13 +34,6 @@ public class LottoResult {
     public static Map<Rank, Integer> resultToMap(List<Rank> ranks) {
         return ranks.stream()
                 .collect(groupingBy(Function.identity(), Collectors.summingInt(i->1)));
-    }
-
-    public static List<Rank> getWinningRank(Lottos lottos) {
-        return lottos.getLottos().stream()
-                .filter(WinningLotto::isWinningTarget)
-                .map(WinningLotto::match)
-                .collect(Collectors.toList());
     }
 
     public Map<Rank, Integer> getWinningLottoMap() {
