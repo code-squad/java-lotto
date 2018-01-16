@@ -1,6 +1,7 @@
 package customer;
 
 import lotto.Lotto;
+import DTO.LottoResult;
 import model.RandomNumber;
 
 import java.util.ArrayList;
@@ -82,6 +83,15 @@ public class Customer {
         }
 
         return Arrays.asList(hitThree, hitFour, hitFive, hitSix);
+    }
+
+    public LottoResult match(String result){
+        List<Integer> hitNumbersByALotto = getHitNumbers(result);
+        List<Integer> countThreeFourFiveHits = countHit(hitNumbersByALotto);
+        Double percentage = analyze(hitNumbersByALotto);
+
+        LottoResult lottoResult = new LottoResult(hitNumbersByALotto, countThreeFourFiveHits, percentage);
+        return lottoResult;
     }
 
     public List<Lotto> getLottos() {

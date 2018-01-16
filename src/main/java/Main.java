@@ -1,3 +1,4 @@
+import DTO.LottoResult;
 import customer.Customer;
 import lotto.Lotto;
 import model.InputView;
@@ -15,12 +16,10 @@ public class Main {
         ResultView.printLottoNumbers(numberOfLottos);
 
         String lastWeekHitNumbers = InputView.scanLastWeekLottoNumbers();
-        List<Integer> hitNumbersByALotto = customer.getHitNumbers(lastWeekHitNumbers);
-        List<Integer> countThreeFourFiveHits = customer.countHit(hitNumbersByALotto);
 
-        ResultView.printResult(countThreeFourFiveHits);
+        LottoResult lottoResult = customer.match(lastWeekHitNumbers);
 
-        Double percentage = customer.analyze(hitNumbersByALotto);
-        ResultView.printStatics(percentage);
+        ResultView.printResult(lottoResult.getCountThreeFourFiveHits());
+        ResultView.printStatics(lottoResult.getPercentage());
     }
 }
