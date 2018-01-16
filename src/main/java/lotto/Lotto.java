@@ -1,19 +1,13 @@
 package lotto;
 
-import model.RandomNumber;
-
 import java.util.List;
 
 public class Lotto {
 
     private List<Integer> numbers;
 
-    public Lotto() {
-        this.numbers = generateNumber();
-    }
-
-    public List<Integer> generateNumber() {
-        return RandomNumber.shuffleNumber();
+    public Lotto(List<Integer> numbers) {
+        this.numbers = numbers;
     }
 
     public Integer compare(List<Integer> result) {

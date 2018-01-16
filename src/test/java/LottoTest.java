@@ -1,4 +1,5 @@
 import lotto.Lotto;
+import model.RandomNumber;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -9,12 +10,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class LottoTest {
 
-    private Lotto lotto = new Lotto();
-
-    @Test
-    public void generateLotto(){
-        assertThat(lotto.generateNumber().size()).isEqualTo(6);
-    }
+    private Lotto lotto = new Lotto(RandomNumber.shuffleNumber());
 
     @Test
     public void compareResult(){

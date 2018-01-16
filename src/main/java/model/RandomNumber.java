@@ -19,12 +19,6 @@ public class RandomNumber {
     }
 
     private static List<Integer> getSixNumbers(List<Integer> shuffleNumbers) {
-        List<Integer> numbers = new ArrayList<>();
-
-        for (int i = 0; i < 6; i++) {
-            numbers.add(shuffleNumbers.get(i));
-        }
-
-        return numbers;
+        return shuffleNumbers.subList(0,6);
     }
 }

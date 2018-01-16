@@ -1,6 +1,7 @@
 package customer;
 
 import lotto.Lotto;
+import model.RandomNumber;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +16,7 @@ public class Customer {
         Integer number = amount / LOTTO_PRICE;
 
         for (int i = 0; i < number; i++) {
-            lottos.add(new Lotto());
+            lottos.add(new Lotto(RandomNumber.shuffleNumber()));
         }
 
         return lottos;
@@ -42,10 +43,18 @@ public class Customer {
 
     public Double analyze(List<Integer> hitNumbers) {
         List<Integer> hitResult = countHit(hitNumbers);
-        Integer loseAmount = lottos.size() * LOTTO_PRICE;
-        Integer profit = (hitResult.get(0) * 5000) + (hitResult.get(1) * 50000) + (hitResult.get(2) * 1500000) + (hitResult.get(3) * 2000000000);
+        Integer loseAmount = calculateLoseAmount();
+        Integer profit = calculateProfit(hitResult);
 
         return (double)(profit - loseAmount) / (double)loseAmount * 100;
+    }
+
+    private Integer calculateLoseAmount() {
+        return lottos.size() * LOTTO_PRICE;
+    }
+
+    private Integer calculateProfit(List<Integer> hitResult) {
+        return (hitResult.get(0) * 5000) + (hitResult.get(1) * 50000) + (hitResult.get(2) * 1500000) + (hitResult.get(3) * 2000000000);
     }
 
     public List<Integer> countHit(List<Integer> hitNumbers) {
