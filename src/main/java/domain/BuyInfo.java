@@ -27,8 +27,10 @@ public class BuyInfo {
         return totalMoney / lottoPrice;
     }
 
-    public List<Lotto> addManualLotto(ArrayList<Lotto> lottos) {
-       // tickets(lottos)
-        return null;
+    public List<Lotto> addManualLotto(int lottoPrice) {
+        List<Lotto> lottos = new ArrayList<>(getPurchasableTotalQuantity(lottoPrice));
+        tickets.createLottos(lottos);
+
+        return lottos;
     }
 }

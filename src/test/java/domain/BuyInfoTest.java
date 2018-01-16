@@ -40,7 +40,7 @@ public class BuyInfoTest {
 
     @Test
     public void addManualLotto() {
-        List<Lotto> lottos = buyInfo.addManualLotto(new ArrayList<Lotto>());
+        List<Lotto> lottos = buyInfo.addManualLotto(1000);
         assertThat(lottos.size()).isEqualTo(3);
     }
 }
