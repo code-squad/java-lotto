@@ -25,20 +25,4 @@ public enum LottoRank {
     public int getPrice() {
         return price;
     }
-
-    public static LottoRank getLottoRank(int count) {
-        if (!hasCount(count)) throw new IllegalArgumentException();
-        return Stream.of(LottoRank.values()).filter(sameCount(count)).findFirst().orElseThrow(IllegalArgumentException::new);
-    }
-
-    private static boolean hasCount(int count) {
-        if (count < LottoRank.FOURTH.matchingCount) {
-            count = LottoRank.REST.matchingCount;
-        }
-        return Stream.of(LottoRank.values()).anyMatch(sameCount(count));
-    }
-
-    private static Predicate<LottoRank> sameCount(int count) {
-        return rank->rank.matchingCount == count;
-    }
 }

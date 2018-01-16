@@ -3,6 +3,7 @@ package lotto.util;
 import lotto.domain.Lotto;
 import lotto.domain.LottoRank;
 import lotto.domain.LottoResult;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -18,15 +19,6 @@ public class LottoResultTest {
         Lotto lotto = new Lotto("1, 2, 3, 10, 20, 30");
 
         assertEquals(3, jackpot.match(Arrays.asList(lotto)).matchCount(lotto));
-    }
-
-    @Test
-    public void 일치하는_랭크_찾기() {
-        Lotto jackpot = new Lotto("1, 2, 3, 4, 5, 6");
-        Lotto lotto = new Lotto("1, 2, 3, 10, 20, 30");
-        LottoRecorder lottoRecorder = jackpot.match(Arrays.asList(lotto));
-
-        assertEquals(LottoRank.FOURTH , LottoRank.getLottoRank(lottoRecorder.matchCount(lotto)));
     }
 
     @Test
