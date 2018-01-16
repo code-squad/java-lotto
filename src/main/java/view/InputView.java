@@ -1,27 +1,17 @@
 package view;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
 
-    private static final int PRICE = 1000;
-
-
-    public int inputMoeny(Scanner scanner){
+    public static int inputMoney(Scanner sc){
         System.out.println("구매 금액을 입력해주세요.");
-
-        int ammountOfLotto = calAmountOfLotto(scanner.nextInt());
-        //OutputView.printAmountOfLotto(ammountOfLotto);
-
-        return ammountOfLotto;
+        return Integer.valueOf(sc.nextLine());
     }
 
-    /**
-     * 로또 가격 산출
-     * @param money
-     * @return
-     */
-    public int calAmountOfLotto(int money) {
-        return money/PRICE;
+    public static String inputLuckyNumbers(Scanner sc) {
+        System.out.println("지난 주 담청 번호를 입력하세요.");
+        return sc.nextLine();
     }
 }
