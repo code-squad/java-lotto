@@ -12,10 +12,10 @@ public class Lotto {
     numbers.stream().forEach(n -> this.numbers.add(new LottoNumber(n)));
   }
 
-  public int getCountOfMatchNumber(List<Integer> winningNumbers) {
-    return (int) winningNumbers.stream()
-        .filter(w -> containWinningNumber(w))
-        .count();
+  public int getCountOfMatchNumber(Lotto winningLotto) {
+    return (int) winningLotto.numbers.stream()
+          .filter(w -> containWinningNumber(w.getNumber()))
+          .count();
   }
 
   private boolean containWinningNumber(int winningNumber) {

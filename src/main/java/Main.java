@@ -18,9 +18,9 @@ public class Main {
     ResultView.printPurchaseLottos(lottos);
 
     String strNumbers = InputView.inputWinningNumbers();
-    lottoMachine.setWinningNumbers(strNumbers);
+    Lotto winningLotto = LottoMachine.createWinningLotto(strNumbers);
 
-    LottoResult result = lottoMachine.getResult();
+    LottoResult result = lottoMachine.match(winningLotto);
     ResultView.printResult(result);
   }
 }

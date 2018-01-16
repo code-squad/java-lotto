@@ -1,42 +1,31 @@
 package dto;
 
-import domain.Lotto;
 import domain.Rank;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LottoResult {
 
-  private static final int PRICE_PER_LOTTO_ONE_GAME = 1000;
-  private List<Lotto> lottos;
-  private List<Integer> winningNumbers;
+  private Map<Rank, Integer> results;
+  private double revenue;
 
-  public LottoResult(List<Integer> winningNumbers) {
-    this.lottos = new ArrayList<>();
-    this.winningNumbers = winningNumbers;
+  public LottoResult() {
+    results = new HashMap<>();
   }
 
-  public void add(Lotto lotto) {
-    lottos.add(lotto);
+  public void add(Rank rank, int winnerCount) {
+    this.results.put(rank, winnerCount);
   }
 
   public int getRankOfCount(Rank rank) {
-    return (int) lottos.stream()
-        .filter(l -> l.getCountOfMatchNumber(winningNumbers) == rank.getMatchOfNumberCnt())
-        .count();
+    return results.get(rank);
+  }
+
+  public void setRevenue(double revenue) {
+    this.revenue = revenue;
   }
 
   public double getRevenue() {
-    Rank[] ranks = Rank.values();
-    int totalPrizeMoney = Arrays.stream(ranks)
-        .mapToInt(r -> r.getWinningMoney() * getRankOfCount(r))
-        .sum();
-    return ((double) totalPrizeMoney / (PRICE_PER_LOTTO_ONE_GAME * lottos.size())) * 100;
-  }
-
-  public String getFormatToRevenue() {
-    return new DecimalFormat("0.##").format(getRevenue());
+    return revenue;
   }
 }
