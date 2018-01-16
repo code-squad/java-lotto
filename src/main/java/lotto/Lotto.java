@@ -1,21 +1,31 @@
 package lotto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Lotto {
-	protected ArrayList<Integer> num = new ArrayList<Integer> ();
+	protected List<Integer> num = new ArrayList<Integer> ();
 	//수동 번호 로또를 생성해주는 생성자.
-	public Lotto(ArrayList<Integer> num) {
+	public Lotto(List<Integer> num) {
 		this.num = num;
 	}
 	//각 로또 티켓마다의 번호를 확인하는 (리턴하는) 메소드.
-	public ArrayList<Integer> getNum() {
+	public List<Integer> getNum() {
 		return this.num;
+	}
+	
+	public String getStringNums() {
+		String result = "[";
+		for (int i = 0; i < num.size() - 1; i++) {
+			result += num.get(i) + ",";
+		}
+		
+		return result + num.get(num.size() - 1) + "]";
 	}
 	//각 티켓마다 winningNum과 일치하는 숫자의 수를 계산하고, 일치하는 숫자의 수에 해당하는 match를 리턴한다.
 	public Match matchCount(WinningLotto winningLotto) {
 		int count = 0;
-		ArrayList<Integer> winningNum = winningLotto.getNum();
+		List<Integer> winningNum = winningLotto.getNum();
 		for (int i = 0; i < winningNum.size(); i++) {		//보너스 번호를 제외한 6개의 숫자만 비교하여 몇개 일치하는지 리턴해준다.
 			count += findToMatch(winningNum.get(i));
 		}

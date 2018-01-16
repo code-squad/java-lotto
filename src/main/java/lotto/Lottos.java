@@ -13,6 +13,9 @@ public class Lottos {
 	public ArrayList<Lotto> get() {
 		return this.tickets;
 	}
+	public int getSize() {
+		return this.tickets.size();
+	}
 	//각 티켓 별 맞은 갯수를 리스트에 저장하고, 리턴해주는 메소드.
 	public ArrayList<Match> makeMatchList(WinningLotto winningLotto) {
 		ArrayList<Match> matchList = new ArrayList<Match> ();		//티켓 별 맞은 번호 수를 일치하는 Match로 변환하여 저장하는 리스트를 만들어준다.
@@ -52,13 +55,16 @@ public class Lottos {
 	}
 	//맞은 갯수 비례 금액을 계산하여 총 딴 돈을 구한다. (내가 건 돈 만큼은 뺀다.)
 	public double calculateMoney(ArrayList<MatchingResult> result, Money money) {
-		double profit = 0;
+		int profit = 0;
 		for (int i = 0; i < result.size(); i++) {
 			MatchingResult matchingResult = result.get(i);
 			profit += matchingResult.winningMoney();		//총 수익을 계산한다.
 		}
-		double yield = ((profit - money.getPrice()) / money.getPrice()) * 100;		//건 돈 비례 번 돈을 계산한다. (수익률을 계산한다.)
+		System.out.println(profit);
+		System.out.println(money.getPrice());
 		
+		double yield = ((profit - money.getPrice()) / money.getPrice()) * 100;		//건 돈 비례 번 돈을 계산한다. (수익률을 계산한다.)
+		System.out.println(yield);
 		return yield;		//수익률을 리턴한다.
 	}
 }
