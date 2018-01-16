@@ -1,5 +1,4 @@
 import domain.*;
-import view.InputView;
 
 
 import java.util.ArrayList;

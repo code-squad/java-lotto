@@ -17,6 +17,15 @@ public class LottoSeller {
         return lottos;
     }
 
+    public static Tickets buyTickets(List<List<Integer>> nums) {
+        List<Ticket> tickets = new ArrayList<>();
+
+        for(int i = 0 ; i < nums.size() ; i++)
+            tickets.add(new Ticket(nums.get(i)));
+
+        return new Tickets(tickets);
+    }
+
     /*
     lottos리스트를 넘겨서 buyInfo에서 추가하는게 맞는걸까?
     객체지향적으로 생각하면 로또 생성자가 수동 로또 번호(티켓)를 받아서 내부에서 처리해야하지 않을까?
