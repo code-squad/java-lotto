@@ -1,7 +1,6 @@
 package model;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -13,8 +12,14 @@ public class Lotto {
     public Lotto(int bound, int size) {
         this.bound = bound;
         this.size = size;
-
         this.numbers = generate();
+
+    }
+
+    public Lotto(int bound, int size, List<Integer> numbers) {
+        this.bound = bound;
+        this.size = size;
+        this.numbers = new ArrayList<>(numbers);
     }
 
     public List<Integer> generate() {
@@ -31,5 +36,13 @@ public class Lotto {
 
     public List<Integer> getNumbers() {
         return this.numbers;
+    }
+
+    public int compare(Lotto target) {
+        int result = 0;
+        for (Integer num : this.numbers) {
+            if (target.getNumbers().contains(num)) result++;
+        }
+        return result;
     }
 }
