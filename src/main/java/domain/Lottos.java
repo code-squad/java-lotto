@@ -1,6 +1,7 @@
 package domain;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Lottos {
@@ -21,6 +22,15 @@ public class Lottos {
             winningLottos.addLotto(winningNumber.matchLottoAndGetPrize(lotto));
 
         return winningLottos;
+    }
+
+    public Lottos join(Lottos lottos) {
+        List<Lotto> newLottos = new ArrayList<>(this.getNumOfLottos() + lottos.getNumOfLottos());
+
+        newLottos.addAll(this.lottos);
+        newLottos.addAll(lottos.lottos);
+
+        return new Lottos(newLottos);
     }
 
     @Override

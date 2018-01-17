@@ -17,14 +17,14 @@ public class LottosTest {
     @Before
     public void init() {
         List<Lotto> lottos = new ArrayList<>();
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 10, 15, 16)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 15, 16)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 15, 16)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 10, 15, 16)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 15, 16)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 15, 16)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 7)));
 
         this.lottos = new Lottos(lottos);
-        winningNumber = new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7);
+        winningNumber = new WinningNumber(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)), new LottoNo(7));
     }
 
     @Test
@@ -41,5 +41,10 @@ public class LottosTest {
         assertThat(winningLottos.getNumOfWinnerLottoByPrize(THIRD)).isEqualTo(0);
         assertThat(winningLottos.getNumOfWinnerLottoByPrize(SECOND)).isEqualTo(1);
         assertThat(winningLottos.getNumOfWinnerLottoByPrize(FIRST)).isEqualTo(1);
+    }
+
+    @Test
+    public void joinTest() {
+        assertThat(lottos.join(lottos).getNumOfLottos()).isEqualTo(10);
     }
 }

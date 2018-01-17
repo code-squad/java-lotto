@@ -5,15 +5,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoSeller {
-    private static final int LOTTO_PRICE = 1000;
+    public static final int LOTTO_PRICE = 1000;
+    private LottoNumberCreationStrategy lottoNumCreator;
 
-    public static List<Lotto> sellLotto(int totalPrice, LottoNumberCreationStrategy lottoNumberCreationStrategy) {
-        int quantity = totalPrice / LOTTO_PRICE;
+    public LottoSeller(LottoNumberCreationStrategy lottoNumCreator) {
+        this.lottoNumCreator = lottoNumCreator;
+    }
+
+    public Lottos buyLotto(BuyInfo buyInfo) {
+        Lottos autoLottos = createAutoLottos(buyInfo);
+
+        return buyInfo.joinLottos(autoLottos);
+    }
+
+    private Lottos createAutoLottos(BuyInfo buyInfo) {
+        int quantity = buyInfo.getBuyableNumberOfAutoLottos();
         List<Lotto> lottos = new ArrayList<>(quantity);
 
         for(int i = 0 ; i < quantity ; ++i)
-            lottos.add(new Lotto(lottoNumberCreationStrategy));
+            lottos.add(new Lotto(lottoNumCreator.createLottoNums()));
 
-        return lottos;
+        return new Lottos(lottos);
     }
 }

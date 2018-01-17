@@ -12,8 +12,9 @@ public class LottoTest {
 
     @Before
     public void init() {
-        lotto = new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6));
+        lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
     }
+
     @Test
     public void createLottoTicketTest() {
         assertThat(lotto.toString()).isEqualTo(Arrays.asList(1, 2, 3, 4, 5, 6).toString());
@@ -22,18 +23,18 @@ public class LottoTest {
     //당첨 번호를 입력 받으면 해당 로또가 몇개나 일치하는지 리턴
     @Test
     public void correspondNumsTest() {
-        assertThat(lotto.correspondNums(Arrays.asList(2, 6, 4)))
-                .isEqualTo(Arrays.asList(2, 6, 4));
+        assertThat(lotto.correspondNums(
+                new Lotto(Arrays.asList(2, 6, 4))))
+                .isEqualTo(Arrays.asList(new LottoNo(2), new LottoNo(6), new LottoNo(4)));
     }
 
     @Test
     public void howManyCorrestpondTest() {
-        assertThat(lotto.howManyCorrespond(Arrays.asList(2, 6, 4)))
-                .isEqualTo(3);
+        assertThat(lotto.howManyCorrespond(new Lotto(Arrays.asList(2, 6, 4)))).isEqualTo(3);
     }
 
     @Test
     public void isBonusNumMatchTest() {
-        assertThat(lotto.isBonusNumMatch(6)).isEqualTo(true);
+        assertThat(lotto.isBonusNumMatch(new LottoNo(6))).isEqualTo(true);
     }
 }

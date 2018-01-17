@@ -13,6 +13,9 @@ public class LottoPrizeTest {
         assertThat(LottoPrize.valueOf(5, false)).isEqualTo(THIRD);
         assertThat(LottoPrize.valueOf(4, false)).isEqualTo(FOURTH);
         assertThat(LottoPrize.valueOf(3, false)).isEqualTo(FIFTH);
+        assertThat(LottoPrize.valueOf(2, false)).isEqualTo(LOSING_LOTTO);
+        assertThat(LottoPrize.valueOf(1, false)).isEqualTo(LOSING_LOTTO);
+        assertThat(LottoPrize.valueOf(0, false)).isEqualTo(LOSING_LOTTO);
     }
 
     @Test
@@ -21,5 +24,6 @@ public class LottoPrizeTest {
         assertThat(LottoPrize.SECOND.getTotalPrize(2)).isEqualTo(60000000);
         assertThat(LottoPrize.THIRD.getTotalPrize(3)).isEqualTo(4500000);
         assertThat(LottoPrize.FOURTH.getTotalPrize(4)).isEqualTo(200000);
+        assertThat(LottoPrize.LOSING_LOTTO.getTotalPrize(4)).isEqualTo(0);
     }
 }

@@ -5,6 +5,8 @@ import enums.LottoPrize;
 import java.util.HashMap;
 import java.util.Map;
 
+import static domain.LottoSeller.LOTTO_PRICE;
+
 public class WinningLottos {
     private Map<LottoPrize, Integer> winnerLottos;
 
@@ -26,7 +28,7 @@ public class WinningLottos {
         return winnerLottos.get(prize);
     }
 
-    public int getProfit() {
+    public int getTotalPrize() {
         int sum = 0;
 
         for(LottoPrize prize : winnerLottos.keySet())
@@ -35,8 +37,20 @@ public class WinningLottos {
         return sum;
     }
 
-    public int getProfitPercentage(int investment) {
-        return (int) (((double)getProfit() - investment) / investment * 100);
+    public int getInvestMoney() {
+        int numOfLotto = 0;
+
+        for(int numPerPrize : winnerLottos.values())
+            numOfLotto += numPerPrize;
+
+        return numOfLotto * LOTTO_PRICE;
+    }
+
+    public int getProfitPercentage() {
+        int totalPrize = getTotalPrize();
+        int investMoney = getInvestMoney();
+
+        return (int) (((double) totalPrize - investMoney) / investMoney * 100);
     }
 
     @Override
