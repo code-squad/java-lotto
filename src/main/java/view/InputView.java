@@ -48,7 +48,7 @@ public class InputView {
         String[] lottoInputs = inputs.split("\r\n");
         List<Lotto> lottos = new ArrayList<>(lottoInputs.length);
 
-        for(int i = 0 ; i < lottoInputs.length ; ++i)
+        for(int i = 0 ; i < lottos.size() ; ++i)
             lottos.add(new Lotto(getNumber(lottoInputs[i])));
 
         return new Lottos(lottos);

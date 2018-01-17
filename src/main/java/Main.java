@@ -25,32 +25,42 @@ public class Main {
 
         post("/buyLotto", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
-            Lottos manualLottos = getManualLottos(req.queryParams("manualNumber"));
+            try {
+                int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
+                Lottos manualLottos = getManualLottos(req.queryParams("manualNumber"));
 
-            BuyInfo buyInfo = new BuyInfo(inputMoney, manualLottos);
-            Lottos lottos = lottoSeller.buyLotto(buyInfo);
+                BuyInfo buyInfo = new BuyInfo(inputMoney, manualLottos);
+                Lottos lottos = lottoSeller.buyLotto(buyInfo);
 
-            List<String> lottosString = splitToString(lottos.toString());
-            model.put("lottos", lottosString);
-            model.put("numOfLottos", lottosString.size());
-            req.session().attribute("lottos", lottos);
+                List<String> lottosString = splitToString(lottos.toString());
+                model.put("lottos", lottosString);
+                model.put("numOfLottos", lottosString.size());
+                req.session().attribute("lottos", lottos);
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
+                return redirectToMainPage();
+            }
 
             return render(model, "/show.html");
         });
 
         post("/matchLotto", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            Lottos lottos = req.session().attribute("lottos");
-            Lotto winningNo = new Lotto(getNumber(req.queryParams("winningNumber")));
-            LottoNo bonusNo = new LottoNo(Integer.parseInt(req.queryParams("bonusNumber")));
+            try {
+                Lottos lottos = req.session().attribute("lottos");
+                Lotto winningNo = new Lotto(getNumber(req.queryParams("winningNumber")));
+                LottoNo bonusNo = new LottoNo(Integer.parseInt(req.queryParams("bonusNumber")));
 
-            WinningNumber winningNumber = new WinningNumber(winningNo, bonusNo);
-            WinningLottos winningLottos = lottos.getWinningLottos(winningNumber);
-            List<String> resultString = splitToString(winningLottos.toString());
+                WinningNumber winningNumber = new WinningNumber(winningNo, bonusNo);
+                WinningLottos winningLottos = lottos.getWinningLottos(winningNumber);
+                List<String> resultString = splitToString(winningLottos.toString());
 
-            model.put("profit", winningLottos.getProfitPercentage());
-            model.put("result", resultString);
+                model.put("profit", winningLottos.getProfitPercentage());
+                model.put("result", resultString);
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
+                return redirectToMainPage();
+            }
 
             return render(model, "result.html");
         });
@@ -58,5 +68,9 @@ public class Main {
 
     public static String render(Map<String, Object> model, String path) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, path));
+    }
+
+    private static String redirectToMainPage() {
+        return render(new HashMap<>(), "/index.html");
     }
 }

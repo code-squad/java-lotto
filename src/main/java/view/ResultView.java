@@ -10,6 +10,9 @@ import java.util.List;
 
 public class ResultView {
     public static List<String> splitToString(String lottosToString) {
+        if(lottosToString.isEmpty())
+            return new ArrayList<>();
+
         List<String> splittedString = Arrays.asList(lottosToString.split("\n"));
 
         return splittedString;
