@@ -16,7 +16,7 @@ public enum WinningType {
     private int prizes;
 
     public static WinningType parse(int matchCount){
-        for(WinningType type : WinningType.values()){
+        for(WinningType type : values()){
             if(type.matchCount == matchCount) return type;
         }
 

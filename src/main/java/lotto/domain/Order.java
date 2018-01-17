@@ -1,5 +1,8 @@
 package lotto.domain;
 
+import lotto.dto.WinningDTO;
+import lotto.util.RandomUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,39 +24,22 @@ public class Order {
         return createLotto(totalCost / Lotto.LOTTO_COST);
     }
 
-    public List<Lotto> checkWinning(int[] luckyNumbers){
-        if(luckyNumbers.length < Lotto.LOTTO_PICK_COUNT){
-            throw new IllegalArgumentException("당첨번호가 잘못되었습니다.");
-        }
+    public WinningDTO checkWinning(List<Integer> luckyNumbers){
+        Lotto lucky = new Lotto(luckyNumbers);
 
         for(Lotto lotto : lottos){
-            lotto.matchLuckyNumbers(luckyNumbers);
+            lotto.matchLuckyNumbers(lucky);
         }
 
-        return lottos;
+        return new WinningDTO(this.totalCost, this.lottos);
     }
 
     private List<Lotto> createLotto(int count){
         for(int i=0 ; i<count ; i++){
-            lottos.add(new Lotto());
+            lottos.add(new Lotto(RandomUtils.pickRandom(Lotto.TARGET_NUMBER, Lotto.LOTTO_PICK_COUNT)));
         }
 
         return lottos;
-    }
-
-    public int getTotalPrizes(){
-        int totalPrizes = 0;
-        for(Lotto lotto : lottos){
-            totalPrizes += lotto.getWinningPrizes();
-        }
-
-        return totalPrizes;
-    }
-
-    public int getEarningsRate(){
-        double totalEarnings = getTotalPrizes() - totalCost;
-
-        return (int) (totalEarnings / totalCost * 100);
     }
 
     public List<Lotto> getLottos() {

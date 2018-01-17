@@ -1,9 +1,11 @@
 package lotto.domain;
 
+import lotto.dto.WinningDTO;
 import lotto.view.ResultView;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -27,28 +29,15 @@ public class OrderTest {
     }
 
     @Test
-    public void checkWinning(){
-        int[] luckyNumbers = new int[]{1,2,3,4,5,6};
-
-        order.purchase();
-        List<Lotto> lottos = order.checkWinning(luckyNumbers);
-
-        ResultView.printWinningResult(lottos);
-        ResultView.printEarningsRate(order);
-    }
-
-    @Test
     public void getEarnings(){
-        int[] luckyNumbers = new int[]{1,2,3,4,5,6};
-
         order.purchase();
-        order.checkWinning(luckyNumbers);
+        WinningDTO winningResult = order.checkWinning(Arrays.asList(1,2,3,4,5,6));
 
-        double totalEarnings = order.getTotalPrizes() - TOTAL_COST;
+        double totalEarnings = winningResult.getTotalPrizes() - TOTAL_COST;
 
         int earningsRate = (int) (totalEarnings / TOTAL_COST * 100);
-        System.out.println("total prizes: "+order.getTotalPrizes()+", earnings rate: "+earningsRate+"%");
-        assertThat(order.getEarningsRate()).isEqualTo(earningsRate);
+        System.out.println("total prizes: "+winningResult.getTotalPrizes()+", earnings rate: "+earningsRate+"%");
+        assertThat(winningResult.getEarningsRate()).isEqualTo(earningsRate);
 
     }
 

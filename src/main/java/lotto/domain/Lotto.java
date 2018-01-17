@@ -7,9 +7,9 @@ import java.util.*;
 public class Lotto {
     public static final int LOTTO_COST = 1000;
     public static final int LOTTO_PICK_COUNT = 6;
+    public static List<Integer> TARGET_NUMBER;
 
     private static final int LOTTO_MAX_NUMBER = 45;
-    private static List<Integer> TARGET_NUMBER;
 
     private List<Integer> numbers;
     private WinningType winningType;
@@ -22,24 +22,29 @@ public class Lotto {
         }
     }
 
-    public Lotto(){
-        this.numbers = new ArrayList<>(LOTTO_PICK_COUNT);
+    public Lotto(List<Integer> numbers){
+        validateNumber(numbers);
 
-        Collections.shuffle(TARGET_NUMBER);
-        for(int i=0 ; i<LOTTO_PICK_COUNT ; i++){
-            this.numbers.add(TARGET_NUMBER.get(i));
+        this.numbers = numbers;
+    }
+
+    private void validateNumber(List<Integer> numbers) {
+        for(int number : numbers){
+            if(!TARGET_NUMBER.contains(number)){
+                throw new IllegalArgumentException("번호가 범위를 벗어났습니다.");
+            }
         }
     }
 
-    public WinningType matchLuckyNumbers(int[] luckyNumbers){
-        winningType = WinningType.parse(getMatchCount(luckyNumbers));
+    public WinningType matchLuckyNumbers(Lotto lucky){
+        winningType = WinningType.parse(getMatchCount(lucky));
 
         return winningType;
     }
 
-    public int getMatchCount(int[] luckyNumbers){
+    public int getMatchCount(Lotto lucky){
         int matchCount = 0;
-        for(int luckyNumber : luckyNumbers){
+        for(int luckyNumber : lucky.numbers){
             if(numbers.contains(luckyNumber)){
                 matchCount++;
             }
@@ -53,7 +58,7 @@ public class Lotto {
     }
 
     public boolean isWinningType(WinningType winningType){
-        return winningType.equals(this.winningType);
+        return winningType == this.winningType;
     }
 
     @Override
