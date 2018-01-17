@@ -1,7 +1,8 @@
 package lotto;
 
-import lotto.domain.LottoCustomer;
+import lotto.domain.LottoCustomerTicket;
 import lotto.domain.LottoConstants;
+import lotto.domain.LottoManualTicketRequest;
 import lotto.domain.LottoTicket;
 import lotto.util.TicketNumberParser;
 
@@ -9,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoStore {
-
-    public static int countTicket(int amount) {
+    private static int countTotalTicket(int amount) {
         validateAmount(amount);
         return amount / LottoConstants.UNIT_PRICE;
     }
@@ -25,15 +25,39 @@ public class LottoStore {
         return new LottoTicket(LottoGenerator.randomNumbers());
     }
 
-    public static LottoCustomer buyRandomTickets(int count) {
+    public static LottoCustomerTicket buyRandomTickets(int count) {
         List<LottoTicket> tickets = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             tickets.add(buyRandomTicket());
         }
-        return new LottoCustomer(tickets);
+        return new LottoCustomerTicket(tickets);
     }
 
     public static LottoTicket buyExplicitTicket(String numbersString) {
         return new LottoTicket(TicketNumberParser.parse(numbersString));
+    }
+
+    public static int countRandomTicket(int ticketTotalPrice, int manualTicketCount) {
+        int totalTicketCount = countTotalTicket(ticketTotalPrice);
+        if (manualTicketCount > totalTicketCount) {
+            throw new IllegalArgumentException("manualTicketCount is invalid. " +
+                    "ticketTotalPrice=" + ticketTotalPrice + ", manualTicketCount=" + manualTicketCount);
+        }
+        return totalTicketCount - manualTicketCount;
+    }
+
+    public static LottoCustomerTicket buyExplicitTickets(LottoManualTicketRequest lottoManualTicketRequest) {
+        List<LottoTicket> tickets = new ArrayList<>();
+        for (String plainTicket : lottoManualTicketRequest.getTicketRequests()) {
+            tickets.add(buyExplicitTicket(plainTicket));
+        }
+        return new LottoCustomerTicket(tickets);
+    }
+
+    public static LottoCustomerTicket buyLottoTicket(int ticketTotalPrice, LottoManualTicketRequest lottoManualTicketRequest) {
+        int randomTotalCount = LottoStore.countRandomTicket(ticketTotalPrice, lottoManualTicketRequest.getTicketRequests().size());
+        LottoCustomerTicket randomTickets = LottoStore.buyRandomTickets(randomTotalCount);
+        LottoCustomerTicket explicitTickets = LottoStore.buyExplicitTickets(lottoManualTicketRequest);
+        return new LottoCustomerTicket(randomTickets, explicitTickets);
     }
 }

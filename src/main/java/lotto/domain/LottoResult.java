@@ -4,7 +4,9 @@ import java.math.BigInteger;
 import java.util.Map;
 
 public class LottoResult {
-    private static final BigInteger HUNDRED_BIGINTEGER = new BigInteger("100");
+    public static final String MESSAGE_HEADER = "당첨 통계";
+    public static final String MESSAGE_HEADER_LINE = "---------";
+    private static final BigInteger HUNDRED_BIG_INTEGER = new BigInteger("100");
     private static final int HUNDRED = 100;
 
     private final Map<LottoPrize, Integer> lottoPrizeResults;
@@ -21,7 +23,7 @@ public class LottoResult {
     }
 
     public int calculateProfitRatio() {
-        int ratio = calculateTotalProfit().multiply(HUNDRED_BIGINTEGER).divide(ticketTotalPrice).intValue();
+        int ratio = calculateTotalProfit().multiply(HUNDRED_BIG_INTEGER).divide(ticketTotalPrice).intValue();
         if (ratio < HUNDRED) {
             return (HUNDRED - ratio) * -1;
         }
@@ -43,5 +45,9 @@ public class LottoResult {
                 "- " +
                 lottoPrizeResults.get(prize) +
                 "개";
+    }
+
+    public String showProfitRatioResultMessage() {
+        return "총 수익률은 " + this.calculateProfitRatio() + "%입니다";
     }
 }

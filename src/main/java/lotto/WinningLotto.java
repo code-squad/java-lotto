@@ -3,25 +3,30 @@ package lotto;
 import lotto.domain.*;
 import lotto.util.TicketNumberParser;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class WinningLotto {
-    private List<Integer> successNumbers;
-    private int bonusNumber;
+    private List<LottoNumber> successNumbers;
+    private LottoNumber bonusNumber;
 
     public WinningLotto(String successNumberString, String bonusNumberString) {
         this.successNumbers = TicketNumberParser.parse(successNumberString);
-        this.bonusNumber = Integer.parseInt(bonusNumberString);
+        this.bonusNumber = LottoNumber.of(bonusNumberString);
 
         validateCountOfLottoNumbers();
-        validateLottoSuccessNumbers();
-        validateLottoNumber(bonusNumber);
+        validateDuplicatedNumbers();
     }
 
-    private void validateLottoSuccessNumbers() {
-        for (Integer successNumber : successNumbers) {
-            validateLottoNumber(successNumber);
+    private void validateDuplicatedNumbers() {
+        Set<LottoNumber> set = new HashSet<>();
+        set.addAll(successNumbers);
+        set.add(bonusNumber);
 
+        if (set.size() != LottoConstants.NUMBER_COUNT + 1) {
+            throw new IllegalArgumentException("successNumbers=" + successNumbers.toString()
+                    + ", bonusNumber=" + bonusNumber);
         }
     }
 
@@ -31,19 +36,13 @@ public class WinningLotto {
         }
     }
 
-    private void validateLottoNumber(Integer successNumber) {
-        if (successNumber < LottoConstants.FIRST_NUMBER || successNumber > LottoConstants.LAST_NUMBER) {
-            throw new IllegalArgumentException("successNumber=" + successNumber);
-        }
-    }
-
-    public List<Integer> getSuccessNumbers() {
+    public List<LottoNumber> getSuccessNumbers() {
         return successNumbers;
     }
 
     public LottoPrize match(LottoTicket lottoTicket) {
         int matchCount = 0;
-        for (Integer successNumber : successNumbers) {
+        for (LottoNumber successNumber : successNumbers) {
             if (lottoTicket.match(successNumber)) {
                 matchCount++;
             }

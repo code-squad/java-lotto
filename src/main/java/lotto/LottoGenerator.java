@@ -1,14 +1,15 @@
 package lotto;
 
 import lotto.domain.LottoConstants;
+import lotto.domain.LottoNumber;
 
 import java.util.*;
 
 public class LottoGenerator {
-    public static List<Integer> randomNumbers() {
-        List<Integer> NUMBERS = new ArrayList<>();
+    public static List<LottoNumber> randomNumbers() {
+        List<LottoNumber> NUMBERS = new ArrayList<>();
         for (int i = LottoConstants.FIRST_NUMBER; i <= LottoConstants.LAST_NUMBER; i++) {
-            NUMBERS.add(i);
+            NUMBERS.add(LottoNumber.of(i));
         }
         Collections.shuffle(NUMBERS);
 

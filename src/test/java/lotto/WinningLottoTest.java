@@ -1,14 +1,13 @@
 package lotto;
 
-import lotto.domain.LottoCustomer;
-import lotto.domain.LottoPrize;
-import lotto.domain.LottoResult;
-import lotto.domain.LottoTicket;
+import lotto.domain.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
@@ -23,13 +22,10 @@ public class WinningLottoTest {
 
     @Test
     public void putLastWeekSuccessNumber() {
-        List<Integer> lottoNumbers = winningLotto.getSuccessNumbers();
-        assertTrue(lottoNumbers.contains(1));
-        assertTrue(lottoNumbers.contains(2));
-        assertTrue(lottoNumbers.contains(3));
-        assertTrue(lottoNumbers.contains(4));
-        assertTrue(lottoNumbers.contains(5));
-        assertTrue(lottoNumbers.contains(6));
+        List<LottoNumber> lottoNumbers = winningLotto.getSuccessNumbers();
+        for (int i = 1; i <= LottoConstants.NUMBER_COUNT; i++) {
+            assertTrue(lottoNumbers.contains(LottoNumber.of(i)));
+        }
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -47,23 +43,41 @@ public class WinningLottoTest {
         new WinningLotto("0, 2, 3, 4, 5, 6", "7");
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void putLastWeekSuccessNumberWithBonusDuplicated() {
+        new WinningLotto("1, 2, 3, 4, 5, 6", "6");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void putLastWeekSuccessNumberWithNormalDuplicated() {
+        new WinningLotto("1, 2, 3, 4, 6, 6", "7");
+    }
+
     @Test
     public void matchTickets() throws Exception {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         lottoTickets.add(LottoStore.buyExplicitTicket("10, 11, 12, 7, 8, 9"));
         lottoTickets.add(LottoStore.buyExplicitTicket("1, 2, 3, 7, 8, 9"));
 
-        LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
+        Map<LottoPrize, Integer> prizes = new HashMap<>();
+        prizes.put(LottoPrize.NONE, 1);
+        prizes.put(LottoPrize.THREE, 1);
 
-        LottoResult lottoResult = lottoCustomer.matchTickets(winningLotto);
-        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.NONE));
-        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.THREE));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE_BONUS));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.SIX));
+        assertTrue(matchTickets(lottoTickets, prizes, 250));
+    }
 
-        assertEquals(250, lottoResult.calculateProfitRatio());
+    private boolean matchTickets(List<LottoTicket> lottoTickets, Map<LottoPrize, Integer> prizes, int calculatedProfitRatio) {
+        LottoCustomerTicket lottoCustomerTicket = new LottoCustomerTicket(lottoTickets);
+        LottoResult lottoResult = lottoCustomerTicket.matchTickets(winningLotto);
+
+        for (LottoPrize lottoPrize : LottoPrize.values()) {
+            // try to use 'getOrDefault' method ?! instead of below code.
+            // int count = (prizes.containsKey(lottoPrize)) ? prizes.get(lottoPrize) : 0;
+            int count = prizes.getOrDefault(lottoPrize, 0);
+            assertEquals(count, lottoResult.getPrizeCount(lottoPrize));
+        }
+
+        return calculatedProfitRatio == lottoResult.calculateProfitRatio();
     }
 
     @Test
@@ -71,18 +85,10 @@ public class WinningLottoTest {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         lottoTickets.add(LottoStore.buyExplicitTicket("10, 11, 12, 7, 8, 9"));
 
-        LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
+        Map<LottoPrize, Integer> prizes = new HashMap<>();
+        prizes.put(LottoPrize.NONE, 1);
 
-        LottoResult lottoResult = lottoCustomer.matchTickets(winningLotto);
-        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.NONE));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.THREE));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE_BONUS));
-
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.SIX));
-
-        assertEquals(-100, lottoResult.calculateProfitRatio());
+        assertTrue(matchTickets(lottoTickets, prizes, -100));
     }
 
     @Test
@@ -95,17 +101,11 @@ public class WinningLottoTest {
         lottoTickets.add(LottoStore.buyExplicitTicket("7, 8, 9, 23, 42, 31"));
         lottoTickets.add(LottoStore.buyExplicitTicket("7, 8, 1, 23, 42, 31"));
 
-        LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
+        Map<LottoPrize, Integer> prizes = new HashMap<>();
+        prizes.put(LottoPrize.NONE, 5);
+        prizes.put(LottoPrize.THREE, 1);
 
-        LottoResult lottoResult = lottoCustomer.matchTickets(winningLotto);
-        assertEquals(5, lottoResult.getPrizeCount(LottoPrize.NONE));
-        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.THREE));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE_BONUS));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.SIX));
-
-        assertEquals(-17, lottoResult.calculateProfitRatio());
+        assertTrue(matchTickets(lottoTickets, prizes, -17));
     }
 
 
@@ -114,17 +114,10 @@ public class WinningLottoTest {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         lottoTickets.add(LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 7"));
 
-        LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
+        Map<LottoPrize, Integer> prizes = new HashMap<>();
+        prizes.put(LottoPrize.FIVE_BONUS, 1);
 
-        LottoResult lottoResult = lottoCustomer.matchTickets(winningLotto);
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.NONE));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.THREE));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FIVE));
-        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.FIVE_BONUS));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.SIX));
-
-        assertEquals(3000000, lottoResult.calculateProfitRatio());
+        assertTrue(matchTickets(lottoTickets, prizes, 3000000));
     }
 
     @Test
@@ -134,58 +127,51 @@ public class WinningLottoTest {
         lottoTickets.add(LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 8"));
         lottoTickets.add(LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 7"));
 
-        LottoCustomer lottoCustomer = new LottoCustomer(lottoTickets);
+        Map<LottoPrize, Integer> prizes = new HashMap<>();
+        prizes.put(LottoPrize.FIVE, 1);
+        prizes.put(LottoPrize.FIVE_BONUS, 1);
+        prizes.put(LottoPrize.SIX, 1);
 
-        LottoResult lottoResult = lottoCustomer.matchTickets(winningLotto);
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.NONE));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.THREE));
-        assertEquals(0, lottoResult.getPrizeCount(LottoPrize.FOUR));
-        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.FIVE));
-        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.FIVE_BONUS));
-        assertEquals(1, lottoResult.getPrizeCount(LottoPrize.SIX));
-
-        assertEquals(67716666, lottoResult.calculateProfitRatio());
+        assertTrue(matchTickets(lottoTickets, prizes, 67716666));
     }
 
     @Test
     public void check0Match() throws Exception {
-        LottoTicket lottoTicket = LottoStore.buyExplicitTicket("10, 11, 12, 7, 8, 9");
-        assertEquals(LottoPrize.NONE, winningLotto.match(lottoTicket));
+        assertTrue(checkMatch(LottoPrize.NONE, "10, 11, 12, 7, 8, 9"));
+    }
+
+    private boolean checkMatch(LottoPrize lottoPrize, String ticketNumberString) {
+        LottoTicket lottoTicket = LottoStore.buyExplicitTicket(ticketNumberString);
+        return lottoPrize.equals(winningLotto.match(lottoTicket));
     }
 
     @Test
     public void check1Match() throws Exception {
-        LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 10, 11, 7, 8, 9");
-        assertEquals(LottoPrize.NONE, winningLotto.match(lottoTicket));
+        assertTrue(checkMatch(LottoPrize.NONE,"1, 10, 11, 7, 8, 9"));
     }
 
     @Test
     public void check2Match() throws Exception {
-        LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 2, 10, 7, 8, 9");
-        assertEquals(LottoPrize.NONE, winningLotto.match(lottoTicket));
+        assertTrue(checkMatch(LottoPrize.NONE,"1, 2, 10, 7, 8, 9"));
     }
 
     @Test
     public void check3Match() throws Exception {
-        LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 2, 3, 7, 8, 9");
-        assertEquals(LottoPrize.THREE, winningLotto.match(lottoTicket));
+        assertTrue(checkMatch(LottoPrize.THREE,"1, 2, 3, 7, 8, 9"));
     }
 
     @Test
     public void check4Match() throws Exception {
-        LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 2, 3, 4, 8, 9");
-        assertEquals(LottoPrize.FOUR, winningLotto.match(lottoTicket));
+        assertTrue(checkMatch(LottoPrize.FOUR,"1, 2, 3, 4, 8, 9"));
     }
 
     @Test
     public void check5Match() throws Exception {
-        LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 9");
-        assertEquals(LottoPrize.FIVE, winningLotto.match(lottoTicket));
+        assertTrue(checkMatch(LottoPrize.FIVE,"1, 2, 3, 4, 5, 9"));
     }
 
     @Test
     public void check6Match() throws Exception {
-        LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 6");
-        assertEquals(LottoPrize.SIX, winningLotto.match(lottoTicket));
+        assertTrue(checkMatch(LottoPrize.SIX,"1, 2, 3, 4, 5, 6"));
     }
 }

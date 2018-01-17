@@ -4,14 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LottoTicket {
-    private List<Integer> numbers;
+    private final List<LottoNumber> numbers;
 
-    public LottoTicket(List<Integer> integers) {
-        numbers = integers;
-    }
-
-    public boolean match(Integer successNumber) {
-        return numbers.contains(successNumber);
+    public LottoTicket(List<LottoNumber> numbers) {
+        this.numbers = numbers;
     }
 
     @Override
@@ -22,5 +18,9 @@ public class LottoTicket {
                 .map(Object::toString)
                 .collect(Collectors.joining(", "))
                 + "]";
+    }
+
+    public boolean match(LottoNumber successNumber) {
+        return numbers.contains(successNumber);
     }
 }
