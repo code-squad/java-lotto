@@ -1,13 +1,20 @@
 import model.Lotto;
 import model.LottoGame;
+import view.ConsoleView;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        LottoGame lottoGame = new LottoGame(14000);
-        lottoGame.setWinningLotto(new Lotto(46, 6, Arrays.asList(1, 2, 3, 4, 5, 6)));
-        lottoGame.runGames();
+	public static void main(String[] args) {
+		int money = ConsoleView.getMoney();
+		Integer[] numbers = ConsoleView.getLastWeekWinningCombination();
 
-    }
+		List<Integer>[] lottoNumbers = new List[1];
+		lottoNumbers[0] = Arrays.asList(numbers);
+
+		LottoGame lottoGame = new LottoGame(money, lottoNumbers);
+		lottoGame.setWinningLotto(new Lotto(46, 6, Arrays.asList(numbers)));
+
+		ConsoleView.printResultStatistics(lottoGame.runGames());
+	}
 }

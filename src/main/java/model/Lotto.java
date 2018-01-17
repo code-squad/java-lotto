@@ -13,7 +13,6 @@ public class Lotto {
         this.bound = bound;
         this.size = size;
         this.numbers = generate();
-
     }
 
     public Lotto(int bound, int size, List<Integer> numbers) {

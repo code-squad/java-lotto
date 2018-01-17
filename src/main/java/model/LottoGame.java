@@ -1,11 +1,7 @@
 package model;
 
-import model.gameResult.GameResult;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LottoGame {
 
@@ -27,6 +23,7 @@ public class LottoGame {
 		List<Lotto> manualGames = playManualGames(manualGameCount, manualLottoNumbers);
 		List<Lotto> autoGames = playAutoGames(playableCount - manualGameCount);
 
+		this.lottos = new ArrayList<>();
 		this.lottos.addAll(manualGames);
 		this.lottos.addAll(autoGames);
 	}
@@ -51,17 +48,21 @@ public class LottoGame {
 		return lottos;
 	}
 
-	public List<GameResult> runGames() {
-		Map<Object, Integer> gameResults = new HashMap<>();
+	public Map<ResultTypes, Integer> runGames() {
+		Map<ResultTypes, Integer> gameResults = new HashMap<>();
 
 		for(Lotto lotto : lottos) {
 			int matchCount = lotto.compare(winningLotto);
-			int winningPrice = ResultTypes.findByCode(matchCount).getPrice();
-			System.out.println(winningPrice);
+			ResultTypes key = ResultTypes.findByCode(matchCount);
 
+			if (!gameResults.containsKey(key)) {
+				gameResults.put(key, 1);
+			} else {
+				gameResults.put(key, gameResults.get(key) + 1);
+			}
 		}
 
-		return null;
+		return gameResults;
 	}
 
 	public List<Lotto> getLottos() {
