@@ -1,13 +1,18 @@
 package view;
 
+import domain.LottoGame;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
+    public static final int PRICE = 1000;
 
     public static int inputMoney(Scanner sc){
         System.out.println("구매 금액을 입력해주세요.");
-        return Integer.valueOf(sc.nextLine());
+        int inputValue = Integer.valueOf(sc.nextLine());
+        OutputView.printAmountLotto(LottoGame.amountOfLotto(inputValue));
+        return inputValue;
     }
 
     public static String inputLuckyNumbers(Scanner sc) {

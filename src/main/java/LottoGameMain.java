@@ -1,4 +1,5 @@
 import domain.LottoGame;
+import dto.LottoResult;
 import view.InputView;
 import view.OutputView;
 
@@ -10,10 +11,9 @@ public class LottoGameMain {
         int money = InputView.inputMoney(sc);
 
         LottoGame lottoGame = new LottoGame(money);
-
         String luckyNumbers = InputView.inputLuckyNumbers(sc);
-        int[] winCounts = lottoGame.compareLotto(luckyNumbers);
 
-        OutputView.printCountOfWinLotto(winCounts, lottoGame.calRetRate(winCounts, money));
+        LottoResult result = lottoGame.match(luckyNumbers);
+        OutputView.printCountOfWinLotto(result);
     }
 }
