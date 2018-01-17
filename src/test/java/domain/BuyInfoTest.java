@@ -5,7 +5,10 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 public class BuyInfoTest {
+    private BuyInfo buyInfo;
     private Lottos testLottos;
     @Before
     public void init() {
@@ -17,9 +20,17 @@ public class BuyInfoTest {
                         new Lotto(Arrays.asList(1, 2, 3, 7, 8, 9))
                 )
         );
+
+        buyInfo = new BuyInfo(5000, testLottos);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidInputTest() {
+        new BuyInfo(1000, testLottos);
+    }
+
     @Test
-    public void buyInfoTest() {
-        BuyInfo buyInfo = new BuyInfo(1000, testLottos);
+    public void getNumOfAutoLotto() {
+        assertThat(buyInfo.getNumOfBuyableAutoLottos()).isEqualTo(1);
     }
 }
