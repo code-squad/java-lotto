@@ -22,7 +22,11 @@ public class WinningLottosTest {
         lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 7)));
         lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
 
-        winningLottos = new Lottos(lottos).getWinningLottos(new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7));
+        winningLottos = new Lottos(lottos).getWinningLottos(
+                    new WinningNumber(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                        new LottoNo(7)
+                    )
+        );
     }
 
     @Test
@@ -50,7 +54,10 @@ public class WinningLottosTest {
         lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 7)));
         lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
 
-        winningLottos = new Lottos(lottos).getWinningLottos(new WinningNumber(Arrays.asList(11, 12, 13, 14, 15, 16), 7));
+        winningLottos = new Lottos(lottos).getWinningLottos(
+                new WinningNumber(new Lotto(Arrays.asList(11, 12, 13, 14, 15, 16)), new LottoNo(17))
+        );
+
         int profitPercentage = winningLottos.getProfitPercentage(4000);
         assertThat(profitPercentage).isEqualTo(-100);
     }

@@ -1,5 +1,7 @@
 package view;
 
+import domain.Lotto;
+import domain.LottoNo;
 import domain.WinningNumber;
 
 import java.util.ArrayList;
@@ -10,10 +12,10 @@ public class InputView {
     private static final Scanner sc = new Scanner(System.in);
 
     public static WinningNumber getWinningLotto() {
-        List<Integer> winnerNums = getWinnerNums();
-        int bonusNum = getBonusNum();
+        Lotto winningLotto = new Lotto(getWinnerNums());
+        LottoNo bonusNo = new LottoNo(getBonusNum());
 
-        return new WinningNumber(winnerNums, bonusNum);
+        return new WinningNumber(winningLotto, bonusNo);
     }
     public static int getInvestMoney() {
         System.out.println("구입 금액을 입력해 주세요.");

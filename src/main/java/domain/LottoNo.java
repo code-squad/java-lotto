@@ -12,7 +12,7 @@ public class LottoNo {
     }
 
     private void inputCheck(int no) {
-        if(no < 0 || no > 45)
+        if(no < 1 || no > 45)
             throw new IllegalArgumentException("Invalid input for lotto number");
     }
 

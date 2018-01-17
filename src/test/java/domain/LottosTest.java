@@ -24,7 +24,7 @@ public class LottosTest {
         lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 7)));
 
         this.lottos = new Lottos(lottos);
-        winningNumber = new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7);
+        winningNumber = new WinningNumber(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)), new LottoNo(7));
     }
 
     @Test

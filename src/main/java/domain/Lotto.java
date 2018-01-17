@@ -21,25 +21,25 @@ public class Lotto {
         return lottoNos;
     }
 
-    public int howManyCorrespond(List<Integer> winningNumber) {
+    public int howManyCorrespond(Lotto winningNumber) {
         return correspondNums(winningNumber).size();
     }
 
-    public List<Integer> correspondNums(List<Integer> winnigNumber) {
-        List<Integer> correspondNums = new ArrayList<>(LOTTO_POOL_NUM);
+    public List<LottoNo> correspondNums(Lotto winnigNumber) {
+        List<LottoNo> correspondNums = new ArrayList<>(LOTTO_POOL_NUM);
 
-        for (int i = 0 ; i < winnigNumber.size() ; i++)
-            checkCorrespond(correspondNums, winnigNumber.get(i));
+        for (int i = 0 ; i < winnigNumber.lottoNos.size() ; i++)
+            checkCorrespond(correspondNums, winnigNumber.lottoNos.get(i));
 
         return correspondNums;
     }
 
-    private void checkCorrespond(List<Integer> correspondNums, int targetNum) {
+    private void checkCorrespond(List<LottoNo> correspondNums, LottoNo targetNum) {
         if(lottoNos.contains(targetNum))
             correspondNums.add(targetNum);
     }
 
-    public boolean isBonusNumMatch(int bonusNum) {
+    public boolean isBonusNumMatch(LottoNo bonusNum) {
         return lottoNos.contains(bonusNum);
     }
 

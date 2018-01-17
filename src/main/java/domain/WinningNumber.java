@@ -2,18 +2,12 @@ package domain;
 
 import enums.LottoPrize;
 
-import java.util.List;
-
-import static domain.LottoNumCreator.LOTTO_POOL_MAX_NUM;
-import static domain.LottoNumCreator.LOTTO_POOL_NUM;
-
 public class WinningNumber {
-    private List<Integer> winningLottos;
-    private int bonusNum;
+    private Lotto winningLottos;
+    private LottoNo bonusNum;
 
-    public WinningNumber(List<Integer> winningLottos, int bonusNum) {
-        if(inputValidationCheck(winningLottos, bonusNum))
-            throw new IllegalArgumentException("invalid input");
+    public WinningNumber(Lotto winningLottos, LottoNo bonusNum) {
+        inputValidationCheck(winningLottos, bonusNum);
 
         this.winningLottos = winningLottos;
         this.bonusNum = bonusNum;
@@ -26,16 +20,16 @@ public class WinningNumber {
         return LottoPrize.valueOf(numOfCorrespond, matchBonusNum);
     }
 
-    private boolean inputValidationCheck(List<Integer> winningLottos, int bonusNum) {
-        return winningLottos == null || winningLottos.size() < LOTTO_POOL_NUM
-                || bonusNum < 1 || bonusNum > LOTTO_POOL_MAX_NUM;
+    private void inputValidationCheck(Lotto winningLottos, LottoNo bonusNum) {
+        if(winningLottos == null || bonusNum == null)
+            throw new IllegalArgumentException("invalid input");
     }
 
-    public List<Integer> getWinningLottos() {
+    public Lotto getWinningLottos() {
         return winningLottos;
     }
 
-    public int getBonusNum() {
+    public LottoNo getBonusNum() {
         return bonusNum;
     }
 }
