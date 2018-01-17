@@ -44,6 +44,16 @@ public class InputView {
         return Integer.parseInt(sc.nextLine());
     }
 
+    public static Lottos getManualLottos(String inputs) {
+        String[] lottoInputs = inputs.split("\r\n");
+        List<Lotto> lottos = new ArrayList<>(lottoInputs.length);
+
+        for(int i = 0 ; i < lottoInputs.length ; ++i)
+            lottos.add(new Lotto(getNumber(lottoInputs[i])));
+
+        return new Lottos(lottos);
+    }
+
     private static Lottos getManualLottos(int numOfManualLotto) {
         List<Lotto> nums = new ArrayList<>(numOfManualLotto);
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
@@ -52,6 +62,12 @@ public class InputView {
             nums.add(new Lotto(getNumber()));
 
         return new Lottos(nums);
+    }
+
+    public static List<Integer> getNumber(String input) {
+        String[] inputs = input.split(",");
+
+        return toInts(inputs);
     }
 
     private static List<Integer> getNumber() {
