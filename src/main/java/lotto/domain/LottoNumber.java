@@ -7,13 +7,13 @@ public class LottoNumber implements Comparable<LottoNumber> {
         this.number = integer;
     }
 
-    public static LottoNumber newInstance(int integer) {
+    public static LottoNumber of(int integer) {
         validate(integer);
         return new LottoNumber(integer);
     }
 
-    public static LottoNumber newInstance(String numberString) {
-        return LottoNumber.newInstance(Integer.parseInt(numberString));
+    public static LottoNumber of(String numberString) {
+        return LottoNumber.of(Integer.parseInt(numberString));
     }
 
     private static void validate(int number) {

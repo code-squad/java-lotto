@@ -9,7 +9,7 @@ public class LottoGenerator {
     public static List<LottoNumber> randomNumbers() {
         List<LottoNumber> NUMBERS = new ArrayList<>();
         for (int i = LottoConstants.FIRST_NUMBER; i <= LottoConstants.LAST_NUMBER; i++) {
-            NUMBERS.add(LottoNumber.newInstance(i));
+            NUMBERS.add(LottoNumber.of(i));
         }
         Collections.shuffle(NUMBERS);
 

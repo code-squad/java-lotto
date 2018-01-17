@@ -9,13 +9,13 @@ public class TicketNumberParser {
     private static final String DELIMITER = ", ";
 
     public static List<LottoNumber> parse(String numbersString) {
-        return convertToInteger(parseAsStrings(numbersString));
+        return convertToLottoNumbers(parseAsStrings(numbersString));
     }
 
-    private static List<LottoNumber> convertToInteger(String[] numberStrings) {
+    private static List<LottoNumber> convertToLottoNumbers(String[] numberStrings) {
         List<LottoNumber> actualNumbers = new ArrayList<>();
         for (String numberString : numberStrings) {
-            actualNumbers.add(LottoNumber.newInstance(Integer.parseInt(numberString)));
+            actualNumbers.add(LottoNumber.of(numberString));
         }
         return actualNumbers;
     }

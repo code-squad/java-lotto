@@ -21,12 +21,12 @@ public class WinningLottoTest {
     @Test
     public void putLastWeekSuccessNumber() {
         List<LottoNumber> lottoNumbers = winningLotto.getSuccessNumbers();
-        assertTrue(lottoNumbers.contains(LottoNumber.newInstance(1)));
-        assertTrue(lottoNumbers.contains(LottoNumber.newInstance(2)));
-        assertTrue(lottoNumbers.contains(LottoNumber.newInstance(3)));
-        assertTrue(lottoNumbers.contains(LottoNumber.newInstance(4)));
-        assertTrue(lottoNumbers.contains(LottoNumber.newInstance(5)));
-        assertTrue(lottoNumbers.contains(LottoNumber.newInstance(6)));
+        assertTrue(lottoNumbers.contains(LottoNumber.of(1)));
+        assertTrue(lottoNumbers.contains(LottoNumber.of(2)));
+        assertTrue(lottoNumbers.contains(LottoNumber.of(3)));
+        assertTrue(lottoNumbers.contains(LottoNumber.of(4)));
+        assertTrue(lottoNumbers.contains(LottoNumber.of(5)));
+        assertTrue(lottoNumbers.contains(LottoNumber.of(6)));
     }
 
     @Test(expected = IllegalArgumentException.class)

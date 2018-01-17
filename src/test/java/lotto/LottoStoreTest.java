@@ -53,12 +53,12 @@ public class LottoStoreTest {
         LottoManualTicketRequest lottoManualTicketRequest = getLottoManualTicketRequest();
         LottoCustomerTicket lottoCustomerTicket = LottoStore.buyExplicitTickets(lottoManualTicketRequest);
         assertEquals(2, lottoCustomerTicket.getTickets().size());
-        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(1)));
-        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(2)));
-        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(3)));
-        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(4)));
-        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(5)));
-        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(6)));
+        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(1)));
+        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(2)));
+        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(3)));
+        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(4)));
+        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(5)));
+        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(6)));
     }
 
     private LottoManualTicketRequest getLottoManualTicketRequest() {

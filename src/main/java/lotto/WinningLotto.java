@@ -13,7 +13,7 @@ public class WinningLotto {
 
     public WinningLotto(String successNumberString, String bonusNumberString) {
         this.successNumbers = TicketNumberParser.parse(successNumberString);
-        this.bonusNumber = LottoNumber.newInstance(bonusNumberString);
+        this.bonusNumber = LottoNumber.of(bonusNumberString);
 
         validateCountOfLottoNumbers();
         validateDuplicatedNumbers();

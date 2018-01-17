@@ -9,12 +9,12 @@ public class LottoTicketTest {
     @Test
     public void match() throws Exception {
         LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 6");
-        assertTrue(lottoTicket.match(LottoNumber.newInstance(1)));
-        assertTrue(lottoTicket.match(LottoNumber.newInstance(2)));
-        assertTrue(lottoTicket.match(LottoNumber.newInstance(3)));
-        assertTrue(lottoTicket.match(LottoNumber.newInstance(4)));
-        assertTrue(lottoTicket.match(LottoNumber.newInstance(5)));
-        assertTrue(lottoTicket.match(LottoNumber.newInstance(6)));
+        assertTrue(lottoTicket.match(LottoNumber.of(1)));
+        assertTrue(lottoTicket.match(LottoNumber.of(2)));
+        assertTrue(lottoTicket.match(LottoNumber.of(3)));
+        assertTrue(lottoTicket.match(LottoNumber.of(4)));
+        assertTrue(lottoTicket.match(LottoNumber.of(5)));
+        assertTrue(lottoTicket.match(LottoNumber.of(6)));
     }
 
     @Test
