@@ -19,27 +19,17 @@ public enum Rank {
     }
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {
-        Rank pickOne = null;
-
-        switch (countOfMatch){
-            case 6:
-                pickOne = FIRST;
-                break;
-            case 5:
-                if(matchBonus){
-                    pickOne = SECOND;
-                    break;
-                }
-                pickOne = THIRD;
-                break;
-            case 4:
-                pickOne = FOURTH;
-                break;
-            case 3:
-                pickOne =FIFTH;
-                break;
+        Rank[] ranks = Rank.values();
+        Rank pick = null;
+        if (countOfMatch == 5 && matchBonus){
+            pick = Rank.SECOND;
         }
 
-        return pickOne;
+        for (Rank rank : ranks) {
+            if (rank.getCountOfMatch() == countOfMatch){
+                pick = rank;
+            }
+        }
+        return pick;
     }
 }

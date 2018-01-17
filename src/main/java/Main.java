@@ -1,4 +1,4 @@
-import DTO.LottoResult;
+import dto.LottoResult;
 import model.Customer;
 import model.Lotto;
 import view.InputView;
@@ -18,7 +18,7 @@ public class Main {
         String lastWeekHitNumbers = InputView.scanLastWeekLottoNumbers();
         Integer bonus = InputView.scanBonusNumber();
 
-        LottoResult lottoResult = customer.match(lastWeekHitNumbers, bonus);
+        LottoResult lottoResult = customer.getLottoResult(lastWeekHitNumbers, bonus);
 
         ResultView.printResult(lottoResult.getLottoResult());
         ResultView.printStatics(lottoResult.getPercentage());
