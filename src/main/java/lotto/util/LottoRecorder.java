@@ -1,23 +1,29 @@
 package lotto.util;
 
 import lotto.domain.Lotto;
+import lotto.domain.LottoNumber;
 import lotto.domain.LottoRank;
 import lotto.domain.LottoResult;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LottoRecorder {
 
     private Lotto jackpot;
+    private LottoNumber luckyNumber;
     private LottoResult lottoResult;
 
-    public LottoRecorder(Lotto jackpot, List<Lotto> lottoList) {
+    public LottoRecorder(Lotto jackpot, List<Lotto> lottoList, LottoNumber luckyNumber) {
         Objects.requireNonNull(jackpot);
+        Objects.requireNonNull(lottoList);
+        Objects.requireNonNull(luckyNumber);
         this.jackpot = jackpot;
+        this.luckyNumber = luckyNumber;
         this.lottoResult = new LottoResult();
         recordResult(lottoList);
     }
@@ -30,12 +36,13 @@ public class LottoRecorder {
 
     private List<Lotto> matchCount(LottoRank lottoRank, List<Lotto> lottoList) {
         return lottoList.stream()
-                .filter(lotto ->
-                        lottoRank.equals(LottoRank.REST) ?
-                                matchCount(lotto) < 3 :
-                                lottoRank.getMatchingCount() == matchCount(lotto)
-                )
+                .filter(sameCount(lottoRank))
                 .collect(Collectors.toList());
+    }
+
+    private Predicate<Lotto> sameCount(LottoRank lottoRank) {
+        return lotto ->
+                lottoRank.equals(LottoRank.getLottoRank(matchCount(lotto),lotto.contains(luckyNumber)));
     }
 
     public int matchCount(Lotto lotto) {

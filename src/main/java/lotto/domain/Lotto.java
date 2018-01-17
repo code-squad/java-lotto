@@ -1,7 +1,7 @@
 package lotto.domain;
 
-import lotto.util.LottoUtil;
 import lotto.util.LottoRecorder;
+import lotto.util.LottoUtil;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -24,7 +24,7 @@ public class Lotto {
     }
 
     public Lotto(String numbers) {
-        if(!LottoUtil.canParsing(numbers)) new IllegalArgumentException();
+        if(!LottoUtil.canLotto(numbers)) new IllegalArgumentException();
         makeLotto(LottoUtil.toLottoNumberList(numbers));
     }
 
@@ -66,8 +66,10 @@ public class Lotto {
         return (int) lotto.lotto.stream().filter(contain).count();
     }
 
-    public LottoRecorder match(List<Lotto> lottoList) {
-        return new LottoRecorder(this, lottoList);
+    public LottoRecorder match(List<Lotto> lottoList, LottoNumber luckyNumber) {
+        Objects.requireNonNull(lottoList);
+        Objects.requireNonNull(luckyNumber);
+        return new LottoRecorder(this, lottoList, luckyNumber);
     }
 
     @Override

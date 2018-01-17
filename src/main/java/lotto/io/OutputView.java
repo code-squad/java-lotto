@@ -21,7 +21,7 @@ public class OutputView {
         System.out.println("---------");
         Stream.of(LottoRank.values())
                 .filter(lottoRank -> !lottoRank.equals(LottoRank.REST))
-                .forEach(lottoRank -> 
+                .forEach(lottoRank ->
                     System.out.println(String.format("%d개 일치(%d원)- %d개", lottoRank.getMatchingCount(), lottoRank.getPrice(), lottoRecorder.getLottoCount(lottoRank)))
                 );
         System.out.println(String.format("총 수익률은 %d입니다.",lottoRecorder.getProfitRatio()));
