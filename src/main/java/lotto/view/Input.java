@@ -1,17 +1,18 @@
 package lotto.view;
 
-import lotto.util.LottoUtils;
-
 import java.io.InputStream;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
+import lotto.util.LottoUtils;
+
 import static java.util.stream.Collectors.toList;
+import static lotto.domain.WinningLotto.getWinningLottos;
 import static lotto.util.LottoUtils.LOTTO_MAX_COUNT;
 
 public class Input {
-    private Scanner scanner;
+    private static Scanner scanner;
 
     private Input(Object value) {
         if(value instanceof String) { scanner = new Scanner((String) value); }
@@ -43,4 +44,10 @@ public class Input {
     }
 
 
+    public static int getBonusBall() {
+        Output.print("보너스 볼을 입력해 주세요.");
+        int bonusBall = scanner.nextInt();
+        if(getWinningLottos().contains(bonusBall)) { throw new IllegalArgumentException("중복된 번호입니다."); }
+        return bonusBall;
+    }
 }
