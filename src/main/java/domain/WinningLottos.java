@@ -46,6 +46,13 @@ public class WinningLottos {
         return numOfLotto * LOTTO_PRICE;
     }
 
+    public int getProfitPercentage() {
+        int totalPrize = getTotalPrize();
+        int investMoney = getInvestMoney();
+
+        return (int) (((double) totalPrize - investMoney) / investMoney * 100);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
