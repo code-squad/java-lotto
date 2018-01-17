@@ -19,11 +19,18 @@ public class Lotto {
         return copyBaseList.subList(0, 6);
     }
 
-    public List<List<Integer>> buyLotto(int money) {
+    public List<List<Integer>> buy(int money) {
         List<List<Integer>> totalLotto = new ArrayList<>();
         for (int i = 0; i < money/1000; i++) {
             totalLotto.add(create());
         }
         return totalLotto;
+    }
+
+    public List<Integer> sort(List<Integer> lotto) {
+        List<Integer> sortedLotto = new ArrayList<>(lotto);
+        Collections.sort(sortedLotto);
+
+        return sortedLotto;
     }
 }
