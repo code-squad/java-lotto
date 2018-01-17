@@ -31,6 +31,6 @@ public class BuyInfoTest {
 
     @Test
     public void getNumOfAutoLotto() {
-        assertThat(buyInfo.getNumOfBuyableAutoLottos()).isEqualTo(1);
+        assertThat(buyInfo.getBuyableNumberOfAutoLottos()).isEqualTo(1);
     }
 }

@@ -13,7 +13,7 @@ public class LottoSeller {
     }
 
     public Lottos buyLotto(BuyInfo buyInfo) {
-        int quantity = buyInfo.getNumOfBuyableAutoLottos();
+        int quantity = buyInfo.getBuyableNumberOfAutoLottos();
         List<Lotto> lottos = new ArrayList<>(quantity);
 
         for(int i = 0 ; i < quantity ; ++i)

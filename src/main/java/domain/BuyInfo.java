@@ -18,7 +18,7 @@ public class BuyInfo {
             throw new IllegalArgumentException("Invalid inputs for BuyInfo");
     }
 
-    public int getNumOfBuyableAutoLottos() {
+    public int getBuyableNumberOfAutoLottos() {
         return (investMoney - getSpendMoneyToBuyManualLotto(manualLottos)) / LOTTO_PRICE;
     }
 
