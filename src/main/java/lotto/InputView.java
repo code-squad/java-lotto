@@ -1,6 +1,7 @@
 package lotto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,23 +17,21 @@ public class InputView {
         return Integer.parseInt(sc.nextLine());
     }
 
-    public static List<Integer> inputMatchingNumbers() {
+    public static Lotto inputMatchingNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
 
         String input = sc.nextLine();
         String[] inputs = input.split(", ");
 
-        return convertIntegerList(inputs);
+        return convertLotto(inputs);
     }
 
-    private static List<Integer> convertIntegerList(String[] inputs) {
+    private static Lotto convertLotto(String[] inputs) {
         List<Integer> matchingNumbers = new ArrayList<>();
-
         for (int i = 0; i < inputs.length; i++) {
             matchingNumbers.add(Integer.parseInt(inputs[i]));
         }
-
-        return matchingNumbers;
+        return new Lotto(matchingNumbers);
     }
 
 }

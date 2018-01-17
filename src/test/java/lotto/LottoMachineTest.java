@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -42,28 +43,21 @@ public class LottoMachineTest {
         List<Lotto> lottos = lottoMachine.createRandomLotto(5);
 
         for (Lotto lotto : lottos) {
-            lotto.printLotto();
+            System.out.println(lotto.toString());
         }
     }
 
     @Test
     public void 당첨번호와_맞은_개수_파악하기() throws Exception {
         List<Lotto> lottos = lottoMachine.createRandomLotto(5);
-        List<Integer> matchingNumbers = new ArrayList<>();
-        matchingNumbers.add(1);
-        matchingNumbers.add(3);
-        matchingNumbers.add(5);
-        matchingNumbers.add(6);
-        matchingNumbers.add(10);
-        matchingNumbers.add(11);
+        List<Integer> matchingNumbers = Arrays.asList(1,3,4,5,6,7);
+        Lotto matchingLotto = new Lotto(matchingNumbers);
 
-        Map<Integer, Integer> result = lottoMachine.makeResult(matchingNumbers);
+        lottoMachine.makeResult(matchingLotto);
 
         for (Lotto lotto : lottos) {
-            lotto.printLotto();
-            System.out.println(lotto.countMatchingAnswer(matchingNumbers));
+            System.out.println(lotto.toString());
+            System.out.println(lotto.countMatchingAnswer(matchingLotto));
         }
-
-
     }
 }

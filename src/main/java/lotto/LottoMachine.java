@@ -24,23 +24,26 @@ public class LottoMachine {
         return numbers;
     }
 
-    public List<Lotto>  createRandomLotto(int count) {
+    public List<Lotto> createRandomLotto(int count) {
         lottos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             lottos.add(new Lotto(getRandomNumbers()));
         }
-        return lottos;
+        return this.lottos;
     }
 
     public List<Integer> getRandomNumbers() {
-        List<Integer> numbers = new ArrayList<>();
-        Collections.shuffle(bagicNumbers);
-        for (int i = 0; i < 6; i++) {
-            numbers.add(bagicNumbers.get(i));
-        }
-        Collections.sort(numbers);
-        return numbers;
+        return subListNums(shuffleNums(createLottoBasicNumbers()));
+    }
 
+    private List<Integer> subListNums(List<Integer> nums) {
+        nums = nums.subList(0, 6);
+        Collections.sort(nums);
+        return nums;
+    }
+    private List<Integer> shuffleNums(List<Integer> nums) {
+        Collections.shuffle(nums);
+        return nums;
     }
 
     public int countForPrice(int money) {
@@ -55,11 +58,12 @@ public class LottoMachine {
         return lottos;
     }
 
-    public Map<Integer, Integer> makeResult(List<Integer> matchingNumbers) {
+    public Result makeResult(Lotto matchingLotto) {
+        Result result = new Result();
         for (Lotto lotto : lottos) {
-            Result.increaseCount(lotto.countMatchingAnswer(matchingNumbers));
+            result.increaseCount(lotto.countMatchingAnswer(matchingLotto));
         }
 
-        return Result.lottoResult;
+        return result;
     }
 }

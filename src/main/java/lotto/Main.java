@@ -27,10 +27,10 @@ public class Main {
         showLotto(lottoMachine.getLottos());
 
         //지난 주 당첨 번호 입력
-        List<Integer> matchingNumbers = inputMatchingNumbers();
+        Lotto matchingNumbers = inputMatchingNumbers();
 
         //통계 조회
-        Map<Integer, Integer> result = lottoMachine.makeResult(matchingNumbers);
+        Result result = lottoMachine.makeResult(matchingNumbers);
 
         showResult(result, money);
     }

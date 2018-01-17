@@ -9,20 +9,25 @@ import java.util.List;
  */
 public class Lotto {
 
-    List<Integer> numbers;
+    private List<Integer> lottoNumbers;
+    private static final int LOTTO_NUMBER_SIZE = 6;
 
     public Lotto(List<Integer> numbers) {
-       this.numbers = numbers;
+        if(numbers.size() < LOTTO_NUMBER_SIZE) {
+            throw new IllegalArgumentException(String.format("최소 로또 숫자는 %s 입니다.",LOTTO_NUMBER_SIZE));
+        }
+        this.lottoNumbers = numbers;
     }
 
-    public void printLotto() {
-        System.out.println(String.join(", ", numbers.toString()));
+    @Override
+    public String toString() {
+        return String.join(", ", lottoNumbers.toString());
     }
 
-    public int countMatchingAnswer(List<Integer> answer) {
+    public int countMatchingAnswer(Lotto matchingLotto) {
         int matchCount =0;
-        for (Integer integer : answer) {
-            if(numbers.contains(integer)) {
+        for (Integer integer : matchingLotto.lottoNumbers) {
+            if(this.lottoNumbers.contains(integer)) {
                 matchCount++;
             }
         }

@@ -24,22 +24,21 @@ public class Result {
         lottoResult.put(6,0);
     }
 
-    public static void increaseCount(int matchCount) {
+    public void increaseCount(int matchCount) {
         if(matchCount >= 3) {
             lottoResult.put(matchCount, lottoResult.get(matchCount)+1);
         }
     }
 
-    public static double rateTotal(int money) {
+    public static int getSum() {
         int sum =0;
         for (Integer integer : matchingPrice.keySet()) {
             sum += matchingPrice.get(integer) * lottoResult.get(integer);
         }
-        return (1.0 * sum / money) *100;
-
+        return sum;
     }
 
-
-
-
+    public static int rateTotal(int money) {
+        return (getSum() - money) / money *100;
+    }
 }
