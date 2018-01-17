@@ -63,10 +63,10 @@ public class WinningLottoTest {
         prizes.put(LottoPrize.NONE, 1);
         prizes.put(LottoPrize.THREE, 1);
 
-        matchTickets(lottoTickets, prizes, 250);
+        assertTrue(matchTickets(lottoTickets, prizes, 250));
     }
 
-    private void matchTickets(List<LottoTicket> lottoTickets, Map<LottoPrize, Integer> prizes, int calculatedProfitRatio) {
+    private boolean matchTickets(List<LottoTicket> lottoTickets, Map<LottoPrize, Integer> prizes, int calculatedProfitRatio) {
         LottoCustomerTicket lottoCustomerTicket = new LottoCustomerTicket(lottoTickets);
         LottoResult lottoResult = lottoCustomerTicket.matchTickets(winningLotto);
 
@@ -76,7 +76,8 @@ public class WinningLottoTest {
             int count = prizes.getOrDefault(lottoPrize, 0);
             assertEquals(count, lottoResult.getPrizeCount(lottoPrize));
         }
-        assertEquals(calculatedProfitRatio, lottoResult.calculateProfitRatio());
+
+        return calculatedProfitRatio == lottoResult.calculateProfitRatio();
     }
 
     @Test
@@ -87,7 +88,7 @@ public class WinningLottoTest {
         Map<LottoPrize, Integer> prizes = new HashMap<>();
         prizes.put(LottoPrize.NONE, 1);
 
-        matchTickets(lottoTickets, prizes, -100);
+        assertTrue(matchTickets(lottoTickets, prizes, -100));
     }
 
     @Test
@@ -104,7 +105,7 @@ public class WinningLottoTest {
         prizes.put(LottoPrize.NONE, 5);
         prizes.put(LottoPrize.THREE, 1);
 
-        matchTickets(lottoTickets, prizes, -17);
+        assertTrue(matchTickets(lottoTickets, prizes, -17));
     }
 
 
@@ -116,7 +117,7 @@ public class WinningLottoTest {
         Map<LottoPrize, Integer> prizes = new HashMap<>();
         prizes.put(LottoPrize.FIVE_BONUS, 1);
 
-        matchTickets(lottoTickets, prizes, 3000000);
+        assertTrue(matchTickets(lottoTickets, prizes, 3000000));
     }
 
     @Test
@@ -131,7 +132,7 @@ public class WinningLottoTest {
         prizes.put(LottoPrize.FIVE_BONUS, 1);
         prizes.put(LottoPrize.SIX, 1);
 
-        matchTickets(lottoTickets, prizes, 67716666);
+        assertTrue(matchTickets(lottoTickets, prizes, 67716666));
     }
 
     @Test
