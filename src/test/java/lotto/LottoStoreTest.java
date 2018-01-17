@@ -1,9 +1,6 @@
 package lotto;
 
-import lotto.domain.LottoCustomerTicket;
-import lotto.domain.LottoManualTicketRequest;
-import lotto.domain.LottoNumber;
-import lotto.domain.LottoTicket;
+import lotto.domain.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -53,12 +50,9 @@ public class LottoStoreTest {
         LottoManualTicketRequest lottoManualTicketRequest = getLottoManualTicketRequest();
         LottoCustomerTicket lottoCustomerTicket = LottoStore.buyExplicitTickets(lottoManualTicketRequest);
         assertEquals(2, lottoCustomerTicket.getTickets().size());
-        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(1)));
-        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(2)));
-        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(3)));
-        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(4)));
-        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(5)));
-        assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(6)));
+        for (int i = 1; i <= LottoConstants.NUMBER_COUNT; i++) {
+            assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.of(i)));
+        }
     }
 
     private LottoManualTicketRequest getLottoManualTicketRequest() {

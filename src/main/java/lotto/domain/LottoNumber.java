@@ -3,20 +3,20 @@ package lotto.domain;
 public class LottoNumber implements Comparable<LottoNumber> {
     private final int number;
 
-    private LottoNumber(int integer) {
-        this.number = integer;
+    private LottoNumber(int number) {
+        validate(number);
+        this.number = number;
     }
 
-    public static LottoNumber of(int integer) {
-        validate(integer);
-        return new LottoNumber(integer);
+    public static LottoNumber of(int number) {
+        return new LottoNumber(number);
     }
 
     public static LottoNumber of(String numberString) {
-        return LottoNumber.of(Integer.parseInt(numberString));
+        return new LottoNumber(Integer.parseInt(numberString));
     }
 
-    private static void validate(int number) {
+    private void validate(int number) {
         if (number < LottoConstants.FIRST_NUMBER || number > LottoConstants.LAST_NUMBER) {
             throw new IllegalArgumentException("lottoNumber=" + number);
         }
