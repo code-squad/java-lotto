@@ -11,12 +11,20 @@ public class LottoGame {
 
 	private List<Lotto> lottos;
 	private Lotto winningLotto;
+	private int money;
+	private Map<ResultTypes, Integer> gameResults;
 
 	public LottoGame(int money) {
+		gameResults = new HashMap<>();
+		this.money = money;
 		this.lottos = playAutoGames(money / PRICE);
 	}
 
 	public LottoGame(int money, List<Integer>[] manualLottoNumbers) {
+		gameResults = new HashMap<>();
+
+		this.money = money;
+
 		int playableCount = money / PRICE;
 		int manualGameCount = manualLottoNumbers.length;
 
@@ -49,8 +57,6 @@ public class LottoGame {
 	}
 
 	public Map<ResultTypes, Integer> runGames() {
-		Map<ResultTypes, Integer> gameResults = new HashMap<>();
-
 		for(Lotto lotto : lottos) {
 			int matchCount = lotto.compare(winningLotto);
 			ResultTypes key = ResultTypes.findByCode(matchCount);
@@ -63,6 +69,20 @@ public class LottoGame {
 		}
 
 		return gameResults;
+	}
+
+	public int getYieldRate() {
+		int priceSum = 0;
+
+		int price, count;
+		for(ResultTypes type : gameResults.keySet()) {
+			price = type.getPrice();
+			count = gameResults.get(type);
+
+			priceSum += price * count;
+		}
+
+		return (priceSum * 100) / money;
 	}
 
 	public List<Lotto> getLottos() {

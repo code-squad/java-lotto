@@ -9,12 +9,10 @@ public class Main {
 		int money = ConsoleView.getMoney();
 		Integer[] numbers = ConsoleView.getLastWeekWinningCombination();
 
-		List<Integer>[] lottoNumbers = new List[1];
-		lottoNumbers[0] = Arrays.asList(numbers);
-
-		LottoGame lottoGame = new LottoGame(money, lottoNumbers);
+		LottoGame lottoGame = new LottoGame(money);
 		lottoGame.setWinningLotto(new Lotto(46, 6, Arrays.asList(numbers)));
 
 		ConsoleView.printResultStatistics(lottoGame.runGames());
+		ConsoleView.printYieldRate(lottoGame.getYieldRate());
 	}
 }
