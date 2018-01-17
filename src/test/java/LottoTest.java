@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -37,11 +38,11 @@ public class LottoTest {
 
     @Test
     public void 보너스볼을_받은_로또를_표시하는가() {
-        List<Integer> winningLottos = Arrays.asList(1, 2, 3, 40, 41, 42);
-        List<Integer> testLottos = Arrays.asList(1, 7, 6, 40, 41, 42);
+        Lotto lotto = Lotto.generate(new CustomLottoNumberGenerator(Arrays.asList(1, 2, 3, 40, 41, 42)));
+        Lotto testLotto = Lotto.generate(new CustomLottoNumberGenerator(Arrays.asList(1, 7, 6, 40, 41, 42)));
 
-        WinningLotto winningLotto = WinningLotto.generate(winningLottos, 7);
-        Lottos lottos = LottoMachine.init(1000).generateLottos(new CustomLottoNumberGenerator(testLottos));
+        WinningLotto winningLotto = WinningLotto.generate(lotto, 7);
+        Lottos lottos = LottoMachine.init(1000, 1).generateLottos(Collections.singletonList(testLotto));
         Map<Rank, Integer> resultMap = LottoResult.generate(lottos.getWinningRank(winningLotto)).getWinningLottoMap();
         assertEquals(of(1).get(), resultMap.get(FIVE_DOUBLE));
     }

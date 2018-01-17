@@ -8,13 +8,13 @@ public class WinningLotto {
     private static List<Integer> winningLottos;
     private int bonusBall;
 
-    private WinningLotto(List<Integer> winningLottos, int bonusBall) {
-        this.winningLottos = winningLottos;
+    private WinningLotto(Lotto winningLotto, int bonusBall) {
+        this.winningLottos = winningLotto.getNumbers();
         this.bonusBall = bonusBall;
     }
 
-    public static WinningLotto generate(List<Integer> winningLottos, int bonusBall) {
-        return new WinningLotto(winningLottos, bonusBall);
+    public static WinningLotto generate(Lotto winningLotto, int bonusBall) {
+        return new WinningLotto(winningLotto, bonusBall);
     }
 
     public boolean isWinningTarget(Lotto lotto) {
@@ -23,10 +23,6 @@ public class WinningLotto {
 
     public int getWinningCount(Lotto lotto) {
         return (int) winningLottos.stream().filter(lotto.getNumbers()::contains).count();
-    }
-
-    public static List<Integer> getWinningLottos() {
-        return winningLottos;
     }
 
     public int getBonusBall() {
