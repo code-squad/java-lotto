@@ -12,7 +12,7 @@ public class LottoTest {
 
     @Before
     public void init() {
-        lotto = new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6));
+        lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
     }
     @Test
     public void createLottoTicketTest() {

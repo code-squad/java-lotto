@@ -9,8 +9,8 @@ import static domain.LottoNumCreator.LOTTO_POOL_NUM;
 public class Lotto {
     private List<Integer> nums;
 
-    public Lotto(LottoNumberCreationStrategy lottoNumCreator) {
-        nums = lottoNumCreator.createLottoNums();
+    public Lotto(List<Integer> nums) {
+        this.nums = nums;
     }
 
     public int howManyCorrespond(List<Integer> winningNumber) {

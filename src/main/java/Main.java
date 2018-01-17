@@ -1,15 +1,16 @@
 import domain.*;
 
 
-import static domain.LottoSeller.sellLotto;
 import static view.InputView.*;
 import static view.ResultView.*;
 
 public class Main {
+    private static final LottoSeller lottoSeller = new LottoSeller(new LottoNumCreator());
+
     public static void main(String[] args) {
         int investMoney = getInvestMoney();
 
-        Lottos lottos = new Lottos(sellLotto(investMoney, new LottoNumCreator()));
+        Lottos lottos = new Lottos(lottoSeller.buyLotto(investMoney));
         showNumOfBuyLotto(lottos.getNumOfLottos());
         showLottos(lottos);
 

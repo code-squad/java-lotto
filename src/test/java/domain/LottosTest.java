@@ -17,11 +17,11 @@ public class LottosTest {
     @Before
     public void init() {
         List<Lotto> lottos = new ArrayList<>();
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 10, 15, 16)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 15, 16)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 15, 16)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 10, 15, 16)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 15, 16)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 15, 16)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 7)));
 
         this.lottos = new Lottos(lottos);
         winningNumber = new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7);

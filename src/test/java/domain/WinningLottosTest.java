@@ -17,10 +17,10 @@ public class WinningLottosTest {
     @Before
     public void init() {
         List<Lotto> lottos = new ArrayList<>();
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 7, 8, 9)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 7, 8)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 7, 8, 9)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 7, 8)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 7)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
 
         winningLottos = new Lottos(lottos).getWinningLottos(new WinningNumber(Arrays.asList(1, 2, 3, 4, 5, 6), 7));
     }
@@ -45,10 +45,10 @@ public class WinningLottosTest {
     @Test
     public void getProfitPercentageTest() {
         List<Lotto> lottos = new ArrayList<>();
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 7, 8, 9)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 7, 8)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 7)));
-        lottos.add(new Lotto(() -> Arrays.asList(1, 2, 3, 4, 5, 6)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 7, 8, 9)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 7, 8)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 7)));
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
 
         winningLottos = new Lottos(lottos).getWinningLottos(new WinningNumber(Arrays.asList(11, 12, 13, 14, 15, 16), 7));
         int profitPercentage = winningLottos.getProfitPercentage(4000);
