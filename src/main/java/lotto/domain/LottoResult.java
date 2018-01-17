@@ -17,7 +17,6 @@ public class LottoResult {
     }
 
     public static LottoResult generate(List<Rank> ranks) {
-        if(ranks.isEmpty()) throw new IllegalArgumentException();
         return new LottoResult(ranks);
     }
 

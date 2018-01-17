@@ -1,6 +1,7 @@
 package lotto.view;
 
 import lotto.domain.Lotto;
+import lotto.domain.LottoMachine;
 import lotto.domain.LottoResult;
 import lotto.domain.enums.Rank;
 import lotto.util.LottoUtils;
@@ -43,8 +44,8 @@ public class Output {
         lottos.stream().forEach(lotto -> print(lottoNumbersFormatting(lotto.getNumbers())));
     }
 
-    public static void printLottoCount(int count) {
-        print(String.format("%d개를 구매했습니다.", count));
+    public static void printLottoCount(LottoMachine lottoMachine) {
+        print(String.format("수동으로 %d장, 자동으로 %d개를 구매했습니다.", lottoMachine.getCustomLottoCount(), lottoMachine.getRandomLottoCount()));
     }
 
 }
