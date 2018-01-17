@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import lotto.domain.generator.CustomLottoNumberGenerator;
-import lotto.domain.generator.RandomLottoNumberGenerator;
 import lotto.util.LottoUtils;
 
 import static lotto.view.Input.getCommonLottoNumbers;
@@ -26,14 +24,14 @@ public class LottoMachine {
     public Lottos generateLottos(List<Lotto> customLottos) {
         List<Lotto> lottos = new ArrayList<>();
         if(customLottos != null) { lottos.addAll(customLottos); }
-        IntStream.range(0, randomLottoCount).forEach(i -> lottos.add(Lotto.generate(new RandomLottoNumberGenerator())));
+        IntStream.range(0, randomLottoCount).forEach(i -> lottos.add(Lotto.newRandomLotto()));
 
         return Lottos.generate(lottos);
     }
 
     public static List<Lotto> makeCustomLottos(int customCount) {
         List<Lotto> lottos = new ArrayList<>();
-        IntStream.range(0, customCount).forEach(i -> lottos.add(Lotto.generate(new CustomLottoNumberGenerator(getCommonLottoNumbers()))));
+        IntStream.range(0, customCount).forEach(i -> lottos.add(Lotto.newCustomLotto(getCommonLottoNumbers())));
         return lottos;
     }
 

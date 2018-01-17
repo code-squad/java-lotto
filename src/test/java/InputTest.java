@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import lotto.domain.Lotto;
-import lotto.domain.generator.CustomLottoNumberGenerator;
 import lotto.view.Input;
 
 import static java.util.Optional.of;
@@ -31,7 +30,7 @@ public class InputTest {
     @Test(expected = IllegalArgumentException.class)
     public void 중복된_보너스_값을_입력받았을때_에러를_발생시키는가() {
         Input input = Input.init("1");
-        input.getBonusBall(Lotto.generate(new CustomLottoNumberGenerator(IntStream.range(1, 6).boxed().collect(Collectors.toList()))));
+        input.getBonusBall(Lotto.newCustomLotto((IntStream.range(1, 6).boxed().collect(Collectors.toList()))));
     }
 
     @Test
@@ -43,8 +42,8 @@ public class InputTest {
     public void 수동으로_입력받은_로또_번호가_올바른가() {
         List<Lotto> customLottos = Input.init("1, 2, 3, 4, 5, 6\n7, 8, 9, 10, 11, 12").customLottoms(2);
         List<Lotto> lottos = new ArrayList<>();
-        lottos.add(Lotto.generate(new CustomLottoNumberGenerator(Arrays.asList(1, 2, 3, 4, 5, 6))));
-        lottos.add(Lotto.generate(new CustomLottoNumberGenerator(Arrays.asList(7, 8, 9, 10, 11, 12))));
+        lottos.add(Lotto.newCustomLotto((Arrays.asList(1, 2, 3, 4, 5, 6))));
+        lottos.add(Lotto.newCustomLotto((Arrays.asList(7, 8, 9, 10, 11, 12))));
 
         assertEquals(lottos, customLottos);
     }

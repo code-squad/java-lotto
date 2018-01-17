@@ -6,7 +6,6 @@ import java.util.Scanner;
 import java.util.stream.IntStream;
 
 import lotto.domain.Lotto;
-import lotto.domain.generator.CustomLottoNumberGenerator;
 import lotto.util.LottoUtils;
 
 import static java.util.stream.Collectors.toList;
@@ -40,7 +39,7 @@ public class Input {
 
     public Lotto winNumbers() {
         Output.print("지난 주 당첨 번호를 입력해 주세요.");
-        return Lotto.generate(new CustomLottoNumberGenerator(getCommonLottoNumbers()));
+        return Lotto.newCustomLotto((getCommonLottoNumbers()));
     }
 
     public static int getBonusBall(Lotto winningLotto) {
