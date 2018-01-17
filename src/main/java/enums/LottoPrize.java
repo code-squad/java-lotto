@@ -5,7 +5,8 @@ public enum LottoPrize {
     FOURTH(4, 50000),
     THIRD(5, 1500000),
     SECOND(5, 30000000),
-    FIRST(6, 2000000000);
+    FIRST(6, 2000000000),
+    LOSING_LOTTO(0, 0);
 
     private int numOfMatch;
     private int cashPrize;
@@ -24,6 +25,9 @@ public enum LottoPrize {
     }
 
     public String getState(int numOfMatchLotto) {
+        if(this.equals(LOSING_LOTTO))
+            return "";
+
         StringBuilder sb = new StringBuilder();
         sb.append(this.numOfMatch).append("개 일치")
                 .append(this.equals(LottoPrize.SECOND) ? ", 보너스 볼 일치 (" : " (")
@@ -41,7 +45,7 @@ public enum LottoPrize {
             if(prize.isMatch(numOfMatch))
                 return prize;
 
-        return null;
+        return LOSING_LOTTO;
     }
 
     private static boolean isMatchNumIsFIVE(int num) {
