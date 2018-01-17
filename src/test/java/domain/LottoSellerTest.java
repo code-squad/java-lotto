@@ -3,7 +3,6 @@ package domain;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -13,10 +12,8 @@ public class LottoSellerTest {
     public void lottoSellerTest() {
         LottoSeller lottoSeller = new LottoSeller(() -> Arrays.asList(1, 2, 3, 4, 5, 6));
 
-        List<Lotto> lottos = lottoSeller.buyLotto(5000);
+        Lottos lottos = lottoSeller.buyLotto(5000);
 
-        assertThat(lottos.size()).isEqualTo(5);
-        for (int i = 0 ; i < 5 ; i++)
-            assertThat(lottos.get(i).toString()).isEqualTo(Arrays.asList(1, 2, 3, 4, 5, 6).toString());
+        assertThat(lottos.getNumOfLottos()).isEqualTo(5);
     }
 }

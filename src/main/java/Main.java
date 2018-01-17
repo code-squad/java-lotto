@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         int investMoney = getInvestMoney();
 
-        Lottos lottos = new Lottos(lottoSeller.buyLotto(investMoney));
+        Lottos lottos = lottoSeller.buyLotto(investMoney);
         showNumOfBuyLotto(lottos.getNumOfLottos());
         showLottos(lottos);
 

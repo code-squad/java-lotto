@@ -12,13 +12,13 @@ public class LottoSeller {
         this.lottoNumCreateor = lottoNumCreator;
     }
 
-    public List<Lotto> buyLotto(int totalPrice) {
+    public Lottos buyLotto(int totalPrice) {
         int quantity = totalPrice / LOTTO_PRICE;
         List<Lotto> lottos = new ArrayList<>(quantity);
 
         for(int i = 0 ; i < quantity ; ++i)
             lottos.add(new Lotto(lottoNumCreateor.createLottoNums()));
 
-        return lottos;
+        return new Lottos(lottos);
     }
 }
