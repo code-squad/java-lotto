@@ -43,9 +43,4 @@ public class BuyInfoTest {
     public void getNumOfManualLottos() {
         assertThat(buyInfo.getNumOfManualLottos()).isEqualTo(4);
     }
-
-    @Test
-    public void getProfitPercentageTest() {
-        assertThat(buyInfo.getProfitPercentage(2500)).isEqualTo(-50);
-    }
 }

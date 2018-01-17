@@ -15,6 +15,6 @@ public class Main {
         showLottos(lottos);
 
         WinningLottos winningLottos = lottos.getWinningLottos(getWinningLotto());
-        showResult(winningLottos, buyInfo);
+        showResult(winningLottos);
     }
 }

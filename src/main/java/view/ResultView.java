@@ -15,10 +15,10 @@ public class ResultView {
         System.out.println(lottos.toString());
     }
 
-    public static void showResult(WinningLottos winningLottos, BuyInfo buyInfo) {
+    public static void showResult(WinningLottos winningLottos) {
         System.out.println("당첨 통계");
         System.out.println("-----------");
         System.out.println(winningLottos.toString());
-        System.out.println("총 수익률은 " + buyInfo.getProfitPercentage(winningLottos.getTotalPrize()) + "%입니다.");
+        System.out.println("총 수익률은 " + winningLottos.getProfitPercentage() + "%입니다.");
     }
 }
