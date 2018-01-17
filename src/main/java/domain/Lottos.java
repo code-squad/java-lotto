@@ -1,16 +1,24 @@
 package domain;
 
+import spark.utils.CollectionUtils;
+
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Lottos {
     private final List<Lotto> lottos;
 
     public Lottos(List<Lotto> lottos) {
-        if (lottos.isEmpty()) {
+        if (CollectionUtils.isEmpty(lottos)) {
             throw new IllegalArgumentException();
         }
         this.lottos = lottos;
+    }
+
+    public Lottos(Lottos... lottos) {
+        this(getLottoFromLottos(lottos));
     }
 
     public int size() {
@@ -22,6 +30,13 @@ public class Lottos {
             throw new IllegalArgumentException();
         }
         return new WinningLottos(matchLottos(winningNumbers));
+    }
+
+    private static List<Lotto> getLottoFromLottos(Lottos[] lottos) {
+        return Arrays.stream(lottos)
+                     .filter(Objects::nonNull)
+                     .flatMap(lotto -> lotto.lottos.stream())
+                     .collect(Collectors.toList());
     }
 
     private List<WinningLotto> matchLottos(WinningNumbers winningNumbers) {

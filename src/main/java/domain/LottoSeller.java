@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -9,20 +10,28 @@ public class LottoSeller {
 
     private RandomLottoGenerator generator = new RandomLottoGenerator();
 
-    public Lottos buyRandomNumberLottos(int money) {
-        checkArgument(money);
-        return new Lottos(IntStream.range(0, getCountOfBuy(money))
-                                   .mapToObj(i -> generator.createRandomLotto())
-                                   .collect(Collectors.toList()));
+    private static int getRemainedAmount(int money, int manualLottosSize) {
+        return money - manualLottosSize * LOTTO_PRICE;
+    }
+
+    public Lottos buyRandomLottosWithManualLottos(int money, Lottos manualLottos) {
+        int manualLottosSize = manualLottos != null ? manualLottos.size() : 0;
+
+        Optional<Lottos> randomLottos = buyRandomLottos(getRemainedAmount(money, manualLottosSize));
+        return new Lottos(manualLottos, randomLottos.orElse(null));
     }
 
     private int getCountOfBuy(int money) {
         return money / LOTTO_PRICE;
     }
 
-    private void checkArgument(int money) {
+    Optional<Lottos> buyRandomLottos(int money) {
         if (getCountOfBuy(money) <= 0) {
-            throw new IllegalArgumentException();
+            return Optional.empty();
         }
+        return Optional.of(new Lottos(IntStream.range(0, getCountOfBuy(money))
+                                               .mapToObj(i -> generator.createRandomLotto())
+                                               .collect(Collectors.toList())));
     }
+
 }

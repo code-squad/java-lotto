@@ -3,6 +3,9 @@ package domain;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoSellerTest {
@@ -15,22 +18,40 @@ public class LottoSellerTest {
     }
 
     @Test
-    public void buyLottos_정상파라미터() throws Exception {
-        Lottos lottos = seller.buyRandomNumberLottos(12000);
-        assertThat(lottos.size()).isEqualTo(12);
+    public void buyRandomLottos_정상파라미터() throws Exception {
+        Optional<Lottos> lottos = seller.buyRandomLottos(12000);
+        assertThat(lottos.isPresent()).isTrue();
+        assertThat(lottos.get().size()).isEqualTo(12);
 
-        lottos = seller.buyRandomNumberLottos(11999);
-        assertThat(lottos.size()).isEqualTo(11);
+        lottos = seller.buyRandomLottos(11999);
+        assertThat(lottos.isPresent()).isTrue();
+        assertThat(lottos.get().size()).isEqualTo(11);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void buyLottos_1000원미만() throws Exception {
-        seller.buyRandomNumberLottos(999);
+    @Test
+    public void buyRandomLottos_1000원미만() throws Exception {
+        assertThat(seller.buyRandomLottos(999).isPresent()).isFalse();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void buyLottos_음수() throws Exception {
-        seller.buyRandomNumberLottos(-1000);
+    @Test
+    public void buyRandomLottos_음수() throws Exception {
+        assertThat(seller.buyRandomLottos(-1000).isPresent()).isFalse();
+    }
+
+    @Test
+    public void buyRandomLottosWithManualLottos() throws Exception {
+        Lottos manualLottos = new Lottos(Arrays.asList(new Lotto(1, 2, 3, 4, 5, 6),
+                                                       new Lotto(1, 2, 3, 4, 5, 6)));
+        Lottos lottos = seller.buyRandomLottosWithManualLottos(10000, manualLottos);
+
+        assertThat(lottos.size()).isEqualTo(10);
+    }
+
+    @Test
+    public void buyRandomLottosWithManualLottos_인자가널인경우() throws Exception {
+        Lottos lottos = seller.buyRandomLottosWithManualLottos(10000, null);
+
+        assertThat(lottos.size()).isEqualTo(10);
     }
 
 }
