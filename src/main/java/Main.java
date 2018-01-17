@@ -8,12 +8,12 @@ public class Main {
     private static final LottoSeller lottoSeller = new LottoSeller(new LottoNumCreator());
 
     public static void main(String[] args) {
-/*        int investMoney = getInvestMoney();
+        BuyInfo buyInfo = getBuyInfo();
 
-        Lottos lottos = lottoSeller.buyLotto(investMoney);
-        showBoughtLotto(lottos);
+        Lottos lottos = lottoSeller.buyLotto(buyInfo);
+        showBoughtLotto(lottos, buyInfo);
 
         WinningLottos winningLottos = lottos.getWinningLottos(getWinningLotto());
-        showResult(winningLottos, investMoney);*/
+        showResult(winningLottos, buyInfo);
     }
 }

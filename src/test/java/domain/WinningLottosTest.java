@@ -41,25 +41,9 @@ public class WinningLottosTest {
     }
 
     @Test
-    public void getProfitTest() {
-        int profit = winningLottos.getProfit();
+    public void getTotalPrizeTest() {
+        int profit = winningLottos.getTotalPrize();
         assertThat(profit).isEqualTo(2030055000);
-    }
-
-    @Test
-    public void getProfitPercentageTest() {
-        List<Lotto> lottos = new ArrayList<>();
-        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 7, 8, 9)));
-        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 7, 8)));
-        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 7)));
-        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
-
-        winningLottos = new Lottos(lottos).getWinningLottos(
-                new WinningNumber(new Lotto(Arrays.asList(11, 12, 13, 14, 15, 16)), new LottoNo(17))
-        );
-
-        int profitPercentage = winningLottos.getProfitPercentage(4000);
-        assertThat(profitPercentage).isEqualTo(-100);
     }
 
     @Test

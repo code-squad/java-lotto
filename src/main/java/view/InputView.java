@@ -22,29 +22,29 @@ public class InputView {
         return new BuyInfo(investMoney, manualLotto);
     }
 
-    public static int getInvestMoney() {
+    private static int getInvestMoney() {
         System.out.println("구입 금액을 입력해 주세요.");
         return Integer.parseInt(sc.nextLine());
     }
 
-    public static List<Integer> getWinnerNums() {
+    private static List<Integer> getWinnerNums() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String[] inputs = sc.nextLine().split(", ");
 
         return toInts(inputs);
     }
 
-    public static int getBonusNum() {
+    private static int getBonusNum() {
         System.out.println("보너스 볼을 입력해 주세요.");
         return Integer.parseInt(sc.nextLine());
     }
 
-    public static int getNumOfManualLotto() {
+    private static int getNumOfManualLotto() {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         return Integer.parseInt(sc.nextLine());
     }
 
-    public static Lottos getManualLottos(int numOfManualLotto) {
+    private static Lottos getManualLottos(int numOfManualLotto) {
         List<Lotto> nums = new ArrayList<>(numOfManualLotto);
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
 

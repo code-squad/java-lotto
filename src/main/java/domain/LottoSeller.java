@@ -13,6 +13,12 @@ public class LottoSeller {
     }
 
     public Lottos buyLotto(BuyInfo buyInfo) {
+        Lottos autoLottos = createAutoLottos(buyInfo);
+
+        return buyInfo.joinLottos(autoLottos);
+    }
+
+    private Lottos createAutoLottos(BuyInfo buyInfo) {
         int quantity = buyInfo.getBuyableNumberOfAutoLottos();
         List<Lotto> lottos = new ArrayList<>(quantity);
 

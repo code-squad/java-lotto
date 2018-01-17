@@ -38,4 +38,14 @@ public class BuyInfoTest {
     public void joinLottosTest() {
         assertThat(buyInfo.joinLottos(testLottos).getNumOfLottos()).isEqualTo(8);
     }
+
+    @Test
+    public void getNumOfManualLottos() {
+        assertThat(buyInfo.getNumOfManualLottos()).isEqualTo(4);
+    }
+
+    @Test
+    public void getProfitPercentageTest() {
+        assertThat(buyInfo.getProfitPercentage(2500)).isEqualTo(-50);
+    }
 }

@@ -29,4 +29,12 @@ public class BuyInfo {
     public Lottos joinLottos(Lottos lottos) {
         return manualLottos.join(lottos);
     }
+
+    public int getNumOfManualLottos() {
+        return manualLottos.getNumOfLottos();
+    }
+
+    public int getProfitPercentage(int totalPrize) {
+        return (int) (((double) totalPrize - investMoney) / investMoney * 100);
+    }
 }
