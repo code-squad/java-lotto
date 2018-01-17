@@ -4,8 +4,19 @@ import domain.BuyInfo;
 import domain.Lottos;
 import domain.WinningLottos;
 
-public class ResultView {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+public class ResultView {
+    public static List<String> splitToString(String lottosToString) {
+        if(lottosToString.isEmpty())
+            return new ArrayList<>();
+
+        List<String> splittedString = Arrays.asList(lottosToString.split("\n"));
+
+        return splittedString;
+    }
     public  static void showNumOfBoughtLottos(BuyInfo buyInfo) {
         System.out.println("수동으로 " + buyInfo.getNumOfManualLottos() + "장," +
                 " 자동으로 " + buyInfo.getBuyableNumberOfAutoLottos() + "개를 구매했습니다.");
