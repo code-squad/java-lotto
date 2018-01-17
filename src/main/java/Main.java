@@ -11,11 +11,9 @@ public class Main {
         int investMoney = getInvestMoney();
 
         Lottos lottos = lottoSeller.buyLotto(investMoney);
-        showNumOfBuyLotto(lottos.getNumOfLottos());
-        showLottos(lottos);
+        showBoughtLotto(lottos);
 
         WinningLottos winningLottos = lottos.getWinningLottos(getWinningLotto());
-
         showResult(winningLottos, investMoney);
     }
 }

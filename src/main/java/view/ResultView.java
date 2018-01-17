@@ -5,7 +5,16 @@ import domain.WinningLottos;
 
 public class ResultView {
 
-    public static void showLottos(Lottos lottos) {
+    public static void showBoughtLotto(Lottos lottos) {
+        showNumOfBuyLotto(lottos.getNumOfLottos());
+        showLottos(lottos);
+    }
+
+    private static void showNumOfBuyLotto(int size) {
+        System.out.println(size + "개를 구매했습니다.");
+    }
+
+    private static void showLottos(Lottos lottos) {
         System.out.println(lottos.toString());
     }
 
@@ -14,9 +23,5 @@ public class ResultView {
         System.out.println("-----------");
         System.out.println(winningLottos.toString());
         System.out.println("총 수익률은 " + winningLottos.getProfitPercentage(investment) + "%입니다.");
-    }
-
-    public static void showNumOfBuyLotto(int size) {
-        System.out.println(size + "개를 구매했습니다.");
     }
 }
