@@ -72,4 +72,12 @@ public class Lotto {
         }
         return winInfo;
     }
+
+    public int getTotalWinPrice(Map<Integer, Integer> winInfo) {
+        int totalPrice = 0;
+        for (Integer key : winInfo.keySet()) {
+            totalPrice += key * winInfo.get(key);
+        }
+        return totalPrice;
+    }
 }

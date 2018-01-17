@@ -62,7 +62,7 @@ public class LottoTest {
     }
 
     @Test
-    public void 당첨통계_구하기() {
+    public void 당첨정보_구하기() {
         List<List<Integer>> lottos = Arrays.asList(
                 Arrays.asList(1, 2, 3, 4, 30, 40),
                 Arrays.asList(1, 3, 4, 9, 13, 20)
@@ -75,6 +75,17 @@ public class LottoTest {
         expected.put(1500000, 0);
         expected.put(2000000000, 0);
         assertEquals(expected, luckyInfo);
+    }
+
+    @Test
+    public void 전체당첨금액_구하기() {
+        Map<Integer, Integer> winInfo = new HashMap<>();
+        winInfo.put(5000, 1);
+        winInfo.put(50000, 1);
+        winInfo.put(1500000, 0);
+        winInfo.put(2000000000, 0);
+        int totalWinPrice = lotto.getTotalWinPrice(winInfo);
+        assertEquals(55000, totalWinPrice);
     }
 
 }
