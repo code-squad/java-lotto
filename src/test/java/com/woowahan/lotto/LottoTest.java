@@ -3,9 +3,7 @@ package com.woowahan.lotto;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -61,6 +59,22 @@ public class LottoTest {
         int corrected = lotto.check(lottoNum, luckyNum);
 
         assertEquals(2, corrected);
+    }
+
+    @Test
+    public void 당첨통계_구하기() {
+        List<List<Integer>> lottos = Arrays.asList(
+                Arrays.asList(1, 2, 3, 4, 30, 40),
+                Arrays.asList(1, 3, 4, 9, 13, 20)
+        );
+        List<Integer> lucky = Arrays.asList(1, 2, 3, 4, 5, 6);
+        Map<Integer, Integer> luckyInfo = lotto.getWinInfo(lottos, lucky);
+        Map<Integer, Integer> expected = new HashMap<>();
+        expected.put(5000, 1);
+        expected.put(50000, 1);
+        expected.put(1500000, 0);
+        expected.put(2000000000, 0);
+        assertEquals(expected, luckyInfo);
     }
 
 }
