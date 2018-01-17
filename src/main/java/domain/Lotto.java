@@ -7,10 +7,18 @@ import java.util.Objects;
 import static domain.LottoNumCreator.LOTTO_POOL_NUM;
 
 public class Lotto {
-    private List<Integer> nums;
+    private List<LottoNo> lottoNos;
 
-    public Lotto(List<Integer> nums) {
-        this.nums = nums;
+    public Lotto(List<Integer> lottoNos) {
+        this.lottoNos = integerToLottoNo(lottoNos);
+    }
+
+    private List<LottoNo> integerToLottoNo(List<Integer> nos) {
+        List<LottoNo> lottoNos = new ArrayList<>(nos.size());
+        for(int no : nos)
+            lottoNos.add(new LottoNo(no));
+
+        return lottoNos;
     }
 
     public int howManyCorrespond(List<Integer> winningNumber) {
@@ -27,12 +35,12 @@ public class Lotto {
     }
 
     private void checkCorrespond(List<Integer> correspondNums, int targetNum) {
-        if(nums.contains(targetNum))
+        if(lottoNos.contains(targetNum))
             correspondNums.add(targetNum);
     }
 
     public boolean isBonusNumMatch(int bonusNum) {
-        return nums.contains(bonusNum);
+        return lottoNos.contains(bonusNum);
     }
 
     @Override
@@ -40,17 +48,17 @@ public class Lotto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lotto lotto = (Lotto) o;
-        return Objects.equals(nums, lotto.nums);
+        return Objects.equals(lottoNos, lotto.lottoNos);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(nums);
+        return Objects.hash(lottoNos);
     }
 
     @Override
     public String toString() {
-        return nums.toString();
+        return lottoNos.toString();
     }
 }
