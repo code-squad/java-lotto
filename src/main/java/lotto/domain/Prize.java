@@ -12,4 +12,8 @@ public enum Prize {
     Prize(int reward) {
         this.reward = reward;
     }
+
+    public int getReward() {
+        return reward;
+    }
 }
