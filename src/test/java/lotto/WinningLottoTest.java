@@ -136,41 +136,41 @@ public class WinningLottoTest {
 
     @Test
     public void check0Match() throws Exception {
-        checkMatch(LottoPrize.NONE, "10, 11, 12, 7, 8, 9");
+        assertTrue(checkMatch(LottoPrize.NONE, "10, 11, 12, 7, 8, 9"));
     }
 
-    private void checkMatch(LottoPrize lottoPrize, String ticketNumberString) {
+    private boolean checkMatch(LottoPrize lottoPrize, String ticketNumberString) {
         LottoTicket lottoTicket = LottoStore.buyExplicitTicket(ticketNumberString);
-        assertEquals(lottoPrize, winningLotto.match(lottoTicket));
+        return lottoPrize.equals(winningLotto.match(lottoTicket));
     }
 
     @Test
     public void check1Match() throws Exception {
-        checkMatch(LottoPrize.NONE,"1, 10, 11, 7, 8, 9");
+        assertTrue(checkMatch(LottoPrize.NONE,"1, 10, 11, 7, 8, 9"));
     }
 
     @Test
     public void check2Match() throws Exception {
-        checkMatch(LottoPrize.NONE,"1, 2, 10, 7, 8, 9");
+        assertTrue(checkMatch(LottoPrize.NONE,"1, 2, 10, 7, 8, 9"));
     }
 
     @Test
     public void check3Match() throws Exception {
-        checkMatch(LottoPrize.THREE,"1, 2, 3, 7, 8, 9");
+        assertTrue(checkMatch(LottoPrize.THREE,"1, 2, 3, 7, 8, 9"));
     }
 
     @Test
     public void check4Match() throws Exception {
-        checkMatch(LottoPrize.FOUR,"1, 2, 3, 4, 8, 9");
+        assertTrue(checkMatch(LottoPrize.FOUR,"1, 2, 3, 4, 8, 9"));
     }
 
     @Test
     public void check5Match() throws Exception {
-        checkMatch(LottoPrize.FIVE,"1, 2, 3, 4, 5, 9");
+        assertTrue(checkMatch(LottoPrize.FIVE,"1, 2, 3, 4, 5, 9"));
     }
 
     @Test
     public void check6Match() throws Exception {
-        checkMatch(LottoPrize.SIX,"1, 2, 3, 4, 5, 6");
+        assertTrue(checkMatch(LottoPrize.SIX,"1, 2, 3, 4, 5, 6"));
     }
 }
