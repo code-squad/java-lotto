@@ -20,6 +20,7 @@ public class LottoTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void 숫자가_여섯개가_아닐_때() {
-        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5));
+        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+        lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5));
     }
 }

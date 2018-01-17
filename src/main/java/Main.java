@@ -1,18 +1,16 @@
-import view.Result;
-
-import java.util.Scanner;
+import domain.LottoSystem;
+import dto.LottosDto;
+import dto.ResultDto;
+import view.InputView;
+import view.OutputView;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("구입금액을 입력해 주세요.");
-        Result result = new Result(sc.nextInt());
-        result.makeLottos();
-        result.printResult();
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        sc.nextLine();
-        result.insertLastWinningNumbers(sc.nextLine());
-        result.statistics();
-        result.revenue();
+        LottoSystem lottoSystem = new LottoSystem();
+        LottosDto lottosDto = lottoSystem.makeLottos(InputView.purchaseAmount());
+        OutputView outputView = new OutputView();
+        outputView.printLottoCount(lottosDto);
+        ResultDto resultDto = lottoSystem.checkLastWinningNumbers(InputView.lastAnswerNumbers());
+        outputView.printResult(resultDto);
     }
 }

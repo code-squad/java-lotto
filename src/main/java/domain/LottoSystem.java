@@ -1,20 +1,20 @@
-package view;
+package domain;
 
-import domain.Lotto;
-import domain.LottoFactory;
+import dto.LottosDto;
+import dto.ResultDto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Result {
+public class LottoSystem {
     private int price;
+    public List<Lotto> userLottos;
     private Map<Integer, Integer> winningPrice;
     private Map<Integer, Integer> winningCount;
 
-    public Result(int price) {
-        this.price = price;
+    public LottoSystem() {
         winningPrice = new HashMap<>();
         winningPrice.put(3, 5000);
         winningPrice.put(4, 50000);
@@ -27,31 +27,25 @@ public class Result {
         winningCount.put(6, 0);
     }
 
-    public void makeLottos() {
-        for (int i = 0; i < countOfLotto(); i++) {
-            LottoFactory.makeLotto();
-        }
-    }
-
     public int countOfLotto() {
         return price / 1000;
     }
 
-    public void printResult() {
-        System.out.printf("%d개를 구매했습니다.\n", countOfLotto());
-        for (Lotto lotto : LottoFactory.lottos) {
-            System.out.println(lotto);
-        }
+    public LottosDto makeLottos(int price) {
+        this.price = price;
+        userLottos = LottoFactory.makeLottos(countOfLotto());
+        return new LottosDto(userLottos);
     }
 
-    public void insertLastWinningNumbers(String numbersText) {
-        Lotto numbers = new Lotto(parseInts(split(numbersText)));
-        for (Lotto lotto : LottoFactory.lottos) {
+    public ResultDto checkLastWinningNumbers(String lastWinningNumbers) {
+        Lotto numbers = new Lotto(parseInts(split(lastWinningNumbers)));
+        for (Lotto lotto : userLottos) {
             int count = lotto.checkTheWinningNumbers(numbers);
             if (winningCount.containsKey(count)) {
                 winningCount.put(count, winningCount.get(count) + 1);
             }
         }
+        return new ResultDto(winningPrice, winningCount, calRevenue());
     }
 
     private String[] split(String text) {
@@ -69,16 +63,6 @@ public class Result {
 
     private int parseInt(String numberText) {
         return Integer.parseInt(numberText);
-    }
-
-    public void statistics() {
-        for (int i = 3; i <= 6; i++) {
-            System.out.printf("%d개 일치 (%d원)- %d개\n", i, winningPrice.get(i), winningCount.get(i));
-        }
-    }
-
-    public void revenue() {
-        System.out.printf("총 수익률은 %d%%입니다.", calRevenue());
     }
 
     public int calRevenue() {
