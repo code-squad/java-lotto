@@ -36,6 +36,6 @@ public class BuyInfoTest {
 
     @Test
     public void joinLottosTest() {
-        assertThat(buyInfo.joinLottos(testLottos)).isEqualTo(9);
+        assertThat(buyInfo.joinLottos(testLottos).getNumOfLottos()).isEqualTo(8);
     }
 }

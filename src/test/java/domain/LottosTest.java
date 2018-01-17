@@ -42,4 +42,9 @@ public class LottosTest {
         assertThat(winningLottos.getNumOfWinnerLottoByPrize(SECOND)).isEqualTo(1);
         assertThat(winningLottos.getNumOfWinnerLottoByPrize(FIRST)).isEqualTo(1);
     }
+
+    @Test
+    public void joinTest() {
+        assertThat(lottos.join(lottos).getNumOfLottos()).isEqualTo(10);
+    }
 }
