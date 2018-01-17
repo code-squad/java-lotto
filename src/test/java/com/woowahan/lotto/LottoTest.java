@@ -3,6 +3,7 @@ package com.woowahan.lotto;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,6 +46,21 @@ public class LottoTest {
         }
 
         assertTrue(isSorted);
+    }
+
+    @Test
+    public void 일치번호_개수_구하기() {
+        List<Integer> lottoNum = Arrays.asList(
+                3, 4, 5, 6, 7, 8
+        );
+
+        List<Integer> luckyNum = Arrays.asList(
+                1, 2, 3, 4, 9, 10
+        );
+
+        int corrected = lotto.check(lottoNum, luckyNum);
+
+        assertEquals(2, corrected);
     }
 
 }

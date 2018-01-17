@@ -13,6 +13,7 @@ public class Lotto {
             baseNumberList.add(i);
         }
     }
+
     public List<Integer> create() {
         List<Integer> copyBaseList = new ArrayList<>(baseNumberList);
         Collections.shuffle(copyBaseList);
@@ -21,7 +22,7 @@ public class Lotto {
 
     public List<List<Integer>> buy(int money) {
         List<List<Integer>> totalLotto = new ArrayList<>();
-        for (int i = 0; i < money/1000; i++) {
+        for (int i = 0; i < money / 1000; i++) {
             totalLotto.add(create());
         }
         return totalLotto;
@@ -32,5 +33,22 @@ public class Lotto {
         Collections.sort(sortedLotto);
 
         return sortedLotto;
+    }
+
+    public int check(List<Integer> lotto, List<Integer> lucky) {
+        int count = 0;
+
+        for (Integer luck : lucky) {
+            count += getCount(lotto, luck);
+        }
+
+        return count;
+    }
+
+    private int getCount(List<Integer> lotto, Integer luck) {
+        if (lotto.contains(luck)) {
+            return 1;
+        }
+        return 0;
     }
 }
