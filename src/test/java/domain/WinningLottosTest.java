@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static domain.LottoSeller.LOTTO_PRICE;
 import static enums.LottoPrize.FIRST;
 import static enums.LottoPrize.THIRD;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -44,6 +45,11 @@ public class WinningLottosTest {
     public void getTotalPrizeTest() {
         int profit = winningLottos.getTotalPrize();
         assertThat(profit).isEqualTo(2030055000);
+    }
+
+    @Test
+    public void getInvestMoneyTest() {
+        assertThat(winningLottos.getInvestMoney()).isEqualTo(4 * LOTTO_PRICE);
     }
 
     @Test
