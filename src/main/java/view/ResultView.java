@@ -6,17 +6,12 @@ import domain.WinningLottos;
 
 public class ResultView {
 
-    public static void showBoughtLotto(Lottos lottos, BuyInfo buyInfo) {
-        showNumOfBuyLotto(buyInfo);
-        showLottos(lottos);
-    }
-
-    private static void showNumOfBuyLotto(BuyInfo buyInfo) {
+    public  static void showNumOfBoughtLottos(BuyInfo buyInfo) {
         System.out.println("수동으로 " + buyInfo.getNumOfManualLottos() + "장," +
                 " 자동으로 " + buyInfo.getBuyableNumberOfAutoLottos() + "개를 구매했습니다.");
     }
 
-    private static void showLottos(Lottos lottos) {
+    public static void showLottos(Lottos lottos) {
         System.out.println(lottos.toString());
     }
 

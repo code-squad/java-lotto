@@ -11,7 +11,8 @@ public class Main {
         BuyInfo buyInfo = getBuyInfo();
 
         Lottos lottos = lottoSeller.buyLotto(buyInfo);
-        showBoughtLotto(lottos, buyInfo);
+        showNumOfBoughtLottos(buyInfo);
+        showLottos(lottos);
 
         WinningLottos winningLottos = lottos.getWinningLottos(getWinningLotto());
         showResult(winningLottos, buyInfo);
