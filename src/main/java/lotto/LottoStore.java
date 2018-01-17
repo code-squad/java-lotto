@@ -53,4 +53,11 @@ public class LottoStore {
         }
         return new LottoCustomerTicket(tickets);
     }
+
+    public static LottoCustomerTicket buyLottoTicket(int ticketTotalPrice, LottoManualTicketRequest lottoManualTicketRequest) {
+        int randomTotalCount = LottoStore.countRandomTicket(ticketTotalPrice, lottoManualTicketRequest.getTicketRequests().size());
+        LottoCustomerTicket randomTickets = LottoStore.buyRandomTickets(randomTotalCount);
+        LottoCustomerTicket explicitTickets = LottoStore.buyExplicitTickets(lottoManualTicketRequest);
+        return new LottoCustomerTicket(randomTickets, explicitTickets);
+    }
 }

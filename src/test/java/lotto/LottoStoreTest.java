@@ -50,10 +50,7 @@ public class LottoStoreTest {
 
     @Test
     public void buyExplicitTickets() {
-        List<String> ticketRequests = new ArrayList<>();
-        ticketRequests.add("1, 2, 3, 4, 5, 6");
-        ticketRequests.add("1, 2, 3, 4, 5, 7");
-        LottoManualTicketRequest lottoManualTicketRequest = new LottoManualTicketRequest(ticketRequests);
+        LottoManualTicketRequest lottoManualTicketRequest = getLottoManualTicketRequest();
         LottoCustomerTicket lottoCustomerTicket = LottoStore.buyExplicitTickets(lottoManualTicketRequest);
         assertEquals(2, lottoCustomerTicket.getTickets().size());
         assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(1)));
@@ -62,5 +59,19 @@ public class LottoStoreTest {
         assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(4)));
         assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(5)));
         assertTrue(lottoCustomerTicket.getTickets().get(0).match(LottoNumber.newInstance(6)));
+    }
+
+    private LottoManualTicketRequest getLottoManualTicketRequest() {
+        List<String> ticketRequests = new ArrayList<>();
+        ticketRequests.add("1, 2, 3, 4, 5, 6");
+        ticketRequests.add("1, 2, 3, 4, 5, 7");
+        return new LottoManualTicketRequest(ticketRequests);
+    }
+
+    @Test
+    public void buyLottoTicket() throws Exception {
+        LottoManualTicketRequest lottoManualTicketRequest = getLottoManualTicketRequest();
+        LottoCustomerTicket lottoCustomerTicket = LottoStore.buyLottoTicket(14000, lottoManualTicketRequest);
+        assertEquals(14, lottoCustomerTicket.getTickets().size());
     }
 }

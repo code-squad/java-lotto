@@ -19,12 +19,9 @@ public class LottoGame {
     private void start() {
         int ticketTotalPrice = inputView.requestToInputTicketTotalPrice();
         int manualTicketCount = inputView.requestToInputCountOfManualTicket();
-        int randomTotalCount = LottoStore.countRandomTicket(ticketTotalPrice, manualTicketCount);
 
         LottoManualTicketRequest lottoManualTicketRequest = inputView.requestToInputManualTickets(manualTicketCount);
-        LottoCustomerTicket explicitTickets = LottoStore.buyExplicitTickets(lottoManualTicketRequest);
-        LottoCustomerTicket randomTickets = LottoStore.buyRandomTickets(randomTotalCount);
-        LottoCustomerTicket lottoCustomerTicket = new LottoCustomerTicket(randomTickets, explicitTickets);
+        LottoCustomerTicket lottoCustomerTicket = LottoStore.buyLottoTicket(ticketTotalPrice, lottoManualTicketRequest);
         resultView.printTickets(lottoCustomerTicket);
 
         String successNumberString = inputView.requestToInputLastWeekSuccessNumbers();
