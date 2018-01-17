@@ -53,7 +53,7 @@ public class LottoGame {
         return (int)(((double)(result.get(3)*THREE+result.get(4)*FOUR+result.get(5)*FIVE+result.get(6)*SIX-money))/money*100);
     }
 
-    public LottoResult match(String luckyNumText) {
+    public LottoResult match(String luckyNumText, int bonusNumber) {
         List<Integer> luckyNum = generateLuckyNum(luckyNumText);
         Map<Integer, Integer> result = new HashMap<Integer, Integer>(){
             {

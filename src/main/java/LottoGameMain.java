@@ -12,8 +12,9 @@ public class LottoGameMain {
 
         LottoGame lottoGame = new LottoGame(money);
         String luckyNumbers = InputView.inputLuckyNumbers(sc);
+        int bonusNumber = InputView.inputBonusNumber(sc);
 
-        LottoResult result = lottoGame.match(luckyNumbers);
+        LottoResult result = lottoGame.match(luckyNumbers, bonusNumber);
         OutputView.printCountOfWinLotto(result);
     }
 }
