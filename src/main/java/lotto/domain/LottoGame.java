@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
  */
 public class LottoGame {
 
-    public static final int TICKET_PRICE = 1000;
-
     private List<LottoTicket> tickets;
 
     public LottoGame() {
@@ -18,7 +16,7 @@ public class LottoGame {
     }
 
     private int getAvailableBuyingCount(int money) {
-        return money / TICKET_PRICE;
+        return money / LottoTicket.TICKET_PRICE;
     }
 
     /**
@@ -40,8 +38,15 @@ public class LottoGame {
      * @return 당첨결과
      */
     public LottoResult getPrizeResult(LottoNumber winningNumber) {
-        return new LottoResult(tickets.stream()
+        return new LottoResult(tickets.size(), tickets.stream()
                 .map(ticket -> ticket.checkWinning(winningNumber))
+                .collect(Collectors.toList()));
+    }
+
+    public String getTicketsString() {
+        return String.join("\n",
+                tickets.stream()
+                .map(LottoTicket::toString)
                 .collect(Collectors.toList()));
     }
 }

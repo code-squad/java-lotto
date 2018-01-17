@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class LottoResultTest {
 
+    public static final int TICKET_COUNT = 10;
     private LottoResult result;
 
     @Before
@@ -22,7 +23,7 @@ public class LottoResultTest {
         prizeList.add(Prize.SECOND);
         prizeList.add(Prize.THIRD);
         prizeList.add(Prize.THIRD);
-        result = new LottoResult(prizeList);
+        result = new LottoResult(TICKET_COUNT, prizeList);
     }
 
     @Test
@@ -38,6 +39,13 @@ public class LottoResultTest {
     public void 총상금() {
         long reward = Prize.FIRST.getReward() + Prize.SECOND.getReward() + (Prize.THIRD.getReward() * 2);
         assertThat(result.getTotalReward()).isEqualTo(reward);
+    }
+
+    @Test
+    public void 수익률() {
+        long reward = Prize.FIRST.getReward() + Prize.SECOND.getReward() + (Prize.THIRD.getReward() * 2);
+        int money = TICKET_COUNT * LottoTicket.TICKET_PRICE;
+        assertThat(result.getReturnRate()).isEqualTo((float)reward / money * 100);
     }
 
 }

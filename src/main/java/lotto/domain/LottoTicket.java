@@ -5,6 +5,8 @@ package lotto.domain;
  */
 public class LottoTicket {
 
+    public static final int TICKET_PRICE = 1000;
+
     LottoNumber lottoNumber;
 
     public LottoTicket() {
@@ -31,5 +33,10 @@ public class LottoTicket {
         }
 
         return Prize.NONE;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + lottoNumber + "]";
     }
 }

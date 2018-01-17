@@ -10,10 +10,12 @@ import java.util.Map;
  */
 public class LottoResult {
 
+    int ticketCount;
     Map<Prize, Integer> prizeResult;
 
-    public LottoResult(List<Prize> prizeList) {
-        prizeResult = new HashMap<>();
+    public LottoResult(int ticketCount, List<Prize> prizeList) {
+        this.ticketCount = ticketCount;
+        this.prizeResult = new HashMap<>();
         for (Prize prize : prizeList) {
             addPrize(prize);
         }
@@ -36,5 +38,9 @@ public class LottoResult {
         return prizeResult.entrySet().stream()
                 .mapToLong(entry -> entry.getKey().getReward() * entry.getValue())
                 .sum();
+    }
+
+    public float getReturnRate() {
+        return (float)getTotalReward() / ((float)ticketCount * LottoTicket.TICKET_PRICE) * 100;
     }
 }
