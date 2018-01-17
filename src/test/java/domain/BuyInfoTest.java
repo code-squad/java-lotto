@@ -33,4 +33,9 @@ public class BuyInfoTest {
     public void getNumOfAutoLotto() {
         assertThat(buyInfo.getBuyableNumberOfAutoLottos()).isEqualTo(1);
     }
+
+    @Test
+    public void joinLottosTest() {
+        assertThat(buyInfo.joinLottos(testLottos)).isEqualTo(9);
+    }
 }

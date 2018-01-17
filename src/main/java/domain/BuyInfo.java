@@ -25,4 +25,8 @@ public class BuyInfo {
     private int getSpendMoneyToBuyManualLotto(Lottos manualLottos) {
         return manualLottos.getNumOfLottos() * LOTTO_PRICE;
     }
+
+    public Lottos joinLottos(Lottos lottos) {
+        return manualLottos.join(lottos);
+    }
 }
