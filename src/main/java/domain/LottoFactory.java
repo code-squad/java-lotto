@@ -10,12 +10,12 @@ public class LottoFactory {
         return new Lotto(makeLottoNumbers(makeNumbers()));
     }
 
-    public static List<Lotto> makeLottos(int lottoCount) {
+    public static Lottos makeLottos(int lottoCount) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
             lottos.add(makeLotto());
         }
-        return lottos;
+        return new Lottos(lottos);
     }
 
     private static List<Integer> makeNumbers() {
