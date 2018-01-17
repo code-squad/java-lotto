@@ -29,6 +29,7 @@ public class LottoMachine {
 
     public List<LottoTicket> createLottoTicket(Integer amount) {
         List<LottoTicket> tickets = new ArrayList<>();
+
         for (int i = 0; i < amount; i++) {
             tickets.add(new LottoTicket());
         }

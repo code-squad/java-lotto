@@ -5,6 +5,7 @@ import out.Out;
 
 public class Main {
     public static void main(String[] args) {
+
         LottoMachine lottoMachine = new LottoMachine();
         Input input = new Input();
         Out out = new Out();
@@ -18,7 +19,5 @@ public class Main {
         WinningResult result = lottoMachine.findMatching();// winning calculate.
 
         out.printResultMassage(result);// print result.
-
-
     }
 }

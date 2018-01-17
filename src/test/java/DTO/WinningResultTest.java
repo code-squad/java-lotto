@@ -6,7 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -140,5 +142,23 @@ public class WinningResultTest {
         }};
 
         assertThat(matching, is(answer));
+    }
+
+    @Test
+    public void calculateWinningPercent(){
+        WinningResult result= new WinningResult(14000, winningTicket, tickets);
+
+        assertThat(result.calculateWinningPercent(1000, 1000), is(0));
+    }
+
+    @Test
+    public void calculateWinningMoney(){
+        WinningResult result= new WinningResult(14000, winningTicket, tickets);
+
+        Map<WinningRules, Integer> rules = new HashMap() {{
+            put(WinningRules.THREE_MATCHING, 2);
+        }};
+
+        assertThat(result.calculateWinningMoney(rules), is(10000));
     }
 }

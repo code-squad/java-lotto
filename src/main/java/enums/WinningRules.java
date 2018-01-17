@@ -1,7 +1,8 @@
 package enums;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public enum WinningRules {
     NONE(0, 0),
@@ -16,8 +17,7 @@ public enum WinningRules {
     private Integer reward;
     private static Map<Integer, WinningRules> winningRules;
 
-    static{
-
+    static {
         winningRules = new HashMap<>();
         winningRules.put(0, WinningRules.NONE);
         winningRules.put(1, WinningRules.ONE_MATCHING);
@@ -26,7 +26,6 @@ public enum WinningRules {
         winningRules.put(4, WinningRules.FOUR_MATCHING);
         winningRules.put(5, WinningRules.FIVE_MATCHING);
         winningRules.put(6, WinningRules.SIX_MATCHING);
-
     }
 
     WinningRules(Integer matchCount, Integer reward) {
@@ -39,7 +38,7 @@ public enum WinningRules {
     }
 
     public static Map<WinningRules, Integer> getNewKeyMap() {
-        Map<WinningRules, Integer> winningRulesKeyMap =new HashMap<>();
+        Map<WinningRules, Integer> winningRulesKeyMap = new LinkedHashMap<>();
 
         winningRulesKeyMap.put(WinningRules.THREE_MATCHING, 0);
         winningRulesKeyMap.put(WinningRules.FOUR_MATCHING, 0);

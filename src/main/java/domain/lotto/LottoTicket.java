@@ -7,33 +7,44 @@ import java.util.*;
 public class LottoTicket {
 
     public static final Integer PRICE = 1000;
-    private static final Integer LOTTO_MAX_SIZE = 45;
-    private static List<LottoNumber> lottoNumbers;
+    private static final Integer LOTTO_MIN_NUMBER = 1;
+    private static final Integer LOTTO_MAX_NUMBER = 45;
+    private static final Integer LOTTO_NUMBER_SIZE = 6;
+    private static final Integer LOTTO_SHUFFLE_TIMES = 100;
+    private static final List<LottoNumber> lottoNumbers;
+
     private List<LottoNumber> numbers;
 
     static {
         lottoNumbers = new ArrayList<>();
-        for (int i = 1; i <= LOTTO_MAX_SIZE ; i++) {
+        for (int i = LOTTO_MIN_NUMBER; i <= LOTTO_MAX_NUMBER; i++) {
             lottoNumbers.add(new LottoNumber(i));
         }
     }
 
     public LottoTicket() {
-        this.numbers = new ArrayList<>();
-        autoCreateNumber();
+        this.numbersShuffle();
+        this.numbers = this.autoCreateNumber();
         this.sortingNumber();
     }
 
-    private void sortingNumber(){
+    private void sortingNumber() {
         Collections.sort(this.numbers);
     }
 
-    private void autoCreateNumber() {
-        for (int i = 0; i <100 ; i++) {
-            Collections.shuffle(lottoNumbers);
+    private List<LottoNumber> autoCreateNumber() {
+
+        List<LottoNumber> numbers = new ArrayList<>();
+
+        for (int i = 0; i < LOTTO_NUMBER_SIZE; i++) {
+            numbers.add(new LottoNumber(lottoNumbers.get(i)));
         }
-        for (int i = 0; i <6 ; i++) {
-            this.numbers.add(new LottoNumber(lottoNumbers.get(i)));
+        return numbers;
+    }
+
+    private void numbersShuffle() {
+        for (int i = 0; i < LOTTO_SHUFFLE_TIMES; i++) {
+            Collections.shuffle(lottoNumbers);
         }
     }
 
@@ -42,12 +53,11 @@ public class LottoTicket {
             return;
         }
 
-        List<String> numberString = Arrays.asList(text.replaceAll(" ", "").split(","));
-
         List<LottoNumber> newNumbers = new ArrayList<>();
+        List<String> numberString = parsingTextNumber(text);
 
         for (int i = 0; i < numberString.size(); i++) {
-            newNumbers.add(new LottoNumber(Integer.parseInt(numberString.get(i))));
+            newNumbers.add(new LottoNumber(numberString.get(i)));
         }
 
         this.numbers = newNumbers;
@@ -55,22 +65,31 @@ public class LottoTicket {
         this.sortingNumber();
     }
 
+    private List<String> parsingTextNumber(String text) {
+        return Arrays.asList(text.replaceAll(" ", "").split(","));
+    }
+
     public WinningRules winningMaching(List<LottoNumber> winningNumbers) {
         Integer count = 0;
 
         for (LottoNumber winningNumber : winningNumbers) {
-            for (LottoNumber thisNumber : this.numbers) {
-                if (winningNumber.equals(thisNumber)) {
-                    count++;
-                }
-            }
+            count += isHitNumber(winningNumber);
         }
 
         return WinningRules.findByMatchCount(count);
     }
 
+    private Integer isHitNumber(LottoNumber winningNumber) {
+        for (LottoNumber thisNumber : this.numbers) {
+            if (winningNumber.equals(thisNumber)) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
     public List<LottoNumber> getNumbers() {
-        return numbers;
+        return this.numbers;
     }
 
     private boolean isEquals(int i, List<LottoNumber> that) {
@@ -87,7 +106,7 @@ public class LottoTicket {
 
         LottoTicket that = (LottoTicket) o;
 
-        if (this.numbers.isEmpty() || this.numbers.isEmpty() || that.numbers.size() != this.numbers.size())
+        if (this.numbers.isEmpty() || that.numbers.isEmpty() || that.numbers.size() != this.numbers.size())
             return false;
 
         for (int i = 0; i < that.numbers.size(); i++) {

@@ -1,10 +1,8 @@
 package domain.lotto;
 
-import enums.WinningRules;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -40,19 +38,4 @@ public class LottoMachineTest {
         assertThat(lottoMachine.getWinningTicket(), is(ticket));
     }
 
-
-
-    @Test
-    public void calculate() {
-        ArrayList<WinningRules> rules = new ArrayList() {{
-            add(WinningRules.THREE_MATCHING);
-            add(WinningRules.THREE_MATCHING);
-        }};
-        Integer price = 0;
-        for (WinningRules rule : rules) {
-            price += rule.getReward();
-        }
-
-        assertThat(price, is(10000));
-    }
 }

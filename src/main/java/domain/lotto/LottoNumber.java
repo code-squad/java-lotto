@@ -7,6 +7,10 @@ public class LottoNumber implements Comparable<LottoNumber> {
         this.number = number;
     }
 
+    public LottoNumber(String number) {
+        this.number = Integer.parseInt(number);
+    }
+
     public LottoNumber(LottoNumber lottoNumber) {
         this.number = lottoNumber.number;
     }
