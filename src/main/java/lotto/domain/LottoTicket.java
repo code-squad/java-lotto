@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 public class LottoTicket {
     private final List<LottoNumber> numbers;
 
-    public LottoTicket(List<LottoNumber> integers) {
-        numbers = integers;
+    public LottoTicket(List<LottoNumber> numbers) {
+        this.numbers = numbers;
     }
 
     @Override
