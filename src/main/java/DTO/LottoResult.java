@@ -2,18 +2,17 @@ package DTO;
 
 
 import lombok.Getter;
+import model.Rank;
 
-import java.util.List;
+import java.util.Map;
 
 @Getter
 public class LottoResult {
-    private List<Integer> hitNumbersByALotto;
-    private List<Integer> countThreeFourFiveHits;
+    private Map<Rank, Integer> lottoResult;
     private Double percentage;
 
-    public LottoResult(List<Integer> hitNumbersByALotto, List<Integer> countThreeFourFiveHits, Double percentage) {
-        this.hitNumbersByALotto = hitNumbersByALotto;
-        this.countThreeFourFiveHits = countThreeFourFiveHits;
+    public LottoResult(Map<Rank, Integer> lottoResult, Double percentage) {
+        this.lottoResult = lottoResult;
         this.percentage = percentage;
     }
 }

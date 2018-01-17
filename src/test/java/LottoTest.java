@@ -1,4 +1,4 @@
-import lotto.Lotto;
+import model.Lotto;
 import model.RandomNumber;
 import org.junit.Test;
 

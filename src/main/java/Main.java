@@ -1,8 +1,8 @@
 import DTO.LottoResult;
-import customer.Customer;
-import lotto.Lotto;
-import model.InputView;
-import model.ResultView;
+import model.Customer;
+import model.Lotto;
+import view.InputView;
+import view.ResultView;
 
 import java.util.List;
 
@@ -16,10 +16,11 @@ public class Main {
         ResultView.printLottoNumbers(numberOfLottos);
 
         String lastWeekHitNumbers = InputView.scanLastWeekLottoNumbers();
+        Integer bonus = InputView.scanBonusNumber();
 
-        LottoResult lottoResult = customer.match(lastWeekHitNumbers);
+        LottoResult lottoResult = customer.match(lastWeekHitNumbers, bonus);
 
-        ResultView.printResult(lottoResult.getCountThreeFourFiveHits());
+        ResultView.printResult(lottoResult.getLottoResult());
         ResultView.printStatics(lottoResult.getPercentage());
     }
 }
