@@ -10,6 +10,14 @@ public class Statistics {
 		this.match = match;
 	}
 	
+	public Match getMatch() {
+		return this.match;
+	}
+	
+	public int getMatchingTicketNum() {
+		return this.matchingTicketNum;
+	}
+	
 	static List<Statistics> createStatisticsSet() {
 		List<Statistics> statistics = new ArrayList<>();
 		Match[] match = Match.values();

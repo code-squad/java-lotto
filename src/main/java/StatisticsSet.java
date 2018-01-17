@@ -3,17 +3,25 @@ import java.util.List;
 public class StatisticsSet {
 	
 	List<Statistics> statisticsSet;
+	double rateOfReturn = 0;
 	
 	StatisticsSet(List<Statistics> statisticsSet) {
 		this.statisticsSet = statisticsSet;
 	}
 	
-	double makeRateOfReturn(int money) {
+	public List<Statistics> getStatisticsSet() {
+		return this.statisticsSet;
+	}
+	
+	public double getRateOfReturn() {
+		return this.rateOfReturn;
+	}
+	
+	public void setRateOfReturn(int money) {
 		int sum = 0;
 		for (Statistics eachStatistics : this.statisticsSet) {
 			sum += eachStatistics.matchingTicketNum * eachStatistics.match.prize;
 		}
-		return (1.0 * sum / money) * 100;
+		this.rateOfReturn =  (1.0 * sum / money) * 100;
 	}
-
 }
