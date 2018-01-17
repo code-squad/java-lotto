@@ -1,8 +1,6 @@
 package view;
 
-import domain.Lotto;
-import domain.LottoNo;
-import domain.WinningNumber;
+import domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +15,11 @@ public class InputView {
 
         return new WinningNumber(winningLotto, bonusNo);
     }
-    public static void getBuyInfo() {
+    public static BuyInfo getBuyInfo() {
         int investMoney = getInvestMoney();
-        List<Lotto> manualLotto= getManualLottos(getNumOfManualLotto());
+        Lottos manualLotto= getManualLottos(getNumOfManualLotto());
+
+        return new BuyInfo(investMoney, manualLotto);
     }
 
     public static int getInvestMoney() {
@@ -44,14 +44,14 @@ public class InputView {
         return Integer.parseInt(sc.nextLine());
     }
 
-    public static List<Lotto> getManualLottos(int numOfManualLotto) {
+    public static Lottos getManualLottos(int numOfManualLotto) {
         List<Lotto> nums = new ArrayList<>(numOfManualLotto);
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
 
         for(int i = 0 ; i < numOfManualLotto ; ++i)
             nums.add(new Lotto(getNumber()));
 
-        return nums;
+        return new Lottos(nums);
     }
 
     private static List<Integer> getNumber() {
