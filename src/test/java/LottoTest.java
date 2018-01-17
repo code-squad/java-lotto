@@ -14,7 +14,6 @@ public class LottoTest {
     public void setup(){
         lottos = new Lotto();
     }
-    
     @Test
     public void matchYn() {
         List<Integer> luckyNum = Arrays.asList(1,3,13,14,24,44);

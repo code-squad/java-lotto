@@ -20,11 +20,7 @@ public class Lotto {
     private List<Integer> getRandomLotto() {
         List<Integer> randomLotto = new ArrayList<Integer>();
         shuffle();
-
-        for(int i=numbers.size()-1;i>5;i--){
-            numbers.remove(i);
-        }
-
+        numbers = numbers.subList(0, 6);
         return sort(numbers);
     }
 
