@@ -1,6 +1,7 @@
 package lotto.view;
 
 import lotto.domain.LottoNumber;
+import lotto.domain.WinningNumber;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ public class InputView {
 
     private static final String INPUT_MONEY_PROMPT = "구매금액을 입력해 주세요.";
     private static final String INPUT_WINNING_NUMBER_PROMPT = "지난 주 당첨 번호를 입력해 주세요.";
+    private static final String INPUT_BONUS_NUMBER_PROMPT = "보너스 번호를 입력해 주세요.";
 
     private static Scanner scanner = new Scanner(System.in);
 
@@ -22,13 +24,17 @@ public class InputView {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public static LottoNumber inputWinningNumber() {
+    public static WinningNumber inputWinningNumber() {
         System.out.println(INPUT_WINNING_NUMBER_PROMPT);
         String inputString = scanner.nextLine();
         String[] strNumbers = inputString.split(",");
         List<Integer> numbers = Arrays.stream(strNumbers)
                 .map(v -> Integer.parseInt(v.trim()))
                 .collect(Collectors.toList());
-        return new LottoNumber(numbers);
+
+        System.out.println(INPUT_BONUS_NUMBER_PROMPT);
+        int bonusNumber = Integer.parseInt(scanner.nextLine());
+
+        return new WinningNumber(new LottoNumber(numbers), bonusNumber);
     }
 }
