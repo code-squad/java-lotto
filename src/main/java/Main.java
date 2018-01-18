@@ -1,5 +1,6 @@
 import dto.LottoResult;
 import model.Customer;
+import model.HandOperatedLotto;
 import model.Lotto;
 import view.InputView;
 import view.ResultView;
@@ -10,7 +11,13 @@ public class Main {
     public static void main(String[] args) {
         Customer customer = new Customer();
 
-        List<Lotto> lottos = customer.buy(InputView.scanMoneyToBuy());
+        Integer totalAmount = InputView.scanMoneyToBuy();
+        Integer numberOfHandOperatedLotto = InputView.scanNotAutomaticLottoNum();
+        String[] lottoNumbers = InputView.scanLottoNumbers(numberOfHandOperatedLotto);
+
+        HandOperatedLotto handOperatedLotto = new HandOperatedLotto(numberOfHandOperatedLotto, lottoNumbers);
+        List<Lotto> lottos = customer.buy(totalAmount, handOperatedLotto);
+        ResultView.printBuyStatus(lottos.size(), numberOfHandOperatedLotto);
 
         ResultView.printNumber(lottos.size());
         ResultView.printLottoNumbers(lottos);
