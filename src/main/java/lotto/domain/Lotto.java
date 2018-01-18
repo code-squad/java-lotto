@@ -23,6 +23,7 @@ public class Lotto {
         Collections.shuffle(lottoNumbers, new Random());
         numbers = lottoNumbers.subList(0, 6);
     }
+
     public List<Integer> getNumbers() {
         return this.numbers;
     }
@@ -31,15 +32,21 @@ public class Lotto {
         return this.numbers.stream().map(i -> String.valueOf(i)).collect(Collectors.joining(","));
     }
 
-    public List<Integer> getResult(List<Integer> winNumbers) {
+    public List<Integer> getResult(List<Integer> winNumber) {
         List<Integer> result = new ArrayList<>();
         for (Integer number : numbers) {
-            if (winNumbers.contains(number)) {
+            if (winNumber.contains(number)) {
                 result.add(number);
             }
         }
         return result;
     }
+
+    public boolean hasBonus(int bonusNumber) {
+        return numbers.contains(bonusNumber);
+    }
+
+
 
 
 

@@ -6,6 +6,7 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoResult;
 import lotto.domain.LottoStore;
 import lotto.domain.PriceType;
+import lotto.domain.WinningLotto;
 
 public class ResultUI {
 
@@ -24,8 +25,8 @@ public class ResultUI {
         System.out.println("[" + lotto.joinNumbers() + "]");
     }
 
-    public static void printStatistics(LottoStore lottoStore) {
-        Map<PriceType, Integer> result = lottoStore.getStatistics();
+    public static void printStatistics(LottoResult lottoResult) {
+        Map<PriceType, Integer> result = lottoResult.getResult();
         for (PriceType priceType : result.keySet()) {
             System.out.println(priceType.getCount() + "개 일치 (" + priceType.getPrice() + ") - " + result.get(priceType) + "개");
 

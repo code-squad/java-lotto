@@ -1,7 +1,7 @@
 package lotto.domain;
 
 public enum PriceType {
-    FORTH(3, 5000), THIRD(4, 50000), SECOND(5, 1500000), FIRST(6, 2000000000);
+    FIRST(6, 2000000000), SECOND(5, 3000000), THIRD(5, 1500000), FORTH(4, 50000), FIFTH(3, 5000);
 
     private int count;
 
@@ -20,9 +20,13 @@ public enum PriceType {
         return price;
     }
 
-    public static PriceType getPriceType(int count) {
+    public static PriceType valueOf(int count, boolean matchBonus) {
         for (PriceType priceType : PriceType.values()) {
-            if (count == priceType.getCount()) {
+            if (priceType.getCount() == count && count == 5 && matchBonus) {
+                return SECOND;
+            } else if (priceType.getCount() == 5 && count == 5 && !matchBonus) {
+                return THIRD;
+            } else if (priceType.getCount() == count){
                 return priceType;
             }
         }
