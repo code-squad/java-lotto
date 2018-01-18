@@ -1,17 +1,19 @@
 package domain;
 
-import static java.util.stream.Collectors.toList;
-
 import dto.LottoResult;
+import util.Constants;
+import util.RandomGenerator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
-import util.RandomGenerator;
+
+import static java.util.stream.Collectors.*;
 
 public class LottoMachine {
 
-  private static final int PRICE_PER_LOTTO_ONE_GAME = 1000;
   private List<Lotto> lottos;
 
   public LottoMachine() {
@@ -19,7 +21,7 @@ public class LottoMachine {
   }
 
   public int getLottoCount(int money) {
-    return money / PRICE_PER_LOTTO_ONE_GAME;
+    return money / Constants.PRICE_PER_LOTTO_ONE_GAME;
   }
 
   public List<Lotto> issue(int count) {
@@ -32,33 +34,25 @@ public class LottoMachine {
     this.lottos.add(lotto);
   }
 
-  public static Lotto createWinningLotto(String strNumbers) {
+  public static WinningLotto createWinningLotto(String strNumbers, int bonusNumber) {
     String[] numbers = strNumbers.split(",");
     List<Integer> winningNumbers = Arrays.stream(numbers)
         .map(n -> Integer.parseInt(n))
         .collect(toList());
-    return new Lotto(winningNumbers);
+    return new WinningLotto(new Lotto(winningNumbers), bonusNumber);
   }
 
-  public LottoResult match(Lotto winningLotto) {
+  public LottoResult match(WinningLotto winningLotto) {
     LottoResult result = new LottoResult();
-    Arrays.stream(Rank.values()).forEach(r -> {
-      result.add(r, getRankOfCount(r, winningLotto));
+    Map<String, Long> rankOfCountData = getRankOfCount(winningLotto);
+    rankOfCountData.keySet().stream().forEach(name -> {
+      result.add(Rank.valueOf(name), rankOfCountData.get(name).intValue());
     });
-    result.setRevenue(getRevenue(winningLotto));
     return result;
   }
 
-  public int getRankOfCount(Rank rank, Lotto winningLotto) {
-    return (int) lottos.stream()
-        .filter(l -> l.getCountOfMatchNumber(winningLotto) == rank.getMatchOfNumberCnt())
-        .count();
-  }
-
-  public double getRevenue(Lotto winningLotto) {
-    int totalPrizeMoney = Arrays.stream(Rank.values())
-        .mapToInt(r -> r.getWinningMoney() * getRankOfCount(r, winningLotto))
-        .sum();
-    return ((double) totalPrizeMoney / (PRICE_PER_LOTTO_ONE_GAME * lottos.size())) * 100;
+  public Map<String, Long> getRankOfCount(WinningLotto winningLotto) {
+    return lottos.stream().map(l -> l.match(winningLotto))
+                          .collect(groupingBy(Rank::name, counting()));
   }
 }

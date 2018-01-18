@@ -3,6 +3,7 @@ package view;
 import domain.Lotto;
 import domain.Rank;
 import dto.LottoResult;
+
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -25,8 +26,8 @@ public class ResultView {
   }
 
   public static String format(Rank rank, int rankOfCount) {
-    return String.format("%d개 일치 (%d원) - %d개",
-        rank.getMatchOfNumberCnt(), rank.getWinningMoney(), rankOfCount);
+    String formatText = rank == Rank.SECOND ? "%d개 일치 보너스볼 일치(%d원) - %d개" : "%d개 일치 (%d원) - %d개";
+    return String.format(formatText, rank.getMatchOfNumberCnt(), rank.getWinningMoney(), rankOfCount);
   }
 
   public static String formatToRevenue(double revenue) {

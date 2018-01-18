@@ -1,9 +1,11 @@
 import domain.Lotto;
 import domain.LottoMachine;
+import domain.WinningLotto;
 import dto.LottoResult;
-import java.util.List;
 import view.InputView;
 import view.ResultView;
+
+import java.util.List;
 
 public class Main {
 
@@ -18,7 +20,8 @@ public class Main {
     ResultView.printPurchaseLottos(lottos);
 
     String strNumbers = InputView.inputWinningNumbers();
-    Lotto winningLotto = LottoMachine.createWinningLotto(strNumbers);
+    int bonusNumber = InputView.inputBonusNumber();
+    WinningLotto winningLotto = LottoMachine.createWinningLotto(strNumbers, bonusNumber);
 
     LottoResult result = lottoMachine.match(winningLotto);
     ResultView.printResult(result);

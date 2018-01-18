@@ -15,4 +15,9 @@ public class InputView {
     System.out.println("구입 금액을 입력해 주세요.");
     return scanner.nextInt();
   }
+
+  public static int inputBonusNumber() {
+    System.out.println("보너스 번호를 입력해 주세요.");
+    return scanner.nextInt();
+  }
 }

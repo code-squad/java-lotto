@@ -2,8 +2,11 @@ package domain;
 
 import static org.junit.Assert.assertEquals;
 
+import dto.LottoResult;
 import java.util.Arrays;
 import java.util.List;
+
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import view.ResultView;
@@ -11,12 +14,12 @@ import view.ResultView;
 public class LottoMachineTest {
 
   private LottoMachine lottoMachine;
-  private Lotto winningLotto;
+  private WinningLotto winningLotto;
 
   @Before
   public void setUp() throws Exception {
     lottoMachine = new LottoMachine();
-    winningLotto = LottoMachine.createWinningLotto("1,2,3,4,5,6");
+    winningLotto = LottoMachine.createWinningLotto("1,2,3,4,5,6", 7);
   }
 
   @Test
@@ -38,24 +41,24 @@ public class LottoMachineTest {
 
     // 2등
     lottoMachine.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 7)));
-    lottoMachine.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 10)));
 
     // 3등
+    lottoMachine.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 10)));
+
+    // 4등
     lottoMachine.add(new Lotto(Arrays.asList(1, 2, 3, 4, 7, 8)));
     lottoMachine.add(new Lotto(Arrays.asList(1, 2, 3, 4, 13, 15)));
     lottoMachine.add(new Lotto(Arrays.asList(1, 2, 3, 4, 29, 44)));
 
-    // 4등
+    // 5등
     lottoMachine.add(new Lotto(Arrays.asList(1, 2, 3, 7, 8, 9)));
-    assertEquals(1, lottoMachine.getRankOfCount(Rank.FIRST, winningLotto));
-    assertEquals(2, lottoMachine.getRankOfCount(Rank.SECOND, winningLotto));
-    assertEquals(3, lottoMachine.getRankOfCount(Rank.THIRD, winningLotto));
-    assertEquals(1, lottoMachine.getRankOfCount(Rank.FOURTH, winningLotto));
-  }
 
-  @Test
-  public void getRevenue() {
-    lottoMachine.add(new Lotto(Arrays.asList(1, 2, 3, 7, 8, 9)));
-    assertEquals("500", ResultView.formatToRevenue(lottoMachine.getRevenue(winningLotto)));
+    Map<String, Long> rankOfCount = lottoMachine.getRankOfCount(winningLotto);
+
+    assertEquals(1, rankOfCount.get(Rank.FIRST.name()).intValue());
+    assertEquals(1, rankOfCount.get(Rank.SECOND.name()).intValue());
+    assertEquals(1, rankOfCount.get(Rank.THIRD.name()).intValue());
+    assertEquals(3, rankOfCount.get(Rank.FOURTH.name()).intValue());
+    assertEquals(1, rankOfCount.get(Rank.FIFTH.name()).intValue());
   }
 }
