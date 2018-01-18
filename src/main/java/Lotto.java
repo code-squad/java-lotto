@@ -8,4 +8,8 @@ public class Lotto {
 	Lotto(List<Integer> numbers) {
 		this.numbers = numbers;
 	}
+
+	public List<Integer> getNumbers() {
+		return this.numbers;
+	}
 }

@@ -1,12 +1,26 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Lottos {
+	private static final Logger log = LoggerFactory.getLogger(Main.class);
 	
-	List<UserLotto> lottos;
+	private List<UserLotto> lottos;
+	private int lottosSize;
 	
-	Lottos(List<UserLotto> lottos) {
+	public Lottos(List<UserLotto> lottos) {
 		this.lottos = lottos;
+		this.lottosSize = lottos.size();
+	}
+	
+	public List<UserLotto> getLottos() {
+		return this.lottos;
+	}
+	
+	public int getLottosSize() {
+		return this.lottosSize;
 	}
 
 	List<Match> createMatches(List<Integer> winningLotto, int bonusNumber) {

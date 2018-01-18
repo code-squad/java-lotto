@@ -18,6 +18,18 @@ public enum Match {
 		this.prize = prize;
 	}
 	
+	public int getMatchingCount() {
+		return this.matchingCount;
+	}
+	
+	public String getBonus() {
+		return this.bonus;
+	}
+	
+	public int getPrize() {
+		return this.prize;
+	}
+	
 	public static Match findMatch(int matchingCount, boolean bonusTag) {
 		for (Match eachMatch : Match.values()) {
 			if (matchingCount == MATCH5.matchingCount && bonusTag) {

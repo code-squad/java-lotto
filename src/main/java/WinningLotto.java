@@ -7,15 +7,14 @@ public class WinningLotto extends Lotto{
 		super(numbers);
 	}
 	
-	static List<Integer> getWinningLotto() {
-		String inputNum = Input.inputWinningLotto();
-		String[] splittedInputNum = makeArray(inputNum);
+	static List<Integer> getWinningLotto(String winningLottoNo) {
+		String[] splittedInputNum = makeArray(winningLottoNo);
 		List<Integer> winningLotto = new ArrayList<>();
 		for (String number : splittedInputNum) {
 			winningLotto.add(Integer.parseInt(number));
 		}
 		if ( !checkLottoNumRange(winningLotto) ) {
-			return getWinningLotto();
+			return getWinningLotto(winningLottoNo);
 		}
 		return winningLotto;
 	}

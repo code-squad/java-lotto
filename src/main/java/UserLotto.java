@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class UserLotto extends Lotto {
-
+	
 	UserLotto(List<Integer> numbers) {
 		super(numbers);
 	}
@@ -48,4 +48,22 @@ public class UserLotto extends Lotto {
 		}
 		return lottos;
 	}
+	
+	static List<UserLotto> createLottos(int howMany, String[] totalManualNo) {
+		List<UserLotto> lottos = new ArrayList<>();
+		int howManyAuto = howMany - totalManualNo.length;
+		for (String oneManualNo : totalManualNo) {
+			String[] lottoNo = oneManualNo.split(",");
+			List<Integer> manualLotto = new ArrayList<>();
+			for (String number : lottoNo) {
+				manualLotto.add(Integer.parseInt(number));
+			}
+			lottos.add(new UserLotto(manualLotto));
+		}
+		for (int i = 0; i < howManyAuto; i++) {
+			lottos.add(new UserLotto(createLottoNumbers()));
+		}
+		return lottos;
+	}
+	
 }
