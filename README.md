@@ -135,7 +135,7 @@
 
 ## Step4
 * repo : https://github.com/trytocloud/java-lotto/tree/step4
-* pr : 
+* pr : https://github.com/code-squad/java-lotto/pull/63
 
 ### 요구사항
 * 콘솔 UI 대신 웹 UI를 적용한다.
