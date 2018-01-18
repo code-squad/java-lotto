@@ -16,33 +16,26 @@ public class ResultView {
     private static final String RETURN_RATE_MESSAGE_FORMAT = "총 수익률은 %.2f%%입니다.";
     private static final String SEPARATOR_LINE = "------------------";
 
-    private LottoResult lottoResult;
-
-    public ResultView(LottoResult lottoResult) {
-        this.lottoResult = lottoResult;
-    }
-
-    public void printReport() {
+    public static void printReport(LottoResult lottoResult) {
         System.out.println(RESULT_TITLE);
         System.out.println(SEPARATOR_LINE);
-        System.out.println(getPrizeListString());
+        System.out.println(getPrizeListString(lottoResult));
         System.out.println(String.format(RETURN_RATE_MESSAGE_FORMAT, lottoResult.getReturnRate()));
     }
 
-    public String getPrizeListString() {
+    public static String getPrizeListString(LottoResult lottoResult) {
         ArrayList<String> prizeStringList = new ArrayList<>();
         for (Prize prize : Prize.values()) {
             if(prize == Prize.NONE)
                 continue;
-            prizeStringList.add(getPrizeString(prize));
+            prizeStringList.add(getPrizeString(prize, lottoResult.getPrizeCount(prize)));
         }
         Collections.sort(prizeStringList);
         return String.join("\n", prizeStringList);
     }
 
-    private String getPrizeString(Prize prize) {
-        int count = lottoResult.getPrizeCount(prize);
-        int matchNumberCount = LottoNumber.LOTTO_NUMBERS_SIZE - prize.getPrizeNumber() + 1;
+    private static String getPrizeString(Prize prize, int count) {
+        int matchNumberCount = LottoNumber.LOTTO_NUMBERS_SIZE - prize.getCountOfDifference();
         return String.format("%d개 일치 (%d원)- %d개", matchNumberCount, prize.getReward(), count);
     }
 }

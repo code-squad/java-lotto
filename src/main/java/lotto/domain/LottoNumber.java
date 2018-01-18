@@ -14,7 +14,7 @@ public class LottoNumber {
     public static final int MAX_NUMBER = 45;
     public static final int LOTTO_NUMBERS_SIZE = 6;
 
-    List<Integer> numbers;
+    private List<Integer> numbers;
 
     public LottoNumber() {
         this(new AutoLottoNumberGenerator().generateNumbers());

@@ -7,7 +7,7 @@ public class LottoTicket {
 
     public static final int TICKET_PRICE = 1000;
 
-    LottoNumber lottoNumber;
+    private LottoNumber lottoNumber;
 
     public LottoTicket() {
         this(new AutoLottoNumberGenerator());
@@ -18,21 +18,7 @@ public class LottoTicket {
     }
 
     public Prize checkWinning(LottoNumber winningNumber) {
-        int countMatchNumber = lottoNumber.countMatchNumber(winningNumber);
-        if (countMatchNumber == LottoNumber.LOTTO_NUMBERS_SIZE) {
-            return Prize.FIRST;
-        }
-        if (countMatchNumber == LottoNumber.LOTTO_NUMBERS_SIZE - 1) {
-            return Prize.SECOND;
-        }
-        if (countMatchNumber == LottoNumber.LOTTO_NUMBERS_SIZE - 2) {
-            return Prize.THIRD;
-        }
-        if (countMatchNumber == LottoNumber.LOTTO_NUMBERS_SIZE - 3) {
-            return Prize.FOURTH;
-        }
-
-        return Prize.NONE;
+        return Prize.checkWinning(lottoNumber, winningNumber);
     }
 
     @Override

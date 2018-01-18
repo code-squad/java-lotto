@@ -10,8 +10,8 @@ import java.util.Map;
  */
 public class LottoResult {
 
-    int ticketCount;
-    Map<Prize, Integer> prizeResult;
+    private int ticketCount;
+    private Map<Prize, Integer> prizeResult;
 
     public LottoResult(int ticketCount, List<Prize> prizeList) {
         this.ticketCount = ticketCount;

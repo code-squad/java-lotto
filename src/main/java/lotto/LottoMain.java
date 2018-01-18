@@ -11,17 +11,16 @@ import lotto.view.ResultView;
  */
 public class LottoMain {
     public static void main(String[] args) {
-        InputView inputView = new InputView();
         LottoGame lottoGame = new LottoGame();
         
-        int money = inputView.inputMoney();
+        int money = InputView.inputMoney();
         int ticketCount = lottoGame.buyTicket(money);
         printTicketCount(ticketCount);
         printTicket(lottoGame.getTicketsString());
-        LottoNumber winningNumber = inputView.inputWinningNumber();
+
+        LottoNumber winningNumber = InputView.inputWinningNumber();
         LottoResult lottoResult = lottoGame.getPrizeResult(winningNumber);
-        ResultView resultView = new ResultView(lottoResult);
-        resultView.printReport();
+        ResultView.printReport(lottoResult);
     }
 
     private static void printTicketCount(int ticketCount) {
