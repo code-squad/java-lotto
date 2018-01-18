@@ -18,13 +18,13 @@ public class LottoControllerTest {
 
     @Test
     public void 입력금액만큼_로또생성() {
-        List<Lotto> totalLotto = lottoController.buy(14000);
+        List<UserLotto> totalLotto = lottoController.buy(14000);
         assertEquals(14, totalLotto.size());
     }
 
     @Test
     public void 일치번호_개수_구하기() {
-        Lotto lottoNum = new Lotto(Arrays.asList(
+        UserLotto lottoNum = new UserLotto(Arrays.asList(
                 3, 4, 5, 6, 7, 8
         ));
 
@@ -32,19 +32,22 @@ public class LottoControllerTest {
                 1, 2, 3, 4, 9, 10
         );
 
-        int corrected = lottoController.check(lottoNum, luckyNum);
+        WinningLotto winningLotto = new WinningLotto(luckyNum, 7);
+
+        int corrected = lottoController.check(lottoNum, winningLotto);
 
         assertEquals(2, corrected);
     }
 
     @Test
     public void 당첨정보_구하기() {
-        List<Lotto> lottos = Arrays.asList(
-                new Lotto(Arrays.asList(1, 2, 3, 4, 30, 40)),
-                new Lotto(Arrays.asList(1, 3, 4, 9, 13, 20))
+        List<UserLotto> lottos = Arrays.asList(
+                new UserLotto(Arrays.asList(1, 2, 3, 4, 30, 40)),
+                new UserLotto(Arrays.asList(1, 3, 4, 9, 13, 20))
         );
         List<Integer> lucky = Arrays.asList(1, 2, 3, 4, 5, 6);
-        Map<PriceInfo, Integer> luckyInfo = lottoController.checkAllLottos(lottos, lucky);
+        WinningLotto winningLotto = new WinningLotto(lucky, 7);
+        Map<PriceInfo, Integer> luckyInfo = lottoController.checkAllLottos(lottos, winningLotto);
         Map<PriceInfo, Integer> expected = new HashMap<>();
         expected.put(PriceInfo.THREE, 1);
         expected.put(PriceInfo.FOUR, 1);

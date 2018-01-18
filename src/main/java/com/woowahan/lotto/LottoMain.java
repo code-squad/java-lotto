@@ -10,12 +10,12 @@ public class LottoMain {
         ResultView resultView = new ResultView();
 
         int money = inputView.inputMoney();
-        List<Lotto> lottos = lottoController.buy(money);
+        List<UserLotto> lottos = lottoController.buy(money);
 
         resultView.printMyLottoInfo(lottos);
-        List<Integer> luckyNumbers = inputView.inputLuckyNumbers();
+        WinningLotto winningLotto = new WinningLotto(inputView.inputLuckyNumbers(), inputView.inputBonusNumber());
 
-        Map<PriceInfo, Integer> winInfo = lottoController.checkAllLottos(lottos, luckyNumbers);
+        Map<PriceInfo, Integer> winInfo = lottoController.checkAllLottos(lottos, winningLotto);
         resultView.printLottoResult(winInfo);
 
     }

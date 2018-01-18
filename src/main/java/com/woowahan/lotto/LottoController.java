@@ -3,18 +3,18 @@ package com.woowahan.lotto;
 import java.util.*;
 
 public class LottoController {
-    public List<Lotto> buy(int money) {
-        List<Lotto> totalLotto = new ArrayList<>();
+    public List<UserLotto> buy(int money) {
+        List<UserLotto> totalLotto = new ArrayList<>();
         for (int i = 0; i < money / 1000; i++) {
-            totalLotto.add(new Lotto());
+            totalLotto.add(new UserLotto());
         }
         return totalLotto;
     }
 
-    public int check(Lotto lotto, List<Integer> lucky) {
+    public int check(UserLotto lotto, WinningLotto lucky) {
         int count = 0;
 
-        for (Integer luck : lucky) {
+        for (Integer luck : lucky.getWinningLotto()) {
             count += getCount(lotto, luck);
         }
 
@@ -22,19 +22,23 @@ public class LottoController {
 
     }
 
-    private int getCount(Lotto lotto, Integer luck) {
+    private int getCount(UserLotto lotto, Integer luck) {
         if (lotto.contains(luck)) {
             return 1;
         }
         return 0;
     }
 
-    public Map<PriceInfo, Integer> checkAllLottos(List<Lotto> lottos, List<Integer> lucky) {
+    private boolean checkBonusNumber(UserLotto lotto, int bonusNumber) {
+        return lotto.contains(bonusNumber);
+    }
+
+    public Map<PriceInfo, Integer> checkAllLottos(List<UserLotto> lottos, WinningLotto lucky) {
         Map<PriceInfo, Integer> winInfo = initWinInfo();
 
-        for (Lotto lotto : lottos) {
+        for (UserLotto lotto : lottos) {
             int count = check(lotto, lucky);
-            PriceInfo key = PriceInfo.getValueByWinningCondition(count);
+            PriceInfo key = PriceInfo.getValueByWinningCondition(count, checkBonusNumber(lotto, lucky.getBonusNumber()));
             winInfo.put(key, winInfo.get(key) + 1);
         }
 

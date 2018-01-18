@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Lotto {
+public class UserLotto {
     private static final List<Integer> BASE_NUMBERS = setBaseNumbers();
     private List<Integer> lotto;
 
-    public Lotto() {
+    public UserLotto() {
         this.lotto = sort(create());
     }
 
-    public Lotto(List<Integer> lotto) {
+    public UserLotto(List<Integer> lotto) {
         this.lotto = lotto;
     }
 

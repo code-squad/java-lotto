@@ -8,12 +8,12 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class LottoTest {
-    Lotto lotto;
+public class UserLottoTest {
+    UserLotto lotto;
 
     @Before
     public void setup() {
-        lotto = new Lotto();
+        lotto = new UserLotto();
     }
 
     @Test
