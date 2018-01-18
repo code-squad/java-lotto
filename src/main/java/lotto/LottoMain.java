@@ -1,8 +1,6 @@
 package lotto;
 
 import lotto.domain.LottoGame;
-import lotto.domain.LottoNumber;
-import lotto.domain.LottoResult;
 import lotto.view.InputView;
 import lotto.view.ResultView;
 
@@ -12,15 +10,16 @@ import lotto.view.ResultView;
 public class LottoMain {
     public static void main(String[] args) {
         LottoGame lottoGame = new LottoGame();
-        
-        int money = InputView.inputMoney();
-        int ticketCount = lottoGame.buyTicket(money);
-        printTicketCount(ticketCount);
-        printTicket(lottoGame.getTicketsString());
 
-        LottoNumber winningNumber = InputView.inputWinningNumber();
-        LottoResult lottoResult = lottoGame.getPrizeResult(winningNumber);
-        ResultView.printReport(lottoResult);
+        printTicketCount(lottoGame.buyTicket(InputView.inputMoney()));
+        printEmptyLine();
+        printTicket(lottoGame.getTicketsString());
+        printEmptyLine();
+        ResultView.printReport(lottoGame.getPrizeResult(InputView.inputWinningNumber()));
+    }
+
+    private static void printEmptyLine() {
+        System.out.println();
     }
 
     private static void printTicketCount(int ticketCount) {
