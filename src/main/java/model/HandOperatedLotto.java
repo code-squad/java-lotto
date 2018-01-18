@@ -18,16 +18,9 @@ public class HandOperatedLotto {
 
     private List<Lotto> buyLotto(String[] lottoNumbers) {
         for (String lottoNumber : lottoNumbers) {
-            lottos.add(new Lotto(splitComma(lottoNumber)));
+            lottos.add(new Lotto(StringUtil.stringToList(lottoNumber)));
         }
         return lottos;
     }
 
-    private List<Integer> splitComma(String result) {
-        List<Integer> resultNumbers = new ArrayList();
-        for (String value : result.split(",")) {
-            resultNumbers.add(Integer.parseInt(value));
-        }
-        return resultNumbers;
-    }
 }

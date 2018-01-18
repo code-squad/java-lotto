@@ -56,12 +56,7 @@ public class Customer {
     }
 
     private WinningLotto getWinningLotto(String result, Integer bonusNum) {
-        List<Integer> resultNumbers = new ArrayList();
-        for (String value : result.split(",")) {
-            resultNumbers.add(Integer.parseInt(value));
-        }
-
-        Lotto lotto = new Lotto(resultNumbers);
+        Lotto lotto = new Lotto(StringUtil.stringToList(result));
         WinningLotto winningLotto = new WinningLotto(lotto, bonusNum);
 
         return winningLotto;
