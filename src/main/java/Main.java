@@ -10,10 +10,10 @@ public class Main {
     public static void main(String[] args) {
         Customer customer = new Customer();
 
-        List<Lotto> numberOfLottos = customer.buy(InputView.scanMoneyToBuy());
+        List<Lotto> lottos = customer.buy(InputView.scanMoneyToBuy());
 
-        ResultView.printNumber(numberOfLottos.size());
-        ResultView.printLottoNumbers(numberOfLottos);
+        ResultView.printNumber(lottos.size());
+        ResultView.printLottoNumbers(lottos);
 
         String lastWeekHitNumbers = InputView.scanLastWeekLottoNumbers();
         Integer bonus = InputView.scanBonusNumber();
@@ -21,6 +21,6 @@ public class Main {
         LottoResult lottoResult = customer.getLottoResult(lastWeekHitNumbers, bonus);
 
         ResultView.printResult(lottoResult.getLottoResult());
-        ResultView.printStatics(lottoResult.getPercentage());
+        ResultView.printStatics(lottoResult.analyze(lottos));
     }
 }

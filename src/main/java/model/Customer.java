@@ -25,14 +25,26 @@ public class Customer {
     }
 
     public LottoResult getLottoResult(String lottoNumber, Integer bonusNum) {
-        Map<Lotto, Rank> lottoWithRank = new HashMap();
+        Map<Rank, Integer> lottoWithRank = initResults();
         WinningLotto winningLotto = getWinningLotto(lottoNumber, bonusNum);
 
         for (Lotto lotto : lottos) {
-            lottoWithRank.put(lotto, winningLotto.compare(lotto));
+            Rank rank = winningLotto.compare(lotto);
+            if (rank != null) {
+                lottoWithRank.put(rank, lottoWithRank.get(rank) + 1);
+            }
         }
 
-        return match(winningLotto, lottoWithRank);
+        return new LottoResult(LottoMapStrategy.sortMap(lottoWithRank));
+    }
+
+    private Map<Rank, Integer> initResults() {
+        Map<Rank, Integer> lottoWithRank = new HashMap<>();
+
+        for (Rank rank: Rank.values()){
+            lottoWithRank.put(rank, 0);
+        }
+        return lottoWithRank;
     }
 
     private WinningLotto getWinningLotto(String result, Integer bonusNum) {
@@ -45,9 +57,5 @@ public class Customer {
         WinningLotto winningLotto = new WinningLotto(lotto, bonusNum);
 
         return winningLotto;
-    }
-
-    private LottoResult match(WinningLotto winningLotto, Map<Lotto, Rank> lottoRankMap){
-        return winningLotto.match(lottos, lottoRankMap);
     }
 }

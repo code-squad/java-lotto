@@ -1,4 +1,3 @@
-import model.Lotto;
 import model.LottoMapStrategy;
 import model.Rank;
 import org.junit.Test;
@@ -24,16 +23,5 @@ public class LottoMapStrategyTest {
         sortedMap.put(Rank.FOURTH, 10);
 
         assertThat(LottoMapStrategy.sortMap(unsortedMap)).isEqualTo(sortedMap);
-    }
-
-    @Test
-    public void combinedByRank(){
-        Map<Rank, Integer> result = new HashMap();
-        for (Rank rank : Rank.values()) {
-            result.put(rank, 0);
-        }
-
-        Map<Lotto, Rank> lottoMapStrategyRankMap = new HashMap();
-        assertThat(LottoMapStrategy.combinedByRank(lottoMapStrategyRankMap)).isEqualTo(result);
     }
 }
