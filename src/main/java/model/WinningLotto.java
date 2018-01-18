@@ -6,13 +6,11 @@ import java.util.List;
 public class WinningLotto {
 
     private List<Integer> numbers;
+    private int bonusNumber;
 
-    public WinningLotto(List<Integer> numbers) {
+    public WinningLotto(List<Integer> numbers, int bonusNumber) {
         this.numbers = new ArrayList<>(numbers);
-    }
-
-    public List<Integer> getNumbers() {
-        return this.numbers;
+        this.bonusNumber = bonusNumber;
     }
 
     public int compare(UserLotto target) {
@@ -21,5 +19,9 @@ public class WinningLotto {
             if (target.getNumbers().contains(num)) result++;
         }
         return result;
+    }
+
+    public boolean compareBonus(UserLotto target) {
+        return target.getNumbers().contains(this.bonusNumber);
     }
 }

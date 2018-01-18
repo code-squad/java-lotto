@@ -23,21 +23,27 @@ public class ConsoleView {
 				.toArray(Integer[]::new);
 	}
 
+	public static int getBonusNumber() {
+		System.out.println("보너스 볼을 입력해 주세요.");
+		return scanner.nextInt();
+	}
+
 	public static void printResultStatistics(Map<ResultTypes, Integer> gameResults) {
 		StringBuilder stringBuilder = new StringBuilder("당첨 통계\n").append("----------\n");
 
 		for (ResultTypes resultTypes : gameResults.keySet()) {
 			stringBuilder.append(
-					String.format("%d개 일치 (%d) - %d개\n",
+					String.format("%d개 일치 (%d)%s - %d개\n",
 							resultTypes.matchCount,
-							resultTypes.price,
+							resultTypes.prize,
+							resultTypes.bonus ? ", 보너스 볼 일치" : "",
 							gameResults.get(resultTypes)));
 		}
 
 		System.out.println(stringBuilder.toString());
 	}
 
-    public static void printYieldRate(int yieldRate) {
+    public static void printYieldRate(long yieldRate) {
 		System.out.println(String.format("총 수익률은 %d%%입니다.", yieldRate));
     }
 }

@@ -28,11 +28,20 @@ public class LottoTest {
         UserLotto lotto2 = new UserLotto(Arrays.asList(1, 2, 3, 4, 5, 7));
         UserLotto lotto3 = new UserLotto(Arrays.asList(1, 2, 3, 4, 7, 8));
 
-        WinningLotto winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+        WinningLotto winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6), 27);
 
         assertThat(winningLotto.compare(lotto1)).isEqualTo(6);
         assertThat(winningLotto.compare(lotto2)).isEqualTo(5);
         assertThat(winningLotto.compare(lotto3)).isEqualTo(4);
+    }
 
+    @Test
+    public void compareBonusTest() {
+        UserLotto lotto = new UserLotto(Arrays.asList(1, 2, 3, 4, 5, 27));
+
+        WinningLotto winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6), 27);
+
+        assertThat(winningLotto.compare(lotto)).isEqualTo(5);
+        assertThat(winningLotto.compareBonus(lotto)).isEqualTo(true);
     }
 }

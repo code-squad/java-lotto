@@ -26,7 +26,7 @@ public class UserLottoGameTest {
 
 		lottoGame = new LottoGame(5000, myLottos);
 
-		winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+		winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6), 27);
 	}
 
 	@Test
@@ -54,7 +54,7 @@ public class UserLottoGameTest {
 	@Test
 	public void getYieldRate() {
 		lottoGame.runGames(winningLotto);
-		int yieldRate = lottoGame.getYieldRate();
+		long yieldRate = lottoGame.getYieldRate();
 
 		assertThat(yieldRate).isEqualTo(32100);
 	}

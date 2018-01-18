@@ -55,7 +55,8 @@ public class LottoGame {
 	public Map<ResultTypes, Integer> runGames(WinningLotto winningLotto) {
 		for(UserLotto lotto : lottos) {
 			int matchCount = winningLotto.compare(lotto);
-			ResultTypes key = ResultTypes.findByCode(matchCount);
+			boolean isBonus = winningLotto.compareBonus(lotto);
+			ResultTypes key = ResultTypes.findByCode(matchCount, isBonus);
 
 			if (!gameResults.containsKey(key)) {
 				gameResults.put(key, 1);
@@ -68,14 +69,14 @@ public class LottoGame {
 		return gameResults;
 	}
 
-	public int getYieldRate() {
-		int priceSum = 0;
+	public long getYieldRate() {
+		long prizeSum = 0;
 
 		for(ResultTypes type : gameResults.keySet()) {
-			priceSum += type.price * gameResults.get(type);
+			prizeSum += type.prize * gameResults.get(type);
 		}
 
-		return (priceSum * 100) / money;
+		return (prizeSum * 100) / money;
 	}
 
 	public List<UserLotto> getLottos() {
