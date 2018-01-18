@@ -12,10 +12,11 @@ public class ResultView {
         }
     }
 
-    public void printLottoResult(Map<PriceInfo, Integer> winInfo) {
+    public void printLottoResult(Map<PriceInfo, Integer> winInfo, int benefit) {
         System.out.println("당첨 통계\n----------");
         for (PriceInfo priceInfo : new TreeMap<>(winInfo).keySet()) {
             System.out.println(priceInfo.toString() + " - " + winInfo.get(priceInfo) + "개");
         }
+        System.out.println("총 수익률은 " + benefit + "%입니다.");
     }
 }

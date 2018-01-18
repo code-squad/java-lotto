@@ -56,11 +56,15 @@ public class LottoController {
         return winInfo;
     }
 
-    public int getTotalWinPrice(Map<Integer, Integer> winInfo) {
+    public int getTotalWinPrice(Map<PriceInfo, Integer> winInfo) {
         int totalPrice = 0;
-        for (Integer key : winInfo.keySet()) {
-            totalPrice += key * winInfo.get(key);
+        for (PriceInfo key : winInfo.keySet()) {
+            totalPrice += key.getPrice() * winInfo.get(key);
         }
         return totalPrice;
+    }
+
+    public int calculateBenefit(int totalPrice, int money) {
+        return totalPrice * 100 / money;
     }
 }

@@ -16,7 +16,9 @@ public class LottoMain {
         WinningLotto winningLotto = new WinningLotto(inputView.inputLuckyNumbers(), inputView.inputBonusNumber());
 
         Map<PriceInfo, Integer> winInfo = lottoController.checkAllLottos(lottos, winningLotto);
-        resultView.printLottoResult(winInfo);
+        int benefit = lottoController.calculateBenefit(lottoController.getTotalWinPrice(winInfo), money);
+
+        resultView.printLottoResult(winInfo, benefit);
 
     }
 
