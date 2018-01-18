@@ -23,7 +23,6 @@ public class WinningNumberTest {
     public void 정상생성() {
         WinningNumber winningNumber = new WinningNumber(number, 7);
         assertThat(winningNumber.getBonusNumber()).isEqualTo(7);
-
     }
 
     @Test(expected = IllegalArgumentException.class)
