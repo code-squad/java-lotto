@@ -27,8 +27,8 @@ public class LottoResultTest {
 
     @Test
     public void getResult() {
-        Map<PriceType, Integer> result = lottoResult.getResult();
-        assertThat(result.get(PriceType.FORTH)).isEqualTo(1);
+        Map<Rank, Integer> result = lottoResult.getResult();
+        assertThat(result.get(Rank.FORTH)).isEqualTo(1);
     }
 
     @Test

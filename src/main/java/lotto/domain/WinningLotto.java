@@ -26,8 +26,8 @@ public class WinningLotto {
         return winningLottos;
     }
 
-    public PriceType getResult(Lotto lotto) {
-        return PriceType.valueOf(getMatch(lotto).size(), lotto.getNumbers().contains(bonus));
+    public Rank getResult(Lotto lotto) {
+        return Rank.valueOf(getMatch(lotto).size(), lotto.getNumbers().contains(bonus));
     }
 
     private List<Integer> getMatch(Lotto lotto) {

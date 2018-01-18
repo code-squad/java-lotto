@@ -1,13 +1,13 @@
 package lotto.domain;
 
-public enum PriceType {
+public enum Rank {
     FIRST(6, 2000000000), SECOND(5, 3000000), THIRD(5, 1500000), FORTH(4, 50000), FIFTH(3, 5000);
 
     private int count;
 
     private int price;
 
-    PriceType(int count, int price) {
+    Rank(int count, int price) {
         this.count = count;
         this.price = price;
     }
@@ -20,12 +20,12 @@ public enum PriceType {
         return price;
     }
 
-    public static PriceType valueOf(int count, boolean matchBonus) {
-        for (PriceType priceType : PriceType.values()) {
+    public static Rank valueOf(int count, boolean matchBonus) {
+        for (Rank rank : Rank.values()) {
             if (count == 5 && matchBonus) {
                 return SECOND;
-            } else if (priceType.getCount() == count){
-                return priceType;
+            } else if (rank.getCount() == count){
+                return rank;
             }
         }
         return null;

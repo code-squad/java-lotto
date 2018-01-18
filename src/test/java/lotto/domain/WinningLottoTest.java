@@ -36,6 +36,6 @@ public class WinningLottoTest {
 
     @Test
     public void match() {
-        assertThat(winningLotto.getResult(new Lotto(Arrays.asList(1,2,3,4,11,12)))).isEqualTo(PriceType.FORTH);
+        assertThat(winningLotto.getResult(new Lotto(Arrays.asList(1,2,3,4,11,12)))).isEqualTo(Rank.FORTH);
     }
 }

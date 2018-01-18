@@ -2,9 +2,6 @@ package lotto.domain;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static java.util.Objects.nonNull;
 
 public class LottoResult {
 
@@ -14,7 +11,7 @@ public class LottoResult {
 
     private WinningLotto winningLottos;
 
-    private Map<PriceType, Integer> resultMap;
+    private Map<Rank, Integer> resultMap;
 
     public LottoResult(List<Lotto> myLottos, WinningLotto winningLottos) {
         this.myLottos = myLottos;
@@ -33,16 +30,16 @@ public class LottoResult {
 
     private int getEarnings() {
         int earning = 0;
-        for (Map.Entry<PriceType,Integer> lotto : resultMap.entrySet()) {
+        for (Map.Entry<Rank,Integer> lotto : resultMap.entrySet()) {
             earning += lotto.getKey().getPrice() * lotto.getValue();
         }
         return earning;
     }
 
 
-    public Map<PriceType, Integer> getResult() {
+    public Map<Rank, Integer> getResult() {
         for (Lotto lotto : myLottos) {
-            PriceType lottoResult = winningLottos.getResult(lotto);
+            Rank lottoResult = winningLottos.getResult(lotto);
             if (lottoResult != null) {
                 int value = resultMap.get(lottoResult) + 1;
                 resultMap.put(lottoResult, value);
@@ -51,13 +48,13 @@ public class LottoResult {
         return resultMap;
     }
 
-    private Map<PriceType, Integer> initResultMap() {
-        Map<PriceType, Integer> statistics = new HashMap<>();
-        statistics.put(PriceType.FIRST, 0);
-        statistics.put(PriceType.SECOND, 0);
-        statistics.put(PriceType.THIRD, 0);
-        statistics.put(PriceType.FORTH, 0);
-        statistics.put(PriceType.FIFTH, 0);
+    private Map<Rank, Integer> initResultMap() {
+        Map<Rank, Integer> statistics = new HashMap<>();
+        statistics.put(Rank.FIRST, 0);
+        statistics.put(Rank.SECOND, 0);
+        statistics.put(Rank.THIRD, 0);
+        statistics.put(Rank.FORTH, 0);
+        statistics.put(Rank.FIFTH, 0);
         return statistics;
     }
 }

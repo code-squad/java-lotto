@@ -6,11 +6,10 @@ import java.util.stream.IntStream;
 
 public class Lotto {
 
-    public static final List<Integer> LOTTO_NUMBERS = IntStream.range(1, 46).boxed().collect(Collectors.toList());
+    private static final  List<LottoNo> LOTTO_NUMBER_RAGNE = IntStream.range(1, 46).boxed().map(i -> new LottoNo(i)).collect(Collectors.toList());
+    private List<LottoNo> numbers;
 
-    private List<Integer> numbers;
-
-    public Lotto(List<Integer> numbers) {
+    public Lotto(List<LottoNo> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException();
         }
@@ -19,12 +18,11 @@ public class Lotto {
 
     public Lotto() {
         numbers = new ArrayList<>();
-        List<Integer> lottoNumbers = IntStream.range(1, 46).boxed().collect(Collectors.toList());
-        Collections.shuffle(lottoNumbers, new Random());
-        numbers = lottoNumbers.subList(0, 6);
+        Collections.shuffle(LOTTO_NUMBER_RAGNE, new Random());
+        numbers = LOTTO_NUMBER_RAGNE.subList(0, 6);
     }
 
-    public List<Integer> getNumbers() {
+    public List<LottoNo> getNumbers() {
         return this.numbers;
     }
 
