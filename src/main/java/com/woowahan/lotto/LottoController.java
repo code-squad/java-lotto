@@ -11,27 +11,15 @@ public class LottoController {
         return totalLotto;
     }
 
-    public void check(Lotto lotto, List<Integer> lucky) {
+    public int check(Lotto lotto, List<Integer> lucky) {
         int count = 0;
 
         for (Integer luck : lucky) {
             count += getCount(lotto, luck);
         }
 
-        switch (count) {
-            case 3:
-                PriceInfo.THREE.addCount();
-                break;
-            case 4:
-                PriceInfo.FOUR.addCount();
-                break;
-            case 5:
-                PriceInfo.FIVE.addCount();
-                break;
-            case 6:
-                PriceInfo.SIX.addCount();
-                break;
-        }
+        return count;
+
     }
 
     private int getCount(Lotto lotto, Integer luck) {
@@ -41,10 +29,27 @@ public class LottoController {
         return 0;
     }
 
-    public void checkAllLottos(List<Lotto> lottos, List<Integer> lucky) {
+    public Map<PriceInfo, Integer> checkAllLottos(List<Lotto> lottos, List<Integer> lucky) {
+        Map<PriceInfo, Integer> winInfo = initWinInfo();
+
         for (Lotto lotto : lottos) {
-            check(lotto, lucky);
+            int count = check(lotto, lucky);
+            PriceInfo key = PriceInfo.getValueByWinningCondition(count);
+            winInfo.put(key, winInfo.get(key) + 1);
         }
+
+        winInfo.remove(PriceInfo.LOSE);
+
+        return winInfo;
+    }
+
+    private Map<PriceInfo, Integer> initWinInfo() {
+        Map<PriceInfo, Integer> winInfo = new HashMap<>();
+
+        for (PriceInfo priceInfo : PriceInfo.values()) {
+            winInfo.put(priceInfo, 0);
+        }
+        return winInfo;
     }
 
     public int getTotalWinPrice(Map<Integer, Integer> winInfo) {

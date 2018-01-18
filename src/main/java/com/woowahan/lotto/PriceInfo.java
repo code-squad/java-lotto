@@ -1,31 +1,30 @@
 package com.woowahan.lotto;
 
+import java.util.Arrays;
+
 public enum PriceInfo {
-    THREE(3, 5000, 0), FOUR(4, 50000, 0), FIVE(5, 1500000, 0), SIX(6, 2000000000, 0);
+    THREE(3, 5000), FOUR(4, 50000), FIVE(5, 1500000), SIX(6, 2000000000), LOSE(0, 0);
 
-    private final int value;
+    private final int winningCondition;
     private final int price;
-    private int count;
 
-    private PriceInfo(int value, int price, int count) {
-        this.value = value;
+    private PriceInfo(int winningCondition, int price) {
+        this.winningCondition = winningCondition;
         this.price = price;
-        this.count = count;
     }
 
-    public int getValue() {
-        return value;
+    public int getWinningCondition() {
+        return winningCondition;
     }
 
     public int getPrice() {
         return price;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void addCount() {
-        this.count++;
+    public static PriceInfo getValueByWinningCondition(int winningCondition) {
+        return Arrays.stream(PriceInfo.values())
+                .filter(priceInfo -> priceInfo.winningCondition == winningCondition)
+                .findAny()
+                .orElse(PriceInfo.LOSE);
     }
 }

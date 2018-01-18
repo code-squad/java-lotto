@@ -1,6 +1,7 @@
 package com.woowahan.lotto;
 
 import java.util.List;
+import java.util.Map;
 
 public class LottoMain {
     public static void main(String[] args) {
@@ -14,8 +15,8 @@ public class LottoMain {
         resultView.printMyLottoInfo(lottos);
         List<Integer> luckyNumbers = inputView.inputLuckyNumbers();
 
-        lottoController.checkAllLottos(lottos, luckyNumbers);
-        resultView.printLottoResult();
+        Map<PriceInfo, Integer> winInfo = lottoController.checkAllLottos(lottos, luckyNumbers);
+        resultView.printLottoResult(winInfo);
 
     }
 

@@ -1,6 +1,8 @@
 package com.woowahan.lotto;
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class ResultView {
     public void printMyLottoInfo(List<Lotto> myLotto) {
@@ -10,11 +12,11 @@ public class ResultView {
         }
     }
 
-    public void printLottoResult() {
+    public void printLottoResult(Map<PriceInfo, Integer> winInfo) {
         System.out.println("당첨 통계\n----------");
-        for (PriceInfo value : PriceInfo.values()) {
-            System.out.println(value.getValue() + "개 일치(" + value.getPrice() + "원)- " + value.getCount() + "개");
+        for (PriceInfo priceInfo : new TreeMap<>(winInfo).keySet()) {
+            System.out.println(priceInfo.getWinningCondition() + "개 일치(" + priceInfo.getPrice() + "원)- "
+                    + winInfo.get(priceInfo) + "개");
         }
-
     }
 }
