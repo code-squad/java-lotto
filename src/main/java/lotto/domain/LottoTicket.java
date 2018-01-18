@@ -17,7 +17,7 @@ public class LottoTicket {
         lottoNumber = new LottoNumber(lottoNumberGenerator.generateNumbers());
     }
 
-    public Prize checkWinning(LottoNumber winningNumber) {
+    public Prize checkWinning(WinningNumber winningNumber) {
         return Prize.checkWinning(lottoNumber, winningNumber);
     }
 

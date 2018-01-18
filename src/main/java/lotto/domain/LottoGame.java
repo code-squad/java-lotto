@@ -37,7 +37,7 @@ public class LottoGame {
      * @param winningNumber 당첨번호
      * @return 당첨결과
      */
-    public LottoResult getPrizeResult(LottoNumber winningNumber) {
+    public LottoResult getPrizeResult(WinningNumber winningNumber) {
         return new LottoResult(tickets.size(), tickets.stream()
                 .map(ticket -> ticket.checkWinning(winningNumber))
                 .collect(Collectors.toList()));

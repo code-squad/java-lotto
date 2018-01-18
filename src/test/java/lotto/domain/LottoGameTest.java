@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,7 +35,8 @@ public class LottoGameTest {
 
     @Test
     public void 결과확인() {
-        LottoNumber winningNumber = new LottoNumber(Arrays.asList(1, 2, 3, 4, 5, 6));
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        WinningNumber winningNumber = new WinningNumber(new LottoNumber(numbers), 7);
         lottoGame.buyTicket(10000);
         LottoResult result = lottoGame.getPrizeResult(winningNumber);
         Map<Prize, Integer> prizeIntegerMap = result.getPrizeResult();
