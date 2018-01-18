@@ -8,16 +8,18 @@ import static org.assertj.core.api.Assertions.*;
 
 public class LottoGameTest {
     LottoGame lottoGame;
-    Map<Integer, Integer> target;
+    Map<LottoGame.Rank, Integer> target;
 
     @Before
     public void setup(){
         lottoGame = new LottoGame(14000);
-        target = new HashMap<Integer, Integer>(){{
-            put(3,3);
-            put(4,1);
-            put(5,0);
-            put(6,0);
+        target = new HashMap<LottoGame.Rank, Integer>(){{
+            put(LottoGame.Rank.FIRST,1);
+            put(LottoGame.Rank.SECOND,2);
+            put(LottoGame.Rank.THIRD,3);
+            put(LottoGame.Rank.FOURTH,4);
+            put(LottoGame.Rank.FIFTH,5);
+
         }};
     }
 
@@ -31,7 +33,7 @@ public class LottoGameTest {
 
         int money = 140000;
 
-        assertThat(lottoGame.calRetRate(target, money)).isEqualTo(-53);
+        assertThat(lottoGame.calRetRate(target, money)).isEqualTo(1477917);
     }
 
     @Test
@@ -42,12 +44,13 @@ public class LottoGameTest {
 
     @Test
     public void replace() {
-        int key = 3;
-        Map<Integer, Integer> result = new HashMap<Integer, Integer>(){{
-            put(3,4);
-            put(4,1);
-            put(5,0);
-            put(6,0);
+        LottoGame.Rank key = LottoGame.Rank.FOURTH;
+        Map<LottoGame.Rank, Integer> result = new HashMap<LottoGame.Rank, Integer>(){{
+            put(LottoGame.Rank.FIRST,1);
+            put(LottoGame.Rank.SECOND,2);
+            put(LottoGame.Rank.THIRD,3);
+            put(LottoGame.Rank.FOURTH,5);
+            put(LottoGame.Rank.FIFTH,5);
         }};
 
         assertThat(lottoGame.replace(target, key)).isEqualTo(result);
