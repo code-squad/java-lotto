@@ -1,4 +1,4 @@
-package com.woowahan.lotto;
+package com.woowahan.lotto.model;
 
 import java.util.ArrayList;
 import java.util.Collections;

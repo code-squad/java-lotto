@@ -1,5 +1,12 @@
 package com.woowahan.lotto;
 
+import com.woowahan.lotto.controller.LottoController;
+import com.woowahan.lotto.model.PriceInfo;
+import com.woowahan.lotto.model.UserLotto;
+import com.woowahan.lotto.model.WinningLotto;
+import com.woowahan.lotto.view.InputView;
+import com.woowahan.lotto.view.ResultView;
+
 import java.util.List;
 import java.util.Map;
 

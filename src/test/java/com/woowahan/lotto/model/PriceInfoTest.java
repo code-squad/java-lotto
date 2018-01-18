@@ -1,5 +1,6 @@
-package com.woowahan.lotto;
+package com.woowahan.lotto.model;
 
+import com.woowahan.lotto.model.PriceInfo;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

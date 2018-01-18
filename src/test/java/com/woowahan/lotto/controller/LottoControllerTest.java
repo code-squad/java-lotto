@@ -1,5 +1,9 @@
-package com.woowahan.lotto;
+package com.woowahan.lotto.controller;
 
+import com.woowahan.lotto.controller.LottoController;
+import com.woowahan.lotto.model.PriceInfo;
+import com.woowahan.lotto.model.UserLotto;
+import com.woowahan.lotto.model.WinningLotto;
 import org.junit.Before;
 import org.junit.Test;
 

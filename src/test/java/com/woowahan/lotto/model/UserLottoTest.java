@@ -1,5 +1,6 @@
-package com.woowahan.lotto;
+package com.woowahan.lotto.model;
 
+import com.woowahan.lotto.model.UserLotto;
 import org.junit.Before;
 import org.junit.Test;
 

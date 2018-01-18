@@ -1,4 +1,7 @@
-package com.woowahan.lotto;
+package com.woowahan.lotto.view;
+
+import com.woowahan.lotto.model.PriceInfo;
+import com.woowahan.lotto.model.UserLotto;
 
 import java.util.List;
 import java.util.Map;
