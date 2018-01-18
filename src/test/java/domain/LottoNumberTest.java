@@ -25,9 +25,9 @@ public class LottoNumberTest {
   public void match_숫자_일치() {
     int winningNumber = 10;
     LottoNumber lottoNumber = new LottoNumber(10);
-    assertTrue(lottoNumber.isWinningNumber(winningNumber));
+    assertTrue(lottoNumber.isEqualNumber(winningNumber));
 
     lottoNumber = new LottoNumber(9);
-    assertFalse(lottoNumber.isWinningNumber(winningNumber));
+    assertFalse(lottoNumber.isEqualNumber(winningNumber));
   }
 }

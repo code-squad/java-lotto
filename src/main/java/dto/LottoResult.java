@@ -1,16 +1,19 @@
 package dto;
 
 import domain.Rank;
+import util.Constants;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LottoResult {
 
   private Map<Rank, Integer> results;
-  private double revenue;
 
   public LottoResult() {
     results = new HashMap<>();
+    Arrays.stream(Rank.values()).forEach(r -> results.put(r, 0));
   }
 
   public void add(Rank rank, int winnerCount) {
@@ -21,11 +24,17 @@ public class LottoResult {
     return results.get(rank);
   }
 
-  public void setRevenue(double revenue) {
-    this.revenue = revenue;
+  public double getRevenue() {
+    return ((double) getTotalPrizeMoney() / (Constants.PRICE_PER_LOTTO_ONE_GAME * getlottoCount())) * 100;
   }
 
-  public double getRevenue() {
-    return revenue;
+  private int getTotalPrizeMoney() {
+    return Arrays.stream(Rank.values())
+        .mapToInt(r -> r.getWinningMoney() * getRankOfCount(r))
+        .sum();
+  }
+
+  private int getlottoCount() {
+    return results.values().stream().mapToInt(i -> i).sum();
   }
 }

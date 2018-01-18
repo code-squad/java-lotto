@@ -13,7 +13,7 @@ public class LottoNumber {
     this.number = number;
   }
 
-  public boolean isWinningNumber(int number) {
+  public boolean isEqualNumber(int number) {
     return this.number == number;
   }
 
