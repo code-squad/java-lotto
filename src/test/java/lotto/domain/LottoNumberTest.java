@@ -9,9 +9,10 @@ import static org.junit.Assert.assertTrue;
 
 public class LottoNumberTest {
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void 로또값이_0_예외처리_null() {
-        new LottoNumber(null);
+        String nullStr = null;
+        new LottoNumber(nullStr);
     }
 
     @Test(expected = IllegalArgumentException.class)

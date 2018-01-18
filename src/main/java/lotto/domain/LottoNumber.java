@@ -1,30 +1,29 @@
 package lotto.domain;
 
+import lotto.util.LottoUtil;
+
 import java.util.Objects;
-import java.util.Random;
 
 public class LottoNumber implements Comparable<LottoNumber> {
-    private final static int LOTTO_MIN_NUMBER = 1;
-    private final static int LOTTO_MAX_NUMBER = 45;
 
     private Integer number;
 
     public LottoNumber() {
-        this.number = getRandom();
+        this.number = LottoUtil.getRandom();
+    }
+
+    public LottoNumber(String number) {
+        if (LottoUtil.canLottoNumber(number)) throw new IllegalArgumentException();
+        makeLottoNumber(Integer.parseInt(number));
     }
 
     public LottoNumber(Integer number) {
-        Objects.requireNonNull(number);
+        if (LottoUtil.canLottoNumber(number)) throw new IllegalArgumentException();
+        makeLottoNumber(number);
+    }
+
+    private void makeLottoNumber(Integer number) {
         this.number = number;
-        if (outOfRange()) throw new IllegalArgumentException();
-    }
-
-    private int getRandom() {
-        return new Random().nextInt(LOTTO_MAX_NUMBER)+LOTTO_MIN_NUMBER;
-    }
-
-    private boolean outOfRange() {
-        return number < LOTTO_MIN_NUMBER || LOTTO_MAX_NUMBER < number;
     }
 
     public boolean equals(Integer number) {
