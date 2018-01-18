@@ -31,23 +31,4 @@ public class Lotto {
     public String joinNumbers(){
         return this.numbers.stream().map(i -> String.valueOf(i)).collect(Collectors.joining(","));
     }
-
-    public List<Integer> getResult(List<Integer> winNumber) {
-        List<Integer> result = new ArrayList<>();
-        for (Integer number : numbers) {
-            if (winNumber.contains(number)) {
-                result.add(number);
-            }
-        }
-        return result;
-    }
-
-    public boolean hasBonus(int bonusNumber) {
-        return numbers.contains(bonusNumber);
-    }
-
-
-
-
-
 }

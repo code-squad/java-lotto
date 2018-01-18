@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,4 +26,17 @@ public class WinningLotto {
         return winningLottos;
     }
 
+    public PriceType getResult(Lotto lotto) {
+        return PriceType.valueOf(getMatch(lotto).size(), lotto.getNumbers().contains(bonus));
+    }
+
+    private List<Integer> getMatch(Lotto lotto) {
+        List<Integer> result = new ArrayList<>();
+        for (Integer number : lotto.getNumbers()) {
+            if (this.winningLottos.contains(number)) {
+                result.add(number);
+            }
+        }
+        return result;
+    }
 }

@@ -33,8 +33,9 @@ public class LottoResultTest {
 
     @Test
     public void getPercentage() {
+        lottoResult.getResult();
         long result = lottoResult.getPercentage();
-        assertThat(result).isEqualTo(1500L);
+        assertThat(result).isEqualTo(50L);
     }
 
 

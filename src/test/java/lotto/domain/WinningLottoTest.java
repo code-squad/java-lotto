@@ -3,6 +3,7 @@ package lotto.domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,5 +32,10 @@ public class WinningLottoTest {
     @Test
     public void getWinningLottos() {
         assertThat(winningLotto.getWinningLottos().size()).isEqualTo(6);
+    }
+
+    @Test
+    public void match() {
+        assertThat(winningLotto.getResult(new Lotto(Arrays.asList(1,2,3,4,11,12)))).isEqualTo(PriceType.FORTH);
     }
 }

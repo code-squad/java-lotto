@@ -22,10 +22,8 @@ public enum PriceType {
 
     public static PriceType valueOf(int count, boolean matchBonus) {
         for (PriceType priceType : PriceType.values()) {
-            if (priceType.getCount() == count && count == 5 && matchBonus) {
+            if (count == 5 && matchBonus) {
                 return SECOND;
-            } else if (priceType.getCount() == 5 && count == 5 && !matchBonus) {
-                return THIRD;
             } else if (priceType.getCount() == count){
                 return priceType;
             }
