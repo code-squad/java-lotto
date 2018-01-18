@@ -12,8 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoGameTest {
 
-	LottoGame lottoGame;
-	WinningLotto winningLotto;
+	private LottoGame lottoGame;
+	private WinningLotto winningLotto;
 
 	@Before
 	public void setup() {
@@ -38,7 +38,7 @@ public class LottoGameTest {
 	@Test
 	public void getWinners() {
 		Map<ResultTypes, Integer> result = lottoGame.runGames(winningLotto);
-		assertThat(result.size()).isEqualTo(5);
+		assertThat(result.size()).isEqualTo(4);
 		assertThat(result.keySet()).contains(ResultTypes.NO_MATCH);
 		assertThat(result.keySet()).contains(ResultTypes.MATCH3);
 		assertThat(result.keySet()).contains(ResultTypes.MATCH4);

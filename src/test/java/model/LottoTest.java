@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoTest {
 
-    UserLotto lotto;
+    private UserLotto lotto;
 
     @Before
     public void setup() {

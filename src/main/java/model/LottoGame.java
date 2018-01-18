@@ -56,6 +56,8 @@ public class LottoGame {
 		for(UserLotto lotto : lottos) {
 			int matchCount = winningLotto.compare(lotto);
 			boolean isBonus = winningLotto.compareBonus(lotto);
+
+
 			ResultTypes key = ResultTypes.findByCode(matchCount, isBonus);
 
 			if (!gameResults.containsKey(key)) {
@@ -73,7 +75,7 @@ public class LottoGame {
 		long prizeSum = 0;
 
 		for(ResultTypes type : gameResults.keySet()) {
-			prizeSum += type.prize * gameResults.get(type);
+			prizeSum += type.calculatePrize(gameResults.get(type));
 		}
 
 		return (prizeSum * 100) / money;

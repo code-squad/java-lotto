@@ -19,7 +19,7 @@ public class ConsoleView {
 	}
 
 	public static Integer[] getLastWeekWinningCombination() {
-		System.out.println("/n지난 주 당첨 번호를 입력해 주세요.");
+		System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
 		String inputText = scanner.next();
 		return Arrays.stream(inputText.split(","))
 				.map(text -> Integer.valueOf(text.trim()))

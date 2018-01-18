@@ -4,11 +4,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class UserLotto {
+public class UserLotto extends Lotto {
     private static final int BOUND = 46;
     private static final int SIZE = 6;
-
-    private List<Integer> numbers;
 
     public UserLotto() {
         this.numbers = generate();
@@ -33,4 +31,5 @@ public class UserLotto {
     public List<Integer> getNumbers() {
         return this.numbers;
     }
+
 }
