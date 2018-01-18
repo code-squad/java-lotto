@@ -5,29 +5,26 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Lotto {
-    private List<Integer> numbers;
-    private final int bound;
-    private final int size;
+    private static final int BOUND = 46;
+    private static final int SIZE = 6;
 
-    public Lotto(int bound, int size) {
-        this.bound = bound;
-        this.size = size;
+    private List<Integer> numbers;
+
+    public Lotto() {
         this.numbers = generate();
     }
 
-    public Lotto(int bound, int size, List<Integer> numbers) {
-        this.bound = bound;
-        this.size = size;
+    public Lotto(List<Integer> numbers) {
         this.numbers = new ArrayList<>(numbers);
     }
 
-    public List<Integer> generate() {
-        List<Integer> numbers = IntStream.range(1, this.bound)
+    private List<Integer> generate() {
+        List<Integer> numbers = IntStream.range(1, this.BOUND)
                 .boxed()
                 .collect(Collectors.toList());
         Collections.shuffle(numbers);
 
-        numbers = numbers.subList(0, this.size);
+        numbers = numbers.subList(0, this.SIZE);
         Collections.sort(numbers);
 
         return numbers;

@@ -10,9 +10,9 @@ public class Main {
 		Integer[] numbers = ConsoleView.getLastWeekWinningCombination();
 
 		LottoGame lottoGame = new LottoGame(money);
-		lottoGame.setWinningLotto(new Lotto(46, 6, Arrays.asList(numbers)));
+		Lotto winningLotto = new Lotto(Arrays.asList(numbers));
 
-		ConsoleView.printResultStatistics(lottoGame.runGames());
+		ConsoleView.printResultStatistics(lottoGame.runGames(winningLotto));
 		ConsoleView.printYieldRate(lottoGame.getYieldRate());
 	}
 }

@@ -4,24 +4,15 @@ import java.util.Arrays;
 
 public enum ResultTypes {
 
-    NO_MATCH(0) {
-        public int getPrice() {return 0;}
-    },
-    MATCH3(3) {
-        public int getPrice() {return 5000;}
-    },
-    MATCH4(4) {
-        public int getPrice() {return 50000;}
-    },
-    MATCH5(5) {
-        public int getPrice() {return 1500000;}
-    },
-    MATCH6(6) {
-        public int getPrice() {return 2000000000;}
-    };
+    NO_MATCH(0, 0),
+    MATCH3(3, 5000),
+    MATCH4(4, 50000),
+    MATCH5(5, 1500000),
+    MATCH6(6, 2000000000);
 
-    ResultTypes(int matchCount){
+    ResultTypes(int matchCount, int price){
         this.matchCount = matchCount;
+        this.price = price;
     }
 
     public static ResultTypes findByCode(int code) {
@@ -37,5 +28,6 @@ public enum ResultTypes {
 
     public int matchCount;
 
-    public abstract int getPrice();
+    public int price;
+
 }

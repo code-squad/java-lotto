@@ -25,12 +25,12 @@ public class ConsoleView {
 
 	public static void printResultStatistics(Map<ResultTypes, Integer> gameResults) {
 		StringBuilder stringBuilder = new StringBuilder("당첨 통계\n").append("----------\n");
-		
+
 		for (ResultTypes resultTypes : gameResults.keySet()) {
 			stringBuilder.append(
 					String.format("%d개 일치 (%d) - %d개\n",
 							resultTypes.matchCount,
-							resultTypes.getPrice(),
+							resultTypes.price,
 							gameResults.get(resultTypes)));
 		}
 

@@ -15,7 +15,7 @@ public class LottoTest {
 
     @Before
     public void setup() {
-        lotto = new Lotto(46, 6);
+        lotto = new Lotto();
     }
 
     @Test
@@ -26,11 +26,11 @@ public class LottoTest {
 
     @Test
     public void compareTest() {
-        Lotto lotto1 = new Lotto(46, 6, Arrays.asList(1, 2, 3, 4, 5, 6));
-        Lotto lotto2 = new Lotto(46, 6, Arrays.asList(1, 2, 3, 4, 5, 7));
-        Lotto lotto3 = new Lotto(46, 6, Arrays.asList(1, 2, 3, 4, 7, 8));
+        Lotto lotto1 = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+        Lotto lotto2 = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 7));
+        Lotto lotto3 = new Lotto(Arrays.asList(1, 2, 3, 4, 7, 8));
 
-        Lotto winningLotto = new Lotto(46, 6, Arrays.asList(1, 2, 3, 4, 5, 6));
+        Lotto winningLotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
 
         assertThat(lotto1.compare(winningLotto)).isEqualTo(6);
         assertThat(lotto2.compare(winningLotto)).isEqualTo(5);

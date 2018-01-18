@@ -5,13 +5,10 @@ import java.util.stream.Collectors;
 
 public class LottoGame {
 
-	private final int PRICE = 1000;
-	private final int BOUND = 46;
-	private final int SIZE = 6;
+	private static final int PRICE = 1000;
 
-	private List<Lotto> lottos;
-	private Lotto winningLotto;
 	private int money;
+	private List<Lotto> lottos;
 	private Map<ResultTypes, Integer> gameResults;
 
 	public LottoGame(int money) {
@@ -20,15 +17,15 @@ public class LottoGame {
 		this.lottos = playAutoGames(money / PRICE);
 	}
 
-	public LottoGame(int money, List<Integer>[] manualLottoNumbers) {
+	public LottoGame(int money, List<List<Integer>> manualLottoNumbers) {
 		gameResults = new HashMap<>();
 
 		this.money = money;
 
 		int playableCount = money / PRICE;
-		int manualGameCount = manualLottoNumbers.length;
+		int manualGameCount = manualLottoNumbers.size();
 
-		List<Lotto> manualGames = playManualGames(manualGameCount, manualLottoNumbers);
+		List<Lotto> manualGames = playManualGames(manualLottoNumbers);
 		List<Lotto> autoGames = playAutoGames(playableCount - manualGameCount);
 
 		this.lottos = new ArrayList<>();
@@ -40,32 +37,33 @@ public class LottoGame {
 		List<Lotto> lottos = new ArrayList<>();
 
 		for (int i = 0; i < count; i++) {
-			lottos.add(new Lotto(BOUND, SIZE));
+			lottos.add(new Lotto());
 		}
 
 		return lottos;
 	}
 
-	private List<Lotto> playManualGames(int count, List<Integer>[] manualLottoNumbers) {
+	private List<Lotto> playManualGames(List<List<Integer>> manualLottoNumbers) {
 		List<Lotto> lottos = new ArrayList<>();
 
-		for (int i = 0; i < count; i++) {
-			lottos.add(new Lotto(BOUND, SIZE, manualLottoNumbers[i]));
+		for (List<Integer> lottoNumber : manualLottoNumbers) {
+			lottos.add(new Lotto(lottoNumber));
 		}
 
 		return lottos;
 	}
 
-	public Map<ResultTypes, Integer> runGames() {
+	public Map<ResultTypes, Integer> runGames(Lotto winningLotto) {
 		for(Lotto lotto : lottos) {
 			int matchCount = lotto.compare(winningLotto);
 			ResultTypes key = ResultTypes.findByCode(matchCount);
 
 			if (!gameResults.containsKey(key)) {
 				gameResults.put(key, 1);
-			} else {
-				gameResults.put(key, gameResults.get(key) + 1);
+				continue;
 			}
+
+			gameResults.put(key, gameResults.get(key) + 1);
 		}
 
 		return gameResults;
@@ -74,12 +72,8 @@ public class LottoGame {
 	public int getYieldRate() {
 		int priceSum = 0;
 
-		int price, count;
 		for(ResultTypes type : gameResults.keySet()) {
-			price = type.getPrice();
-			count = gameResults.get(type);
-
-			priceSum += price * count;
+			priceSum += type.price * gameResults.get(type);
 		}
 
 		return (priceSum * 100) / money;
@@ -88,9 +82,4 @@ public class LottoGame {
 	public List<Lotto> getLottos() {
 		return lottos;
 	}
-
-	public void setWinningLotto(Lotto winningLotto) {
-		this.winningLotto = winningLotto;
-	}
-
 }
