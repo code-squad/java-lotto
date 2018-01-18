@@ -22,7 +22,7 @@ public class LottoNumberTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidNumber() throws Exception {
-        LottoNumber invalid = LottoNumber.of("e");
+        LottoNumber.of("e");
     }
 
 }
