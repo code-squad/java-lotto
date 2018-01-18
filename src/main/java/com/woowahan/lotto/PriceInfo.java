@@ -30,7 +30,7 @@ public enum PriceInfo {
                 .orElse(PriceInfo.LOSE);
     }
 
-    private static boolean checkValue(PriceInfo priceInfo, int winningCondition, boolean bonus) {
+    static boolean checkValue(PriceInfo priceInfo, int winningCondition, boolean bonus) {
         if (winningCondition == 5) {
             return priceInfo.winningCondition == winningCondition && priceInfo.bonus == bonus;
         }

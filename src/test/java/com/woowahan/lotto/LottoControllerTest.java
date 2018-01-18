@@ -52,19 +52,31 @@ public class LottoControllerTest {
         expected.put(PriceInfo.THREE, 1);
         expected.put(PriceInfo.FOUR, 1);
         expected.put(PriceInfo.FIVE, 0);
+        expected.put(PriceInfo.FIVE_BONUS, 0);
         expected.put(PriceInfo.SIX, 0);
         assertEquals(expected, luckyInfo);
     }
 
     @Test
     public void 전체당첨금액_구하기() {
-        Map<Integer, Integer> winInfo = new HashMap<>();
-        winInfo.put(5000, 1);
-        winInfo.put(50000, 1);
-        winInfo.put(1500000, 0);
-        winInfo.put(2000000000, 0);
+        Map<PriceInfo, Integer> winInfo = new HashMap<>();
+        winInfo.put(PriceInfo.THREE, 1);
+        winInfo.put(PriceInfo.FOUR, 1);
+        winInfo.put(PriceInfo.FIVE, 0);
+        winInfo.put(PriceInfo.FIVE_BONUS, 1);
+        winInfo.put(PriceInfo.SIX, 0);
         int totalWinPrice = lottoController.getTotalWinPrice(winInfo);
-        assertEquals(55000, totalWinPrice);
+        assertEquals(30055000, totalWinPrice);
+    }
+
+    @Test
+    public void 수익률_구하기() {
+        int totalWinPrice = 3000000;
+        int inputMoney = 30000;
+
+        int expected = lottoController.calculateBenefit(totalWinPrice, inputMoney);
+
+        assertEquals(10000, expected);
     }
 
 }
