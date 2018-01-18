@@ -1,9 +1,7 @@
 import model.Customer;
-import model.Rank;
+import model.HandOperatedLotto;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,13 +16,13 @@ public class CustomerTest {
 
     @Test
     public void buy(){
-        assertThat(customer.buy(14000).size()).isEqualTo(14);
+        String[] array = {};
+        HandOperatedLotto handOperatedLotto = new HandOperatedLotto(0, array);
+        assertThat(customer.buy(14000, handOperatedLotto).size()).isEqualTo(14);
     }
 
     @Test
     public void getLottoResult(){
-        customer.buy(4000);
-
         assertThat(customer.getLottoResult("1,2,3,4,5,6", 8).getLottoResult().size()).isEqualTo(5);
     }
 }

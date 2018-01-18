@@ -14,13 +14,21 @@ public class Customer {
 
     private List<Lotto> lottos = new ArrayList();
 
-    public List<Lotto> buy(Integer amount) {
+    public List<Lotto> buy(Integer amount, HandOperatedLotto handOperatedLotto) {
         Integer number = amount / LOTTO_PRICE;
+        number -= handOperatedLotto.getNumberOfLotto();
 
         for (int i = 0; i < number; i++) {
             lottos.add(new Lotto(RandomNumber.shuffleNumber()));
         }
 
+        buyHandOperaticLotto(handOperatedLotto);
+
+        return lottos;
+    }
+
+    private List<Lotto> buyHandOperaticLotto(HandOperatedLotto handOperatedLotto) {
+        lottos.addAll(handOperatedLotto.getLottos());
         return lottos;
     }
 

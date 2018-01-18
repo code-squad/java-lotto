@@ -26,4 +26,8 @@ public class ResultView {
     public static void printStatics(Double percentage){
         System.out.println("수익률은 " + percentage + "% 입니다.");
     }
+
+    public static void printBuyStatus(Integer totalNumbertoBuy, Integer numberOfHandOperatedLotto) {
+        System.out.println("수동으로 " + numberOfHandOperatedLotto + "장, 자동으로 " + (totalNumbertoBuy - numberOfHandOperatedLotto) + "개를 구매했습니다.");
+    }
 }
