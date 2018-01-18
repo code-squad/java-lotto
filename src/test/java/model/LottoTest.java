@@ -1,21 +1,19 @@
 package model;
 
-import model.Lotto;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoTest {
 
-    Lotto lotto;
+    UserLotto lotto;
 
     @Before
     public void setup() {
-        lotto = new Lotto();
+        lotto = new UserLotto();
     }
 
     @Test
@@ -26,15 +24,15 @@ public class LottoTest {
 
     @Test
     public void compareTest() {
-        Lotto lotto1 = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
-        Lotto lotto2 = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 7));
-        Lotto lotto3 = new Lotto(Arrays.asList(1, 2, 3, 4, 7, 8));
+        UserLotto lotto1 = new UserLotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+        UserLotto lotto2 = new UserLotto(Arrays.asList(1, 2, 3, 4, 5, 7));
+        UserLotto lotto3 = new UserLotto(Arrays.asList(1, 2, 3, 4, 7, 8));
 
-        Lotto winningLotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+        WinningLotto winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6));
 
-        assertThat(lotto1.compare(winningLotto)).isEqualTo(6);
-        assertThat(lotto2.compare(winningLotto)).isEqualTo(5);
-        assertThat(lotto3.compare(winningLotto)).isEqualTo(4);
+        assertThat(winningLotto.compare(lotto1)).isEqualTo(6);
+        assertThat(winningLotto.compare(lotto2)).isEqualTo(5);
+        assertThat(winningLotto.compare(lotto3)).isEqualTo(4);
 
     }
 }

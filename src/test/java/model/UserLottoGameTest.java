@@ -10,10 +10,10 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LottoGameTest {
+public class UserLottoGameTest {
 
 	LottoGame lottoGame;
-	Lotto winningLotto;
+	WinningLotto winningLotto;
 
 	@Before
 	public void setup() {
@@ -26,7 +26,7 @@ public class LottoGameTest {
 
 		lottoGame = new LottoGame(5000, myLottos);
 
-		winningLotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+		winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6));
 	}
 
 	@Test

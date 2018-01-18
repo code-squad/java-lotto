@@ -1,5 +1,6 @@
-import model.Lotto;
+import model.UserLotto;
 import model.LottoGame;
+import model.WinningLotto;
 import view.ConsoleView;
 
 import java.util.*;
@@ -10,7 +11,7 @@ public class Main {
 		Integer[] numbers = ConsoleView.getLastWeekWinningCombination();
 
 		LottoGame lottoGame = new LottoGame(money);
-		Lotto winningLotto = new Lotto(Arrays.asList(numbers));
+		WinningLotto winningLotto = new WinningLotto(Arrays.asList(numbers));
 
 		ConsoleView.printResultStatistics(lottoGame.runGames(winningLotto));
 		ConsoleView.printYieldRate(lottoGame.getYieldRate());
