@@ -39,7 +39,7 @@ public class LottoMachine {
     List<Integer> winningNumbers = Arrays.stream(numbers)
         .map(n -> Integer.parseInt(n))
         .collect(toList());
-    return new WinningLotto(winningNumbers, bonusNumber);
+    return new WinningLotto(new Lotto(winningNumbers), bonusNumber);
   }
 
   public LottoResult match(WinningLotto winningLotto) {
@@ -52,10 +52,7 @@ public class LottoMachine {
   }
 
   public Map<String, Long> getRankOfCount(WinningLotto winningLotto) {
-    return lottos.stream().map(l -> {
-      int countOfMatchNumber = l.getCountOfMatchNumber(winningLotto);
-      boolean matchBonus = l.containBonusNumber(winningLotto);
-      return Rank.valueOf(countOfMatchNumber, matchBonus);
-    }).collect(groupingBy(Rank::name, counting()));
+    return lottos.stream().map(l -> l.match(winningLotto))
+                          .collect(groupingBy(Rank::name, counting()));
   }
 }

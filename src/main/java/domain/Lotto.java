@@ -7,15 +7,19 @@ import java.util.List;
 
 public class Lotto {
 
-  protected List<LottoNumber> numbers;
+  private List<LottoNumber> numbers;
 
   public Lotto(List<Integer> numbers) {
     this.numbers = new ArrayList<>(Constants.NUMBER_SIZE);
     numbers.stream().forEach(n -> this.numbers.add(new LottoNumber(n)));
   }
 
+  public Rank match(WinningLotto winningLotto) {
+    return Rank.valueOf(getCountOfMatchNumber(winningLotto), containBonusNumber(winningLotto));
+  }
+
   public int getCountOfMatchNumber(WinningLotto winningLotto) {
-    return (int) winningLotto.numbers.stream()
+    return (int) winningLotto.getNumbers().stream()
         .filter(w -> containWinningNumber(w.getNumber()))
         .count();
   }
@@ -27,6 +31,10 @@ public class Lotto {
   public boolean containBonusNumber(WinningLotto winningLotto) {
     return numbers.stream()
         .anyMatch(number -> winningLotto.isBonusNumber(number.getNumber()));
+  }
+
+  public List<LottoNumber> getNumbers() {
+    return numbers;
   }
 
   @Override
