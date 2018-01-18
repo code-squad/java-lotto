@@ -58,6 +58,7 @@ body {
 	  <div class="col-md-4">
 		<form class="form-lottoGame" method="post" action="/buyLotto">
 			<h2 class="text-center">로또 게임</h2>
+			<h5 class="text-center">{{errorMessage}}</h5>
 			<div class="input-group">
 				<div class="input-group-addon">￦</div>
 				<input type="number" id="inputMoney" class="form-control"
@@ -65,10 +66,10 @@ body {
 			</div>
 			<div class="form-show-div" class="form-group">
 				<h2>수동 구매 번호</h2>
-				예) 1,2,3,4,5,6(한 라인에 6개를 입력해주세요.)
+				예) 1, 2, 3, 4, 5, 6(한 라인에 6개를 입력해주세요.)
 				<textarea class="form-control" rows="3" name="manualNumber" 
-				placeholder="1,2,3,4,5,6
-1,2,3,4,5,6"></textarea>
+				placeholder="1, 2, 3, 4, 5, 6
+1, 2, 3, 4, 5, 6"></textarea>
 			</div>		
 			<div class="submit-button">
 				<button class="btn btn-lg btn-primary btn-block" type="submit">로또

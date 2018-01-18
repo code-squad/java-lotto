@@ -20,4 +20,9 @@ public class LottoNumberTest {
         assertEquals(-1, two.compareTo(three));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidNumber() throws Exception {
+        LottoNumber invalid = LottoNumber.of("e");
+    }
+
 }

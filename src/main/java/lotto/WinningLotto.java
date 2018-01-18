@@ -25,14 +25,14 @@ public class WinningLotto {
         set.add(bonusNumber);
 
         if (set.size() != LottoConstants.NUMBER_COUNT + 1) {
-            throw new IllegalArgumentException("successNumbers=" + successNumbers.toString()
+            throw new IllegalArgumentException("numbers are duplicated. successNumbers=" + successNumbers.toString()
                     + ", bonusNumber=" + bonusNumber);
         }
     }
 
     private void validateCountOfLottoNumbers() {
         if (successNumbers.size() != LottoConstants.NUMBER_COUNT) {
-            throw new IllegalArgumentException("successNumbers=" + successNumbers.toString());
+            throw new IllegalArgumentException("successNumbers is invalid. successNumbers=" + successNumbers.toString());
         }
     }
 

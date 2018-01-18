@@ -13,7 +13,11 @@ public class LottoNumber implements Comparable<LottoNumber> {
     }
 
     public static LottoNumber of(String numberString) {
-        return new LottoNumber(Integer.parseInt(numberString));
+        try {
+            return new LottoNumber(Integer.parseInt(numberString));
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("LottoNumber is invalid, LottoNumber=" + numberString, e);
+        }
     }
 
     private void validate(int number) {
