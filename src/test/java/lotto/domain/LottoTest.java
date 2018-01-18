@@ -44,11 +44,4 @@ public class LottoTest {
         assertThat(lotto.joinNumbers()).isEqualTo("1,2,3,4,5,6");
     }
 
-    @Test
-    public void getResult() {
-        List<Integer> winNums = new ArrayList<>(Arrays.asList(1,2,3,4,6,13));
-        assertThat(lotto.getResult(winNums).size()).isEqualTo(5);
-
-    }
-
 }
