@@ -5,11 +5,10 @@ import lotto.util.LottoRecorder;
 import java.util.Objects;
 
 public class WinningLotto extends Lotto {
-    private Lotto jackpot;
     private LottoNumber luckyNumber;
 
     public WinningLotto(Lotto jackpot, LottoNumber luckyNumber) {
-        this.jackpot = jackpot;
+        super(jackpot);
         this.luckyNumber = luckyNumber;
     }
 
@@ -18,11 +17,11 @@ public class WinningLotto extends Lotto {
     }
 
     public int containCount(Lotto lotto) {
-        return this.jackpot.containCount(lotto);
+        return super.containCount(lotto);
     }
 
     public LottoRecorder match(Lotteries lottoList, LottoNumber luckyNumber) {
         Objects.requireNonNull(lottoList);
-        return new LottoRecorder(new WinningLotto(this, luckyNumber), lottoList);
+        return new LottoRecorder(this, lottoList);
     }
 }

@@ -30,11 +30,9 @@ public class LottoRecorder {
     }
 
     private Lotteries matchCount(LottoRank lottoRank, Lotteries lottoList) {
-        return new Lotteries(
-                lottoList.stream()
+        return new Lotteries(lottoList.stream()
                 .filter(sameCount(lottoRank))
-                .collect(Collectors.toList())
-        );
+                .collect(Collectors.toList()));
     }
 
     private Predicate<Lotto> sameCount(LottoRank lottoRank) {

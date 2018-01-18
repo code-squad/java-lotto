@@ -33,6 +33,11 @@ public class Lotto {
         makeLotto(numbers);
     }
 
+    public Lotto(Lotto lotto) {
+        Objects.requireNonNull(lotto);
+        makeLotto(lotto.lotto);
+    }
+
     private void makeLotto(List<LottoNumber> numbers) {
         lotto = numberingJob(numbers);
         if (!isFull()) throw new IllegalArgumentException();
