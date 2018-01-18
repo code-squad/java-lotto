@@ -1,4 +1,4 @@
-package model;
+package view;
 
 import java.util.Scanner;
 
@@ -14,5 +14,11 @@ public class InputView {
         Scanner scanner = new Scanner(System.in);
         System.out.println("지난주 당청 번호를 입력해 주세요.");
         return scanner.nextLine();
+    }
+
+    public static Integer scanBonusNumber(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("보너스 볼 번호를 입력해 주세요");
+        return scanner.nextInt();
     }
 }

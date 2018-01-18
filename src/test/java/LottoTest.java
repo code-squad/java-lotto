@@ -1,20 +1,22 @@
-import lotto.Lotto;
-import model.RandomNumber;
+import model.Lotto;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoTest {
 
-    private Lotto lotto = new Lotto(RandomNumber.shuffleNumber());
+    @Test
+    public void matchCount(){
+        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+        Lotto winningLotto = new Lotto(Arrays.asList(7, 8, 9, 1, 4, 6));
+        assertThat(lotto.matchCount(winningLotto)).isEqualTo(3);
+    }
 
     @Test
-    public void compareResult(){
-        List<Integer> result = Arrays.asList(1, 2, 3, 4, 5, 6);
-        assertThat(lotto.compare(result)).isBetween(0, 6);
+    public void isMatchBonus(){
+        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+        assertThat(lotto.isMatchBonus(9)).isFalse();
     }
 }

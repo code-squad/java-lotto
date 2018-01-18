@@ -1,6 +1,9 @@
-import customer.Customer;
+import model.Customer;
+import model.Rank;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,19 +22,9 @@ public class CustomerTest {
     }
 
     @Test
-    public void getHitNumbers(){
-        customer.buy(14000);
-        assertThat(customer.getHitNumbers("1,2,3,4,5,6").size()).isEqualTo(14);
-    }
+    public void getLottoResult(){
+        customer.buy(4000);
 
-    @Test
-    public void analyze(){
-        customer.buy(14000);
-        assertThat(customer.analyze(customer.getHitNumbers("1,2,3,4,5,6"))).isBetween(-100.0, 100.0);
-    }
-
-    @Test
-    public void countHit(){
-        assertThat(customer.countHit(customer.getHitNumbers("1,2,3,4,5,6")));
+        assertThat(customer.getLottoResult("1,2,3,4,5,6", 8).getLottoResult().size()).isEqualTo(5);
     }
 }

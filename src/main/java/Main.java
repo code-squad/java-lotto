@@ -1,8 +1,8 @@
-import DTO.LottoResult;
-import customer.Customer;
-import lotto.Lotto;
-import model.InputView;
-import model.ResultView;
+import dto.LottoResult;
+import model.Customer;
+import model.Lotto;
+import view.InputView;
+import view.ResultView;
 
 import java.util.List;
 
@@ -10,16 +10,17 @@ public class Main {
     public static void main(String[] args) {
         Customer customer = new Customer();
 
-        List<Lotto> numberOfLottos = customer.buy(InputView.scanMoneyToBuy());
+        List<Lotto> lottos = customer.buy(InputView.scanMoneyToBuy());
 
-        ResultView.printNumber(numberOfLottos.size());
-        ResultView.printLottoNumbers(numberOfLottos);
+        ResultView.printNumber(lottos.size());
+        ResultView.printLottoNumbers(lottos);
 
         String lastWeekHitNumbers = InputView.scanLastWeekLottoNumbers();
+        Integer bonus = InputView.scanBonusNumber();
 
-        LottoResult lottoResult = customer.match(lastWeekHitNumbers);
+        LottoResult lottoResult = customer.getLottoResult(lastWeekHitNumbers, bonus);
 
-        ResultView.printResult(lottoResult.getCountThreeFourFiveHits());
-        ResultView.printStatics(lottoResult.getPercentage());
+        ResultView.printResult(lottoResult.getLottoResult());
+        ResultView.printStatics(lottoResult.analyze(lottos));
     }
 }
