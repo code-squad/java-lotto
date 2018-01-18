@@ -1,6 +1,7 @@
 package lottoGame.view;
 
 import lottoGame.domain.Lotto;
+import lottoGame.domain.LottoGame;
 import lottoGame.dto.Result;
 
 import java.util.List;
@@ -24,9 +25,7 @@ public class PrintView {
         System.out.println("6개일치 (2000000000원) :" + result.profit.get(2000000000));
     }
 
-    public static void printResult(List<Lotto> lotto, int invest) {
-        System.out.println("총 수익률은 " + Result.calcPrice(lotto) + " %입니다");
+    public static void printResult(LottoGame lottoGame) {
+        System.out.println("총 수익률은 " + lottoGame.calcProfit() + " %입니다");
     }
-
-
 }

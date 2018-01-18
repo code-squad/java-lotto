@@ -4,6 +4,7 @@ import lottoGame.domain.Lotto;
 import lottoGame.util.LottoGenerator;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class Result {
         profit.put(2000000000,0);
     }
 
-    public void winnerResult(List<Lotto> lottos) {
+    public Result(List<Lotto> lottos) {
         for (Lotto lotto : lottos) {
             int price = lotto.profit();
             if(profit.containsKey(price)) {
@@ -26,12 +27,15 @@ public class Result {
         }
     }
 
-    public static int calcPrice(List<Lotto> lottos) {
+    public static int getAllProfit() {
         int result = 0;
-        for (Lotto lotto : lottos) {
-            result += lotto.profit();
-        }
+        Iterator iterator = profit.keySet().iterator();
 
-        return (result/(lottos.size() * LottoGenerator.LOTTO_PRICE) * 100);
+        while(iterator.hasNext()) {
+            Integer key = (Integer) iterator.next();
+            result += (key * profit.get(key));
+        }
+        //return (result / (lottos.size() * LottoGenerator.LOTTO_PRICE) * 100);
+        return result;
     }
 }

@@ -15,7 +15,7 @@ public class LottoGenerator {
     private static List<Integer> lottoNums = new ArrayList<>();
 
     static {
-        for (int i=0; i<LOTTO_RANGE; i++) {
+        for (int i=0; i < LOTTO_RANGE; i++) {
             lottoNums.add(i+1);
         }
     }
@@ -32,13 +32,13 @@ public class LottoGenerator {
         return price/LOTTO_PRICE;
     }
 
-    public static List<Integer> lastWeekLotto(String lastWeek) {
+    public static Lotto lastWeekLotto(String lastWeek) {
         List<String> lastWeekStrings = Arrays.asList(lastWeek.split(SPLITER));
         List<Integer> lastWeekNums = new ArrayList<>();
         for (String lastWeekString : lastWeekStrings) {
             lastWeekNums.add(Integer.valueOf(lastWeekString));
         }
-        return lastWeekNums;
+        return new Lotto(lastWeekNums);
     }
 
 }
