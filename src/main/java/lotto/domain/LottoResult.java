@@ -4,7 +4,7 @@ import java.util.*;
 
 public class LottoResult {
 
-    private Map<LottoRank, List<Lotto>> lottoMap;
+    private Map<LottoRank, Lotteries> lottoMap;
 
     public LottoResult() {
         lottoMap = new HashMap<>();
@@ -15,10 +15,10 @@ public class LottoResult {
     }
 
     public int getLottoCount(LottoRank lottoRank) {
-        return lottoMap.computeIfAbsent(lottoRank, k -> new ArrayList<>()).size();
+        return lottoMap.computeIfAbsent(lottoRank, k -> new Lotteries()).size();
     }
 
-    public void put(LottoRank lottoRank, List<Lotto> lottoList) {
+    public void put(LottoRank lottoRank, Lotteries lottoList) {
         Objects.requireNonNull(lottoRank);
         Objects.requireNonNull(lottoList);
         if (!lottoList.isEmpty()) {

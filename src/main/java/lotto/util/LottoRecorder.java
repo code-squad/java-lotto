@@ -1,52 +1,49 @@
 package lotto.util;
 
-import lotto.domain.Lotto;
-import lotto.domain.LottoNumber;
-import lotto.domain.LottoRank;
-import lotto.domain.LottoResult;
+import lotto.domain.*;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LottoRecorder {
 
-    private Lotto jackpot;
-    private LottoNumber luckyNumber;
+    private WinningLotto winningLotto;
     private LottoResult lottoResult;
 
-    public LottoRecorder(Lotto jackpot, List<Lotto> lottoList, LottoNumber luckyNumber) {
-        Objects.requireNonNull(jackpot);
-        Objects.requireNonNull(lottoList);
-        Objects.requireNonNull(luckyNumber);
-        this.jackpot = jackpot;
-        this.luckyNumber = luckyNumber;
+    public LottoRecorder(WinningLotto winningLotto, Lotteries lottoList) {
+        if (nullCheck(winningLotto, lottoList)) throw new IllegalArgumentException();
+        this.winningLotto = winningLotto;
         this.lottoResult = new LottoResult();
         recordResult(lottoList);
     }
 
-    private void recordResult(List<Lotto> lottoList) {
+    private boolean nullCheck(WinningLotto winningLotto, Lotteries lottoList) {
+        return winningLotto == null || lottoList == null;
+    }
+
+    private void recordResult(Lotteries lottoList) {
         Stream.of(LottoRank.values()).forEach(lottoRank ->
                 lottoResult.put(lottoRank, matchCount(lottoRank, lottoList))
         );
     }
 
-    private List<Lotto> matchCount(LottoRank lottoRank, List<Lotto> lottoList) {
-        return lottoList.stream()
+    private Lotteries matchCount(LottoRank lottoRank, Lotteries lottoList) {
+        return new Lotteries(
+                lottoList.stream()
                 .filter(sameCount(lottoRank))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList())
+        );
     }
 
     private Predicate<Lotto> sameCount(LottoRank lottoRank) {
         return lotto ->
-                lottoRank.equals(LottoRank.getLottoRank(matchCount(lotto),lotto.contains(luckyNumber)));
+                lottoRank.equals(LottoRank.getLottoRank(matchCount(lotto),lotto.contains(winningLotto.getLuckyNumber())));
     }
 
     public int matchCount(Lotto lotto) {
-        return jackpot.containCount(lotto);
+        return winningLotto.containCount(lotto);
     }
 
     public int getLottoCount(LottoRank lottoRank) {

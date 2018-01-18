@@ -1,5 +1,6 @@
 package lotto.util;
 
+import lotto.domain.Lotteries;
 import lotto.domain.Lotto;
 
 import java.util.ArrayList;
@@ -30,12 +31,12 @@ public class LottoVendor {
         return money/LOTTO_PRICE;
     }
 
-    public List<Lotto> buy(String money) {
+    public Lotteries buy(String money) {
         return order(unitPerLotto(parseMoney(money)));
     }
 
-    private List<Lotto> order(Integer count) {
-        ArrayList<Lotto> lottery = new ArrayList<>();
+    private Lotteries order(Integer count) {
+        Lotteries lottery = new Lotteries();
         for (Integer i = 0; i < count; i++) {
             lottery.add(new Lotto());
         }

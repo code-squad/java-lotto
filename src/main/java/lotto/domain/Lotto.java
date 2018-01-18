@@ -66,10 +66,9 @@ public class Lotto {
         return (int) lotto.lotto.stream().filter(contain).count();
     }
 
-    public LottoRecorder match(List<Lotto> lottoList, LottoNumber luckyNumber) {
+    public LottoRecorder match(Lotteries lottoList, LottoNumber luckyNumber) {
         Objects.requireNonNull(lottoList);
-        Objects.requireNonNull(luckyNumber);
-        return new LottoRecorder(this, lottoList, luckyNumber);
+        return new LottoRecorder(new WinningLotto(this, luckyNumber), lottoList);
     }
 
     @Override
