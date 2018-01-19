@@ -13,7 +13,7 @@ public class AutoLottoNumberGenerator implements LottoNumberGenerator {
 
     static {
         AVAILABLE_LOTTO_NUMBERS = new ArrayList<>();
-        for (int i = 1; i <= LottoNumber.MAX_NUMBER; i++) {
+        for (int i = 1; i <= LottoTicket.MAX_LOTTO_NUMBER; i++) {
             AVAILABLE_LOTTO_NUMBERS.add(i);
         }
     }
@@ -21,6 +21,6 @@ public class AutoLottoNumberGenerator implements LottoNumberGenerator {
     @Override
     public List<Integer> generateNumbers() {
         Collections.shuffle(AVAILABLE_LOTTO_NUMBERS);
-        return new ArrayList<>(AVAILABLE_LOTTO_NUMBERS.subList(0, LottoNumber.LOTTO_NUMBERS_SIZE));
+        return new ArrayList<>(AVAILABLE_LOTTO_NUMBERS.subList(0, LottoTicket.LOTTO_NUMBERS_SIZE));
     }
 }

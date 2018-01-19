@@ -5,7 +5,12 @@ package lotto.domain;
  */
 public enum Prize {
 
-    FIRST(0, 2000000000), SECOND(1, 1500000), THIRD(2, 50000), FOURTH(3, 5000), NONE(-1, 0);
+    FIRST(0, 2000000000),
+    SECOND(1, 30000000),
+    THIRD(1, 1500000),
+    FOURTH(2, 50000),
+    FIFTH(3, 5000),
+    NONE(-1, 0);
 
     private int countOfDiff;
     private int reward;
@@ -15,13 +20,12 @@ public enum Prize {
         this.reward = reward;
     }
 
-    public static Prize checkWinning(LottoNumber lottoNumber, LottoNumber winningNumber) {
-        int diff = LottoNumber.LOTTO_NUMBERS_SIZE - lottoNumber.countMatchNumber(winningNumber);
-        for(Prize prize: values()) {
-            if (prize.countOfDiff == diff)
-                return prize;
-        }
-        return NONE;
+    public boolean checkWinningRule(int diff) {
+        return countOfDiff == diff;
+    }
+
+    public boolean checkBonusRule(boolean match) {
+        return (this != SECOND) || match;
     }
 
     public int getCountOfDifference() {

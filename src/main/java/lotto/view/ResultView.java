@@ -1,7 +1,7 @@
 package lotto.view;
 
-import lotto.domain.LottoNumber;
 import lotto.domain.LottoResult;
+import lotto.domain.LottoTicket;
 import lotto.domain.Prize;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ResultView {
     }
 
     private static String getPrizeString(Prize prize, int count) {
-        int matchNumberCount = LottoNumber.LOTTO_NUMBERS_SIZE - prize.getCountOfDifference();
+        int matchNumberCount = LottoTicket.LOTTO_NUMBERS_SIZE - prize.getCountOfDifference();
         return String.format("%d개 일치 (%d원)- %d개", matchNumberCount, prize.getReward(), count);
     }
 }
