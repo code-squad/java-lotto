@@ -2,10 +2,7 @@ package dto;
 
 import enums.WinningRules;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class WinningResult {
     public static final Integer WINNING_RESTRICTION_NUMBER = 2;
@@ -40,17 +37,17 @@ public class WinningResult {
 
     public Map<WinningRules, Integer> countRules(List<WinningRules> rules) {
 
-        Map<WinningRules, Integer> counts = getNewKeyMap();
+        Map<WinningRules, Integer> rulesMap = getNewKeyMap();
 
         for (WinningRules rule : rules) {
-            counts.put(rule, counts.get(rule) + 1);
+            rulesMap.put(rule, rulesMap.get(rule) + 1);
         }
 
-        return counts;
+        return rulesMap;
     }
 
     public static Map<WinningRules, Integer> getNewKeyMap() {
-        Map<WinningRules, Integer> winningRulesKeyMap = new LinkedHashMap<>();
+        EnumMap<WinningRules, Integer> winningRulesKeyMap = new EnumMap<>(WinningRules.class);
 
         winningRulesKeyMap.put(WinningRules.THREE_MATCHING, 0);
         winningRulesKeyMap.put(WinningRules.FOUR_MATCHING, 0);

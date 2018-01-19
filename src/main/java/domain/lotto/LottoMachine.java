@@ -9,10 +9,7 @@ public class LottoMachine {
 
     private LottoTickets purchasedLottoTickets;
 
-    public LottoMachine() {
-    }
-
-    public void insertMoney(String money) {
+    public LottoMachine(String money) {
         this.money = Integer.parseInt(money);
         this.purchasedLottoTickets = new LottoTickets(this.calculatePurchaseTicketAmount());
     }

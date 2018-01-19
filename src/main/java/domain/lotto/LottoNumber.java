@@ -58,9 +58,6 @@ public class LottoNumber implements Comparable<LottoNumber>, Validable<Integer> 
 
     @Override
     public boolean isValidData(Integer data) {
-        if (data >= LOTTO_MIN_NUMBER && data <= LOTTO_MAX_NUMBER) {
-            return true;
-        }
-        return false;
+        return data >= LOTTO_MIN_NUMBER && data <= LOTTO_MAX_NUMBER;
     }
 }

@@ -1,9 +1,5 @@
 package enums;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 public enum WinningRules {
     NONE(0, 0),
     ONE_MATCHING(1, 0),

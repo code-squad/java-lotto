@@ -40,8 +40,9 @@ public class LottoNumbers {
     @Override
     public boolean equals(Object o) {
         if (this == o ) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         LottoNumbers that = (LottoNumbers) o;
-        if (o == null || this.numbers.size() != that.numbers.size() ||this.numbers == null || getClass() != o.getClass()) return false;
+        if (this.numbers.size() != that.numbers.size()) return true;
 
         for (int i = 0; i < this.numbers.size(); i++) {
             if (!isEquals(i, that.numbers))

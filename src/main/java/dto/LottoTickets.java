@@ -10,12 +10,12 @@ public class LottoTickets {
     List<LottoTicket> tickets;
 
     public LottoTickets(int amount) {
-        List<LottoTicket> tickets = new ArrayList<>();
+        List<LottoTicket> newTickets = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
-            tickets.add(new LottoTicket(new LottoNumbers()));
+            newTickets.add(new LottoTicket(new LottoNumbers()));
         }
 
-        this.tickets = tickets;
+        this.tickets = newTickets;
     }
 
     public LottoTickets(List<LottoTicket> tickets) {
