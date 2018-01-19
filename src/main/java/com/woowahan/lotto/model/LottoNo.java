@@ -23,4 +23,14 @@ public class LottoNo implements Comparable<LottoNo> {
     public String toString() {
         return "" + number;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        LottoNo lottoNo = (LottoNo) o;
+        return number == lottoNo.getNumber();
+    }
+
+    public int getNumber() {
+        return number;
+    }
 }

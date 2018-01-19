@@ -11,10 +11,23 @@ public class Lottos {
     }
 
     public LottoResult match(WinningLotto winningLotto) {
+        LottoResult lottoResult = new LottoResult();
+
         for (Lotto lotto : lottos) {
-            winningLotto.match(lotto);
-
+            lottoResult.addPriceInfo(winningLotto.match(lotto));
         }
+        return lottoResult;
+    }
 
+    public void add(Lotto lotto) {
+        lottos.add(lotto);
+    }
+
+    public int size() {
+        return lottos.size();
+    }
+
+    public List<Lotto> getLottos() {
+        return lottos;
     }
 }

@@ -1,6 +1,7 @@
 package com.woowahan.lotto.view;
 
 import com.woowahan.lotto.model.LottoResult;
+import com.woowahan.lotto.model.Lottos;
 import com.woowahan.lotto.model.PriceInfo;
 import com.woowahan.lotto.model.Lotto;
 
@@ -9,11 +10,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class ResultView {
-    public void printMyLottoInfo(List<Lotto> myLotto) {
-        System.out.println(myLotto.size() + "개를 구매했습니다.");
-        for (Lotto lotto : myLotto) {
-            System.out.println(lotto);
-        }
+    public void printMyLottoInfo(Lottos lottos) {
+        System.out.println(lottos.size() + "개를 구매했습니다.");
+        lottos.getLottos().forEach(System.out::println);
     }
 
     public void printLottoResult(LottoResult lottoResult, int benefit) {

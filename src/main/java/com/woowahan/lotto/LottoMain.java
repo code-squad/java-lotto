@@ -3,6 +3,7 @@ package com.woowahan.lotto;
 import com.woowahan.lotto.controller.LottoController;
 import com.woowahan.lotto.model.Lotto;
 import com.woowahan.lotto.model.LottoResult;
+import com.woowahan.lotto.model.Lottos;
 import com.woowahan.lotto.model.WinningLotto;
 import com.woowahan.lotto.view.InputView;
 import com.woowahan.lotto.view.ResultView;
@@ -16,12 +17,12 @@ public class LottoMain {
         ResultView resultView = new ResultView();
 
         int money = inputView.inputMoney();
-        List<Lotto> lottos = lottoController.buy(money);
+        Lottos lottos = lottoController.buy(money);
 
         resultView.printMyLottoInfo(lottos);
         WinningLotto winningLotto = new WinningLotto(inputView.inputLuckyNumbers(), inputView.inputBonusNumber());
 
-        LottoResult lottoResult = lottoController.checkAllLottos(lottos, winningLotto);
+        LottoResult lottoResult = lottos.match(winningLotto);
         int benefit = lottoResult.calculateBenefit(money);
 
         resultView.printLottoResult(lottoResult, benefit);
