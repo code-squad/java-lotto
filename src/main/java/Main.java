@@ -1,3 +1,4 @@
+import model.Lotto;
 import model.LottoGame;
 import model.NaturalNumber;
 import model.WinningLotto;
@@ -11,16 +12,15 @@ public class Main {
 			NaturalNumber money = new NaturalNumber(ConsoleView.getMoney());
 			NaturalNumber manualCount = new NaturalNumber(ConsoleView.getManualCount());
 
-			List<List<Integer>> lottoNumbers = ConsoleView.getManualCombinations(manualCount);
+			List<String> lottoNumbers = ConsoleView.getManualCombinations(manualCount);
 			LottoGame lottoGame = new LottoGame(money, lottoNumbers);
 
 			ConsoleView.printAllLottoNumbers(lottoGame, manualCount);
 
-			Integer[] numbers = ConsoleView.getLastWeekWinningCombination();
+			String numbers = ConsoleView.getLastWeekWinningCombination();
 			int bonus = ConsoleView.getBonusNumber();
-			WinningLotto winningLotto = new WinningLotto(Arrays.asList(numbers), bonus);
 
-			ConsoleView.printResultStatistics(lottoGame.runGames(winningLotto));
+			ConsoleView.printResultStatistics(lottoGame.runGames(numbers.split(","), bonus));
 
 			ConsoleView.printYieldRate(lottoGame.getYieldRate());
 		} catch(IllegalArgumentException e) {

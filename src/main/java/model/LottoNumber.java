@@ -5,6 +5,10 @@ public class LottoNumber implements Comparable<LottoNumber> {
 
     private int number;
 
+    public LottoNumber(String number) throws IllegalArgumentException {
+        this(Integer.parseInt(number));
+    }
+
     public LottoNumber(int number) throws IllegalArgumentException {
         if (number <= 0 || number >= BOUND)
             throw new IllegalArgumentException("Invalid lotto number.");

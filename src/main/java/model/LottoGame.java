@@ -1,13 +1,15 @@
 package model;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LottoGame {
 
 	private static final int PRICE = 1000;
 
 	private NaturalNumber money;
-	private List<UserLotto> lottos;
+	private List<Lotto> lottos;
 	private Map<ResultTypes, Integer> gameResults;
 
 	public LottoGame(NaturalNumber money) {
@@ -17,7 +19,7 @@ public class LottoGame {
 		this.lottos = playAutoGames(playableCount.getNumber());
 	}
 
-	public LottoGame(NaturalNumber money, List<List<Integer>> manualLottoNumbers)
+	public LottoGame(NaturalNumber money, List<String> manualLottoNumbers)
 				throws IllegalArgumentException {
 		gameResults = new HashMap<>();
 
@@ -29,8 +31,8 @@ public class LottoGame {
 		if(playableCount.isLessThan(manualGameCount))
 			throw new IllegalArgumentException("Not enough money.");
 
-		List<UserLotto> manualGames = playManualGames(manualLottoNumbers);
-		List<UserLotto> autoGames = playAutoGames(
+		List<Lotto> manualGames = playManualGames(manualLottoNumbers);
+		List<Lotto> autoGames = playAutoGames(
 				playableCount.getNumber() - manualGameCount.getNumber());
 
 		this.lottos = new ArrayList<>();
@@ -38,28 +40,30 @@ public class LottoGame {
 		this.lottos.addAll(autoGames);
 	}
 
-	private List<UserLotto> playAutoGames(int count) {
-		List<UserLotto> lottos = new ArrayList<>();
+	private List<Lotto> playAutoGames(int count) {
+		List<Lotto> lottos = new ArrayList<>();
 
 		for (int i = 0; i < count; i++) {
-			lottos.add(new UserLotto());
+			lottos.add(new Lotto());
 		}
 
 		return lottos;
 	}
 
-	private List<UserLotto> playManualGames(List<List<Integer>> manualLottoNumbers) throws IllegalArgumentException {
-		List<UserLotto> lottos = new ArrayList<>();
+	private List<Lotto> playManualGames(List<String> manualLottoNumbers) throws IllegalArgumentException {
+		List<Lotto> lottos = new ArrayList<>();
 
-		for (List<Integer> lottoNumber : manualLottoNumbers) {
-			lottos.add(new UserLotto(lottoNumber));
+		for (String lottoNumber : manualLottoNumbers) {
+			lottos.add(new Lotto(lottoNumber.split(",")));
 		}
 
 		return lottos;
 	}
 
-	public Map<ResultTypes, Integer> runGames(WinningLotto winningLotto) {
-		for(UserLotto lotto : lottos) {
+	public Map<ResultTypes, Integer> runGames(String[] winningNumbers, int bonus) {
+		WinningLotto winningLotto = new WinningLotto(new Lotto(winningNumbers), bonus);
+
+		for(Lotto lotto : lottos) {
 			ResultTypes key = winningLotto.compare(lotto);
 
 			if (!gameResults.containsKey(key)) {
@@ -83,7 +87,7 @@ public class LottoGame {
 		return (prizeSum * 100) / money.getNumber();
 	}
 
-	public List<UserLotto> getLottos() {
+	public List<Lotto> getLottos() {
 		return lottos;
 	}
 }

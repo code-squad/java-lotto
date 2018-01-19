@@ -3,24 +3,25 @@ package model;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
-public class UserLotto {
+public class Lotto {
     private static final int SIZE = 6;
 
     private List<LottoNumber> numbers;
 
-    UserLotto() {
+    Lotto() {
         this.numbers = generate();
     }
 
-    UserLotto(List<Integer> numbers) throws IllegalArgumentException {
-        if(new HashSet<>(numbers).size() != UserLotto.SIZE)
-            throw new IllegalArgumentException(String.format("Expected: %d distinct numbers.", UserLotto.SIZE));
+    Lotto(String[] numbers) throws IllegalArgumentException {
+        if(new HashSet<>(Arrays.asList(numbers)).size() != Lotto.SIZE)
+            throw new IllegalArgumentException(String.format("Expected: %d distinct numbers.", Lotto.SIZE));
 
         this.numbers = new ArrayList<>(
-                numbers.stream()
-                        .map(LottoNumber::new)
-                        .collect(Collectors.toList()));
+                Stream.of(numbers)
+                .map(LottoNumber::new)
+                .collect(Collectors.toList()));
     }
 
     private List<LottoNumber> generate() {
@@ -30,7 +31,7 @@ public class UserLotto {
                 .collect(Collectors.toList());
         Collections.shuffle(numbers);
 
-        numbers = numbers.subList(0, UserLotto.SIZE);
+        numbers = numbers.subList(0, Lotto.SIZE);
         Collections.sort(numbers);
 
         return numbers;
@@ -46,5 +47,13 @@ public class UserLotto {
                         .map(Object::toString)
                         .collect(Collectors.joining(", "))
                 + "]";
+    }
+
+    public int getMatchCount(Lotto target) {
+        int matchCount = 0;
+        for (LottoNumber num : this.numbers) {
+            if (target.contains(num)) matchCount++;
+        }
+        return matchCount;
     }
 }

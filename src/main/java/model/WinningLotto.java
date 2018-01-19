@@ -7,29 +7,18 @@ import java.util.stream.Collectors;
 public class WinningLotto {
 
     private LottoNumber bonusNumber;
-    private List<LottoNumber> numbers;
+    private Lotto lotto;
 
-    public WinningLotto(List<Integer> numbers, int bonusNumber) throws IllegalArgumentException {
-        this.numbers = new ArrayList<>(
-                numbers.stream()
-                    .map(LottoNumber::new)
-                    .collect(Collectors.toList()));
+    public WinningLotto(Lotto lotto, int bonusNumber) throws IllegalArgumentException {
+        this.lotto = lotto;
         this.bonusNumber = new LottoNumber(bonusNumber);
     }
 
-    public ResultTypes compare(UserLotto target) {
-        return ResultTypes.findByCode(getMatchCount(target), isBonus(target));
+    public ResultTypes compare(Lotto target) {
+        return ResultTypes.findByCode(this.lotto.getMatchCount(target), isBonus(target));
     }
 
-    private int getMatchCount(UserLotto target) {
-        int matchCount = 0;
-        for (LottoNumber num : this.numbers) {
-            if (target.contains(num)) matchCount++;
-        }
-        return matchCount;
-    }
-
-    private boolean isBonus(UserLotto target) {
+    private boolean isBonus(Lotto target) {
         return target.contains(bonusNumber);
     }
 }
