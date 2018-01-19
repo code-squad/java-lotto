@@ -17,6 +17,7 @@ public class LottoTicketTest {
         LottoTicket lottoNumber = new LottoTicket(new ManualLottoNumberGenerator(1, 2, 3, 4, 5, 6));
         assertThat(lottoNumber.getNumbers().size()).isEqualTo(6);
         assertThat(lottoNumber.getNumbers().stream().distinct().count()).isEqualTo(6);
+        assertThat(lottoNumber.getSource()).isEqualTo(LottoTicket.Source.MANUAL);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -39,6 +40,7 @@ public class LottoTicketTest {
         LottoTicket lottoNumber = new LottoTicket();
         assertThat(lottoNumber.getNumbers().size()).isEqualTo(6);
         assertThat(lottoNumber.getNumbers().stream().distinct().count()).isEqualTo(6);
+        assertThat(lottoNumber.getSource()).isEqualTo(LottoTicket.Source.AUTO);
     }
 
     @Test

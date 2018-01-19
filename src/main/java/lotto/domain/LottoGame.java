@@ -62,6 +62,10 @@ public class LottoGame {
                 .collect(Collectors.toList()));
     }
 
+    public int getLottoTicketCountBySource(LottoTicket.Source source) {
+        return (int)tickets.stream().filter(ticket -> ticket.getSource() == source).count();
+    }
+
     public String getTicketsString() {
         return String.join("\n",
                 tickets.stream()

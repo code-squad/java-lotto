@@ -13,24 +13,40 @@ import java.util.stream.Collectors;
  */
 public class LottoTicket {
 
+    public enum Source {
+        AUTO("자동"), MANUAL("수동");
+
+        private String name;
+
+        Source(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
     public static final int TICKET_PRICE = 1000;
     public static final int MAX_LOTTO_NUMBER = 45;
     public static final int LOTTO_NUMBERS_SIZE = 6;
 
     private List<Integer> numbers;
+    private Source source;
 
     public LottoTicket() {
         this(new AutoLottoNumberGenerator());
     }
 
     public LottoTicket(LottoNumberGenerator lottoNumberGenerator) {
-        this(lottoNumberGenerator.generateNumbers());
+        this(lottoNumberGenerator.generateNumbers(), lottoNumberGenerator.getSource());
     }
 
-    private LottoTicket(List<Integer> numbers) {
+    private LottoTicket(List<Integer> numbers, Source source) {
         checkValid(numbers);
         this.numbers = numbers;
         Collections.sort(this.numbers);
+        this.source = source;
     }
 
     public int countMatchNumber(List<Integer> numbers) {
@@ -60,9 +76,15 @@ public class LottoTicket {
         }
     }
 
+    public Source getSource() {
+        return source;
+    }
+
     @Override
     public String toString() {
         return new StringBuilder().append("[")
+                .append(source.getName())
+                .append("][")
                 .append(String.join(", ", numbers.stream().map(v -> v.toString()).collect(Collectors.toList())))
                 .append("]").toString();
     }
