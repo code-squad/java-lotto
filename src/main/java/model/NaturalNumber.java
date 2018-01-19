@@ -1,7 +1,7 @@
 package model;
 
 public class NaturalNumber {
-    private int number;
+    protected int number;
 
     public NaturalNumber(){
 

@@ -6,26 +6,24 @@ import java.util.stream.Stream;
 
 public class LottoGame {
 
-	private static final int PRICE = 1000;
-
 	private LottoCredit credit;
 	private List<Lotto> lottos;
-	private Map<ResultTypes, Integer> gameResults;
+	private LottoResult lottoResult;
+
 
 	public LottoGame(LottoCredit credit) {
-		gameResults = new HashMap<>();
 		this.credit = credit;
-		NaturalNumber playableCount = new NaturalNumber(credit.getNumber() / PRICE);
+		NaturalNumber playableCount = credit.getAvailableAmount();
 		this.lottos = playAutoGames(playableCount.getNumber());
+		this.lottoResult = new LottoResult();
 	}
 
 	public LottoGame(LottoCredit credit, List<String> manualLottoNumbers)
 				throws IllegalArgumentException {
-		gameResults = new HashMap<>();
-
 		this.credit = credit;
+		this.lottoResult = new LottoResult();
 
-		NaturalNumber playableCount = new NaturalNumber(credit.getNumber() / PRICE);
+		NaturalNumber playableCount = credit.getAvailableAmount();
 		NaturalNumber manualGameCount = new NaturalNumber(manualLottoNumbers.size());
 
 		if(playableCount.isLessThan(manualGameCount))
@@ -64,27 +62,14 @@ public class LottoGame {
 		WinningLotto winningLotto = new WinningLotto(new Lotto(winningNumbers), bonus);
 
 		for(Lotto lotto : lottos) {
-			ResultTypes key = winningLotto.compare(lotto);
-
-			if (!gameResults.containsKey(key)) {
-				gameResults.put(key, 1);
-				continue;
-			}
-
-			gameResults.put(key, gameResults.get(key) + 1);
+			lottoResult.matchLotto(winningLotto, lotto);
 		}
 
-		return gameResults;
+		return lottoResult.map;
 	}
 
 	public long getYieldRate() {
-		long prizeSum = 0;
-
-		for(ResultTypes type : gameResults.keySet()) {
-			prizeSum += type.calculatePrize(gameResults.get(type));
-		}
-
-		return (prizeSum * 100) / credit.getNumber();
+		return (lottoResult.getPrize() * 100) / credit.getMoney();
 	}
 
 	public List<Lotto> getLottos() {

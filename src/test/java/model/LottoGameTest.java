@@ -25,7 +25,7 @@ public class LottoGameTest {
 		myLottos.add("1,2,3,14,15,19");
 		myLottos.add("1,2,13,14,15,20");
 
-		lottoGame = new LottoGame(new NaturalNumber(5000),myLottos);
+		lottoGame = new LottoGame(new LottoCredit(5000),myLottos);
 
 		winningLottoNumbers = "1,2,3,4,5,6".split(",");
 		bonus = 27;
@@ -33,7 +33,7 @@ public class LottoGameTest {
 
 	@Test
 	public void generateAllAutoGame() {
-		lottoGame = new LottoGame(new NaturalNumber(5000));
+		lottoGame = new LottoGame(new LottoCredit(5000));
 		assertThat(lottoGame.getLottos().size()).isEqualTo(5);
 	}
 
@@ -63,6 +63,6 @@ public class LottoGameTest {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void NotEnoughMoneyException() {
-		new LottoGame(new NaturalNumber(1), Arrays.asList("1,2,3,4,5,6"));
+		new LottoGame(new LottoCredit(1), Arrays.asList("1,2,3,4,5,6"));
 	}
 }
