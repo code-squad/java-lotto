@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 public class Lotto {
 
-    private static final  List<LottoNo> LOTTO_NUMBER_RAGNE = IntStream.range(1, 46).boxed().map(i -> new LottoNo(i)).collect(Collectors.toList());
+    public static final  List<LottoNo> LOTTO_NUMBER_RANGE = IntStream.range(1, 46).boxed().map(i -> new LottoNo(i)).collect(Collectors.toList());
     private List<LottoNo> numbers;
 
     public Lotto(List<LottoNo> numbers) {
@@ -18,15 +18,16 @@ public class Lotto {
 
     public Lotto() {
         numbers = new ArrayList<>();
-        Collections.shuffle(LOTTO_NUMBER_RAGNE, new Random());
-        numbers = LOTTO_NUMBER_RAGNE.subList(0, 6);
+        Collections.shuffle(LOTTO_NUMBER_RANGE, new Random());
+        numbers = LOTTO_NUMBER_RANGE.subList(0, 6);
     }
+
 
     public List<LottoNo> getNumbers() {
         return this.numbers;
     }
 
     public String joinNumbers(){
-        return this.numbers.stream().map(i -> String.valueOf(i)).collect(Collectors.joining(","));
+        return this.numbers.stream().map(lottoNo -> lottoNo.getNumber().toString()).collect(Collectors.joining(","));
     }
 }

@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 
 public class WinningLotto {
 
-    private List<Integer> winningLottos;
+    private List<LottoNo> winningLottos;
     private int bonus;
 
     public WinningLotto(String winNumbers, int bonus) {
-        this.winningLottos = Arrays.stream(winNumbers.split(",")).map(i -> Integer.parseInt(i)).collect(Collectors.toList());
+        this.winningLottos = Arrays.stream(winNumbers.split(",")).map(i -> new LottoNo(Integer.parseInt(i))).collect(Collectors.toList());
         if (winningLottos.size() != 6 || bonus == 0 ) {
             throw new IllegalArgumentException();
         }
@@ -22,7 +22,7 @@ public class WinningLotto {
         return bonus;
     }
 
-    public List<Integer> getWinningLottos() {
+    public List<LottoNo> getWinningLottos() {
         return winningLottos;
     }
 
@@ -30,9 +30,9 @@ public class WinningLotto {
         return Rank.valueOf(getMatch(lotto).size(), lotto.getNumbers().contains(bonus));
     }
 
-    private List<Integer> getMatch(Lotto lotto) {
-        List<Integer> result = new ArrayList<>();
-        for (Integer number : lotto.getNumbers()) {
+    private List<LottoNo> getMatch(Lotto lotto) {
+        List<LottoNo> result = new ArrayList<>();
+        for (LottoNo number : lotto.getNumbers()) {
             if (this.winningLottos.contains(number)) {
                 result.add(number);
             }

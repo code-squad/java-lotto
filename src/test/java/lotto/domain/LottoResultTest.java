@@ -19,7 +19,12 @@ public class LottoResultTest {
 
     @Before
     public void setUp() {
-        List<Integer> number = new ArrayList<>(Arrays.asList(1,2,3,4,5,8));
+        List<LottoNo> number = new ArrayList<>(Arrays.asList(new LottoNo(6)
+            ,new LottoNo(1)
+            ,new LottoNo(2)
+            ,new LottoNo(3)
+            ,new LottoNo(4)
+            ,new LottoNo(5)));
         Lotto lotto = new Lotto(number);
         lottoStore = new LottoStore(Arrays.asList(lotto));
         lottoResult = lottoStore.match(new WinningLotto("1,2,3,4,6,7",8));

@@ -1,6 +1,9 @@
 package lotto.view;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class InputUI {
     private static Scanner scanner = new Scanner(System.in);
@@ -25,9 +28,18 @@ public class InputUI {
         return scanner.nextInt();
     }
 
-    public static String inputManucalLottoNubers(int manualLottoCount) {
+    public static List<String> inputManualLottoNumbers(int manualLottoCount) {
+
+        if (manualLottoCount == 0) {
+            return null;
+        }
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-        return scanner.next();
+        List<String> manualLottos = new ArrayList<>();
+        for (int i = 0; i < manualLottoCount; i++) {
+            String manual = scanner.next();
+            manualLottos.add(manual);
+        }
+        return manualLottos;
     }
 
 

@@ -13,7 +13,12 @@ public class LottoTest {
 
     @Before
     public void setUp() throws Exception {
-        List<Integer> number = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
+        List<LottoNo> number = new ArrayList<>(Arrays.asList(new LottoNo(6)
+            ,new LottoNo(1)
+            ,new LottoNo(2)
+            ,new LottoNo(3)
+            ,new LottoNo(4)
+            ,new LottoNo(5)));
         lotto = new Lotto(number);
     }
 
@@ -34,9 +39,9 @@ public class LottoTest {
 
     @Test
     public void 로또_번호_생성() {
-        assertThat(Lotto.LOTTO_NUMBERS.get(0)).isEqualTo(1);
-        assertThat(Lotto.LOTTO_NUMBERS.get(10)).isEqualTo(11);
-        assertThat(Lotto.LOTTO_NUMBERS.get(Lotto.LOTTO_NUMBERS.size()-1)).isEqualTo(45);
+        assertThat(Lotto.LOTTO_NUMBER_RANGE.get(0)).isEqualTo(1);
+        assertThat(Lotto.LOTTO_NUMBER_RANGE.get(10)).isEqualTo(11);
+        assertThat(Lotto.LOTTO_NUMBER_RANGE.get(Lotto.LOTTO_NUMBER_RANGE.size()-1)).isEqualTo(45);
     }
 
     @Test
