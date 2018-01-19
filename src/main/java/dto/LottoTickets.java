@@ -9,7 +9,13 @@ import java.util.List;
 public class LottoTickets {
     List<LottoTicket> tickets;
 
-    public LottoTickets() {
+    public LottoTickets(int amount) {
+        List<LottoTicket> tickets = new ArrayList<>();
+        for (int i = 0; i < amount; i++) {
+            tickets.add(new LottoTicket(new LottoNumbers()));
+        }
+
+        this.tickets = tickets;
     }
 
     public LottoTickets(List<LottoTicket> tickets) {
@@ -30,18 +36,6 @@ public class LottoTickets {
 
     private boolean isAddAble(WinningRules matchedRule) {
         return matchedRule.getMatchCount() > WinningResult.WINNING_RESTRICTION_NUMBER;
-    }
-
-    public LottoTickets createLottoTickets(Integer amount) {
-        List<LottoTicket> tickets = new ArrayList<>();
-
-        for (int i = 0; i < amount; i++) {
-            tickets.add(new LottoTicket(new LottoNumbers().createAutoNumbers()));
-        }
-
-        this.tickets = tickets;
-
-        return this;
     }
 
     public int getSize() {

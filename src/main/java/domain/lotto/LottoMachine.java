@@ -1,6 +1,5 @@
 package domain.lotto;
 
-import dto.LottoNumbers;
 import dto.LottoTickets;
 import dto.WinningResult;
 
@@ -15,7 +14,7 @@ public class LottoMachine {
 
     public void insertMoney(String money) {
         this.money = Integer.parseInt(money);
-        this.purchasedLottoTickets = new LottoTickets().createLottoTickets(this.calculatePurchaseTicketAmount());
+        this.purchasedLottoTickets = new LottoTickets(this.calculatePurchaseTicketAmount());
     }
 
     private int calculatePurchaseTicketAmount() {

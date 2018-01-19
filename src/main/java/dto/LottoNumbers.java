@@ -11,18 +11,14 @@ public class LottoNumbers {
     private List<LottoNumber> numbers;
 
     public LottoNumbers() {
-    }
-
-    public LottoNumbers(List<LottoNumber> numbers) {
-        this.numbers = numbers;
-    }
-
-    public LottoNumbers createAutoNumbers(){
         this.numbers = new ArrayList<>();
         for (int i = 0; i < LOTTO_NUMBER_SIZE; i++) {
             numbers.add(new LottoNumber().autoCreateNumber());
         }
-        return this;
+    }
+
+    public LottoNumbers(List<LottoNumber> numbers) {
+        this.numbers = numbers;
     }
 
     public void sortingNumber() {
