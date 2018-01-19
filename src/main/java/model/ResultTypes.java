@@ -43,7 +43,7 @@ public enum ResultTypes {
         int matchCount = 0;
         int temp = this.code;
 
-        while(temp % 2 == 0) {
+        while(temp % 2 == 0 && temp > 0) {
             matchCount++;
             temp /= 2;
         }
