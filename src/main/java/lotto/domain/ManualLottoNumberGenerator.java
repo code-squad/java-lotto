@@ -11,7 +11,7 @@ import static lotto.domain.LottoNumber.LOTTO_NUMBERS_SIZE;
  */
 public class ManualLottoNumberGenerator implements LottoNumberGenerator{
 
-    int[] numbers;
+    private int[] numbers;
 
     public ManualLottoNumberGenerator(int ... numbers) {
         if(checkValid(numbers)) {

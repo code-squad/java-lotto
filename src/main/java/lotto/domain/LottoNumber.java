@@ -61,6 +61,4 @@ public class LottoNumber {
     public String toString() {
         return String.join(", ", numbers.stream().map(v -> v.toString()).collect(Collectors.toList()));
     }
-
-
 }

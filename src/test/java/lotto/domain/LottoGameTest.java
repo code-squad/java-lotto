@@ -44,5 +44,4 @@ public class LottoGameTest {
         int count = prizeIntegerMap.values().stream().mapToInt(v -> v).sum();
         assertThat(count).isEqualTo(10);
     }
-
 }

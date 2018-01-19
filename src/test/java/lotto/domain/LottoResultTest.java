@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class LottoResultTest {
 
-    public static final int TICKET_COUNT = 10;
+    private static final int TICKET_COUNT = 10;
     private LottoResult result;
 
     @Before
@@ -47,5 +47,4 @@ public class LottoResultTest {
         int money = TICKET_COUNT * LottoTicket.TICKET_PRICE;
         assertThat(result.getReturnRate()).isEqualTo((float)reward / money * 100);
     }
-
 }
