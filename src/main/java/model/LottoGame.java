@@ -1,83 +1,78 @@
 package model;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LottoGame {
 
-	private static final int PRICE = 1000;
+	private LottoCredit credit;
+	private List<Lotto> lottos;
+	private LottoResult lottoResult;
 
-	private int money;
-	private List<UserLotto> lottos;
-	private Map<ResultTypes, Integer> gameResults;
 
-	public LottoGame(int money) {
-		gameResults = new HashMap<>();
-		this.money = money;
-		this.lottos = playAutoGames(money / PRICE);
+	public LottoGame(LottoCredit credit) {
+		this.credit = credit;
+		NaturalNumber playableCount = credit.getAvailableAmount();
+		this.lottos = playAutoGames(playableCount.getNumber());
+		this.lottoResult = new LottoResult();
 	}
 
-	public LottoGame(int money, List<List<Integer>> manualLottoNumbers) {
-		gameResults = new HashMap<>();
+	public LottoGame(LottoCredit credit, List<String> manualLottoNumbers)
+				throws IllegalArgumentException {
+		this.credit = credit;
+		this.lottoResult = new LottoResult();
 
-		this.money = money;
+		NaturalNumber playableCount = credit.getAvailableAmount();
+		NaturalNumber manualGameCount = new NaturalNumber(manualLottoNumbers.size());
 
-		int playableCount = money / PRICE;
-		int manualGameCount = manualLottoNumbers.size();
+		if(playableCount.isLessThan(manualGameCount))
+			throw new IllegalArgumentException("Not enough credit.");
 
-		List<UserLotto> manualGames = playManualGames(manualLottoNumbers);
-		List<UserLotto> autoGames = playAutoGames(playableCount - manualGameCount);
+		List<Lotto> manualGames = playManualGames(manualLottoNumbers);
+		List<Lotto> autoGames = playAutoGames(
+				playableCount.getNumber() - manualGameCount.getNumber());
 
 		this.lottos = new ArrayList<>();
 		this.lottos.addAll(manualGames);
 		this.lottos.addAll(autoGames);
 	}
 
-	private List<UserLotto> playAutoGames(int count) {
-		List<UserLotto> lottos = new ArrayList<>();
+	private List<Lotto> playAutoGames(int count) {
+		List<Lotto> lottos = new ArrayList<>();
 
 		for (int i = 0; i < count; i++) {
-			lottos.add(new UserLotto());
+			lottos.add(new Lotto());
 		}
 
 		return lottos;
 	}
 
-	private List<UserLotto> playManualGames(List<List<Integer>> manualLottoNumbers) {
-		List<UserLotto> lottos = new ArrayList<>();
+	private List<Lotto> playManualGames(List<String> manualLottoNumbers) throws IllegalArgumentException {
+		List<Lotto> lottos = new ArrayList<>();
 
-		for (List<Integer> lottoNumber : manualLottoNumbers) {
-			lottos.add(new UserLotto(lottoNumber));
+		for (String lottoNumber : manualLottoNumbers) {
+			lottos.add(new Lotto(lottoNumber.split(",")));
 		}
 
 		return lottos;
 	}
 
-	public Map<ResultTypes, Integer> runGames(WinningLotto winningLotto) {
-		for(UserLotto lotto : lottos) {
-			ResultTypes key = winningLotto.compare(lotto);
+	public Map<ResultTypes, Integer> runGames(String[] winningNumbers, int bonus) {
+		WinningLotto winningLotto = new WinningLotto(new Lotto(winningNumbers), bonus);
 
-			if (!gameResults.containsKey(key)) {
-				gameResults.put(key, 1);
-				continue;
-			}
-
-			gameResults.put(key, gameResults.get(key) + 1);
+		for(Lotto lotto : lottos) {
+			lottoResult.matchLotto(winningLotto, lotto);
 		}
 
-		return gameResults;
+		return lottoResult.map;
 	}
 
 	public long getYieldRate() {
-		long prizeSum = 0;
-
-		for(ResultTypes type : gameResults.keySet()) {
-			prizeSum += type.calculatePrize(gameResults.get(type));
-		}
-
-		return (prizeSum * 100) / money;
+		return (lottoResult.getPrize() * 100) / credit.getMoney();
 	}
 
-	public List<UserLotto> getLottos() {
+	public List<Lotto> getLottos() {
 		return lottos;
 	}
 }

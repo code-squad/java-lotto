@@ -13,31 +13,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LottoGameTest {
 
 	private LottoGame lottoGame;
-	private WinningLotto winningLotto;
+	private String[] winningLottoNumbers;
+	private int bonus;
 
 	@Before
 	public void setup() {
-		List<List<Integer>> myLottos = new ArrayList<>();
-		myLottos.add(Arrays.asList(1,2,3,4,5,16));
-		myLottos.add(Arrays.asList(1,2,3,4,15,17));
-		myLottos.add(Arrays.asList(1,2,3,4,15,18));
-		myLottos.add(Arrays.asList(1,2,3,14,15,19));
-		myLottos.add(Arrays.asList(1,2,13,14,15,20));
+		List<String> myLottos = new ArrayList<>();
+		myLottos.add("1,2,3,4,5,16");
+		myLottos.add("1,2,3,4,15,17");
+		myLottos.add("1,2,3,4,15,18");
+		myLottos.add("1,2,3,14,15,19");
+		myLottos.add("1,2,13,14,15,20");
 
-		lottoGame = new LottoGame(5000, myLottos);
+		lottoGame = new LottoGame(new LottoCredit(5000),myLottos);
 
-		winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6), 27);
+		winningLottoNumbers = "1,2,3,4,5,6".split(",");
+		bonus = 27;
 	}
 
 	@Test
 	public void generateAllAutoGame() {
-		lottoGame = new LottoGame(5000);
+		lottoGame = new LottoGame(new LottoCredit(5000));
 		assertThat(lottoGame.getLottos().size()).isEqualTo(5);
 	}
 
 	@Test
 	public void getWinners() {
-		Map<ResultTypes, Integer> result = lottoGame.runGames(winningLotto);
+		Map<ResultTypes,Integer> result = lottoGame.runGames(winningLottoNumbers, bonus);
 		assertThat(result.size()).isEqualTo(4);
 		assertThat(result.keySet()).contains(ResultTypes.NO_MATCH);
 		assertThat(result.keySet()).contains(ResultTypes.MATCH3);
@@ -53,9 +55,14 @@ public class LottoGameTest {
 
 	@Test
 	public void getYieldRate() {
-		lottoGame.runGames(winningLotto);
+		lottoGame.runGames(winningLottoNumbers, bonus);
 		long yieldRate = lottoGame.getYieldRate();
 
 		assertThat(yieldRate).isEqualTo(32100);
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void NotEnoughMoneyException() {
+		new LottoGame(new LottoCredit(1), Arrays.asList("1,2,3,4,5,6"));
 	}
 }
