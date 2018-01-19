@@ -1,6 +1,8 @@
 package lotto.domain;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class LottoResult {
@@ -40,10 +42,21 @@ public class LottoResult {
         return totalProfit;
     }
 
+    public List<String> showResultMessages() {
+        List<String> messages = new ArrayList<>();
+        for (LottoPrize lottoPrize : LottoPrize.values()) {
+            if (LottoPrize.NONE.equals(lottoPrize)) {
+                continue;
+            }
+            messages.add(showResultMessage(lottoPrize));
+        }
+        return messages;
+    }
+
     public String showResultMessage(LottoPrize prize) {
         return prize.showMessage() +
                 "- " +
-                lottoPrizeResults.get(prize) +
+                lottoPrizeResults.getOrDefault(prize, 0) +
                 "개";
     }
 

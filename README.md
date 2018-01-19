@@ -132,3 +132,19 @@
 * 규칙 3: 모든 원시값과 문자열을 포장한다.
 * 규칙 5: 줄여쓰지 않는다(축약 금지).
 * 규칙 8: 일급 콜렉션을 쓴다.
+
+## Step4
+* repo : https://github.com/trytocloud/java-lotto/tree/step4
+* pr : https://github.com/code-squad/java-lotto/pull/63
+
+### 요구사항
+* 콘솔 UI 대신 웹 UI를 적용한다.
+* 웹 UI를 적용할 HTML 템플릿은 fork한 저장소의 src/main/resources 디렉토리의 templates 디렉토리에 있다.
+* 메인 페이지는 index.html 페이지에서 시작한다.
+
+### 프로그래밍 요구사항
+* 웹 UI를 적용할 때 기존 코드를 수정하지 않아야 한다.
+* UI에 의존하지 않도록 구현하려면 어떻게 구현하는 것이 좋을 것인지 해결 방법을 찾는다.
+
+### 참고 자료
+* MUSTACHE MANUAL : https://mustache.github.io/mustache.5.html

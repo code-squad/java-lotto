@@ -55,6 +55,13 @@ public class LottoStoreTest {
         }
     }
 
+    @Test
+    public void buyExplicitTicketsAsEmpty() {
+        LottoManualTicketRequest lottoManualTicketRequest = new LottoManualTicketRequest("");
+        LottoCustomerTicket lottoCustomerTicket = LottoStore.buyExplicitTickets(lottoManualTicketRequest);
+        assertTrue(lottoCustomerTicket.getTickets().isEmpty());
+    }
+
     private LottoManualTicketRequest getLottoManualTicketRequest() {
         List<String> ticketRequests = new ArrayList<>();
         ticketRequests.add("1, 2, 3, 4, 5, 6");
@@ -67,5 +74,12 @@ public class LottoStoreTest {
         LottoManualTicketRequest lottoManualTicketRequest = getLottoManualTicketRequest();
         LottoCustomerTicket lottoCustomerTicket = LottoStore.buyLottoTicket(14000, lottoManualTicketRequest);
         assertEquals(14, lottoCustomerTicket.getTickets().size());
+    }
+
+    @Test
+    public void buyLottoTicketWithEmptyManualTicketRequest() throws Exception {
+        LottoManualTicketRequest lottoManualTicketRequest = new LottoManualTicketRequest("");
+        LottoCustomerTicket lottoCustomerTicket = LottoStore.buyLottoTicket(2000, lottoManualTicketRequest);
+        assertEquals(2, lottoCustomerTicket.getTickets().size());
     }
 }

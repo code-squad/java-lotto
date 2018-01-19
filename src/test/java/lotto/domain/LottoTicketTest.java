@@ -6,6 +6,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class LottoTicketTest {
+    @Test(expected = IllegalArgumentException.class)
+    public void testWrong() throws Exception {
+        LottoStore.buyExplicitTicket("1, 2, 3");
+    }
     @Test
     public void match() throws Exception {
         LottoTicket lottoTicket = LottoStore.buyExplicitTicket("1, 2, 3, 4, 5, 6");

@@ -5,6 +5,7 @@ import lotto.domain.LottoConstants;
 import lotto.domain.LottoManualTicketRequest;
 import lotto.domain.LottoTicket;
 import lotto.util.TicketNumberParser;
+import spark.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,15 +50,18 @@ public class LottoStore {
     public static LottoCustomerTicket buyExplicitTickets(LottoManualTicketRequest lottoManualTicketRequest) {
         List<LottoTicket> tickets = new ArrayList<>();
         for (String plainTicket : lottoManualTicketRequest.getTicketRequests()) {
+            if (StringUtils.isEmpty(plainTicket)) {
+                continue;
+            }
             tickets.add(buyExplicitTicket(plainTicket));
         }
         return new LottoCustomerTicket(tickets);
     }
 
     public static LottoCustomerTicket buyLottoTicket(int ticketTotalPrice, LottoManualTicketRequest lottoManualTicketRequest) {
-        int randomTotalCount = LottoStore.countRandomTicket(ticketTotalPrice, lottoManualTicketRequest.getTicketRequests().size());
-        LottoCustomerTicket randomTickets = LottoStore.buyRandomTickets(randomTotalCount);
         LottoCustomerTicket explicitTickets = LottoStore.buyExplicitTickets(lottoManualTicketRequest);
+        int randomTotalCount = LottoStore.countRandomTicket(ticketTotalPrice, explicitTickets.getTickets().size());
+        LottoCustomerTicket randomTickets = LottoStore.buyRandomTickets(randomTotalCount);
         return new LottoCustomerTicket(randomTickets, explicitTickets);
     }
 }

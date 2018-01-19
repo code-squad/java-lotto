@@ -8,16 +8,24 @@ public class LottoTicket {
 
     public LottoTicket(List<LottoNumber> numbers) {
         this.numbers = numbers;
+
+        if (numbers.size() != LottoConstants.NUMBER_COUNT) {
+            throw new IllegalArgumentException("the count of lotto number is wrong, count=" + numbers.size());
+        }
     }
 
     @Override
     public String toString() {
         return "[" +
-                numbers.stream()
-                .sorted()
-                .map(Object::toString)
-                .collect(Collectors.joining(", "))
+                toPlainString()
                 + "]";
+    }
+
+    public String toPlainString() {
+        return numbers.stream()
+                        .sorted()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(", "));
     }
 
     public boolean match(LottoNumber successNumber) {

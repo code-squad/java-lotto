@@ -2,10 +2,7 @@ package lotto.domain;
 
 import lotto.WinningLotto;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LottoCustomerTicket {
     private List<LottoTicket> tickets;
@@ -26,7 +23,7 @@ public class LottoCustomerTicket {
         this.randomTicketCount = randomTickets.size();
         this.explicitTicketCount = explicitTickets.size();
     }
-    
+
     public LottoResult matchTickets(WinningLotto winningLotto) {
         Map<LottoPrize, Integer> lottoPrizeResults = new HashMap<>();
         for (LottoPrize lottoPrize : LottoPrize.values()) {
@@ -54,5 +51,15 @@ public class LottoCustomerTicket {
 
     public List<LottoTicket> getTickets() {
         return tickets;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (LottoTicket ticket : tickets) {
+            sb.append(ticket.toPlainString());
+            sb.append(LottoConstants.NEW_LINE);
+        }
+        return sb.toString();
     }
 }

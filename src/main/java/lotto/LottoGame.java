@@ -19,8 +19,8 @@ public class LottoGame {
     private void start() {
         int ticketTotalPrice = inputView.requestToInputTicketTotalPrice();
         int manualTicketCount = inputView.requestToInputCountOfManualTicket();
-
         LottoManualTicketRequest lottoManualTicketRequest = inputView.requestToInputManualTickets(manualTicketCount);
+
         LottoCustomerTicket lottoCustomerTicket = LottoStore.buyLottoTicket(ticketTotalPrice, lottoManualTicketRequest);
         resultView.printTickets(lottoCustomerTicket);
 
