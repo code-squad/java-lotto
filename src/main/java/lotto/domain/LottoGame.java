@@ -39,7 +39,7 @@ public class LottoGame {
      */
     public LottoResult getPrizeResult(WinningNumber winningNumber) {
         return new LottoResult(tickets.size(), tickets.stream()
-                .map(ticket -> ticket.checkWinning(winningNumber))
+                .map(ticket -> winningNumber.match(ticket))
                 .collect(Collectors.toList()));
     }
 

@@ -1,6 +1,5 @@
 package lotto.view;
 
-import lotto.domain.LottoNumber;
 import lotto.domain.WinningNumber;
 
 import java.util.Arrays;
@@ -35,6 +34,6 @@ public class InputView {
         System.out.println(INPUT_BONUS_NUMBER_PROMPT);
         int bonusNumber = Integer.parseInt(scanner.nextLine());
 
-        return new WinningNumber(new LottoNumber(numbers), bonusNumber);
+        return new WinningNumber(numbers, bonusNumber);
     }
 }

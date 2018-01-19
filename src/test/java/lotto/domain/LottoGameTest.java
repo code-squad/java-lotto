@@ -36,7 +36,7 @@ public class LottoGameTest {
     @Test
     public void 결과확인() {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-        WinningNumber winningNumber = new WinningNumber(new LottoNumber(numbers), 7);
+        WinningNumber winningNumber = new WinningNumber(numbers, 7);
         lottoGame.buyTicket(10000);
         LottoResult result = lottoGame.getPrizeResult(winningNumber);
         Map<Prize, Integer> prizeIntegerMap = result.getPrizeResult();
