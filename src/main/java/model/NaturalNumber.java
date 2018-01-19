@@ -3,6 +3,10 @@ package model;
 public class NaturalNumber {
     private int number;
 
+    public NaturalNumber(){
+
+    }
+
     public NaturalNumber(int number) throws IllegalArgumentException {
         if (number <= 0)
             throw new IllegalArgumentException("Invalid number. It must be greater than 0.");

@@ -8,28 +8,28 @@ public class LottoGame {
 
 	private static final int PRICE = 1000;
 
-	private NaturalNumber money;
+	private LottoCredit credit;
 	private List<Lotto> lottos;
 	private Map<ResultTypes, Integer> gameResults;
 
-	public LottoGame(NaturalNumber money) {
+	public LottoGame(LottoCredit credit) {
 		gameResults = new HashMap<>();
-		this.money = money;
-		NaturalNumber playableCount = new NaturalNumber(money.getNumber() / PRICE);
+		this.credit = credit;
+		NaturalNumber playableCount = new NaturalNumber(credit.getNumber() / PRICE);
 		this.lottos = playAutoGames(playableCount.getNumber());
 	}
 
-	public LottoGame(NaturalNumber money, List<String> manualLottoNumbers)
+	public LottoGame(LottoCredit credit, List<String> manualLottoNumbers)
 				throws IllegalArgumentException {
 		gameResults = new HashMap<>();
 
-		this.money = money;
+		this.credit = credit;
 
-		NaturalNumber playableCount = new NaturalNumber(money.getNumber() / PRICE);
+		NaturalNumber playableCount = new NaturalNumber(credit.getNumber() / PRICE);
 		NaturalNumber manualGameCount = new NaturalNumber(manualLottoNumbers.size());
 
 		if(playableCount.isLessThan(manualGameCount))
-			throw new IllegalArgumentException("Not enough money.");
+			throw new IllegalArgumentException("Not enough credit.");
 
 		List<Lotto> manualGames = playManualGames(manualLottoNumbers);
 		List<Lotto> autoGames = playAutoGames(
@@ -84,7 +84,7 @@ public class LottoGame {
 			prizeSum += type.calculatePrize(gameResults.get(type));
 		}
 
-		return (prizeSum * 100) / money.getNumber();
+		return (prizeSum * 100) / credit.getNumber();
 	}
 
 	public List<Lotto> getLottos() {
