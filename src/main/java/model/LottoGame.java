@@ -54,11 +54,7 @@ public class LottoGame {
 
 	public Map<ResultTypes, Integer> runGames(WinningLotto winningLotto) {
 		for(UserLotto lotto : lottos) {
-			int matchCount = winningLotto.compare(lotto);
-			boolean isBonus = winningLotto.compareBonus(lotto);
-
-
-			ResultTypes key = ResultTypes.findByCode(matchCount, isBonus);
+			ResultTypes key = winningLotto.compare(lotto);
 
 			if (!gameResults.containsKey(key)) {
 				gameResults.put(key, 1);

@@ -36,25 +36,20 @@ public class ConsoleView {
 		System.out.println(String.format("%d개를 구입하였습니다.\n", lottos.size()));
 
 		for(UserLotto lotto : lottos) {
-			System.out.println("[" +
-					String.join(", ", lotto.getNumbers()
-							.stream()
-							.map(i -> i.toString())
-							.toArray(String[]::new))
-					+ "]");
+			System.out.println(lotto.toString());
 		}
 	}
 
 	public static void printResultStatistics(Map<ResultTypes, Integer> gameResults) {
 		StringBuilder stringBuilder = new StringBuilder("당첨 통계\n").append("----------\n");
 
-		for (ResultTypes resultTypes : gameResults.keySet()) {
+		for (ResultTypes type : gameResults.keySet()) {
 			stringBuilder.append(
 					String.format("%d개 일치 (%d)%s - %d개\n",
-							resultTypes.matchCount,
-							resultTypes.prize,
-							resultTypes.bonus ? ", 보너스 볼 일치" : "",
-							gameResults.get(resultTypes)));
+							type.getMatchCount(),
+							type.getPrize(),
+							type.isBonus() ? ", 보너스 볼 일치" : "",
+							gameResults.get(type)));
 		}
 
 		System.out.println(stringBuilder.toString());

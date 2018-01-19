@@ -4,15 +4,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class UserLotto extends Lotto {
+public class UserLotto {
     private static final int BOUND = 46;
     private static final int SIZE = 6;
 
-    public UserLotto() {
+    private List<Integer> numbers;
+
+    UserLotto() {
         this.numbers = generate();
     }
 
-    public UserLotto(List<Integer> numbers) {
+    UserLotto(List<Integer> numbers) {
         this.numbers = new ArrayList<>(numbers);
     }
 
@@ -28,8 +30,15 @@ public class UserLotto extends Lotto {
         return numbers;
     }
 
-    public List<Integer> getNumbers() {
-        return this.numbers;
+    public boolean contains(int number) {
+        return this.numbers.contains(number);
     }
 
+    public String toString() {
+        return "[" +
+                numbers.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(", "))
+                + "]";
+    }
 }
