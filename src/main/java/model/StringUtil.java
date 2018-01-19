@@ -11,4 +11,8 @@ public class StringUtil {
         }
         return resultNumbers;
     }
+
+    public static String[] removeLineBreaker(String result){
+        return result.split("\r\n");
+    }
 }
