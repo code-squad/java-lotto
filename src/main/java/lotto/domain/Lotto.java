@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.util.LottoParsingUtil;
 import lotto.util.LottoRecorder;
 import lotto.util.LottoUtil;
 
@@ -24,8 +25,8 @@ public class Lotto {
     }
 
     public Lotto(String numbers) {
-        if(!LottoUtil.canLotto(numbers)) new IllegalArgumentException();
-        makeLotto(LottoUtil.toLottoNumberList(numbers));
+        if(!LottoUtil.canLotto(numbers)) throw new IllegalArgumentException();
+        makeLotto(LottoParsingUtil.toLottoNumberList(numbers));
     }
 
     public Lotto(List<LottoNumber> numbers) {
