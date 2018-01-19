@@ -3,24 +3,13 @@ package domain;
 import java.util.Collections;
 import java.util.List;
 
-public class Lotto {
-    private List<Integer> numbers;
+abstract public class Lotto {
+    protected List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
         numbersCheck(numbers);
         sortNumbers(numbers);
         this.numbers = numbers;
-    }
-
-    public int checkTheWinningNumbers(Lotto lotto) {
-        List<Integer> checkNumbers = lotto.numbers;
-        int count = 0;
-        for (int i = 0; i < 6; i++) {
-            if (numbers.contains(checkNumbers.get(i))) {
-                count++;
-            }
-        }
-        return count;
     }
 
     private void numbersCheck(List<Integer> numbers) {

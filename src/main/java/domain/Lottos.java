@@ -3,9 +3,9 @@ package domain;
 import java.util.List;
 
 public class Lottos {
-    private List<Lotto> lottos;
+    private List<UserLotto> lottos;
 
-    public Lottos(List<Lotto> lottos) {
+    public Lottos(List<UserLotto> lottos) {
         this.lottos = lottos;
     }
 
@@ -13,7 +13,7 @@ public class Lottos {
         return lottos.size();
     }
 
-    public Lotto get(int index) {
+    public UserLotto get(int index) {
         return lottos.get(index);
     }
 }

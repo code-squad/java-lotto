@@ -1,7 +1,9 @@
 package dto;
 
-import domain.Lotto;
 import domain.Lottos;
+import domain.Rank;
+import domain.UserLotto;
+import domain.WinningLotto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,50 +11,51 @@ import java.util.List;
 import java.util.Map;
 
 public class ResultDto {
-    private Map<Integer, Integer> winningPrice;
-    private Map<Integer, Integer> winningCount;
     private int price;
+    private List<Rank> ranks;
+    private Map<Rank, Integer> ranksCount;
 
     public ResultDto(int price) {
-        winningPrice = new HashMap<>();
-        winningPrice.put(3, 5000);
-        winningPrice.put(4, 50000);
-        winningPrice.put(5, 1500000);
-        winningPrice.put(6, 2000000000);
-        winningCount = new HashMap<>();
-        winningCount.put(3, 0);
-        winningCount.put(4, 0);
-        winningCount.put(5, 0);
-        winningCount.put(6, 0);
+        ranks = new ArrayList<>();
+        ranksCount = initRanksCount();
         this.price = price;
     }
 
-    public Map<Integer, Integer> getWinningPrice() {
-        return winningPrice;
+    private Map<Rank, Integer> initRanksCount() {
+        Map<Rank, Integer> ranksCount = new HashMap<>();
+        Rank[] ranks = Rank.values();
+        for (Rank rank : ranks) {
+            ranksCount.put(rank, 0);
+        }
+        return ranksCount;
     }
 
-    public Map<Integer, Integer> getWinningCount() {
-        return winningCount;
+    public Map<Rank, Integer> getRanksCount() {
+        return ranksCount;
     }
 
     public int calRevenue() {
         float max = 0;
-        for (int i = 3; i <= 6; i++) {
-            if (winningCount.get(i) > 0) {
-                max += winningCount.get(i) * winningPrice.get(i);
-            }
+        Rank[] ranks = Rank.values();
+        for (Rank rank : ranks) {
+            max += ranksCount.get(rank) * rank.getWinningMoney();
         }
         return Math.round(max / price * 100) - 100;
     }
 
-    public void checkLastWinningNumbers(String lastWinningNumbers, Lottos lottos) {
-        Lotto numbers = new Lotto(parseInts(split(lastWinningNumbers)));
+    public void checkLastWinningNumbers(String lastWinningNumbers, int bonusBall, Lottos lottos) {
+        WinningLotto numbers = new WinningLotto(parseInts(split(lastWinningNumbers)), bonusBall);
         int size = lottos.size();
         for (int i = 0; i < size; i++) {
-            int count = lottos.get(i).checkTheWinningNumbers(numbers);
-            if (winningCount.containsKey(count)) {
-                winningCount.put(count, winningCount.get(count) + 1);
-            }
+            calRanks(numbers, lottos.get(i));
+        }
+        countRank(ranks);
+    }
+
+    private void calRanks(WinningLotto winningLotto, UserLotto userLotto) {
+        try {
+            ranks.add(winningLotto.checkTheWinningNumbers(userLotto));
+        } catch (IllegalArgumentException iae) {
         }
     }
 
@@ -75,5 +78,12 @@ public class ResultDto {
 
     private int parseInt(String numberText) {
         return Integer.parseInt(numberText);
+    }
+
+    private Map<Rank, Integer> countRank(List<Rank> ranks) {
+        for (Rank rank : ranks) {
+            ranksCount.put(rank, ranksCount.get(rank) + 1);
+        }
+        return ranksCount;
     }
 }

@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class LottoFactory {
-    public static Lotto makeLotto() {
-        return new Lotto(makeLottoNumbers(makeNumbers()));
+    public static UserLotto makeLotto() {
+        return new UserLotto(makeLottoNumbers(makeNumbers()));
     }
 
     public static Lottos makeLottos(int lottoCount) {
-        List<Lotto> lottos = new ArrayList<>();
+        List<UserLotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
             lottos.add(makeLotto());
         }
