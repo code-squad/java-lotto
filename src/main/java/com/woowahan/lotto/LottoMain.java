@@ -1,7 +1,14 @@
 package com.woowahan.lotto;
 
+import com.woowahan.lotto.controller.LottoController;
+import com.woowahan.lotto.model.Lotto;
+import com.woowahan.lotto.model.LottoResult;
+import com.woowahan.lotto.model.Lottos;
+import com.woowahan.lotto.model.WinningLotto;
+import com.woowahan.lotto.view.InputView;
+import com.woowahan.lotto.view.ResultView;
+
 import java.util.List;
-import java.util.Map;
 
 public class LottoMain {
     public static void main(String[] args) {
@@ -10,13 +17,15 @@ public class LottoMain {
         ResultView resultView = new ResultView();
 
         int money = inputView.inputMoney();
-        List<Lotto> lottos = lottoController.buy(money);
+        Lottos lottos = lottoController.buy(money);
 
         resultView.printMyLottoInfo(lottos);
-        List<Integer> luckyNumbers = inputView.inputLuckyNumbers();
+        WinningLotto winningLotto = new WinningLotto(inputView.inputLuckyNumbers(), inputView.inputBonusNumber());
 
-        Map<PriceInfo, Integer> winInfo = lottoController.checkAllLottos(lottos, luckyNumbers);
-        resultView.printLottoResult(winInfo);
+        LottoResult lottoResult = lottos.match(winningLotto);
+        int benefit = lottoResult.calculateBenefit(money);
+
+        resultView.printLottoResult(lottoResult, benefit);
 
     }
 
