@@ -1,17 +1,16 @@
 package domain.lotto;
 
-import DTO.LottoNumbers;
-import DTO.LottoTickets;
-import DTO.WinningResult;
+import dto.LottoNumbers;
+import dto.LottoTickets;
+import dto.WinningResult;
 
 public class LottoMachine {
 
     private Integer money;
-    private LottoTicket winningTicket;
+
     private LottoTickets purchasedLottoTickets;
 
     public LottoMachine() {
-        this.winningTicket = new LottoTicket(new LottoNumbers().createAutoNumbers());
     }
 
     public void insertMoney(String money) {
@@ -24,11 +23,7 @@ public class LottoMachine {
     }
 
     public WinningResult getWinningResult(String text) {
-        return new WinningResult(this.money, this.purchasedLottoTickets.findMatching(this.winningTicket.insertNumber(text)));
-    }
-
-    public LottoTicket getWinningTicket() {
-        return this.winningTicket;
+        return new WinningResult(this.money, this.purchasedLottoTickets.findMatching(new LottoTicket(text)));
     }
 
     public Integer getMoney() {

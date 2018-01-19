@@ -1,4 +1,4 @@
-import DTO.WinningResult;
+import dto.WinningResult;
 import domain.lotto.LottoMachine;
 import input.Input;
 import out.Out;

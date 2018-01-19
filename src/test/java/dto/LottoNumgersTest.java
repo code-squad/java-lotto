@@ -1,4 +1,4 @@
-package DTO;
+package dto;
 
 import domain.lotto.LottoNumber;
 import org.junit.Test;

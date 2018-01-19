@@ -1,7 +1,7 @@
 package out;
 
-import DTO.LottoTickets;
-import DTO.WinningResult;
+import dto.LottoTickets;
+import dto.WinningResult;
 
 public class Out {
 

@@ -1,4 +1,4 @@
-package DTO;
+package dto;
 
 import domain.lotto.LottoTicket;
 import enums.WinningRules;
@@ -20,8 +20,7 @@ public class LottoTickets {
         List<WinningRules> machingRules = new ArrayList<>();
 
         for (LottoTicket ticket : tickets) {
-            WinningRules matchedRule = getMatchedRule(winningTicket, ticket);
-
+            WinningRules matchedRule = winningTicket.matching(ticket);
             if (isAddAble(matchedRule))
                 machingRules.add(matchedRule);
         }
@@ -31,10 +30,6 @@ public class LottoTickets {
 
     private boolean isAddAble(WinningRules matchedRule) {
         return matchedRule.getMatchCount() > WinningResult.WINNING_RESTRICTION_NUMBER;
-    }
-
-    private WinningRules getMatchedRule(LottoTicket winningTicket, LottoTicket ticket) {
-        return ticket.winningMaching(winningTicket.getNumbers());
     }
 
     public LottoTickets createLottoTickets(Integer amount) {

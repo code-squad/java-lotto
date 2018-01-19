@@ -1,4 +1,4 @@
-package DTO;
+package dto;
 
 import domain.lotto.LottoNumber;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LottoNumbers {
     private static final Integer LOTTO_NUMBER_SIZE = 6;
-    List<LottoNumber> numbers;
+    private List<LottoNumber> numbers;
 
     public LottoNumbers() {
     }

@@ -13,17 +13,13 @@ public class LottoNumber implements Comparable<LottoNumber>, Validable<Integer> 
 
     public LottoNumber(Integer number) {
         if (!this.isValidData(number)) {
-            return;
+            throw new NullPointerException();
         }
         this.number = number;
     }
 
     public LottoNumber(String number) {
-        int nonValidData = Integer.parseInt(number);
-        if (!this.isValidData(nonValidData)) {
-            return;
-        }
-        this.number = nonValidData;
+        this(Integer.parseInt(number));
     }
 
     public LottoNumber autoCreateNumber() {

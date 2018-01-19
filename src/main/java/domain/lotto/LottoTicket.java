@@ -1,7 +1,7 @@
 package domain.lotto;
 
-import DTO.LottoNumbers;
-import DTO.WinningResult;
+import dto.LottoNumbers;
+import dto.WinningResult;
 import enums.WinningRules;
 import utils.StringParseUtil;
 
@@ -16,14 +16,9 @@ public class LottoTicket {
     public LottoTicket() {
     }
 
-    public LottoTicket(LottoNumbers numbers) {
-        this.numbers = numbers;
-        this.numbers.sortingNumber();
-    }
-
-    public LottoTicket insertNumber(String text) {
+    public LottoTicket(String text) {
         if (text.isEmpty()) {
-            return null;
+            return;
         }
 
         List<LottoNumber> newNumbers = new ArrayList<>();
@@ -33,16 +28,18 @@ public class LottoTicket {
         }
 
         this.numbers = new LottoNumbers(newNumbers);
-
         this.numbers.sortingNumber();
-
-        return this;
     }
 
-    public WinningRules winningMaching(LottoNumbers winningNumbers) {
+    public LottoTicket(LottoNumbers numbers) {
+        this.numbers = numbers;
+        this.numbers.sortingNumber();
+    }
+
+    public WinningRules matching(LottoTicket ticket) {
         Integer count = 0;
 
-        for (LottoNumber winningNumber : winningNumbers.getNumbers()) {
+        for (LottoNumber winningNumber : ticket.numbers.getNumbers()) {
             count += this.numbers.isHitNumber(winningNumber);
         }
 

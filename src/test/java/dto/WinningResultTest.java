@@ -1,4 +1,4 @@
-package DTO;
+package dto;
 
 import domain.lotto.LottoTicket;
 import enums.WinningRules;
@@ -23,23 +23,15 @@ public class WinningResultTest {
                 WinningRules.THREE_MATCHING
         );
 
-        winningTicket = new LottoTicket();
-        winningTicket.insertNumber("1, 2, 3, 4, 5, 6");
+        winningTicket = new LottoTicket("1, 2, 3, 4, 5, 6");
 
-        LottoTicket ticket1 = new LottoTicket();
-        ticket1.insertNumber("1, 2, 3, 4, 5, 6");
-        LottoTicket ticket2 = new LottoTicket();
-        ticket2.insertNumber("7, 8, 9, 10, 11, 12");
-        LottoTicket ticket3 = new LottoTicket();
-        ticket3.insertNumber("13, 14, 15, 16, 17, 18");
-        LottoTicket ticket4 = new LottoTicket();
-        ticket4.insertNumber("19, 20, 21, 22, 23, 24");
-        LottoTicket ticket5 = new LottoTicket();
-        ticket5.insertNumber("25, 26, 27, 28, 29, 30");
-        LottoTicket ticket6 = new LottoTicket();
-        ticket6.insertNumber("31, 32, 33, 34, 35, 36");
-        LottoTicket ticket7 = new LottoTicket();
-        ticket7.insertNumber("37, 38, 39, 40, 41, 42");
+        LottoTicket ticket1 = new LottoTicket("1, 2, 3, 4, 5, 6");
+        LottoTicket ticket2 = new LottoTicket("7, 8, 9, 10, 11, 12");
+        LottoTicket ticket3 = new LottoTicket("13, 14, 15, 16, 17, 18");
+        LottoTicket ticket4 = new LottoTicket("19, 20, 21, 22, 23, 24");
+        LottoTicket ticket5 = new LottoTicket("25, 26, 27, 28, 29, 30");
+        LottoTicket ticket6 = new LottoTicket("31, 32, 33, 34, 35, 36");
+        LottoTicket ticket7 = new LottoTicket("37, 38, 39, 40, 41, 42");
 
         tickets = Arrays.asList(
                 ticket1,
