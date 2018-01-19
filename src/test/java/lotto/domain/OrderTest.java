@@ -1,7 +1,6 @@
 package lotto.domain;
 
-import lotto.dto.WinningDTO;
-import lotto.view.ResultView;
+import lotto.type.WinningType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,20 +24,21 @@ public class OrderTest {
         assertThat(lottos).isNotNull();
         assertThat(lottos.size()).isEqualTo(14);
 
-        ResultView.printLottos(lottos);
     }
 
     @Test
-    public void getEarnings(){
-        order.purchase();
-        WinningDTO winningResult = order.checkWinning(Arrays.asList(1,2,3,4,5,6));
+    public void matchLotto() {
+        WinningLotto wLotto = new WinningLotto(Arrays.asList(1,2,3,4,5,6), 7);
 
-        double totalEarnings = winningResult.getTotalPrizes() - TOTAL_COST;
+        Lotto lotto = new Lotto(Arrays.asList(1,2,3,4,5,6));
+        assertThat(order.matchLotto(wLotto, lotto)).isEqualTo(WinningType.MATCH_ALL);
 
-        int earningsRate = (int) (totalEarnings / TOTAL_COST * 100);
-        System.out.println("total prizes: "+winningResult.getTotalPrizes()+", earnings rate: "+earningsRate+"%");
-        assertThat(winningResult.getEarningsRate()).isEqualTo(earningsRate);
+        Lotto matchFiveWithBonus = new Lotto(Arrays.asList(1,2,3,4,5,7));
+        assertThat(order.matchLotto(wLotto, matchFiveWithBonus)).isEqualTo(WinningType.MATCH_FIVE_WITH_BONUS);
+
+        Lotto matchNone = new Lotto(Arrays.asList(10,11,12,13,14,15));
+        assertThat(order.matchLotto(wLotto, matchNone)).isEqualTo(WinningType.NONE);
+
 
     }
-
 }
