@@ -7,7 +7,7 @@ public class WinningLotto {
     private Lotto winningLotto;
     private LottoNo bonusNumber;
 
-    public WinningLotto(Set<LottoNo> winningLotto, LottoNo bonusNumber) {
+    public WinningLotto(String winningLotto, LottoNo bonusNumber) {
         this.winningLotto = new Lotto(winningLotto);
         this.bonusNumber = bonusNumber;
     }

@@ -1,6 +1,7 @@
 package com.woowahan.lotto.view;
 
 import com.woowahan.lotto.model.LottoNo;
+import com.woowahan.lotto.model.WinningLotto;
 
 import java.util.*;
 
@@ -13,17 +14,9 @@ public class InputView {
         return money;
     }
 
-    public Set<LottoNo> inputLuckyNumbers() {
-        Set<LottoNo> luckyNumbers = new HashSet<>();
-
+    public String inputLuckyNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-
-        String[] inputNumbers = scanner.nextLine().split(",");
-        for (String inputNumber : inputNumbers) {
-            luckyNumbers.add(new LottoNo(Integer.parseInt(inputNumber.trim())));
-        }
-
-        return luckyNumbers;
+        return scanner.nextLine();
     }
 
     public LottoNo inputBonusNumber() {
