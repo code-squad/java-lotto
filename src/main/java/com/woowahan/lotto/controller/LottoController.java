@@ -12,18 +12,4 @@ public class LottoController {
         }
         return lottos;
     }
-
-
-
-//    public LottoResult checkAllLottos(List<Lotto> lottos, WinningLotto lucky) {
-//        LottoResult lottoResult = new LottoResult();
-//
-//        for (Lotto lotto : lottos) {
-//            int keyCode = checkKeyCode(lotto, lucky);
-//            PriceInfo key = PriceInfo.getValueByWinningCondition(keyCode);
-//            lottoResult.addPriceInfo(key);
-//        }
-//
-//        return lottoResult;
-//    }
 }

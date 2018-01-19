@@ -10,12 +10,23 @@ public class Lotto {
     public Lotto() {
         this.lotto = create();
     }
-
-    // String으로 데이터를 받는 생성자.
+    
     public Lotto(Set<LottoNo> lotto) {
         checkLottoSize(lotto);
 
         this.lotto = lotto;
+    }
+
+    public Lotto(String lotto) {
+        Set<LottoNo> convertLotto = new TreeSet<>();
+
+        String[] inputNumbers = lotto.split(",");
+        for (String inputNumber : inputNumbers) {
+            convertLotto.add(new LottoNo(Integer.parseInt(inputNumber.trim())));
+        }
+
+        checkLottoSize(convertLotto);
+        this.lotto = convertLotto;
     }
 
     private void checkLottoSize(Set<LottoNo> filteredLotto) {
