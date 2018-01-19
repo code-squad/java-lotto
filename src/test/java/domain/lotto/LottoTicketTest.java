@@ -1,10 +1,11 @@
 package domain.lotto;
 
+import DTO.LottoNumbers;
 import enums.WinningRules;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -17,22 +18,26 @@ public class LottoTicketTest {
 
     @Before
     public void init(){
-        a = new LottoTicket();
-        b = new LottoTicket();
+        LottoNumbers numbers = new LottoNumbers(Arrays.asList(new LottoNumber[]{
+                new LottoNumber(1),
+                new LottoNumber(2),
+                new LottoNumber(3),
+                new LottoNumber(4),
+                new LottoNumber(5),
+                new LottoNumber(6)
+        }));
+
+        a = new LottoTicket(numbers);
+        b = new LottoTicket(numbers);
     }
 
     @Test
     public void equals_true() {
-
-        a.insertNumber("1, 2, 3, 4, 5, 6");
-        b.insertNumber("1, 2, 3, 4, 5, 6");
         assertThat(a.equals(b), is(true));
     }
 
     @Test
     public void equals_false() {
-
-        a.insertNumber("1, 2, 3, 4, 5, 6");
         b.insertNumber("1, 2, 3, 4, 5, 7");
         assertThat(a.equals(b), is(false));
     }
@@ -46,29 +51,29 @@ public class LottoTicketTest {
     @Test
     public void winningMaching_ONE(){
         a.insertNumber("1, 2, 3, 4, 5, 6");
-        List<LottoNumber> numbers = new ArrayList(){{
-            add(new LottoNumber(1));
-            add(new LottoNumber(11));
-            add(new LottoNumber(21));
-            add(new LottoNumber(31));
-            add(new LottoNumber(41));
-            add(new LottoNumber(12));
-        }};
+        LottoNumbers numbers = new LottoNumbers(Arrays.asList(new LottoNumber[]{
+                new LottoNumber(1),
+                new LottoNumber(11),
+                new LottoNumber(21),
+                new LottoNumber(31),
+                new LottoNumber(41),
+                new LottoNumber(12)
+        }));
         assertThat(a.winningMaching(numbers), is(WinningRules.ONE_MATCHING));
     }
 
     @Test
     public void insertNumber(){
         a.insertNumber("1, 2, 3, 4, 5, 6");
-        List<LottoNumber> numbers = new ArrayList(){{
-            add(new LottoNumber(1));
-            add(new LottoNumber(2));
-            add(new LottoNumber(3));
-            add(new LottoNumber(4));
-            add(new LottoNumber(5));
-            add(new LottoNumber(6));
-        }};
+        List<LottoNumber> numbers = Arrays.asList(new LottoNumber[]{
+                new LottoNumber(1),
+                new LottoNumber(2),
+                new LottoNumber(3),
+                new LottoNumber(4),
+                new LottoNumber(5),
+                new LottoNumber(6)
+        });
 
-        assertThat(a.getNumbers(), is(numbers));
+        assertThat(a.getNumbers().getNumbers(), is(numbers));
     }
 }

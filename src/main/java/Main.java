@@ -10,13 +10,12 @@ public class Main {
         Input input = new Input();
         Out out = new Out();
 
-        lottoMachine.insertMoney(input.inputMoney()); // insert money.
+        lottoMachine.insertMoney(input.inputMoney()); // insert money & buy ticket
 
-        lottoMachine.buyLottoTicket();                // buy ticket.
         out.printBuyConfirmMassage(lottoMachine.getPurchasedLottoTicket());// print ticket.
 
-        lottoMachine.inputWinningNumber(input.inputLastWeekWinningNumber());// input winning number.
-        WinningResult result = lottoMachine.findMatching();// winning calculate.
+        WinningResult result = lottoMachine.getWinningResult(input.inputLastWeekWinningNumber());
+        // input lastWeekWinningNumber & winning calculate.
 
         out.printResultMassage(result);// print result.
     }

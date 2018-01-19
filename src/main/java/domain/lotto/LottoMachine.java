@@ -1,47 +1,30 @@
 package domain.lotto;
 
+import DTO.LottoNumbers;
+import DTO.LottoTickets;
 import DTO.WinningResult;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LottoMachine {
 
     private Integer money;
     private LottoTicket winningTicket;
-    private List<LottoTicket> purchasedLottoTickets;
+    private LottoTickets purchasedLottoTickets;
 
     public LottoMachine() {
-        this.winningTicket = new LottoTicket();
+        this.winningTicket = new LottoTicket(new LottoNumbers().createAutoNumbers());
     }
 
     public void insertMoney(String money) {
         this.money = Integer.parseInt(money);
-    }
-
-    public void buyLottoTicket() {
-        this.purchasedLottoTickets = createLottoTicket(calculatePurchaseTicketAmount());
+        this.purchasedLottoTickets = new LottoTickets().createLottoTickets(this.calculatePurchaseTicketAmount());
     }
 
     private int calculatePurchaseTicketAmount() {
         return this.money / LottoTicket.PRICE;
     }
 
-    public List<LottoTicket> createLottoTicket(Integer amount) {
-        List<LottoTicket> tickets = new ArrayList<>();
-
-        for (int i = 0; i < amount; i++) {
-            tickets.add(new LottoTicket());
-        }
-        return tickets;
-    }
-
-    public void inputWinningNumber(String numbers) {
-        this.winningTicket.insertNumber(numbers);
-    }
-
-    public WinningResult findMatching() {
-        return new WinningResult(this.money, this.winningTicket, this.purchasedLottoTickets);
+    public WinningResult getWinningResult(String text) {
+        return new WinningResult(this.money, this.purchasedLottoTickets.findMatching(this.winningTicket.insertNumber(text)));
     }
 
     public LottoTicket getWinningTicket() {
@@ -52,7 +35,7 @@ public class LottoMachine {
         return money;
     }
 
-    public List<LottoTicket> getPurchasedLottoTicket() {
+    public LottoTickets getPurchasedLottoTicket() {
         return this.purchasedLottoTickets;
     }
 }

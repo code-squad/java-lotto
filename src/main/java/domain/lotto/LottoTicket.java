@@ -1,102 +1,56 @@
 package domain.lotto;
 
+import DTO.LottoNumbers;
+import DTO.WinningResult;
 import enums.WinningRules;
+import utils.StringParseUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LottoTicket {
 
     public static final Integer PRICE = 1000;
-    private static final Integer LOTTO_MIN_NUMBER = 1;
-    private static final Integer LOTTO_MAX_NUMBER = 45;
-    private static final Integer LOTTO_NUMBER_SIZE = 6;
-    private static final Integer LOTTO_SHUFFLE_TIMES = 100;
-    private static final List<LottoNumber> lottoNumbers;
-
-    private List<LottoNumber> numbers;
-
-    static {
-        lottoNumbers = new ArrayList<>();
-        for (int i = LOTTO_MIN_NUMBER; i <= LOTTO_MAX_NUMBER; i++) {
-            lottoNumbers.add(new LottoNumber(i));
-        }
-    }
+    private LottoNumbers numbers;
 
     public LottoTicket() {
-        this.numbersShuffle();
-        this.numbers = this.autoCreateNumber();
-        this.sortingNumber();
     }
 
-    private void sortingNumber() {
-        Collections.sort(this.numbers);
+    public LottoTicket(LottoNumbers numbers) {
+        this.numbers = numbers;
+        this.numbers.sortingNumber();
     }
 
-    private List<LottoNumber> autoCreateNumber() {
-
-        List<LottoNumber> numbers = new ArrayList<>();
-
-        for (int i = 0; i < LOTTO_NUMBER_SIZE; i++) {
-            numbers.add(new LottoNumber(lottoNumbers.get(i)));
-        }
-        return numbers;
-    }
-
-    private void numbersShuffle() {
-        for (int i = 0; i < LOTTO_SHUFFLE_TIMES; i++) {
-            Collections.shuffle(lottoNumbers);
-        }
-    }
-
-    public void insertNumber(String text) {
+    public LottoTicket insertNumber(String text) {
         if (text.isEmpty()) {
-            return;
+            return null;
         }
 
         List<LottoNumber> newNumbers = new ArrayList<>();
-        List<String> numberString = parsingTextNumber(text);
 
-        for (int i = 0; i < numberString.size(); i++) {
-            newNumbers.add(new LottoNumber(numberString.get(i)));
+        for (String number : StringParseUtil.parsingTextNumber(text)) {
+            newNumbers.add(new LottoNumber(number));
         }
 
-        this.numbers = newNumbers;
+        this.numbers = new LottoNumbers(newNumbers);
 
-        this.sortingNumber();
+        this.numbers.sortingNumber();
+
+        return this;
     }
 
-    private List<String> parsingTextNumber(String text) {
-        return Arrays.asList(text.replaceAll(" ", "").split(","));
-    }
-
-    public WinningRules winningMaching(List<LottoNumber> winningNumbers) {
+    public WinningRules winningMaching(LottoNumbers winningNumbers) {
         Integer count = 0;
 
-        for (LottoNumber winningNumber : winningNumbers) {
-            count += isHitNumber(winningNumber);
+        for (LottoNumber winningNumber : winningNumbers.getNumbers()) {
+            count += this.numbers.isHitNumber(winningNumber);
         }
 
-        return WinningRules.findByMatchCount(count);
+        return WinningResult.findByMatchCount(count);
     }
 
-    private Integer isHitNumber(LottoNumber winningNumber) {
-        for (LottoNumber thisNumber : this.numbers) {
-            if (winningNumber.equals(thisNumber)) {
-                return 1;
-            }
-        }
-        return 0;
-    }
-
-    public List<LottoNumber> getNumbers() {
+    public LottoNumbers getNumbers() {
         return this.numbers;
-    }
-
-    private boolean isEquals(int i, List<LottoNumber> that) {
-        if (this.numbers.get(i).equals(that.get(i)))
-            return true;
-
-        return false;
     }
 
     @Override
@@ -106,29 +60,16 @@ public class LottoTicket {
 
         LottoTicket that = (LottoTicket) o;
 
-        if (this.numbers.isEmpty() || that.numbers.isEmpty() || that.numbers.size() != this.numbers.size())
-            return false;
-
-        for (int i = 0; i < that.numbers.size(); i++) {
-            if (!isEquals(i, that.numbers)) return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public String toString() {
-
-        StringBuilder sb = new StringBuilder("[");
-        for (int i = 0; i < numbers.size(); i++) {
-            sb.append(" " + this.numbers.get(i) + " ");
-        }
-        sb.append("]");
-        return sb.toString();
+        return numbers.equals(that.numbers);
     }
 
     @Override
     public int hashCode() {
-        return numbers != null ? numbers.hashCode() : 0;
+        return numbers.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return this.numbers.toString();
     }
 }
