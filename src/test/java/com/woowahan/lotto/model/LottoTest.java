@@ -1,6 +1,5 @@
 package com.woowahan.lotto.model;
 
-import com.woowahan.lotto.model.UserLotto;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,12 +8,12 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class UserLottoTest {
-    UserLotto lotto;
+public class LottoTest {
+    Lotto lotto;
 
     @Before
     public void setup() {
-        lotto = new UserLotto();
+        lotto = new Lotto();
     }
 
     @Test

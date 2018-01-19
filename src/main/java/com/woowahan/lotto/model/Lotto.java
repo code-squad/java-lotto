@@ -3,17 +3,35 @@ package com.woowahan.lotto.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class UserLotto {
+public class Lotto {
     private static final List<Integer> BASE_NUMBERS = setBaseNumbers();
     private List<Integer> lotto;
 
-    public UserLotto() {
+    public Lotto() {
         this.lotto = sort(create());
     }
 
-    public UserLotto(List<Integer> lotto) {
+    public Lotto(List<Integer> lotto) {
+        List<Integer> filteredLotto = lotto.stream().distinct().collect(Collectors.toList());
+
+        checkLottoSize(filteredLotto);
+        checkBoundsOfNumber(filteredLotto);
+
         this.lotto = lotto;
+    }
+
+    private void checkLottoSize(List<Integer> filteredLotto) {
+        if (filteredLotto.size() != 6) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void checkBoundsOfNumber(List<Integer> filteredLotto) {
+        filteredLotto.forEach(number -> {
+            if (number > 45 || number < 1) throw new IllegalArgumentException();
+        });
     }
 
     private static List<Integer> setBaseNumbers() {

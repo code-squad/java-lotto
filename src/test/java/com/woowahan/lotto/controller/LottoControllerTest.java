@@ -1,8 +1,7 @@
 package com.woowahan.lotto.controller;
 
-import com.woowahan.lotto.controller.LottoController;
 import com.woowahan.lotto.model.PriceInfo;
-import com.woowahan.lotto.model.UserLotto;
+import com.woowahan.lotto.model.Lotto;
 import com.woowahan.lotto.model.WinningLotto;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,13 +21,13 @@ public class LottoControllerTest {
 
     @Test
     public void 입력금액만큼_로또생성() {
-        List<UserLotto> totalLotto = lottoController.buy(14000);
+        List<Lotto> totalLotto = lottoController.buy(14000);
         assertEquals(14, totalLotto.size());
     }
 
     @Test
     public void 일치번호_개수_구하기() {
-        UserLotto lottoNum = new UserLotto(Arrays.asList(
+        Lotto lottoNum = new Lotto(Arrays.asList(
                 3, 4, 5, 6, 7, 8
         ));
 
@@ -38,16 +37,16 @@ public class LottoControllerTest {
 
         WinningLotto winningLotto = new WinningLotto(luckyNum, 7);
 
-        int corrected = lottoController.check(lottoNum, winningLotto);
+        int corrected = lottoController.checkKeyCode(lottoNum, winningLotto);
 
         assertEquals(2, corrected);
     }
 
     @Test
     public void 당첨정보_구하기() {
-        List<UserLotto> lottos = Arrays.asList(
-                new UserLotto(Arrays.asList(1, 2, 3, 4, 30, 40)),
-                new UserLotto(Arrays.asList(1, 3, 4, 9, 13, 20))
+        List<Lotto> lottos = Arrays.asList(
+                new Lotto(Arrays.asList(1, 2, 3, 4, 30, 40)),
+                new Lotto(Arrays.asList(1, 3, 4, 9, 13, 20))
         );
         List<Integer> lucky = Arrays.asList(1, 2, 3, 4, 5, 6);
         WinningLotto winningLotto = new WinningLotto(lucky, 7);
