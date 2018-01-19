@@ -38,7 +38,7 @@ public class LottoTicket {
         this(new AutoLottoNumberGenerator());
     }
 
-    public LottoTicket(LottoNumberGenerator lottoNumberGenerator) {
+    public LottoTicket(@Nonnull LottoNumberGenerator lottoNumberGenerator) {
         this(lottoNumberGenerator.generateNumbers(), lottoNumberGenerator.getSource());
     }
 
@@ -49,7 +49,7 @@ public class LottoTicket {
         this.source = source;
     }
 
-    public int countMatchNumber(List<Integer> numbers) {
+    public int countMatchNumber(@Nonnull List<Integer> numbers) {
         List<Integer> combined = new ArrayList<>();
         combined.addAll(this.numbers);
         combined.addAll(numbers);

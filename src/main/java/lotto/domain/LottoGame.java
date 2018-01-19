@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +39,7 @@ public class LottoGame {
      * @param numbersList 수동으로 생성할 로또 번호 리스트
      * @return 구매한 로또 개수
      */
-    public int buyTicket(int money, List<int[]> numbersList) {
+    public int buyTicket(int money, @Nonnull List<int[]> numbersList) {
         int count = getAvailableBuyingCount(money);
         if(count < numbersList.size()) {
             return 0;
@@ -56,13 +57,13 @@ public class LottoGame {
      * @param winningNumber 당첨번호
      * @return 당첨결과
      */
-    public LottoResult getPrizeResult(WinningNumber winningNumber) {
+    public LottoResult getPrizeResult(@Nonnull WinningNumber winningNumber) {
         return new LottoResult(tickets.size(), tickets.stream()
                 .map(ticket -> winningNumber.match(ticket))
                 .collect(Collectors.toList()));
     }
 
-    public int getLottoTicketCountBySource(LottoTicket.Source source) {
+    public int getLottoTicketCountBySource(@Nonnull LottoTicket.Source source) {
         return (int)tickets.stream().filter(ticket -> ticket.getSource() == source).count();
     }
 
