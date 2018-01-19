@@ -19,6 +19,7 @@ public class LottoMachineTest {
   @Before
   public void setUp() throws Exception {
     lottoMachine = new LottoMachine();
+    lottoMachine.setLottoNumberMaker(new RandomLottoNumberMaker());
     winningLotto = LottoMachine.createWinningLotto("1,2,3,4,5,6", 7);
   }
 

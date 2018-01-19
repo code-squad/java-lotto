@@ -2,7 +2,6 @@ package domain;
 
 import dto.LottoResult;
 import util.Constants;
-import util.RandomGenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,9 +14,14 @@ import static java.util.stream.Collectors.*;
 public class LottoMachine {
 
   private List<Lotto> lottos;
+  private LottoNumberMaker lottoNumberMaker;
 
   public LottoMachine() {
     this.lottos = new ArrayList<>();
+  }
+
+  public void setLottoNumberMaker(LottoNumberMaker lottoNumberMaker) {
+    this.lottoNumberMaker = lottoNumberMaker;
   }
 
   public int getLottoCount(int money) {
@@ -26,7 +30,7 @@ public class LottoMachine {
 
   public List<Lotto> issue(int count) {
     IntStream.rangeClosed(1, count)
-        .forEach(i -> add(new Lotto(RandomGenerator.generateNumbers())));
+        .forEach(i -> add(new Lotto(lottoNumberMaker.issueLottoNumbers())));
     return lottos;
   }
 
@@ -53,6 +57,6 @@ public class LottoMachine {
 
   public Map<String, Long> getRankOfCount(WinningLotto winningLotto) {
     return lottos.stream().map(l -> l.match(winningLotto))
-                          .collect(groupingBy(Rank::name, counting()));
+        .collect(groupingBy(Rank::name, counting()));
   }
 }
