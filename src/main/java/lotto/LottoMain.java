@@ -1,6 +1,7 @@
 package lotto;
 
 import lotto.domain.LottoGame;
+import lotto.domain.LottoTicket;
 import lotto.view.InputView;
 import lotto.view.ResultView;
 
@@ -12,7 +13,8 @@ public class LottoMain {
     public static void main(String[] args) {
         LottoGame lottoGame = new LottoGame();
 
-        printTicketCount(lottoGame.buyTicket(InputView.inputMoney()));
+        lottoGame.buyTicket(InputView.inputMoney(), InputView.inputManualLottoNumbers());
+        printTicketCount(lottoGame);
         printEmptyLine();
         printTicket(lottoGame.getTicketsString());
         printEmptyLine();
@@ -23,8 +25,10 @@ public class LottoMain {
         System.out.println();
     }
 
-    private static void printTicketCount(int ticketCount) {
-        System.out.println(String.format("%d개를 구매했습니다.", ticketCount));
+    private static void printTicketCount(LottoGame lottoGame) {
+        int countManual = lottoGame.getLottoTicketCountBySource(LottoTicket.Source.MANUAL);
+        int countAuto = lottoGame.getLottoTicketCountBySource(LottoTicket.Source.AUTO);
+        System.out.println(String.format("수동으로 %d개, 자동으로 %d개를 구매했습니다.", countManual, countAuto));
     }
 
     private static void printTicket(String ticketsString) {

@@ -4,6 +4,7 @@ import lotto.domain.LottoResult;
 import lotto.domain.LottoTicket;
 import lotto.domain.Prize;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,14 +17,14 @@ public class ResultView {
     private static final String RETURN_RATE_MESSAGE_FORMAT = "총 수익률은 %.2f%%입니다.";
     private static final String SEPARATOR_LINE = "------------------";
 
-    public static void printReport(LottoResult lottoResult) {
+    public static void printReport(@Nonnull LottoResult lottoResult) {
         System.out.println(RESULT_TITLE);
         System.out.println(SEPARATOR_LINE);
         System.out.println(getPrizeListString(lottoResult));
         System.out.println(String.format(RETURN_RATE_MESSAGE_FORMAT, lottoResult.getReturnRate()));
     }
 
-    public static String getPrizeListString(LottoResult lottoResult) {
+    public static String getPrizeListString(@Nonnull LottoResult lottoResult) {
         ArrayList<String> prizeStringList = new ArrayList<>();
         for (Prize prize : Prize.values()) {
             if(prize == Prize.NONE)

@@ -40,7 +40,7 @@ public class WinningNumber {
         }
     }
 
-    public Prize match(LottoTicket userLotto) {
+    public Prize match(@Nonnull LottoTicket userLotto) {
         int diff = LOTTO_NUMBERS_SIZE - userLotto.countMatchNumber(winningNumber);
         boolean isMatchBonus = userLotto.contains(bonusNumber);
 

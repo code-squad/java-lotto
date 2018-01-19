@@ -23,4 +23,9 @@ public class AutoLottoNumberGenerator implements LottoNumberGenerator {
         Collections.shuffle(AVAILABLE_LOTTO_NUMBERS);
         return new ArrayList<>(AVAILABLE_LOTTO_NUMBERS.subList(0, LottoTicket.LOTTO_NUMBERS_SIZE));
     }
+
+    @Override
+    public LottoTicket.Source getSource() {
+        return LottoTicket.Source.AUTO;
+    }
 }

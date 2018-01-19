@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -21,12 +22,12 @@ public class LottoResult {
         }
     }
 
-    private void addPrize(Prize prize) {
+    private void addPrize(@Nonnull Prize prize) {
         Integer count = prizeResult.get(prize);
         prizeResult.put(prize, count != null ? count+1 : 1);
     }
 
-    public int getPrizeCount(Prize prize) {
+    public int getPrizeCount(@Nonnull Prize prize) {
         return prizeResult.getOrDefault(prize, 0);
     }
 

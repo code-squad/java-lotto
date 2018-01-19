@@ -20,4 +20,9 @@ public class ManualLottoNumberGenerator implements LottoNumberGenerator{
     public List<Integer> generateNumbers() {
         return Arrays.stream(numbers).boxed().collect(Collectors.toList());
     }
+
+    @Override
+    public LottoTicket.Source getSource() {
+        return LottoTicket.Source.MANUAL;
+    }
 }

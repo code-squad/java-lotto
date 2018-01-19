@@ -22,9 +22,36 @@ public class LottoGameTest {
     }
 
     @Test
-    public void 로또구입() {
+    public void 로또구입_자동() {
         int ticketCount = lottoGame.buyTicket(10000);
         assertThat(ticketCount).isEqualTo(10);
+    }
+
+    @Test
+    public void 로또구입_수동만() {
+        List<int[]> numbers = Arrays.asList(
+                new int[]{1,2,3,4,5,6}, new int[]{1,2,3,4,5,6}
+        );
+        int ticketCount = lottoGame.buyTicket(2000, numbers);
+        assertThat(ticketCount).isEqualTo(2);
+    }
+
+    @Test
+    public void 로또구입_섞어서() {
+        List<int[]> numbers = Arrays.asList(
+                new int[]{1,2,3,4,5,6}, new int[]{1,2,3,4,5,6}
+        );
+        int ticketCount = lottoGame.buyTicket(5000, numbers);
+        assertThat(ticketCount).isEqualTo(5);
+    }
+
+    @Test
+    public void 로또구입_수동_돈이모자름() {
+        List<int[]> numbers = Arrays.asList(
+                new int[]{1,2,3,4,5,6}, new int[]{1,2,3,4,5,6}
+        );
+        int ticketCount = lottoGame.buyTicket(1900, numbers);
+        assertThat(ticketCount).isEqualTo(0);
     }
 
     @Test
