@@ -1,8 +1,8 @@
-package lotto;
+package lotto.domain;
 
 import java.util.Objects;
 
-public class LottoNumber {
+class LottoNumber {
     private final int no;
 
     private LottoNumber(int no) {
@@ -13,7 +13,7 @@ public class LottoNumber {
         this.no = no;
     }
 
-    public static LottoNumber of(String value) {
+    static LottoNumber of(String value) {
         if (Objects.isNull(value)) {
             throw new IllegalArgumentException();
         }
@@ -21,7 +21,7 @@ public class LottoNumber {
         return new LottoNumber(Integer.parseInt(value.trim()));
     }
 
-    public static LottoNumber of(int number) {
+    static LottoNumber of(int number) {
         return new LottoNumber(number);
     }
 
