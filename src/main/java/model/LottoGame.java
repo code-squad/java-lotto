@@ -6,26 +6,32 @@ public class LottoGame {
 
 	private static final int PRICE = 1000;
 
-	private int money;
+	private NaturalNumber money;
 	private List<UserLotto> lottos;
 	private Map<ResultTypes, Integer> gameResults;
 
-	public LottoGame(int money) {
+	public LottoGame(NaturalNumber money) {
 		gameResults = new HashMap<>();
 		this.money = money;
-		this.lottos = playAutoGames(money / PRICE);
+		NaturalNumber playableCount = new NaturalNumber(money.getNumber() / PRICE);
+		this.lottos = playAutoGames(playableCount.getNumber());
 	}
 
-	public LottoGame(int money, List<List<Integer>> manualLottoNumbers) {
+	public LottoGame(NaturalNumber money, List<List<Integer>> manualLottoNumbers)
+				throws IllegalArgumentException {
 		gameResults = new HashMap<>();
 
 		this.money = money;
 
-		int playableCount = money / PRICE;
-		int manualGameCount = manualLottoNumbers.size();
+		NaturalNumber playableCount = new NaturalNumber(money.getNumber() / PRICE);
+		NaturalNumber manualGameCount = new NaturalNumber(manualLottoNumbers.size());
+
+		if(playableCount.isLessThan(manualGameCount))
+			throw new IllegalArgumentException("Not enough money.");
 
 		List<UserLotto> manualGames = playManualGames(manualLottoNumbers);
-		List<UserLotto> autoGames = playAutoGames(playableCount - manualGameCount);
+		List<UserLotto> autoGames = playAutoGames(
+				playableCount.getNumber() - manualGameCount.getNumber());
 
 		this.lottos = new ArrayList<>();
 		this.lottos.addAll(manualGames);
@@ -42,7 +48,7 @@ public class LottoGame {
 		return lottos;
 	}
 
-	private List<UserLotto> playManualGames(List<List<Integer>> manualLottoNumbers) {
+	private List<UserLotto> playManualGames(List<List<Integer>> manualLottoNumbers) throws IllegalArgumentException {
 		List<UserLotto> lottos = new ArrayList<>();
 
 		for (List<Integer> lottoNumber : manualLottoNumbers) {
@@ -74,7 +80,7 @@ public class LottoGame {
 			prizeSum += type.calculatePrize(gameResults.get(type));
 		}
 
-		return (prizeSum * 100) / money;
+		return (prizeSum * 100) / money.getNumber();
 	}
 
 	public List<UserLotto> getLottos() {

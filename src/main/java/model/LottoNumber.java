@@ -1,10 +1,13 @@
 package model;
 
 public class LottoNumber implements Comparable<LottoNumber> {
+    public static final int BOUND = 46;
 
     private int number;
 
-    public LottoNumber(int number) {
+    public LottoNumber(int number) throws IllegalArgumentException {
+        if (number <= 0 || number >= BOUND)
+            throw new IllegalArgumentException("Invalid lotto number.");
         this.number = number;
     }
 

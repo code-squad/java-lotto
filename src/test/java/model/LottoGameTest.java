@@ -24,14 +24,14 @@ public class LottoGameTest {
 		myLottos.add(Arrays.asList(1,2,3,14,15,19));
 		myLottos.add(Arrays.asList(1,2,13,14,15,20));
 
-		lottoGame = new LottoGame(5000, myLottos);
+		lottoGame = new LottoGame(new NaturalNumber(5000), myLottos);
 
 		winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6), 27);
 	}
 
 	@Test
 	public void generateAllAutoGame() {
-		lottoGame = new LottoGame(5000);
+		lottoGame = new LottoGame(new NaturalNumber(5000));
 		assertThat(lottoGame.getLottos().size()).isEqualTo(5);
 	}
 
@@ -57,5 +57,10 @@ public class LottoGameTest {
 		long yieldRate = lottoGame.getYieldRate();
 
 		assertThat(yieldRate).isEqualTo(32100);
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void NotEnoughMoneyException() {
+		new LottoGame(new NaturalNumber(1), Arrays.asList(Arrays.asList(1,2,3,4,5,6)));
 	}
 }

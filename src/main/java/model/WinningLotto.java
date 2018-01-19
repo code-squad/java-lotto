@@ -6,15 +6,15 @@ import java.util.stream.Collectors;
 
 public class WinningLotto {
 
-    private int bonusNumber;
+    private LottoNumber bonusNumber;
     private List<LottoNumber> numbers;
 
-    public WinningLotto(List<Integer> numbers, int bonusNumber) {
+    public WinningLotto(List<Integer> numbers, int bonusNumber) throws IllegalArgumentException {
         this.numbers = new ArrayList<>(
                 numbers.stream()
                     .map(LottoNumber::new)
                     .collect(Collectors.toList()));
-        this.bonusNumber = bonusNumber;
+        this.bonusNumber = new LottoNumber(bonusNumber);
     }
 
     public ResultTypes compare(UserLotto target) {
@@ -30,6 +30,6 @@ public class WinningLotto {
     }
 
     private boolean isBonus(UserLotto target) {
-        return target.contains(new LottoNumber(bonusNumber));
+        return target.contains(bonusNumber);
     }
 }

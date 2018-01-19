@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public enum ResultTypes {
 
-    NO_MATCH(0, 0),
+    NO_MATCH(-1, 0),
     MATCH3((int) Math.pow(2, 3), 5000),
     MATCH4((int) Math.pow(2, 4), 50000),
     MATCH5((int) Math.pow(2, 5), 1500000),

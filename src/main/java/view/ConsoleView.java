@@ -1,6 +1,7 @@
 package view;
 
 import model.LottoGame;
+import model.NaturalNumber;
 import model.ResultTypes;
 import model.UserLotto;
 
@@ -21,11 +22,11 @@ public class ConsoleView {
 		return scanner.nextInt();
 	}
 
-	public static List<List<Integer>> getManualCombinations(int count) {
+	public static List<List<Integer>> getManualCombinations(NaturalNumber count) {
 		System.out.println("수동으로 구매할 번호를 입력해 주세요.");
 
 		List<List<Integer>> lottoNumbers = new ArrayList<>();
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < count.getNumber(); i++) {
 			String inputText = scanner.next();
 			List<Integer> numbers = Arrays.stream(inputText.split(","))
 								.map(text -> Integer.valueOf(text.trim()))
@@ -49,9 +50,11 @@ public class ConsoleView {
 	}
 
 
-	public static void printAllLottoNumbers(LottoGame lottoGame, int manualCount) {
+	public static void printAllLottoNumbers(LottoGame lottoGame, NaturalNumber manualCount) {
 		List<UserLotto> lottos = lottoGame.getLottos();
-		System.out.println(String.format("수동으로 %d장, 자동으로 %d장을 구매했습니다.\n", manualCount, lottos.size() - manualCount));
+		System.out.println(String.format("수동으로 %s장, 자동으로 %d장을 구매했습니다.\n",
+				manualCount,
+				lottos.size() - manualCount.getNumber()));
 
 		for(UserLotto lotto : lottos) {
 			System.out.println(lotto.toString());
@@ -76,4 +79,8 @@ public class ConsoleView {
     public static void printYieldRate(long yieldRate) {
 		System.out.println(String.format("총 수익률은 %d%%입니다.", yieldRate));
     }
+
+    public static void printErrorMessage(String message) {
+		System.err.println(message);
+	}
 }
