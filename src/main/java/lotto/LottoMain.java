@@ -1,5 +1,6 @@
 package lotto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lotto.domain.LottoResult;
@@ -13,9 +14,9 @@ public class LottoMain {
     public static void main(String[] args) {
         int amount = InputUI.inputAmount();
         int manualLottoCount = InputUI.inputManualLottoCount();
-        Optional<List<String>> manualLottos = Optional.ofNullable(InputUI.inputManualLottoNumbers(manualLottoCount));
-        LottoStore lottoStore = new LottoStore(amount, manualLottos);
 
+        Optional<List<String>> manualLottos = Optional.ofNullable(InputUI.inputManualLottoNumbers(manualLottoCount));
+        LottoStore lottoStore = new LottoStore(amount, manualLottos.orElse(new ArrayList<>()));
 
         ResultUI.printCount(lottoStore);
         ResultUI.printLottos(lottoStore);

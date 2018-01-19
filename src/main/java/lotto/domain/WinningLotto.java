@@ -31,12 +31,6 @@ public class WinningLotto {
     }
 
     private List<LottoNo> getMatch(Lotto lotto) {
-        List<LottoNo> result = new ArrayList<>();
-        for (LottoNo number : lotto.getNumbers()) {
-            if (this.winningLottos.contains(number)) {
-                result.add(number);
-            }
-        }
-        return result;
+        return lotto.getNumbers().stream().filter(number->this.winningLottos.contains(number)).collect(Collectors.toList());
     }
 }

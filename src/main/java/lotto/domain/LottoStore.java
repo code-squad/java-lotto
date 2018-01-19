@@ -1,7 +1,9 @@
 package lotto.domain;
 
-import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -9,18 +11,25 @@ public class LottoStore {
 
     private List<Lotto> lottos = new ArrayList<>();
 
-    public LottoStore(int money, Optional<List<String>> manualLottos) {
+    public LottoStore(int money, List<String> manualLottos) {
         if (isNotMoneyRange(money)) {
             throw new IllegalArgumentException();
         }
         int count = money / 1000;
-        for (String manualLotto : manualLottos.get()) {
-            lottos.add(new Lotto(convertToLottoNo(manualLotto).collect(Collectors.toList())));
-        }
-        int autoLottoCount = count - manualLottos.get().size();
+        setManualLottos(manualLottos);
+        setAutoLottos(count - manualLottos.size());
+    }
+
+    private void setAutoLottos(int autoLottoCount) {
         while (autoLottoCount > 0) {
             lottos.add(new Lotto());
             autoLottoCount--;
+        }
+    }
+
+    private void setManualLottos(List<String> manualLottos) {
+        for (String manualLotto : manualLottos) {
+            lottos.add(new Lotto(convertToLottoNo(manualLotto).collect(Collectors.toList())));
         }
     }
 
