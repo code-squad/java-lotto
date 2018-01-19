@@ -10,11 +10,44 @@ import java.util.*;
 public class LottoGame {
     private List<Lotto> lottos;
     public static final int PRICE = 1000;
-    public static final int THREE = 5000;
-    public static final int FOUR = 50000;
-    public static final int FIVE = 1500000;
-    public static final int SIX = 2000000000;
+    public enum Rank {
 
+        FIRST(6, 2000000000),
+        SECOND(5, 30000000),
+        THIRD(5, 1500000),
+        FOURTH(4, 50000),
+        FIFTH(3, 5000);
+
+        private int countOfMatch;
+        private int winningMoney;
+
+        private Rank(int countOfMatch, int winningMoney) {
+            this.countOfMatch = countOfMatch;
+            this.winningMoney = winningMoney;
+        }
+
+        public int getCountOfMatch() {
+            return countOfMatch;
+        }
+
+        public int getWinningMoney() {
+            return winningMoney;
+        }
+
+        public static Rank valueOf(int countOfMatch, boolean matchBonus) {
+
+            for(Rank rank : Rank.values()){
+                if(matchBonus && countOfMatch == 5){
+                    return Rank.SECOND;
+                }
+                if(rank.getCountOfMatch() == countOfMatch){
+                    return rank;
+                }
+            }
+
+            return null;
+        }
+    }
 
     public LottoGame(int money){
         lottos = new ArrayList<Lotto>();
@@ -49,30 +82,40 @@ public class LottoGame {
         return luckNum;
     }
 
-    public int calRetRate(Map<Integer, Integer> result, int money) {
-        return (int)(((double)(result.get(3)*THREE+result.get(4)*FOUR+result.get(5)*FIVE+result.get(6)*SIX-money))/money*100);
+    public int calRetRate(Map<Rank, Integer> result, int money) {
+        double rate = 1.0;
+        for(Rank key : result.keySet()){
+            rate *= ((double)key.getCountOfMatch()*(double)key.winningMoney);
+        }
+        return (int)rate;
     }
 
-    public LottoResult match(String luckyNumText) {
-        List<Integer> luckyNum = generateLuckyNum(luckyNumText);
-        Map<Integer, Integer> result = new HashMap<Integer, Integer>(){
+    public LottoResult match(String luckyNumText, int bonusNumber) {
+        WinningLotto winningLotto = new WinningLotto(generateLuckyNum(luckyNumText), bonusNumber);
+        Map<Rank, Integer> result = new HashMap<Rank, Integer>(){
             {
-                put(3, 0);
-                put(4, 0);
-                put(5, 0);
-                put(6, 0);
+                put(Rank.FIRST, 0);
+                put(Rank.SECOND, 0);
+                put(Rank.THIRD, 0);
+                put(Rank.FOURTH, 0);
+                put(Rank.FIFTH, 0);
             }
         };
 
         for(Lotto lotto : lottos){
-            int key = lotto.countMatchLotto(luckyNum);
-            result = replace(result, key);
+            boolean bonusYn = false;
+            int key = lotto.countMatchLotto(winningLotto);
+            if(key >= 5){
+                bonusYn = lotto.hasBonus(winningLotto);
+            }
+
+            result = replace(result, Rank.valueOf(key, bonusYn));
         }
 
         return new LottoResult(result, calRetRate(result, lottos.size()*PRICE));
     }
 
-    public Map<Integer,Integer> replace(Map<Integer, Integer> result, int key) {
+    public Map<Rank, Integer> replace(Map<Rank, Integer> result, Rank key) {
         if(result.containsKey(key)){
             int targetCount = result.get(key);
             result.replace(key, targetCount, targetCount+1);

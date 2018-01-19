@@ -7,19 +7,22 @@ public class Lotto {
 
     public Lotto(List<Integer> lotto){
         this.lotto = lotto;
-
     }
 
-    public int countMatchLotto(List<Integer> luckyNum) {
+    public int countMatchLotto(WinningLotto winningLotto) {
         int count = 0;
-        for(int number : lotto){
-            count += matchYn(luckyNum, number);
+        for(int userNumber : lotto){
+            count += winningLotto.matchYn(userNumber);
         }
         return count;
     }
 
-    public static int matchYn(List<Integer> luckyNum, int number) {
-        if(luckyNum.contains(number)){
+    public boolean hasBonus(WinningLotto winningLotto) {
+        return winningLotto.hasBonus(lotto);
+    }
+
+    public int matchYn(int userNumber) {
+        if(lotto.contains(userNumber)){
             return 1;
         }
         return 0;
@@ -29,4 +32,5 @@ public class Lotto {
     public String toString() {
         return String.join(", ", lotto.toString());
     }
+
 }
