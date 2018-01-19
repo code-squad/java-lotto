@@ -1,21 +1,27 @@
 package com.woowahan.lotto.model;
 
 import java.util.List;
+import java.util.Set;
 
 public class WinningLotto {
     private Lotto winningLotto;
-    private int bonusNumber;
+    private LottoNo bonusNumber;
 
-    public WinningLotto(List<Integer> winningLotto, int bonusNumber) {
+    public WinningLotto(Set<LottoNo> winningLotto, LottoNo bonusNumber) {
         this.winningLotto = new Lotto(winningLotto);
         this.bonusNumber = bonusNumber;
     }
 
-    public List<Integer> getWinningLotto() {
+    public Set<LottoNo> getWinningLotto() {
         return winningLotto.getLotto();
     }
 
-    public int getBonusNumber() {
+    public LottoNo getBonusNumber() {
         return bonusNumber;
+    }
+
+    public PriceInfo match(Lotto lotto) {
+        // @TODO
+        return null;
     }
 }

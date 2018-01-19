@@ -1,66 +1,50 @@
 package com.woowahan.lotto.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Lotto {
-    private static final List<Integer> BASE_NUMBERS = setBaseNumbers();
-    private List<Integer> lotto;
+    private static final Set<LottoNo> BASE_NUMBERS = setBaseNumbers();
+    private Set<LottoNo> lotto;
 
     public Lotto() {
-        this.lotto = sort(create());
+        this.lotto = create();
     }
 
-    public Lotto(List<Integer> lotto) {
-        List<Integer> filteredLotto = lotto.stream().distinct().collect(Collectors.toList());
-
-        checkLottoSize(filteredLotto);
-        checkBoundsOfNumber(filteredLotto);
+    // String으로 데이터를 받는 생성자.
+    public Lotto(Set<LottoNo> lotto) {
+        checkLottoSize(lotto);
 
         this.lotto = lotto;
     }
 
-    private void checkLottoSize(List<Integer> filteredLotto) {
+    private void checkLottoSize(Set<LottoNo> filteredLotto) {
         if (filteredLotto.size() != 6) {
             throw new IllegalArgumentException();
         }
     }
 
-    private void checkBoundsOfNumber(List<Integer> filteredLotto) {
-        filteredLotto.forEach(number -> {
-            if (number > 45 || number < 1) throw new IllegalArgumentException();
-        });
-    }
-
-    private static List<Integer> setBaseNumbers() {
-        List<Integer> baseNumbers = new ArrayList<>();
+    private static Set<LottoNo> setBaseNumbers() {
+        Set<LottoNo> baseNumbers = new HashSet<>();
         for (int i = 1; i <= 45; i++) {
-            baseNumbers.add(i);
+            baseNumbers.add(new LottoNo(i));
         }
 
         return baseNumbers;
     }
 
-    public List<Integer> create() {
-        List<Integer> copyBaseList = new ArrayList<>(BASE_NUMBERS);
+    public Set<LottoNo> create() {
+        List<LottoNo> copyBaseList = new ArrayList<>(BASE_NUMBERS);
         Collections.shuffle(copyBaseList);
-        return copyBaseList.subList(0, 6);
+
+        return new TreeSet<>(copyBaseList.subList(0, 6));
     }
 
-    public List<Integer> sort(List<Integer> lotto) {
-        List<Integer> sortedLotto = new ArrayList<>(lotto);
-        Collections.sort(sortedLotto);
-
-        return sortedLotto;
-    }
-
-    public boolean contains(Integer luck) {
+    public boolean contains(LottoNo luck) {
         return lotto.contains(luck);
     }
 
-    public List<Integer> getLotto() {
+    public Set<LottoNo> getLotto() {
         return lotto;
     }
 

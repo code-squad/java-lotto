@@ -1,8 +1,8 @@
 package com.woowahan.lotto.view;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import com.woowahan.lotto.model.LottoNo;
+
+import java.util.*;
 
 public class InputView {
     private static Scanner scanner = new Scanner(System.in);
@@ -13,21 +13,21 @@ public class InputView {
         return money;
     }
 
-    public List<Integer> inputLuckyNumbers() {
-        List<Integer> luckyNumbers = new ArrayList<>();
+    public Set<LottoNo> inputLuckyNumbers() {
+        Set<LottoNo> luckyNumbers = new HashSet<>();
 
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
 
         String[] inputNumbers = scanner.nextLine().split(",");
         for (String inputNumber : inputNumbers) {
-            luckyNumbers.add(Integer.parseInt(inputNumber.trim()));
+            luckyNumbers.add(new LottoNo(Integer.parseInt(inputNumber.trim())));
         }
 
         return luckyNumbers;
     }
 
-    public int inputBonusNumber() {
+    public LottoNo inputBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
-        return Integer.parseInt(scanner.nextLine());
+        return new LottoNo(Integer.parseInt(scanner.nextLine()));
     }
 }

@@ -1,9 +1,6 @@
 package com.woowahan.lotto.controller;
 
-import com.woowahan.lotto.model.LottoResult;
-import com.woowahan.lotto.model.PriceInfo;
-import com.woowahan.lotto.model.Lotto;
-import com.woowahan.lotto.model.WinningLotto;
+import com.woowahan.lotto.model.*;
 
 import java.util.*;
 
@@ -19,7 +16,7 @@ public class LottoController {
     public int checkKeyCode(Lotto lotto, WinningLotto lucky) {
         int count = 0;
 
-        for (Integer luck : lucky.getWinningLotto()) {
+        for (LottoNo luck : lucky.getWinningLotto()) {
             count += getCount(lotto, luck);
         }
 
@@ -28,17 +25,16 @@ public class LottoController {
         }
 
         return count;
-
     }
 
-    private int getCount(Lotto lotto, Integer luck) {
+    private int getCount(Lotto lotto, LottoNo luck) {
         if (lotto.contains(luck)) {
             return 1;
         }
         return 0;
     }
 
-    private boolean checkBonusNumber(Lotto lotto, int bonusNumber) {
+    private boolean checkBonusNumber(Lotto lotto, LottoNo bonusNumber) {
         return lotto.contains(bonusNumber);
     }
 
