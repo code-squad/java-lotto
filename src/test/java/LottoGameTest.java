@@ -5,20 +5,21 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
+import static domain.LottoGame.Rank;
 
 public class LottoGameTest {
     LottoGame lottoGame;
-    Map<LottoGame.Rank, Integer> target;
+    Map<Rank, Integer> target;
 
     @Before
     public void setup(){
         lottoGame = new LottoGame(14000);
         target = new HashMap<LottoGame.Rank, Integer>(){{
-            put(LottoGame.Rank.FIRST,1);
-            put(LottoGame.Rank.SECOND,2);
-            put(LottoGame.Rank.THIRD,3);
-            put(LottoGame.Rank.FOURTH,4);
-            put(LottoGame.Rank.FIFTH,5);
+            put(Rank.FIRST,1);
+            put(Rank.SECOND,2);
+            put(Rank.THIRD,3);
+            put(Rank.FOURTH,4);
+            put(Rank.FIFTH,5);
 
         }};
     }
@@ -44,13 +45,13 @@ public class LottoGameTest {
 
     @Test
     public void replace() {
-        LottoGame.Rank key = LottoGame.Rank.FOURTH;
+        LottoGame.Rank key = Rank.FOURTH;
         Map<LottoGame.Rank, Integer> result = new HashMap<LottoGame.Rank, Integer>(){{
-            put(LottoGame.Rank.FIRST,1);
-            put(LottoGame.Rank.SECOND,2);
-            put(LottoGame.Rank.THIRD,3);
-            put(LottoGame.Rank.FOURTH,5);
-            put(LottoGame.Rank.FIFTH,5);
+            put(Rank.FIRST,1);
+            put(Rank.SECOND,2);
+            put(Rank.THIRD,3);
+            put(Rank.FOURTH,5);
+            put(Rank.FIFTH,5);
         }};
 
         assertThat(lottoGame.replace(target, key)).isEqualTo(result);

@@ -17,8 +17,8 @@ public class Lotto {
         return count;
     }
 
-    public boolean bonusMatch(WinningLotto winningLotto) {
-        return winningLotto.bonusMatch(lotto);
+    public boolean hasBonus(WinningLotto winningLotto) {
+        return winningLotto.hasBonus(lotto);
     }
 
     public int matchYn(int userNumber) {

@@ -11,6 +11,7 @@ public class LottoGame {
     private List<Lotto> lottos;
     public static final int PRICE = 1000;
     public enum Rank {
+
         FIRST(6, 2000000000),
         SECOND(5, 30000000),
         THIRD(5, 1500000),
@@ -34,20 +35,14 @@ public class LottoGame {
         }
 
         public static Rank valueOf(int countOfMatch, boolean matchBonus) {
-            if(matchBonus && countOfMatch == 5){
-                return Rank.SECOND;
-            }
-            if(!matchBonus && countOfMatch == 5){
-                return Rank.THIRD;
-            }
-            if(countOfMatch == 6){
-                return Rank.FIRST;
-            }
-            if(countOfMatch == 4){
-                return Rank.FOURTH;
-            }
-            if(countOfMatch == 3){
-                return Rank.FIFTH;
+
+            for(Rank rank : Rank.values()){
+                if(matchBonus && countOfMatch == 5){
+                    return Rank.SECOND;
+                }
+                if(rank.getCountOfMatch() == countOfMatch){
+                    return rank;
+                }
             }
 
             return null;
@@ -88,9 +83,11 @@ public class LottoGame {
     }
 
     public int calRetRate(Map<Rank, Integer> result, int money) {
-        return (int)(((double)(result.get(Rank.FIRST)*Rank.FIRST.getWinningMoney()+result.get(Rank.SECOND)*Rank.SECOND.winningMoney
-                +result.get(Rank.THIRD)*Rank.THIRD.winningMoney+result.get(Rank.THIRD)*Rank.THIRD.winningMoney
-                +result.get(Rank.FOURTH)*Rank.FOURTH.winningMoney+result.get(Rank.FIFTH)*Rank.FIFTH.winningMoney-money))/money*100);
+        double rate = 1.0;
+        for(Rank key : result.keySet()){
+            rate *= ((double)key.getCountOfMatch()*(double)key.winningMoney);
+        }
+        return (int)rate;
     }
 
     public LottoResult match(String luckyNumText, int bonusNumber) {
@@ -109,7 +106,7 @@ public class LottoGame {
             boolean bonusYn = false;
             int key = lotto.countMatchLotto(winningLotto);
             if(key >= 5){
-                bonusYn = lotto.bonusMatch(winningLotto);
+                bonusYn = lotto.hasBonus(winningLotto);
             }
 
             result = replace(result, Rank.valueOf(key, bonusYn));
