@@ -8,15 +8,17 @@ public class UserLotto {
     private static final int BOUND = 46;
     private static final int SIZE = 6;
 
-
     private List<LottoNumber> numbers;
 
     UserLotto() {
         this.numbers = generate();
     }
 
-    UserLotto(List<LottoNumber> numbers) {
-        this.numbers = new ArrayList<>(numbers);
+    UserLotto(List<Integer> numbers) {
+        this.numbers = new ArrayList<>(
+                numbers.stream()
+                        .map(LottoNumber::new)
+                        .collect(Collectors.toList()));
     }
 
     private List<LottoNumber> generate() {

@@ -20,6 +20,5 @@ public class Main {
 
 		ConsoleView.printResultStatistics(lottoGame.runGames(winningLotto));
 		ConsoleView.printYieldRate(lottoGame.getYieldRate());
-
 	}
 }
