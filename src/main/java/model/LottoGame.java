@@ -1,6 +1,7 @@
 package model;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class LottoGame {
 
@@ -46,7 +47,10 @@ public class LottoGame {
 		List<UserLotto> lottos = new ArrayList<>();
 
 		for (List<Integer> lottoNumber : manualLottoNumbers) {
-			lottos.add(new UserLotto(lottoNumber));
+			lottos.add(new UserLotto(
+					lottoNumber.stream()
+					.map(LottoNumber::new)
+					.collect(Collectors.toList())));
 		}
 
 		return lottos;

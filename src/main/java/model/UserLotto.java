@@ -8,19 +8,21 @@ public class UserLotto {
     private static final int BOUND = 46;
     private static final int SIZE = 6;
 
-    private List<Integer> numbers;
+
+    private List<LottoNumber> numbers;
 
     UserLotto() {
         this.numbers = generate();
     }
 
-    UserLotto(List<Integer> numbers) {
+    UserLotto(List<LottoNumber> numbers) {
         this.numbers = new ArrayList<>(numbers);
     }
 
-    private List<Integer> generate() {
-        List<Integer> numbers = IntStream.range(1, this.BOUND)
+    private List<LottoNumber> generate() {
+        List<LottoNumber> numbers = IntStream.range(1, this.BOUND)
                 .boxed()
+                .map(LottoNumber::new)
                 .collect(Collectors.toList());
         Collections.shuffle(numbers);
 
@@ -30,7 +32,7 @@ public class UserLotto {
         return numbers;
     }
 
-    public boolean contains(int number) {
+    public boolean contains(LottoNumber number) {
         return this.numbers.contains(number);
     }
 

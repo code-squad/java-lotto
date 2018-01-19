@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,9 +27,18 @@ public class LottoTest {
 
     @Test
     public void compareTest() {
-        UserLotto lotto1 = new UserLotto(Arrays.asList(1, 2, 3, 4, 5, 6));
-        UserLotto lotto2 = new UserLotto(Arrays.asList(1, 2, 3, 4, 5, 7));
-        UserLotto lotto3 = new UserLotto(Arrays.asList(1, 2, 3, 4, 7, 8));
+        UserLotto lotto1 = new UserLotto(
+                Stream.of(1, 2, 3, 4, 5, 6)
+                    .map(LottoNumber::new)
+                    .collect(Collectors.toList()));
+        UserLotto lotto2 = new UserLotto(
+                Stream.of(1, 2, 3, 4, 5, 7)
+                    .map(LottoNumber::new)
+                    .collect(Collectors.toList()));
+        UserLotto lotto3 = new UserLotto(
+                Stream.of(1, 2, 3, 4, 7, 8)
+                    .map(LottoNumber::new)
+                    .collect(Collectors.toList()));
 
         WinningLotto winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6), 27);
 
@@ -38,7 +49,10 @@ public class LottoTest {
 
     @Test
     public void compareBonusTest() {
-        UserLotto lotto = new UserLotto(Arrays.asList(1, 2, 3, 4, 5, 27));
+        UserLotto lotto = new UserLotto(
+                Stream.of(1, 2, 3, 4, 5, 27)
+                    .map(LottoNumber::new)
+                    .collect(Collectors.toList()));
 
         WinningLotto winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6), 27);
         assertThat(winningLotto.compare(lotto)).isEqualTo(ResultTypes.findByCode(5, true));
