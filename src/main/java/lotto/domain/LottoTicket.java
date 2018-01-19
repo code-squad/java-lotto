@@ -18,7 +18,7 @@ public class LottoTicket {
     }
 
     public Prize checkWinning(WinningNumber winningNumber) {
-        return Prize.checkWinning(lottoNumber, winningNumber);
+        return winningNumber.match(lottoNumber);
     }
 
     @Override

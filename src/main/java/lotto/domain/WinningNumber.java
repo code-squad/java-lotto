@@ -22,8 +22,15 @@ public class WinningNumber {
         }
     }
 
-    public LottoNumber getLottoNumber() {
-        return winningNumber;
+    public Prize match(LottoNumber userLotto) {
+        int diff = LottoNumber.LOTTO_NUMBERS_SIZE - winningNumber.countMatchNumber(userLotto);
+        boolean isMatchBonus = userLotto.contains(bonusNumber);
+
+        for (Prize prize : Prize.values()) {
+            if(prize.checkWinningRule(diff) && prize.checkBonusRule(isMatchBonus))
+                return prize;
+        }
+        return Prize.NONE;
     }
 
     public int getBonusNumber() {
