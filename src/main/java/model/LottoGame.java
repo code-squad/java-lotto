@@ -1,14 +1,13 @@
 package model;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class LottoGame {
 
 	private static final int PRICE = 1000;
 
 	private int money;
-	private List<Lotto> lottos;
+	private List<UserLotto> lottos;
 	private Map<ResultTypes, Integer> gameResults;
 
 	public LottoGame(int money) {
@@ -25,38 +24,37 @@ public class LottoGame {
 		int playableCount = money / PRICE;
 		int manualGameCount = manualLottoNumbers.size();
 
-		List<Lotto> manualGames = playManualGames(manualLottoNumbers);
-		List<Lotto> autoGames = playAutoGames(playableCount - manualGameCount);
+		List<UserLotto> manualGames = playManualGames(manualLottoNumbers);
+		List<UserLotto> autoGames = playAutoGames(playableCount - manualGameCount);
 
 		this.lottos = new ArrayList<>();
 		this.lottos.addAll(manualGames);
 		this.lottos.addAll(autoGames);
 	}
 
-	private List<Lotto> playAutoGames(int count) {
-		List<Lotto> lottos = new ArrayList<>();
+	private List<UserLotto> playAutoGames(int count) {
+		List<UserLotto> lottos = new ArrayList<>();
 
 		for (int i = 0; i < count; i++) {
-			lottos.add(new Lotto());
+			lottos.add(new UserLotto());
 		}
 
 		return lottos;
 	}
 
-	private List<Lotto> playManualGames(List<List<Integer>> manualLottoNumbers) {
-		List<Lotto> lottos = new ArrayList<>();
+	private List<UserLotto> playManualGames(List<List<Integer>> manualLottoNumbers) {
+		List<UserLotto> lottos = new ArrayList<>();
 
 		for (List<Integer> lottoNumber : manualLottoNumbers) {
-			lottos.add(new Lotto(lottoNumber));
+			lottos.add(new UserLotto(lottoNumber));
 		}
 
 		return lottos;
 	}
 
-	public Map<ResultTypes, Integer> runGames(Lotto winningLotto) {
-		for(Lotto lotto : lottos) {
-			int matchCount = lotto.compare(winningLotto);
-			ResultTypes key = ResultTypes.findByCode(matchCount);
+	public Map<ResultTypes, Integer> runGames(WinningLotto winningLotto) {
+		for(UserLotto lotto : lottos) {
+			ResultTypes key = winningLotto.compare(lotto);
 
 			if (!gameResults.containsKey(key)) {
 				gameResults.put(key, 1);
@@ -69,17 +67,17 @@ public class LottoGame {
 		return gameResults;
 	}
 
-	public int getYieldRate() {
-		int priceSum = 0;
+	public long getYieldRate() {
+		long prizeSum = 0;
 
 		for(ResultTypes type : gameResults.keySet()) {
-			priceSum += type.price * gameResults.get(type);
+			prizeSum += type.calculatePrize(gameResults.get(type));
 		}
 
-		return (priceSum * 100) / money;
+		return (prizeSum * 100) / money;
 	}
 
-	public List<Lotto> getLottos() {
+	public List<UserLotto> getLottos() {
 		return lottos;
 	}
 }
