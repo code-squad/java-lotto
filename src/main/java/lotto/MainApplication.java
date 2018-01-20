@@ -13,9 +13,8 @@ public class MainApplication {
     public static void main(String[] args) {
         int totalCost = InputView.getTotalCost();
         Order order = new Order(totalCost);
-        List<Lotto> lottos = order.purchase();
 
-        ResultView.printLottos(lottos);
+        ResultView.printLottos(order.getLottos());
 
         List<Integer> luckyNumbers = InputView.getLuckyNumber();
         int bonus = InputView.getBonus(luckyNumbers);

@@ -36,8 +36,6 @@ public class InputView {
             throw new IllegalArgumentException("보너스 번호 입력을 잘못하였습니다.");
         }
 
-        validateRange(number);
-
         return number;
     }
 

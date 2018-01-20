@@ -8,10 +8,15 @@ public class WinningDTO {
     private int totalCost;
     private EnumMap<WinningType, Integer> result;
 
-    public WinningDTO(int totalCost, EnumMap<WinningType, Integer> result){
+    public WinningDTO(int totalCost){
         this.totalCost = totalCost;
-        this.result = result;
+        this.result = createResult();
 
+    }
+
+    public void update(WinningType type){
+        int count = result.get(type);
+        result.put(type, count+1);
     }
 
     public int getTotalPrizes(){
@@ -31,6 +36,15 @@ public class WinningDTO {
         double totalEarnings = getTotalPrizes() - totalCost;
 
         return (int) (totalEarnings / totalCost * 100);
+    }
+
+    private EnumMap<WinningType, Integer> createResult(){
+        result = new EnumMap<>(WinningType.class);
+        for(WinningType type : WinningType.values()){
+            result.put(type, 0);
+        }
+
+        return result;
     }
 
 }
