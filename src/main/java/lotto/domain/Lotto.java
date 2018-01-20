@@ -15,6 +15,22 @@ public class Lotto {
         this.lotto = lotto;
     }
 
+    public static Lotto of(Set<Integer> numbers) {
+        Set<LottoNumber> lotto = new HashSet<>();
+        for (Integer number : numbers) {
+            lotto.add(LottoNumber.of(number));
+        }
+        return new Lotto(lotto);
+    }
+
+    public static Lotto of(Integer... numbers) {
+        Set<LottoNumber> lotto = new HashSet<>();
+        for (Integer number : numbers) {
+            lotto.add(LottoNumber.of(number));
+        }
+        return new Lotto(lotto);
+    }
+
     public static Lotto of(String text) {
         if (Objects.isNull(text)) {
             throw new IllegalArgumentException();
@@ -24,14 +40,6 @@ public class Lotto {
         Set<LottoNumber> lotto = new HashSet<>();
         for (String value : values) {
             lotto.add(LottoNumber.of(value));
-        }
-        return new Lotto(lotto);
-    }
-
-    public static Lotto of(Integer... numbers) {
-        Set<LottoNumber> lotto = new HashSet<>();
-        for (Integer number : numbers) {
-            lotto.add(LottoNumber.of(number));
         }
         return new Lotto(lotto);
     }
