@@ -1,9 +1,9 @@
 package domain.lotto;
 
 import dto.LottoNumbers;
+import dto.ParsingLottoNumbers;
 import dto.WinningResult;
 import enums.WinningRules;
-import utils.StringParseUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class LottoTicket {
 
         List<LottoNumber> newNumbers = new ArrayList<>();
 
-        for (String number : StringParseUtil.parsingTextNumber(text)) {
+        for (String number : new ParsingLottoNumbers(text).getNumbers()) {
             newNumbers.add(new LottoNumber(number));
         }
 
