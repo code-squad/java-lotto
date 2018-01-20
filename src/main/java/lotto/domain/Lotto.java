@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.exception.DuplicatedNumberException;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -10,6 +12,9 @@ public class Lotto {
     private List<LottoNo> numbers;
 
     public Lotto(List<LottoNo> numbers) {
+        if (hasDuplicatedNumber(numbers)) {
+            throw new DuplicatedNumberException("로또 숫자에 중복이 있습니다.");
+        }
         if (numbers.size() != 6) {
             throw new IllegalArgumentException();
         }
@@ -22,6 +27,9 @@ public class Lotto {
         numbers = LOTTO_NUMBER_RANGE.subList(0, 6);
     }
 
+    private boolean hasDuplicatedNumber(List<LottoNo> inputLottos) {
+        return inputLottos.stream().filter(i -> Collections.frequency(inputLottos , i) > 1).count() > 0;
+    }
 
     public List<LottoNo> getNumbers() {
         return this.numbers;

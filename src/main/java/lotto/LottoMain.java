@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import lotto.domain.LottoResult;
 import lotto.domain.LottoStore;
+import lotto.domain.Money;
 import lotto.domain.WinningLotto;
 import lotto.view.InputUI;
 import lotto.view.ResultUI;
@@ -15,8 +16,8 @@ public class LottoMain {
         int amount = InputUI.inputAmount();
         int manualLottoCount = InputUI.inputManualLottoCount();
 
-        Optional<List<String>> manualLottos = Optional.ofNullable(InputUI.inputManualLottoNumbers(manualLottoCount));
-        LottoStore lottoStore = new LottoStore(amount, manualLottos.orElse(new ArrayList<>()));
+        List<String> manualLottos = InputUI.inputManualLottoNumbers(manualLottoCount);
+        LottoStore lottoStore = new LottoStore(new Money(amount), manualLottos);
 
         ResultUI.printCount(lottoStore);
         ResultUI.printLottos(lottoStore);

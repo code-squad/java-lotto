@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.exception.DuplicatedNumberException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,10 +32,20 @@ public class LottoTest {
      *   - 당첨 통계
      */
 
+    @Test(expected = DuplicatedNumberException.class)
+    public void 로또_중복_생성() {
+        List<LottoNo> number = new ArrayList<>(Arrays.asList(new LottoNo(6)
+                ,new LottoNo(1)
+                ,new LottoNo(2)
+                ,new LottoNo(3)
+                ,new LottoNo(3)
+                ,new LottoNo(3)));
+        lotto = new Lotto(number);
+    }
+
     @Test
-    public void 로또_랜덤_생성() {
+    public void 로또_번호_중복() {
         lotto = new Lotto();
-        assertThat(lotto.getNumbers().size()).isEqualTo(6);
     }
 
     @Test

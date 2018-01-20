@@ -2,6 +2,7 @@ package lotto.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
@@ -39,7 +40,7 @@ public class InputUI {
             String manual = scanner.next();
             manualLottos.add(manual);
         }
-        return manualLottos;
+        return Optional.ofNullable(manualLottos).orElse(new ArrayList<>());
     }
 
 

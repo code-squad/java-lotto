@@ -1,9 +1,6 @@
 package lotto.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -11,11 +8,8 @@ public class LottoStore {
 
     private List<Lotto> lottos = new ArrayList<>();
 
-    public LottoStore(int money, List<String> manualLottos) {
-        if (isNotMoneyRange(money)) {
-            throw new IllegalArgumentException();
-        }
-        int count = money / 1000;
+    public LottoStore(Money money, List<String> manualLottos) {
+        int count = money.buyableLottoCount();
         setManualLottos(manualLottos);
         setAutoLottos(count - manualLottos.size());
     }
@@ -34,8 +28,9 @@ public class LottoStore {
     }
 
     private Stream<LottoNo> convertToLottoNo(String manualLotto) {
-        return Arrays.stream(split(manualLotto)).map(i -> new LottoNo(toInt(i)));
+        return Arrays.stream(split(manualLotto)).map(i -> toInt(i)).collect(Collectors.toList()).stream().map(i -> new LottoNo(i));
     }
+
 
     private int toInt(String number) {
         return Integer.parseInt(number);
@@ -45,9 +40,6 @@ public class LottoStore {
         return manualLotto.split(",");
     }
 
-    private boolean isNotMoneyRange(int money) {
-        return money % 1000 != 0 || money < 1000 || money > 1000000000;
-    }
 
     public LottoStore(List<Lotto> lottos) {
         this.lottos = lottos;

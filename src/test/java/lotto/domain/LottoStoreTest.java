@@ -18,19 +18,19 @@ public class LottoStoreTest {
     @Before
     public void setUp() {
         manualLotto = new ArrayList<>(Arrays.asList("1,2,3,4,5,6","3,4,5,6,7,8"));
-        lottoStore = new LottoStore(10000, Optional.ofNullable(manualLotto));
+        lottoStore = new LottoStore(new Money(10000), Optional.ofNullable(manualLotto).orElse(new ArrayList<>()));
     }
 
     @Test
     public void 로또_생성_test(){
-        lottoStore = new LottoStore(10000, Optional.ofNullable(manualLotto));
+        lottoStore = new LottoStore(new Money(1000), Optional.ofNullable(manualLotto).orElse(new ArrayList<>()));
         assertThat(lottoStore.getLottos().size()).isEqualTo(10);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 로또_생성_1000으로_나뉘지_않는_금액_이거나_int_값_보다_큰_수(){
-        lottoStore = new LottoStore(1200, Optional.ofNullable(manualLotto));
-        lottoStore = new LottoStore(1000000000, Optional.ofNullable(manualLotto));
+        lottoStore = new LottoStore(new Money(1200), Optional.ofNullable(manualLotto).orElse(new ArrayList<>()));
+        lottoStore = new LottoStore(new Money(1000000000), Optional.ofNullable(manualLotto).orElse(new ArrayList<>()));
     }
 
 }

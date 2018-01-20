@@ -20,11 +20,20 @@ public enum Rank {
         return price;
     }
 
+    public boolean matchCount(int count) {
+        for (Rank rank : Rank.values()) {
+            if (count == rank.getCount()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static Rank valueOf(int count, boolean matchBonus) {
         for (Rank rank : Rank.values()) {
-            if (count == 5 && matchBonus) {
-                return SECOND;
-            } else if (rank.getCount() == count){
+            if (SECOND.matchCount(count) && matchBonus) {
+                return rank;
+            } else if (rank.matchCount(count)){
                 return rank;
             }
         }

@@ -27,10 +27,10 @@ public class WinningLotto {
     }
 
     public Rank getResult(Lotto lotto) {
-        return Rank.valueOf(getMatch(lotto).size(), lotto.getNumbers().contains(bonus));
+        return Rank.valueOf(getMatchCount(lotto), lotto.getNumbers().contains(bonus));
     }
 
-    private List<LottoNo> getMatch(Lotto lotto) {
-        return lotto.getNumbers().stream().filter(number->this.winningLottos.contains(number)).collect(Collectors.toList());
+    private int getMatchCount(Lotto lotto) {
+        return (int) lotto.getNumbers().stream().filter(number->this.winningLottos.contains(number)).count();
     }
 }
