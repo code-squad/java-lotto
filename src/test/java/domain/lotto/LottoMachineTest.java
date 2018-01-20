@@ -13,12 +13,11 @@ public class LottoMachineTest {
 
     @Before
     public void init() {
-        lottoMachine = new LottoMachine();
+        lottoMachine = new LottoMachine(14000);
     }
 
     @Test
     public void InputMoney() {
-        lottoMachine.insertMoney("14000");
         assertThat(lottoMachine.getMoney(), is(14000));
     }
 }
