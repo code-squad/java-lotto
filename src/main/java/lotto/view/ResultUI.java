@@ -5,8 +5,7 @@ import java.util.Map;
 import lotto.domain.Lotto;
 import lotto.domain.LottoResult;
 import lotto.domain.LottoStore;
-import lotto.domain.PriceType;
-import lotto.domain.WinningLotto;
+import lotto.domain.Rank;
 
 public class ResultUI {
 
@@ -26,9 +25,9 @@ public class ResultUI {
     }
 
     public static void printStatistics(LottoResult lottoResult) {
-        Map<PriceType, Integer> result = lottoResult.getResult();
-        for (PriceType priceType : result.keySet()) {
-            System.out.println(priceType.getCount() + "개 일치 (" + priceType.getPrice() + ") - " + result.get(priceType) + "개");
+        Map<Rank, Integer> result = lottoResult.getResult();
+        for (Rank rank : result.keySet()) {
+            System.out.println(rank.getCount() + "개 일치 (" + rank.getPrice() + ") - " + result.get(rank) + "개");
 
         }
     }
