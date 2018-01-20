@@ -2,21 +2,19 @@ package dto;
 
 import domain.Lottos;
 import domain.Rank;
-import domain.UserLotto;
 import domain.WinningLotto;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ResultDto {
     private int price;
-    private List<Rank> ranks;
     private Map<Rank, Integer> ranksCount;
 
     public ResultDto(int price) {
-        ranks = new ArrayList<>();
         ranksCount = initRanksCount();
         this.price = price;
     }
@@ -24,9 +22,9 @@ public class ResultDto {
     private Map<Rank, Integer> initRanksCount() {
         Map<Rank, Integer> ranksCount = new HashMap<>();
         Rank[] ranks = Rank.values();
-        for (Rank rank : ranks) {
-            ranksCount.put(rank, 0);
-        }
+        Arrays.stream(ranks)
+                .forEach(rank -> ranksCount.put(rank, 0));
+
         return ranksCount;
     }
 
@@ -35,28 +33,18 @@ public class ResultDto {
     }
 
     public int calRevenue() {
-        float max = 0;
         Rank[] ranks = Rank.values();
-        for (Rank rank : ranks) {
-            max += ranksCount.get(rank) * rank.getWinningMoney();
-        }
+        float max = Arrays.stream(ranks)
+                .map(rank -> rank.mulMoney(ranksCount.get(rank)))
+                .reduce(0, (a, b) -> a + b);
+
         return Math.round(max / price * 100) - 100;
     }
 
     public void checkLastWinningNumbers(String lastWinningNumbers, int bonusBall, Lottos lottos) {
-        WinningLotto numbers = new WinningLotto(parseInts(split(lastWinningNumbers)), bonusBall);
-        int size = lottos.size();
-        for (int i = 0; i < size; i++) {
-            calRanks(numbers, lottos.get(i));
-        }
-        countRank(ranks);
-    }
+        WinningLotto winningLotto = new WinningLotto(parseInts(split(lastWinningNumbers)), bonusBall);
 
-    private void calRanks(WinningLotto winningLotto, UserLotto userLotto) {
-        try {
-            ranks.add(winningLotto.checkTheWinningNumbers(userLotto));
-        } catch (IllegalArgumentException iae) {
-        }
+        countRank(lottos.match(winningLotto));
     }
 
     public int countOfLotto() {
@@ -68,12 +56,9 @@ public class ResultDto {
     }
 
     private List<Integer> parseInts(String[] numbersText) {
-        List<Integer> numbers = new ArrayList<>();
-        for (String numberText : numbersText) {
-            int a = parseInt(numberText);
-            numbers.add(a);
-        }
-        return numbers;
+        return Arrays.stream(numbersText)
+                .map(number -> parseInt(number))
+                .collect(Collectors.toList());
     }
 
     private int parseInt(String numberText) {
@@ -81,9 +66,8 @@ public class ResultDto {
     }
 
     private Map<Rank, Integer> countRank(List<Rank> ranks) {
-        for (Rank rank : ranks) {
-            ranksCount.put(rank, ranksCount.get(rank) + 1);
-        }
+        ranks.stream().forEach(rank -> ranksCount.put(rank, ranksCount.get(rank) + 1));
+
         return ranksCount;
     }
 }

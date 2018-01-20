@@ -6,16 +6,16 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class LottoFactory {
-    public static UserLotto makeLotto() {
-        return new UserLotto(makeLottoNumbers(makeNumbers()));
+    public static Lotto makeLotto() {
+        return new Lotto(makeLottoNumbers(makeNumbers()));
     }
 
     public static Lottos makeLottos(int lottoCount) {
-        List<UserLotto> lottos = new ArrayList<>();
+        Lottos lottos = new Lottos();
         for (int i = 0; i < lottoCount; i++) {
             lottos.add(makeLotto());
         }
-        return new Lottos(lottos);
+        return lottos;
     }
 
     private static List<Integer> makeNumbers() {

@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Arrays;
+
 public enum Rank {
     FIRST(6, 2000000000),
     SECOND(5, 30000000),
@@ -15,31 +17,28 @@ public enum Rank {
         this.winningMoney = winningMoney;
     }
 
-    public int getCountOfMatch() {
-        return countOfMatch;
-    }
-
-    public int getWinningMoney() {
-        return winningMoney;
+    public int mulMoney(int count) {
+        return count * winningMoney;
     }
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {
-        if (matchBonus && countOfMatch == 5) {
+        if (matchBonus && checkCount(SECOND, countOfMatch)) {
             return SECOND;
         }
-        if (countOfMatch == 6) {
-            return FIRST;
-        }
-        if (countOfMatch == 5) {
-            return THIRD;
-        }
-        if (countOfMatch == 4) {
-            return FOURTH;
-        }
-        if (countOfMatch == 3) {
-            return FIFTH;
-        }
-        throw new IllegalArgumentException();
+        Rank[] ranks = Rank.values();
+
+        return Arrays.stream(ranks)
+                .filter(rank -> rank != SECOND && checkCount(rank, countOfMatch))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException());
+    }
+
+    private static boolean checkCount(Rank rank, int countOfMatch) {
+        return rank.countOfMatch == countOfMatch;
+    }
+
+    public int compare(Rank rank) {
+        return countOfMatch - rank.countOfMatch;
     }
 
     @Override

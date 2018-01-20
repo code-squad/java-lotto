@@ -1,7 +1,7 @@
 package dto;
 
+import domain.Lotto;
 import domain.Lottos;
-import domain.UserLotto;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +16,8 @@ public class ResultDtoTest {
     @Before
     public void setup() {
         result = new ResultDto(1000);
-        lottos = new Lottos(Arrays.asList(new UserLotto(Arrays.asList(1, 2, 3, 4, 5, 6))));
+        lottos = new Lottos();
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
     }
 
     @Test

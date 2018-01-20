@@ -10,31 +10,16 @@ public class WinningLotto extends Lotto {
         this.bonusBall = bonusBall;
     }
 
-    public Rank checkTheWinningNumbers(UserLotto lotto) {
+    public Rank checkTheWinningNumbers(Lotto lotto) throws IllegalArgumentException {
         List<Integer> checkNumbers = lotto.numbers;
-        int count = 0;
-        for (int i = 0; i < 6; i++) {
-            if (numbers.contains(checkNumbers.get(i))) {
-                count++;
-            }
-        }
+        int count = checkNumbers.stream()
+                .filter(number -> numbers.contains(number))
+                .reduce(0, (a, b) -> a + 1);
+
         return Rank.valueOf(count, checkBonusBall(checkNumbers));
     }
 
     private boolean checkBonusBall(List<Integer> numbers) {
         return numbers.contains(bonusBall);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (int number : numbers) {
-            sb.append(number);
-            sb.append(", ");
-        }
-        sb.delete(sb.length() - 2, sb.length());
-        sb.append("]");
-        return sb.toString();
     }
 }

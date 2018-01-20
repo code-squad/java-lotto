@@ -3,22 +3,22 @@ package domain;
 import java.util.Collections;
 import java.util.List;
 
-abstract public class Lotto {
+public class Lotto {
     protected List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
-        numbersCheck(numbers);
-        sortNumbers(numbers);
         this.numbers = numbers;
+        numbersCheck();
+        sortNumbers();
     }
 
-    private void numbersCheck(List<Integer> numbers) {
+    protected void numbersCheck() {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException();
         }
     }
 
-    private void sortNumbers(List<Integer> numbers) {
+    private void sortNumbers() {
         Collections.sort(numbers);
     }
 
