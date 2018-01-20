@@ -61,23 +61,23 @@ public class InputView {
         }
     }
 
-    private static String[] removeWhiteSpace(String[] inputs) {
+    public static String[] removeWhiteSpace(String[] inputs) {
         return Arrays.stream(inputs)
                      .map(String::trim)
                      .toArray(String[]::new);
     }
 
-    private static int[] toIntArray(String[] inputs) {
+    public static int[] toIntArray(String[] inputs) {
         return Arrays.stream(inputs)
                      .mapToInt(Integer::parseInt)
                      .toArray();
     }
 
-    private static String[] splitInput(String input) {
+    public static String[] splitInput(String input) {
         return StringUtils.split(input, ',');
     }
 
-    private static Lotto getManualLotto() {
+    public static Lotto getManualLotto() {
         return new Lotto(getManualLottoNumber());
     }
 
