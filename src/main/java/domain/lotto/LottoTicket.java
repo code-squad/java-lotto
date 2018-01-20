@@ -13,9 +13,6 @@ public class LottoTicket {
     public static final Integer PRICE = 1000;
     private LottoNumbers numbers;
 
-    public LottoTicket() {
-    }
-
     public LottoTicket(String text) {
         if (text.isEmpty()) {
             return;
