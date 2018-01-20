@@ -1,14 +1,12 @@
 package lotto.domain;
 
 import lotto.dto.WinningDTO;
-import lotto.util.RandomUtils;
+import lotto.type.WinningType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Order {
 
-    private int totalCost;
     private List<Lotto> lottos;
 
     public Order(int totalCost){
@@ -16,33 +14,47 @@ public class Order {
             throw new IllegalArgumentException("구매금액이 잘못되었습니다.");
         }
 
-        this.totalCost = totalCost;
-        this.lottos = new ArrayList<>();
+        this.lottos = createLotto(totalCost / Lotto.LOTTO_COST);
     }
 
-    public List<Lotto> purchase() {
-        return createLotto(totalCost / Lotto.LOTTO_COST);
-    }
-
-    public WinningDTO checkWinning(List<Integer> luckyNumbers){
-        Lotto lucky = new Lotto(luckyNumbers);
+    public WinningDTO checkWinning(WinningLotto wLotto){
+        WinningDTO result = new WinningDTO(getTotalCost());
 
         for(Lotto lotto : lottos){
-            lotto.matchLuckyNumbers(lucky);
+            result.update(matchLotto(wLotto, lotto));
         }
 
-        return new WinningDTO(this.totalCost, this.lottos);
+        return result;
+    }
+
+    public WinningType matchLotto(WinningLotto wLotto, Lotto lotto){
+        return WinningType.parse(wLotto.match(lotto), wLotto.isBonus(lotto));
     }
 
     private List<Lotto> createLotto(int count){
-        for(int i=0 ; i<count ; i++){
-            lottos.add(new Lotto(RandomUtils.pickRandom(Lotto.TARGET_NUMBER, Lotto.LOTTO_PICK_COUNT)));
+        lottos = new ArrayList<>();
+        for(int i=0 ; i<count ; i++) {
+            lottos.add(new Lotto(getTarget().subList(0, Lotto.LOTTO_PICK_COUNT)));
         }
 
         return lottos;
+    }
+
+    private List<Integer> getTarget() {
+        List<Integer> target = new ArrayList<>();
+        for(int t = Lotto.LOTTO_MIN_NUMBER; t<Lotto.LOTTO_MAX_NUMBER ; t++) {
+            target.add((t+1));
+        }
+
+        Collections.shuffle(target);
+        return target;
     }
 
     public List<Lotto> getLottos() {
         return lottos;
+    }
+
+    public int getTotalCost() {
+        return lottos.size() * Lotto.LOTTO_COST;
     }
 }

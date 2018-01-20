@@ -1,26 +1,35 @@
 package lotto.dto;
 
-import lotto.domain.Lotto;
+import lotto.type.WinningType;
 
-import java.util.List;
+import java.util.EnumMap;
 
 public class WinningDTO {
     private int totalCost;
-    private List<Lotto> lottos;
+    private EnumMap<WinningType, Integer> result;
 
-    public WinningDTO(int totalCost, List<Lotto> lottos){
+    public WinningDTO(int totalCost){
         this.totalCost = totalCost;
-        this.lottos = lottos;
+        this.result = createResult();
 
+    }
+
+    public void update(WinningType type){
+        int count = result.get(type);
+        result.put(type, count+1);
     }
 
     public int getTotalPrizes(){
         int totalPrizes = 0;
-        for(Lotto lotto : lottos){
-            totalPrizes += lotto.getWinningPrizes();
+        for(WinningType type : WinningType.values()){
+            totalPrizes += result.get(type) * type.getPrizes();
         }
 
         return totalPrizes;
+    }
+
+    public int getWinningCount(WinningType type){
+        return result.get(type);
     }
 
     public int getEarningsRate(){
@@ -29,7 +38,13 @@ public class WinningDTO {
         return (int) (totalEarnings / totalCost * 100);
     }
 
-    public List<Lotto> getLottos() {
-        return lottos;
+    private EnumMap<WinningType, Integer> createResult(){
+        result = new EnumMap<>(WinningType.class);
+        for(WinningType type : WinningType.values()){
+            result.put(type, 0);
+        }
+
+        return result;
     }
+
 }

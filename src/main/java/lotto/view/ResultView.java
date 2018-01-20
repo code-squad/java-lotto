@@ -1,7 +1,6 @@
 package lotto.view;
 
 import lotto.domain.Lotto;
-import lotto.domain.Order;
 import lotto.dto.WinningDTO;
 import lotto.type.WinningType;
 
@@ -23,19 +22,9 @@ public class ResultView {
                 continue;
             }
 
-            System.out.println(type.getMatchCount()+"개 일치 ("+type.getPrizes()+"원) - "+getWinningTypeCount(type, winningResult.getLottos())+"개");
+            System.out.println(type.getDescription()+" - "+winningResult.getWinningCount(type)+"개");
         }
-        System.out.println("총 수익률은 "+winningResult.getEarningsRate()+"%입니다.");
+        System.out.println("총 수익률은 "+String.format("%,d", winningResult.getEarningsRate())+"%입니다.");
     }
 
-    private static int getWinningTypeCount(WinningType winningType, List<Lotto> lottos){
-        int count = 0;
-        for(Lotto lotto : lottos){
-            if(lotto.isWinningType(winningType)){
-                count ++;
-            }
-        }
-
-        return count;
-    }
 }
