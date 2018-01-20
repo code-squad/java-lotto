@@ -13,14 +13,12 @@ public class OrderTest {
     private static final int TOTAL_COST = 14000;
     private Order order;
 
-    @Before
-    public void setUp() throws Exception {
-        order = new Order(TOTAL_COST);
-    }
-
     @Test
-    public void purchase() {
-        List<Lotto> lottos = order.purchase();
+    public void create() {
+        order = new Order(TOTAL_COST);
+
+        List<Lotto> lottos = order.getLottos();
+
         assertThat(lottos).isNotNull();
         assertThat(lottos.size()).isEqualTo(14);
 
@@ -28,6 +26,7 @@ public class OrderTest {
 
     @Test
     public void matchLotto() {
+        order = new Order(TOTAL_COST);
         WinningLotto wLotto = new WinningLotto(Arrays.asList(1,2,3,4,5,6), 7);
 
         Lotto lotto = new Lotto(Arrays.asList(1,2,3,4,5,6));
