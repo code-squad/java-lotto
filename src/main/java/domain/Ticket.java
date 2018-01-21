@@ -1,29 +1,34 @@
 package domain;
 
+import utils.Utils;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /**
  * Created by hoon on 2018. 1. 13..
  */
 public class Ticket {
 
-    private Numbers numbers;
-    private Integer hits = 0;
+    private List<Integer> numbers;
 
-    public Ticket(Numbers numbers) {
+    public Ticket(List<Integer> numbers) {
         this.numbers = numbers;
     }
 
-    public Numbers getNumbers() {
-        return numbers;
+    public Integer calculateHits(Ticket winningNumbers) {
+        return ((int) winningNumbers.numbers.stream().filter(number -> numbers.contains(number)).count());
     }
 
-    public Integer getHits() {
-        return hits;
+    public static List<Ticket> generateTickets(Integer ticketCount) {
+        return IntStream.range(0, ticketCount)
+                .mapToObj(index -> new Ticket(Utils.generateRandomNumbers(6)))
+                .collect(Collectors.toList());
     }
 
-    public Integer calculateHits(Numbers winningNumbers) {
-        winningNumbers.sort();
-        numbers.sort();
-        hits = numbers.calculateHits(winningNumbers);
-        return hits;
+    @Override
+    public String toString() {
+        return numbers.stream().map(String::valueOf).collect(Collectors.joining(", "));
     }
 }

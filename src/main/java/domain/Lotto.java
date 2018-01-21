@@ -1,8 +1,10 @@
 package domain;
 
-import enums.Menu;
+import enums.Match;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static constant.Constant.LOTTO_PRICE;
 
@@ -11,11 +13,11 @@ import static constant.Constant.LOTTO_PRICE;
  */
 public class Lotto {
 
-    List<Ticket> tickets;
-    Numbers winningNumbers;
-    Integer totalMoney;
+    private List<Ticket> tickets;
+    private Ticket winningNumbers;
+    private Integer totalMoney;
 
-    public Lotto(List<Ticket> tickets, Numbers winningNumbers) {
+    public Lotto(List<Ticket> tickets, Ticket winningNumbers) {
         this.tickets = tickets;
         this.winningNumbers = winningNumbers;
         this.totalMoney = calculateTotalMoney();
@@ -29,12 +31,18 @@ public class Lotto {
         return totalMoney;
     }
 
-    public Lotto lottery() {
-        for(Ticket ticket : tickets) {
-            ticket.calculateHits(winningNumbers);
-            Menu.renewHits(ticket.getHits());
-        }
-        return this;
+    public Integer matchedCount(Integer count) {
+        return (int)tickets.stream().filter(ticket -> Objects.equals(ticket.calculateHits(winningNumbers), count)).count();
     }
-}
 
+    public Integer getWinningMoney() {
+        return Arrays.stream(Match.values())
+                .mapToInt(value -> value.getMoney() * matchedCount(value.getMatched()))
+                .sum();
+    }
+
+    public static Integer getTicketCount(int money) {
+        return money / LOTTO_PRICE;
+    }
+
+}

@@ -1,10 +1,11 @@
-import domain.Numbers;
-import enums.Menu;
+import domain.Lotto;
+import domain.Ticket;
+import org.junit.Before;
 import org.junit.Test;
 import utils.Utils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -12,64 +13,50 @@ import static org.junit.Assert.assertThat;
  * Created by hoon on 2018. 1. 13..
  */
 public class TicketTest {
+    Lotto lotto;
+    Lotto lotto1;
+    Lotto lotto2;
+    @Before
+    public void setup() {
+        lotto = new Lotto(Collections.singletonList(new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6))), new Ticket(Arrays.asList(45, 44, 43, 4, 5, 6)));
+
+        lotto1 = new Lotto(
+                Arrays.asList(
+                        new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                        new Ticket(Arrays.asList(4, 5, 6, 43, 44, 45)),
+                        new Ticket(Arrays.asList(4, 5, 6, 10, 11, 12))
+                ),
+                new Ticket(Arrays.asList(45, 44, 43, 4, 5, 6)));
+
+        lotto2 = new Lotto(
+                Arrays.asList(
+                        new Ticket(Arrays.asList(11, 12, 13, 14, 15, 16)),
+                        new Ticket(Arrays.asList(4, 5, 6, 43, 44, 45)),
+                        new Ticket(Arrays.asList(4, 5, 6, 10, 11, 12))
+                ),
+                new Ticket(Arrays.asList(45, 44, 43, 3, 5, 6)));
+    }
 
     @Test
     public void 당첨_테스트() {
-        ArrayList<Integer> test1 = new ArrayList<>();
-        test1.add(1);
-        test1.add(2);
-        test1.add(3);
-        test1.add(4);
-        test1.add(5);
-        test1.add(6);
-        Numbers numbers1 = new Numbers(test1);
+        Ticket ticket1 = new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6));
+        Ticket ticket2 = new Ticket(Arrays.asList(10, 2, 3, 4, 5, 6));
+        Ticket ticket3 = new Ticket(Arrays.asList(10, 2, 3, 4, 5, 6));
 
-        ArrayList<Integer> test2 = new ArrayList<>();
-        test2.add(10);
-        test2.add(2);
-        test2.add(3);
-        test2.add(4);
-        test2.add(5);
-        test2.add(6);
-        Numbers numbers2 = new Numbers(test2);
-
-        List<Integer> test3 = new ArrayList<>();
-        test3.add(1);
-        test3.add(2);
-        test3.add(3);
-        test3.add(4);
-        test3.add(5);
-        test3.add(6);
-        Numbers numbers3 = new Numbers(test3);
-
-        assertThat(numbers1.calculateHits(numbers2), is(5));
-        assertThat(numbers1.calculateHits(numbers3), is(6));
+        assertThat(ticket1.calculateHits(ticket2), is(5));
+        assertThat(ticket2.calculateHits(ticket3), is(6));
 
     }
 
     @Test
     public void 수익률_테스트() {
-        ArrayList<Integer> test2 = new ArrayList<>();
-        test2.add(1);
-        test2.add(2);
-        test2.add(3);
-        test2.add(4);
-        test2.add(5);
-        test2.add(6);
-        Numbers numbers = new Numbers(test2);
+        assertThat(Utils.getEarningsRate(1000, lotto.getWinningMoney()), is(400.0));
+        assertThat(Utils.getEarningsRate(3000, lotto2.getWinningMoney()), is(49900.0));
+    }
 
-        List<Integer> test3 = new ArrayList<>();
-        test3.add(45);
-        test3.add(44);
-        test3.add(43);
-        test3.add(4);
-        test3.add(5);
-        test3.add(6);
-        Numbers winningNumbers = new Numbers(test3);
-
-        Menu.renewHits(numbers.calculateHits(winningNumbers));
-
-        assertThat(Utils.getEarningsRate(1000, Menu.getWinningMoney()), is(400));
+    @Test
+    public void 세개_매치_전체에서_두개_테스트() {
+        assertThat(lotto1.matchedCount(3), is(2));
     }
 
     @Test
