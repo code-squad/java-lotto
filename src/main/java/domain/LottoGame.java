@@ -21,7 +21,7 @@ public class LottoGame {
         private int countOfMatch;
         private int winningMoney;
 
-        private Rank(int countOfMatch, int winningMoney) {
+        Rank(int countOfMatch, int winningMoney) {
             this.countOfMatch = countOfMatch;
             this.winningMoney = winningMoney;
         }
@@ -115,6 +115,10 @@ public class LottoGame {
         return new LottoResult(result, calRetRate(result, lottos.size()*PRICE));
     }
 
+    // private 객체에 대한 테스트 방법
+    // 1. 코드를 수정하지 않고 하려면 private을 public 메소드로 바꾸고 테스트를 진행한다.
+    // 2. 해당 메소드가 현재 클래스의 private 메소드가 맞는지 의심해봐야 한다.
+    // -> 해당 메소드에 파라미터들을 객체로 만들고 이 내부에 메소드를 public 메소드로 들어가야하는 것이 아닌지에 대해 의심해봐야한다.
     public Map<Rank, Integer> replace(Map<Rank, Integer> result, Rank key) {
         if(result.containsKey(key)){
             int targetCount = result.get(key);

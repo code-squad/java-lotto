@@ -17,6 +17,7 @@ public class Lotto {
         return count;
     }
 
+    // 객체 지향적인 설계를 하다 보면 아래의 hasBonus와 같이 다른 객체에게 행위를 위임하는 동작만을 하는 메소드들이 많이 나오게 된다.
     public boolean hasBonus(WinningLotto winningLotto) {
         return winningLotto.hasBonus(lotto);
     }
