@@ -34,8 +34,18 @@ public class Lotteries extends ArrayList<Lotto>{
         return lotteries.add(lotto);
     }
 
+    public Lotteries concat(Lotteries lotteries) {
+        this.lotteries.addAll(lotteries.lotteries);
+        return this;
+    }
+
     @Override
     public Stream<Lotto> stream() {
         return lotteries.stream();
+    }
+
+    @Override
+    public String toString() {
+        return lotteries.toString();
     }
 }

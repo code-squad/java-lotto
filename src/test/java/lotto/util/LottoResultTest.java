@@ -28,11 +28,6 @@ public class LottoResultTest {
     }
 
     @Test
-    public void 지출() {
-        List<Lotto> buy = LottoVendor.getInstance().buy("16000");
-    }
-
-    @Test
     public void 수익() {
         Lotto jackpot = new Lotto("1, 2, 3, 4, 5, 6");
         Lotteries lottoList = new Lotteries(Arrays.asList(new Lotto("1, 2, 3, 7, 8, 9")));

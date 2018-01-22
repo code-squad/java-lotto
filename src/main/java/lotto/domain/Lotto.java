@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.util.LottoParsingUtil;
 import lotto.util.LottoRecorder;
 import lotto.util.LottoUtil;
 
@@ -9,8 +10,6 @@ import java.util.stream.Collectors;
 
 
 public class Lotto {
-
-    private final static int LOTTO_SELECT_COUNT = 6;
 
     private List<LottoNumber> lotto;
     private Predicate<LottoNumber> contain = number -> contains(number);
@@ -24,8 +23,8 @@ public class Lotto {
     }
 
     public Lotto(String numbers) {
-        if(!LottoUtil.canLotto(numbers)) new IllegalArgumentException();
-        makeLotto(LottoUtil.toLottoNumberList(numbers));
+        if(!LottoUtil.canLotto(numbers)) throw new IllegalArgumentException();
+        makeLotto(LottoParsingUtil.toLottoNumberList(numbers));
     }
 
     public Lotto(List<LottoNumber> numbers) {
@@ -63,7 +62,7 @@ public class Lotto {
     }
 
     private boolean isFull() {
-        return LOTTO_SELECT_COUNT == lotto.size();
+        return LottoUtil.isLottoMaxCount(lotto.size());
     }
 
     public int containCount(Lotto lotto) {

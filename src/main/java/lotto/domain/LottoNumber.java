@@ -13,12 +13,12 @@ public class LottoNumber implements Comparable<LottoNumber> {
     }
 
     public LottoNumber(String number) {
-        if (LottoUtil.canLottoNumber(number)) throw new IllegalArgumentException();
+        if (!LottoUtil.canLottoNumber(number)) throw new IllegalArgumentException();
         makeLottoNumber(Integer.parseInt(number));
     }
 
     public LottoNumber(Integer number) {
-        if (LottoUtil.canLottoNumber(number)) throw new IllegalArgumentException();
+        if (!LottoUtil.canLottoNumber(number)) throw new IllegalArgumentException();
         makeLottoNumber(number);
     }
 

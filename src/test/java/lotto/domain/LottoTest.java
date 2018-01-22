@@ -23,7 +23,7 @@ public class LottoTest {
         assertEquals(6, count);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void 사용자_지정_로또_생성_null() {
         String nullString = null;
         new Lotto(nullString);
