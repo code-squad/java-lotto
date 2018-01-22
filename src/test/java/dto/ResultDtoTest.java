@@ -16,7 +16,8 @@ public class ResultDtoTest {
     @Before
     public void setup() {
         result = new ResultDto(1000);
-        lottos = new Lottos(Arrays.asList(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6))));
+        lottos = new Lottos();
+        lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
     }
 
     @Test
@@ -26,31 +27,31 @@ public class ResultDtoTest {
 
     @Test
     public void 못맞추거나_두개_이하로_맞췃을_때() {
-        result.checkLastWinningNumbers("7, 8, 9, 10, 11, 12", lottos);
+        result.checkLastWinningNumbers("7, 8, 9, 10, 11, 12", 45, lottos);
         assertThat(result.calRevenue()).isEqualTo(-100);
     }
 
     @Test
     public void 세개_맞췃을_때() {
-        result.checkLastWinningNumbers("1, 2, 3, 10, 11, 12", lottos);
+        result.checkLastWinningNumbers("1, 2, 3, 10, 11, 12", 45, lottos);
         assertThat(result.calRevenue()).isEqualTo(400);
     }
 
     @Test
     public void 네개_맞췃을_때() {
-        result.checkLastWinningNumbers("1, 2, 3, 4, 11, 12", lottos);
+        result.checkLastWinningNumbers("1, 2, 3, 4, 11, 12", 45, lottos);
         assertThat(result.calRevenue()).isEqualTo(4900);
     }
 
     @Test
     public void 다섯개_맞췃을_때() {
-        result.checkLastWinningNumbers("1, 2, 3, 4, 5, 12", lottos);
+        result.checkLastWinningNumbers("1, 2, 3, 4, 5, 12", 45, lottos);
         assertThat(result.calRevenue()).isEqualTo(149900);
     }
 
     @Test
     public void 여섯개_맞췃을_때() {
-        result.checkLastWinningNumbers("1, 2, 3, 4, 5, 6", lottos);
+        result.checkLastWinningNumbers("1, 2, 3, 4, 5, 6", 45, lottos);
         assertThat(result.calRevenue()).isEqualTo(199999900);
     }
 }

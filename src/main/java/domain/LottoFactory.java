@@ -11,11 +11,11 @@ public class LottoFactory {
     }
 
     public static Lottos makeLottos(int lottoCount) {
-        List<Lotto> lottos = new ArrayList<>();
+        Lottos lottos = new Lottos();
         for (int i = 0; i < lottoCount; i++) {
             lottos.add(makeLotto());
         }
-        return new Lottos(lottos);
+        return lottos;
     }
 
     private static List<Integer> makeNumbers() {

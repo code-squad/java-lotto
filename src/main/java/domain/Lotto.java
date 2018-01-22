@@ -4,32 +4,21 @@ import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-    private List<Integer> numbers;
+    protected List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
-        numbersCheck(numbers);
-        sortNumbers(numbers);
         this.numbers = numbers;
+        numbersCheck();
+        sortNumbers();
     }
 
-    public int checkTheWinningNumbers(Lotto lotto) {
-        List<Integer> checkNumbers = lotto.numbers;
-        int count = 0;
-        for (int i = 0; i < 6; i++) {
-            if (numbers.contains(checkNumbers.get(i))) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private void numbersCheck(List<Integer> numbers) {
+    protected void numbersCheck() {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException();
         }
     }
 
-    private void sortNumbers(List<Integer> numbers) {
+    private void sortNumbers() {
         Collections.sort(numbers);
     }
 
