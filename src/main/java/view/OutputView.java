@@ -5,7 +5,6 @@ import domain.Rank;
 import dto.ResultDto;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Map;
 
 public class OutputView {
@@ -18,12 +17,7 @@ public class OutputView {
         Rank[] ranks = Rank.values();
         Map<Rank, Integer> ranksCount = resultDto.getRanksCount();
         Arrays.stream(ranks)
-                .sorted(new Comparator<Rank>() {
-                    @Override
-                    public int compare(Rank o1, Rank o2) {
-                        return o1.compare(o2);
-                    }
-                })
+                .sorted((Rank o1, Rank o2) -> o1.compare(o2))
                 .forEach(rank -> System.out.println(rank.toString() + ranksCount.get(rank)));
     }
 }
