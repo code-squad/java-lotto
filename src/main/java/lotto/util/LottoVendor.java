@@ -4,13 +4,11 @@ import lotto.domain.Lotteries;
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
 import lotto.io.InputView;
+import lotto.io.Money;
 import lotto.io.OutputView;
-
-import java.util.List;
 
 public class LottoVendor {
 
-    private final static int LOTTO_PRICE = 1000;
     private static LottoVendor instance;
 
     private LottoVendor() {
@@ -21,16 +19,6 @@ public class LottoVendor {
             instance = new LottoVendor();
         }
         return instance;
-    }
-
-    public int moneyToLottoCount(String money) {
-        if (!LottoUtil.isNumeric(money)) throw new IllegalArgumentException();
-        return unitPerLotto(Integer.parseInt(money));
-    }
-
-    public int unitPerLotto(Integer money) {
-        if (money < LOTTO_PRICE) throw new IllegalArgumentException();
-        return money/LOTTO_PRICE;
     }
 
     public Lotteries buy(int count, boolean manual) {
@@ -50,11 +38,11 @@ public class LottoVendor {
         return lottery;
     }
 
-    public Lotteries buy(String money) {
-        return new Lotteries(makeLotto(moneyToLottoCount(money)));
+    public Lotteries buyForUser(Money money) {
+        return new Lotteries(makeLottoByUser(money.exchangeToLottoCount()));
     }
 
-    private Lotteries makeLotto(int lottoCount) {
+    private Lotteries makeLottoByUser(int lottoCount) {
         Lotteries manualLotto = buy(InputView.orderCountByUser(lottoCount), true);
         lottoCount -= manualLotto.size();
 

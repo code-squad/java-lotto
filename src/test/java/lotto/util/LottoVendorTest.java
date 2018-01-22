@@ -1,20 +1,29 @@
 package lotto.util;
 
 import lotto.domain.Lotto;
+import lotto.io.Money;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class LottoVendorTest {
-    @Test
-    public void 입력을_파싱한다() {
-        assertEquals(16, LottoVendor.getInstance().moneyToLottoCount("16000"));
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 금액_입력_최소_1000이상() {
+        new Money(999);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 금액_입력_최소_1000이상_문자열() {
+        new Money("999");
     }
 
     @Test
-    public void 파싱값을_로또의_단위로_연산_한다() {
-        assertEquals(16 ,LottoVendor.getInstance().unitPerLotto(16000));
+    public void 금액을_로또의_개수로_파싱한다() {
+        new Money(2000);
+        new Money("1999");
+        assertEquals(16, new Money("16000").exchangeToLottoCount());
     }
 
     @Test

@@ -1,8 +1,5 @@
 package lotto.util;
 
-import lotto.domain.Lotteries;
-import lotto.domain.Lotto;
-
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -11,6 +8,7 @@ public class LottoUtil {
 
     private final static int LOTTO_MIN_NUMBER = 1;
     private final static int LOTTO_MAX_NUMBER = 45;
+    private final static int LOTTO_NUMBER_MAX_COUNT = 6;
 
     public static int getRandom() {
         return new Random().nextInt(LOTTO_MAX_NUMBER)+LOTTO_MIN_NUMBER;
@@ -18,7 +16,7 @@ public class LottoUtil {
 
     public static boolean canLotto(String numbers) {
         numbers = LottoParsingUtil.removeSpace(numbers);
-        return !isBlank(numbers) && LottoParsingUtil.match(numbers) && !outOfRange(numbers) && !hasSameNumber(numbers);
+        return LottoParsingUtil.match(numbers) && !outOfRange(numbers) && hasSameNumber(numbers) && isLottoMaxCount(numbers);
     }
 
     public static boolean canLottoNumber(String number) {
@@ -46,7 +44,15 @@ public class LottoUtil {
     }
 
     private static boolean hasSameNumber(String numbers) {
-        return removeSameNumber(numbers).size() != LottoParsingUtil.stringToIntStream(numbers).count();
+        return removeSameNumber(numbers).size() == LottoParsingUtil.stringToIntStream(numbers).count();
+    }
+
+    public static boolean isLottoMaxCount(int count) {
+        return count == LOTTO_NUMBER_MAX_COUNT;
+    }
+
+    private static boolean isLottoMaxCount(String numbers) {
+        return isLottoMaxCount((int) LottoParsingUtil.stringToIntStream(numbers).count());
     }
 
     private static Set<Integer> removeSameNumber(String numbers) {

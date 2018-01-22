@@ -4,14 +4,13 @@ import lotto.domain.Lotteries;
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
 import lotto.util.LottoUtil;
-import lotto.util.LottoVendor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
-    public static String inputMoney() {
+    public static Money inputMoney() {
         System.out.println("구입금액을 입력해 주세요.");
 
         Scanner scanner = new Scanner(System.in);
@@ -22,7 +21,7 @@ public class InputView {
             money = scanner.nextLine();
         }
         System.out.println(String.format("%s", money));
-        return money;
+        return new Money(money);
     }
 
     public static Lotto inputManualLotto(String text) {

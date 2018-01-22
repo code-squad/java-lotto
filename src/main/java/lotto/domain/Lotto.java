@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 
 public class Lotto {
 
-    private final static int LOTTO_SELECT_COUNT = 6;
-
     private List<LottoNumber> lotto;
     private Predicate<LottoNumber> contain = number -> contains(number);
 
@@ -64,7 +62,7 @@ public class Lotto {
     }
 
     private boolean isFull() {
-        return LOTTO_SELECT_COUNT == lotto.size();
+        return LottoUtil.isLottoMaxCount(lotto.size());
     }
 
     public int containCount(Lotto lotto) {

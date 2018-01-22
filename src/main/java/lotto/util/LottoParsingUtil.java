@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 
 public class LottoParsingUtil {
     private final static String PARSING_SYMBOL = ",";
-    private final static String LOTTO_PATTERN = "^(\\d{1,2})\\,(\\d{1,2})\\,(\\d{1,2})\\,(\\d{1,2})\\,(\\d{1,2})\\,(\\d{1,2})$";
 
     public static List<LottoNumber> toLottoNumberList(String numbers) {
         Objects.requireNonNull(numbers);
@@ -20,15 +19,20 @@ public class LottoParsingUtil {
     }
 
     public static boolean match(String numbers) {
-        return numbers.matches(LOTTO_PATTERN);
+        if (LottoUtil.isBlank(numbers)) return false;
+        return Arrays.asList(numbers.split(PARSING_SYMBOL)).stream()
+                .map(number -> removeSpace(number))
+                .allMatch(number -> LottoUtil.isNumeric(number));
     }
 
     public static String removeSpace(String text) {
         if (LottoUtil.isBlank(text)) return text;
-        return text.replaceAll("\\s+", "");
+        return text.trim();
     }
 
     public static Stream<Integer> stringToIntStream(String numbers) {
-        return Arrays.asList(removeSpace(numbers).split(PARSING_SYMBOL)).stream().mapToInt(Integer::valueOf).boxed();
+        return Arrays.asList(numbers.split(PARSING_SYMBOL)).stream()
+                .map(LottoParsingUtil::removeSpace)
+                .mapToInt(Integer::valueOf).boxed();
     }
 }
