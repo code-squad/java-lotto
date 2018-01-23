@@ -10,6 +10,7 @@ import java.util.*;
 public class LottoGame {
     private List<Lotto> lottos;
     public static final int PRICE = 1000;
+
     public enum Rank {
 
         FIRST(6, 2000000000),
@@ -30,10 +31,6 @@ public class LottoGame {
             return countOfMatch;
         }
 
-        public int getWinningMoney() {
-            return winningMoney;
-        }
-
         public static Rank valueOf(int countOfMatch, boolean matchBonus) {
 
             for(Rank rank : Rank.values()){
@@ -49,33 +46,31 @@ public class LottoGame {
         }
     }
 
-    public LottoGame(int money){
+    public LottoGame(int autoLottoCount, List<String> userLottoText){
         lottos = new ArrayList<Lotto>();
-        int amount = amountOfLotto(money);
-
-        for (int i = 0; i < amount; i++) {
-            lottos.add(new Lotto(getLotto()));
-        }
-
-        OutputView.printMyLotto(lottos);
+        getManualLottos(userLottoText);
+        getAutoLottos(autoLottoCount);
+        OutputView.printMyLotto(lottos, lottos.size()-autoLottoCount, autoLottoCount);
     }
 
-    private List<Integer> getLotto() {
-        List<Integer> numbers = new ArrayList<Integer>();
-        for (int i = 1; i < 46; i++) {
-            numbers.add(i);
+    private void getAutoLottos(int autoLottoCount) {
+        for (int i = 0; i < autoLottoCount; i++) {
+            lottos.add(new Lotto());
         }
+    }
 
-        List<Integer> lotto = subList(shuffle(numbers));
-        return sort(lotto);
+    private void getManualLottos(List<String> userLottoText) {
+        for (int i = 0; i < userLottoText.size(); i++){
+            lottos.add(new Lotto(generateLottoNum(userLottoText.get(i))));
+        }
     }
 
     public static int amountOfLotto(int money) {
         return money/PRICE;
     }
 
-    public List<Integer> generateLuckyNum(String luckyNumText) {
-        List<Integer> luckNum = new ArrayList<Integer>();
+    public List<Integer> generateLottoNum(String luckyNumText) {
+        List<Integer> luckNum = new ArrayList<>();
         for(String luckyNum : StringUtils.split(luckyNumText)){
             luckNum.add(ParsingUtils.toInts(luckyNum));
         }
@@ -91,7 +86,7 @@ public class LottoGame {
     }
 
     public LottoResult match(String luckyNumText, int bonusNumber) {
-        WinningLotto winningLotto = new WinningLotto(generateLuckyNum(luckyNumText), bonusNumber);
+        WinningLotto winningLotto = new WinningLotto(generateLottoNum(luckyNumText), bonusNumber);
         Map<Rank, Integer> result = new HashMap<Rank, Integer>(){
             {
                 put(Rank.FIRST, 0);
@@ -105,14 +100,19 @@ public class LottoGame {
         for(Lotto lotto : lottos){
             boolean bonusYn = false;
             int key = lotto.countMatchLotto(winningLotto);
-            if(key >= 5){
-                bonusYn = lotto.hasBonus(winningLotto);
-            }
+            bonusYn = isBonusYn(winningLotto, lotto, bonusYn, key);
 
             result = replace(result, Rank.valueOf(key, bonusYn));
         }
 
         return new LottoResult(result, calRetRate(result, lottos.size()*PRICE));
+    }
+
+    private boolean isBonusYn(WinningLotto winningLotto, Lotto lotto, boolean bonusYn, int key) {
+        if(key >= 5){
+            bonusYn = lotto.hasBonus(winningLotto);
+        }
+        return bonusYn;
     }
 
     // private 객체에 대한 테스트 방법
@@ -128,18 +128,6 @@ public class LottoGame {
     }
 
     //
-    private List<Integer> subList(List<Integer> numbers) {
-        return numbers.subList(0, 6);
-    }
 
-    private List<Integer> sort(List<Integer> numbers) {
-        Collections.sort(numbers);
-        return numbers;
-    }
-
-    private List<Integer>shuffle(List<Integer> numbers) {
-        Collections.shuffle(numbers);
-        return numbers;
-    }
 
 }

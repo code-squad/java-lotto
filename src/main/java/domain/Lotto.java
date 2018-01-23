@@ -1,9 +1,15 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
     private List<Integer> lotto;
+
+    public Lotto(){
+        this.lotto = getLotto();
+    }
 
     public Lotto(List<Integer> lotto){
         this.lotto = lotto;
@@ -27,6 +33,30 @@ public class Lotto {
             return 1;
         }
         return 0;
+    }
+
+    private List<Integer> getLotto() {
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 1; i < 46; i++) {
+            numbers.add(i);
+        }
+
+        List<Integer> lotto = subList(shuffle(numbers));
+        return sort(lotto);
+    }
+
+    private List<Integer> subList(List<Integer> numbers) {
+        return numbers.subList(0, 6);
+    }
+
+    private List<Integer> sort(List<Integer> numbers) {
+        Collections.sort(numbers);
+        return numbers;
+    }
+
+    private List<Integer>shuffle(List<Integer> numbers) {
+        Collections.shuffle(numbers);
+        return numbers;
     }
 
     @Override
