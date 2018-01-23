@@ -10,11 +10,11 @@ public class Lotto {
     private Set<LottoNumber> numbers;
 
     public Lotto(List<Integer> numbers){
-        validate(numbers);
-
         this.numbers = numbers.stream()
                 .map(LottoNumber::new)
                 .collect(Collectors.toSet());
+
+        validate();
     }
 
     public Lotto(String text){
@@ -23,27 +23,24 @@ public class Lotto {
         }
 
         List<Integer> numbers = toInts(text.split(","));
-        validate(numbers);
 
         this.numbers = numbers.stream()
                 .map(LottoNumber::new)
                 .collect(Collectors.toSet());
+
+        validate();
     }
 
-    private void validate(List<Integer> numbers){
+    private void validate(){
         if(numbers.size() < 6){
             throw new IllegalArgumentException("번호 입력을 잘못하였습니다.");
         }
     }
 
     private static List<Integer> toInts(String[] values){
-        List<Integer> result = new ArrayList<>();
-
-        for(int i=0 ; i<values.length ; i++){
-            result.add(toInt(values[i]));
-        }
-
-        return result;
+        return Arrays.stream(values)
+                .map(v -> Integer.parseInt(v.trim()))
+                .collect(Collectors.toList());
     }
 
     private static int toInt(String value){
