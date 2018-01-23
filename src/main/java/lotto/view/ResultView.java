@@ -1,18 +1,19 @@
 package lotto.view;
 
-import lotto.domain.Lotto;
+import lotto.domain.Order;
 import lotto.dto.WinningDTO;
 import lotto.type.WinningType;
 
-import java.util.List;
 
 public class ResultView {
-    public static void printLottos(List<Lotto> lottos){
-        System.out.println(lottos.size()+"개를 구매했습니다.");
+    public static void printLottos(Order order){
+        int custom = order.countOfCustomLotto();
+        int auto = order.countOfLotto() - custom;
 
-        for(Lotto lotto : lottos){
-            System.out.println(lotto);
-        }
+        System.out.println("수동으로 "+custom+"개, 자동으로 "+auto+"개를 구매했습니다.");
+        order.getLottos()
+                .stream()
+                .forEach(System.out::println);
 
     }
 
