@@ -3,6 +3,7 @@ package lottoGame.view;
 import lottoGame.domain.Lotto;
 import lottoGame.domain.LottoGame;
 import lottoGame.dto.Result;
+import lottoGame.enums.Rank;
 
 import java.util.List;
 
@@ -18,11 +19,10 @@ public class PrintView {
         }
     }
 
-    public static void printStatistics(Result result) {
-        System.out.println("3개일치 (5000원) :" + result.profit.get(5000));
-        System.out.println("4개일치 (50000원) :" + result.profit.get(50000));
-        System.out.println("5개일치 (1500000원) :" + result.profit.get(1500000));
-        System.out.println("6개일치 (2000000000원) :" + result.profit.get(2000000000));
+    public static void printStatistics(LottoGame lottoGame) {
+        for (Rank rank : Rank.values()) {
+            System.out.println(rank.resultString() + lottoGame.getRankCount(rank) + "개");
+        }
     }
 
     public static void printResult(LottoGame lottoGame) {

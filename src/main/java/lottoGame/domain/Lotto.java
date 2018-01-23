@@ -1,10 +1,13 @@
 package lottoGame.domain;
 
+import lottoGame.enums.Rank;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lotto {
-    private List<Integer> numbers = new ArrayList<>();
+    List<Integer> numbers = new ArrayList<>();
+    private boolean bonusMatch = false;
     private int matchNum = 0;
 
     public Lotto(List<Integer> nums) {
@@ -14,28 +17,34 @@ public class Lotto {
         this.numbers = nums;
     }
 
-    public void matchPoint(Lotto lastWeekLotto) {
+    public void matchPoint(WinningLotto winningLotto) {
         for (Integer number : numbers) {
-            if(lastWeekLotto.numbers.contains(number)) {
+            if(winningLotto.numbers.contains(number)) {
                 this.matchNum++;
+            }
+            if(numbers.contains(winningLotto.bonusNum)) {
+                bonusMatch =true;
             }
         }
     }
 
-    public int profit() {
+    public Rank lottoRank() {
         if(this.matchNum == 3) {
-            return 5000;
+            return Rank.FIFTH;
         }
         if(this.matchNum == 4) {
-            return 50000;
+            return Rank.FOURTH;
+        }
+        if(this.matchNum == 5 && this.bonusMatch) {
+            return Rank.SECOND;
         }
         if(this.matchNum == 5) {
-            return 1500000;
+            return Rank.THIRD;
         }
         if(this.matchNum == 6) {
-            return 2000000000;
+            return Rank.FIRST;
         }
-        return 0;
+        return Rank.MISS;
     }
 
     @Override

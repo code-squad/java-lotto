@@ -16,4 +16,10 @@ public class InputView {
 
         return scanner.next();
     }
+
+    public static int bonusInput() {
+        System.out.println("보너스 번호를 입력해주세요");
+
+        return scanner.nextInt();
+    }
 }

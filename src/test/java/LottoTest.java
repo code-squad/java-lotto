@@ -1,4 +1,6 @@
 import lottoGame.domain.Lotto;
+import lottoGame.domain.WinningLotto;
+import lottoGame.enums.Rank;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,32 +15,38 @@ public class LottoTest {
     private Lotto threeMatch;
     private Lotto fourMatch;
     private Lotto fiveMatch;
+    private Lotto bonusMatch;
 
     @Before
     public void setup(){
-        Lotto lastWeekNumbers = new Lotto(Arrays.asList(1,2,3,4,5,6));
+        WinningLotto winningLotto = new WinningLotto(Arrays.asList(1,2,3,4,5,6),7);
         allMatch = new Lotto(Arrays.asList(1,2,3,4,5,6));
-        allMatch.matchPoint(lastWeekNumbers);
+        allMatch.matchPoint(winningLotto);
 
         threeMatch = new Lotto(Arrays.asList(1,2,3,9,10,11));
-        threeMatch.matchPoint(lastWeekNumbers);
+        threeMatch.matchPoint(winningLotto);
 
         fourMatch = new Lotto(Arrays.asList(1,2,3,4,7,8));
-        fourMatch.matchPoint(lastWeekNumbers);
+        fourMatch.matchPoint(winningLotto);
 
-        fiveMatch = new Lotto(Arrays.asList(1,2,3,4,5,9));
-        fiveMatch.matchPoint(lastWeekNumbers);
+        fiveMatch = new Lotto(Arrays.asList(2,3,4,5,6,9));
+        fiveMatch.matchPoint(winningLotto);
+
+        bonusMatch = new Lotto(Arrays.asList(1,2,3,4,5,7));
+        bonusMatch.matchPoint(winningLotto);
     }
 
     @Test
-    public void 당첨_금액_테스트() {
-        assertEquals(5000, threeMatch.profit());
+    public void 당첨_랭킹_테스트() {
+        assertEquals(Rank.FIFTH, threeMatch.lottoRank());
 
-        assertEquals(50000, fourMatch.profit());
+        assertEquals(Rank.FOURTH, fourMatch.lottoRank());
 
-        assertEquals(1500000, fiveMatch.profit());
+        assertEquals(Rank.THIRD, fiveMatch.lottoRank());
 
-        assertEquals(2000000000, allMatch.profit());
+        assertEquals(Rank.FIRST, allMatch.lottoRank());
+
+        assertEquals(Rank.SECOND, bonusMatch.lottoRank());
     }
 
     @Test(expected = IllegalArgumentException.class)
