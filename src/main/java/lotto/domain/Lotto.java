@@ -8,7 +8,6 @@ import java.util.stream.IntStream;
 
 public class Lotto {
 
-    public static final  List<LottoNo> LOTTO_NUMBER_RANGE = IntStream.range(1, 46).boxed().map(i -> new LottoNo(i)).collect(Collectors.toList());
     private List<LottoNo> numbers;
 
     public Lotto(List<LottoNo> numbers) {
@@ -22,9 +21,10 @@ public class Lotto {
     }
 
     public Lotto() {
-        numbers = new ArrayList<>();
+        List<LottoNo> LOTTO_NUMBER_RANGE = IntStream.range(1, 46).boxed().map(i -> new LottoNo(i)).collect(Collectors.toList());
+        this.numbers = new ArrayList<>();
         Collections.shuffle(LOTTO_NUMBER_RANGE, new Random());
-        numbers = LOTTO_NUMBER_RANGE.subList(0, 6);
+        this.numbers = LOTTO_NUMBER_RANGE.subList(0, 6);
     }
 
     private boolean hasDuplicatedNumber(List<LottoNo> inputLottos) {

@@ -48,6 +48,14 @@ public class LottoResult {
         return resultMap;
     }
 
+    public List<String> getResultList( Map<Rank, Integer> resultMap) {
+        List<String> results = new ArrayList<>();
+        for (Map.Entry<Rank, Integer> rank : resultMap.entrySet()) {
+            results.add(rank.getKey().getCount() +" 일치 " + rank.getKey().getPrice() +" 원 - "+rank.getValue());
+        }
+        return results;
+    }
+
     private Map<Rank, Integer> initResultMap() {
         Map<Rank, Integer> statistics = new HashMap<>();
         statistics.put(Rank.FIRST, 0);

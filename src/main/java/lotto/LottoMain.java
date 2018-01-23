@@ -1,32 +1,55 @@
 package lotto;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import lotto.domain.LottoResult;
 import lotto.domain.LottoStore;
 import lotto.domain.Money;
 import lotto.domain.WinningLotto;
-import lotto.view.InputUI;
-import lotto.view.ResultUI;
+import spark.ModelAndView;
+import spark.template.handlebars.HandlebarsTemplateEngine;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import static spark.Spark.*;
 
 public class LottoMain {
 
     public static void main(String[] args) {
-        int amount = InputUI.inputAmount();
-        int manualLottoCount = InputUI.inputManualLottoCount();
+        port(8080);
 
-        List<String> manualLottos = InputUI.inputManualLottoNumbers(manualLottoCount);
-        LottoStore lottoStore = new LottoStore(new Money(amount), manualLottos);
+        get("/", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return render(model, "/index.html");
+        });
 
-        ResultUI.printCount(lottoStore);
-        ResultUI.printLottos(lottoStore);
+        post("/buyLotto", ((request, response) -> {
+            String money = request.queryParams("inputMoney");
+            String manualNumber = request.queryParams("manualNumber");
 
-        String winNumbers = InputUI.inputLastWinNumber();
-        int bonus = InputUI.inputBonus();
-        LottoResult lottoResult = lottoStore.match(new WinningLotto(winNumbers, bonus));
-        ResultUI.printStatistics(lottoResult);
-        ResultUI.printPercentage(lottoResult);
+            LottoStore lottoStore = new LottoStore(new Money(Integer.parseInt(money)),   Arrays.asList(manualNumber.split("\r\n")));
+            request.session().attribute("lottoStore", lottoStore);
+            Map<String, Object> model = new HashMap<>();
+            model.put("lottos", lottoStore.getLottos());
+            model.put("count", lottoStore.getLottos().size());
+            return render(model, "/show.html");
+        }));
 
+        post("/matchLotto", ((request, response) -> {
+            String winningNumber = request.queryParams("winningNumber");
+            String bonusNumber = request.queryParams("bonusNumber");
+
+            LottoStore lottoStore = request.session().attribute("lottoStore");
+            LottoResult lottoResult = lottoStore.match(new WinningLotto(winningNumber, Integer.parseInt(bonusNumber)));
+            Map<String, Object> model = new HashMap<>();
+            model.put("result",lottoResult.getResultList(lottoResult.getResult()));
+            model.put("profit",lottoResult.getPercentage());
+            return render(model, "/result.html");
+        }));
     }
+
+    public static String render(Map<String, Object> model, String templatePath) {
+        return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
+    }
+
 }

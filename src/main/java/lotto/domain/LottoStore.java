@@ -16,7 +16,8 @@ public class LottoStore {
 
     private void setAutoLottos(int autoLottoCount) {
         while (autoLottoCount > 0) {
-            lottos.add(new Lotto());
+            Lotto lotto = new Lotto();
+            lottos.add(lotto);
             autoLottoCount--;
         }
     }
