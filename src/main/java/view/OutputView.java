@@ -8,7 +8,8 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class OutputView {
-    public void printLottoCount(Lottos lottos) {
+    public void printLottoCount(int handCount, Lottos lottos) {
+        System.out.print("수동으로 " + handCount + "장, 자동으로 ");
         System.out.println(lottos);
     }
 

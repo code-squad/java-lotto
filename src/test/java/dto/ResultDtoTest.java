@@ -15,7 +15,7 @@ public class ResultDtoTest {
 
     @Before
     public void setup() {
-        result = new ResultDto(1000);
+        result = new ResultDto(1000, 0, new Lottos());
         lottos = new Lottos();
         lottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
     }
@@ -52,6 +52,16 @@ public class ResultDtoTest {
     @Test
     public void 여섯개_맞췃을_때() {
         result.checkLastWinningNumbers("1, 2, 3, 4, 5, 6", 45, lottos);
+        assertThat(result.calRevenue()).isEqualTo(199999900);
+    }
+
+    @Test
+    public void 수동으로_진행해서_여섯개_맞췃을_때() {
+        Lottos handLottos = new Lottos();
+        handLottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
+        result = new ResultDto(1000, 1, handLottos);
+
+        result.checkLastWinningNumbers("1, 2, 3, 4, 5, 6", 45, new Lottos());
         assertThat(result.calRevenue()).isEqualTo(199999900);
     }
 }

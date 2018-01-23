@@ -7,11 +7,13 @@ import view.OutputView;
 public class Main {
     public static void main(String[] args) {
         int price = InputView.purchaseAmount();
-        ResultDto resultDto = new ResultDto(price);
-        Lottos lottos = LottoFactory.makeLottos(resultDto.countOfLotto());
+        int handCount = InputView.handMakeottosCount();
+        Lottos handMakeLottos = InputView.handMakeLottos(handCount);
+        ResultDto resultDto = new ResultDto(price, handCount, handMakeLottos);
+        Lottos autoMakeLottos = LottoFactory.autoMakeLottos(resultDto.autoMakeLottoCount());
         OutputView outputView = new OutputView();
-        outputView.printLottoCount(lottos);
-        resultDto.checkLastWinningNumbers(InputView.lastAnswerNumbers(), InputView.bonusBall(), lottos);
+        outputView.printLottoCount(handCount, autoMakeLottos);
+        resultDto.checkLastWinningNumbers(InputView.lastAnswerNumbers(), InputView.bonusBall(), autoMakeLottos);
         outputView.printResult(resultDto);
     }
 }
