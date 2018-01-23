@@ -1,5 +1,7 @@
 import lottoGame.domain.Lotto;
 import lottoGame.domain.LottoGame;
+import lottoGame.domain.WinningLotto;
+import lottoGame.enums.Rank;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,22 +20,24 @@ public class LottoGameTest {
         List<Lotto> lottos = new ArrayList<>();
         lottos.add(new Lotto(Arrays.asList(1,2,3,4,5,6)));
         lottos.add(new Lotto(Arrays.asList(1,3,4,5,6,7)));
+
+
+        WinningLotto winningLotto = new WinningLotto(Arrays.asList(1,2,3,4,5,8),6);
+
         lottoGame = new LottoGame(2000,lottos);
+
+        lottoGame.runGame(winningLotto);
+    }
+
+    @Test
+    public void 로또_게임_통계_테스트() {
+        assertEquals(1,lottoGame.getRankCount(Rank.SECOND));
+        assertEquals(1,lottoGame.getRankCount(Rank.FOURTH));
 
     }
 
     @Test
-    public void 로또_게임_실행결과_테스트() {
-        Lotto lastWeekLotto = new Lotto(Arrays.asList(1,2,3,4,5,6));
-        List<Lotto> compareLottos = new ArrayList<>();
-
-        compareLottos.add(new Lotto(Arrays.asList(1,2,3,4,5,6)));
-        compareLottos.add(new Lotto(Arrays.asList(1,3,4,5,6,7)));
-
-        for (Lotto compareLotto : compareLottos) {
-            compareLotto.matchPoint(lastWeekLotto);
-        }
-
-        assertEquals(true,lottoGame.runGame(lastWeekLotto).equals(compareLottos));
+    public void 로또_수익률_계산() {
+        assertEquals(1502500,lottoGame.calcProfit());
     }
 }

@@ -1,6 +1,6 @@
 package lottoGame.domain;
 
-import lottoGame.dto.Result;
+import lottoGame.enums.Rank;
 import lottoGame.util.LottoGenerator;
 
 import java.util.ArrayList;
@@ -16,15 +16,27 @@ public class LottoGame {
         this.lottos = lottos;
     }
 
-    public List<Lotto> runGame(Lotto lastWeekLotto) {
+    public List<Lotto> runGame(WinningLotto winningLotto) {
         for (Lotto lotto : lottos) {
-            lotto.matchPoint(lastWeekLotto);
+            lotto.matchPoint(winningLotto);
         }
         return lottos;
     }
 
+    public int getRankCount(Rank rank) {
+       return (int) this.lottos.stream()
+                .filter(lotto -> lotto.lottoRank().equals(rank))
+                .count();
+    }
+
     public int calcProfit(){
-        return (Result.getAllProfit() / (lottos.size() * LottoGenerator.LOTTO_PRICE)) * 100;
+        int profit = 0;
+        for (Lotto lotto : lottos) {
+            profit += lotto.lottoRank().getWinningMoney();
+        }
+
+        return (profit / (lottos.size() * LottoGenerator.LOTTO_PRICE)) * 100;
+        /*return (Result.getAllProfit() / (lottos.size() * LottoGenerator.LOTTO_PRICE)) * 100;*/
     }
 
     public List<Lotto> getLottos() {

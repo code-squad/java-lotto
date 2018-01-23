@@ -1,6 +1,6 @@
 import lottoGame.domain.Lotto;
 import lottoGame.domain.LottoGame;
-import lottoGame.dto.Result;
+import lottoGame.domain.WinningLotto;
 import lottoGame.util.LottoGenerator;
 import lottoGame.view.InputView;
 import lottoGame.view.PrintView;
@@ -24,11 +24,13 @@ public class Main {
         PrintView.printLotto(lottoGame.getLottos());
 
         String lastWeek = InputView.lastWeekNums();
-        Lotto lastWeekLotto = LottoGenerator.lastWeekLotto(lastWeek);
+        int bonus = InputView.bonusInput();
 
-        Result result = new Result(lottoGame.runGame(lastWeekLotto));
+        WinningLotto winningLotto = new WinningLotto(LottoGenerator.lastWeekLotto(lastWeek),bonus);
 
-        PrintView.printStatistics(result);
+        lottoGame.runGame(winningLotto);
+
+        PrintView.printStatistics(lottoGame);
         PrintView.printResult(lottoGame);
     }
 }
