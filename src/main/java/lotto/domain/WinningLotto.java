@@ -1,25 +1,20 @@
 package lotto.domain;
 
-import java.util.List;
-
 public class WinningLotto {
-    private List<Integer> numbers;
-    private int bonus;
+    private Lotto lotto;
+    private LottoNumber bonus;
 
-    public WinningLotto(List<Integer> numbers, int bonus) {
-        this.numbers = numbers;
-        this.bonus = bonus;
+    public WinningLotto(String numbers, int bonus) {
+        this.lotto = new Lotto(numbers);
+        this.bonus = new LottoNumber(bonus);
+
+        if(lotto.contains(this.bonus)){
+            throw new IllegalArgumentException();
+        }
     }
 
     public int match(Lotto lotto){
-        int matchCount = 0;
-        for(int number : numbers){
-            if(lotto.contains(number)){
-                matchCount++;
-            }
-        }
-
-        return matchCount;
+        return this.lotto.matchCount(lotto);
     }
 
     public boolean isBonus(Lotto lotto){

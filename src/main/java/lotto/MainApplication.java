@@ -1,6 +1,5 @@
 package lotto;
 
-import lotto.domain.Lotto;
 import lotto.domain.Order;
 import lotto.domain.WinningLotto;
 import lotto.dto.WinningDTO;
@@ -12,12 +11,14 @@ import java.util.List;
 public class MainApplication {
     public static void main(String[] args) {
         int totalCost = InputView.getTotalCost();
-        Order order = new Order(totalCost);
+        int customCount = InputView.getCustomCount();
+        List<String> customNumbers = InputView.getCustomNumber(customCount);
+        Order order = new Order(totalCost, customNumbers);
 
-        ResultView.printLottos(order.getLottos());
+        ResultView.printLottos(order);
 
-        List<Integer> luckyNumbers = InputView.getLuckyNumber();
-        int bonus = InputView.getBonus(luckyNumbers);
+        String luckyNumbers = InputView.getLuckyNumber();
+        int bonus = InputView.getBonus();
         WinningDTO winningResult = order.checkWinning(new WinningLotto(luckyNumbers, bonus));
 
         ResultView.printWinningResult(winningResult);

@@ -1,48 +1,66 @@
 package lotto.domain;
 
-import lotto.dto.WinningDTO;
-import lotto.type.WinningType;
 
-import java.util.*;
+import lotto.dto.WinningDTO;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 public class Order {
 
-    private List<Lotto> lottos;
+    private int customLottoCount;
+    private Lottos lottos;
 
-    public Order(int totalCost){
-        if(totalCost < Lotto.LOTTO_COST){
+    public Order(int totalCost, List<String> customLottoNumber){
+        if(totalCost < Lotto.COST){
             throw new IllegalArgumentException("구매금액이 잘못되었습니다.");
         }
 
-        this.lottos = createLotto(totalCost / Lotto.LOTTO_COST);
+        this.lottos = new Lottos();
+
+        int totalCount = totalCost / Lotto.COST;
+
+        Optional<List> listOptional = Optional.ofNullable(customLottoNumber);
+        listOptional.orElseThrow(IllegalArgumentException::new);
+
+        if(!customLottoNumber.isEmpty()){
+            this.customLottoCount = createCustom(customLottoNumber);
+        }
+
+        createAuto(totalCount - customLottoNumber.size());
+    }
+
+    public int countOfCustomLotto(){
+        return this.customLottoCount;
+    }
+
+    public int countOfLotto() {
+        return lottos.size();
     }
 
     public WinningDTO checkWinning(WinningLotto wLotto){
-        WinningDTO result = new WinningDTO(getTotalCost());
+        return lottos.match(wLotto);
+    }
 
-        for(Lotto lotto : lottos){
-            result.update(matchLotto(wLotto, lotto));
+    private int createCustom(List<String> customLottoNumber){
+        for(String text : customLottoNumber){
+            lottos.add(new Lotto(text));
         }
 
-        return result;
+        return lottos.size();
     }
 
-    public WinningType matchLotto(WinningLotto wLotto, Lotto lotto){
-        return WinningType.parse(wLotto.match(lotto), wLotto.isBonus(lotto));
-    }
-
-    private List<Lotto> createLotto(int count){
-        lottos = new ArrayList<>();
+    private void createAuto(int count){
         for(int i=0 ; i<count ; i++) {
-            lottos.add(new Lotto(getTarget().subList(0, Lotto.LOTTO_PICK_COUNT)));
+            lottos.add(new Lotto(getTarget().subList(0, Lotto.PICK_COUNT)));
         }
-
-        return lottos;
     }
 
     private List<Integer> getTarget() {
         List<Integer> target = new ArrayList<>();
-        for(int t = Lotto.LOTTO_MIN_NUMBER; t<Lotto.LOTTO_MAX_NUMBER ; t++) {
+        for(int t = LottoNumber.MIN_NUMBER; t<LottoNumber.MAX_NUMBER; t++) {
             target.add((t+1));
         }
 
@@ -50,11 +68,12 @@ public class Order {
         return target;
     }
 
-    public List<Lotto> getLottos() {
+    public Lottos getLottos() {
         return lottos;
     }
 
-    public int getTotalCost() {
-        return lottos.size() * Lotto.LOTTO_COST;
+    @Override
+    public String toString() {
+        return lottos.toString();
     }
 }

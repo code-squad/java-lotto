@@ -4,6 +4,7 @@ import lotto.type.WinningType;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,29 +16,22 @@ public class OrderTest {
 
     @Test
     public void create() {
-        order = new Order(TOTAL_COST);
+        order = new Order(TOTAL_COST, Arrays.asList("1,2,3,4,5,6", "7,8,9,10,11,12"));
+        order.getLottos()
+                .stream()
+                .forEach(System.out::println);
 
-        List<Lotto> lottos = order.getLottos();
-
-        assertThat(lottos).isNotNull();
-        assertThat(lottos.size()).isEqualTo(14);
-
+        assertThat(order.countOfLotto()).isEqualTo(14);
     }
 
-    @Test
-    public void matchLotto() {
-        order = new Order(TOTAL_COST);
-        WinningLotto wLotto = new WinningLotto(Arrays.asList(1,2,3,4,5,6), 7);
+    @Test(expected = IllegalArgumentException.class)
+    public void create_최소금액_체크(){
+        List<String> customLottoNumber = new ArrayList<>();
+        order = new Order(500, customLottoNumber);
+    }
 
-        Lotto lotto = new Lotto(Arrays.asList(1,2,3,4,5,6));
-        assertThat(order.matchLotto(wLotto, lotto)).isEqualTo(WinningType.MATCH_ALL);
-
-        Lotto matchFiveWithBonus = new Lotto(Arrays.asList(1,2,3,4,5,7));
-        assertThat(order.matchLotto(wLotto, matchFiveWithBonus)).isEqualTo(WinningType.MATCH_FIVE_WITH_BONUS);
-
-        Lotto matchNone = new Lotto(Arrays.asList(10,11,12,13,14,15));
-        assertThat(order.matchLotto(wLotto, matchNone)).isEqualTo(WinningType.NONE);
-
-
+    @Test(expected = IllegalArgumentException.class)
+    public void create_수동입력_null_체크(){
+        order = new Order(TOTAL_COST, null);
     }
 }
