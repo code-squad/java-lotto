@@ -50,7 +50,7 @@ public class LottoGame {
         lottos = new ArrayList<Lotto>();
         getManualLottos(userLottoText);
         getAutoLottos(autoLottoCount);
-        OutputView.printMyLotto(lottos, lottos.size()-autoLottoCount, autoLottoCount);
+        OutputView.printMyLotto(lottos, lottos.size()-1, autoLottoCount);
     }
 
     private void getAutoLottos(int autoLottoCount) {

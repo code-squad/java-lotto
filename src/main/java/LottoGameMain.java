@@ -8,10 +8,10 @@ import java.util.Scanner;
 public class LottoGameMain {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        int autoLottoCount = LottoGame.amountOfLotto(InputView.inputMoney(sc));
+        int totalCount = LottoGame.amountOfLotto(InputView.inputMoney(sc));
         List<String> userLottoText = InputView.inputManualLottoNumber(sc, InputView.inputManualLottoCount(sc));
 
-        LottoGame lottoGame = new LottoGame(autoLottoCount, userLottoText);
+        LottoGame lottoGame = new LottoGame(totalCount-userLottoText.size(), userLottoText);
         String luckyNumbers = InputView.inputLuckyNumbers(sc);
         int bonusNumber = InputView.inputBonusNumber(sc);
 

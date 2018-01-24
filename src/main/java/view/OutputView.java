@@ -11,7 +11,7 @@ import static domain.LottoGame.Rank;
 public class OutputView {
 
     public static void printMyLotto(List<Lotto> lottos, int manualLottoCount, int autoLottoCount){
-        System.out.println("수동으로 " + manualLottoCount + "장, 자동으로 " + manualLottoCount + "를 구매했습니다.");
+        System.out.println("수동으로 " + manualLottoCount + "장, 자동으로 " + autoLottoCount + "를 구매했습니다.");
         for (int i = 0; i < lottos.size(); i++) {
             System.out.println(lottos.get(i).toString());
         }

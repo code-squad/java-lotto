@@ -1,23 +1,27 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+
+import static domain.LottoNumber.convertLottoNumber;
 
 public class Lotto {
-    private List<Integer> lotto;
+    private List<LottoNumber> lotto;
 
     public Lotto(){
-        this.lotto = getLotto();
+
+        this.lotto = LottoNumber.getLotto();
     }
 
     public Lotto(List<Integer> lotto){
-        this.lotto = lotto;
+
+        this.lotto = convertLottoNumber(lotto);
     }
 
     public int countMatchLotto(WinningLotto winningLotto) {
         int count = 0;
-        for(int userNumber : lotto){
+        for(LottoNumber userNumber : this.lotto){
             count += winningLotto.matchYn(userNumber);
         }
         return count;
@@ -28,40 +32,29 @@ public class Lotto {
         return winningLotto.hasBonus(lotto);
     }
 
-    public int matchYn(int userNumber) {
-        if(lotto.contains(userNumber)){
+    public int matchYn(LottoNumber userNumber) {
+        if(userNumber.contains(this.lotto)){
             return 1;
         }
         return 0;
     }
 
-    private List<Integer> getLotto() {
-        List<Integer> numbers = new ArrayList<>();
-        for (int i = 1; i < 46; i++) {
-            numbers.add(i);
-        }
-
-        List<Integer> lotto = subList(shuffle(numbers));
-        return sort(lotto);
-    }
-
-    private List<Integer> subList(List<Integer> numbers) {
-        return numbers.subList(0, 6);
-    }
-
-    private List<Integer> sort(List<Integer> numbers) {
-        Collections.sort(numbers);
-        return numbers;
-    }
-
-    private List<Integer>shuffle(List<Integer> numbers) {
-        Collections.shuffle(numbers);
-        return numbers;
+    @Override
+    public String toString() {
+        return String.join(", ", this.lotto.toString());
     }
 
     @Override
-    public String toString() {
-        return String.join(", ", lotto.toString());
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lotto lotto1 = (Lotto) o;
+        return Objects.equals(lotto, lotto1.lotto);
     }
 
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(lotto);
+    }
 }
