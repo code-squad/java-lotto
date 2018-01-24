@@ -1,6 +1,6 @@
 package domain;
 
-import utils.Utils;
+import utils.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +25,10 @@ public class Ticket {
         return IntStream.range(0, ticketCount)
                 .mapToObj(index -> new Ticket(Utils.generateRandomNumbers(6)))
                 .collect(Collectors.toList());
+    }
+
+    public Boolean isBonusHit(Integer bonusNumber) {
+        return numbers.contains(bonusNumber);
     }
 
     @Override

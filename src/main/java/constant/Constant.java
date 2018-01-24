@@ -8,4 +8,5 @@ public class Constant {
     public static final Integer NUMBER_BOUNDARY = 45;
     public static final Integer SHUFFLE_COUNT = 100;
     public static final Integer START_INDEX = 0;
+    public static final Integer BONUS_MONEY = 28500000;
 }

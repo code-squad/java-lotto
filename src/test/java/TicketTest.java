@@ -1,5 +1,5 @@
-import domain.Lotto;
-import domain.Ticket;
+import domain.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import utils.Utils;
@@ -16,9 +16,12 @@ public class TicketTest {
     Lotto lotto;
     Lotto lotto1;
     Lotto lotto2;
+    Lotto bonus;
     @Before
     public void setup() {
-        lotto = new Lotto(Collections.singletonList(new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6))), new Ticket(Arrays.asList(45, 44, 43, 4, 5, 6)));
+        lotto = new Lotto(
+                Collections.singletonList(new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6))),
+                new Ticket(Arrays.asList(45, 44, 43, 4, 5, 6)), 1);
 
         lotto1 = new Lotto(
                 Arrays.asList(
@@ -26,7 +29,7 @@ public class TicketTest {
                         new Ticket(Arrays.asList(4, 5, 6, 43, 44, 45)),
                         new Ticket(Arrays.asList(4, 5, 6, 10, 11, 12))
                 ),
-                new Ticket(Arrays.asList(45, 44, 43, 4, 5, 6)));
+                new Ticket(Arrays.asList(45, 44, 43, 4, 5, 6)), 3);
 
         lotto2 = new Lotto(
                 Arrays.asList(
@@ -34,7 +37,15 @@ public class TicketTest {
                         new Ticket(Arrays.asList(4, 5, 6, 43, 44, 45)),
                         new Ticket(Arrays.asList(4, 5, 6, 10, 11, 12))
                 ),
-                new Ticket(Arrays.asList(45, 44, 43, 3, 5, 6)));
+                new Ticket(Arrays.asList(45, 44, 43, 3, 5, 6)), 4);
+
+        bonus = new Lotto(
+                Collections.singletonList(
+                        new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6))
+                ),
+                new Ticket(Arrays.asList(1, 2, 3, 4, 5, 10)), 6
+        );
+
     }
 
     @Test
@@ -56,12 +67,18 @@ public class TicketTest {
 
     @Test
     public void 세개_매치_전체에서_두개_테스트() {
-        assertThat(lotto1.matchedCount(3), is(2));
+        assertThat(lotto1.matchedCount(3).count(), is(2L));
     }
 
     @Test
     public void 중복없는_랜덤_번호_테스트() {
         assertThat(Utils.generateRandomNumbers(6).size(), is(6));
+    }
+
+    @Test
+    public void 보너스_테스트() {
+        assertThat(bonus.matchedBonusCount(5), is(1));
+        assertThat(lotto1.matchedBonusCount(5), is(0));
     }
 
 }
