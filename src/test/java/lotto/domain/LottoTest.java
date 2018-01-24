@@ -49,13 +49,6 @@ public class LottoTest {
     }
 
     @Test
-    public void 로또_번호_생성() {
-        assertThat(Lotto.LOTTO_NUMBER_RANGE.get(0)).isEqualTo(1);
-        assertThat(Lotto.LOTTO_NUMBER_RANGE.get(10)).isEqualTo(11);
-        assertThat(Lotto.LOTTO_NUMBER_RANGE.get(Lotto.LOTTO_NUMBER_RANGE.size()-1)).isEqualTo(45);
-    }
-
-    @Test
     public void joinNumbers() {
         assertThat(lotto.joinNumbers()).isEqualTo("1,2,3,4,5,6");
     }
