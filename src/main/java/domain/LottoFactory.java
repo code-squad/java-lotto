@@ -1,8 +1,12 @@
 package domain;
 
+import util.Utils;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoFactory {
@@ -10,12 +14,22 @@ public class LottoFactory {
         return new Lotto(makeLottoNumbers(makeNumbers()));
     }
 
-    public static Lottos makeLottos(int lottoCount) {
+    public static Lotto makeHandLotto(String lottoNumber) {
+        return new Lotto(makeHandLottoNumber(lottoNumber));
+    }
+
+    public static Lottos autoMakeLottos(int lottoCount) {
         Lottos lottos = new Lottos();
         for (int i = 0; i < lottoCount; i++) {
             lottos.add(makeLotto());
         }
         return lottos;
+    }
+
+    private static List<Integer> makeHandLottoNumber(String lottoNumber) {
+        return Arrays.stream(Utils.split(lottoNumber))
+                .map(s -> Utils.parseInt(s))
+                .collect(Collectors.toList());
     }
 
     private static List<Integer> makeNumbers() {

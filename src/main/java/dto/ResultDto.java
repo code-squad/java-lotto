@@ -3,6 +3,7 @@ package dto;
 import domain.Lottos;
 import domain.Rank;
 import domain.WinningLotto;
+import util.Utils;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,11 +13,15 @@ import java.util.stream.Collectors;
 
 public class ResultDto {
     private int price;
+    private int handCount;
+    private Lottos handMakeLottos;
     private Map<Rank, Integer> ranksCount;
 
-    public ResultDto(int price) {
+    public ResultDto(int price, int handCount, Lottos handMakeLottos) {
         ranksCount = initRanksCount();
         this.price = price;
+        this.handCount = handCount;
+        this.handMakeLottos = handMakeLottos;
     }
 
     private Map<Rank, Integer> initRanksCount() {
@@ -42,8 +47,8 @@ public class ResultDto {
     }
 
     public void checkLastWinningNumbers(String lastWinningNumbers, int bonusBall, Lottos lottos) {
-        WinningLotto winningLotto = new WinningLotto(parseInts(split(lastWinningNumbers)), bonusBall);
-
+        WinningLotto winningLotto = new WinningLotto(parseInts(Utils.split(lastWinningNumbers)), bonusBall);
+        lottos.addLottos(handMakeLottos);
         countRank(lottos.match(winningLotto));
     }
 
@@ -51,18 +56,14 @@ public class ResultDto {
         return price / 1000;
     }
 
-    private String[] split(String text) {
-        return text.split("(, )");
+    public int autoMakeLottoCount() {
+        return countOfLotto() - handCount;
     }
 
     private List<Integer> parseInts(String[] numbersText) {
         return Arrays.stream(numbersText)
-                .map(number -> parseInt(number))
+                .map(number -> Utils.parseInt(number))
                 .collect(Collectors.toList());
-    }
-
-    private int parseInt(String numberText) {
-        return Integer.parseInt(numberText);
     }
 
     private Map<Rank, Integer> countRank(List<Rank> ranks) {

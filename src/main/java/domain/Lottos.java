@@ -15,6 +15,10 @@ public class Lottos {
         lottos.add(lotto);
     }
 
+    public void addLottos(Lottos lottos) {
+        this.lottos.addAll(lottos.lottos);
+    }
+
     public List<Rank> match(WinningLotto winningLotto) {
         List<Rank> ranks = new ArrayList<>();
         lottos.stream()
