@@ -11,7 +11,7 @@ public class LottoGameMain {
         int totalCount = LottoGame.amountOfLotto(InputView.inputMoney(sc));
         List<String> userLottoText = InputView.inputManualLottoNumber(sc, InputView.inputManualLottoCount(sc));
 
-        LottoGame lottoGame = new LottoGame(totalCount-userLottoText.size(), userLottoText);
+        LottoGame lottoGame = new LottoGame(totalCount, userLottoText);
         String luckyNumbers = InputView.inputLuckyNumbers(sc);
         int bonusNumber = InputView.inputBonusNumber(sc);
 

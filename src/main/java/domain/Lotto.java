@@ -33,7 +33,8 @@ public class Lotto {
     }
 
     public int matchYn(LottoNumber userNumber) {
-        if(userNumber.contains(this.lotto)){
+//        if(userNumber.contains(this.lotto)){
+        if(this.lotto.contains(userNumber.toString())){
             return 1;
         }
         return 0;

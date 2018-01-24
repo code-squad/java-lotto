@@ -46,11 +46,13 @@ public class LottoGame {
         }
     }
 
-    public LottoGame(int autoLottoCount, List<String> userLottoText){
+    public LottoGame(int totalCount, List<String> userLottoText){
         lottos = new ArrayList<Lotto>();
+        int autoLottoCount = totalCount - userLottoText.size();
+        int manualLottoCount = userLottoText.size();
         getManualLottos(userLottoText);
         getAutoLottos(autoLottoCount);
-        OutputView.printMyLotto(lottos, lottos.size()-1, autoLottoCount);
+        OutputView.printMyLotto(lottos, manualLottoCount, autoLottoCount);
     }
 
     private void getAutoLottos(int autoLottoCount) {
