@@ -25,7 +25,7 @@ public class LottoMachineTest {
 
     @Test
     public void 구입금액에_따라_구매가능한_로또개수_출력() throws Exception {
-        int count = lottoMachine.countForPrice(3000);
+        int count = lottoMachine.countForPrice(new Money(3000));
 
         assertEquals(3, count);
     }

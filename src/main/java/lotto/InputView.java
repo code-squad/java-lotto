@@ -12,9 +12,9 @@ public class InputView {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    public static int getMoney() {
+    public static Money getMoney() {
         System.out.println("구입금액을 입력해 주세요.");
-        return Integer.parseInt(sc.nextLine());
+        return new Money(Integer.parseInt(sc.nextLine()));
     }
 
     public static Lotto inputMatchingNumbers() {

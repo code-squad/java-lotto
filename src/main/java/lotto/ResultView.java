@@ -18,13 +18,12 @@ public class ResultView {
         }
     }
 
-    public static void showResult(Result result, int money){
-
+    public static void showResult(Result result, Money money){
 
         System.out.println("당첨 통계");
         System.out.println("---------");
         System.out.println(result.toString());
-        System.out.println("총 수익률은 "+ result.rateTotal(money) +"%입니다.");
+        System.out.println("총 수익률은 "+ money.rateTotal(result.getSum()) +"%입니다.");
     }
 
 

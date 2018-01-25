@@ -32,18 +32,22 @@ public enum Rank {
     }
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {
-        if(matchBonus && countOfMatch == SECOND.countOfMatch) {
+        if(matchBonus && SECOND.matchCount(countOfMatch)) {
             return SECOND;
         }
         Rank[] ranks = Rank.values();
 
         for (Rank rank : ranks) {
-            if(rank.countOfMatch == countOfMatch) {
+            if(rank.matchCount(countOfMatch)) {
                 return rank;
             }
         }
 
         return null;
+    }
+
+    private boolean matchCount(int countOfMatch) {
+        return this.countOfMatch == countOfMatch;
     }
 
     public String getState(int numOfMatchLotto) {

@@ -31,7 +31,6 @@ public class Result {
         lottoResult.put(rank, lottoResult.get(rank) + 1);
     }
 
-
     public int getSum() {
         int sum =0;
         Rank[] ranks = Rank.values();
@@ -39,10 +38,6 @@ public class Result {
             sum+= rank.getProfit(lottoResult.get(rank));
         }
         return sum;
-    }
-
-    public int rateTotal(int money) {
-        return (getSum() - money) / money *100;
     }
 
     @Override

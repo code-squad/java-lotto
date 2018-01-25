@@ -27,5 +27,8 @@ public class WinningLotto {
         return Rank.valueOf(numOfMatchCount, matchBonusNum);
     }
 
+    public static WinningLotto createWinningLotto(Lotto lotto, int bonusNumber) {
+        return new WinningLotto(lotto, bonusNumber);
+    }
 
 }
