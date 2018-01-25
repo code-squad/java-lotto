@@ -34,15 +34,7 @@ public class Lottos {
         }
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(lottos.size());
-        sb.append("개를 구매했습니다.\n");
-        for (Lotto lotto : lottos) {
-            sb.append(lotto);
-            sb.append("\n");
-        }
-        return sb.toString();
+    public List<Lotto> getLottos() {
+        return lottos;
     }
 }

@@ -1,5 +1,6 @@
 package dto;
 
+import domain.LottoResult;
 import domain.Lottos;
 import domain.Rank;
 import domain.WinningLotto;
@@ -33,8 +34,13 @@ public class ResultDto {
         return ranksCount;
     }
 
-    public Map<Rank, Integer> getRanksCount() {
-        return ranksCount;
+    public List<LottoResult> getResults() {
+        Rank[] ranks = Rank.values();
+
+        return Arrays.stream(ranks)
+                .sorted((Rank o1, Rank o2) -> o1.compare(o2))
+                .map(rank -> new LottoResult(rank, ranksCount.get(rank)))
+                .collect(Collectors.toList());
     }
 
     public int calRevenue() {
