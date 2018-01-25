@@ -34,10 +34,20 @@ public class Lotto {
 
     public int matchYn(LottoNumber userNumber) {
 //        if(userNumber.contains(this.lotto)){
-        if(this.lotto.contains(userNumber.toString())){
+        if(contains(userNumber)){
             return 1;
         }
         return 0;
+    }
+
+
+    public boolean contains(LottoNumber userNumber){
+        for(LottoNumber lottoNumbers : this.lotto){
+            if(lottoNumbers.equals(userNumber)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
