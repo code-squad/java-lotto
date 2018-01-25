@@ -7,6 +7,8 @@ import enums.WinningRules;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class LottoTicket {
 
@@ -18,19 +20,17 @@ public class LottoTicket {
             return;
         }
 
-        List<LottoNumber> newNumbers = new ArrayList<>();
+        SortedSet<LottoNumber> newNumbers = new TreeSet<>();
 
         for (String number : new ParsingLottoNumbers(text).getNumbers()) {
             newNumbers.add(new LottoNumber(number));
         }
 
         this.numbers = new LottoNumbers(newNumbers);
-        this.numbers.sortingNumber();
     }
 
     public LottoTicket(LottoNumbers numbers) {
         this.numbers = numbers;
-        this.numbers.sortingNumber();
     }
 
     public WinningRules matching(LottoTicket ticket) {
@@ -41,10 +41,6 @@ public class LottoTicket {
         }
 
         return WinningResult.findByMatchCount(count);
-    }
-
-    public LottoNumbers getNumbers() {
-        return this.numbers;
     }
 
     @Override

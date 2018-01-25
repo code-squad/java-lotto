@@ -1,5 +1,6 @@
 package dto;
 
+import domain.lotto.LottoNumber;
 import domain.lotto.LottoTicket;
 import enums.WinningRules;
 
@@ -9,8 +10,9 @@ import java.util.List;
 public class LottoTickets {
     List<LottoTicket> tickets;
 
-    public LottoTickets(int amount) {
+    public LottoTickets(int amount, LottoNumber lottoNumber) {
         List<LottoTicket> newTickets = new ArrayList<>();
+
         for (int i = 0; i < amount; i++) {
             newTickets.add(new LottoTicket(new LottoNumbers()));
         }

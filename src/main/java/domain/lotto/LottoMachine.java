@@ -6,12 +6,11 @@ import dto.WinningResult;
 public class LottoMachine {
 
     private Integer money;
-
     private LottoTickets purchasedLottoTickets;
 
-    public LottoMachine(int money) {
+    public LottoMachine(int money, int bonusBallNumber) {
         this.money = money;
-        this.purchasedLottoTickets = new LottoTickets(this.calculatePurchaseTicketAmount());
+        this.purchasedLottoTickets = new LottoTickets(this.calculatePurchaseTicketAmount(), new LottoNumber(bonusBallNumber));
     }
 
     private int calculatePurchaseTicketAmount() {
@@ -29,4 +28,5 @@ public class LottoMachine {
     public LottoTickets getPurchasedLottoTicket() {
         return this.purchasedLottoTickets;
     }
+
 }

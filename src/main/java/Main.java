@@ -8,7 +8,7 @@ public class Main {
         Input input = new Input();
         Out out = new Out();
 
-        LottoMachine lottoMachine = new LottoMachine(input.inputMoney());
+        LottoMachine lottoMachine = new LottoMachine(input.inputMoney(), input.insertBonusball());
 
         out.printBuyConfirmMassage(lottoMachine.getPurchasedLottoTicket());// print ticket.
 
