@@ -89,15 +89,7 @@ public class LottoGame {
 
     public LottoResult match(String luckyNumText, int bonusNumber) {
         WinningLotto winningLotto = new WinningLotto(generateLottoNum(luckyNumText), bonusNumber);
-        Map<Rank, Integer> result = new HashMap<Rank, Integer>(){
-            {
-                put(Rank.FIRST, 0);
-                put(Rank.SECOND, 0);
-                put(Rank.THIRD, 0);
-                put(Rank.FOURTH, 0);
-                put(Rank.FIFTH, 0);
-            }
-        };
+        Map<Rank, Integer> result = initResult();
 
         for(Lotto lotto : lottos){
             boolean bonusYn = false;
@@ -108,6 +100,18 @@ public class LottoGame {
         }
 
         return new LottoResult(result, calRetRate(result, lottos.size()*PRICE));
+    }
+
+    private HashMap<Rank, Integer> initResult() {
+        return new HashMap<Rank, Integer>(){
+            {
+                put(Rank.FIRST, 0);
+                put(Rank.SECOND, 0);
+                put(Rank.THIRD, 0);
+                put(Rank.FOURTH, 0);
+                put(Rank.FIFTH, 0);
+            }
+        };
     }
 
     private boolean isBonusYn(WinningLotto winningLotto, Lotto lotto, boolean bonusYn, int key) {

@@ -1,22 +1,41 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static domain.LottoNumber.convertLottoNumber;
 
 public class Lotto {
     private List<LottoNumber> lotto;
 
     public Lotto(){
-
-        this.lotto = LottoNumber.getLotto();
+        this.lotto = getLotto();
     }
 
     public Lotto(List<Integer> lotto){
 
         this.lotto = convertLottoNumber(lotto);
+    }
+
+    // Factory Method : 자신의 객체를 생성하는 메소드
+    public static List<LottoNumber> getLotto() {
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 1; i < 46; i++) {
+            numbers.add(i);
+        }
+
+        List<Integer> lotto = subList(shuffle(numbers));
+
+        return convertLottoNumber(sort(lotto));
+    }
+
+    public static List<LottoNumber> convertLottoNumber(List<Integer> userNumbers) {
+        List<LottoNumber> lottoNumber = new ArrayList<LottoNumber>();
+        for(int userNumber : userNumbers){
+            lottoNumber.add(new LottoNumber(userNumber));
+        }
+        return lottoNumber;
     }
 
     public int countMatchLotto(WinningLotto winningLotto) {
@@ -33,13 +52,11 @@ public class Lotto {
     }
 
     public int matchYn(LottoNumber userNumber) {
-//        if(userNumber.contains(this.lotto)){
         if(contains(userNumber)){
             return 1;
         }
         return 0;
     }
-
 
     public boolean contains(LottoNumber userNumber){
         for(LottoNumber lottoNumbers : this.lotto){
@@ -48,6 +65,20 @@ public class Lotto {
             }
         }
         return false;
+    }
+
+    private static List<Integer> subList(List<Integer> numbers) {
+        return numbers.subList(0, 6);
+    }
+
+    private static List<Integer> sort(List<Integer> numbers) {
+        Collections.sort(numbers);
+        return numbers;
+    }
+
+    private static List<Integer>shuffle(List<Integer> numbers) {
+        Collections.shuffle(numbers);
+        return numbers;
     }
 
     @Override
