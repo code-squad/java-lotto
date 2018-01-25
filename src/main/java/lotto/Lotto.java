@@ -24,13 +24,23 @@ public class Lotto {
         return String.join(", ", lottoNumbers.toString());
     }
 
-    public int countMatchingAnswer(Lotto matchingLotto) {
+    public int countMatchingAnswer(Lotto lotto) {
         int matchCount =0;
-        for (Integer integer : matchingLotto.lottoNumbers) {
+        for (Integer integer : lotto.getLottoNumbers()) {
             if(this.lottoNumbers.contains(integer)) {
                 matchCount++;
             }
         }
         return matchCount;
+    }
+
+
+
+    public List<Integer> getLottoNumbers() {
+        return lottoNumbers;
+    }
+
+    public boolean isBouseMatch(int bonusNumber) {
+        return this.lottoNumbers.contains(bonusNumber);
     }
 }

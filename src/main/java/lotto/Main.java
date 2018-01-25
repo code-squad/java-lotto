@@ -29,8 +29,13 @@ public class Main {
         //지난 주 당첨 번호 입력
         Lotto matchingNumbers = inputMatchingNumbers();
 
+        //보너스 볼 입력
+        int bonusNumber = inputBonusNumber();
+
+        WinningLotto winningLotto = lottoMachine.createWinningLotto(matchingNumbers, bonusNumber);
+
         //통계 조회
-        Result result = lottoMachine.makeResult(matchingNumbers);
+        Result result = lottoMachine.makeResult(winningLotto);
 
         showResult(result, money);
     }

@@ -26,6 +26,11 @@ public class InputView {
         return convertLotto(inputs);
     }
 
+    public static int inputBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return Integer.parseInt(sc.nextLine());
+    }
+
     private static Lotto convertLotto(String[] inputs) {
         List<Integer> matchingNumbers = new ArrayList<>();
         for (int i = 0; i < inputs.length; i++) {

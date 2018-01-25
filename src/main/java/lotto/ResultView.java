@@ -23,12 +23,10 @@ public class ResultView {
 
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.println("3개 일치 (5000원)-" + result.lottoResult.get(3));
-        System.out.println("4개 일치 (50000원)-"+ result.lottoResult.get(4));
-        System.out.println("5개 일치 (1500000원)-"+ result.lottoResult.get(5));
-        System.out.println("6개 일치 (2000000000)-"+ result.lottoResult.get(6));
-        System.out.println("총 수익률은 "+ Result.rateTotal(money) +"%입니다.");
+        System.out.println(result.toString());
+        System.out.println("총 수익률은 "+ result.rateTotal(money) +"%입니다.");
     }
+
 
 
 }
