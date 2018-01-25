@@ -15,6 +15,27 @@ public class LottoNumber {
         this.lottoNumber = lottoNumber;
     }
 
+    public boolean contains(List<LottoNumber> lotto) {
+        for(LottoNumber lottoNumber : lotto){
+            if(lottoNumber.isMatch(this.lottoNumber)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isMatch(int lottoNumber) {
+        if(this.lottoNumber == lottoNumber){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return ""+lottoNumber;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

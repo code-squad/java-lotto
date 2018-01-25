@@ -46,25 +46,31 @@ public class LottoGame {
         }
     }
 
-    public LottoGame(int totalCount, List<String> userLottoText){
+    public LottoGame(){
         lottos = new ArrayList<Lotto>();
-        int autoLottoCount = totalCount - userLottoText.size();
-        int manualLottoCount = userLottoText.size();
-        getManualLottos(userLottoText);
-        getAutoLottos(autoLottoCount);
-        OutputView.printMyLotto(lottos, manualLottoCount, autoLottoCount);
     }
+//
+//    public LottoGame(int totalCount, List<String> userLottoText){
+//        lottos = new ArrayList<Lotto>();
+//        int autoLottoCount = totalCount - userLottoText.size();
+//        int manualLottoCount = userLottoText.size();
+//        getManualLottos(userLottoText);
+//        getAutoLottos(autoLottoCount);
+//        OutputView.printMyLotto(lottos, manualLottoCount, autoLottoCount);
+//    }
 
-    private void getAutoLottos(int autoLottoCount) {
+    public List<Lotto> getAutoLottos(int autoLottoCount) {
         for (int i = 0; i < autoLottoCount; i++) {
             lottos.add(new Lotto());
         }
+        return lottos;
     }
 
-    private void getManualLottos(List<String> userLottoText) {
+    public List<Lotto> getManualLottos(List<String> userLottoText) {
         for (int i = 0; i < userLottoText.size(); i++){
             lottos.add(new Lotto(generateLottoNum(userLottoText.get(i))));
         }
+        return lottos;
     }
 
     public static int amountOfLotto(int money) {
