@@ -1,10 +1,9 @@
-import com.sun.tools.doclets.internal.toolkit.util.DocFinder;
-import domain.Lotto;
 import domain.LottoGame;
 import dto.LottoResult;
 import dto.UserLotto;
 import view.InputView;
 import view.OutputView;
+
 import java.util.List;
 import java.util.Scanner;
 

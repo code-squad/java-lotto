@@ -52,19 +52,10 @@ public class Lotto {
     }
 
     public int matchYn(LottoNumber userNumber) {
-        if(contains(userNumber)){
+        if(lotto.contains(userNumber)){
             return 1;
         }
         return 0;
-    }
-
-    public boolean contains(LottoNumber userNumber){
-        for(LottoNumber lottoNumbers : this.lotto){
-            if(lottoNumbers.equals(userNumber)){
-                return true;
-            }
-        }
-        return false;
     }
 
     private static List<Integer> subList(List<Integer> numbers) {

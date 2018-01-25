@@ -13,7 +13,8 @@ public class WinningLotto extends Lotto{
     }
 
     public boolean hasBonus(List<LottoNumber> userNumbers) {
-        if(bonusNumber.contains(userNumbers)){
+
+        if(userNumbers.contains(bonusNumber)){
             return true;
         }
         return false;
