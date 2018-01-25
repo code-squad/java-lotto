@@ -25,7 +25,7 @@ public class LottoMachineTest {
 
     @Test
     public void 구입금액에_따라_구매가능한_로또개수_출력() throws Exception {
-        int count = lottoMachine.countForPrice(3000);
+        int count = lottoMachine.countForPrice(new Money(3000));
 
         assertEquals(3, count);
     }
@@ -49,15 +49,19 @@ public class LottoMachineTest {
 
     @Test
     public void 당첨번호와_맞은_개수_파악하기() throws Exception {
-        List<Lotto> lottos = lottoMachine.createRandomLotto(5);
+        List<Lotto> lottos = new ArrayList<>();
+        lottos.add(new Lotto(Arrays.asList(1,3,4,11,12,13)));
+        lottos.add(new Lotto(Arrays.asList(1,3,4,5,12,13)));
+        lottos.add(new Lotto(Arrays.asList(1,3,4,5,6,13)));
+        lottos.add(new Lotto(Arrays.asList(1,3,4,5,6,8)));
+        lottos.add(new Lotto(Arrays.asList(1,3,4,5,6,7)));
+        lottoMachine.setLottos(lottos);
         List<Integer> matchingNumbers = Arrays.asList(1,3,4,5,6,7);
         Lotto matchingLotto = new Lotto(matchingNumbers);
+        WinningLotto winningLotto = new WinningLotto(matchingLotto, 8);
 
-        lottoMachine.makeResult(matchingLotto);
+        Result result = lottoMachine.makeResult(winningLotto);
+        System.out.println(result.toString());
 
-        for (Lotto lotto : lottos) {
-            System.out.println(lotto.toString());
-            System.out.println(lotto.countMatchingAnswer(matchingLotto));
-        }
     }
 }

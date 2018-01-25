@@ -3,6 +3,10 @@ package lotto;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static lotto.WinningLotto.createWinningLotto;
 import static org.junit.Assert.*;
 /**
  * Created by Joeylee on 2018-01-16.
@@ -10,25 +14,28 @@ import static org.junit.Assert.*;
 public class ResultTest {
 
     private Result result;
+    private LottoMachine lottoMachine;
 
     @Before
     public void setUp() throws Exception {
+        lottoMachine = new LottoMachine();
         result  = new Result();
     }
 
     @Test
     public void 로또맞은개수별_카운트() throws Exception {
-        result.increaseCount(4);
-        result.increaseCount(4);
-        assertEquals(new Integer(2), (result.lottoResult.get(4)));
+        Lotto lotto = new Lotto(Arrays.asList(1,3,4,6,7,8));
+        WinningLotto winningLotto = createWinningLotto(new Lotto(Arrays.asList(1,2,3,4,5,6)), 8);
+        result.addLottoResult(winningLotto.getRankmatchCountAndMatchBonus(lotto));
+        assertEquals(new Integer(1), (result.getLottoResult().get(Rank.FOURTH)));
     }
 
     @Test
     public void 수익률_계산() throws Exception {
-        result.increaseCount(3);
-        result.increaseCount(3);
-        assertEquals("100", String.valueOf(result.rateTotal(5000)));
+        Lotto lotto = new Lotto(Arrays.asList(1,3,4,6,7,8));
+        WinningLotto winningLotto = createWinningLotto(new Lotto(Arrays.asList(1,2,3,4,5,6)), 8);
+        result.addLottoResult(winningLotto.getRankmatchCountAndMatchBonus(lotto));
+        assertEquals(4900, new Money(1000).rateTotal(result.getSum()));
 
     }
-
 }

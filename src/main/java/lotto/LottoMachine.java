@@ -46,8 +46,8 @@ public class LottoMachine {
         return nums;
     }
 
-    public int countForPrice(int money) {
-        return money / LOTTO_PRICE;
+    public int countForPrice(Money money) {
+        return money.howManyLotto(LOTTO_PRICE);
     }
 
     public void buyLottos(int count) {
@@ -58,12 +58,17 @@ public class LottoMachine {
         return lottos;
     }
 
-    public Result makeResult(Lotto matchingLotto) {
+    public void setLottos(List<Lotto> lottos) {
+        this.lottos = lottos;
+    }
+
+    public Result makeResult(WinningLotto winningLotto) {
         Result result = new Result();
         for (Lotto lotto : lottos) {
-            result.increaseCount(lotto.countMatchingAnswer(matchingLotto));
+            result.addLottoResult(winningLotto.getRankmatchCountAndMatchBonus(lotto));
         }
-
         return result;
     }
+
+
 }
