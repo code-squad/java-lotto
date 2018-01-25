@@ -52,11 +52,11 @@ public class WinningResult {
         winningRulesKeyMap.put(WinningRules.THREE_MATCHING, 0);
         winningRulesKeyMap.put(WinningRules.FOUR_MATCHING, 0);
         winningRulesKeyMap.put(WinningRules.FIVE_MATCHING, 0);
+        winningRulesKeyMap.put(WinningRules.BONUS_MATCHING, 0);
         winningRulesKeyMap.put(WinningRules.SIX_MATCHING, 0);
 
         return winningRulesKeyMap;
     }
-
 
     public Integer calculateWinningMoney(Map<WinningRules, Integer> countRules) {
         return countRules.entrySet().stream().mapToInt(value -> value.getKey().getReward() * value.getValue()).sum();

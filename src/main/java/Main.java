@@ -8,10 +8,10 @@ public class Main {
         Input input = new Input();
         Out out = new Out();
 
-        LottoMachine lottoMachine = new LottoMachine(input.inputMoney(), input.insertBonusball());
+        LottoMachine lottoMachine = new LottoMachine(input.inputMoney());
 
         out.printBuyConfirmMassage(lottoMachine.getPurchasedLottoTicket());// print ticket.
 
-        out.printResultMassage(lottoMachine.getWinningResult(input.inputLastWeekWinningNumber()));// print result.
+        out.printResultMassage(lottoMachine.getWinningResult(input.inputLastWeekWinningNumber(), input.insertBonusball()));// print result.
     }
 }

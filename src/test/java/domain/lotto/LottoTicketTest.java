@@ -52,14 +52,14 @@ public class LottoTicketTest {
     @Test
     public void winningMaching_SIX() {
         a = new LottoTicket("1, 2, 3, 4, 5, 6");
-        assertThat(a.matching(a), is(WinningRules.SIX_MATCHING));
+        assertThat(a.matching(a, new LottoNumber(45)), is(WinningRules.SIX_MATCHING));
     }
 
     @Test
     public void winningMaching_ONE() {
         LottoTicket lottoTicket = new LottoTicket("1, 7, 8, 9, 10, 11");
 
-        assertThat(lottoTicket.matching(a), is(WinningRules.ONE_MATCHING));
+        assertThat(lottoTicket.matching(a, new LottoNumber(45)), is(WinningRules.ONE_MATCHING));
     }
 
     @Test

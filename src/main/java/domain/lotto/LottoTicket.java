@@ -5,15 +5,14 @@ import dto.ParsingLottoNumbers;
 import dto.WinningResult;
 import enums.WinningRules;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class LottoTicket {
 
     public static final Integer PRICE = 1000;
-    private LottoNumbers numbers;
+    private LottoNumbers lottoNumbers;
 
     public LottoTicket(String text) {
         if (text.isEmpty()) {
@@ -26,21 +25,30 @@ public class LottoTicket {
             newNumbers.add(new LottoNumber(number));
         }
 
-        this.numbers = new LottoNumbers(newNumbers);
+        this.lottoNumbers = new LottoNumbers(newNumbers);
     }
 
-    public LottoTicket(LottoNumbers numbers) {
-        this.numbers = numbers;
+    public LottoTicket(LottoNumbers lottoNumbers) {
+        this.lottoNumbers = lottoNumbers;
     }
 
-    public WinningRules matching(LottoTicket ticket) {
+    public WinningRules matching(LottoTicket ticket, LottoNumber bonusNumber) {
         Integer count = 0;
+        LottoNumbers lottoNumbers = ticket.getLottoNumbers();
 
-        for (LottoNumber winningNumber : ticket.numbers.getNumbers()) {
-            count += this.numbers.isHitNumber(winningNumber);
+        for (LottoNumber winningNumber : lottoNumbers.getNumbers()) {
+            count += this.lottoNumbers.isHitNumber(winningNumber);
+
+            if(count == 5 && lottoNumbers.isHitNumber(bonusNumber) == 1){
+                return WinningRules.BONUS_MATCHING;
+            }
         }
 
         return WinningResult.findByMatchCount(count);
+    }
+
+    public LottoNumbers getLottoNumbers() {
+        return lottoNumbers;
     }
 
     @Override
@@ -50,16 +58,16 @@ public class LottoTicket {
 
         LottoTicket that = (LottoTicket) o;
 
-        return numbers.equals(that.numbers);
+        return lottoNumbers.equals(that.lottoNumbers);
     }
 
     @Override
     public int hashCode() {
-        return numbers.hashCode();
+        return lottoNumbers.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.numbers.toString();
+        return this.lottoNumbers.toString();
     }
 }

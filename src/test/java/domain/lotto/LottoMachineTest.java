@@ -13,7 +13,7 @@ public class LottoMachineTest {
 
     @Before
     public void init() {
-        lottoMachine = new LottoMachine(14000, 10);
+        lottoMachine = new LottoMachine(14000);
     }
 
     @Test

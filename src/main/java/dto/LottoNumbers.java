@@ -11,7 +11,7 @@ public class LottoNumbers {
     public LottoNumbers() {
         this.numbers = new TreeSet<>();
 
-        while(numbers.size() > LOTTO_NUMBER_SIZE){
+        while(numbers.size() < LOTTO_NUMBER_SIZE){
             numbers.add(new LottoNumber().autoCreateNumber());
         }
     }

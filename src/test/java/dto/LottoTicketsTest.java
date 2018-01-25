@@ -43,7 +43,7 @@ public class LottoTicketsTest {
                 ticket7
         ));
 
-        List<WinningRules> matching = tickets.findMatching(winningTicket);
+        List<WinningRules> matching = tickets.findMatching(winningTicket, 45);
 
         assertThat(matching.get(0), is(WinningRules.SIX_MATCHING));
     }
@@ -70,12 +70,31 @@ public class LottoTicketsTest {
                 ticket7
         ));
 
-        List<WinningRules> matching = tickets.findMatching(winningTicket);
+        List<WinningRules> matching = tickets.findMatching(winningTicket, 45);
 
         List<WinningRules> answer = Arrays.asList(
             WinningRules.SIX_MATCHING,
             WinningRules.THREE_MATCHING,
             WinningRules.THREE_MATCHING
+        );
+
+        assertThat(matching, is(answer));
+    }
+
+    @Test
+    public void findMatching_보너스볼() {
+        LottoTicket winningTicket = new LottoTicket("1, 2, 3, 4, 5, 6");
+
+        LottoTicket ticket1 = new LottoTicket("1, 2, 3, 4, 5, 45");
+
+        tickets = new LottoTickets(Arrays.asList(
+                ticket1
+        ));
+
+        List<WinningRules> matching = tickets.findMatching(winningTicket, 45);
+
+        List<WinningRules> answer = Arrays.asList(
+                WinningRules.BONUS_MATCHING
         );
 
         assertThat(matching, is(answer));
