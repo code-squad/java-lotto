@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 public class Lotto {
@@ -20,22 +21,21 @@ public class Lotto {
 
     // Factory Method : 자신의 객체를 생성하는 메소드
     public static List<LottoNumber> getLotto() {
-        List<Integer> numbers = new ArrayList<>();
-        for (int i = 1; i < 46; i++) {
-            numbers.add(i);
-        }
-
-        List<Integer> lotto = subList(shuffle(numbers));
+        List<Integer> lotto = subList(shuffle(getLottoNumber()));
 
         return convertLottoNumber(sort(lotto));
     }
 
-    public static List<LottoNumber> convertLottoNumber(List<Integer> userNumbers) {
-        List<LottoNumber> lottoNumber = new ArrayList<LottoNumber>();
-        for(int userNumber : userNumbers){
-            lottoNumber.add(new LottoNumber(userNumber));
+    private static List<Integer> getLottoNumber() {
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 1; i < 46; i++) {
+            numbers.add(i);
         }
-        return lottoNumber;
+        return numbers;
+    }
+
+    public static List<LottoNumber> convertLottoNumber(List<Integer> userNumbers) {
+        return userNumbers.stream().map(userNumber -> new LottoNumber(userNumber)).collect(Collectors.toList());
     }
 
     public int countMatchLotto(WinningLotto winningLotto) {
@@ -67,7 +67,7 @@ public class Lotto {
         return numbers;
     }
 
-    private static List<Integer>shuffle(List<Integer> numbers) {
+    private static List<Integer> shuffle(List<Integer> numbers) {
         Collections.shuffle(numbers);
         return numbers;
     }
