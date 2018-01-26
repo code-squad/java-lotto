@@ -46,13 +46,14 @@ public class WinningResultTest {
 
     @Test
     public void findByMatchCount_테스트() {
-        assertThat(WinningResult.findByMatchCount(0), is(WinningRules.NONE));
-        assertThat(WinningResult.findByMatchCount(1), is(WinningRules.ONE_MATCHING));
-        assertThat(WinningResult.findByMatchCount(2), is(WinningRules.TWO_MATCHING));
-        assertThat(WinningResult.findByMatchCount(3), is(WinningRules.THREE_MATCHING));
-        assertThat(WinningResult.findByMatchCount(4), is(WinningRules.FOUR_MATCHING));
-        assertThat(WinningResult.findByMatchCount(5), is(WinningRules.FIVE_MATCHING));
-        assertThat(WinningResult.findByMatchCount(6), is(WinningRules.SIX_MATCHING));
+        assertThat(WinningResult.findByMatchCount(0, false), is(WinningRules.NONE));
+        assertThat(WinningResult.findByMatchCount(1, false), is(WinningRules.NONE));
+        assertThat(WinningResult.findByMatchCount(2, false), is(WinningRules.NONE));
+        assertThat(WinningResult.findByMatchCount(3, false), is(WinningRules.THREE_MATCHING));
+        assertThat(WinningResult.findByMatchCount(4, false), is(WinningRules.FOUR_MATCHING));
+        assertThat(WinningResult.findByMatchCount(5, false), is(WinningRules.FIVE_MATCHING));
+        assertThat(WinningResult.findByMatchCount(5, true), is(WinningRules.BONUS_MATCHING));
+        assertThat(WinningResult.findByMatchCount(6, false), is(WinningRules.SIX_MATCHING));
     }
 
     @Test
@@ -62,6 +63,7 @@ public class WinningResultTest {
         winningRulesKeyMap.put(WinningRules.THREE_MATCHING, 0);
         winningRulesKeyMap.put(WinningRules.FOUR_MATCHING, 0);
         winningRulesKeyMap.put(WinningRules.FIVE_MATCHING, 0);
+        winningRulesKeyMap.put(WinningRules.BONUS_MATCHING, 0);
         winningRulesKeyMap.put(WinningRules.SIX_MATCHING, 0);
 
         assertThat(WinningResult.getNewKeyMap(), is(winningRulesKeyMap));

@@ -59,7 +59,7 @@ public class LottoTicketTest {
     public void winningMaching_ONE() {
         LottoTicket lottoTicket = new LottoTicket("1, 7, 8, 9, 10, 11");
 
-        assertThat(lottoTicket.matching(a, new LottoNumber(45)), is(WinningRules.ONE_MATCHING));
+        assertThat(lottoTicket.matching(a, new LottoNumber(45)), is(WinningRules.NONE));
     }
 
     @Test

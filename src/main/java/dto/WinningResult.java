@@ -1,5 +1,6 @@
 package dto;
 
+import domain.lotto.LottoNumber;
 import enums.WinningRules;
 
 import java.util.*;
@@ -14,15 +15,18 @@ public class WinningResult {
     static {
         winningRules = new HashMap<>();
         winningRules.put(0, WinningRules.NONE);
-        winningRules.put(1, WinningRules.ONE_MATCHING);
-        winningRules.put(2, WinningRules.TWO_MATCHING);
+        winningRules.put(1, WinningRules.NONE);
+        winningRules.put(2, WinningRules.NONE);
         winningRules.put(3, WinningRules.THREE_MATCHING);
         winningRules.put(4, WinningRules.FOUR_MATCHING);
         winningRules.put(5, WinningRules.FIVE_MATCHING);
         winningRules.put(6, WinningRules.SIX_MATCHING);
     }
 
-    public static WinningRules findByMatchCount(Integer key) {
+    public static WinningRules findByMatchCount(Integer key, boolean isBonus) {
+        if(isBonus)
+            return WinningRules.BONUS_MATCHING;
+
         return winningRules.get(key);
     }
 

@@ -2,8 +2,6 @@ package enums;
 
 public enum WinningRules {
     NONE(0, 0, false),
-    ONE_MATCHING(1, 0, false),
-    TWO_MATCHING(2, 0, false),
     THREE_MATCHING(3, 5000, false),
     FOUR_MATCHING(4, 50000, false),
     FIVE_MATCHING(5, 150000, false),

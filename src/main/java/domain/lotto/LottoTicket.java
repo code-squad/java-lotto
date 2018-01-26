@@ -8,6 +8,7 @@ import enums.WinningRules;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class LottoTicket {
 
@@ -19,11 +20,11 @@ public class LottoTicket {
             return;
         }
 
-        SortedSet<LottoNumber> newNumbers = new TreeSet<>();
-
-        for (String number : new ParsingLottoNumbers(text).getNumbers()) {
-            newNumbers.add(new LottoNumber(number));
-        }
+        SortedSet<LottoNumber> newNumbers = new TreeSet<>(new ParsingLottoNumbers(text)
+                .getNumbers()
+                    .stream()
+                        .map(LottoNumber::new)
+                .collect(Collectors.toSet()));
 
         this.lottoNumbers = new LottoNumbers(newNumbers);
     }
@@ -34,17 +35,18 @@ public class LottoTicket {
 
     public WinningRules matching(LottoTicket ticket, LottoNumber bonusNumber) {
         Integer count = 0;
+        boolean isBonus = false;
         LottoNumbers lottoNumbers = ticket.getLottoNumbers();
 
         for (LottoNumber winningNumber : lottoNumbers.getNumbers()) {
             count += this.lottoNumbers.isHitNumber(winningNumber);
-
-            if(count == 5 && lottoNumbers.isHitNumber(bonusNumber) == 1){
-                return WinningRules.BONUS_MATCHING;
-            }
         }
 
-        return WinningResult.findByMatchCount(count);
+        if(count == 5 && lottoNumbers.isHitNumber(bonusNumber) == 1){
+             isBonus = true;
+        }
+
+        return WinningResult.findByMatchCount(count, isBonus);
     }
 
     public LottoNumbers getLottoNumbers() {
