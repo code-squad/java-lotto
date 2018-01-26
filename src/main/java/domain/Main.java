@@ -1,8 +1,7 @@
 package domain;
 
-import io.InputView;
-import io.ResultView;
-import utils.Utils;
+import io.*;
+import utils.*;
 
 import java.util.List;
 
@@ -16,9 +15,9 @@ public class Main {
 
         ResultView.printTickets(tickets);
 
-        Ticket ticket = new Ticket(Utils.toIntegerList(Utils.splitWithDelimiter(InputView.readWinningNumbers(), ", ")));
+        WinningTicket winningTicket = new WinningTicket(Utils.toIntegerList(Utils.splitWithDelimiter(InputView.readWinningNumbers(), ", ")), InputView.readBonusNumber());
 
-        Lotto lotto = new Lotto(tickets, ticket);
+        Lotto lotto = new Lotto(tickets, winningTicket);
 
         ResultView.printResult(lotto);
     }
