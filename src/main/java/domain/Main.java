@@ -15,11 +15,9 @@ public class Main {
 
         ResultView.printTickets(tickets);
 
-        Ticket winningTicket = new Ticket(Utils.toIntegerList(Utils.splitWithDelimiter(InputView.readWinningNumbers(), ", ")));
+        WinningTicket winningTicket = new WinningTicket(Utils.toIntegerList(Utils.splitWithDelimiter(InputView.readWinningNumbers(), ", ")), InputView.readBonusNumber());
 
-        Integer bonusNumber = InputView.readBonusNumber();
-
-        Lotto lotto = new Lotto(tickets, winningTicket, bonusNumber);
+        Lotto lotto = new Lotto(tickets, winningTicket);
 
         ResultView.printResult(lotto);
     }

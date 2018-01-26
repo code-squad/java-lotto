@@ -1,5 +1,6 @@
 import domain.*;
 
+import enums.Rank;
 import org.junit.Before;
 import org.junit.Test;
 import utils.Utils;
@@ -21,7 +22,7 @@ public class TicketTest {
     public void setup() {
         lotto = new Lotto(
                 Collections.singletonList(new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6))),
-                new Ticket(Arrays.asList(45, 44, 43, 4, 5, 6)), 1);
+                new WinningTicket(Arrays.asList(45, 44, 43, 4, 5, 6), 1));
 
         lotto1 = new Lotto(
                 Arrays.asList(
@@ -29,7 +30,7 @@ public class TicketTest {
                         new Ticket(Arrays.asList(4, 5, 6, 43, 44, 45)),
                         new Ticket(Arrays.asList(4, 5, 6, 10, 11, 12))
                 ),
-                new Ticket(Arrays.asList(45, 44, 43, 4, 5, 6)), 3);
+                new WinningTicket(Arrays.asList(45, 44, 43, 4, 5, 6), 3));
 
         lotto2 = new Lotto(
                 Arrays.asList(
@@ -37,14 +38,13 @@ public class TicketTest {
                         new Ticket(Arrays.asList(4, 5, 6, 43, 44, 45)),
                         new Ticket(Arrays.asList(4, 5, 6, 10, 11, 12))
                 ),
-                new Ticket(Arrays.asList(45, 44, 43, 3, 5, 6)), 4);
+                new WinningTicket(Arrays.asList(45, 44, 43, 3, 5, 6), 1));
 
         bonus = new Lotto(
                 Collections.singletonList(
                         new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6))
                 ),
-                new Ticket(Arrays.asList(1, 2, 3, 4, 5, 10)), 6
-        );
+                new WinningTicket(Arrays.asList(1, 2, 3, 4, 5, 10), 6));
 
     }
 
@@ -62,12 +62,12 @@ public class TicketTest {
     @Test
     public void 수익률_테스트() {
         assertThat(Utils.getEarningsRate(1000, lotto.getWinningMoney()), is(400.0));
-        assertThat(Utils.getEarningsRate(3000, lotto2.getWinningMoney()), is(49900.0));
+        assertThat(Utils.getEarningsRate(3000, lotto2.getWinningMoney()), is(999900.0));
     }
 
     @Test
     public void 세개_매치_전체에서_두개_테스트() {
-        assertThat(lotto1.matchedCount(3).count(), is(2L));
+        assertThat(lotto1.matchedCount(Rank.FIFTH), is(2));
     }
 
     @Test
@@ -77,8 +77,8 @@ public class TicketTest {
 
     @Test
     public void 보너스_테스트() {
-        assertThat(bonus.matchedBonusCount(5), is(1));
-        assertThat(lotto1.matchedBonusCount(5), is(0));
+        assertThat(bonus.matchedCount(Rank.SECOND), is(1));
+        assertThat(lotto1.matchedCount(Rank.SECOND), is(0));
     }
 
 }

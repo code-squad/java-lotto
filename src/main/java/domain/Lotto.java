@@ -1,12 +1,10 @@
 package domain;
 
 
+import enums.Rank;
+
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Stream;
-
-import enums.*;
 
 import static constant.Constant.LOTTO_PRICE;
 
@@ -16,15 +14,13 @@ import static constant.Constant.LOTTO_PRICE;
 public class Lotto {
 
     private List<Ticket> tickets;
-    private Ticket winningNumbers;
+    private WinningTicket winningTicket;
     private Integer totalMoney;
-    private Integer bonusNumber;
 
-    public Lotto(List<Ticket> tickets, Ticket winningNumbers, Integer bonusNumber) {
+    public Lotto(List<Ticket> tickets, WinningTicket winningTicket) {
         this.tickets = tickets;
-        this.winningNumbers = winningNumbers;
+        this.winningTicket = winningTicket;
         this.totalMoney = calculateTotalMoney();
-        this.bonusNumber = bonusNumber;
     }
 
     private Integer calculateTotalMoney() {
@@ -35,20 +31,16 @@ public class Lotto {
         return totalMoney;
     }
 
-    public Stream<Ticket> matchedCount(Integer count) {
-        return tickets.stream()
-                .filter(ticket -> Objects.equals(ticket.calculateHits(winningNumbers), count));
-    }
-
-    public Integer matchedBonusCount(Integer baseCount) {
-        return (int)matchedCount(baseCount)
-                .filter(ticket -> ticket.isBonusHit(bonusNumber))
+    public Integer matchedCount(Rank rank) {
+        return (int)tickets.stream()
+                .filter(ticket -> winningTicket.match(ticket).equals(rank))
                 .count();
     }
 
+
     public Integer getWinningMoney() {
-        return Arrays.stream(Match.values())
-                .mapToInt(value -> value.getMoney() * (int)matchedCount(value.getMatched()).count())
+        return Arrays.stream(Rank.values())
+                .mapToInt(rank -> rank.getMoney() * matchedCount(rank))
                 .sum();
     }
 

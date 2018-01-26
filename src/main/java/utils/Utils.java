@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static constant.Constant.NUMBER_BOUNDARY;
-import static constant.Constant.SHUFFLE_COUNT;
-import static constant.Constant.START_INDEX;
+import static constant.Constant.*;
 
 /**
  * Created by hoon on 2018. 1. 13..

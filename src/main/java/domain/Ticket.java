@@ -27,8 +27,8 @@ public class Ticket {
                 .collect(Collectors.toList());
     }
 
-    public Boolean isBonusHit(Integer bonusNumber) {
-        return numbers.contains(bonusNumber);
+    public Boolean contains(Integer number) {
+        return numbers.contains(number);
     }
 
     @Override
