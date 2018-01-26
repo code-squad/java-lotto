@@ -2,6 +2,7 @@ package view;
 
 import domain.LottoGame;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,5 +24,20 @@ public class InputView {
     public static int inputBonusNumber(Scanner sc){
         System.out.println("보너스 볼을 입력해주세요.");
         return Integer.valueOf(sc.nextLine());
+    }
+
+    public static int inputManualLottoCount(Scanner sc){
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return Integer.valueOf(sc.nextLine());
+    }
+
+    public static List<String> inputManualLottoNumber(Scanner sc, int manualLottoCount){
+        System.out.println("수동으로 구매할 번호를 입력해 주세요");
+        List<String> manualLottoTexts = new ArrayList<>();
+        for (int i = 0; i < manualLottoCount; i++) {
+             manualLottoTexts.add(sc.nextLine());
+        }
+
+        return manualLottoTexts;
     }
 }

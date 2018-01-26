@@ -4,13 +4,16 @@ import java.util.List;
 
 public class WinningLotto extends Lotto{
 
-    private int bonusNumber;
+    private LottoNumber bonusNumber;
+//    private int bonusNumber;
+
     public WinningLotto(List<Integer> lotto, int bonusNumber) {
         super(lotto);
-        this.bonusNumber = bonusNumber;
+        this.bonusNumber = new LottoNumber(bonusNumber);
     }
 
-    public boolean hasBonus(List<Integer> userNumbers) {
+    public boolean hasBonus(List<LottoNumber> userNumbers) {
+
         if(userNumbers.contains(bonusNumber)){
             return true;
         }
