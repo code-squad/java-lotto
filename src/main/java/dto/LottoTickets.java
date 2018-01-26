@@ -1,5 +1,6 @@
 package dto;
 
+import domain.lotto.LottoNumber;
 import domain.lotto.LottoTicket;
 import enums.WinningRules;
 
@@ -11,6 +12,7 @@ public class LottoTickets {
 
     public LottoTickets(int amount) {
         List<LottoTicket> newTickets = new ArrayList<>();
+
         for (int i = 0; i < amount; i++) {
             newTickets.add(new LottoTicket(new LottoNumbers()));
         }
@@ -22,11 +24,11 @@ public class LottoTickets {
         this.tickets = tickets;
     }
 
-    public List<WinningRules> findMatching(LottoTicket winningTicket) {
+    public List<WinningRules> findMatching(LottoTicket winningTicket, int bonusNumber) {
         List<WinningRules> machingRules = new ArrayList<>();
 
         for (LottoTicket ticket : tickets) {
-            WinningRules matchedRule = winningTicket.matching(ticket);
+            WinningRules matchedRule = winningTicket.matching(ticket, new LottoNumber(bonusNumber));
             if (isAddAble(matchedRule))
                 machingRules.add(matchedRule);
         }

@@ -1,53 +1,56 @@
 package domain.lotto;
 
 import dto.LottoNumbers;
+import dto.ParsingLottoNumbers;
 import dto.WinningResult;
 import enums.WinningRules;
-import utils.StringParseUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class LottoTicket {
 
     public static final Integer PRICE = 1000;
-    private LottoNumbers numbers;
-
-    public LottoTicket() {
-    }
+    private LottoNumbers lottoNumbers;
 
     public LottoTicket(String text) {
         if (text.isEmpty()) {
             return;
         }
 
-        List<LottoNumber> newNumbers = new ArrayList<>();
+        SortedSet<LottoNumber> newNumbers = new TreeSet<>(new ParsingLottoNumbers(text)
+                .getNumbers()
+                    .stream()
+                        .map(LottoNumber::new)
+                .collect(Collectors.toSet()));
 
-        for (String number : StringParseUtil.parsingTextNumber(text)) {
-            newNumbers.add(new LottoNumber(number));
-        }
-
-        this.numbers = new LottoNumbers(newNumbers);
-        this.numbers.sortingNumber();
+        this.lottoNumbers = new LottoNumbers(newNumbers);
     }
 
-    public LottoTicket(LottoNumbers numbers) {
-        this.numbers = numbers;
-        this.numbers.sortingNumber();
+    public LottoTicket(LottoNumbers lottoNumbers) {
+        this.lottoNumbers = lottoNumbers;
     }
 
-    public WinningRules matching(LottoTicket ticket) {
+    public WinningRules matching(LottoTicket ticket, LottoNumber bonusNumber) {
         Integer count = 0;
+        boolean isBonus = false;
+        LottoNumbers lottoNumbers = ticket.getLottoNumbers();
 
-        for (LottoNumber winningNumber : ticket.numbers.getNumbers()) {
-            count += this.numbers.isHitNumber(winningNumber);
+        for (LottoNumber winningNumber : lottoNumbers.getNumbers()) {
+            count += this.lottoNumbers.isHitNumber(winningNumber);
         }
 
-        return WinningResult.findByMatchCount(count);
+        if(count == 5 && lottoNumbers.isHitNumber(bonusNumber) == 1){
+             isBonus = true;
+        }
+
+        return WinningResult.findByMatchCount(count, isBonus);
     }
 
-    public LottoNumbers getNumbers() {
-        return this.numbers;
+    public LottoNumbers getLottoNumbers() {
+        return lottoNumbers;
     }
 
     @Override
@@ -57,16 +60,16 @@ public class LottoTicket {
 
         LottoTicket that = (LottoTicket) o;
 
-        return numbers.equals(that.numbers);
+        return lottoNumbers.equals(that.lottoNumbers);
     }
 
     @Override
     public int hashCode() {
-        return numbers.hashCode();
+        return lottoNumbers.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.numbers.toString();
+        return this.lottoNumbers.toString();
     }
 }

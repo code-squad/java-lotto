@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -15,17 +17,22 @@ public class LottoTicketTest {
 
     LottoTicket a;
     LottoTicket b;
+    LottoNumbers numbers;
 
     @Before
     public void init() {
-        LottoNumbers numbers = new LottoNumbers(Arrays.asList(
-                new LottoNumber(1),
-                new LottoNumber(2),
-                new LottoNumber(3),
-                new LottoNumber(4),
-                new LottoNumber(5),
-                new LottoNumber(6)
-        ));
+        SortedSet<LottoNumber> number1;
+
+        number1 = new TreeSet<>();
+
+        number1.add(new LottoNumber(1));
+        number1.add(new LottoNumber(2));
+        number1.add(new LottoNumber(3));
+        number1.add(new LottoNumber(4));
+        number1.add(new LottoNumber(5));
+        number1.add(new LottoNumber(6));
+
+        numbers = new LottoNumbers(number1);
 
         a = new LottoTicket(numbers);
         b = new LottoTicket(numbers);
@@ -45,35 +52,20 @@ public class LottoTicketTest {
     @Test
     public void winningMaching_SIX() {
         a = new LottoTicket("1, 2, 3, 4, 5, 6");
-        assertThat(a.matching(a), is(WinningRules.SIX_MATCHING));
+        assertThat(a.matching(a, new LottoNumber(45)), is(WinningRules.SIX_MATCHING));
     }
 
     @Test
     public void winningMaching_ONE() {
-        a = new LottoTicket("1, 2, 3, 4, 5, 6");
-        LottoNumbers numbers = new LottoNumbers(Arrays.asList(
-                new LottoNumber(1),
-                new LottoNumber(11),
-                new LottoNumber(21),
-                new LottoNumber(31),
-                new LottoNumber(41),
-                new LottoNumber(12)
-        ));
-        assertThat(a.matching(new LottoTicket(numbers)), is(WinningRules.ONE_MATCHING));
+        LottoTicket lottoTicket = new LottoTicket("1, 7, 8, 9, 10, 11");
+
+        assertThat(lottoTicket.matching(a, new LottoNumber(45)), is(WinningRules.NONE));
     }
 
     @Test
     public void insertNumber() {
-        a = new LottoTicket("1, 2, 3, 4, 5, 6");
-        List<LottoNumber> numbers = Arrays.asList(
-                new LottoNumber(1),
-                new LottoNumber(2),
-                new LottoNumber(3),
-                new LottoNumber(4),
-                new LottoNumber(5),
-                new LottoNumber(6)
-        );
+        LottoTicket lottoTicket = new LottoTicket("1, 2, 3, 4, 5, 6");
 
-        assertThat(a.getNumbers().getNumbers(), is(numbers));
+        assertThat(lottoTicket, is(a));
     }
 }

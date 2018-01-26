@@ -12,6 +12,6 @@ public class Main {
 
         out.printBuyConfirmMassage(lottoMachine.getPurchasedLottoTicket());// print ticket.
 
-        out.printResultMassage(lottoMachine.getWinningResult(input.inputLastWeekWinningNumber()));// print result.
+        out.printResultMassage(lottoMachine.getWinningResult(input.inputLastWeekWinningNumber(), input.insertBonusball()));// print result.
     }
 }
