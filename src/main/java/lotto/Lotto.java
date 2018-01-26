@@ -9,16 +9,23 @@ import java.util.List;
  */
 public class Lotto {
 
-    private List<Integer> lottoNumbers;
+    private List<LottoNo> lottoNumbers;
     private static final int LOTTO_NUMBER_SIZE = 6;
 
     public Lotto(List<Integer> numbers) {
         if(numbers.size() < LOTTO_NUMBER_SIZE) {
             throw new IllegalArgumentException(String.format("최소 로또 숫자는 %s 입니다.",LOTTO_NUMBER_SIZE));
         }
-        this.lottoNumbers = numbers;
+        this.lottoNumbers = convertIntegerToLottoNo(numbers);
     }
 
+    public List<LottoNo> convertIntegerToLottoNo(List<Integer> numbers) {
+        List<LottoNo> lottoNos = new ArrayList<>();
+        for (Integer integer : numbers) {
+            lottoNos.add(new LottoNo(integer));
+        }
+        return lottoNos;
+    }
     @Override
     public String toString() {
         return String.join(", ", lottoNumbers.toString());
@@ -26,8 +33,8 @@ public class Lotto {
 
     public int countMatchingAnswer(Lotto lotto) {
         int matchCount =0;
-        for (Integer integer : lotto.getLottoNumbers()) {
-            if(this.lottoNumbers.contains(integer)) {
+        for (LottoNo lottoNo : lotto.getLottoNumbers()) {
+            if(lottoNo.matchInList(this.lottoNumbers)) {
                 matchCount++;
             }
         }
@@ -36,11 +43,11 @@ public class Lotto {
 
 
 
-    public List<Integer> getLottoNumbers() {
+    public List<LottoNo> getLottoNumbers() {
         return lottoNumbers;
     }
 
-    public boolean isBouseMatch(int bonusNumber) {
-        return this.lottoNumbers.contains(bonusNumber);
+    public boolean isBouseMatch(LottoNo bonusNumber) {
+        return bonusNumber.matchInList(this.lottoNumbers);
     }
 }

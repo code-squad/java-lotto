@@ -25,7 +25,7 @@ public class ResultTest {
     @Test
     public void 로또맞은개수별_카운트() throws Exception {
         Lotto lotto = new Lotto(Arrays.asList(1,3,4,6,7,8));
-        WinningLotto winningLotto = createWinningLotto(new Lotto(Arrays.asList(1,2,3,4,5,6)), 8);
+        WinningLotto winningLotto = createWinningLotto(new Lotto(Arrays.asList(1,2,3,4,5,6)), new LottoNo(8));
         result.addLottoResult(winningLotto.getRankmatchCountAndMatchBonus(lotto));
         assertEquals(new Integer(1), (result.getLottoResult().get(Rank.FOURTH)));
     }
@@ -33,7 +33,7 @@ public class ResultTest {
     @Test
     public void 수익률_계산() throws Exception {
         Lotto lotto = new Lotto(Arrays.asList(1,3,4,6,7,8));
-        WinningLotto winningLotto = createWinningLotto(new Lotto(Arrays.asList(1,2,3,4,5,6)), 8);
+        WinningLotto winningLotto = createWinningLotto(new Lotto(Arrays.asList(1,2,3,4,5,6)), new LottoNo(8));
         result.addLottoResult(winningLotto.getRankmatchCountAndMatchBonus(lotto));
         assertEquals(4900, new Money(1000).rateTotal(result.getSum()));
 
