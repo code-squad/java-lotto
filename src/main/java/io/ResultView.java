@@ -25,6 +25,10 @@ public class ResultView {
         System.out.printf("총 수익률은 %.0f%%입니다\n", Utils.getEarningsRate(lotto.getTotalMoney(), lotto.getWinningMoney()));
     }
 
+    public static void printTicketCount(Integer auto, Integer manual) {
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", manual, auto);
+    }
+
     public static void printTickets(List<Ticket> tickets) {
         for(Ticket ticket : tickets) {
             StringBuilder builder = new StringBuilder();
