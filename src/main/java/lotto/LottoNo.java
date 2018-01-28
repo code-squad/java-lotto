@@ -9,10 +9,10 @@ public class LottoNo {
     private int no;
 
     public LottoNo(int no) {
+        if(no < 1 || no > 45) {
+            throw new IllegalArgumentException("1과 45 사이의 번호를 입력해주세요");
+        }
         this.no = no;
-    }
-    public boolean matchInList(List<LottoNo> lottoNumbers) {
-        return lottoNumbers.contains(this);
     }
 
     @Override

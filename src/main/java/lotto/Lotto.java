@@ -3,6 +3,7 @@ package lotto;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Joeylee on 2018-01-13.
@@ -20,21 +21,17 @@ public class Lotto {
     }
 
     public List<LottoNo> convertIntegerToLottoNo(List<Integer> numbers) {
-        List<LottoNo> lottoNos = new ArrayList<>();
-        for (Integer integer : numbers) {
-            lottoNos.add(new LottoNo(integer));
-        }
-        return lottoNos;
+        return numbers.stream().map(LottoNo::new).collect(Collectors.toCollection(ArrayList::new));
     }
     @Override
     public String toString() {
         return String.join(", ", lottoNumbers.toString());
     }
 
-    public int countMatchingAnswer(Lotto lotto) {
+    public int countMatchingAnswer(Lotto winningLotto) {
         int matchCount =0;
-        for (LottoNo lottoNo : lotto.getLottoNumbers()) {
-            if(lottoNo.matchInList(this.lottoNumbers)) {
+        for (LottoNo lottoNo : winningLotto.lottoNumbers) {
+            if(this.lottoNumbers.contains(lottoNo)) {
                 matchCount++;
             }
         }
@@ -48,6 +45,6 @@ public class Lotto {
     }
 
     public boolean isBouseMatch(LottoNo bonusNumber) {
-        return bonusNumber.matchInList(this.lottoNumbers);
+        return this.lottoNumbers.contains(bonusNumber);
     }
 }

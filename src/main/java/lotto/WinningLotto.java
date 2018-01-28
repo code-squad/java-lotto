@@ -28,7 +28,7 @@ public class WinningLotto {
     }
 
     public static WinningLotto createWinningLotto(Lotto lotto, LottoNo bonusNumber) {
-        if(bonusNumber.matchInList(lotto.getLottoNumbers())) {
+        if(lotto.getLottoNumbers().contains(bonusNumber)) {
             throw new IllegalArgumentException("로또번호와 보너스 볼이 겹칩니다");
         }
         return new WinningLotto(lotto, bonusNumber);
