@@ -1,5 +1,6 @@
 package dto;
 
+import domain.lotto.LottoNumber;
 import domain.lotto.LottoTicket;
 import enums.WinningRules;
 import org.junit.Before;
@@ -22,16 +23,15 @@ public class LottoTicketsTest {
 
     @Test
     public void findMatching_하나() {
-        LottoTicket winningTicket = new LottoTicket("1, 2, 3, 4, 5, 6");
+        LottoTicket winningTicket = LottoTicket.of("1, 2, 3, 4, 5, 6");
 
-        LottoTicket ticket1 = new LottoTicket("1, 2, 3, 4, 5, 6");
-        LottoTicket ticket2 = new LottoTicket("7, 8, 9, 10, 11, 12");
-        LottoTicket ticket3 = new LottoTicket("13, 14, 15, 16, 17, 18");
-        LottoTicket ticket4 = new LottoTicket("19, 20, 21, 22, 23, 24");
-        LottoTicket ticket5 = new LottoTicket("25, 26, 27, 28, 29, 30");
-        LottoTicket ticket6 = new LottoTicket("31, 32, 33, 34, 35, 36");
-        LottoTicket ticket7 = new LottoTicket("37, 38, 39, 40, 41, 42");
-
+        LottoTicket ticket1 = LottoTicket.of("1, 2, 3, 4, 5, 6");
+        LottoTicket ticket2 = LottoTicket.of("7, 8, 9, 10, 11, 12");
+        LottoTicket ticket3 = LottoTicket.of("13, 14, 15, 16, 17, 18");
+        LottoTicket ticket4 = LottoTicket.of("19, 20, 21, 22, 23, 24");
+        LottoTicket ticket5 = LottoTicket.of("25, 26, 27, 28, 29, 30");
+        LottoTicket ticket6 = LottoTicket.of("31, 32, 33, 34, 35, 36");
+        LottoTicket ticket7 = LottoTicket.of("37, 38, 39, 40, 41, 42");
 
         tickets = new LottoTickets(Arrays.asList(
                 ticket1,
@@ -43,22 +43,22 @@ public class LottoTicketsTest {
                 ticket7
         ));
 
-        List<WinningRules> matching = tickets.findMatching(winningTicket, 45);
+        List<WinningRules> matching = tickets.findMatching(winningTicket, LottoNumber.of(45));
 
         assertThat(matching.get(0), is(WinningRules.SIX_MATCHING));
     }
 
     @Test
     public void findMatching_여러개() {
-        LottoTicket winningTicket = new LottoTicket("1, 2, 3, 4, 5, 6");
+        LottoTicket winningTicket = LottoTicket.of("1, 2, 3, 4, 5, 6");
 
-        LottoTicket ticket1 = new LottoTicket("1, 2, 3, 4, 5, 6");
-        LottoTicket ticket2 = new LottoTicket("1, 2, 3, 10, 11, 12");
-        LottoTicket ticket3 = new LottoTicket("4, 5, 6, 16, 17, 18");
-        LottoTicket ticket4 = new LottoTicket("5, 6, 21, 22, 23, 24");
-        LottoTicket ticket5 = new LottoTicket("25, 26, 27, 28, 29, 30");
-        LottoTicket ticket6 = new LottoTicket("31, 32, 33, 34, 35, 36");
-        LottoTicket ticket7 = new LottoTicket("37, 38, 39, 40, 41, 42");
+        LottoTicket ticket1 = LottoTicket.of("1, 2, 3, 4, 5, 6");
+        LottoTicket ticket2 = LottoTicket.of("1, 2, 3, 10, 11, 12");
+        LottoTicket ticket3 = LottoTicket.of("4, 5, 6, 16, 17, 18");
+        LottoTicket ticket4 = LottoTicket.of("5, 6, 21, 22, 23, 24");
+        LottoTicket ticket5 = LottoTicket.of("25, 26, 27, 28, 29, 30");
+        LottoTicket ticket6 = LottoTicket.of("31, 32, 33, 34, 35, 36");
+        LottoTicket ticket7 = LottoTicket.of("37, 38, 39, 40, 41, 42");
 
         tickets = new LottoTickets(Arrays.asList(
                 ticket1,
@@ -70,7 +70,7 @@ public class LottoTicketsTest {
                 ticket7
         ));
 
-        List<WinningRules> matching = tickets.findMatching(winningTicket, 45);
+        List<WinningRules> matching = tickets.findMatching(winningTicket, LottoNumber.of(45));
 
         List<WinningRules> answer = Arrays.asList(
             WinningRules.SIX_MATCHING,
@@ -83,15 +83,15 @@ public class LottoTicketsTest {
 
     @Test
     public void findMatching_보너스볼() {
-        LottoTicket winningTicket = new LottoTicket("1, 2, 3, 4, 5, 6");
+        LottoTicket winningTicket = LottoTicket.of("1, 2, 3, 4, 5, 6");
 
-        LottoTicket ticket1 = new LottoTicket("1, 2, 3, 4, 5, 45");
+        LottoTicket ticket1 = LottoTicket.of("1, 2, 3, 4, 5, 45");
 
         tickets = new LottoTickets(Arrays.asList(
                 ticket1
         ));
 
-        List<WinningRules> matching = tickets.findMatching(winningTicket, 45);
+        List<WinningRules> matching = tickets.findMatching(winningTicket, LottoNumber.of(45));
 
         List<WinningRules> answer = Arrays.asList(
                 WinningRules.BONUS_MATCHING

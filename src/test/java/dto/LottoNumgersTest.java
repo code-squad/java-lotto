@@ -14,30 +14,20 @@ import static org.junit.Assert.assertThat;
 
 public class LottoNumgersTest {
 
-    SortedSet<LottoNumber> number1;
     LottoNumbers numbers;
 
     @Before
     public void init(){
-        number1 = new TreeSet<>();
-
-        number1.add(new LottoNumber(1));
-        number1.add(new LottoNumber(2));
-        number1.add(new LottoNumber(3));
-        number1.add(new LottoNumber(4));
-        number1.add(new LottoNumber(5));
-        number1.add(new LottoNumber(6));
-
-        numbers = new LottoNumbers(number1);
+        numbers = LottoNumbers.of("1, 2, 3, 4, 5, 6");
     }
 
     @Test
     public void isHitNumber_hit() {
-        assertThat(numbers.isHitNumber(new LottoNumber(1)), is(1));
+        assertThat(numbers.isHitNumber(LottoNumber.of(1)), is(1));
     }
 
     @Test
     public void isHitNumber_none_hit() {
-        assertThat(numbers.isHitNumber(new LottoNumber(7)), is(0));
+        assertThat(numbers.isHitNumber(LottoNumber.of(7)), is(0));
     }
 }

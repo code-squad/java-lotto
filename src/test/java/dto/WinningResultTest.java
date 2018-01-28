@@ -1,5 +1,6 @@
 package dto;
 
+import domain.lotto.InputString;
 import domain.lotto.LottoTicket;
 import enums.WinningRules;
 import org.junit.Before;
@@ -23,15 +24,15 @@ public class WinningResultTest {
                 WinningRules.THREE_MATCHING
         );
 
-        winningTicket = new LottoTicket("1, 2, 3, 4, 5, 6");
+        winningTicket = LottoTicket.of("1, 2, 3, 4, 5, 6");
 
-        LottoTicket ticket1 = new LottoTicket("1, 2, 3, 4, 5, 6");
-        LottoTicket ticket2 = new LottoTicket("7, 8, 9, 10, 11, 12");
-        LottoTicket ticket3 = new LottoTicket("13, 14, 15, 16, 17, 18");
-        LottoTicket ticket4 = new LottoTicket("19, 20, 21, 22, 23, 24");
-        LottoTicket ticket5 = new LottoTicket("25, 26, 27, 28, 29, 30");
-        LottoTicket ticket6 = new LottoTicket("31, 32, 33, 34, 35, 36");
-        LottoTicket ticket7 = new LottoTicket("37, 38, 39, 40, 41, 42");
+        LottoTicket ticket1 = LottoTicket.of("1, 2, 3, 4, 5, 6");
+        LottoTicket ticket2 = LottoTicket.of("7, 8, 9, 10, 11, 12");
+        LottoTicket ticket3 = LottoTicket.of("13, 14, 15, 16, 17, 18");
+        LottoTicket ticket4 = LottoTicket.of("19, 20, 21, 22, 23, 24");
+        LottoTicket ticket5 = LottoTicket.of("25, 26, 27, 28, 29, 30");
+        LottoTicket ticket6 = LottoTicket.of("31, 32, 33, 34, 35, 36");
+        LottoTicket ticket7 = LottoTicket.of("37, 38, 39, 40, 41, 42");
 
         tickets = Arrays.asList(
                 ticket1,
@@ -72,21 +73,21 @@ public class WinningResultTest {
     @Test
     public void countRules() {
 
-        WinningResult result = new WinningResult(14000, rules);
+        WinningResult result = new WinningResult(LottoMoney.of(14000), rules);
 
         assertThat(result.countRules(rules).get(WinningRules.THREE_MATCHING), is(2));
     }
 
     @Test
     public void calculateWinningPercent() {
-        WinningResult result = new WinningResult(14000, rules);
+        WinningResult result = new WinningResult(LottoMoney.of(14000), rules);
 
         assertThat(result.calculateWinningPercent(1000, 1000), is(0));
     }
 
     @Test
     public void calculateWinningMoney() {
-        WinningResult result = new WinningResult(14000, rules);
+        WinningResult result = new WinningResult(LottoMoney.of(14000), rules);
 
         Map<WinningRules, Integer> rules = new HashMap() {{
             put(WinningRules.THREE_MATCHING, 2);

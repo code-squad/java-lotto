@@ -25,17 +25,17 @@ public class LottoTicketTest {
 
         number1 = new TreeSet<>();
 
-        number1.add(new LottoNumber(1));
-        number1.add(new LottoNumber(2));
-        number1.add(new LottoNumber(3));
-        number1.add(new LottoNumber(4));
-        number1.add(new LottoNumber(5));
-        number1.add(new LottoNumber(6));
+        number1.add(LottoNumber.of(1));
+        number1.add(LottoNumber.of(2));
+        number1.add(LottoNumber.of(3));
+        number1.add(LottoNumber.of(4));
+        number1.add(LottoNumber.of(5));
+        number1.add(LottoNumber.of(6));
 
-        numbers = new LottoNumbers(number1);
+        numbers = LottoNumbers.of(number1);
 
-        a = new LottoTicket(numbers);
-        b = new LottoTicket(numbers);
+        a = LottoTicket.of(numbers);
+        b = LottoTicket.of(numbers);
     }
 
     @Test
@@ -45,26 +45,26 @@ public class LottoTicketTest {
 
     @Test
     public void equals_false() {
-        b = new LottoTicket("1, 2, 3, 4, 5, 7");
+        b = LottoTicket.of("1, 2, 3, 4, 5, 7");
         assertThat(a.equals(b), is(false));
     }
 
     @Test
     public void winningMaching_SIX() {
-        a = new LottoTicket("1, 2, 3, 4, 5, 6");
-        assertThat(a.matching(a, new LottoNumber(45)), is(WinningRules.SIX_MATCHING));
+        a = LottoTicket.of("1, 2, 3, 4, 5, 6");
+        assertThat(a.matching(a, LottoNumber.of(45)), is(WinningRules.SIX_MATCHING));
     }
 
     @Test
     public void winningMaching_ONE() {
-        LottoTicket lottoTicket = new LottoTicket("1, 7, 8, 9, 10, 11");
+        LottoTicket lottoTicket = LottoTicket.of("1, 7, 8, 9, 10, 11");
 
-        assertThat(lottoTicket.matching(a, new LottoNumber(45)), is(WinningRules.NONE));
+        assertThat(lottoTicket.matching(a, LottoNumber.of(45)), is(WinningRules.NONE));
     }
 
     @Test
     public void insertNumber() {
-        LottoTicket lottoTicket = new LottoTicket("1, 2, 3, 4, 5, 6");
+        LottoTicket lottoTicket = LottoTicket.of("1, 2, 3, 4, 5, 6");
 
         assertThat(lottoTicket, is(a));
     }

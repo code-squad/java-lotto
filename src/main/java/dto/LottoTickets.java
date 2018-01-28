@@ -14,7 +14,7 @@ public class LottoTickets {
         List<LottoTicket> newTickets = new ArrayList<>();
 
         for (int i = 0; i < amount; i++) {
-            newTickets.add(new LottoTicket(new LottoNumbers()));
+            newTickets.add(LottoTicket.of(LottoNumbers.of()));
         }
 
         this.tickets = newTickets;
@@ -24,11 +24,11 @@ public class LottoTickets {
         this.tickets = tickets;
     }
 
-    public List<WinningRules> findMatching(LottoTicket winningTicket, int bonusNumber) {
+    public List<WinningRules> findMatching(LottoTicket winningTicket, LottoNumber bonusNumber) {
         List<WinningRules> machingRules = new ArrayList<>();
 
         for (LottoTicket ticket : tickets) {
-            WinningRules matchedRule = winningTicket.matching(ticket, new LottoNumber(bonusNumber));
+            WinningRules matchedRule = winningTicket.matching(ticket, bonusNumber);
             if (isAddAble(matchedRule))
                 machingRules.add(matchedRule);
         }
