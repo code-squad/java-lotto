@@ -6,8 +6,8 @@ import dto.WinningResult;
 public class Out {
 
     public void printBuyConfirmMassage(LottoTickets tickets) {
+        System.out.println("수동으로 "+ tickets.getManualSize()+"장, 자동으로 "+tickets.getAutoSize()+"개를 구매했습니다.");
         System.out.println(tickets.toString());
-        System.out.println(tickets.getSize() + "개를 구매하셨습니다.");
     }
 
     public void printResultMassage(WinningResult result) {

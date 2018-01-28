@@ -9,9 +9,9 @@ public class LottoMachine {
     private LottoMoney lottoMoney;
     private LottoTickets purchasedLottoTickets;
 
-    private LottoMachine(int money) {
+    private LottoMachine(int money, int manualBuyNumber) {
         this.lottoMoney = LottoMoney.of(money);
-        this.purchasedLottoTickets = LottoTickets.of(this.lottoMoney.getPurchasingTicketAmount());
+        this.purchasedLottoTickets = LottoTickets.of(this.lottoMoney.getPurchasingTicketAmount(), manualBuyNumber);
     }
 
     public WinningResult getWinningResult(InputString inputString, LottoNumber bonusBallNumber) {
@@ -26,7 +26,7 @@ public class LottoMachine {
         return this.purchasedLottoTickets;
     }
 
-    public static LottoMachine of(int money) {
-        return new LottoMachine(money);
+    public static LottoMachine of(int money, int manualBuyNumber) {
+        return new LottoMachine(money, manualBuyNumber);
     }
 }
