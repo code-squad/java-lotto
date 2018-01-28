@@ -17,18 +17,34 @@ public class InputView {
         return new Money(Integer.parseInt(sc.nextLine()));
     }
 
+    public static List<Lotto> selfPurchaseCount() {
+        List<Lotto> lottos = new ArrayList<>();
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+
+        int selfCount = Integer.parseInt(sc.nextLine());
+
+        for(int i = 0; i< selfCount; i++ ) {
+           lottos.add(inputNumbers());
+        }
+        return lottos;
+    }
+
+
     public static Lotto inputMatchingNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        return inputNumbers();
+    }
 
+    public static Lotto inputNumbers() {
         String input = sc.nextLine();
         String[] inputs = input.split(", ");
 
         return convertLotto(inputs);
     }
 
-    public static int inputBonusNumber() {
+    public static LottoNo inputBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
-        return Integer.parseInt(sc.nextLine());
+        return new LottoNo(Integer.parseInt(sc.nextLine()));
     }
 
     private static Lotto convertLotto(String[] inputs) {

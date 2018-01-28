@@ -24,10 +24,14 @@ public class LottoMachineTest {
     }
 
     @Test
-    public void 구입금액에_따라_구매가능한_로또개수_출력() throws Exception {
-        int count = lottoMachine.countForPrice(new Money(3000));
+    public void 구입금액에_따라_구매가능한_자동_로또개수_출력() throws Exception {
+        List<Lotto> selfLottos = new ArrayList<>();
+        selfLottos.add(new Lotto(Arrays.asList(1,3,4,11,12,13)));
+        selfLottos.add(new Lotto(Arrays.asList(1,3,4,5,12,13)));
 
-        assertEquals(3, count);
+        int count = lottoMachine.countForPriceExceptSelfCount(new Money(3000), selfLottos);
+
+        assertEquals(1, count);
     }
 
 
@@ -58,7 +62,7 @@ public class LottoMachineTest {
         lottoMachine.setLottos(lottos);
         List<Integer> matchingNumbers = Arrays.asList(1,3,4,5,6,7);
         Lotto matchingLotto = new Lotto(matchingNumbers);
-        WinningLotto winningLotto = new WinningLotto(matchingLotto, 8);
+        WinningLotto winningLotto = new WinningLotto(matchingLotto, new LottoNo(8));
 
         Result result = lottoMachine.makeResult(winningLotto);
         System.out.println(result.toString());

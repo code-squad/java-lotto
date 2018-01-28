@@ -16,13 +16,17 @@ public class Main {
 
         LottoMachine lottoMachine = new LottoMachine();
         Money money = getMoney();
-        int count = lottoMachine.countForPrice(money);
+
+        //수동 입력 및 구매 번호 선택
+        List<Lotto> selfLottos = selfPurchaseCount();
+
+        int autoCount = lottoMachine.countForPriceExceptSelfCount(money, selfLottos);
 
         //개수 출력
-        showCount(count);
+        showPurchaseCount(selfLottos.size(), autoCount);
 
         //로또 구입
-        lottoMachine.buyLottos(count);
+        lottoMachine.buyLottos(autoCount);
 
         //구입한 로또 출력
         showLotto(lottoMachine.getLottos());
@@ -31,7 +35,7 @@ public class Main {
         Lotto matchingNumbers = inputMatchingNumbers();
 
         //보너스 볼 입력
-        int bonusNumber = inputBonusNumber();
+        LottoNo bonusNumber = inputBonusNumber();
 
         WinningLotto winningLotto = createWinningLotto(matchingNumbers, bonusNumber);
 

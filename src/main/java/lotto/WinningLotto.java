@@ -5,9 +5,9 @@ package lotto;
  */
 public class WinningLotto {
     private Lotto lotto;
-    private int bonusNumber;
+    private LottoNo bonusNumber;
 
-    public WinningLotto(Lotto lotto, int bonusNumber) {
+    public WinningLotto(Lotto lotto, LottoNo bonusNumber) {
         this.lotto = lotto;
         this.bonusNumber = bonusNumber;
     }
@@ -16,7 +16,7 @@ public class WinningLotto {
         return lotto;
     }
 
-    public int getBonusNumber() {
+    public LottoNo getBonusNumber() {
         return bonusNumber;
     }
 
@@ -27,7 +27,10 @@ public class WinningLotto {
         return Rank.valueOf(numOfMatchCount, matchBonusNum);
     }
 
-    public static WinningLotto createWinningLotto(Lotto lotto, int bonusNumber) {
+    public static WinningLotto createWinningLotto(Lotto lotto, LottoNo bonusNumber) {
+        if(lotto.getLottoNumbers().contains(bonusNumber)) {
+            throw new IllegalArgumentException("로또번호와 보너스 볼이 겹칩니다");
+        }
         return new WinningLotto(lotto, bonusNumber);
     }
 

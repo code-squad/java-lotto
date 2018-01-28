@@ -10,7 +10,7 @@ public class LottoMachine {
     public static final int LOTTO_PRICE = 1000;
     public static final int LOTTO_MAX_NUM = 45;
     private List<Integer> bagicNumbers;
-    private List<Lotto> lottos;
+    private List<Lotto> lottos = new ArrayList<>();
 
     public LottoMachine() {
         this.bagicNumbers = createLottoBasicNumbers();
@@ -25,7 +25,6 @@ public class LottoMachine {
     }
 
     public List<Lotto> createRandomLotto(int count) {
-        lottos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             lottos.add(new Lotto(getRandomNumbers()));
         }
@@ -46,8 +45,12 @@ public class LottoMachine {
         return nums;
     }
 
-    public int countForPrice(Money money) {
-        return money.howManyLotto(LOTTO_PRICE);
+    public int countForPriceExceptSelfCount(Money money, List<Lotto> selfLotto) {
+        if(!money.vaildCheck(money, selfLotto.size() * LOTTO_PRICE)) {
+            throw new IllegalArgumentException("사고싶은 로또에 비해 돈이 적습니다");
+        }
+        lottos.addAll(selfLotto);
+        return money.howManyLotto(LOTTO_PRICE, selfLotto.size());
     }
 
     public void buyLottos(int count) {
