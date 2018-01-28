@@ -8,7 +8,7 @@ import java.util.List;
 public class ParsingLottoNumbers {
     private List<String> numbers;
 
-    public ParsingLottoNumbers(List<String> result) {
+    private ParsingLottoNumbers(List<String> result) {
         this.numbers = result;
     }
 

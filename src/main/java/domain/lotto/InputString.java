@@ -7,7 +7,7 @@ public class InputString {
     private String text;
 
     private InputString(String text) {
-        if (text.isEmpty()) {//parsingLottoNumbers 제거 -> inputString 적용
+        if (text.isEmpty()) {
             return;
         }
 

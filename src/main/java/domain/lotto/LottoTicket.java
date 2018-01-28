@@ -5,7 +5,6 @@ import dto.ParsingLottoNumbers;
 import dto.WinningResult;
 import enums.WinningRules;
 
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;

@@ -6,7 +6,7 @@ import domain.lotto.Money;
 public class LottoMoney {
     private Money money;
 
-    public LottoMoney(Money money) {
+    private LottoMoney(Money money) {
         this.money = money;
     }
 

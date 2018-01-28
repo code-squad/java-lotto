@@ -10,18 +10,22 @@ import java.util.List;
 public class LottoTickets {
     List<LottoTicket> tickets;
 
-    public LottoTickets(int amount) {
+    private LottoTickets(List<LottoTicket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public static LottoTickets of(List<LottoTicket> tickets) {
+        return new LottoTickets(tickets);
+    }
+
+    public static LottoTickets of(int amount) {
         List<LottoTicket> newTickets = new ArrayList<>();
 
         for (int i = 0; i < amount; i++) {
             newTickets.add(LottoTicket.of(LottoNumbers.of()));
         }
 
-        this.tickets = newTickets;
-    }
-
-    public LottoTickets(List<LottoTicket> tickets) {
-        this.tickets = tickets;
+        return new LottoTickets(newTickets);
     }
 
     public List<WinningRules> findMatching(LottoTicket winningTicket, LottoNumber bonusNumber) {

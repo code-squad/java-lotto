@@ -24,7 +24,7 @@ public class LottoNumber implements Comparable<LottoNumber>, Validable<Integer> 
     }
 
     public static LottoNumber of() {
-        return new LottoNumber(new Random().nextInt(LOTTO_MAX_NUMBER) + 1);
+        return LottoNumber.of(new Random().nextInt(LOTTO_MAX_NUMBER) + 1);
     }
 
     public Integer getNumber() {

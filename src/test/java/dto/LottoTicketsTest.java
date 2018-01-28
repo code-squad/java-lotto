@@ -33,7 +33,7 @@ public class LottoTicketsTest {
         LottoTicket ticket6 = LottoTicket.of("31, 32, 33, 34, 35, 36");
         LottoTicket ticket7 = LottoTicket.of("37, 38, 39, 40, 41, 42");
 
-        tickets = new LottoTickets(Arrays.asList(
+        tickets = LottoTickets.of(Arrays.asList(
                 ticket1,
                 ticket2,
                 ticket3,
@@ -60,7 +60,7 @@ public class LottoTicketsTest {
         LottoTicket ticket6 = LottoTicket.of("31, 32, 33, 34, 35, 36");
         LottoTicket ticket7 = LottoTicket.of("37, 38, 39, 40, 41, 42");
 
-        tickets = new LottoTickets(Arrays.asList(
+        tickets = LottoTickets.of(Arrays.asList(
                 ticket1,
                 ticket2,
                 ticket3,
@@ -87,7 +87,7 @@ public class LottoTicketsTest {
 
         LottoTicket ticket1 = LottoTicket.of("1, 2, 3, 4, 5, 45");
 
-        tickets = new LottoTickets(Arrays.asList(
+        tickets = LottoTickets.of(Arrays.asList(
                 ticket1
         ));
 
