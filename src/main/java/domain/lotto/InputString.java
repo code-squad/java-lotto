@@ -2,16 +2,16 @@ package domain.lotto;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class InputString {
     private String text;
 
     private InputString(String text) {
-        if (text.isEmpty()) {
-            return;
-        }
-
-        this.text = text.replaceAll(" ", "");
+        this.text = Optional.ofNullable(text)
+                .filter(val->!val.isEmpty())
+                .map(val -> val.replaceAll(" ", ""))
+                .orElse("");
     }
 
     public static InputString of(String text) {

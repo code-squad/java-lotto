@@ -1,5 +1,6 @@
 package domain.lotto;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class LottoNumber implements Comparable<LottoNumber>, Validable<Integer> {
@@ -9,10 +10,9 @@ public class LottoNumber implements Comparable<LottoNumber>, Validable<Integer> 
     private Integer number;
 
     private LottoNumber(Integer number) {
-        if (!this.isValidData(number)) {
-            throw new NullPointerException();
-        }
-        this.number = number;
+        this.number = Optional.of(number)
+                .filter(val -> val>=LOTTO_MIN_NUMBER && val<=LOTTO_MAX_NUMBER)
+                .orElse(new Random().nextInt(LOTTO_MAX_NUMBER) + 1);
     }
 
     public static LottoNumber of(Integer number) {

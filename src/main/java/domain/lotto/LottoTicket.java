@@ -5,6 +5,7 @@ import dto.ParsingLottoNumbers;
 import dto.WinningResult;
 import enums.WinningRules;
 
+import java.util.Optional;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -15,7 +16,7 @@ public class LottoTicket {
     private LottoNumbers lottoNumbers;
 
     private LottoTicket(LottoNumbers lottoNumbers) {
-        this.lottoNumbers = lottoNumbers;
+        this.lottoNumbers = Optional.ofNullable(lottoNumbers).orElse(LottoNumbers.of());
     }
 
     public static LottoTicket of(LottoNumbers lottoNumbers) {

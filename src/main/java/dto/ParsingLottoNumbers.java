@@ -2,26 +2,31 @@ package dto;
 
 import domain.lotto.InputString;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ParsingLottoNumbers {
     private List<String> numbers;
 
     private ParsingLottoNumbers(List<String> result) {
-        this.numbers = result;
+        this.numbers = Optional.ofNullable(result)
+                .orElse(Collections.EMPTY_LIST);
+
+        if(!isValidNumberSize(result)){
+            this.numbers = Collections.EMPTY_LIST;
+        }
     }
 
     public static ParsingLottoNumbers of(String text) {
         return ParsingLottoNumbers.of(InputString.of(text));
     }
 
-    public static ParsingLottoNumbers of(InputString inputString){
-        List<String> result = inputString.split(",");
-        if (isValidNumberSize(result)) {
-            return new ParsingLottoNumbers(result);
-        }
-        return null;
+    public static ParsingLottoNumbers of(InputString inputString) {
+        List<String> result = Optional.ofNullable(inputString)
+                .map(val -> val.split(","))
+                .orElse(null);
+
+        return new ParsingLottoNumbers(result);
     }
 
     private static boolean isValidNumberSize(List<String> result) {
@@ -29,6 +34,6 @@ public class ParsingLottoNumbers {
     }
 
     public List<String> getNumbers() {
-        return numbers;
+        return this.numbers;
     }
 }
