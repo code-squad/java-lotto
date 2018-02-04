@@ -13,7 +13,7 @@ public class LottoMachineTest {
 
     @Before
     public void init() {
-        lottoMachine = new LottoMachine(14000);
+        lottoMachine = LottoMachine.of(14000, input.inputManualBuyNumber());
     }
 
     @Test

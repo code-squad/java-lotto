@@ -5,7 +5,7 @@ import dto.ParsingLottoNumbers;
 import dto.WinningResult;
 import enums.WinningRules;
 
-import java.util.Set;
+import java.util.Optional;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -15,22 +15,29 @@ public class LottoTicket {
     public static final Integer PRICE = 1000;
     private LottoNumbers lottoNumbers;
 
-    public LottoTicket(String text) {
-        if (text.isEmpty()) {
-            return;
-        }
-
-        SortedSet<LottoNumber> newNumbers = new TreeSet<>(new ParsingLottoNumbers(text)
-                .getNumbers()
-                    .stream()
-                        .map(LottoNumber::new)
-                .collect(Collectors.toSet()));
-
-        this.lottoNumbers = new LottoNumbers(newNumbers);
+    private LottoTicket(LottoNumbers lottoNumbers) {
+        this.lottoNumbers = Optional.ofNullable(lottoNumbers).orElse(LottoNumbers.of());
     }
 
-    public LottoTicket(LottoNumbers lottoNumbers) {
-        this.lottoNumbers = lottoNumbers;
+    public static LottoTicket of(LottoNumbers lottoNumbers) {
+        return new LottoTicket(lottoNumbers);
+    }
+
+    public static LottoTicket of(String text) {
+        return LottoTicket.of(InputString.of(text));
+    }
+
+    public static LottoTicket of(InputString inputString) {
+
+        SortedSet<LottoNumber> newNumbers
+                = new TreeSet<>(
+                    ParsingLottoNumbers.of(inputString)
+                        .getNumbers()
+                        .stream()
+                        .map(LottoNumber::of)
+                        .collect(Collectors.toSet()));
+
+        return new LottoTicket(LottoNumbers.of(newNumbers));
     }
 
     public WinningRules matching(LottoTicket ticket, LottoNumber bonusNumber) {

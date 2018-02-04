@@ -1,23 +1,39 @@
 package dto;
 
-import java.util.Arrays;
-import java.util.List;
+import domain.lotto.InputString;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ParsingLottoNumbers {
     private List<String> numbers;
 
-    public ParsingLottoNumbers(String text) {
-        List<String> result = Arrays.asList(text.replaceAll(" ", "").split(","));
-        if (isValidNumberSize(result)) {
-            this.numbers = result;
+    private ParsingLottoNumbers(List<String> result) {
+        this.numbers = Optional.ofNullable(result)
+                .orElse(Collections.EMPTY_LIST);
+
+        if(!isValidNumberSize(result)){
+            this.numbers = Collections.EMPTY_LIST;
         }
     }
 
-    private boolean isValidNumberSize(List<String> result) {
+    public static ParsingLottoNumbers of(String text) {
+        return ParsingLottoNumbers.of(InputString.of(text));
+    }
+
+    public static ParsingLottoNumbers of(InputString inputString) {
+        List<String> result = Optional.ofNullable(inputString)
+                .map(val -> val.split(","))
+                .orElse(null);
+
+        return new ParsingLottoNumbers(result);
+    }
+
+    private static boolean isValidNumberSize(List<String> result) {
         return result.size() == LottoNumbers.LOTTO_NUMBER_SIZE;
     }
 
     public List<String> getNumbers() {
-        return numbers;
+        return this.numbers;
     }
 }

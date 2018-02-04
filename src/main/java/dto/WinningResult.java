@@ -30,11 +30,11 @@ public class WinningResult {
         return winningRules.get(key);
     }
 
-    public WinningResult(Integer inputMoney, List<WinningRules> rules) {
+    public WinningResult(LottoMoney inputMoney, List<WinningRules> rules) {
         this.counts = this.countRules(rules);
 
         this.winningPercent = this.calculateWinningPercent(
-                Float.intBitsToFloat(inputMoney)
+                Float.intBitsToFloat(inputMoney.getMoney())
                 , Float.intBitsToFloat(this.calculateWinningMoney(counts))
         );
     }

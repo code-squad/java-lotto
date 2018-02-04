@@ -1,23 +1,44 @@
 package dto;
 
+import domain.lotto.InputString;
 import domain.lotto.LottoNumber;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class LottoNumbers {
     public static final Integer LOTTO_NUMBER_SIZE = 6;
     private SortedSet<LottoNumber> numbers;
 
-    public LottoNumbers() {
+    private LottoNumbers() {
         this.numbers = new TreeSet<>();
 
         while(numbers.size() < LOTTO_NUMBER_SIZE){
-            numbers.add(new LottoNumber().autoCreateNumber());
+            numbers.add(LottoNumber.of());
         }
     }
 
-    public LottoNumbers(SortedSet<LottoNumber> numbers) {
+    private LottoNumbers(SortedSet<LottoNumber> numbers) {
         this.numbers = numbers;
+    }
+
+    public static LottoNumbers of(){
+        return new LottoNumbers();
+    }
+
+    public static LottoNumbers of(String text) {
+        SortedSet<LottoNumber> newNumbers
+                = new TreeSet<>(
+                ParsingLottoNumbers.of(InputString.of(text))
+                        .getNumbers()
+                        .stream()
+                        .map(LottoNumber::of)
+                        .collect(Collectors.toSet()));
+        return LottoNumbers.of(newNumbers);
+    }
+
+    public static LottoNumbers of(SortedSet<LottoNumber> newNumbers) {
+        return new LottoNumbers(newNumbers);
     }
 
     public Integer isHitNumber(LottoNumber winningNumber) {
@@ -52,5 +73,4 @@ public class LottoNumbers {
         sb.append("\n");
         return sb.toString();
     }
-
 }
