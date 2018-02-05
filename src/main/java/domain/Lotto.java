@@ -20,13 +20,16 @@ public class Lotto {
     private Integer totalMoney;
 
     public Lotto(List<Ticket> manualTickets, Integer money, WinningTicket winningTickets) {
+        this.tickets = mergeTickets(manualTickets, money);
+        this.winningTicket = winningTickets;
+        this.totalMoney = calculateTotalMoney();
+    }
 
-        this.tickets = Stream
+    private List<Ticket> mergeTickets(List<Ticket> manualTickets, Integer money) {
+        return Stream
                 .concat(manualTickets.stream(),
                         Ticket.generateAutoTickets((money - manualTickets.size()*LOTTO_PRICE)/LOTTO_PRICE).stream())
                 .collect(Collectors.toList());
-        this.winningTicket = winningTickets;
-        this.totalMoney = calculateTotalMoney();
     }
 
     private Integer calculateTotalMoney() {
