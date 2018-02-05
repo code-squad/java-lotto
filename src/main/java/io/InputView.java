@@ -4,8 +4,6 @@ import utils.Utils;
 
 import java.util.Scanner;
 
-import static constant.Constant.LOTTO_PRICE;
-
 /**
  * Created by hoon on 2018. 1. 13..
  */
@@ -16,7 +14,7 @@ public class InputView {
     public static Integer readMoney() {
         System.out.println("구입금액을 입력해 주세요.");
         String money = scanner.nextLine();
-        return Integer.parseInt(money)/LOTTO_PRICE;
+        return Integer.parseInt(money);
     }
 
     public static String readWinningNumbers () {

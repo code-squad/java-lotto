@@ -5,6 +5,8 @@ import enums.Rank;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static constant.Constant.LOTTO_PRICE;
 
@@ -17,9 +19,13 @@ public class Lotto {
     private WinningTicket winningTicket;
     private Integer totalMoney;
 
-    public Lotto(List<Ticket> tickets, WinningTicket winningTicket) {
-        this.tickets = tickets;
-        this.winningTicket = winningTicket;
+    public Lotto(List<Ticket> manualTickets, Integer money, WinningTicket winningTickets) {
+
+        this.tickets = Stream
+                .concat(manualTickets.stream(),
+                        Ticket.generateAutoTickets((money - manualTickets.size()*LOTTO_PRICE)/LOTTO_PRICE).stream())
+                .collect(Collectors.toList());
+        this.winningTicket = winningTickets;
         this.totalMoney = calculateTotalMoney();
     }
 
@@ -44,8 +50,8 @@ public class Lotto {
                 .sum();
     }
 
-    public static Integer getTicketCount(int money) {
-        return money / LOTTO_PRICE;
+    public List<Ticket> getTotalTickets() {
+        return tickets;
     }
 
 }

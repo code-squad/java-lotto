@@ -5,8 +5,8 @@ import io.ResultView;
 import utils.Utils;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static constant.Constant.LOTTO_PRICE;
 
 /**
  * Created by hoon on 2018. 1. 14..
@@ -14,23 +14,17 @@ import java.util.stream.Stream;
 public class Main {
     public static void main(String[] args) {
 
-        Integer totalTicketCount = InputView.readMoney();
+        Integer money = InputView.readMoney();
         Integer manualTicketCount = InputView.readNumberOfTicketByManual();
-        Integer autoTicketCount = totalTicketCount - manualTicketCount;
 
         List<Ticket> manualTickets = Ticket.generateManualTickets(manualTicketCount);
-        List<Ticket> autoTickets = Ticket.generateAutoTickets(autoTicketCount);
+        WinningTicket winningTickets = new WinningTicket(Utils.toIntegerList(Utils.splitWithDelimiter(InputView.readWinningNumbers(), ", ")), InputView.readBonusNumber());
+        Lotto lotto = new Lotto(manualTickets, money, winningTickets);
 
-        ResultView.printTicketCount(autoTicketCount, manualTicketCount);
-        ResultView.printTickets(Stream.concat(autoTickets.stream(), manualTickets.stream())
-                .collect(Collectors.toList()));
-
-        WinningTicket winningTicket = new WinningTicket(Utils.toIntegerList(Utils.splitWithDelimiter(InputView.readWinningNumbers(), ", ")), InputView.readBonusNumber());
-
-        Lotto lotto = new Lotto(Stream.concat(autoTickets.stream(), manualTickets.stream()).collect(Collectors.toList()), winningTicket);
+        ResultView.printTicketCount((money - (manualTicketCount*LOTTO_PRICE))/LOTTO_PRICE, manualTicketCount);
+        ResultView.printTickets(lotto.getTotalTickets());
 
         ResultView.printResult(lotto);
-
 
     }
 }
