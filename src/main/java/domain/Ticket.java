@@ -1,6 +1,7 @@
 package domain;
 
-import utils.*;
+import io.InputView;
+import utils.Utils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,10 +22,20 @@ public class Ticket {
         return ((int) winningNumbers.numbers.stream().filter(number -> numbers.contains(number)).count());
     }
 
-    public static List<Ticket> generateTickets(Integer ticketCount) {
+    public static List<Ticket> generateAutoTickets(Integer ticketCount) {
         return IntStream.range(0, ticketCount)
                 .mapToObj(index -> new Ticket(Utils.generateRandomNumbers(6)))
                 .collect(Collectors.toList());
+    }
+
+    public static List<Ticket> generateManualTickets(Integer count) {
+        return IntStream.range(0, count)
+                .mapToObj(i -> toTicket(Utils.toIntegerList(InputView.readLottoNumbersByManual())))
+                .collect(Collectors.toList());
+    }
+
+    private static Ticket toTicket(List<Integer> numbers) {
+        return new Ticket(numbers);
     }
 
     public Boolean contains(Integer number) {

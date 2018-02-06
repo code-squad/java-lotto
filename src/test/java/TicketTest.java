@@ -17,11 +17,14 @@ public class TicketTest {
     Lotto lotto;
     Lotto lotto1;
     Lotto lotto2;
+    Lotto lotto3;
     Lotto bonus;
+
     @Before
     public void setup() {
         lotto = new Lotto(
                 Collections.singletonList(new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6))),
+                1000,
                 new WinningTicket(Arrays.asList(45, 44, 43, 4, 5, 6), 1));
 
         lotto1 = new Lotto(
@@ -30,6 +33,7 @@ public class TicketTest {
                         new Ticket(Arrays.asList(4, 5, 6, 43, 44, 45)),
                         new Ticket(Arrays.asList(4, 5, 6, 10, 11, 12))
                 ),
+                3000,
                 new WinningTicket(Arrays.asList(45, 44, 43, 4, 5, 6), 3));
 
         lotto2 = new Lotto(
@@ -38,12 +42,14 @@ public class TicketTest {
                         new Ticket(Arrays.asList(4, 5, 6, 43, 44, 45)),
                         new Ticket(Arrays.asList(4, 5, 6, 10, 11, 12))
                 ),
+                3000,
                 new WinningTicket(Arrays.asList(45, 44, 43, 3, 5, 6), 1));
 
         bonus = new Lotto(
                 Collections.singletonList(
                         new Ticket(Arrays.asList(1, 2, 3, 4, 5, 6))
                 ),
+                1000,
                 new WinningTicket(Arrays.asList(1, 2, 3, 4, 5, 10), 6));
 
     }
@@ -81,4 +87,17 @@ public class TicketTest {
         assertThat(lotto1.matchedCount(Rank.SECOND), is(0));
     }
 
+    @Test
+    public void 수동구매테스트() {
+        lotto3 = new Lotto(
+                Arrays.asList(
+                        new Ticket(Arrays.asList(11, 12, 13, 14, 15, 16)),
+                        new Ticket(Arrays.asList(4, 5, 6, 43, 44, 45)),
+                        new Ticket(Arrays.asList(4, 5, 6, 10, 11, 12))
+                ),
+                4000,
+                new WinningTicket(Arrays.asList(45, 44, 43, 3, 5, 6), 1));
+
+        assertThat(lotto3.getTotalTickets().size(), is(4));
+    }
 }

@@ -1,9 +1,12 @@
 package domain;
 
-import io.*;
-import utils.*;
+import io.InputView;
+import io.ResultView;
+import utils.Utils;
 
 import java.util.List;
+
+import static constant.Constant.LOTTO_PRICE;
 
 /**
  * Created by hoon on 2018. 1. 14..
@@ -11,14 +14,17 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        List<Ticket> tickets = Ticket.generateTickets(Lotto.getTicketCount(InputView.readMoney()));
+        Integer money = InputView.readMoney();
+        Integer manualTicketCount = InputView.readNumberOfTicketByManual();
 
-        ResultView.printTickets(tickets);
+        List<Ticket> manualTickets = Ticket.generateManualTickets(manualTicketCount);
+        WinningTicket winningTickets = new WinningTicket(Utils.toIntegerList(Utils.splitWithDelimiter(InputView.readWinningNumbers(), ", ")), InputView.readBonusNumber());
+        Lotto lotto = new Lotto(manualTickets, money, winningTickets);
 
-        WinningTicket winningTicket = new WinningTicket(Utils.toIntegerList(Utils.splitWithDelimiter(InputView.readWinningNumbers(), ", ")), InputView.readBonusNumber());
-
-        Lotto lotto = new Lotto(tickets, winningTicket);
+        ResultView.printTicketCount((money - (manualTicketCount*LOTTO_PRICE))/LOTTO_PRICE, manualTicketCount);
+        ResultView.printTickets(lotto.getTotalTickets());
 
         ResultView.printResult(lotto);
+
     }
 }
