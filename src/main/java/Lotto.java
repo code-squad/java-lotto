@@ -5,16 +5,16 @@ public class Lotto {
     private ArrayList<Integer> numbers;
     private ArrayList<Integer> lotto;
 
-    public ArrayList<Integer> lottoNumbers() {
+    public Lotto() {
         ArrayList<Integer> numbers = new ArrayList<>();
-        for(int i = 1; i < 46; i++) {
+        ArrayList<Integer> lotto = new ArrayList<>();
+        for(int i = 0; i < 46; i++) {
             numbers.add(i);
         }
-        return numbers;
-    }
-
-    public void shuffle(ArrayList<Integer> lottoNumbers) {
-        Collections.shuffle(lottoNumbers);
+        Collections.shuffle(numbers);
+        for(int i = 0; i < 6; i++) {
+            lotto.add(numbers.get(i));
+        }
     }
 
     public ArrayList<Integer> makeLotto(ArrayList<Integer> lottoNumbers) {
@@ -25,7 +25,7 @@ public class Lotto {
         return lotto;
     }
 
-    public void printLotto(ArrayList<Integer> lotto) {
+    public void printLotto() {
         for(int i = 0; i < lotto.size(); i++) {
             System.out.print(lotto.get(i) + " ");
         }

@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -11,17 +13,15 @@ public class Main {
         int num = inputPrice / 1000;
         System.out.println(num + "개를 구매했습니다.");
 
-
         for(int i = 0; i < num; i++) {
             Lotto lotto = new Lotto();
-            ArrayList<Integer> lottoNumbers = lotto.lottoNumbers();
-            lotto.shuffle(lottoNumbers);
-            ArrayList<Integer> makeLotto = lotto.makeLotto(lottoNumbers);
-            lottos.add(makeLotto);
+            lotto.printLotto();
         }
-//        System.out.println("지난주의 당첨번호를 입력해주세요.");
-//        String rightInput = scanner.next();
-
+        
+        System.out.println();
+        System.out.println("지난주의 당첨번호를 입력해주세요.");
+        String rightInput = scanner.next();
+        List<String> div = Arrays.asList(rightInput.split(","));
 
     }
 }
