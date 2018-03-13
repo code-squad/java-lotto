@@ -26,12 +26,15 @@ public class Main {
         List<String> rightNumber = Arrays.asList(rightInput.split(","));
         for(int i = 0; i < lottos.size(); i++) {
             lottos.get(i).checkNumber(rightNumber);
-            System.out.println();
         }
 
         System.out.println("당첨 통계");
         System.out.println("---------");
         Money money = new Money();
         money.money(Lotto.counts);
+        int total = money.totalMoney(money.totalMoney);
+        System.out.println("벌어들인 금액 : "  + total);
+        int prof = money.profit(total ,inputPrice);
+        System.out.println("총 수익률은 " + prof + "%입니다.");
     }
 }

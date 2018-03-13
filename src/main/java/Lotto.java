@@ -11,7 +11,9 @@ public class Lotto {
         for(int i = 0; i < 46; i++) {
             numbers.add(i);
         }
+
         Collections.shuffle(numbers);
+
         for(int i = 0; i < 6; i++) {
             lotto.add(numbers.get(i));
         }
@@ -26,15 +28,15 @@ public class Lotto {
     public ArrayList<Integer> checkNumber(List<String> rightNum) {
         int count = 0;
         for(int i = 0; i < rightNum.size(); i++) {
-            if(lotto.contains(Integer.parseInt(rightNum.get(i))))
-                count++;
+            contain(rightNum, i, count);
+            counts.add(count);
         }
-        counts.add(count);
-        System.out.print("count is " + count);
         return counts;
     }
 
-
-
-
+    public Integer contain(List<String> rightNum, int i, int count) {
+        if(lotto.contains(Integer.parseInt(rightNum.get(i))))
+            count++;
+        return count;
+    }
 }
