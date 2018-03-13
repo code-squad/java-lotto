@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String [] args) {
         ArrayList<Lotto> lottos = new ArrayList<>();
-
         Scanner scanner = new Scanner(System.in);
         System.out.println("구입금액을 입력해주세요.");
         int inputPrice = scanner.nextInt();
@@ -15,13 +14,21 @@ public class Main {
 
         for(int i = 0; i < num; i++) {
             Lotto lotto = new Lotto();
+            lottos.add(lotto);
             lotto.printLotto();
+            System.out.println();
         }
-        
+
         System.out.println();
         System.out.println("지난주의 당첨번호를 입력해주세요.");
         String rightInput = scanner.next();
-        List<String> div = Arrays.asList(rightInput.split(","));
+        List<String> rightNumber = Arrays.asList(rightInput.split(","));
+        for(int i = 0; i < lottos.size(); i++) {
+            lottos.get(i).checkNumber(rightNumber);
+            System.out.println();
+        }
 
+        System.out.println("당첨 통계");
+        System.out.println("---------");
     }
 }
