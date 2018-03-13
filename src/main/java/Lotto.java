@@ -28,15 +28,10 @@ public class Lotto {
     public ArrayList<Integer> checkNumber(List<String> rightNum) {
         int count = 0;
         for(int i = 0; i < rightNum.size(); i++) {
-            contain(rightNum, i, count);
-            counts.add(count);
+            if(lotto.contains(Integer.parseInt(rightNum.get(i))))
+                count++;
         }
+        counts.add(count);
         return counts;
-    }
-
-    public Integer contain(List<String> rightNum, int i, int count) {
-        if(lotto.contains(Integer.parseInt(rightNum.get(i))))
-            count++;
-        return count;
     }
 }
