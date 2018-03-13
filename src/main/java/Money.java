@@ -1,35 +1,49 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Money {
     static ArrayList<Integer> totalMoney = new ArrayList<>();
+    static HashMap<String, Integer> finalCount;
+    static {
+        finalCount = new HashMap<String, Integer>();
+        finalCount.put("3개", 0);
+        finalCount.put("4개", 0);
+        finalCount.put("5개", 0);
+        finalCount.put("6개", 0);
+    }
 
-    public ArrayList<Integer> money(ArrayList<Integer> counts) {
+    public void money(ArrayList<Integer> counts) {
         for(int i = 0; i < counts.size(); i++) {
-            int num = 0;
-            if(counts.get(i) == 3) {
-                num++;
-                System.out.println("3개 일치 (5000원)- " + num);
-                totalMoney.add(5000);
-            }
-
-            if(counts.get(i) == 4) {
-                num++;
-                System.out.println("4개 일치 (50000원)- " + num);
-                totalMoney.add(50000);
-            }
-
-            if(counts.get(i) == 5) {
-                num++;
-                System.out.println("5개 일치 (1500000원)- " + num);
-                totalMoney.add(1500000);
-            }
-
-            if(counts.get(i) == 6) {
-                num++;
-                System.out.println("6개 일치 (2000000000원)- " + num);
-                totalMoney.add(2000000000);
-            }
+            countAdd(counts, i);
         }
+    }
+
+    public ArrayList<Integer> countAdd(ArrayList<Integer> counts, int i) {
+        if(counts.get(i) == 3) {
+            int num = finalCount.get("3개");
+            finalCount.put("3개", ++num);
+            totalMoney.add(5000);
+        }
+
+        if(counts.get(i) == 4) {
+            int num = finalCount.get("4개");
+            finalCount.put("4개", ++num);
+            totalMoney.add(50000);
+        }
+
+        if(counts.get(i) == 5) {
+            int num = finalCount.get("5개");
+            finalCount.put("5개", ++num);
+            totalMoney.add(1500000);
+        }
+
+        if(counts.get(i) == 6) {
+            int num = finalCount.get("6개");
+            finalCount.put("6개", +num);
+            totalMoney.add(2000000000);
+        }
+
         return totalMoney;
     }
 

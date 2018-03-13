@@ -33,8 +33,8 @@ public class Main {
         Money money = new Money();
         money.money(Lotto.counts);
         int total = money.totalMoney(money.totalMoney);
-        System.out.println("벌어들인 금액 : "  + total);
-        int prof = money.profit(total ,inputPrice);
+        int prof = money.profit(total , inputPrice);
+        ResultView.printCount(money.finalCount);
         System.out.println("총 수익률은 " + prof + "%입니다.");
     }
 }

@@ -8,7 +8,7 @@ public class Lotto {
     static ArrayList<Integer> counts = new ArrayList<>();
 
     public Lotto() {
-        for(int i = 0; i < 46; i++) {
+        for(int i = 1; i < 46; i++) {
             numbers.add(i);
         }
 
