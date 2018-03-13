@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String [] args) {
         ArrayList<Lotto> lottos = new ArrayList<>();
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("구입금액을 입력해주세요.");
         int inputPrice = scanner.nextInt();
@@ -30,5 +31,7 @@ public class Main {
 
         System.out.println("당첨 통계");
         System.out.println("---------");
+        Money money = new Money();
+        money.money(Lotto.counts);
     }
 }
