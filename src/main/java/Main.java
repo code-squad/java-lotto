@@ -16,8 +16,7 @@ public class Main {
         for(int i = 0; i < num; i++) {
             Lotto lotto = new Lotto();
             lottos.add(lotto);
-            lotto.printLotto();
-            System.out.println();
+            System.out.println(lotto.getLotto());
         }
 
         System.out.println();

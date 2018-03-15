@@ -3,26 +3,24 @@ import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-    private ArrayList<Integer> numbers = new ArrayList<>();
-    private ArrayList<Integer> lotto = new ArrayList<>();
+    private List<Integer> lotto;
     static ArrayList<Integer> counts = new ArrayList<>();
 
     public Lotto() {
-        for(int i = 1; i < 46; i++) {
-            numbers.add(i);
-        }
-
+        ArrayList<Integer> numbers = makeNumbers();
         Collections.shuffle(numbers);
-
-        for(int i = 0; i < 6; i++) {
-            lotto.add(numbers.get(i));
-        }
+        lotto = numbers.subList(0, 6);
     }
 
-    public void printLotto() {
-        for(int i = 0; i < lotto.size(); i++) {
-            System.out.print(lotto.get(i) + " ");
-        }
+    public ArrayList<Integer> makeNumbers() {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        for(int i = 1; i < 46; i++)
+            numbers.add(i);
+        return numbers;
+    }
+
+    public List<Integer> getLotto() {
+        return lotto;
     }
 
     public ArrayList<Integer> checkNumber(List<String> rightNum) {
