@@ -5,31 +5,26 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String [] args) {
-        ArrayList<Lotto> lottos = new ArrayList<>();
-
+        Money money = new Money();
+        Input input = new Input();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("구입금액을 입력해주세요.");
+
+        Input.inputPrice();
         int inputPrice = scanner.nextInt();
         int num = inputPrice / 1000;
         System.out.println(num + "개를 구매했습니다.");
-
-        for(int i = 0; i < num; i++) {
-            Lotto lotto = new Lotto();
-            lottos.add(lotto);
-            System.out.println(lotto.getLotto());
-        }
+        input.makeLotto(num);
 
         System.out.println();
-        System.out.println("지난주의 당첨번호를 입력해주세요.");
+        Input.rightNumber();
         String rightInput = scanner.next();
         List<String> rightNumber = Arrays.asList(rightInput.split(","));
-        for(int i = 0; i < lottos.size(); i++) {
-            lottos.get(i).checkNumber(rightNumber);
+
+        for(int i = 0; i < input.lottos.size(); i++) {
+            input.lottos.get(i).checkNumber(rightNumber);
         }
 
-        System.out.println("당첨 통계");
-        System.out.println("---------");
-        Money money = new Money();
+        Input.rightResult();
         money.money(Lotto.counts);
         int total = money.totalMoney(money.totalMoney);
         int prof = money.profit(total , inputPrice);
