@@ -9,6 +9,10 @@ public class Input {
         System.out.println("구입금액을 입력해주세요.");
     }
 
+    public Integer price() {
+        return scanner.nextInt();
+    }
+
     public static void rightNumber() {
         System.out.println("지난주의 당첨번호를 입력해주세요.");
     }

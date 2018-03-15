@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -12,10 +10,7 @@ public class Main {
         int num = inputPrice / 1000;
         System.out.println(num + "개를 구매했습니다.");
         ArrayList<Lotto> lottos = input.makeLottos(num);
-
-        System.out.println();
         Input.rightNumber();
-
         Check check = new Check();
         check.checking(lottos);
         Input.rightResult();
