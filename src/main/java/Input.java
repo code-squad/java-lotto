@@ -4,9 +4,6 @@ import java.util.Scanner;
 public class Input {
     private ArrayList<Lotto> lottos = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
-    int inputPrice = scanner.nextInt();
-    int num = inputPrice / 1000;
-
 
     public static void inputPrice() {
         System.out.println("구입금액을 입력해주세요.");

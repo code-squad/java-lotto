@@ -16,6 +16,7 @@ public class Lotto {
         ArrayList<Integer> numbers = new ArrayList<>();
         for(int i = 1; i < 46; i++)
             numbers.add(i);
+        System.out.println("로또 새로생성");
         return numbers;
     }
 
