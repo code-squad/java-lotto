@@ -26,4 +26,9 @@ public class Input {
         }
         return lottos;
     }
+
+    public String right() {
+        String right = scanner.next();
+        return right;
+    }
 }

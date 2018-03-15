@@ -1,13 +1,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class Check {
     Input input = new Input();
-    Scanner scanner = new Scanner(System.in);
-    String rightInput = scanner.next();
-
+    String rightInput = input.right();
     List<String> rightNumber = Arrays.asList(rightInput.split(","));
 
     public void checking(ArrayList<Lotto> lottos) {
