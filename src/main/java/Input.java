@@ -1,7 +1,12 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Input {
-    static ArrayList<Lotto> lottos = new ArrayList<>();
+    private ArrayList<Lotto> lottos = new ArrayList<>();
+    private Scanner scanner = new Scanner(System.in);
+    int inputPrice = scanner.nextInt();
+    int num = inputPrice / 1000;
+
 
     public static void inputPrice() {
         System.out.println("구입금액을 입력해주세요.");
@@ -16,11 +21,12 @@ public class Input {
         System.out.println("---------");
     }
 
-    public void makeLotto(int num) {
+    public ArrayList<Lotto> makeLottos(int num) {
         for(int i = 0; i < num; i++) {
             Lotto lotto = new Lotto();
             lottos.add(lotto);
             System.out.println(lotto.getLotto());
         }
+        return lottos;
     }
 }

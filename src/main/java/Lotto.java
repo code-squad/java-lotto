@@ -5,10 +5,11 @@ import java.util.List;
 public class Lotto {
     private List<Integer> lotto;
     static ArrayList<Integer> counts = new ArrayList<>();
+    ArrayList<Integer> numbers = makeNumbers();
 
     public Lotto() {
-        Collections.shuffle(makeNumbers());
-        lotto = makeNumbers().subList(0, 6);
+        Collections.shuffle(numbers);
+        lotto = numbers.subList(0, 6);
     }
 
     public static ArrayList<Integer> makeNumbers() {

@@ -7,20 +7,19 @@ public class Main {
     public static void main(String [] args) {
         Input input = new Input();
         Scanner scanner = new Scanner(System.in);
-
         Input.inputPrice();
         int inputPrice = scanner.nextInt();
         int num = inputPrice / 1000;
         System.out.println(num + "개를 구매했습니다.");
-        input.makeLotto(num);
+        ArrayList<Lotto> lottos = input.makeLottos(num);
 
         System.out.println();
         Input.rightNumber();
         String rightInput = scanner.next();
         List<String> rightNumber = Arrays.asList(rightInput.split(","));
 
-        for(int i = 0; i < input.lottos.size(); i++) {
-            input.lottos.get(i).checkNumber(rightNumber);
+        for(int i = 0; i < lottos.size(); i++) {
+            lottos.get(i).checkNumber(rightNumber);
         }
 
         Input.rightResult();

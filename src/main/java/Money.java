@@ -1,19 +1,19 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class Money {
     static ArrayList<Integer> totalMoney = new ArrayList<>();
-    static HashMap<String, Integer> finalCount;
-    ArrayList<Integer> addMoney = new ArrayList<Integer>(Arrays.asList(5000, 50000, 1500000, 2000000000));
+    static HashMap<Integer, Integer> finalCount;
+    List<Integer> addMoney = Arrays.asList(5000, 50000, 1500000, 2000000000);
 
     static {
-        finalCount = new HashMap<String, Integer>();
-        finalCount.put("3", 0);
-        finalCount.put("4", 0);
-        finalCount.put("5", 0);
-        finalCount.put("6", 0);
+        finalCount = new HashMap<Integer, Integer>();
+        finalCount.put(3, 0);
+        finalCount.put(4, 0);
+        finalCount.put(5, 0);
+        finalCount.put(6, 0);
     }
 
     public void money(ArrayList<Integer> counts) {
@@ -24,11 +24,10 @@ public class Money {
 
     public ArrayList<Integer> countAdd(ArrayList<Integer> counts, int i) {
         int num = counts.get(i);
-        String key = String.valueOf(num);
         if (num > 2) {
-            int value = finalCount.get(key);
+            int value = finalCount.get(num);
             totalMoney.add(addMoney.get(num - 3));
-            finalCount.put(key, ++value);
+            finalCount.put(num, ++value);
         }
         return totalMoney;
     }
