@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String [] args) {
-        Money money = new Money();
         Input input = new Input();
         Scanner scanner = new Scanner(System.in);
 
@@ -25,6 +24,7 @@ public class Main {
         }
 
         Input.rightResult();
+        Money money = new Money();
         money.money(Lotto.counts);
         int total = money.totalMoney(money.totalMoney);
         int prof = money.profit(total , inputPrice);

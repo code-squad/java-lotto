@@ -7,12 +7,11 @@ public class Lotto {
     static ArrayList<Integer> counts = new ArrayList<>();
 
     public Lotto() {
-        ArrayList<Integer> numbers = makeNumbers();
-        Collections.shuffle(numbers);
-        lotto = numbers.subList(0, 6);
+        Collections.shuffle(makeNumbers());
+        lotto = makeNumbers().subList(0, 6);
     }
 
-    public ArrayList<Integer> makeNumbers() {
+    public static ArrayList<Integer> makeNumbers() {
         ArrayList<Integer> numbers = new ArrayList<>();
         for(int i = 1; i < 46; i++)
             numbers.add(i);
