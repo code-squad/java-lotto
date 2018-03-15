@@ -42,4 +42,5 @@ public class Money {
     public Integer profit(int profit, int output) {
         return (profit / output) * 100;
     }
+
 }

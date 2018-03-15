@@ -16,9 +16,7 @@ public class Main {
         Input.rightResult();
         Money money = new Money();
         money.money(Lotto.counts);
-        int total = money.totalMoney(money.totalMoney);
-        int prof = money.profit(total , inputPrice);
         ResultView.printCount(money.finalCount);
-        System.out.println("총 수익률은 " + prof + "%입니다.");
+        System.out.println("총 수익률은 " + money.profit(money.totalMoney(Money.totalMoney), inputPrice) + "%입니다.");
     }
 }
