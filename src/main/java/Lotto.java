@@ -7,14 +7,16 @@ public class Lotto {
     private List<Integer> lotto;
     static ArrayList<Integer> counts = new ArrayList<>();
     static List<Integer> numbers;
-
     static {
         numbers = init();
     }
 
     public Lotto() {
         Collections.shuffle(numbers);
-        lotto = numbers.subList(0, 6);
+        lotto = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            lotto.add(numbers.get(i));
+        }
     }
 
     public static List<Integer> init() {

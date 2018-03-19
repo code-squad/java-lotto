@@ -20,13 +20,9 @@ public enum Rank {
         return winningMoney;
     }
 
-    public static Rank valueOf(int countOfMatch, boolean matchBonus) {
+    public static Rank valueOf(int countOfMatch) {
         Rank[] ranks = values();
         for (Rank rank : ranks) {
-            if (countOfMatch == FIRST.countOfMatch) {
-                return matchBonus ? FIRST : SECOND;
-            }
-
             if (rank.countOfMatch == countOfMatch) {
                 return rank;
             }

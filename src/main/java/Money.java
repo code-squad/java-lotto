@@ -5,15 +5,15 @@ import java.util.List;
 
 public class Money {
     static ArrayList<Integer> totalMoney = new ArrayList<>();
-    static HashMap<Integer, Integer> finalCount;
+    static HashMap<Rank, Integer> finalCount;
     List<Integer> addMoney = Arrays.asList(5000, 50000, 1500000, 2000000000);
 
     static {
-        finalCount = new HashMap<Integer, Integer>();
-        finalCount.put(Rank.FOURTH.getCountOfMatch(), 0);
-        finalCount.put(Rank.THIRD.getCountOfMatch(), 0);
-        finalCount.put(Rank.SECOND.getCountOfMatch(), 0);
-        finalCount.put(Rank.FIRST.getCountOfMatch(), 0);
+        finalCount = new HashMap<>();
+        finalCount.put(Rank.FOURTH, 0);
+        finalCount.put(Rank.THIRD, 0);
+        finalCount.put(Rank.SECOND, 0);
+        finalCount.put(Rank.FIRST, 0);
     }
 
     public void money(ArrayList<Integer> counts) {
@@ -25,9 +25,9 @@ public class Money {
     public ArrayList<Integer> countAdd(ArrayList<Integer> counts, int i) {
         int num = counts.get(i);
         if (num > 2) {
-            int value = finalCount.get(num);
+            int value = finalCount.get(Rank.valueOf(num));
             totalMoney.add(addMoney.get(num - 3));
-            finalCount.put(num, ++value);
+            finalCount.put(Rank.valueOf(num), ++value);
         }
         return totalMoney;
     }
