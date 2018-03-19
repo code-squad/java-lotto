@@ -10,10 +10,10 @@ public class Money {
 
     static {
         finalCount = new HashMap<Integer, Integer>();
-        finalCount.put(3, 0);
-        finalCount.put(4, 0);
-        finalCount.put(5, 0);
-        finalCount.put(6, 0);
+        finalCount.put(Rank.FOURTH.getCountOfMatch(), 0);
+        finalCount.put(Rank.THIRD.getCountOfMatch(), 0);
+        finalCount.put(Rank.SECOND.getCountOfMatch(), 0);
+        finalCount.put(Rank.FIRST.getCountOfMatch(), 0);
     }
 
     public void money(ArrayList<Integer> counts) {
@@ -42,5 +42,5 @@ public class Money {
     public Integer profit(int profit, int output) {
         return (profit / output) * 100;
     }
-
 }
+
