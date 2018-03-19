@@ -17,6 +17,10 @@ public class Input {
         System.out.println("지난주의 당첨번호를 입력해주세요.");
     }
 
+    public static void bonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+    }
+
     public static void rightResult() {
         System.out.println("당첨 통계");
         System.out.println("---------");
@@ -34,5 +38,9 @@ public class Input {
     public String right() {
         String right = scanner.next();
         return right;
+    }
+
+    public String bonusInput() {
+        return scanner.nextLine();
     }
 }

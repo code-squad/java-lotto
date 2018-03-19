@@ -12,6 +12,9 @@ public class Main {
         ArrayList<Lotto> lottos = input.makeLottos(num);
         Input.rightNumber();
         Check check = new Check();
+        Input.bonusNumber();
+        input.bonusInput();
+
         check.checking(lottos);
         Input.rightResult();
         Money money = new Money();
