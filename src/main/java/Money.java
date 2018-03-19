@@ -7,7 +7,6 @@ public class Money {
     static ArrayList<Integer> totalMoney = new ArrayList<>();
     static HashMap<Rank, Integer> finalCount;
     List<Integer> addMoney = Arrays.asList(5000, 50000, 1500000, 2000000000);
-
     static {
         finalCount = new HashMap<>();
         finalCount.put(Rank.FOURTH, 0);
@@ -43,4 +42,3 @@ public class Money {
         return (profit / output) * 100;
     }
 }
-
