@@ -25,9 +25,9 @@ public class Money {
     public ArrayList<Integer> countAdd(ArrayList<Integer> counts, int i) {
         int num = counts.get(i);
         if (num > 2) {
-            int value = finalCount.get(Rank.valueOf(num));
+            int value = finalCount.get(Rank.valueOf(num, false));
             totalMoney.add(addMoney.get(num - 3));
-            finalCount.put(Rank.valueOf(num), ++value);
+            finalCount.put(Rank.valueOf(num, false), ++value);
         }
         return totalMoney;
     }
