@@ -9,6 +9,7 @@ public class Money {
     List<Integer> addMoney = Arrays.asList(5000, 50000, 1500000, 2000000000);
     static {
         finalCount = new HashMap<>();
+        finalCount.put(Rank.FIFTH, 0);
         finalCount.put(Rank.FOURTH, 0);
         finalCount.put(Rank.THIRD, 0);
         finalCount.put(Rank.SECOND, 0);
