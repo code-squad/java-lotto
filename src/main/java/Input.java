@@ -35,8 +35,4 @@ public class Input {
         String right = scanner.nextLine();
         return right;
     }
-
-    public String bonusInput() {
-        return scanner.nextLine();
-    }
 }
