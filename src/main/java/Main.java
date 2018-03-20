@@ -24,6 +24,7 @@ public class Main {
         ResultView.printCount(money.finalCount);
         System.out.println("총 수익률은 " + money.profit(money.totalMoney(Money.totalMoney), inputPrice) + "%입니다.");
         Decision decision = new Decision();
-        decision.decisionRank(check.rightNumber, lottos.get(0), bonusNum);
+        ArrayList<Rank> ranks = decision.decisionRank(check.rightNumber, lottos.get(0), bonusNum);
+        System.out.println("length of decision is "+ranks.size());
     }
 }
