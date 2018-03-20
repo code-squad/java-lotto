@@ -7,16 +7,17 @@ public class Check {
     String rightInput = input.right();
     List<String> rightNumber = Arrays.asList(rightInput.split(","));
 
-//    public void addBonusInList() {
-//        rightNumber.add(input.bonusInput());
-//        for(int i = 0; i < rightNumber.size(); i++)
-//            System.out.print(rightNumber.get(i) + " ");
-//    }
+    public ArrayList<String> addingBonus() {
+        Input.bonusNumber();
+        ArrayList<String> bonusAdding = new ArrayList<>(rightNumber);
+        bonusAdding.add(input.bonusInput());
+        return bonusAdding;
+    }
 
     public void checking(ArrayList<Lotto> lottos) {
-        rightNumber.add(input.bonusInput());
+        ArrayList<String> bonusAdding = addingBonus();
         for(int i = 0; i < lottos.size(); i++) {
-            lottos.get(i).checkNumber(rightNumber);
+            lottos.get(i).checkNumber(bonusAdding);
         }
     }
 }

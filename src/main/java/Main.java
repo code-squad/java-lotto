@@ -10,11 +10,9 @@ public class Main {
         int num = inputPrice / 1000;
         System.out.println(num + "개를 구매했습니다.");
         ArrayList<Lotto> lottos = input.makeLottos(num);
+        // 당첨번호입력
         Input.rightNumber();
         Check check = new Check();
-        Input.bonusNumber();
-        input.bonusInput();
-
         check.checking(lottos);
         Input.rightResult();
         Money money = new Money();

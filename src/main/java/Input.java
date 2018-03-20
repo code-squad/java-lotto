@@ -36,7 +36,7 @@ public class Input {
     }
 
     public String right() {
-        String right = scanner.next();
+        String right = scanner.nextLine();
         return right;
     }
 

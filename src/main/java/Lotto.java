@@ -41,4 +41,5 @@ public class Lotto {
         counts.add(count);
         return counts;
     }
+
 }
