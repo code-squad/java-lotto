@@ -17,7 +17,7 @@ public class Check {
     public void checking(ArrayList<Lotto> lottos) {
         ArrayList<String> bonusAdding = addingBonus();
         for(int i = 0; i < lottos.size(); i++) {
-            lottos.get(i).checkNumber(bonusAdding);
+            lottos.get(i).checkNumber(rightNumber);
         }
     }
 }
