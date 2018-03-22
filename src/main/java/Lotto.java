@@ -23,7 +23,7 @@ public class Lotto {
         for (int i = 1; i < 46; i++) {
             values.add(i);
         }
-        System.out.println("호출");
+//        System.out.println("호출");
         return values;
     }
 
