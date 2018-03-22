@@ -4,49 +4,34 @@ import java.util.List;
 public class Decision {
     ArrayList<Rank> ranks = new ArrayList<>();
 
-//    public ArrayList<Rank> addRank(List<String> rightNum, Lotto lotto, String bonusNum) {
-////        printLotto(lotto);
-//        int count = 0;
-//        for(int i = 0; i < rightNum.size(); i++) {
-//            if(lotto.getLotto().contains(Integer.parseInt(rightNum.get(i)))){
-//                count++;
-//                ranks.add(decisionRank(lotto, count, bonusNum));
-//            }
-//            ranks.add(decisionRank(lotto,count, bonusNum));
-//        }
-//        return ranks;
-//    }
+    public void addRank(List<String> rightNum, ArrayList<Lotto> lottos, String bonusNum) {
+        for(int i = 0; i < lottos.size(); i++)
+            decision(lottos.get(i), rightNum, bonusNum);
+    }
 
-    public ArrayList<Rank> addRank(List<String> rightNum, Lotto lotto, String bonusNum) {
+    public void decision(Lotto lotto, List<String> rightNum, String bonusNum) {
         int count = 0;
         for(int i = 0; i < rightNum.size(); i++) {
-            if(lotto.getLotto().contains(Integer.parseInt(rightNum.get(i)))){
+            if(lotto.getLotto().contains(Integer.parseInt(rightNum.get(i)))) {
                 count++;
-                ranks.add(decisionRank(lotto, count, bonusNum));
+                decisionRank(lotto, count, bonusNum);
             }
-            ranks.add(decisionRank(lotto,count, bonusNum));
         }
+    }
+
+    public ArrayList<Rank> decisionRank(Lotto lotto ,int count, String bonusNum) {
+        if(count > 2)
+            ranks.add(Rank.valueOf(count, false));
+
+        if(count == 5 && lotto.getLotto().contains(Integer.parseInt(bonusNum)))
+            ranks.add(Rank.valueOf(5, true));
         return ranks;
     }
 
-    public Rank decisionRank(Lotto lotto, int count, String bonusNum) {
-        if(count == 5 && lotto.getLotto().contains(Integer.parseInt(bonusNum))) {
-            System.out.println("Rank is second");
-            return Rank.SECOND;
-        }
-        System.out.println("result is " + Rank.valueOf(count, false));
-        return Rank.valueOf(count, false);
-    }
-
-    public void printLotto(Lotto lotto) {
-        for(int i = 0; i < lotto.getLotto().size(); i++)
-            System.out.print(lotto.getLotto().get(i) + " ");
-        System.out.println();
-    }
-
-    public void printRanks(ArrayList<Rank> ranks) {
+    public void printRanks() {
         for(int i = 0; i < ranks.size(); i++)
-            System.out.println(ranks.get(i).getCountOfMatch());
+            System.out.println("value of rank is " + ranks.get(i).getCountOfMatch());
+        System.out.println(ranks.size());
     }
 }
 
