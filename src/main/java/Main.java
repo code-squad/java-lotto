@@ -20,11 +20,13 @@ public class Main {
         // 당첨통계
         Input.rightResult();
         Money money = new Money();
-        money.money(Lotto.counts);
-        ResultView.printCount(money.finalCount);
-        System.out.println("총 수익률은 " + money.profit(money.totalMoney(Money.totalMoney), inputPrice) + "%입니다.");
+//        money.money(Lotto.counts);
         Decision decision = new Decision();
         decision.addRank(check.rightNumber, lottos, bonusNum);
+        money.money(decision.ranks);
+        ResultView.printCount(money.finalCount);
+        System.out.println("총 수익률은 " + money.profit(money.totalMoney(Money.totalMoney), inputPrice) + "%입니다.");
         decision.printRanks();
+
     }
 }
