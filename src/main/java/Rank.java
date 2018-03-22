@@ -25,7 +25,7 @@ public enum Rank {
         Rank[] ranks = values();
         for (Rank rank : ranks) {
             if (countOfMatch == THIRD.countOfMatch) {
-                return matchBonus ? THIRD : FOURTH;
+                return matchBonus ? SECOND : THIRD;
             }
 
             if (rank.countOfMatch == countOfMatch) {

@@ -27,6 +27,5 @@ public class Main {
         ResultView.printCount(money.finalCount);
         System.out.println("총 수익률은 " + money.profit(money.totalMoney(Money.totalMoney), inputPrice) + "%입니다.");
         decision.printRanks();
-
     }
 }

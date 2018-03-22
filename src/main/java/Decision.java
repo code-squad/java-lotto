@@ -39,13 +39,18 @@ public class Decision {
     }
 
     public ArrayList<Rank> decisionRank(Lotto lotto ,int count, String bonusNum) {
-        if(count > 2){
+        if(count == 3 || count == 4 || count == 6){
             System.out.println(Rank.valueOf(count, false) + "등");
             ranks.add(Rank.valueOf(count, false));
         }
 
+        if(count == 5 && !(lotto.getLotto().contains(Integer.parseInt(bonusNum)))){
+            System.out.println("add value is " + Rank.valueOf(5, false));
+            ranks.add(Rank.valueOf(5, false));
+        }
+
         if(count == 5 && lotto.getLotto().contains(Integer.parseInt(bonusNum))){
-            System.out.println("2등");
+            System.out.println("add value is " + Rank.valueOf(5, true));
             ranks.add(Rank.valueOf(5, true));
         }
         return ranks;
