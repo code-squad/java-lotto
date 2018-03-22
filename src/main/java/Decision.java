@@ -20,18 +20,22 @@ public class Decision {
     }
 
     public ArrayList<Rank> decisionRank(Lotto lotto ,int count, String bonusNum) {
-        if(count > 2)
+        if(count > 2){
+            System.out.println(Rank.valueOf(count, false) + "등");
             ranks.add(Rank.valueOf(count, false));
+        }
 
-        if(count == 5 && lotto.getLotto().contains(Integer.parseInt(bonusNum)))
+        if(count == 5 && lotto.getLotto().contains(Integer.parseInt(bonusNum))){
+            System.out.println("2등");
             ranks.add(Rank.valueOf(5, true));
+        }
         return ranks;
     }
 
     public void printRanks() {
         for(int i = 0; i < ranks.size(); i++)
             System.out.println("value of rank is " + ranks.get(i).getCountOfMatch());
-        System.out.println(ranks.size());
+        System.out.println("size of ranks is " + ranks.size());
     }
 }
 
