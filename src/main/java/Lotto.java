@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
     private List<Integer> lotto;
+    private List<String> right;
     static ArrayList<Integer> counts = new ArrayList<>();
     static List<Integer> numbers;
     static {
@@ -16,6 +18,10 @@ public class Lotto {
         for (int i = 0; i < 6; i++) {
             lotto.add(numbers.get(i));
         }
+    }
+
+    public Lotto(String input) {
+        right = Arrays.asList(input.split(","));
     }
 
     public static List<Integer> init() {
@@ -40,4 +46,7 @@ public class Lotto {
         return counts;
     }
 
+    public Integer lengthRight() {
+        return right.size();
+    }
 }
