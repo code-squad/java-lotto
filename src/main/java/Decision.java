@@ -34,7 +34,7 @@ public class Decision {
 
     public void printRanks() {
         for(int i = 0; i < ranks.size(); i++)
-            System.out.println("맞춘갯수 " + ranks.get(i).getCountOfMatch());
+            System.out.println("맞춘갯수 " + ranks.get(i).getCountOfMatch() + " Rank의 값은 :" + ranks.get(i));
         System.out.println("size of ranks is " + ranks.size());
     }
 }

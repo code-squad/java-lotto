@@ -22,7 +22,7 @@ public class Money {
     }
 
     public ArrayList<Integer> countAdd(ArrayList<Rank> ranks, int i) {
-        int num = 0;
+        int num = finalCount.get(ranks.get(i));
         totalMoney.add(ranks.get(i).getWinningMoney());
         finalCount.put(ranks.get(i) , ++num);
         return totalMoney;
