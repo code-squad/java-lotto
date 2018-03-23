@@ -4,9 +4,7 @@ import java.util.List;
 
 public class Check {
     Input input = new Input();
-    String rightInput = input.right();
-
-    List<String> rightNumber = Arrays.asList(rightInput.split(","));
+    List<String> rightNumber = Arrays.asList(input.right().split(","));
 
     public void checking(ArrayList<Lotto> lottos) {
         Input.bonusNumber();
