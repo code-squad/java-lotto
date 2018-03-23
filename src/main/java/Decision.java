@@ -4,7 +4,7 @@ import java.util.List;
 public class Decision {
     ArrayList<Rank> ranks = new ArrayList<>();
 
-    public void addRank(List<String> rightNum, ArrayList<Lotto> lottos, String bonusNum) {
+    public void addRank(Lotto rightNum, ArrayList<Lotto> lottos, String bonusNum) {
         for(int i = 0; i < lottos.size(); i++) {
             deliverCount(lottos.get(i), rightNum, bonusNum);
         }
@@ -13,10 +13,10 @@ public class Decision {
             decisionRank(lottos.get(i), deliverCount(lottos.get(i), rightNum, bonusNum), bonusNum);
     }
 
-    public Integer deliverCount(Lotto lotto, List<String> rightNum, String bonusNum) {
+    public Integer deliverCount(Lotto lotto, Lotto rightNum, String bonusNum) {
         int count = 0;
-        for(int i = 0; i < rightNum.size(); i++) {
-            if(lotto.getLotto().contains(Integer.parseInt(rightNum.get(i)))) {
+        for(int i = 0; i < rightNum.getRight().size(); i++) {
+            if(lotto.getLotto().contains(Integer.parseInt(rightNum.getRight().get(i)))) {
                 count++;
             }
         }

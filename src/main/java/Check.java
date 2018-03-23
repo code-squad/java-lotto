@@ -4,12 +4,12 @@ import java.util.List;
 
 public class Check {
     Input input = new Input();
-    List<String> rightNumber = Arrays.asList(input.right().split(","));
+    Lotto right = new Lotto(input.right());
 
     public void checking(ArrayList<Lotto> lottos) {
         Input.bonusNumber();
         for(int i = 0; i < lottos.size(); i++) {
-            lottos.get(i).checkNumber(rightNumber);
+            lottos.get(i).checkNumber(right);
         }
     }
 }

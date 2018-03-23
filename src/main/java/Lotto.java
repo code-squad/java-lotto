@@ -36,10 +36,14 @@ public class Lotto {
         return lotto;
     }
 
-    public ArrayList<Integer> checkNumber(List<String> rightNum) {
+    public List<String> getRight() {
+        return right;
+    }
+
+    public ArrayList<Integer> checkNumber(Lotto right) {
         int count = 0;
-        for(int i = 0; i < rightNum.size(); i++) {
-            if(lotto.contains(Integer.parseInt(rightNum.get(i))))
+        for(int i = 0; i < right.getRight().size(); i++) {
+            if(lotto.contains(Integer.parseInt(right.getRight().get(i))))
                 count++;
         }
         counts.add(count);
