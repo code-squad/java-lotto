@@ -1,7 +1,7 @@
 package view;
 
 import domain.Lotto;
-import domain.LottoMachine;
+import utils.LottoMachine;
 
 import java.util.*;
 

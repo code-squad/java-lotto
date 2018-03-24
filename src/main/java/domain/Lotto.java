@@ -1,12 +1,13 @@
 package domain;
 
+import dto.LottoResult;
+
 import java.util.List;
 
 public class Lotto {
     public static final int LOTTO_NUM = 7;
     public static final int MIN_NUM = 1;
     public static final int MAX_NUM = 45;
-
     private List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
@@ -26,5 +27,11 @@ public class Lotto {
 
     private static boolean isIncludeOutRange(List<Integer> numbers) {
         return numbers.stream().anyMatch(number -> number < MIN_NUM || number > MAX_NUM);
+    }
+
+    // TODO : 리턴 타입 만들기
+    public LottoResult match(Lotto winningNumber) {
+
+        return null;
     }
 }

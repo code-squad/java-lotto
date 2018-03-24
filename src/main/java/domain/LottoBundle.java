@@ -1,6 +1,7 @@
 package domain;
 
 import dto.LottoResult;
+import utils.LottoMachine;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class LottoBundle {
     }
 
     public LottoResult matchLotto(Lotto winningNumber) {
-
+        // TODO : 매칭하기 - dto는 어디서?
         return null;
     }
 }
