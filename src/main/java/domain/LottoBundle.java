@@ -6,13 +6,13 @@ import utils.LottoMachine;
 import java.util.List;
 
 public class LottoBundle {
-    private List<Lotto> bundleLotto;
+    private List<Lotto> lottoBundle;
 
     public LottoBundle(int amount) {
         if (LottoMachine.isImPossibleBuy(amount)) {
             throw new IllegalArgumentException("돈이 부족하여 구매할 수 없습니다.");
         }
-        bundleLotto = buyLotto(amount);
+        lottoBundle = buyLotto(amount);
     }
 
     private static List<Lotto> buyLotto(int amount) {
@@ -21,7 +21,10 @@ public class LottoBundle {
     }
 
     public LottoResult matchLotto(Lotto winningNumber) {
-        // TODO : 매칭하기 - dto는 어디서?
-        return null;
+        LottoResult results = new LottoResult();
+        for (Lotto lotto : lottoBundle) {
+            results.addResult(lotto.match(winningNumber));
+        }
+        return results;
     }
 }

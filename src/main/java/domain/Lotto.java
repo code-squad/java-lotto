@@ -1,6 +1,6 @@
 package domain;
 
-import dto.LottoResult;
+import dto.LottoDto;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ public class Lotto {
     public static final int LOTTO_NUM = 7;
     public static final int MIN_NUM = 1;
     public static final int MAX_NUM = 45;
+
     private List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
@@ -29,9 +30,8 @@ public class Lotto {
         return numbers.stream().anyMatch(number -> number < MIN_NUM || number > MAX_NUM);
     }
 
-    // TODO : 리턴 타입 만들기
-    public LottoResult match(Lotto winningNumber) {
-
+    public LottoDto match(Lotto winningNumber) {
+        //매칭한 결과(몇개 맞는지)를 Dto 만들어서 result에 리턴해주기
         return null;
     }
 }
