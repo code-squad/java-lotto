@@ -9,11 +9,10 @@ public class ResultView {
         }
     }
 
-    public static void printResult(ArrayList<Lotto> lottos, String bonusNum, int inputPrice) {
+    public static void printResult(ArrayList<Lotto> lottos, String bonusNum, int inputPrice, Lotto rightNum) {
         Money money = new Money();
         Decision decision = new Decision();
-        Check check = new Check();
-        int profit = money.profit(money.totalMoney(decision.decisionRank(lottos, check.right, bonusNum)), inputPrice);
+        int profit = money.profit(money.totalMoney(decision.decisionRank(lottos, rightNum, bonusNum)), inputPrice);
         System.out.println("총 수익률은 " + profit + "%입니다.");
     }
 }

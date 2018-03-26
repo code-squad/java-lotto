@@ -13,10 +13,9 @@ public class Main {
         Input.rightResult();
         Money money = new Money();
         Decision decision = new Decision();
-        decision.addRank(check.right, lottos, bonusNum);
-        money.money(decision.decisionRank(lottos, check.right , bonusNum));
+        decision.addRank(check.getRight(), lottos, bonusNum);
+        money.money(decision.decisionRank(lottos, check.getRight() , bonusNum));
         ResultView.printCount(money.finalCount);
-//        System.out.println("총 수익률은 " + money.profit(money.totalMoney(decision.decisionRank(lottos, check.right, bonusNum)), inputPrice) + "%입니다.");
-        ResultView.printResult(lottos, bonusNum, inputPrice);
+        ResultView.printResult(lottos, bonusNum, inputPrice, check.getRight());
     }
 }
