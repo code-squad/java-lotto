@@ -3,6 +3,7 @@ package view;
 import domain.Lotto;
 import domain.LottoBundle;
 import dto.LottoResult;
+import utils.Prize;
 
 public class OutputView {
 
@@ -11,7 +12,7 @@ public class OutputView {
     }
 
     public static void printResult(LottoResult result) {
-        String resultMessage = buildTitle() + analyzeResult(result) + analyzeProfit(result);
+        String resultMessage = buildTitle() + analyzeResult(result);
         System.out.println(resultMessage);
     }
 
@@ -20,63 +21,33 @@ public class OutputView {
     }
 
     private static String analyzeResult(LottoResult result) {
-        StringBuilder builder = new StringBuilder();
         int displayLimit = Lotto.LOTTO_NUM - Prize.getSize();
+        long money = 0;
+        StringBuilder builder = new StringBuilder();
         for (int matchPoint = Lotto.LOTTO_NUM; matchPoint > displayLimit; matchPoint--) {
-            builder.append(buildResultMessage(Prize.of(matchPoint), result.calcRightMatchPoint(matchPoint)));
-            builder.append("\n");
+            Prize prize = Prize.of(matchPoint);
+            int matchNum = result.calcMatchNum(matchPoint);
+            builder.append(buildResultMessage(prize, matchNum));
+            money += getPrizeMoney(prize, matchNum);
         }
+        builder.append(analyzeProfit(result, money));
         return builder.toString();
     }
 
-    private static String buildResultMessage(Prize prize, int prizeCount) {
-        return prize.getMatchPoint() + "개 일치 (" + prize.getPrize() + "원) - " + prizeCount + "개";
-    }
-
-    private static String analyzeProfit(LottoResult result) {
-        // 총 상금액 구해서 result에 구해달라고 하는거지
-        return "총 수익률은 " + "" + "% 입니다.";
-    }
-}
-
-enum Prize {
-    FIRST(6, 2000000000),
-    SECOND(5, 1500000),
-    THIRD(4, 50000),
-    FOURTH(3, 5000);
-
-    private int matchPoint;
-    private long prize;
-
-    Prize(int matchPoint, long prize) {
-        this.matchPoint = matchPoint;
-        this.prize = prize;
-    }
-
-    public long getPrize() {
-        return prize;
-    }
-
-    public int getMatchPoint() {
-        return matchPoint;
-    }
-
-    private boolean isMatchPoint(int matchPoint) {
-        return this.matchPoint == matchPoint;
-    }
-
-    public static Prize of(int matchPoint) {
-        Prize searchPrize = null;
-        for (Prize prize : Prize.values()) {
-            if (prize.isMatchPoint(matchPoint)) {
-                searchPrize = prize;
-                break;
-            }
+    private static int getPrizeMoney(Prize prize, int matchNum) {
+        if (matchNum == 0) {
+            return 0;
         }
-        return searchPrize;
+        int money = prize.getPrize();
+        return money * matchNum;
     }
 
-    public static int getSize() {
-        return Prize.values().length;
+    private static String buildResultMessage(Prize prize, int prizeCount) {
+        return prize.getMatchPoint() + "개 일치 (" + prize.getPrize() + "원) - " + prizeCount + "개\n";
+    }
+
+    private static String analyzeProfit(LottoResult result, long prizeMoney) {
+        System.out.println("수익금 : " + prizeMoney);
+        return "총 수익률은 " + result.calcLottoProfit(prizeMoney) + "% 입니다.";
     }
 }

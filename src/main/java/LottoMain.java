@@ -10,6 +10,7 @@ public class LottoMain {
         int amount = InputView.getPurchaseAmount();
         LottoBundle lottoBundle = new LottoBundle(amount);
         OutputView.printPurchaseHistory(lottoBundle);
+
         LottoWiningNum winningNumber = InputView.getWinningNumber();
         LottoResult result = lottoBundle.matchLotto(winningNumber);
         OutputView.printResult(result);
