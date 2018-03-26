@@ -23,7 +23,7 @@ public class LottoBundle {
         return machine.publishLotto(amount);
     }
 
-    public LottoResult matchLotto(LottoWiningNum winningNumber) {
+    public LottoResult matchLotto(Lotto winningNumber) {
         LottoResult results = new LottoResult();
         for (Lotto lotto : lottoBundle) {
             results.addResult(lotto.match(winningNumber));

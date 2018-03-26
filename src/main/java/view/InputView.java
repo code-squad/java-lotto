@@ -1,6 +1,6 @@
 package view;
 
-import domain.LottoWiningNum;
+import domain.Lotto;
 import utils.LottoMachine;
 
 import java.util.*;
@@ -38,9 +38,9 @@ public class InputView {
         }
     }
 
-    public static LottoWiningNum getWinningNumber() {
+    public static Lotto getWinningNumber() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        LottoWiningNum winningNumber = null;
+        Lotto winningNumber = null;
         try {
             winningNumber = buildWinningNumber();
         } catch (IllegalArgumentException e) {
@@ -50,7 +50,7 @@ public class InputView {
         return winningNumber;
     }
 
-    private static LottoWiningNum buildWinningNumber() throws IllegalArgumentException {
+    private static Lotto buildWinningNumber() throws IllegalArgumentException {
         List<Integer> numbers = new ArrayList<>();
         String[] numbersMessage = splitNumberMessage(scanner.nextLine());
         if (isDuplicateInput(numbersMessage)) {
@@ -60,7 +60,7 @@ public class InputView {
         for (String numberMessage : numbersMessage) {
             numbers.add(convertMessageToNum(numberMessage));
         }
-        return new LottoWiningNum(numbers);
+        return new Lotto(numbers);
     }
 
     private static boolean isDuplicateInput(String[] numbersMessage) {

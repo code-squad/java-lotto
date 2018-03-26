@@ -9,18 +9,18 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class LottoTest {
-    private Lotto lotto;
-    private LottoWiningNum winingNum;
+    private Lotto userLotto;
+    private Lotto winningLotto;
 
     @Before
     public void setUp() throws Exception {
-        lotto = new Lotto(Arrays.asList(2, 19, 21, 45, 1, 13));
-        winingNum = new LottoWiningNum(Arrays.asList(9, 42, 18, 19, 2, 7));
+        userLotto = new Lotto(Arrays.asList(2, 19, 21, 45, 1, 13));
+        winningLotto = new Lotto(Arrays.asList(9, 42, 18, 19, 2, 7));
     }
 
     @Test
     public void 매치포인트() {
-        LottoDto dto = lotto.match(winingNum);
+        LottoDto dto = userLotto.match(winningLotto);
         assertEquals(2, dto.getMatchPoint());
     }
 

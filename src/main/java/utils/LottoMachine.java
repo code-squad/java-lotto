@@ -1,7 +1,6 @@
 package utils;
 
 import domain.Lotto;
-import domain.LottoWiningNum;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +11,7 @@ import static java.util.stream.Collectors.toList;
 
 public class LottoMachine {
     private static LottoMachine machine = new LottoMachine();
-    private static List<Integer> numbers = IntStream.rangeClosed(LottoWiningNum.MIN_NUM, LottoWiningNum.MAX_NUM).boxed().collect(toList());
+    private static List<Integer> numbers = IntStream.rangeClosed(Lotto.MIN_NUM, Lotto.MAX_NUM).boxed().collect(toList());
     public static final int LOTTO_PRICE = 1000;
 
     private LottoMachine() {

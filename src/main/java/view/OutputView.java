@@ -47,7 +47,6 @@ public class OutputView {
     }
 
     private static String analyzeProfit(LottoResult result, long prizeMoney) {
-        System.out.println("수익금 : " + prizeMoney);
         return "총 수익률은 " + result.calcLottoProfit(prizeMoney) + "% 입니다.";
     }
 }
