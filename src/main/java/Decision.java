@@ -28,13 +28,18 @@ public class Decision {
         return ranks;
     }
 
+//    public void rankLoop (Lotto lotto, Lotto rightNum, String bonusNum, ArrayList<Rank> ranks) {
+//        int count = deliverCount(lotto, rightNum);
+//        if(count > 2 && (!containBonus(lotto, bonusNum)))
+//            ranks.add(Rank.valueOf(count, false));
+//
+//        if(count == 5 && containBonus(lotto, bonusNum))
+//            ranks.add(Rank.valueOf(5, true));
+//    }
+
     public void rankLoop (Lotto lotto, Lotto rightNum, String bonusNum, ArrayList<Rank> ranks) {
         int count = deliverCount(lotto, rightNum);
-        if(count > 2 && (!lotto.getLotto().contains(Integer.parseInt(bonusNum))))
-            ranks.add(Rank.valueOf(count, false));
-
-        if(count == 5 && lotto.getLotto().contains(Integer.parseInt(bonusNum)))
-            ranks.add(Rank.valueOf(5, true));
+            ranks.add(Rank.valueOf(count, containBonus(lotto, bonusNum)));
     }
 
     public boolean containBonus(Lotto lotto, String bonusNum) {
