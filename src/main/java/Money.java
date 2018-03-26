@@ -12,6 +12,7 @@ public class Money {
         finalCount.put(Rank.THIRD, 0);
         finalCount.put(Rank.SECOND, 0);
         finalCount.put(Rank.FIRST, 0);
+        finalCount.put(Rank.NONE, 0);
     }
     
     public void money(ArrayList<Rank> ranks) {
