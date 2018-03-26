@@ -36,5 +36,9 @@ public class Decision {
         if(count == 5 && lotto.getLotto().contains(Integer.parseInt(bonusNum)))
             ranks.add(Rank.valueOf(5, true));
     }
+
+    public boolean containBonus(Lotto lotto, String bonusNum) {
+        return lotto.getLotto().contains(Integer.parseInt(bonusNum));
+    }
 }
 
