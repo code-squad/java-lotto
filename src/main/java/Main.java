@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -19,8 +18,8 @@ public class Main {
         Money money = new Money();
         Decision decision = new Decision();
         decision.addRank(check.right, lottos, bonusNum);
-        money.money(decision.decisionRank(lottos, , bonusNum));
+        money.money(decision.decisionRank(lottos, check.right , bonusNum));
         ResultView.printCount(money.finalCount);
-        System.out.println("총 수익률은 " + money.profit(money.totalMoney(decision.ranks), inputPrice) + "%입니다.");
+        System.out.println("총 수익률은 " + money.profit(money.totalMoney(decision.decisionRank(lottos, check.right, bonusNum)), inputPrice) + "%입니다.");
     }
 }
