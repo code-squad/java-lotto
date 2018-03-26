@@ -8,6 +8,10 @@ public class LottoWiningNum {
     private List<Integer> winningNumbers;
 
     public LottoWiningNum(List<Integer> winningNumbers) {
+        if (Lotto.isInvalidNumberLength(winningNumbers.size())) {
+            throw new IllegalArgumentException("길이를 확인해주세요 (" + Lotto.LOTTO_NUM + "개 입력해야함)");
+        }
+
         if (isIncludeOutRange(winningNumbers)) {
             throw new IllegalArgumentException("범위를 벗어난 숫자가 포함되어있습니다.");
         }

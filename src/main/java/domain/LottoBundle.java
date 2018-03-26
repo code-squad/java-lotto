@@ -3,7 +3,10 @@ package domain;
 import dto.LottoResult;
 import utils.LottoMachine;
 
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.stream.Collectors.joining;
 
 public class LottoBundle {
     private List<Lotto> lottoBundle;
@@ -26,5 +29,14 @@ public class LottoBundle {
             results.addResult(lotto.match(winningNumber));
         }
         return results;
+    }
+
+    public String getPurchaseHistory() {
+        StringBuilder builder = new StringBuilder();
+        for (Lotto lotto : lottoBundle) {
+            builder.append(lotto.toString());
+            builder.append("\n");
+        }
+        return builder.toString();
     }
 }

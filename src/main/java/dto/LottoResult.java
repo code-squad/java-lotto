@@ -10,7 +10,13 @@ public class LottoResult {
         lottoResults.add(lottoDto);
     }
 
-    public int getWinningNumber(int matchPoint) {
-        return (int) lottoResults.stream().filter(lottoDto -> lottoDto.isMatchPoint(matchPoint)).count();
+    public int calcRightMatchPoint(int matchPoint) {
+        int matchNum = 0;
+        for (LottoDto lottoDto : lottoResults) {
+            if (lottoDto.isRightMatchPoint(matchPoint)) {
+                matchNum++;
+            }
+        }
+        return matchNum;
     }
 }

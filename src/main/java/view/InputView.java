@@ -1,6 +1,5 @@
 package view;
 
-import domain.Lotto;
 import domain.LottoWiningNum;
 import utils.LottoMachine;
 
@@ -18,6 +17,7 @@ public class InputView {
             System.out.println(e.getMessage());
             amount = getPurchaseAmount();
         }
+        System.out.println(amount + "개를 구매하였습니다.");
         return amount;
     }
 

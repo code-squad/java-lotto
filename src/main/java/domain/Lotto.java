@@ -2,10 +2,13 @@ package domain;
 
 import dto.LottoDto;
 
+import java.util.Collections;
 import java.util.List;
 
+import static java.util.stream.Collectors.joining;
+
 public class Lotto {
-    public static final int LOTTO_NUM = 7;
+    public static final int LOTTO_NUM = 6;
     private List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
@@ -15,7 +18,7 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    private static boolean isInvalidNumberLength(int length) {
+    public static boolean isInvalidNumberLength(int length) {
         return LOTTO_NUM != length;
     }
 
@@ -36,5 +39,15 @@ public class Lotto {
             }
         }
         return matchPoint;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + unfoldNumbers() + "]";
+    }
+
+    private String unfoldNumbers() {
+        Collections.sort(numbers);
+        return numbers.stream().map(String::valueOf).collect(joining(", "));
     }
 }
