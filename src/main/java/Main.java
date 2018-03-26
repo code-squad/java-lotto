@@ -4,16 +4,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String [] args) {
         Input input = new Input();
-        Scanner scanner = new Scanner(System.in);
-        input.inputPrice();
-        int inputPrice = Integer.parseInt(scanner.nextLine());
-        int num = inputPrice / 1000;
-        System.out.println(num + "개를 구매했습니다.");
-        ArrayList<Lotto> lottos = input.makeLottos(num);
+        int inputPrice = InputPrice.inputPrice();
+        System.out.println((inputPrice / 1000) + "개를 구매했습니다.");
+        ArrayList<Lotto> lottos = input.makeLottos((inputPrice / 1000));
         Input.rightNumber();
         Check check = new Check();
         check.checking(lottos);
-        String bonusNum = scanner.nextLine();
+        String bonusNum = BonusNum.bonusNum();
         Input.rightResult();
         Money money = new Money();
         Decision decision = new Decision();
