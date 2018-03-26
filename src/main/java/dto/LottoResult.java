@@ -7,6 +7,10 @@ public class LottoResult {
     private List<LottoDto> lottoResults = new ArrayList<>();
 
     public void addResult(LottoDto lottoDto) {
+        lottoResults.add(lottoDto);
+    }
 
+    public int getWinningNumber(int matchPoint) {
+        return (int) lottoResults.stream().filter(lottoDto -> lottoDto.isMatchPoint(matchPoint)).count();
     }
 }

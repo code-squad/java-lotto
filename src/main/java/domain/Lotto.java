@@ -6,18 +6,11 @@ import java.util.List;
 
 public class Lotto {
     public static final int LOTTO_NUM = 7;
-    public static final int MIN_NUM = 1;
-    public static final int MAX_NUM = 45;
-
     private List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
         if (isInvalidNumberLength(numbers.size())) {
             throw new IllegalArgumentException("길이를 확인해주세요 (" + LOTTO_NUM + "개 입력해야함)");
-        }
-
-        if (isIncludeOutRange(numbers)) {
-            throw new IllegalArgumentException("범위를 벗어난 숫자가 포함되어있습니다.");
         }
         this.numbers = numbers;
     }
@@ -26,12 +19,22 @@ public class Lotto {
         return LOTTO_NUM != length;
     }
 
-    private static boolean isIncludeOutRange(List<Integer> numbers) {
-        return numbers.stream().anyMatch(number -> number < MIN_NUM || number > MAX_NUM);
+    public LottoDto match(LottoWiningNum winningNumber) {
+        int matchPoint = getMatchPoint(winningNumber);
+        return convertLottoDto(matchPoint);
     }
 
-    public LottoDto match(Lotto winningNumber) {
-        //매칭한 결과(몇개 맞는지)를 Dto 만들어서 result에 리턴해주기
-        return null;
+    private LottoDto convertLottoDto(int matchPoint) {
+        return new LottoDto(numbers, matchPoint);
+    }
+
+    private int getMatchPoint(LottoWiningNum winningNumber) {
+        int matchPoint = 0;
+        for (Integer number : numbers) {
+            if (winningNumber.isMatchNumber(number)) {
+                matchPoint++;
+            }
+        }
+        return matchPoint;
     }
 }

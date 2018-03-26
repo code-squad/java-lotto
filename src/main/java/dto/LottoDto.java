@@ -1,10 +1,10 @@
 package dto;
 
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
 
-// DTO : 상태값에 대한 변경 로직이 없어야하며, 상태값의 상태에 대한 조회 로직을 가질 수 있음
 public class LottoDto {
     private List<Integer> numbers;
     private int matchPoint;
@@ -20,10 +20,15 @@ public class LottoDto {
 
     @Override
     public String toString() {
-        return "[" + "numbers=" + buildUnFoldedNumbers() + ']';
+        return "[" + "numbers=" + unfoldNumbers() + ']';
     }
 
-    private String buildUnFoldedNumbers() {
+    private String unfoldNumbers() {
+        Collections.sort(numbers);
         return numbers.stream().map(String::valueOf).collect(joining(", "));
+    }
+
+    public boolean isMatchPoint(int matchPoint) {
+        return this.matchPoint == matchPoint;
     }
 }
