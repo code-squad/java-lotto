@@ -16,6 +16,7 @@ public class Main {
         decision.addRank(check.right, lottos, bonusNum);
         money.money(decision.decisionRank(lottos, check.right , bonusNum));
         ResultView.printCount(money.finalCount);
-        System.out.println("총 수익률은 " + money.profit(money.totalMoney(decision.decisionRank(lottos, check.right, bonusNum)), inputPrice) + "%입니다.");
+//        System.out.println("총 수익률은 " + money.profit(money.totalMoney(decision.decisionRank(lottos, check.right, bonusNum)), inputPrice) + "%입니다.");
+        ResultView.printResult(lottos, bonusNum, inputPrice);
     }
 }
