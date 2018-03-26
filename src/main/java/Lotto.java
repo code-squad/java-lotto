@@ -5,25 +5,52 @@ import java.util.List;
 
 public class Lotto {
     private List<Integer> lotto;
+    private List<String> right;
     static ArrayList<Integer> counts = new ArrayList<>();
-    List<Integer> numbers = Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45);
+    static List<Integer> numbers;
+    static {
+        numbers = init();
+    }
 
     public Lotto() {
         Collections.shuffle(numbers);
-        lotto = numbers.subList(0, 6);
+        lotto = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            lotto.add(numbers.get(i));
+        }
+    }
+
+    public Lotto(String input) {
+        right = Arrays.asList(input.split(","));
+    }
+
+    public static List<Integer> init() {
+        List<Integer> values = new ArrayList<>();
+        for (int i = 1; i < 46; i++) {
+            values.add(i);
+        }
+        return values;
     }
 
     public List<Integer> getLotto() {
         return lotto;
     }
 
-    public ArrayList<Integer> checkNumber(List<String> rightNum) {
+    public List<String> getRight() {
+        return right;
+    }
+
+    public ArrayList<Integer> checkNumber(Lotto right) {
         int count = 0;
-        for(int i = 0; i < rightNum.size(); i++) {
-            if(lotto.contains(Integer.parseInt(rightNum.get(i))))
+        for(int i = 0; i < right.getRight().size(); i++) {
+            if(lotto.contains(Integer.parseInt(right.getRight().get(i))))
                 count++;
         }
         counts.add(count);
         return counts;
+    }
+
+    public Integer lengthRight() {
+        return right.size();
     }
 }

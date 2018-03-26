@@ -1,10 +1,17 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ResultView {
-    public static void printCount(HashMap<Integer, Integer> finalCount) {
-        System.out.println("3개 일치 (5000원)- " + finalCount.get(3) +"개");
-        System.out.println("4개 일치 (50000원)- " + finalCount.get(4) +"개");
-        System.out.println("5개 일치 (1500000원)- " + finalCount.get(5) +"개");
-        System.out.println("6개 일치 (2000000000원)- " + finalCount.get(6) +"개");
+    public static void printCount(HashMap<Rank, Integer> finalCount) {
+        Rank[] ranks = Rank.values();
+        for(int i = ranks.length - 2; i >= 0; i--)
+                    System.out.println(ranks[i].getCountOfMatch() + "개 일치 (" + ranks[i].getWinningMoney() + "원)- " + finalCount.get(ranks[i]) + "개");
+    }
+
+    public static void printResult(ArrayList<Lotto> lottos, String bonusNum, int inputPrice, Lotto rightNum) {
+        Money money = new Money();
+        Decision decision = new Decision();
+        int profit = money.profit(money.totalMoney(decision.decisionRank(lottos, rightNum, bonusNum)), inputPrice);
+        System.out.println("총 수익률은 " + profit + "%입니다.");
     }
 }

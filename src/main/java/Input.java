@@ -5,16 +5,12 @@ public class Input {
     private ArrayList<Lotto> lottos = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
 
-    public static void inputPrice() {
-        System.out.println("구입금액을 입력해주세요.");
-    }
-
-    public Integer price() {
-        return scanner.nextInt();
-    }
-
     public static void rightNumber() {
         System.out.println("지난주의 당첨번호를 입력해주세요.");
+    }
+
+    public static void bonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
     }
 
     public static void rightResult() {
@@ -32,7 +28,7 @@ public class Input {
     }
 
     public String right() {
-        String right = scanner.next();
+        String right = scanner.nextLine();
         return right;
     }
 }
