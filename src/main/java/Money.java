@@ -30,7 +30,6 @@ public class Money {
     }
 
     public Integer profit(int profit, int output) {
-        System.out.println("벌어들인 돈 : " + profit);
         return (profit / output) * 100;
     }
 }

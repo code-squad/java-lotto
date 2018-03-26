@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Input {
     private ArrayList<Lotto> lottos = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
-    
+
     public static void rightNumber() {
         System.out.println("지난주의 당첨번호를 입력해주세요.");
     }
