@@ -17,19 +17,32 @@ public class LottoDto {
         return matchPoint;
     }
 
-    public boolean isBonusMatchPoint(int matchPoint) {
-        return this.matchPoint == matchPoint;
-    }
-
     public void setBonusMatch(boolean isBonusMatch) {
         this.isBonusMatch = isBonusMatch;
+    }
+
+    public NormalNumber getNumbers() {
+        return numbers;
+    }
+
+    public boolean isMatchPointOfBonus(int matchPoint) {
+        return this.matchPoint == matchPoint;
     }
 
     public boolean isRightMatchPoint(int matchPoint) {
         return this.matchPoint == matchPoint;
     }
 
-    public boolean isContainBonusNumber(int bonusNumber) {
-        return numbers.isContainNumber(bonusNumber);
+    public boolean isRightBonusMatch(boolean isBonusMatch) {
+        return this.isBonusMatch == isBonusMatch;
+    }
+
+    @Override
+    public String toString() {
+        return "LottoDto{" +
+                "numbers=" + numbers +
+                ", matchPoint=" + matchPoint +
+                ", isBonusMatch=" + isBonusMatch +
+                '}';
     }
 }

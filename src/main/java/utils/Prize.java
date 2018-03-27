@@ -1,45 +1,42 @@
 package utils;
 
+import dto.LottoResult;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public enum Prize {
-    FIRST(6, 2000000000),
-    SECOND(5, 30000000),
-    THIRD(5, 1500000),
-    FOURTH(4, 50000),
-    FIFTH(3, 5000);
+    FIRST(6, 2000000000, false),
+    SECOND(5, 30000000, true),
+    THIRD(5, 1500000, false),
+    FOURTH(4, 50000, false),
+    FIFTH(3, 5000, false);
 
     private int matchPoint;
     private int prize;
+    private boolean isBonusMatch;
 
-    Prize(int matchPoint, int prize) {
+    Prize(int matchPoint, int prize, boolean isBonusMatch) {
         this.matchPoint = matchPoint;
         this.prize = prize;
+        this.isBonusMatch = isBonusMatch;
     }
 
-    public int getPrize() {
-        return prize;
-    }
-
-    public int getMatchPoint() {
-        return matchPoint;
-    }
-
-    private boolean isMatchPoint(int matchPoint) {
-        return this.matchPoint == matchPoint;
-    }
-
-    public static Prize of(int matchPoint) {
-        Prize searchPrize = null;
-        for (Prize prize : Prize.values()) {
-            if (prize.isMatchPoint(matchPoint)) {
-                searchPrize = prize;
-                break;
-            }
+    public static List<Integer> count(LottoResult results) {
+        List<Prize> prizes = Arrays.asList(Prize.values());
+        List<Integer> prizeCounts = new ArrayList<>();
+        for (Prize prize : prizes) {
+            prizeCounts.add(results.calcPrizeMatchNum(prize.matchPoint, prize.isBonusMatch));
         }
-        return searchPrize;
+        return prizeCounts;
     }
 
-    public static int getSize() {
-        return Prize.values().length;
+    public static String buildPrizeCountMessage(int prizeIdx, int prizeCount) {
+        List<Prize> prizes = Arrays.asList(Prize.values());
+        Prize currentPrize = prizes.get(prizeIdx);
+        return currentPrize.matchPoint + "개 일치 (" + currentPrize.prize + "원) - " + prizeCount + "개\n";
     }
+
 }
 

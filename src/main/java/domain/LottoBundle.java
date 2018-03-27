@@ -26,7 +26,7 @@ public class LottoBundle {
     public LottoResult matchLotto(Lotto winningNumber) {
         LottoResult results = new LottoResult();
         for (Lotto lotto : lottoBundle) {
-            results.addResult(lotto.match(winningNumber));
+            results.addResult(winningNumber.match(lotto));
         }
         return results;
     }

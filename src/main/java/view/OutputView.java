@@ -1,9 +1,10 @@
 package view;
 
-import domain.Lotto;
 import domain.LottoBundle;
 import dto.LottoResult;
 import utils.Prize;
+
+import java.util.List;
 
 public class OutputView {
 
@@ -12,7 +13,7 @@ public class OutputView {
     }
 
     public static void printResult(LottoResult result) {
-        String resultMessage = buildTitle() + analyzeResult(result);
+        String resultMessage = buildTitle() + buildMatchResult(result);
         System.out.println(resultMessage);
     }
 
@@ -20,23 +21,12 @@ public class OutputView {
         return "당첨 통계\n" + "---------\n";
     }
 
-    private static String analyzeResult(LottoResult result) {
-        return null;
-    }
-
-    private static int getPrizeMoney(Prize prize, int matchNum) {
-        if (matchNum == 0) {
-            return 0;
+    private static String buildMatchResult(LottoResult result) {
+        List<Integer> prizeCounts = Prize.count(result);
+        StringBuilder builder = new StringBuilder();
+        for (int prizeIdx = 0; prizeIdx < prizeCounts.size(); prizeIdx++) {
+            builder.append(Prize.buildPrizeCountMessage(prizeIdx, prizeCounts.get(prizeIdx)));
         }
-        int money = prize.getPrize();
-        return money * matchNum;
-    }
-
-    private static String buildResultMessage(Prize prize, int prizeCount) {
-        return prize.getMatchPoint() + "개 일치 (" + prize.getPrize() + "원) - " + prizeCount + "개\n";
-    }
-
-    private static String analyzeProfit(LottoResult result, long prizeMoney) {
-        return "총 수익률은 " + result.calcLottoProfit(prizeMoney) + "% 입니다.";
+        return builder.toString();
     }
 }

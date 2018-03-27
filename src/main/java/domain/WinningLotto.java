@@ -6,6 +6,7 @@ import java.util.List;
 
 public class WinningLotto extends Lotto {
     public static final int LOTTO_NUM = UserLotto.LOTTO_NUM + 1;
+    private static final int BONUS_MATCH_POINT = 5;
     private int bonusNumber;
 
     WinningLotto(List<Integer> numbers) {
@@ -22,14 +23,13 @@ public class WinningLotto extends Lotto {
     @Override
     public LottoDto match(Lotto lotto) {
         LottoDto lottoDto = super.match(lotto);
-        int matchTryNum = 5;
-        if (lottoDto.isBonusMatchPoint(matchTryNum)) {
-            lottoDto.setBonusMatch(matchBonus(lottoDto));
+        if (lottoDto.isMatchPointOfBonus(BONUS_MATCH_POINT)) {
+            lottoDto.setBonusMatch(matchBonus(lotto));
         }
         return lottoDto;
     }
 
-    private boolean matchBonus(LottoDto lottoDto) {
-        return lottoDto.isContainBonusNumber(bonusNumber);
+    private boolean matchBonus(Lotto lotto) {
+        return lotto.isContainNumber(bonusNumber);
     }
 }

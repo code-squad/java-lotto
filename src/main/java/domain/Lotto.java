@@ -11,22 +11,14 @@ public abstract class Lotto {
     private NormalNumber normalNumber;
 
     Lotto(List<Integer> numbers) {
-        verifyNumbers(numbers);
-        initNumbers(numbers);
-    }
-
-    private static void verifyNumbers(List<Integer> numbers) {
-        if (!LottoNum.isExistLottoNum(numbers.size())) {
+        if (!LottoNum.isValidLottoNum(numbers.size())) {
             throw new IllegalArgumentException("숫자 개수가 부족합니다.");
         }
 
         if (isIncludeOutRange(numbers)) {
             throw new IllegalArgumentException("범위를 벗어난 숫자가 포함되어있습니다.");
         }
-    }
-
-    private static boolean isIncludeOutRange(List<Integer> numbers) {
-        return numbers.stream().anyMatch(number -> number < MIN_NUM || number > MAX_NUM);
+        initNumbers(numbers);
     }
 
     public static Lotto of(List<Integer> numbers) {
@@ -36,8 +28,12 @@ public abstract class Lotto {
         return new UserLotto(numbers);
     }
 
+    private static boolean isIncludeOutRange(List<Integer> numbers) {
+        return numbers.stream().anyMatch(number -> number < MIN_NUM || number > MAX_NUM);
+    }
+
     void initNumbers(List<Integer> numbers) {
-        int normalIdxRange = UserLotto.LOTTO_NUM - 1;
+        int normalIdxRange = UserLotto.LOTTO_NUM;
         normalNumber = new NormalNumber(numbers.subList(0, normalIdxRange));
     }
 
@@ -45,6 +41,10 @@ public abstract class Lotto {
         NormalNumber otherNumbers = lotto.normalNumber;
         int matchCount = normalNumber.calcMatchCount(otherNumbers);
         return new LottoDto(normalNumber, matchCount);
+    }
+
+    public boolean isContainNumber(int number) {
+        return normalNumber.isContainNumber(number);
     }
 
     @Override
@@ -63,7 +63,7 @@ enum LottoNum {
         this.lottoNum = lottoNum;
     }
 
-    public static boolean isExistLottoNum(int lottoLength) {
+    public static boolean isValidLottoNum(int lottoLength) {
         return Arrays.stream(LottoNum.values()).anyMatch(lottoType -> lottoType.lottoNum == lottoLength);
     }
 

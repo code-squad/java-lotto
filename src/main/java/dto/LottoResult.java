@@ -1,7 +1,5 @@
 package dto;
 
-import utils.LottoSeller;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,18 +10,23 @@ public class LottoResult {
         lottoResults.add(lottoDto);
     }
 
-    public int calcMatchNum(int matchPoint) {
-        int matchNum = 0;
+    public int calcPrizeMatchNum(int matchPoint, boolean isBonusMatch) {
+        int cnt = 0;
         for (LottoDto lottoDto : lottoResults) {
-            if (lottoDto.isRightMatchPoint(matchPoint)) {
-                matchNum++;
+            if (lottoDto.isRightMatchPoint(matchPoint) && lottoDto.isRightBonusMatch(isBonusMatch)) {
+                cnt++;
             }
         }
-        return matchNum;
+        return cnt;
     }
 
-    public int calcLottoProfit(long money) {
-        int investedAmount = lottoResults.size() * LottoSeller.LOTTO_PRICE;
-        return (int)((money / investedAmount) * 100);
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (LottoDto lottoDto : lottoResults) {
+            builder.append(lottoDto.toString());
+            builder.append("\n");
+        }
+        return builder.toString();
     }
 }
