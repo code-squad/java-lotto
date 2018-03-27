@@ -8,9 +8,7 @@ import java.util.List;
 
 public class Lotto {
     private List<Integer> lotto;
-    private List<Integer> right;
-    private List<Integer> lottoNumber;
-    private List<String> str;
+    private List<String> right;
     static ArrayList<Integer> counts = new ArrayList<>();
     static List<Integer> numbers;
     static {
@@ -26,16 +24,7 @@ public class Lotto {
     }
 
     public Lotto(String string) {
-        str = Arrays.asList(string.split(","));
-        lottoNumber = new ArrayList<>();
-        for (String s: str) {
-            lottoNumber.add(Integer.parseInt(s));
-        }
-
-    }
-
-    public Lotto(ArrayList<Integer> input) {
-        right = input;
+        right = Arrays.asList(string.split(","));
     }
 
     public static List<Integer> init() {
@@ -50,14 +39,14 @@ public class Lotto {
         return lotto;
     }
 
-    public List<Integer> getRight() {
+    public List<String> getRight() {
         return right;
     }
 
     public ArrayList<Integer> checkNumber(Lotto right) {
         int count = 0;
         for(int i = 0; i < right.getRight().size(); i++) {
-            if(lotto.contains(right.getRight().get(i)))
+            if(lotto.contains(Integer.parseInt(right.getRight().get(i))))
                 count++;
         }
         counts.add(count);

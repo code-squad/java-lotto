@@ -9,7 +9,7 @@ import lotto.Lotto;
 public class Input {
     private ArrayList<Lotto> lottos = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
-    private ArrayList<Integer> right;
+    private ArrayList<String> right;
 
     public static void rightNumber() {
         System.out.println("지난주의 당첨번호를 입력해주세요.");
@@ -33,13 +33,8 @@ public class Input {
         return lottos;
     }
 
-    public ArrayList<Integer> right() {
+    public String right() {
         String input = scanner.nextLine();
-        right = new ArrayList<>();
-        List<String> str = Arrays.asList(input.split(","));
-        for (String s : str) {
-            right.add(Integer.parseInt(s));
-        }
-        return right;
+        return input;
     }
 }
