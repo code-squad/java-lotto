@@ -1,26 +1,26 @@
 package domain;
 
 import dto.LottoResult;
-import utils.LottoMachine;
+import utils.LottoSeller;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
 
 public class LottoBundle {
-    private List<Lotto> lottoBundle;
+    private List<UserLotto> lottoBundle;
 
     public LottoBundle(int amount) {
-        if (LottoMachine.isImPossibleBuy(amount)) {
+        if (LottoSeller.isImPossibleBuy(amount)) {
             throw new IllegalArgumentException("돈이 부족하여 구매할 수 없습니다.");
         }
         lottoBundle = buyLotto(amount);
     }
 
-    private static List<Lotto> buyLotto(int amount) {
-        LottoMachine machine = LottoMachine.of();
-        return machine.publishLotto(amount);
+    private static List<UserLotto> buyLotto(int amount) {
+        LottoSeller seller = LottoSeller.of();
+        return seller.publishLotto(amount);
     }
 
     public LottoResult matchLotto(Lotto winningNumber) {

@@ -1,21 +1,35 @@
 package dto;
 
-import java.util.List;
+import domain.NormalNumber;
 
 public class LottoDto {
-    private List<Integer> numbers;
+    private NormalNumber numbers;
     private int matchPoint;
+    private boolean isBonusMatch;
 
-    public LottoDto(List<Integer> numbers, int matchPoint) {
+    public LottoDto(NormalNumber numbers, int matchPoint) {
         this.numbers = numbers;
         this.matchPoint = matchPoint;
+        this.isBonusMatch = false;
     }
 
     public int getMatchPoint() {
         return matchPoint;
     }
 
+    public boolean isBonusMatchPoint(int matchPoint) {
+        return this.matchPoint == matchPoint;
+    }
+
+    public void setBonusMatch(boolean bonusMatch) {
+        isBonusMatch = bonusMatch;
+    }
+
     public boolean isRightMatchPoint(int matchPoint) {
         return this.matchPoint == matchPoint;
+    }
+
+    public boolean isContainBonusNumber(int bonusNumber) {
+        return numbers.isContainNumber(bonusNumber);
     }
 }

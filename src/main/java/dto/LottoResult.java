@@ -1,6 +1,6 @@
 package dto;
 
-import utils.LottoMachine;
+import utils.LottoSeller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class LottoResult {
     }
 
     public int calcLottoProfit(long money) {
-        int investedAmount = lottoResults.size() * LottoMachine.LOTTO_PRICE;
+        int investedAmount = lottoResults.size() * LottoSeller.LOTTO_PRICE;
         return (int)((money / investedAmount) * 100);
     }
 }

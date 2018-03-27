@@ -2,62 +2,59 @@ package domain;
 
 import dto.LottoDto;
 
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
-import static java.util.stream.Collectors.joining;
-
-public class Lotto {
+public abstract class Lotto {
     public static final int MIN_NUM = 1;
     public static final int MAX_NUM = 45;
     public static final int LOTTO_NUM = 6;
-    private List<Integer> numbers;
+    private NormalNumber normalNumber;
 
-    public Lotto(List<Integer> numbers) {
-        if (isInvalidNumberLength(numbers.size())) {
-            throw new IllegalArgumentException("길이를 확인해주세요 (" + LOTTO_NUM + "개 입력해야함)");
+    Lotto(List<Integer> numbers) {
+        if (LottoNum.isExistLottoNum(numbers.size())) {
+            throw new IllegalArgumentException("숫가 개수가 부족합니다.");
         }
 
         if (isIncludeOutRange(numbers)) {
             throw new IllegalArgumentException("범위를 벗어난 숫자가 포함되어있습니다.");
         }
-        this.numbers = numbers;
-    }
-
-    private static boolean isInvalidNumberLength(int length) {
-        return LOTTO_NUM != length;
+        initNumbers(numbers);
+        normalNumber = new NormalNumber(numbers);
     }
 
     private static boolean isIncludeOutRange(List<Integer> numbers) {
         return numbers.stream().anyMatch(number -> number < MIN_NUM || number > MAX_NUM);
     }
 
-    public LottoDto match(Lotto winningNumber) {
-        int matchPoint = getMatchPoint(winningNumber);
-        return convertLottoDto(matchPoint);
+    void initNumbers(List<Integer> numbers) {
+        int normalIdxRange = LOTTO_NUM - 1;
+        normalNumber = new NormalNumber(numbers.subList(0, normalIdxRange));
     }
 
-    private LottoDto convertLottoDto(int matchPoint) {
-        return new LottoDto(numbers, matchPoint);
-    }
-
-    private int getMatchPoint(Lotto winningNumber) {
-        List<Integer> winningNumbers = winningNumber.numbers;
-        int fullLength = winningNumbers.size() + numbers.size();
-        Set<Integer> numberPot = new HashSet<>(numbers);
-        numberPot.addAll(winningNumbers);
-        return fullLength - numberPot.size();
+    public LottoDto match(Lotto lotto) {
+        NormalNumber otherNumbers = lotto.normalNumber;
+        int matchCount = normalNumber.calcMatchCount(otherNumbers);
+        return new LottoDto(normalNumber, matchCount);
     }
 
     @Override
     public String toString() {
-        return "[" + unfoldNumbers() + "]";
+        return "[" + normalNumber.unfoldNumbers() + "]";
+    }
+}
+
+enum LottoNum {
+    USER(Lotto.LOTTO_NUM),
+    WINNING(WinningLotto.LOTTO_NUM);
+
+    private int lottoNum;
+
+    LottoNum(int lottoNum) {
+        this.lottoNum = lottoNum;
     }
 
-    private String unfoldNumbers() {
-        Collections.sort(numbers);
-        return numbers.stream().map(String::valueOf).collect(joining(", "));
+    public static boolean isExistLottoNum(int lottoLength) {
+        return Arrays.stream(LottoNum.values()).anyMatch(lottoType -> lottoType.lottoNum == lottoLength);
     }
 }

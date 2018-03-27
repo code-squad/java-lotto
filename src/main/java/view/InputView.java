@@ -1,7 +1,7 @@
 package view;
 
-import domain.Lotto;
-import utils.LottoMachine;
+import domain.WinningLotto;
+import utils.LottoSeller;
 
 import java.util.*;
 
@@ -23,8 +23,8 @@ public class InputView {
 
     private static int buildPurchaseAmount() throws IllegalArgumentException {
         int money = convertToNumber(scanner.nextLine());
-        int amount = LottoMachine.calcQuantity(money);
-        if (LottoMachine.isImPossibleBuy(amount)) {
+        int amount = LottoSeller.calcQuantity(money);
+        if (LottoSeller.isImPossibleBuy(amount)) {
             throw new IllegalArgumentException("돈이 부족하여 구매할 수 없습니다.");
         }
         return amount;
@@ -38,9 +38,9 @@ public class InputView {
         }
     }
 
-    public static Lotto getWinningNumber() {
+    public static WinningLotto getWinningNumber() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        Lotto winningNumber = null;
+        WinningLotto winningNumber = null;
         try {
             winningNumber = buildWinningNumber();
         } catch (IllegalArgumentException e) {
@@ -50,7 +50,7 @@ public class InputView {
         return winningNumber;
     }
 
-    private static Lotto buildWinningNumber() throws IllegalArgumentException {
+    private static WinningLotto buildWinningNumber() throws IllegalArgumentException {
         List<Integer> numbers = new ArrayList<>();
         String[] numbersMessage = splitNumberMessage(scanner.nextLine());
         if (isDuplicateInput(numbersMessage)) {
@@ -60,7 +60,7 @@ public class InputView {
         for (String numberMessage : numbersMessage) {
             numbers.add(convertMessageToNum(numberMessage));
         }
-        return new Lotto(numbers);
+        return new WinningLotto(numbers);
     }
 
     private static boolean isDuplicateInput(String[] numbersMessage) {
