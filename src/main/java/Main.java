@@ -7,7 +7,7 @@ public class Main {
         int handbuy = Handbuy.handBuy();
 
         System.out.println("수동으로" + handbuy + "장, 자동으로 " + ((inputPrice / 1000) - handbuy) + "개를 구매했습니다.");
-        ArrayList<Lotto> lottos = input.makeLottos((inputPrice / 1000));
+        ArrayList<Lotto> lottos = input.makeLottos(((inputPrice / 1000) - handbuy));
         Input.rightNumber();
         Check check = new Check();
         check.checking(lottos);
@@ -20,6 +20,8 @@ public class Main {
         ResultView.printCount(money.finalCount);
         ResultView.printResult(lottos, bonusNum, inputPrice, check.getRight());
         System.out.println("수동구매 연습");
-        HandLotto.generateHandLotto(handbuy);
+        HandLotto hand = new HandLotto();
+        hand.generateHandLotto(handbuy, lottos);
+        hand.printLottoAll(lottos);
     }
 }

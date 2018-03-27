@@ -49,8 +49,4 @@ public class Lotto {
         counts.add(count);
         return counts;
     }
-
-    public Integer lengthRight() {
-        return right.size();
-    }
 }
