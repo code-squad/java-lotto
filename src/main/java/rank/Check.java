@@ -1,6 +1,9 @@
+package rank;
+
+import input.Input;
+import lotto.Lotto;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Check {
     Input input = new Input();

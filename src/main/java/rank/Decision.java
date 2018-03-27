@@ -1,3 +1,7 @@
+package rank;
+
+import rank.Rank;
+import lotto.Lotto;
 import java.util.ArrayList;
 
 public class Decision {

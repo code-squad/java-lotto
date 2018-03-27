@@ -1,12 +1,21 @@
+import input.BonusNum;
+import input.Input;
+import input.InputPrice;
+import lotto.Lotto;
+import money.Money;
+import rank.Check;
+import rank.Decision;
+import view.ResultView;
+
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String [] args) {
         Input input = new Input();
         int inputPrice = InputPrice.inputPrice();
-//        int handbuy = Handbuy.handBuy();
+//        int handbuy = input.Handbuy.handBuy();
 //        System.out.println("수동으로" + handbuy + "장, 자동으로 " + ((inputPrice / 1000) - handbuy) + "개를 구매했습니다.");
-//        ArrayList<Lotto> lottos = input.makeLottos(((inputPrice / 1000) - handbuy));
+//        ArrayList<lotto.Lotto> lottos = input.makeLottos(((inputPrice / 1000) - handbuy));
         System.out.println((inputPrice / 1000) + "개를 구매했습니다.");
         ArrayList<Lotto> lottos = input.makeLottos((inputPrice / 1000));
         Input.rightNumber();

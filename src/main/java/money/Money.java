@@ -1,10 +1,12 @@
+package money;
+
+import rank.Rank;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class Money {
-    static HashMap<Rank, Integer> finalCount;
+    public static HashMap<Rank, Integer> finalCount;
     static {
         finalCount = new HashMap<>();
         finalCount.put(Rank.FIFTH, 0);

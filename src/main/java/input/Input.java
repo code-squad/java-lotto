@@ -1,7 +1,10 @@
+package input;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import lotto.Lotto;
 
 public class Input {
     private ArrayList<Lotto> lottos = new ArrayList<>();

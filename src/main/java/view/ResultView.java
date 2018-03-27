@@ -1,3 +1,10 @@
+package view;
+
+import rank.Decision;
+import rank.Rank;
+import money.Money;
+import lotto.Lotto;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
