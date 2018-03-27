@@ -8,10 +8,14 @@ import java.util.List;
 public abstract class Lotto {
     public static final int MIN_NUM = 1;
     public static final int MAX_NUM = 45;
-    public static final int LOTTO_NUM = 6;
     private NormalNumber normalNumber;
 
     Lotto(List<Integer> numbers) {
+        verifyNumbers(numbers);
+        initNumbers(numbers);
+    }
+
+    private static void verifyNumbers(List<Integer> numbers) {
         if (!LottoNum.isExistLottoNum(numbers.size())) {
             throw new IllegalArgumentException("숫자 개수가 부족합니다.");
         }
@@ -19,16 +23,21 @@ public abstract class Lotto {
         if (isIncludeOutRange(numbers)) {
             throw new IllegalArgumentException("범위를 벗어난 숫자가 포함되어있습니다.");
         }
-        initNumbers(numbers);
-        normalNumber = new NormalNumber(numbers);
     }
 
     private static boolean isIncludeOutRange(List<Integer> numbers) {
         return numbers.stream().anyMatch(number -> number < MIN_NUM || number > MAX_NUM);
     }
 
+    public static Lotto of(List<Integer> numbers) {
+        if (LottoNum.isWinningLotto(numbers.size())) {
+            return new WinningLotto(numbers);
+        }
+        return new UserLotto(numbers);
+    }
+
     void initNumbers(List<Integer> numbers) {
-        int normalIdxRange = LOTTO_NUM - 1;
+        int normalIdxRange = UserLotto.LOTTO_NUM - 1;
         normalNumber = new NormalNumber(numbers.subList(0, normalIdxRange));
     }
 
@@ -45,7 +54,7 @@ public abstract class Lotto {
 }
 
 enum LottoNum {
-    USER(Lotto.LOTTO_NUM),
+    USER(UserLotto.LOTTO_NUM),
     WINNING(WinningLotto.LOTTO_NUM);
 
     private int lottoNum;
@@ -56,5 +65,9 @@ enum LottoNum {
 
     public static boolean isExistLottoNum(int lottoLength) {
         return Arrays.stream(LottoNum.values()).anyMatch(lottoType -> lottoType.lottoNum == lottoLength);
+    }
+
+    public static boolean isWinningLotto(int lottoLength) {
+        return WINNING.lottoNum == lottoLength;
     }
 }

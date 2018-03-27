@@ -3,8 +3,9 @@ package domain;
 import java.util.List;
 
 public class UserLotto extends Lotto {
+    public static final int LOTTO_NUM = 6;
 
-    public UserLotto(List<Integer> numbers) {
+    UserLotto(List<Integer> numbers) {
         super(numbers);
     }
 }

@@ -21,17 +21,7 @@ public class OutputView {
     }
 
     private static String analyzeResult(LottoResult result) {
-        int displayLimit = Lotto.LOTTO_NUM - Prize.getSize();
-        long money = 0;
-        StringBuilder builder = new StringBuilder();
-        for (int matchPoint = Lotto.LOTTO_NUM; matchPoint > displayLimit; matchPoint--) {
-            Prize prize = Prize.of(matchPoint);
-            int matchNum = result.calcMatchNum(matchPoint);
-            builder.append(buildResultMessage(prize, matchNum));
-            money += getPrizeMoney(prize, matchNum);
-        }
-        builder.append(analyzeProfit(result, money));
-        return builder.toString();
+        return null;
     }
 
     private static int getPrizeMoney(Prize prize, int matchNum) {

@@ -5,10 +5,10 @@ import dto.LottoDto;
 import java.util.List;
 
 public class WinningLotto extends Lotto {
-    public static final int LOTTO_NUM = Lotto.LOTTO_NUM + 1;
+    public static final int LOTTO_NUM = UserLotto.LOTTO_NUM + 1;
     private int bonusNumber;
 
-    public WinningLotto(List<Integer> numbers) {
+    WinningLotto(List<Integer> numbers) {
         super(numbers);
     }
 

@@ -34,13 +34,13 @@ public class LottoSeller {
     public List<Lotto> publishLotto(int amount) {
         List<Lotto> lottoBundle = new ArrayList<>();
         for (int cnt = 0; cnt < amount; cnt++) {
-            lottoBundle.add(new UserLotto(pickLottoNumbers()));
+            lottoBundle.add(Lotto.of(pickLottoNumbers()));
         }
         return lottoBundle;
     }
 
     private List<Integer> pickLottoNumbers() {
         Collections.shuffle(numbers);
-        return numbers.stream().limit(Lotto.LOTTO_NUM).collect(toList());
+        return numbers.stream().limit(UserLotto.LOTTO_NUM).collect(toList());
     }
 }
