@@ -1,7 +1,7 @@
 package view;
 
 import domain.LottoBundle;
-import dto.LottoResult;
+import domain.result.LottoResults;
 
 public class OutputView {
 
@@ -9,7 +9,7 @@ public class OutputView {
         System.out.println(lottoBundle.getPurchaseHistory());
     }
 
-    public static void printResult(LottoResult result) {
+    public static void printResult(LottoResults result) {
 
     }
 

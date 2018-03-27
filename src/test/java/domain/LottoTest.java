@@ -1,12 +1,10 @@
 package domain;
 
-import dto.LottoDto;
+import domain.result.LottoResult;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-
-import static org.junit.Assert.*;
 
 public class LottoTest {
     private Lotto userLotto;
@@ -20,7 +18,7 @@ public class LottoTest {
 
     @Test
     public void 매치포인트() {
-        LottoDto dto = userLotto.match(winningLotto);
+        LottoResult dto = userLotto.match(winningLotto);
         assertEquals(2, dto.getMatchPoint());
     }
 

@@ -1,4 +1,4 @@
-package utils;
+package domain.result;
 
 public enum Rank {
     FIRST(6, 2000000000),
@@ -36,6 +36,10 @@ public enum Rank {
             }
         }
         return searchRank;
+    }
+
+    public static boolean isNotRank(int matchPoint) {
+        return Rank.of(matchPoint) == null;
     }
 }
 

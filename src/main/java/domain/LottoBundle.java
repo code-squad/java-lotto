@@ -1,12 +1,11 @@
 package domain;
 
-import dto.LottoResult;
+import domain.result.LottoResults;
+import domain.result.Rank;
+import domain.result.LottoResult;
 import utils.LottoMachine;
 
-import java.util.Collections;
 import java.util.List;
-
-import static java.util.stream.Collectors.joining;
 
 public class LottoBundle {
     private List<Lotto> lottoBundle;
@@ -23,12 +22,14 @@ public class LottoBundle {
         return machine.publishLotto(amount);
     }
 
-    public LottoResult matchLotto(WinningLotto winningLotto) {
-        LottoResult results = new LottoResult();
-
-        /* TODO : 여기 물어보는 주체가 WinningNumber로 변경될 수 있음 */
+   // TODO : 보너스 매칭해서 보너스에 따라 결과가 달라지도록 설정하기(근데 이건 매치포인트가 5일 때만 그래서, 따로 메소드 만드는게 좋을듯) 1,2,3,4,5,6, 9
+    public LottoResults matchLotto(WinningLotto winningLotto) {
+        LottoResults results = new LottoResults();
         for (Lotto lotto : lottoBundle) {
-            //results.addResult(winningLotto.match(lotto));
+            int matchPoint = winningLotto.match(lotto);
+            if (!Rank.isNotRank(matchPoint)) {
+                results.addResult(new LottoResult(matchPoint));
+            }
         }
         return results;
     }
