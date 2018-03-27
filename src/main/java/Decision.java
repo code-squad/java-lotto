@@ -20,16 +20,6 @@ public class Decision {
         return count;
     }
 
-//    public Integer deliverCount(Lotto lotto, Lotto rightNum) {
-//        int count = 0;
-//        for(int i = 0; i < rightNum.getRight().size(); i++) {
-//            if(lotto.getLotto().contains(Integer.parseInt(rightNum.getRight().get(i)))) {
-//                count++;
-//            }
-//        }
-//        return count;
-//    }
-
     public ArrayList<Rank> decisionRank(ArrayList<Lotto> lottos , Lotto rightNum, String bonusNum) {
         ArrayList<Rank> ranks = new ArrayList<>();
         for (Lotto lotto: lottos) {

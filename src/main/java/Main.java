@@ -4,10 +4,11 @@ public class Main {
     public static void main(String [] args) {
         Input input = new Input();
         int inputPrice = InputPrice.inputPrice();
-        int handbuy = Handbuy.handBuy();
-
-        System.out.println("수동으로" + handbuy + "장, 자동으로 " + ((inputPrice / 1000) - handbuy) + "개를 구매했습니다.");
-        ArrayList<Lotto> lottos = input.makeLottos(((inputPrice / 1000) - handbuy));
+//        int handbuy = Handbuy.handBuy();
+//        System.out.println("수동으로" + handbuy + "장, 자동으로 " + ((inputPrice / 1000) - handbuy) + "개를 구매했습니다.");
+//        ArrayList<Lotto> lottos = input.makeLottos(((inputPrice / 1000) - handbuy));
+        System.out.println((inputPrice / 1000) + "개를 구매했습니다.");
+        ArrayList<Lotto> lottos = input.makeLottos((inputPrice / 1000));
         Input.rightNumber();
         Check check = new Check();
         check.checking(lottos);
@@ -19,9 +20,5 @@ public class Main {
         money.money(decision.decisionRank(lottos, check.getRight() , bonusNum));
         ResultView.printCount(money.finalCount);
         ResultView.printResult(lottos, bonusNum, inputPrice, check.getRight());
-        System.out.println("수동구매 연습");
-        HandLotto hand = new HandLotto();
-        hand.generateHandLotto(handbuy, lottos);
-        hand.printLottoAll(lottos);
     }
 }

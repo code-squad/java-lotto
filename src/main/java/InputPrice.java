@@ -6,8 +6,4 @@ public class InputPrice {
         System.out.println("구매금액을 입력해주세요.");
         return scanner.nextInt();
     }
-
-    public Integer buyNumber() {
-        return inputPrice()/1000;
-    }
 }

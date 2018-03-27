@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Input {
     private ArrayList<Lotto> lottos = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
+    private ArrayList<Integer> right;
 
     public static void rightNumber() {
         System.out.println("지난주의 당첨번호를 입력해주세요.");
@@ -27,8 +30,13 @@ public class Input {
         return lottos;
     }
 
-    public String right() {
-        String right = scanner.nextLine();
+    public ArrayList<Integer> right() {
+        String input = scanner.nextLine();
+        right = new ArrayList<>();
+        List<String> str = Arrays.asList(input.split(","));
+        for (String s : str) {
+            right.add(Integer.parseInt(s));
+        }
         return right;
     }
 }
