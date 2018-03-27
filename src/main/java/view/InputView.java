@@ -1,6 +1,7 @@
 package view;
 
 import domain.Lotto;
+import domain.WinningLotto;
 import utils.LottoMachine;
 
 import java.util.*;
@@ -38,45 +39,50 @@ public class InputView {
         }
     }
 
-    public static Lotto getWinningNumber() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        Lotto winningNumber = null;
+    public static WinningLotto getWinningNumber() {
+        List<Integer> normalNumbers = null;
+        int bonusNumber = -1;
         try {
-            winningNumber = buildWinningNumber();
+            normalNumbers = getNormalNumbers();
+            bonusNumber = getBonusNumbers(normalNumbers);
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            winningNumber = getWinningNumber();
+            return getWinningNumber();
         }
-        return winningNumber;
+        return new WinningLotto(new Lotto(normalNumbers), bonusNumber);
     }
 
-    private static Lotto buildWinningNumber() throws IllegalArgumentException {
+    private static List<Integer> getNormalNumbers() throws IllegalArgumentException {
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         List<Integer> numbers = new ArrayList<>();
-        String[] numbersMessage = splitNumberMessage(scanner.nextLine());
-        if (isDuplicateInput(numbersMessage)) {
-            throw new IllegalArgumentException("중복된 숫자가 있습니다.");
+        String[] splitNumberMessage= splitNumberMessage(scanner.nextLine());
+        checkDuplicateInput(splitNumberMessage);
+        for (String numberMessage : splitNumberMessage) {
+            numbers.add(convertToNumber(numberMessage));
         }
-
-        for (String numberMessage : numbersMessage) {
-            numbers.add(convertMessageToNum(numberMessage));
-        }
-        return new Lotto(numbers);
+        return numbers;
     }
 
-    private static boolean isDuplicateInput(String[] numbersMessage) {
+    private static int getBonusNumbers(List<Integer> normalNumber) throws IllegalArgumentException {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonusNumber = convertToNumber(scanner.nextLine());
+        checkDuplicateInput(normalNumber, bonusNumber);
+        return bonusNumber;
+    }
+
+    private static void checkDuplicateInput(List<Integer> normalNumber, int bonusNumber) throws IllegalArgumentException {
+        if (normalNumber.contains(bonusNumber)) {
+            throw new IllegalArgumentException("당첨번호와 보너스번호가 중복되었습니다.");
+        }
+    }
+
+    private static void checkDuplicateInput(String[] numbersMessage) throws IllegalArgumentException {
         Set<String> checkMachine = new HashSet<>(Arrays.asList(numbersMessage));
-        return checkMachine.size() != numbersMessage.length;
+        if (checkMachine.size() != numbersMessage.length) {
+            throw new IllegalArgumentException("중복된 번호가 있습니다.");
+        }
     }
 
     private static String[] splitNumberMessage(String inputNumbers) {
         return inputNumbers.split(",\\s*");
-    }
-
-    private static int convertMessageToNum(String numberMessage) throws IllegalArgumentException {
-        try {
-            return Integer.parseInt(numberMessage);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("문자가 포함되어 있습니다.");
-        }
     }
 }

@@ -1,15 +1,16 @@
 package utils;
 
-public enum Prize {
+public enum Rank {
     FIRST(6, 2000000000),
-    SECOND(5, 1500000),
-    THIRD(4, 50000),
-    FOURTH(3, 5000);
+    SECOND(5, 30000000),
+    THIRD(5, 1500000),
+    FOURTH(4, 50000),
+    FIFTH(3, 5000);
 
     private int matchPoint;
     private int prize;
 
-    Prize(int matchPoint, int prize) {
+    Rank(int matchPoint, int prize) {
         this.matchPoint = matchPoint;
         this.prize = prize;
     }
@@ -26,19 +27,15 @@ public enum Prize {
         return this.matchPoint == matchPoint;
     }
 
-    public static Prize of(int matchPoint) {
-        Prize searchPrize = null;
-        for (Prize prize : Prize.values()) {
-            if (prize.isMatchPoint(matchPoint)) {
-                searchPrize = prize;
+    public static Rank of(int matchPoint) {
+        Rank searchRank = null;
+        for (Rank rank : Rank.values()) {
+            if (rank.isMatchPoint(matchPoint)) {
+                searchRank = rank;
                 break;
             }
         }
-        return searchPrize;
-    }
-
-    public static int getSize() {
-        return Prize.values().length;
+        return searchRank;
     }
 }
 

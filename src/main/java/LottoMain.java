@@ -1,8 +1,10 @@
-import domain.Lotto;
 import domain.LottoBundle;
+import domain.WinningLotto;
 import dto.LottoResult;
 import view.InputView;
 import view.OutputView;
+
+import java.util.List;
 
 public class LottoMain {
 
@@ -11,7 +13,7 @@ public class LottoMain {
         LottoBundle lottoBundle = new LottoBundle(amount);
         OutputView.printPurchaseHistory(lottoBundle);
 
-        Lotto winningNumber = InputView.getWinningNumber();
+        WinningLotto winningNumber = InputView.getWinningNumber();
         LottoResult result = lottoBundle.matchLotto(winningNumber);
         OutputView.printResult(result);
     }

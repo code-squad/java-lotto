@@ -1,7 +1,5 @@
 package domain;
 
-import dto.LottoDto;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -34,21 +32,16 @@ public class Lotto {
         return numbers.stream().anyMatch(number -> number < MIN_NUM || number > MAX_NUM);
     }
 
-    public LottoDto match(Lotto winningNumber) {
-        int matchPoint = getMatchPoint(winningNumber);
-        return convertLottoDto(matchPoint);
-    }
-
-    private LottoDto convertLottoDto(int matchPoint) {
-        return new LottoDto(numbers, matchPoint);
-    }
-
-    private int getMatchPoint(Lotto winningNumber) {
-        List<Integer> winningNumbers = winningNumber.numbers;
-        int fullLength = winningNumbers.size() + numbers.size();
+    public int match(Lotto otherLotto) {
+        List<Integer> otherNumbers = otherLotto.numbers;
+        int fullLength = numbers.size() + otherNumbers.size();
         Set<Integer> numberPot = new HashSet<>(numbers);
-        numberPot.addAll(winningNumbers);
+        numberPot.addAll(otherNumbers);
         return fullLength - numberPot.size();
+    }
+
+    public boolean isContainNumber(int number) {
+        return numbers.contains(number);
     }
 
     @Override

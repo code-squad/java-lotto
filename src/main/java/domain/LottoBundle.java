@@ -23,10 +23,12 @@ public class LottoBundle {
         return machine.publishLotto(amount);
     }
 
-    public LottoResult matchLotto(Lotto winningNumber) {
+    public LottoResult matchLotto(WinningLotto winningLotto) {
         LottoResult results = new LottoResult();
+
+        /* TODO : 여기 물어보는 주체가 WinningNumber로 변경될 수 있음 */
         for (Lotto lotto : lottoBundle) {
-            results.addResult(lotto.match(winningNumber));
+            //results.addResult(winningLotto.match(lotto));
         }
         return results;
     }
