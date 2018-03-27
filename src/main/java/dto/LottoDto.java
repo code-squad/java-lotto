@@ -21,8 +21,8 @@ public class LottoDto {
         return this.matchPoint == matchPoint;
     }
 
-    public void setBonusMatch(boolean bonusMatch) {
-        isBonusMatch = bonusMatch;
+    public void setBonusMatch(boolean isBonusMatch) {
+        this.isBonusMatch = isBonusMatch;
     }
 
     public boolean isRightMatchPoint(int matchPoint) {

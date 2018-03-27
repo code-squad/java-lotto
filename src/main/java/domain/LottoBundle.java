@@ -9,7 +9,7 @@ import java.util.List;
 import static java.util.stream.Collectors.joining;
 
 public class LottoBundle {
-    private List<UserLotto> lottoBundle;
+    private List<Lotto> lottoBundle;
 
     public LottoBundle(int amount) {
         if (LottoSeller.isImPossibleBuy(amount)) {
@@ -18,7 +18,7 @@ public class LottoBundle {
         lottoBundle = buyLotto(amount);
     }
 
-    private static List<UserLotto> buyLotto(int amount) {
+    private static List<Lotto> buyLotto(int amount) {
         LottoSeller seller = LottoSeller.of();
         return seller.publishLotto(amount);
     }

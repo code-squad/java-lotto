@@ -1,3 +1,4 @@
+import domain.Lotto;
 import domain.LottoBundle;
 import domain.WinningLotto;
 import dto.LottoResult;
@@ -11,7 +12,7 @@ public class LottoMain {
         LottoBundle lottoBundle = new LottoBundle(amount);
         OutputView.printPurchaseHistory(lottoBundle);
 
-        WinningLotto winningNumber = InputView.getWinningNumber();
+        Lotto winningNumber = InputView.getWinningNumber();
         LottoResult result = lottoBundle.matchLotto(winningNumber);
         OutputView.printResult(result);
     }

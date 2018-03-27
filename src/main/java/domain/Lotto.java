@@ -12,8 +12,8 @@ public abstract class Lotto {
     private NormalNumber normalNumber;
 
     Lotto(List<Integer> numbers) {
-        if (LottoNum.isExistLottoNum(numbers.size())) {
-            throw new IllegalArgumentException("숫가 개수가 부족합니다.");
+        if (!LottoNum.isExistLottoNum(numbers.size())) {
+            throw new IllegalArgumentException("숫자 개수가 부족합니다.");
         }
 
         if (isIncludeOutRange(numbers)) {
