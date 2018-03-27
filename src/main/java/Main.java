@@ -4,7 +4,9 @@ public class Main {
     public static void main(String [] args) {
         Input input = new Input();
         int inputPrice = InputPrice.inputPrice();
-        System.out.println((inputPrice / 1000) + "개를 구매했습니다.");
+        int handbuy = Handbuy.handBuy();
+
+        System.out.println("수동으로" + handbuy + "장, 자동으로 " + ((inputPrice / 1000) - handbuy) + "개를 구매했습니다.");
         ArrayList<Lotto> lottos = input.makeLottos((inputPrice / 1000));
         Input.rightNumber();
         Check check = new Check();
@@ -17,5 +19,7 @@ public class Main {
         money.money(decision.decisionRank(lottos, check.getRight() , bonusNum));
         ResultView.printCount(money.finalCount);
         ResultView.printResult(lottos, bonusNum, inputPrice, check.getRight());
+        System.out.println("수동구매 연습");
+        HandLotto.generateHandLotto(handbuy);
     }
 }
