@@ -10,7 +10,7 @@ public class LottoResultTest {
 
     @Before
     public void setUp() throws Exception {
-        Rank rank = Rank.of(true);
+        Rank rank = Rank.of(5, true);
         result = new LottoResult(rank);
     }
 
