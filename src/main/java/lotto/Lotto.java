@@ -25,6 +25,7 @@ public class Lotto {
 
     public Lotto(String string) {
         right = Arrays.asList(string.split(","));
+        System.out.println(string + "을 통해 생성된 로또 " + getRight());
     }
 
     public static List<Integer> init() {
@@ -45,6 +46,7 @@ public class Lotto {
 
     public ArrayList<Integer> checkNumber(Lotto right) {
         int count = 0;
+        System.out.println("당첨번호 입력값 from checkNumber method " + getRight());
         for(int i = 0; i < right.getRight().size(); i++) {
             if(lotto.contains(Integer.parseInt(right.getRight().get(i))))
                 count++;

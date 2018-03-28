@@ -11,7 +11,7 @@ public class HandLotto {
         for(int i = 0; i < handbuy; i++) {
             String str = scanner.nextLine();
             lotto = new lotto.Lotto(str);
-            System.out.println("HandLotto에서 생성된 로또" + lotto.getLotto());
+            System.out.println("handLotto에서 호출" + lotto.getRight() + lotto.getLotto());
             lottos.add(lotto);
         }
         return lottos;
