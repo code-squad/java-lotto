@@ -23,7 +23,7 @@ public class OutputView {
     }
 
     private static String buildRankMessage(LottoResults results) {
-        List<Rank> ranks = Arrays.asList(Rank.values());
+        Rank[] ranks = Rank.values();
         StringBuilder builder = new StringBuilder();
         for (Rank rank : ranks) {
             builder.append(doBuild(rank, results));
