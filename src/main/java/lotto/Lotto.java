@@ -49,7 +49,6 @@ public class Lotto {
 
     public ArrayList<Integer> checkNumber(Lotto right) {
         int count = 0;
-        System.out.println("당첨번호 입력값 from checkNumber method " + getRight());
         for(int i = 0; i < right.getRight().size(); i++) {
             if(lotto.contains(Integer.parseInt(right.getRight().get(i))))
                 count++;
