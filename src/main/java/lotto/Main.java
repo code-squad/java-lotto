@@ -7,7 +7,9 @@ import lotto.view.Print;
 public class Main {
 	public static void main(String[] args) {
 		int price = Input.InputPrice();
-		LottoProcess lottos = Print.printLottoNum(Print.checkSheets(price));
+		int sheets = Print.checkSheets(price);
+		LottoProcess lottos = LottoProcess.of(sheets);
+		Print.printLottoNum(Print.checkSheets(price), lottos);
 		Print.printWinResult(price, lottos, Input.inputBeforWinNum());
 	}
 }

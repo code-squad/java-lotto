@@ -1,8 +1,6 @@
 package lotto.view;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import lotto.domain.LottoProcess;
 import lotto.domain.Result;
 
@@ -12,13 +10,11 @@ public class Print {
 		return price / 1000;
 	}
 
-	public static LottoProcess printLottoNum(int sheets) {
+	public static void printLottoNum(int sheets, LottoProcess lottoProcess) {
 		System.out.println(sheets + "장을 구매했습니다.");
-		LottoProcess lottoProcess = LottoProcess.of(sheets);
 		for (int i = 0; i < lottoProcess.size(); i++) {
 			System.out.println(lottoProcess.getNumber(i));
 		}
-		return lottoProcess;
 	}
 
 	public static void printWinResult(int price, LottoProcess lottoProcess, List<String> beforeWinNumber) {
