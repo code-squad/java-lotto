@@ -25,7 +25,10 @@ public class Lotto {
 
     public Lotto(String string) {
         right = Arrays.asList(string.split(","));
-        System.out.println(string + "을 통해 생성된 로또 " + getRight());
+        lotto = new ArrayList<>();
+        for (String s: right) {
+            lotto.add(Integer.parseInt(s));
+        }
     }
 
     public static List<Integer> init() {
