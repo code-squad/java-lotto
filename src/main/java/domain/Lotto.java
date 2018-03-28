@@ -1,9 +1,6 @@
 package domain;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.stream.Collectors.joining;
 
@@ -37,11 +34,13 @@ public class Lotto {
     }
 
     public int match(Lotto otherLotto) {
-        List<Integer> otherNumbers = otherLotto.numbers;
-        int fullLength = numbers.size() + otherNumbers.size();
-        Set<Integer> numberPot = new HashSet<>(numbers);
-        numberPot.addAll(otherNumbers);
-        return fullLength - numberPot.size();
+        List<Integer> matchNum = new ArrayList<>();
+        for (Integer num : otherLotto.numbers) {
+            if (numbers.contains(num)) {
+                matchNum.add(num);
+            }
+        }
+        return matchNum.size();
     }
 
     public boolean isContainNumber(int number) {

@@ -26,22 +26,30 @@ public enum Rank {
         return matchPoint;
     }
 
-    private boolean isMatchPoint(int matchPoint) {
-        return this.matchPoint == matchPoint;
-    }
-
     public static Rank of(int matchPoint, boolean isBonusMatch) {
         if (isNotRank(matchPoint)) {
             return null;
         }
+        return searchRank(matchPoint, isBonusMatch);
+    }
 
-        Rank searchRank = null;
-        return null;
+    private static Rank searchRank(int matchPoint, boolean isBonusMatch) {
+        if (isBonusSituation(matchPoint)) {
+            return isBonusMatch ? Rank.SECOND : Rank.THIRD;
+        }
+        return Arrays.stream(Rank.values()).filter(rank -> rank.matchPoint == matchPoint).findFirst().get();
     }
 
     private static boolean isNotRank(int matchPoint) {
         return Arrays.stream(Rank.values()).map(rank -> rank.matchPoint).noneMatch(rankMatchPoint -> rankMatchPoint == matchPoint);
     }
+
+    private static boolean isBonusSituation(int matchPoint) {
+        return matchPoint == 5;
+    }
+
+
+
 
     // TODO : 얘가 여기없으면 랭크 정보 등은 다 get 해야하나?
     public static String buildRankMessage(LottoResults results) {
@@ -57,6 +65,9 @@ public enum Rank {
     private static String doBuild(Rank rank, LottoResults results) {
         return rank.matchPoint + "개 일치 (" + rank.prize + ") - " + results.calcRankNum(rank) + "개";
     }
+
+
+
 
     @Override
     public String toString() {
