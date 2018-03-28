@@ -21,6 +21,10 @@ public class LottoResults {
         return (int) (prizeMoney / purchaseMoney * 100);
     }
 
+    public int calcRankNum(Rank rank) {
+        return (int) (lottoResults.stream().filter(result -> result.isSameRank(rank)).count());
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

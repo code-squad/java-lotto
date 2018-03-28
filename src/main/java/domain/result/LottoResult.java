@@ -11,6 +11,10 @@ public class LottoResult {
         return rank.getPrize();
     }
 
+    public boolean isSameRank(Rank rank) {
+        return this.rank == rank;
+    }
+
     @Override
     public String toString() {
         return "LottoResult{" +

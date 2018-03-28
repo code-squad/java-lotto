@@ -1,5 +1,8 @@
 package domain.result;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum Rank {
     FIRST(6, 2000000000),
     SECOND(5, 30000000),
@@ -51,6 +54,20 @@ public enum Rank {
 
     public static boolean isBonusSituation(int matchPoint) {
         return Rank.SECOND.matchPoint == matchPoint;
+    }
+
+    public static String buildRankMessage(LottoResults results) {
+        List<Rank> ranks = Arrays.asList(Rank.values());
+        StringBuilder builder = new StringBuilder();
+        for (Rank rank : ranks) {
+            builder.append(doBuild(rank, results));
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
+
+    private static String doBuild(Rank rank, LottoResults results) {
+        return rank.matchPoint + "개 일치 (" + rank.prize + ") - " + results.calcRankNum(rank) + "개";
     }
 
     @Override

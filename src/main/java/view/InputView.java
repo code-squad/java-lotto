@@ -54,7 +54,7 @@ public class InputView {
     private static List<Integer> getNormalNumbers() throws IllegalArgumentException {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         List<Integer> numbers = new ArrayList<>();
-        String[] splitNumberMessage= splitNumberMessage(scanner.nextLine());
+        String[] splitNumberMessage = splitNumberMessage(scanner.nextLine());
         checkDuplicateInput(splitNumberMessage);
         for (String numberMessage : splitNumberMessage) {
             numbers.add(convertToNumber(numberMessage));

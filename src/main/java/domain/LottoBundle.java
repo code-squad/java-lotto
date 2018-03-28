@@ -39,6 +39,7 @@ public class LottoBundle {
         if (Rank.isBonusSituation(matchPoint)) {
             boolean isBonusMatch = winningLotto.matchBonus(lotto);
             results.addResult(new LottoResult(Rank.of(isBonusMatch)));
+            return;
         }
         results.addResult(new LottoResult(Rank.of(matchPoint)));
     }
