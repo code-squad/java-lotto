@@ -9,9 +9,12 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    // TODO : 보너스 넘버 체킹
     public int match(Lotto otherLotto) {
         return lotto.match(otherLotto);
+    }
+
+    public boolean matchBonus(Lotto otherLotto) {
+        return otherLotto.isContainNumber(bonusNumber);
     }
 
     @Override

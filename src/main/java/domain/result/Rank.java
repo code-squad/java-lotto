@@ -38,8 +38,27 @@ public enum Rank {
         return searchRank;
     }
 
+    public static Rank of(boolean isBonusMatch) {
+        if (isBonusMatch) {
+            return SECOND;
+        }
+        return THIRD;
+    }
+
     public static boolean isNotRank(int matchPoint) {
         return Rank.of(matchPoint) == null;
+    }
+
+    public static boolean isBonusSituation(int matchPoint) {
+        return Rank.SECOND.matchPoint == matchPoint;
+    }
+
+    @Override
+    public String toString() {
+        return "Rank{" +
+                "matchPoint=" + matchPoint +
+                ", prize=" + prize +
+                '}';
     }
 }
 

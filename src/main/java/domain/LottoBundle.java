@@ -1,8 +1,8 @@
 package domain;
 
+import domain.result.LottoResult;
 import domain.result.LottoResults;
 import domain.result.Rank;
-import domain.result.LottoResult;
 import utils.LottoMachine;
 
 import java.util.List;
@@ -22,16 +22,25 @@ public class LottoBundle {
         return machine.publishLotto(amount);
     }
 
-   // TODO : 보너스 매칭해서 보너스에 따라 결과가 달라지도록 설정하기(근데 이건 매치포인트가 5일 때만 그래서, 따로 메소드 만드는게 좋을듯) 1,2,3,4,5,6, 9
     public LottoResults matchLotto(WinningLotto winningLotto) {
         LottoResults results = new LottoResults();
         for (Lotto lotto : lottoBundle) {
-            int matchPoint = winningLotto.match(lotto);
-            if (!Rank.isNotRank(matchPoint)) {
-                results.addResult(new LottoResult(matchPoint));
-            }
+            addResult(results, winningLotto, lotto);
         }
         return results;
+    }
+
+    private void addResult(LottoResults results, WinningLotto winningLotto, Lotto lotto) {
+        int matchPoint = winningLotto.match(lotto);
+        if (Rank.isNotRank(matchPoint)) {
+            return;
+        }
+
+        if (Rank.isBonusSituation(matchPoint)) {
+            boolean isBonusMatch = winningLotto.matchBonus(lotto);
+            results.addResult(new LottoResult(Rank.of(isBonusMatch)));
+        }
+        results.addResult(new LottoResult(Rank.of(matchPoint)));
     }
 
     public String getPurchaseHistory() {
