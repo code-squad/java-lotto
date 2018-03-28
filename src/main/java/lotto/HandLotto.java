@@ -1,11 +1,12 @@
 package lotto;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class HandLotto {
     private Lotto lotto;
-    public ArrayList<lotto.Lotto> generateHandLotto(int handbuy, ArrayList<lotto.Lotto> lottos) {
+    public List<Lotto> generateHandLotto(int handbuy, List<Lotto> lottos) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
         for(int i = 0; i < handbuy; i++) {
@@ -17,8 +18,8 @@ public class HandLotto {
         return lottos;
     }
 
-    public void printLottoAll(ArrayList<lotto.Lotto> lottos) {
+    public void printLottoAll(List<Lotto> lottos) {
         for(int i = 0; i < lottos.size(); i++)
-            System.out.println(i + "번째 로또 " + lottos.get(i).getLotto());
+            System.out.println(lottos.get(i).getLotto());
     }
 }

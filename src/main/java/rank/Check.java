@@ -4,6 +4,7 @@ import input.Input;
 import lotto.Lotto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Check {
     Input input = new Input();
@@ -13,7 +14,7 @@ public class Check {
         return right;
     }
 
-    public void checking(ArrayList<Lotto> lottos) {
+    public void checking(List<Lotto> lottos) {
         Input.bonusNumber();
         for(int i = 0; i < lottos.size(); i++) {
             lottos.get(i).checkNumber(right);

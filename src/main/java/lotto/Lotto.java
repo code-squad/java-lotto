@@ -47,7 +47,7 @@ public class Lotto {
         return right;
     }
 
-    public ArrayList<Integer> checkNumber(Lotto right) {
+    public List<Integer> checkNumber(Lotto right) {
         int count = 0;
         for(int i = 0; i < right.getRight().size(); i++) {
             if(lotto.contains(Integer.parseInt(right.getRight().get(i))))

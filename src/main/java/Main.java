@@ -3,12 +3,12 @@ import input.Input;
 import input.InputPrice;
 import input.Handbuy;
 import lotto.HandLotto;
+import lotto.Lotto;
 import money.Money;
 import rank.Check;
 import rank.Decision;
 import view.ResultView;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String [] args) {
@@ -16,7 +16,7 @@ public class Main {
         int inputPrice = InputPrice.inputPrice();
         int handbuy = Handbuy.handBuy();
         HandLotto hand = new HandLotto();
-        ArrayList<lotto.Lotto> lottos = input.makeLottos(((inputPrice / 1000) - handbuy));
+        List<Lotto> lottos = input.makeLottos(((inputPrice / 1000) - handbuy));
         hand.generateHandLotto(handbuy, lottos);
         System.out.println("수동으로" + handbuy + "장, 자동으로 " + ((inputPrice / 1000) - handbuy) + "개를 구매했습니다.");
         Input.rightNumber();
