@@ -48,27 +48,6 @@ public enum Rank {
         return matchPoint == 5;
     }
 
-
-
-
-    // TODO : 얘가 여기없으면 랭크 정보 등은 다 get 해야하나?
-    public static String buildRankMessage(LottoResults results) {
-        List<Rank> ranks = Arrays.asList(Rank.values());
-        StringBuilder builder = new StringBuilder();
-        for (Rank rank : ranks) {
-            builder.append(doBuild(rank, results));
-            builder.append("\n");
-        }
-        return builder.toString();
-    }
-
-    private static String doBuild(Rank rank, LottoResults results) {
-        return rank.matchPoint + "개 일치 (" + rank.prize + ") - " + results.calcRankNum(rank) + "개";
-    }
-
-
-
-
     @Override
     public String toString() {
         return "Rank{" +
