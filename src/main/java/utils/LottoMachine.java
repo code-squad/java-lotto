@@ -30,6 +30,10 @@ public class LottoMachine {
         return amount <= 0;
     }
 
+    public static int calcTotalPurchaseMoney(int amount) {
+        return amount * LOTTO_PRICE;
+    }
+
     public List<Lotto> publishLotto(int amount) {
         List<Lotto> lottoBundle = new ArrayList<>();
         for (int cnt = 0; cnt < amount; cnt++) {

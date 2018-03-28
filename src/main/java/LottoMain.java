@@ -13,6 +13,6 @@ public class LottoMain {
 
         WinningLotto winningNumber = InputView.getWinningNumber();
         LottoResults results = lottoBundle.matchLotto(winningNumber);
-        OutputView.printResult(results);
+        OutputView.printResult(amount, results);
     }
 }

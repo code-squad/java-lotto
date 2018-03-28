@@ -7,6 +7,10 @@ public class LottoResult {
         this.rank = rank;
     }
 
+    public int getPrizeMoney() {
+        return rank.getPrize();
+    }
+
     @Override
     public String toString() {
         return "LottoResult{" +
