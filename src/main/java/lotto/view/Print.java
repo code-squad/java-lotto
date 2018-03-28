@@ -1,6 +1,6 @@
 package lotto.view;
 
-import java.util.List;
+import lotto.domain.Lotto;
 import lotto.domain.LottoProcess;
 import lotto.domain.Result;
 
@@ -17,11 +17,11 @@ public class Print {
 		}
 	}
 
-	public static void printWinResult(int price, LottoProcess lottoProcess, List<String> beforeWinNumber) {
+	public static void printWinResult(int price, LottoProcess lottoProcess, Lotto beforeWinLotto) {
 		System.out.println("\n당첨 통계");
 		System.out.println("-----------");
-		Result result = new Result();
-		result.calcResult(lottoProcess, beforeWinNumber);
+		Result result = Result.of();
+		result.calcResult(lottoProcess, beforeWinLotto);
 		result.printWinResult(price);
 	}
 

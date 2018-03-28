@@ -1,33 +1,41 @@
 package lotto.domain;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Result {
-	private int first;
-	private int second;
-	private int third;
-	private int fourth;
+	private Map<String, Integer> rankResult;
 
-	public Result() {
-		first = 0;
-		second = 0;
-		third = 0;
-		fourth = 0;
+	public Result(Map<String, Integer> rankResult) {
+		this.rankResult = rankResult;
 	}
 
-	public void calcResult(LottoProcess lottoProcess, List<String> beforeWinNumber) {
+	public static Result of() {
+		Map<String, Integer> rankResult = new HashMap<>();
+		rankResult.put("first", 0);
+		rankResult.put("second", 0);
+		rankResult.put("third", 0);
+		rankResult.put("fourth", 0);
+		return new Result(rankResult);
+	}
+
+	public int rankNum(String rank) {
+		return rankResult.get(rank);
+	}
+
+	public void calcResult(LottoProcess lottoProcess, Lotto beforeWinLotto) {
 		int countOfMatch = 0;
 		for (int i = 0; i < lottoProcess.size(); i++) {
-			countOfMatch = lottoProcess.countOfMatch(i, beforeWinNumber);
+			countOfMatch = lottoProcess.countOfMatch(i, beforeWinLotto);
 			calcResult(countOfMatch);
 		}
 	}
 
 	public void calcResult(int countOfMatch) {
-		first = compareRank(countOfMatch, first, Rank.FIRST);
-		second = compareRank(countOfMatch, second, Rank.SECOND);
-		third = compareRank(countOfMatch, third, Rank.THIRD);
-		fourth = compareRank(countOfMatch, fourth, Rank.FOURTH);
+		rankResult.replace("first", compareRank(countOfMatch, rankNum("first"), Rank.FIRST));
+		rankResult.replace("second", compareRank(countOfMatch, rankNum("second"), Rank.SECOND));
+		rankResult.replace("third", compareRank(countOfMatch, rankNum("third"), Rank.THIRD));
+		rankResult.replace("fourth", compareRank(countOfMatch, rankNum("fourth"), Rank.FOURTH));
 	}
 
 	public static int compareRank(int countOfMatch, int i, Rank rank) {
@@ -38,15 +46,16 @@ public class Result {
 	}
 
 	public int calcRevenue() {
-		return (Rank.FIRST.getWinningMoney() * first) + (Rank.SECOND.getWinningMoney() * second)
-				+ (Rank.THIRD.getWinningMoney() * third) + (Rank.FOURTH.getWinningMoney() * fourth);
+		return (Rank.FIRST.getWinningMoney() * rankNum("first")) + (Rank.SECOND.getWinningMoney() * rankNum("second"))
+				+ (Rank.THIRD.getWinningMoney() * rankNum("third"))
+				+ (Rank.FOURTH.getWinningMoney() * rankNum("fourth"));
 	}
 
 	public void printWinResult(int price) {
-		System.out.println("3개 일치(5000원) -" + fourth + "개");
-		System.out.println("4개 일치(50000원) -" + third + "개");
-		System.out.println("5개 일치(1500000원) -" + second + "개");
-		System.out.println("6개 일치(2000000000원) -" + first + "개");
+		System.out.println("3개 일치(5000원) -" + rankNum("fourth") + "개");
+		System.out.println("4개 일치(50000원) -" + rankNum("third") + "개");
+		System.out.println("5개 일치(1500000원) -" + rankNum("second") + "개");
+		System.out.println("6개 일치(2000000000원) -" + rankNum("first") + "개");
 		System.out.println("총 수익률은 " + (calcRevenue() - price) / price + "%입니다.");
 	}
 

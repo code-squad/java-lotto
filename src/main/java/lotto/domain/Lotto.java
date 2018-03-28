@@ -5,25 +5,29 @@ import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-	private ArrayList<Integer> numbers;
-	private static final int LOTTO_SIZE = 6;
-	private static final int MAXNUM_RANGE = 45;
+	private List<Integer> numbers;
+	public static final int LOTTO_SIZE = 6;
+	public static final int MAXNUM_RANGE = 45;
 
-	public Lotto(ArrayList<Integer> numbers) {
+	public Lotto(List<Integer> numbers) {
 		this.numbers = numbers;
 	}
 
-	public static Lotto of() {
-		ArrayList<Integer> temp = new ArrayList<>();
-		for (int i = 1; i < MAXNUM_RANGE; i++) {
-			temp.add(i);
-		}
-		Collections.shuffle(temp);
-		return new Lotto(makeLottoNum(temp));
+	public static Lotto of(List<Integer> numberRange) {
+		Collections.shuffle(numberRange);
+		return new Lotto(makeLottoNum(numberRange));
 	}
 
-	public static ArrayList<Integer> makeLottoNum(ArrayList<Integer> temp) {
+	public static Lotto ofValue(List<String> initnumbers) {
 		ArrayList<Integer> numbers = new ArrayList<>();
+		for (int i = 0; i < initnumbers.size(); i++) {
+			numbers.add(Integer.parseInt(initnumbers.get(i)));
+		}
+		return new Lotto(numbers);
+	}
+
+	public static List<Integer> makeLottoNum(List<Integer> temp) {
+		List<Integer> numbers = new ArrayList<>();
 		for (int i = 0; i < LOTTO_SIZE; i++) {
 			numbers.add(temp.get(i));
 		}
@@ -31,23 +35,30 @@ public class Lotto {
 		return numbers;
 	}
 
-	public String Number() {
+	public String numbers() {
 		return numbers.toString();
 	}
 
-	public int countOfMatch(List<String> beforeWinNumber) {
+	public int countOfMatch(Lotto beforeWinLotto) {
 		int countOfMatch = 0;
-		for (int i = 0; i < beforeWinNumber.size(); i++) {
-			countOfMatch = countOfMatch(beforeWinNumber, i, countOfMatch);
+		for (int i = 0; i < beforeWinLotto.size(); i++) {
+			countOfMatch = countOfMatch(beforeWinLotto, i, countOfMatch);
 		}
 		return countOfMatch;
 	}
 
-	public int countOfMatch(List<String> beforeWinNumber, int i, int countOfMatch) {
-		if (numbers.contains(Integer.parseInt(beforeWinNumber.get(i)))) {
+	public int countOfMatch(Lotto beforeWinLotto, int i, int countOfMatch) {
+		if (numbers.contains(beforeWinLotto.getNumbers(i))) {
 			countOfMatch++;
 		}
 		return countOfMatch;
 	}
 
+	public int getNumbers(int i) {
+		return numbers.get(i);
+	}
+
+	public int size() {
+		return numbers.size();
+	}
 }
