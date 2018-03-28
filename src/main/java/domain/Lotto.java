@@ -32,6 +32,10 @@ public class Lotto {
         return numbers.stream().anyMatch(number -> number < MIN_NUM || number > MAX_NUM);
     }
 
+    public static boolean isOutRangeNumber(int number) {
+        return MIN_NUM > number || number > MAX_NUM;
+    }
+
     public int match(Lotto otherLotto) {
         List<Integer> otherNumbers = otherLotto.numbers;
         int fullLength = numbers.size() + otherNumbers.size();

@@ -40,49 +40,75 @@ public class InputView {
     }
 
     public static WinningLotto getWinningNumber() {
-        List<Integer> normalNumbers = null;
-        int bonusNumber = -1;
+        Lotto lotto = null;
         try {
-            normalNumbers = getNormalNumbers();
-            bonusNumber = getBonusNumbers(normalNumbers);
+            lotto = new Lotto(buildNormalNumbers());
         } catch (IllegalArgumentException e) {
-            return getWinningNumber();
+            System.out.println(e.getMessage());
+            getWinningNumber();
         }
-        return new WinningLotto(new Lotto(normalNumbers), bonusNumber);
+        int bonusNumber = buildBonusNumber(lotto);
+        return new WinningLotto(lotto, bonusNumber);
     }
 
-    private static List<Integer> getNormalNumbers() throws IllegalArgumentException {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        List<Integer> numbers = new ArrayList<>();
-        String[] splitNumberMessage = splitNumberMessage(scanner.nextLine());
-        checkDuplicateInput(splitNumberMessage);
-        for (String numberMessage : splitNumberMessage) {
-            numbers.add(convertToNumber(numberMessage));
+    private static List<Integer> buildNormalNumbers() {
+        List<Integer> numbers = null;
+        try {
+            numbers = getNormalNumbers();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            buildNormalNumbers();
         }
         return numbers;
     }
 
-    private static int getBonusNumbers(List<Integer> normalNumber) throws IllegalArgumentException {
-        System.out.println("보너스 볼을 입력해 주세요.");
-        int bonusNumber = convertToNumber(scanner.nextLine());
-        checkDuplicateInput(normalNumber, bonusNumber);
-        return bonusNumber;
-    }
-
-    private static void checkDuplicateInput(List<Integer> normalNumber, int bonusNumber) throws IllegalArgumentException {
-        if (normalNumber.contains(bonusNumber)) {
-            throw new IllegalArgumentException("당첨번호와 보너스번호가 중복되었습니다.");
-        }
-    }
-
-    private static void checkDuplicateInput(String[] numbersMessage) throws IllegalArgumentException {
-        Set<String> checkMachine = new HashSet<>(Arrays.asList(numbersMessage));
-        if (checkMachine.size() != numbersMessage.length) {
+    private static List<Integer> getNormalNumbers() throws IllegalArgumentException {
+        System.out.println("당첨번호를 입력해 주세요.");
+        List<Integer> numbers = new ArrayList<>();
+        String[] numbersMessage = splitNumberMessage(scanner.nextLine());
+        if (checkDuplicateInput(numbersMessage)) {
             throw new IllegalArgumentException("중복된 번호가 있습니다.");
         }
+        addNumbers(numbers, numbersMessage);
+        return numbers;
     }
 
     private static String[] splitNumberMessage(String inputNumbers) {
         return inputNumbers.split(",\\s*");
+    }
+
+    private static boolean checkDuplicateInput(String[] numbersMessage) {
+        Set<String> checkMachine = new HashSet<>(Arrays.asList(numbersMessage));
+        return checkMachine.size() != numbersMessage.length;
+    }
+
+    private static void addNumbers(List<Integer> numbers, String[] numbersMessage) throws IllegalArgumentException {
+        for (String number : numbersMessage) {
+            numbers.add(convertToNumber(number));
+        }
+    }
+
+    private static int buildBonusNumber(Lotto lotto) {
+        int bonusNumber = -1;
+        try {
+            bonusNumber = getBonusNumbers(lotto);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            buildBonusNumber(lotto);
+        }
+        return bonusNumber;
+    }
+
+    private static int getBonusNumbers(Lotto lotto) throws IllegalArgumentException {
+        System.out.println("보너스 번호를 입력해 주세요.");
+        int bonusNumber = convertToNumber(scanner.nextLine());
+        if (lotto.isContainNumber(bonusNumber)) {
+            throw new IllegalArgumentException("당첨번호로 지정된 번호입니다.");
+        }
+
+        if (Lotto.isOutRangeNumber(bonusNumber)) {
+            throw new IllegalArgumentException("범위를 벗어난 숫자입니다.");
+        }
+        return bonusNumber;
     }
 }
