@@ -7,6 +7,7 @@ import lotto.Lotto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ResultView {
     public static void printCount(HashMap<Rank, Integer> finalCount) {
@@ -15,7 +16,7 @@ public class ResultView {
                     System.out.println(ranks[i].getCountOfMatch() + "개 일치 (" + ranks[i].getWinningMoney() + "원)- " + finalCount.get(ranks[i]) + "개");
     }
 
-    public static void printResult(ArrayList<Lotto> lottos, String bonusNum, int inputPrice, Lotto rightNum) {
+    public static void printResult(List<Lotto> lottos, String bonusNum, int inputPrice, Lotto rightNum) {
         Money money = new Money();
         Decision decision = new Decision();
         int profit = money.profit(money.totalMoney(decision.decisionRank(lottos, rightNum, bonusNum)), inputPrice);

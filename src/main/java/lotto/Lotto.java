@@ -25,7 +25,14 @@ public class Lotto {
 
     public Lotto(String string) {
         right = Arrays.asList(string.split(","));
+<<<<<<< HEAD
         System.out.println("Lotto 객체생성 " + getRight());
+=======
+        lotto = new ArrayList<>();
+        for (String s: right) {
+            lotto.add(Integer.parseInt(s));
+        }
+>>>>>>> 80e6998bd7808e35b79848303683d11e08a70492
     }
 
     public static List<Integer> init() {
@@ -44,7 +51,7 @@ public class Lotto {
         return right;
     }
 
-    public ArrayList<Integer> checkNumber(Lotto right) {
+    public List<Integer> checkNumber(Lotto right) {
         int count = 0;
         System.out.println("당첨번호입력값 from checkNumber method " + getRight());
         for(int i = 0; i < right.getRight().size(); i++) {
