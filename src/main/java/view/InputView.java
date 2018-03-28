@@ -40,26 +40,30 @@ public class InputView {
     }
 
     public static WinningLotto getWinningNumber() {
-        Lotto lotto = null;
-        try {
-            lotto = new Lotto(buildNormalNumbers());
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            getWinningNumber();
-        }
-        int bonusNumber = buildBonusNumber(lotto);
-        return new WinningLotto(lotto, bonusNumber);
+        return buildWinningLotto(buildNormalNumbers());
     }
 
-    private static List<Integer> buildNormalNumbers() {
-        List<Integer> numbers = null;
+    private static WinningLotto buildWinningLotto(Lotto lotto) {
+        WinningLotto winningLotto = null;
+        int bonusNumber = buildBonusNumber(lotto);
         try {
-            numbers = getNormalNumbers();
+            winningLotto = new WinningLotto(lotto, bonusNumber);
+        } catch(IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            winningLotto = buildWinningLotto(lotto);
+        }
+        return winningLotto;
+    }
+
+    private static Lotto buildNormalNumbers() {
+        Lotto lotto = null;
+        try {
+            lotto = new Lotto(getNormalNumbers());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            buildNormalNumbers();
+            lotto = buildNormalNumbers();
         }
-        return numbers;
+        return lotto;
     }
 
     private static List<Integer> getNormalNumbers() throws IllegalArgumentException {
@@ -88,17 +92,6 @@ public class InputView {
         }
     }
 
-    private static int buildBonusNumber(Lotto lotto) {
-        int bonusNumber = -1;
-        try {
-            bonusNumber = getBonusNumbers(lotto);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            buildBonusNumber(lotto);
-        }
-        return bonusNumber;
-    }
-
     private static int getBonusNumbers(Lotto lotto) throws IllegalArgumentException {
         System.out.println("보너스 번호를 입력해 주세요.");
         int bonusNumber = convertToNumber(scanner.nextLine());
@@ -108,6 +101,17 @@ public class InputView {
 
         if (Lotto.isOutRangeNumber(bonusNumber)) {
             throw new IllegalArgumentException("범위를 벗어난 숫자입니다.");
+        }
+        return bonusNumber;
+    }
+
+    private static int buildBonusNumber(Lotto lotto) {
+        int bonusNumber = -1;
+        try {
+            bonusNumber = getBonusNumbers(lotto);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            bonusNumber = buildBonusNumber(lotto);
         }
         return bonusNumber;
     }

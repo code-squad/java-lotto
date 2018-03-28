@@ -32,16 +32,11 @@ public class LottoBundle {
 
     private void addResult(LottoResults results, WinningLotto winningLotto, Lotto lotto) {
         int matchPoint = winningLotto.match(lotto);
-        if (Rank.isNotRank(matchPoint)) {
-            return;
+        boolean isBonusMatch = winningLotto.matchBonus(lotto);
+        Rank rank = Rank.of(matchPoint, isBonusMatch);
+        if (rank != null) {
+            results.addResult(new LottoResult(rank));
         }
-
-        if (Rank.isBonusSituation(matchPoint)) {
-            boolean isBonusMatch = winningLotto.matchBonus(lotto);
-            results.addResult(new LottoResult(Rank.of(isBonusMatch)));
-            return;
-        }
-        results.addResult(new LottoResult(Rank.of(matchPoint)));
     }
 
     public String getPurchaseHistory() {

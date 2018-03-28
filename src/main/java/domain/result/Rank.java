@@ -30,32 +30,20 @@ public enum Rank {
         return this.matchPoint == matchPoint;
     }
 
-    public static Rank of(int matchPoint) {
+    public static Rank of(int matchPoint, boolean isBonusMatch) {
+        if (isNotRank(matchPoint)) {
+            return null;
+        }
+
         Rank searchRank = null;
-        for (Rank rank : Rank.values()) {
-            if (rank.isMatchPoint(matchPoint)) {
-                searchRank = rank;
-                break;
-            }
-        }
-        return searchRank;
+        return null;
     }
 
-    public static Rank of(boolean isBonusMatch) {
-        if (isBonusMatch) {
-            return SECOND;
-        }
-        return THIRD;
+    private static boolean isNotRank(int matchPoint) {
+        return Arrays.stream(Rank.values()).map(rank -> rank.matchPoint).noneMatch(rankMatchPoint -> rankMatchPoint == matchPoint);
     }
 
-    public static boolean isNotRank(int matchPoint) {
-        return Rank.of(matchPoint) == null;
-    }
-
-    public static boolean isBonusSituation(int matchPoint) {
-        return Rank.SECOND.matchPoint == matchPoint;
-    }
-
+    // TODO : 얘가 여기없으면 랭크 정보 등은 다 get 해야하나?
     public static String buildRankMessage(LottoResults results) {
         List<Rank> ranks = Arrays.asList(Rank.values());
         StringBuilder builder = new StringBuilder();
