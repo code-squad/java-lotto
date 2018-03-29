@@ -1,13 +1,7 @@
-import input.BonusNum;
-import input.Input;
-import input.InputPrice;
-import input.Handbuy;
+import input.*;
 import lotto.HandLotto;
 import lotto.Lotto;
-import money.Money;
-import money.MoneyResult;
 import rank.Check;
-import rank.Decision;
 import view.ResultView;
 import java.util.List;
 
@@ -24,13 +18,6 @@ public class Main {
         Check check = new Check();
         check.checking(lottos);
         String bonusNum = BonusNum.bonusNum();
-//        Input.rightResult();
-//        Money money = new Money();
-//        Decision decision = new Decision();
-//        decision.addRank(check.getRight(), lottos, bonusNum);
-//        money.money(decision.decisionRank(lottos, check.getRight() , bonusNum));
-//        ResultView.printCount(money.finalCount);
-//        ResultView.printResult(lottos, bonusNum, inputPrice, check.getRight());
         ResultView.result(lottos, bonusNum, check, inputPrice);
     }
 }
