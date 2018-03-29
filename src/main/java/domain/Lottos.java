@@ -13,7 +13,7 @@ public class Lottos {
         lottos.add(Lotto.of(numbers));
     }
 
-    List<Lotto> initAutoLottos(int n) {
+    public List<Lotto> initAutoLottos(int n) {
         return IntStream.range(0, n).mapToObj(i -> Lotto.of(LottoUtil.getRandNumbers())).collect(Collectors.toList());
     }
 
@@ -24,5 +24,7 @@ public class Lottos {
     public List<Integer> getResult(List<Integer> answer){
         return IntStream.range(3, 7).mapToObj(i -> getMatchLottos(answer, i)).collect(Collectors.toList());
     }
+
+
 
 }
