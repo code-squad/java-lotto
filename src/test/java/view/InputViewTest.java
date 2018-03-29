@@ -21,7 +21,7 @@ public class InputViewTest {
 
     @Test
     public void 로또_입력_파싱하기() {
-        assertArrayEquals(new String[]{"8", "21", "23", "41", "42", "43"}, InputView.parseLottoNumbers("8, 21, 23, 41, 42, 43"));
+        assertArrayEquals(new String[]{"8", "21", "23", "41", "42", "43"}, InputView.parseLottoNumbers("8, 21 , 23 , 41 , 42 , 43"));
     }
 
     @Test

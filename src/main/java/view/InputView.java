@@ -103,7 +103,12 @@ public class InputView {
     }
 
     public static String[] parseLottoNumbers(String lottoNumbers) {
-        return lottoNumbers.split(",\\s*");
+        String spaceRemovedNumbers = removeSpace(lottoNumbers);
+        return spaceRemovedNumbers.split(",");
+    }
+
+    private static String removeSpace(String lottoNumbers) {
+        return lottoNumbers.replaceAll(" ", "");
     }
 
     private static int getBonusNumber() throws IllegalArgumentException {
