@@ -7,12 +7,13 @@ import utils.MoneyUtils;
 
 public class OutputView {
 
-    public static void printPurchaseHistory(LottoBundle lottoBundle) {
+    public static void printPurchaseHistory(LottoBundle lottoBundle, int totalAmount, int manualAmount) {
+        System.out.println("수동으로 " + manualAmount + "장, 자동으로 "+ (totalAmount - manualAmount) + "개를 구매했습니다.");
         System.out.println(lottoBundle.getPurchaseHistory());
     }
 
-    public static void printResult(int amount, LottoResults results) {
-        String resultMessage = buildTitle() + buildRankMessage(results) + buildProfitContent(amount, results);
+    public static void printResult(int totalAmount, LottoResults results) {
+        String resultMessage = buildTitle() + buildRankMessage(results) + buildProfitContent(totalAmount, results);
         System.out.println(resultMessage);
     }
 

@@ -14,20 +14,10 @@ public class LottoMain {
         LottoBundle lottoBundle = LottoBundle.of();
         lottoBundle.addLotto(InputView.getManualLottoBundle(manualAmount));
         lottoBundle.addLotto(LottoMachine.autoBuy(totalAmount, manualAmount));
-
-
-
-
-
-
-
-
-
-        /*LottoBundle lottoBundle = new LottoBundle(LottoMachine.autoBuy(amount));
-        OutputView.printPurchaseHistory(lottoBundle);
+        OutputView.printPurchaseHistory(lottoBundle, totalAmount, manualAmount);
 
         WinningLotto winningNumber = InputView.getWinningLotto();
         LottoResults results = lottoBundle.matchLotto(winningNumber);
-        OutputView.printResult(amount, results);*/
+        OutputView.printResult(totalAmount, results);
     }
 }

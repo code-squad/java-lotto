@@ -68,18 +68,17 @@ public class InputView {
         return numbers;
     }
 
-    /*public static WinningLotto getWinningLotto() {
+    public static WinningLotto getWinningLotto() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         try {
-            Lotto lotto = getLottoNumbers();
+            Lotto lotto = new Lotto(getLottoNumbers());
             int bonusNumber = getBonusNumber();
             return new WinningLotto(lotto, bonusNumber);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return getWinningLotto();
         }
-    }*/
-
+    }
 
     public static List<Lotto> getManualLottoBundle(int amount) {
         if (amount < 0) {
