@@ -6,12 +6,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoUtil {
-    public static int getNumOfLotto(int i) {
-        return i / 1000;
-    }
+
+    private static final int MIN_INCLUSIVE = 1;
+    private static final int MAX_EXCLUSIVE = 46;
 
     public static List<Integer> getRandNumbers() {
-        List<Integer> numbers = IntStream.range(1, 45).boxed().collect(Collectors.toList());
+        List<Integer> numbers = IntStream.range(MIN_INCLUSIVE, MAX_EXCLUSIVE).boxed().collect(Collectors.toList());
         Collections.shuffle(numbers);
         return numbers.subList(0, 6);
     }

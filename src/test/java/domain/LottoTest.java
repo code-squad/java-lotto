@@ -18,4 +18,11 @@ public class LottoTest {
         assertThat(3, is(lotto.getNumOfMatches(answer)));
     }
 
+    @Test
+    public void 로또문자열변환() {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        Lotto lotto = Lotto.of(numbers);
+        assertThat("1,2,3,4,5,6", is(lotto.toString()));
+    }
+
 }
