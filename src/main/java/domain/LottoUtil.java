@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +15,4 @@ public class LottoUtil {
         Collections.shuffle(numbers);
         return numbers.subList(0, 6);
     }
-
-
 }
