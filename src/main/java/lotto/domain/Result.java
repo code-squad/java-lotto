@@ -12,58 +12,66 @@ public class Result {
 
 	public static Result of() {
 		Map<String, Integer> rankResult = new HashMap<>();
-		rankResult.put("first", 0);
-		rankResult.put("second", 0);
-		rankResult.put("third", 0);
-		rankResult.put("fourth", 0);
-		rankResult.put("fifth", 0);
+		rankResult.put(Label(Rank.FIRST), 0);
+		rankResult.put(Label(Rank.SECOND), 0);
+		rankResult.put(Label(Rank.THIRD), 0);
+		rankResult.put(Label(Rank.FOURTH), 0);
+		rankResult.put(Label(Rank.FIFTH), 0);
 		return new Result(rankResult);
 	}
 
-	public int rankNum(String rank) {
-		return rankResult.get(rank);
+	public static String Label(Rank rank) {
+		return rank.getLabel();
+	}
+
+	public int rankNum(Rank rank) {
+		return rankResult.get(Label(rank));
 	}
 
 	public void calcResult(LottoProcess lottoProcess, UserLotto beforeWinLotto, int bonusNum) {
 		int countOfMatch = 0;
 		for (int i = 0; i < lottoProcess.size(); i++) {
 			countOfMatch = lottoProcess.countOfMatch(i, beforeWinLotto);
-			if (countOfMatch == 5 && lottoProcess.getLotto(i).haveNumber(bonusNum)) {
-				countOfMatch = 7;
-			}
-			calcResult(countOfMatch);
+			calcResult(countOfMatch, checkMatchBonus(lottoProcess, i, bonusNum));
 		}
 	}
 
-	public void calcResult(int countOfMatch) {
-
-		rankResult.replace("first", compareRank(countOfMatch, rankNum("first"), Rank.FIRST));
-		rankResult.replace("second", compareRank(countOfMatch, rankNum("second"), Rank.SECOND));
-		rankResult.replace("third", compareRank(countOfMatch, rankNum("third"), Rank.THIRD));
-		rankResult.replace("fourth", compareRank(countOfMatch, rankNum("fourth"), Rank.FOURTH));
-		rankResult.replace("fifth", compareRank(countOfMatch, rankNum("fifth"), Rank.FIFTH));
+	public boolean checkMatchBonus(LottoProcess lottoProcess, int i, int bonusNum) {
+		if (lottoProcess.getLotto(i).haveNumber(bonusNum)) {
+			return true;
+		}
+		return false;
 	}
 
-	public static int compareRank(int countOfMatch, int i, Rank rank) {
-		if (Rank.valueOf(countOfMatch) == rank) {
-			i++;
+	public void calcResult(int countOfMatch, boolean matchBonus) {
+		rankResult.replace(Label(Rank.FIRST), compareRank(countOfMatch, Rank.FIRST, matchBonus));
+		rankResult.replace(Label(Rank.SECOND), compareRank(countOfMatch, Rank.SECOND, matchBonus));
+		rankResult.replace(Label(Rank.THIRD), compareRank(countOfMatch, Rank.THIRD, matchBonus));
+		rankResult.replace(Label(Rank.FOURTH), compareRank(countOfMatch, Rank.FOURTH, matchBonus));
+		rankResult.replace(Label(Rank.FIFTH), compareRank(countOfMatch, Rank.FIFTH, matchBonus));
+	}
+
+	public int compareRank(int countOfMatch, Rank rank, boolean matchBonus) {
+		if (Rank.valueOf(countOfMatch, matchBonus) == rank) {
+			return rankResult.get(Label(rank)) + 1;
 		}
-		return i;
+		return rankResult.get(Label(rank));
 	}
 
 	public int calcRevenue() {
-		return (Rank.FIRST.getWinningMoney() * rankNum("first")) + (Rank.SECOND.getWinningMoney() * rankNum("second"))
-				+ (Rank.THIRD.getWinningMoney() * rankNum("third"))
-				+ (Rank.FOURTH.getWinningMoney() * rankNum("fourth"))
-				+ (Rank.FIFTH.getWinningMoney() * rankNum("fifth"));
+		return (Rank.FIRST.getWinningMoney() * rankNum(Rank.FIRST))
+				+ (Rank.SECOND.getWinningMoney() * rankNum(Rank.SECOND))
+				+ (Rank.THIRD.getWinningMoney() * rankNum(Rank.THIRD))
+				+ (Rank.FOURTH.getWinningMoney() * rankNum(Rank.FOURTH))
+				+ (Rank.FIFTH.getWinningMoney() * rankNum(Rank.FIFTH));
 	}
 
 	public void printWinResult(int price) {
-		System.out.println("3개 일치(5000원) -" + rankNum("fifth") + "개");
-		System.out.println("4개 일치(50000원) -" + rankNum("fourth") + "개");
-		System.out.println("5개 일치(1500000원) -" + rankNum("third") + "개");
-		System.out.println("5개 일치, 보너스 볼 일치(3000000원) -" + rankNum("second") + "개");
-		System.out.println("6개 일치(2000000000원) -" + rankNum("first") + "개");
+		System.out.println("3개 일치(5000원) -" + rankNum(Rank.FIFTH) + "개");
+		System.out.println("4개 일치(50000원) -" + rankNum(Rank.FOURTH) + "개");
+		System.out.println("5개 일치(1500000원) -" + rankNum(Rank.THIRD) + "개");
+		System.out.println("5개 일치, 보너스 볼 일치(3000000원) -" + rankNum(Rank.SECOND) + "개");
+		System.out.println("6개 일치(2000000000원) -" + rankNum(Rank.FIRST) + "개");
 		System.out.println("총 수익률은 " + (calcRevenue() - price) / 100 + "%입니다.");
 	}
 

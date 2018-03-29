@@ -6,7 +6,7 @@ import java.util.List;
 public class UserLotto extends Lotto {
 
 	public UserLotto(List<Integer> numbers) {
-		this.numbers = numbers;
+		super(numbers);
 	}
 
 	public static UserLotto of(List<String> initnumbers) {

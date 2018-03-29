@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import lotto.domain.UserLotto;
-import lotto.domain.WinningLotto;
+import lotto.domain.AutoLotto;
 
 public class Input {
 

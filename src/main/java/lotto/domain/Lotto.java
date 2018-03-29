@@ -5,10 +5,13 @@ import java.util.Collections;
 import java.util.List;
 
 abstract class Lotto {
-	protected List<Integer> numbers;
 	public static final int LOTTO_SIZE = 6;
+	private List<Integer> numbers;
 
-	
+	public Lotto(List<Integer> numbers) {
+		this.numbers = numbers;
+	}
+
 	public static List<Integer> makeLottoNum(List<Integer> temp) {
 		List<Integer> numbers = new ArrayList<>();
 		for (int i = 0; i < LOTTO_SIZE; i++) {
