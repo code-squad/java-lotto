@@ -16,6 +16,7 @@ public class Result {
 		rankResult.put("second", 0);
 		rankResult.put("third", 0);
 		rankResult.put("fourth", 0);
+		rankResult.put("fifth", 0);
 		return new Result(rankResult);
 	}
 
@@ -23,19 +24,24 @@ public class Result {
 		return rankResult.get(rank);
 	}
 
-	public void calcResult(LottoProcess lottoProcess, Lotto beforeWinLotto) {
+	public void calcResult(LottoProcess lottoProcess, UserLotto beforeWinLotto, int bonusNum) {
 		int countOfMatch = 0;
 		for (int i = 0; i < lottoProcess.size(); i++) {
 			countOfMatch = lottoProcess.countOfMatch(i, beforeWinLotto);
+			if (countOfMatch == 5 && lottoProcess.getLotto(i).haveNumber(bonusNum)) {
+				countOfMatch = 7;
+			}
 			calcResult(countOfMatch);
 		}
 	}
 
 	public void calcResult(int countOfMatch) {
+
 		rankResult.replace("first", compareRank(countOfMatch, rankNum("first"), Rank.FIRST));
 		rankResult.replace("second", compareRank(countOfMatch, rankNum("second"), Rank.SECOND));
 		rankResult.replace("third", compareRank(countOfMatch, rankNum("third"), Rank.THIRD));
 		rankResult.replace("fourth", compareRank(countOfMatch, rankNum("fourth"), Rank.FOURTH));
+		rankResult.replace("fifth", compareRank(countOfMatch, rankNum("fifth"), Rank.FIFTH));
 	}
 
 	public static int compareRank(int countOfMatch, int i, Rank rank) {
@@ -48,15 +54,17 @@ public class Result {
 	public int calcRevenue() {
 		return (Rank.FIRST.getWinningMoney() * rankNum("first")) + (Rank.SECOND.getWinningMoney() * rankNum("second"))
 				+ (Rank.THIRD.getWinningMoney() * rankNum("third"))
-				+ (Rank.FOURTH.getWinningMoney() * rankNum("fourth"));
+				+ (Rank.FOURTH.getWinningMoney() * rankNum("fourth"))
+				+ (Rank.FIFTH.getWinningMoney() * rankNum("fifth"));
 	}
 
 	public void printWinResult(int price) {
-		System.out.println("3개 일치(5000원) -" + rankNum("fourth") + "개");
-		System.out.println("4개 일치(50000원) -" + rankNum("third") + "개");
-		System.out.println("5개 일치(1500000원) -" + rankNum("second") + "개");
+		System.out.println("3개 일치(5000원) -" + rankNum("fifth") + "개");
+		System.out.println("4개 일치(50000원) -" + rankNum("fourth") + "개");
+		System.out.println("5개 일치(1500000원) -" + rankNum("third") + "개");
+		System.out.println("5개 일치, 보너스 볼 일치(3000000원) -" + rankNum("second") + "개");
 		System.out.println("6개 일치(2000000000원) -" + rankNum("first") + "개");
-		System.out.println("총 수익률은 " + (calcRevenue() - price) / price + "%입니다.");
+		System.out.println("총 수익률은 " + (calcRevenue() - price) / 100 + "%입니다.");
 	}
 
 }

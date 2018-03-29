@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoProcess {
-	private List<Lotto> lottos;
+	private List<WinningLotto> lottos;
 	public static final int MAXNUM_RANGE = 45;
 
-	public LottoProcess(List<Lotto> lottos) {
+	public LottoProcess(List<WinningLotto> lottos) {
 		this.lottos = lottos;
 	}
 
 	public static LottoProcess of(int sheets) {
 		List<Integer> numberRange = makeNumbers();
-		List<Lotto> lottos = makeLottos(sheets, numberRange);
+		List<WinningLotto> lottos = makeLottos(sheets, numberRange);
 		return new LottoProcess(lottos);
 	}
 
@@ -25,10 +25,10 @@ public class LottoProcess {
 		return numberRange;
 	}
 
-	public static List<Lotto> makeLottos(int sheets, List<Integer> numberRange) {
-		List<Lotto> lottos = new ArrayList<>();
+	public static List<WinningLotto> makeLottos(int sheets, List<Integer> numberRange) {
+		List<WinningLotto> lottos = new ArrayList<>();
 		for (int i = 0; i < sheets; i++) {
-			lottos.add(Lotto.of(numberRange));
+			lottos.add(WinningLotto.of(numberRange));
 		}
 		return lottos;
 	}
@@ -41,11 +41,11 @@ public class LottoProcess {
 		return getLotto(i).numbers();
 	}
 
-	public Lotto getLotto(int i) {
+	public WinningLotto getLotto(int i) {
 		return lottos.get(i);
 	}
 
-	public int countOfMatch(int i, Lotto beforeWinLotto) {
+	public int countOfMatch(int i, UserLotto beforeWinLotto) {
 		return getLotto(i).countOfMatch(beforeWinLotto);
 	}
 

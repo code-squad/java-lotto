@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import lotto.domain.Lotto;
+import lotto.domain.UserLotto;
+import lotto.domain.WinningLotto;
 
 public class Input {
 
@@ -21,18 +22,24 @@ public class Input {
 		}
 	}
 
+	public static int InputBonusNum() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("보너스 볼을 입력해 주세요.");
+		return sc.nextInt();
+	}
+
 	public static void checkPriceRange(int price) {
 		if (price < 1000 || price > 100000) {
 			throw new IllegalArgumentException();
 		}
 	}
 
-	public static Lotto inputBeforWinNum() {
+	public static UserLotto inputBeforWinNum() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println();
 		System.out.println("지난 주 당첨 번호를 입력해 주세요.");
 		List<String> beforeWinNum = Arrays.asList(sc.nextLine().split(","));
-		Lotto beforeWinLotto = Lotto.ofValue(beforeWinNum);
+		UserLotto beforeWinLotto = UserLotto.of(beforeWinNum);
 		return beforeWinLotto;
 	}
 
