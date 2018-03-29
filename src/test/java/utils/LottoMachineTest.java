@@ -1,25 +1,23 @@
 package utils;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class LottoMachineTest {
-    private LottoMachine machine;
-
-    @Before
-    public void setUp() throws Exception {
-        machine = LottoMachine.of();
-    }
 
     @Test
-    public void 천원일때_몇개살수있나() {
+    public void 몇개살수있나() {
         assertEquals(1, LottoMachine.calcQuantity(1000));
     }
 
     @Test
-    public void 돈이_0일때_몇개살수있나() {
-        assertEquals(0, LottoMachine.calcQuantity(0));
+    public void 사지못한다() {
+        assertEquals(0, LottoMachine.calcQuantity(990));
+    }
+
+    @Test
+    public void 총_얼마치를_구매했는가() {
+        assertEquals(14000, LottoMachine.calcTotalPurchaseMoney(14));
     }
 }

@@ -1,11 +1,6 @@
 package domain;
 
-import dto.LottoDto;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.stream.Collectors.joining;
 
@@ -34,21 +29,22 @@ public class Lotto {
         return numbers.stream().anyMatch(number -> number < MIN_NUM || number > MAX_NUM);
     }
 
-    public LottoDto match(Lotto winningNumber) {
-        int matchPoint = getMatchPoint(winningNumber);
-        return convertLottoDto(matchPoint);
+    public static boolean isOutRangeNumber(int number) {
+        return MIN_NUM > number || number > MAX_NUM;
     }
 
-    private LottoDto convertLottoDto(int matchPoint) {
-        return new LottoDto(numbers, matchPoint);
+    public int match(Lotto otherLotto) {
+        List<Integer> matchNum = new ArrayList<>();
+        for (Integer num : otherLotto.numbers) {
+            if (numbers.contains(num)) {
+                matchNum.add(num);
+            }
+        }
+        return matchNum.size();
     }
 
-    private int getMatchPoint(Lotto winningNumber) {
-        List<Integer> winningNumbers = winningNumber.numbers;
-        int fullLength = winningNumbers.size() + numbers.size();
-        Set<Integer> numberPot = new HashSet<>(numbers);
-        numberPot.addAll(winningNumbers);
-        return fullLength - numberPot.size();
+    public boolean isContainNumber(int number) {
+        return numbers.contains(number);
     }
 
     @Override

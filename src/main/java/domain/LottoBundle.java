@@ -1,12 +1,11 @@
 package domain;
 
-import dto.LottoResult;
+import domain.result.LottoResult;
+import domain.result.LottoResults;
+import domain.result.Rank;
 import utils.LottoMachine;
 
-import java.util.Collections;
 import java.util.List;
-
-import static java.util.stream.Collectors.joining;
 
 public class LottoBundle {
     private List<Lotto> lottoBundle;
@@ -23,12 +22,21 @@ public class LottoBundle {
         return machine.publishLotto(amount);
     }
 
-    public LottoResult matchLotto(Lotto winningNumber) {
-        LottoResult results = new LottoResult();
+    public LottoResults matchLotto(WinningLotto winningLotto) {
+        LottoResults results = new LottoResults();
         for (Lotto lotto : lottoBundle) {
-            results.addResult(lotto.match(winningNumber));
+            addResult(results, winningLotto, lotto);
         }
         return results;
+    }
+
+    private void addResult(LottoResults results, WinningLotto winningLotto, Lotto lotto) {
+        int matchPoint = winningLotto.match(lotto);
+        boolean isBonusMatch = winningLotto.matchBonus(lotto);
+        Rank rank = Rank.of(matchPoint, isBonusMatch);
+        if (rank != null) {
+            results.addResult(new LottoResult(rank));
+        }
     }
 
     public String getPurchaseHistory() {

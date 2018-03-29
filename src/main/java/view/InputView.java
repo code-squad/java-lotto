@@ -1,6 +1,7 @@
 package view;
 
 import domain.Lotto;
+import domain.WinningLotto;
 import utils.LottoMachine;
 
 import java.util.*;
@@ -38,45 +39,80 @@ public class InputView {
         }
     }
 
-    public static Lotto getWinningNumber() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        Lotto winningNumber = null;
+    public static WinningLotto getWinningNumber() {
+        return buildWinningLotto(buildNormalNumbers());
+    }
+
+    private static WinningLotto buildWinningLotto(Lotto lotto) {
+        WinningLotto winningLotto = null;
+        int bonusNumber = buildBonusNumber(lotto);
         try {
-            winningNumber = buildWinningNumber();
+            winningLotto = new WinningLotto(lotto, bonusNumber);
+        } catch(IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            winningLotto = buildWinningLotto(lotto);
+        }
+        return winningLotto;
+    }
+
+    private static Lotto buildNormalNumbers() {
+        Lotto lotto = null;
+        try {
+            lotto = new Lotto(getNormalNumbers());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            winningNumber = getWinningNumber();
+            lotto = buildNormalNumbers();
         }
-        return winningNumber;
+        return lotto;
     }
 
-    private static Lotto buildWinningNumber() throws IllegalArgumentException {
+    private static List<Integer> getNormalNumbers() throws IllegalArgumentException {
+        System.out.println("당첨번호를 입력해 주세요.");
         List<Integer> numbers = new ArrayList<>();
         String[] numbersMessage = splitNumberMessage(scanner.nextLine());
-        if (isDuplicateInput(numbersMessage)) {
-            throw new IllegalArgumentException("중복된 숫자가 있습니다.");
+        if (checkDuplicateInput(numbersMessage)) {
+            throw new IllegalArgumentException("중복된 번호가 있습니다.");
         }
-
-        for (String numberMessage : numbersMessage) {
-            numbers.add(convertMessageToNum(numberMessage));
-        }
-        return new Lotto(numbers);
-    }
-
-    private static boolean isDuplicateInput(String[] numbersMessage) {
-        Set<String> checkMachine = new HashSet<>(Arrays.asList(numbersMessage));
-        return checkMachine.size() != numbersMessage.length;
+        addNumbers(numbers, numbersMessage);
+        return numbers;
     }
 
     private static String[] splitNumberMessage(String inputNumbers) {
         return inputNumbers.split(",\\s*");
     }
 
-    private static int convertMessageToNum(String numberMessage) throws IllegalArgumentException {
-        try {
-            return Integer.parseInt(numberMessage);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("문자가 포함되어 있습니다.");
+    private static boolean checkDuplicateInput(String[] numbersMessage) {
+        Set<String> checkMachine = new HashSet<>(Arrays.asList(numbersMessage));
+        return checkMachine.size() != numbersMessage.length;
+    }
+
+    private static void addNumbers(List<Integer> numbers, String[] numbersMessage) throws IllegalArgumentException {
+        for (String number : numbersMessage) {
+            numbers.add(convertToNumber(number));
         }
+    }
+
+    private static int getBonusNumbers(Lotto lotto) throws IllegalArgumentException {
+        System.out.println("보너스 번호를 입력해 주세요.");
+        int bonusNumber = convertToNumber(scanner.nextLine());
+        if (lotto.isContainNumber(bonusNumber)) {
+            throw new IllegalArgumentException("당첨번호로 지정된 번호입니다.");
+        }
+
+        if (Lotto.isOutRangeNumber(bonusNumber)) {
+            throw new IllegalArgumentException("범위를 벗어난 숫자입니다.");
+        }
+        return bonusNumber;
+    }
+
+    private static int buildBonusNumber(Lotto lotto) {
+        int bonusNumber = -1;
+        try {
+            bonusNumber = getBonusNumbers(lotto);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            bonusNumber = buildBonusNumber(lotto);
+        }
+        return bonusNumber;
     }
 }

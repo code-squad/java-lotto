@@ -1,9 +1,11 @@
 package view;
 
-import domain.Lotto;
 import domain.LottoBundle;
-import dto.LottoResult;
-import utils.Prize;
+import domain.result.LottoResults;
+import domain.result.Rank;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class OutputView {
 
@@ -11,8 +13,8 @@ public class OutputView {
         System.out.println(lottoBundle.getPurchaseHistory());
     }
 
-    public static void printResult(LottoResult result) {
-        String resultMessage = buildTitle() + analyzeResult(result);
+    public static void printResult(int amount, LottoResults results) {
+        String resultMessage = buildTitle() + buildRankMessage(results) + buildProfitContent(amount, results);
         System.out.println(resultMessage);
     }
 
@@ -20,33 +22,22 @@ public class OutputView {
         return "당첨 통계\n" + "---------\n";
     }
 
-    private static String analyzeResult(LottoResult result) {
-        int displayLimit = Lotto.LOTTO_NUM - Prize.getSize();
-        long money = 0;
+    private static String buildRankMessage(LottoResults results) {
+        Rank[] ranks = Rank.values();
         StringBuilder builder = new StringBuilder();
-        for (int matchPoint = Lotto.LOTTO_NUM; matchPoint > displayLimit; matchPoint--) {
-            Prize prize = Prize.of(matchPoint);
-            int matchNum = result.calcMatchNum(matchPoint);
-            builder.append(buildResultMessage(prize, matchNum));
-            money += getPrizeMoney(prize, matchNum);
+        for (Rank rank : ranks) {
+            builder.append(doBuild(rank, results));
+            builder.append("\n");
         }
-        builder.append(analyzeProfit(result, money));
         return builder.toString();
     }
 
-    private static int getPrizeMoney(Prize prize, int matchNum) {
-        if (matchNum == 0) {
-            return 0;
-        }
-        int money = prize.getPrize();
-        return money * matchNum;
+    private static String doBuild(Rank rank, LottoResults results) {
+        return rank.getMatchPoint() + "개 일치 (" + rank.getPrize() + ") - " + results.calcRankNum(rank) + "개";
     }
 
-    private static String buildResultMessage(Prize prize, int prizeCount) {
-        return prize.getMatchPoint() + "개 일치 (" + prize.getPrize() + "원) - " + prizeCount + "개\n";
-    }
-
-    private static String analyzeProfit(LottoResult result, long prizeMoney) {
-        return "총 수익률은 " + result.calcLottoProfit(prizeMoney) + "% 입니다.";
+    private static String buildProfitContent(int amount, LottoResults results) {
+        int profit = results.calcLottoProfit(amount);
+        return "총 수익률은 " + profit + "% 입니다.";
     }
 }
