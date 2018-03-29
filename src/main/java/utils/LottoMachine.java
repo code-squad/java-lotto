@@ -10,31 +10,13 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.toList;
 
 public class LottoMachine {
-    private static LottoMachine machine = new LottoMachine();
     private static List<Integer> numbers = IntStream.rangeClosed(Lotto.MIN_NUM, Lotto.MAX_NUM).boxed().collect(toList());
-    public static final int LOTTO_PRICE = 1000;
 
-    private LottoMachine() {
+    public static List<Lotto> autoBuy(int amount) {
+        if (!canBuy(amount)) {
+            throw new IllegalArgumentException("1개 이상은 사야합니다");
+        }
 
-    }
-
-    public static LottoMachine of() {
-        return machine;
-    }
-
-    public static int calcQuantity(int money) {
-        return money / LOTTO_PRICE;
-    }
-
-    public static boolean isImPossibleBuy(int amount) {
-        return amount <= 0;
-    }
-
-    public static int calcTotalPurchaseMoney(int amount) {
-        return amount * LOTTO_PRICE;
-    }
-
-    public List<Lotto> publishLotto(int amount) {
         List<Lotto> lottoBundle = new ArrayList<>();
         for (int cnt = 0; cnt < amount; cnt++) {
             lottoBundle.add(new Lotto(pickLottoNumbers()));
@@ -42,8 +24,16 @@ public class LottoMachine {
         return lottoBundle;
     }
 
-    private List<Integer> pickLottoNumbers() {
+    public static boolean canBuy(int amount) {
+        return amount > 0;
+    }
+
+    private static List<Integer> pickLottoNumbers() {
         Collections.shuffle(numbers);
         return numbers.stream().limit(Lotto.LOTTO_NUM).collect(toList());
+    }
+
+    public static Lotto manualBuy(List<Integer> numbers) throws IllegalArgumentException {
+        return new Lotto(numbers);
     }
 }

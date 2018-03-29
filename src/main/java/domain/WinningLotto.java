@@ -5,8 +5,12 @@ public class WinningLotto {
     private int bonusNumber;
 
     public WinningLotto(Lotto lotto, int bonusNumber) {
-        if (lotto.isContainNumber(bonusNumber) || Lotto.isOutRangeNumber(bonusNumber)) {
-            throw new IllegalArgumentException("유효한 보너스번호가 아닙니다.");
+        if (Lotto.isOutRangeNumber(bonusNumber)) {
+            throw new IllegalArgumentException("유효한 보너스 범위가 아닙니다.");
+        }
+
+        if (lotto.isContainNumber(bonusNumber)) {
+            throw new IllegalArgumentException("보너스번호가 당첨번호로 지정된 번호입니다.");
         }
         this.lotto = lotto;
         this.bonusNumber = bonusNumber;

@@ -3,9 +3,7 @@ package view;
 import domain.LottoBundle;
 import domain.result.LottoResults;
 import domain.result.Rank;
-
-import java.util.Arrays;
-import java.util.List;
+import utils.MoneyUtils;
 
 public class OutputView {
 
@@ -33,11 +31,10 @@ public class OutputView {
     }
 
     private static String doBuild(Rank rank, LottoResults results) {
-        return rank.getMatchPoint() + "개 일치 (" + rank.getPrize() + ") - " + results.calcRankNum(rank) + "개";
+        return rank.getMatchPoint() + "개 일치 (" + rank.getPrize() + "원) - " + results.calcRankNum(rank) + "개";
     }
 
     private static String buildProfitContent(int amount, LottoResults results) {
-        int profit = results.calcLottoProfit(amount);
-        return "총 수익률은 " + profit + "% 입니다.";
+        return "총 수익률은 " + MoneyUtils.calcProfit(results.calcTotalPrizeMoney(), amount) + "% 입니다.";
     }
 }

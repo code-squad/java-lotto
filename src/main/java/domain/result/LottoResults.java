@@ -1,7 +1,5 @@
 package domain.result;
 
-import utils.LottoMachine;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +10,12 @@ public class LottoResults {
         lottoResults.add(lottoResult);
     }
 
-    public int calcLottoProfit(int amount) {
-        int purchaseMoney = LottoMachine.calcTotalPurchaseMoney(amount);
-        long prizeMoney = 0;
+    public long calcTotalPrizeMoney() {
+        long money = 0;
         for (LottoResult result : lottoResults) {
-            prizeMoney += result.getPrizeMoney();
+            money += result.getPrizeMoney();
         }
-        return (int) (prizeMoney / purchaseMoney * 100);
+        return money;
     }
 
     public int calcRankNum(Rank rank) {
