@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoProcess {
-	private List<Lotto> lottos;
 	public static final int MAXNUM_RANGE = 45;
+	private List<Lotto> lottos;
 
 	public LottoProcess(List<Lotto> lottos) {
 		this.lottos = lottos;
