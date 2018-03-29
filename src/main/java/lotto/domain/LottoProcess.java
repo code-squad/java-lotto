@@ -5,21 +5,32 @@ import java.util.List;
 
 public class LottoProcess {
 	private List<Lotto> lottos;
+	public static final int MAXNUM_RANGE = 45;
 
 	public LottoProcess(List<Lotto> lottos) {
 		this.lottos = lottos;
 	}
 
 	public static LottoProcess of(int sheets) {
-		List<Lotto> lottos = new ArrayList<>();
+		List<Integer> numberRange = makeNumbers();
+		List<Lotto> lottos = makeLottos(sheets, numberRange);
+		return new LottoProcess(lottos);
+	}
+
+	public static List<Integer> makeNumbers() {
 		List<Integer> numberRange = new ArrayList<>();
-		for (int i = 1; i < Lotto.MAXNUM_RANGE; i++) {
+		for (int i = 1; i < MAXNUM_RANGE; i++) {
 			numberRange.add(i);
 		}
+		return numberRange;
+	}
+
+	public static List<Lotto> makeLottos(int sheets, List<Integer> numberRange) {
+		List<Lotto> lottos = new ArrayList<>();
 		for (int i = 0; i < sheets; i++) {
 			lottos.add(Lotto.of(numberRange));
 		}
-		return new LottoProcess(lottos);
+		return lottos;
 	}
 
 	public int size() {

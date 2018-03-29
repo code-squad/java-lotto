@@ -11,7 +11,20 @@ public class Input {
 	public static int InputPrice() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("구매금액을 입력해주세요.");
-		return sc.nextInt();
+		int price = sc.nextInt();
+		try {
+			checkPriceRange(price);
+			return price;
+		} catch (IllegalArgumentException e) {
+			System.out.println("금액이 잘못 입력 되었습니다.(1000원~100000원)");
+			return Input.InputPrice();
+		}
+	}
+
+	public static void checkPriceRange(int price) {
+		if (price < 1000 || price > 100000) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	public static Lotto inputBeforWinNum() {

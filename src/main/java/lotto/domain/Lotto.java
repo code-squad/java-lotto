@@ -7,7 +7,6 @@ import java.util.List;
 public class Lotto {
 	private List<Integer> numbers;
 	public static final int LOTTO_SIZE = 6;
-	public static final int MAXNUM_RANGE = 45;
 
 	public Lotto(List<Integer> numbers) {
 		this.numbers = numbers;
@@ -21,7 +20,7 @@ public class Lotto {
 	public static Lotto ofValue(List<String> initnumbers) {
 		ArrayList<Integer> numbers = new ArrayList<>();
 		for (int i = 0; i < initnumbers.size(); i++) {
-			numbers.add(Integer.parseInt(initnumbers.get(i)));
+			numbers.add(Integer.parseInt(initnumbers.get(i).trim()));
 		}
 		return new Lotto(numbers);
 	}
@@ -41,24 +40,21 @@ public class Lotto {
 
 	public int countOfMatch(Lotto beforeWinLotto) {
 		int countOfMatch = 0;
-		for (int i = 0; i < beforeWinLotto.size(); i++) {
-			countOfMatch = countOfMatch(beforeWinLotto, i, countOfMatch);
+		for (Integer no : numbers) {
+			countOfMatch += beforeWinLotto.countOfMatch(no);
 		}
 		return countOfMatch;
 	}
 
-	public int countOfMatch(Lotto beforeWinLotto, int i, int countOfMatch) {
-		if (numbers.contains(beforeWinLotto.getNumbers(i))) {
-			countOfMatch++;
+	public int countOfMatch(int no) {
+		if (haveNumber(no)) {
+			return 1;
 		}
-		return countOfMatch;
+		return 0;
 	}
 
-	public int getNumbers(int i) {
-		return numbers.get(i);
+	public boolean haveNumber(int no) {
+		return numbers.contains(no);
 	}
 
-	public int size() {
-		return numbers.size();
-	}
 }
