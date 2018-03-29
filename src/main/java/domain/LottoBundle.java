@@ -4,18 +4,31 @@ import domain.result.LottoResult;
 import domain.result.LottoResults;
 import domain.result.Rank;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LottoBundle {
-    private List<Lotto> lottoBundle;
+    private static LottoBundle lottoBundle = new LottoBundle();
+    private List<Lotto> lottos = new ArrayList<>();
 
-    public LottoBundle(List<Lotto> lottoBundle) {
-        this.lottoBundle = lottoBundle;
+    private LottoBundle() {
+
+    }
+
+    public static LottoBundle of() {
+        return lottoBundle;
+    }
+
+    public void addLotto(List<Lotto> lottoBundle) {
+        if (lottoBundle == null) {
+            return;
+        }
+        lottos.addAll(lottoBundle);
     }
 
     public LottoResults matchLotto(WinningLotto winningLotto) {
         LottoResults results = new LottoResults();
-        for (Lotto lotto : lottoBundle) {
+        for (Lotto lotto : lottos) {
             addResult(results, winningLotto, lotto);
         }
         return results;
@@ -32,10 +45,14 @@ public class LottoBundle {
 
     public String getPurchaseHistory() {
         StringBuilder builder = new StringBuilder();
-        for (Lotto lotto : lottoBundle) {
+        for (Lotto lotto : lottos) {
             builder.append(lotto.toString());
             builder.append("\n");
         }
         return builder.toString();
+    }
+
+    public boolean isExistPurchaseHistory() {
+        return !lottos.isEmpty();
     }
 }

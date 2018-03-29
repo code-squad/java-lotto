@@ -11,6 +11,17 @@ public class LottoMain {
         int totalAmount = InputView.getTotalAmount();
         int manualAmount = InputView.getManualBuyAmount(totalAmount);
 
+        LottoBundle lottoBundle = LottoBundle.of();
+        lottoBundle.addLotto(InputView.getManualLottoBundle(manualAmount));
+        lottoBundle.addLotto(LottoMachine.autoBuy(totalAmount, manualAmount));
+
+
+
+
+
+
+
+
 
         /*LottoBundle lottoBundle = new LottoBundle(LottoMachine.autoBuy(amount));
         OutputView.printPurchaseHistory(lottoBundle);

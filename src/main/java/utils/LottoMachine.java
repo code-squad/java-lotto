@@ -1,6 +1,7 @@
 package utils;
 
 import domain.Lotto;
+import view.InputView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,20 +13,31 @@ import static java.util.stream.Collectors.toList;
 public class LottoMachine {
     private static List<Integer> numbers = IntStream.rangeClosed(Lotto.MIN_NUM, Lotto.MAX_NUM).boxed().collect(toList());
 
-    public static List<Lotto> autoBuy(int amount) {
-        if (!canBuy(amount)) {
-            throw new IllegalArgumentException("1개 이상은 사야합니다");
+    public static List<Lotto> autoBuy(int totalAmount, int manualAmount) {
+        int autoBuyAmount = totalAmount - manualAmount;
+        if (isNegativeAmount(autoBuyAmount)) {
+            throw new IllegalArgumentException("마이너스 수량은 구매할 수 없습니다.");
         }
+        return buildAutoLottoBundle(autoBuyAmount);
+    }
 
+    private static boolean isNegativeAmount(int amount) {
+        return amount < 0;
+    }
+
+    private static List<Lotto> buildAutoLottoBundle(int amount) {
+        if (isZeroAmount(amount)) {
+            return null;
+        }
         List<Lotto> lottoBundle = new ArrayList<>();
-        for (int cnt = 0; cnt < amount; cnt++) {
+        for (int i = 0; i < amount; i++) {
             lottoBundle.add(new Lotto(pickLottoNumbers()));
         }
         return lottoBundle;
     }
 
-    public static boolean canBuy(int amount) {
-        return amount > 0;
+    private static boolean isZeroAmount(int amount) {
+        return amount == 0;
     }
 
     private static List<Integer> pickLottoNumbers() {
@@ -33,7 +45,26 @@ public class LottoMachine {
         return numbers.stream().limit(Lotto.LOTTO_NUM).collect(toList());
     }
 
-    public static Lotto manualBuy(List<Integer> numbers) throws IllegalArgumentException {
-        return new Lotto(numbers);
+
+    public static Lotto manualBuy() throws IllegalArgumentException {
+        return new Lotto(InputView.getLottoNumbers());
+    }
+
+    public static List<Lotto> manualBuy(int amount) throws IllegalArgumentException {
+        if (isNegativeAmount(amount)) {
+            throw new IllegalArgumentException("마이너스 수량은 구매할 수 없습니다.");
+        }
+        return buildManualLottoBundle(amount);
+    }
+
+    private static List<Lotto> buildManualLottoBundle(int amount) {
+        if (isZeroAmount(amount)) {
+            return null;
+        }
+        List<Lotto> lottoBundle = new ArrayList<>();
+        for (int i = 0; i < amount; i++) {
+            lottoBundle.add(manualBuy());
+        }
+        return lottoBundle;
     }
 }

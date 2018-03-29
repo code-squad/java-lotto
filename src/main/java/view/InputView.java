@@ -68,7 +68,8 @@ public class InputView {
         return numbers;
     }
 
-    public static WinningLotto getWinningLotto() {
+    /*public static WinningLotto getWinningLotto() {
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         try {
             Lotto lotto = getLottoNumbers();
             int bonusNumber = getBonusNumber();
@@ -77,12 +78,25 @@ public class InputView {
             System.out.println(e.getMessage());
             return getWinningLotto();
         }
+    }*/
+
+
+    public static List<Lotto> getManualLottoBundle(int amount) {
+        if (amount < 0) {
+            return null;
+        }
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        try {
+            return LottoMachine.manualBuy(amount);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return getManualLottoBundle(amount);
+        }
     }
 
-    private static Lotto getLottoNumbers(String printMessage) {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+    public static List<Integer> getLottoNumbers() {
         try {
-            return LottoMachine.manualBuy(convertNumber(parseLottoNumbers(scanner.nextLine())));
+            return convertNumber(parseLottoNumbers(scanner.nextLine()));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return getLottoNumbers();

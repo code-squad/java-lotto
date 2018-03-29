@@ -35,7 +35,6 @@ public class InputViewTest {
         InputView.convertNumber(new String[]{"8, rt, 23, u, ., 43"});
     }
 
-
     @Test
     public void 수동구매개수가_유효한가() {
         int totalAmount = 14;
