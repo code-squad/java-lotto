@@ -1,21 +1,14 @@
 package lotto.domain;
 
 public enum Rank {
-	FIRST("first", 6, 2000000000), SECOND("second", 5, 300000), THIRD("third", 5, 1500000), FOURTH("fourth", 4,
-			50000), FIFTH("fifth", 3, 5000);
+	FIRST(6, 2000000000), SECOND(5, 300000), THIRD(5, 1500000), FOURTH(4, 50000), FIFTH(3, 5000);
 
-	private String label;
 	private int countOfMatch;
 	private int winningMoney;
 
-	private Rank(String label, int countOfMatch, int winningMoney) {
-		this.label = label;
+	private Rank(int countOfMatch, int winningMoney) {
 		this.countOfMatch = countOfMatch;
 		this.winningMoney = winningMoney;
-	}
-
-	public String getLabel() {
-		return label;
 	}
 
 	public int getCountOfMatch() {

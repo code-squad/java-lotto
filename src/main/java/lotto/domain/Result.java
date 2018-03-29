@@ -4,28 +4,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Result {
-	private Map<String, Integer> rankResult;
+	private Map<Rank, Integer> rankResult;
 
-	public Result(Map<String, Integer> rankResult) {
+	public Result(Map<Rank, Integer> rankResult) {
 		this.rankResult = rankResult;
 	}
 
 	public static Result of() {
-		Map<String, Integer> rankResult = new HashMap<>();
-		rankResult.put(Label(Rank.FIRST), 0);
-		rankResult.put(Label(Rank.SECOND), 0);
-		rankResult.put(Label(Rank.THIRD), 0);
-		rankResult.put(Label(Rank.FOURTH), 0);
-		rankResult.put(Label(Rank.FIFTH), 0);
+		Map<Rank, Integer> rankResult = new HashMap<>();
+		rankResult.put(Rank.FIRST, 0);
+		rankResult.put(Rank.SECOND, 0);
+		rankResult.put(Rank.THIRD, 0);
+		rankResult.put(Rank.FOURTH, 0);
+		rankResult.put(Rank.FIFTH, 0);
 		return new Result(rankResult);
 	}
 
-	public static String Label(Rank rank) {
-		return rank.getLabel();
-	}
-
 	public int rankNum(Rank rank) {
-		return rankResult.get(Label(rank));
+		return rankResult.get(rank);
 	}
 
 	public void calcResult(LottoProcess lottoProcess, UserLotto beforeWinLotto, int bonusNum) {
@@ -44,18 +40,18 @@ public class Result {
 	}
 
 	public void calcResult(int countOfMatch, boolean matchBonus) {
-		rankResult.replace(Label(Rank.FIRST), compareRank(countOfMatch, Rank.FIRST, matchBonus));
-		rankResult.replace(Label(Rank.SECOND), compareRank(countOfMatch, Rank.SECOND, matchBonus));
-		rankResult.replace(Label(Rank.THIRD), compareRank(countOfMatch, Rank.THIRD, matchBonus));
-		rankResult.replace(Label(Rank.FOURTH), compareRank(countOfMatch, Rank.FOURTH, matchBonus));
-		rankResult.replace(Label(Rank.FIFTH), compareRank(countOfMatch, Rank.FIFTH, matchBonus));
+		rankResult.replace(Rank.FIRST, compareRank(countOfMatch, Rank.FIRST, matchBonus));
+		rankResult.replace(Rank.SECOND, compareRank(countOfMatch, Rank.SECOND, matchBonus));
+		rankResult.replace(Rank.THIRD, compareRank(countOfMatch, Rank.THIRD, matchBonus));
+		rankResult.replace(Rank.FOURTH, compareRank(countOfMatch, Rank.FOURTH, matchBonus));
+		rankResult.replace(Rank.FIFTH, compareRank(countOfMatch, Rank.FIFTH, matchBonus));
 	}
 
 	public int compareRank(int countOfMatch, Rank rank, boolean matchBonus) {
 		if (Rank.valueOf(countOfMatch, matchBonus) == rank) {
-			return rankResult.get(Label(rank)) + 1;
+			return rankResult.get(rank) + 1;
 		}
-		return rankResult.get(Label(rank));
+		return rankResult.get(rank);
 	}
 
 	public int calcRevenue() {
