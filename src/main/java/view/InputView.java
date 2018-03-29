@@ -12,17 +12,44 @@ import java.util.Scanner;
 public class InputView {
     private static Scanner scanner = new Scanner(System.in);
 
-    public static int getBuyAmount() {
+    public static int getTotalAmount() {
         System.out.println("구입금액을 입력해주세요.");
         try {
-            int money = convertNumber(scanner.nextLine());
-            int amount = MoneyUtils.calcBuyAmount(money);
-            System.out.println(amount + "개를 구매하였습니다.");
-            return amount;
+            return MoneyUtils.calcBuyAmount(convertNumber(scanner.nextLine()));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return getBuyAmount();
+            return getTotalAmount();
         }
+    }
+
+    public static int getManualBuyAmount(int totalAmount) {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        try {
+            int manualAmount = convertNumber(scanner.nextLine());
+            verifyManualAmount(totalAmount, manualAmount);
+            return manualAmount;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return getManualBuyAmount(totalAmount);
+        }
+    }
+
+    public static void verifyManualAmount(int totalAmount, int manualAmount) {
+        if (isOverTotalAmount(totalAmount, manualAmount)) {
+            throw new IllegalArgumentException("전체 구매개수보다 수동 지정한 개수가 많습니다.");
+        }
+
+        if (isNegativeAmount(manualAmount)) {
+            throw new IllegalArgumentException("수동 구매 가능 개수(0개 이상 " + totalAmount + "개 이하)");
+        }
+    }
+
+    public static boolean isOverTotalAmount(int totalAmount, int manualAmount) {
+        return totalAmount < manualAmount;
+    }
+
+    public static boolean isNegativeAmount(int manualAmount) {
+        return manualAmount < 0;
     }
 
     public static int convertNumber(String numberMessage) {
@@ -52,7 +79,7 @@ public class InputView {
         }
     }
 
-    private static Lotto getLottoNumbers() {
+    private static Lotto getLottoNumbers(String printMessage) {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         try {
             return LottoMachine.manualBuy(convertNumber(parseLottoNumbers(scanner.nextLine())));

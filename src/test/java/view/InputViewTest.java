@@ -34,4 +34,24 @@ public class InputViewTest {
     public void 로또_문자열_배열_숫자로_변환할때_문자포함() {
         InputView.convertNumber(new String[]{"8, rt, 23, u, ., 43"});
     }
+
+
+    @Test
+    public void 수동구매개수가_유효한가() {
+        int totalAmount = 14;
+        int manualAmount = 13;
+        InputView.verifyManualAmount(totalAmount, manualAmount);
+    }
+
+    @Test
+    public void 수동구매개수가_자동개수보다_많음() {
+        int totalAmount = 14;
+        int manualAmount = 15;
+        assertTrue(InputView.isOverTotalAmount(totalAmount, manualAmount));
+    }
+
+    @Test
+    public void 수동구매개수가_0보다_작음() {
+        assertTrue(InputView.isNegativeAmount(-1));
+    }
 }

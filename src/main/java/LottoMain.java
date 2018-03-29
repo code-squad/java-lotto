@@ -8,12 +8,15 @@ import view.OutputView;
 public class LottoMain {
 
     public static void main(String[] args) {
-        int amount = InputView.getBuyAmount();
-        LottoBundle lottoBundle = new LottoBundle(LottoMachine.autoBuy(amount));
+        int totalAmount = InputView.getTotalAmount();
+        int manualAmount = InputView.getManualBuyAmount(totalAmount);
+
+
+        /*LottoBundle lottoBundle = new LottoBundle(LottoMachine.autoBuy(amount));
         OutputView.printPurchaseHistory(lottoBundle);
 
         WinningLotto winningNumber = InputView.getWinningLotto();
         LottoResults results = lottoBundle.matchLotto(winningNumber);
-        OutputView.printResult(amount, results);
+        OutputView.printResult(amount, results);*/
     }
 }
