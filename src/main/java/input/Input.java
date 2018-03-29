@@ -1,9 +1,15 @@
+package input;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import lotto.Lotto;
 
 public class Input {
-    private ArrayList<Lotto> lottos = new ArrayList<>();
+    private List<Lotto> lottos = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
+    private List<String> right;
 
     public static void rightNumber() {
         System.out.println("지난주의 당첨번호를 입력해주세요.");
@@ -18,7 +24,7 @@ public class Input {
         System.out.println("---------");
     }
 
-    public ArrayList<Lotto> makeLottos(int num) {
+    public List<Lotto> makeLottos(int num) {
         for(int i = 0; i < num; i++) {
             Lotto lotto = new Lotto();
             lottos.add(lotto);
@@ -28,7 +34,7 @@ public class Input {
     }
 
     public String right() {
-        String right = scanner.nextLine();
-        return right;
+        String input = scanner.nextLine();
+        return input;
     }
 }

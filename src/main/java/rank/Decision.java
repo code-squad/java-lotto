@@ -1,7 +1,12 @@
+package rank;
+
+import rank.Rank;
+import lotto.Lotto;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Decision {
-    public void addRank(Lotto rightNum, ArrayList<Lotto> lottos, String bonusNum) {
+    public void addRank(Lotto rightNum, List<Lotto> lottos, String bonusNum) {
         for(int i = 0; i < lottos.size(); i++) {
             deliverCount(lottos.get(i), rightNum);
         }
@@ -20,15 +25,15 @@ public class Decision {
         return count;
     }
 
-    public ArrayList<Rank> decisionRank(ArrayList<Lotto> lottos , Lotto rightNum, String bonusNum) {
-        ArrayList<Rank> ranks = new ArrayList<>();
+    public List<Rank> decisionRank(List<Lotto> lottos , Lotto rightNum, String bonusNum) {
+        List<Rank> ranks = new ArrayList<>();
         for (Lotto lotto: lottos) {
             rankLoop(lotto, rightNum, bonusNum, ranks);
         }
         return ranks;
     }
 
-    public void rankLoop (Lotto lotto, Lotto rightNum, String bonusNum, ArrayList<Rank> ranks) {
+    public void rankLoop (Lotto lotto, Lotto rightNum, String bonusNum, List<Rank> ranks) {
         int count = deliverCount(lotto, rightNum);
         ranks.add(Rank.valueOf(count, containBonus(lotto, bonusNum)));
     }

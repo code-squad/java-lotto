@@ -1,3 +1,6 @@
+package lotto;
+
+import input.Input;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,8 +23,12 @@ public class Lotto {
         }
     }
 
-    public Lotto(String input) {
-        right = Arrays.asList(input.split(","));
+    public Lotto(String string) {
+        right = Arrays.asList(string.split(","));
+        lotto = new ArrayList<>();
+        for (String s: right) {
+            lotto.add(Integer.parseInt(s));
+        }
     }
 
     public static List<Integer> init() {
@@ -40,7 +47,7 @@ public class Lotto {
         return right;
     }
 
-    public ArrayList<Integer> checkNumber(Lotto right) {
+    public List<Integer> checkNumber(Lotto right) {
         int count = 0;
         for(int i = 0; i < right.getRight().size(); i++) {
             if(lotto.contains(Integer.parseInt(right.getRight().get(i))))
@@ -48,9 +55,5 @@ public class Lotto {
         }
         counts.add(count);
         return counts;
-    }
-
-    public Integer lengthRight() {
-        return right.size();
     }
 }

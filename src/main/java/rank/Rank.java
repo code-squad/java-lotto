@@ -1,3 +1,5 @@
+package rank;
+
 public enum Rank {
     FIRST(6, 2000000000),
     SECOND(5, 30000000),

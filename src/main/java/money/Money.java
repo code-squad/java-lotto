@@ -1,10 +1,13 @@
+package money;
+
+import rank.Rank;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 public class Money {
-    static HashMap<Rank, Integer> finalCount;
+    public static HashMap<Rank, Integer> finalCount;
     static {
         finalCount = new HashMap<>();
         finalCount.put(Rank.FIFTH, 0);
@@ -15,14 +18,14 @@ public class Money {
         finalCount.put(Rank.NONE, 0);
     }
     
-    public void money(ArrayList<Rank> ranks) {
+    public void money(List<Rank> ranks) {
         for(int i = 0; i < ranks.size(); i++) {
             int num = finalCount.get(ranks.get(i));
             finalCount.put(ranks.get(i), ++num);
         }
     }
 
-    public Integer totalMoney(ArrayList<Rank> ranks) {
+    public Integer totalMoney(List<Rank> ranks) {
         int sum = 0;
         for(int i = 0; i < ranks.size(); i++)
             sum += ranks.get(i).getWinningMoney();
