@@ -1,15 +1,14 @@
 package lotto.domain;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Matcher {
 
-    public static Map<Ticket, Integer> compareTickets(List<Number> winningNums, List<Ticket> tickets) {
-        Map<Ticket, Integer> matches = new HashMap<>();
+    public static List<Integer> compareTickets(List<Number> winningNums, List<Ticket> tickets) {
+        List<Integer> matches = new ArrayList<>();
         for (Ticket ticket : tickets) {
-            matches.put(ticket, ticket.findMatch(winningNums));
+            matches.add(ticket.countMatch(winningNums));
         }
         return matches;
     }

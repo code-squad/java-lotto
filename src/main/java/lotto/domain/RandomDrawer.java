@@ -1,18 +1,24 @@
 package lotto.domain;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class RandomDrawer {
-    private List<Integer> numberPool;
+    private final List<Number> numberPool;
 
-    RandomDrawer() {
+    private RandomDrawer() {
+        numberPool = new ArrayList<>();
         for (int i = 1; i <= 45; i++) {
-            this.numberPool.add(i);
+            this.numberPool.add(new Number(i));
         }
     }
 
-    public List<Integer> drawNumber() {
+    public static RandomDrawer newInstance() {
+        return new RandomDrawer();
+    }
+
+    public List<Number> drawNumber() {
         Collections.shuffle(numberPool);
         return numberPool.subList(0, 7);
     }
