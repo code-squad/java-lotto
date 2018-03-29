@@ -6,25 +6,26 @@ import java.util.List;
 
 public class Lotto {
     private List<Integer> lotto;
-    private Rank value = null;
 
     public Lotto(List<Integer> lotto) {
         this.lotto = lotto;
     }
 
-    public Lotto() {
-        this(LottoUtils.createLotto());
+    public static Lotto of(String lotto) {
+        return new Lotto(Parse.parse(lotto));
     }
 
-    public Rank coutOfMatchLotto(List<Integer> winningLotto) {     //당첨번호와 비교한다.
+    public static Lotto automaticLotto() {
+        return new Lotto(LottoUtils.createLotto());
+    }
+
+    public Rank coutOfMatchLotto(WeeklyLotto weeklyLotto) {     //당첨번호와 비교한다.
+        List<Integer> winningLotto = weeklyLotto.getWinningLotto();
         int collectNum = 0;
+
         for (Integer num : winningLotto) {
             collectNum = collectNumber(num, collectNum);
         }
-        return rankCheck(collectNum);
-    }
-
-    public Rank rankCheck(int collectNum) {
         return Rank.valueOf(collectNum);
     }
 
@@ -33,10 +34,6 @@ public class Lotto {
             return collectNum + 1;
         }
         return collectNum;
-    }
-
-    public Rank getValue() {
-        return value;
     }
 
     public List<Integer> getLotto() {

@@ -7,17 +7,15 @@ public class BuyingLotto {
 
     private List<Lotto> lottos;
 
-    public BuyingLotto(int buyingNum) {
-        this.lottos = buyLottoAutomatic(buyingNum);
+    public BuyingLotto(int money) {
+        LottoException.moneyCheckException(money);
+        this.lottos = buyLottoAutomatic(money / 1000);
     }
 
-    public List<Lotto> buyLottoAutomatic(int buyingNum) {
-        Lotto buyingOneLotto;
+    private List<Lotto> buyLottoAutomatic(int buyingNum) {
         List<Lotto> lottos = new ArrayList<>();
-
         for (int i = 0; i < buyingNum; i++) {
-            buyingOneLotto = new Lotto();
-            lottos.add(buyingOneLotto);
+            lottos.add(Lotto.automaticLotto());
         }
         return lottos;
     }

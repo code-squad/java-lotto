@@ -4,43 +4,41 @@ import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class WeeklyLotto {
 
     private List<Integer> winningLotto;
 
-    public WeeklyLotto(List<Integer> winningLotto) {
-        this.winningLotto = winningLotto;
+    public WeeklyLotto(String winningLotto) {
+        this.winningLotto = Parse.parse(winningLotto);   //파싱, 예외체크 후 생성
     }
 
-    public List<Integer> confirmRank(List<Lotto> lottos) {
-        List<Integer> rank = new ArrayList<>(Arrays.asList(0, 0, 0, 0));
-        for (Lotto one : lottos) {
-            Rank value = one.coutOfMatchLotto(winningLotto);
-            if (value != null) {
-                caseOfRank(value, rank);
-            }
+    public HashMap<Rank, Integer> initRank() {
+        HashMap<Rank, Integer> numberOfRank = new HashMap<>();
+        for (Rank r : Rank.values()) {
+            numberOfRank.put(r, 0);
         }
-        return rank;
+        return numberOfRank;
     }
 
-    public void caseOfRank(Rank value, List<Integer> rank) {
-        switch (value) {
-            case FIRST:
-                rank.set(0, rank.get(0) + 1);
-                break;
-            case THIRD:
-                rank.set(1, rank.get(1) + 1);
-                break;
-            case FOURTH:
-                rank.set(2, rank.get(2) + 1);
-                break;
-            case FIFTH:
-                rank.set(3, rank.get(3) + 1);
-                break;
-            default:
-                break;
+    public HashMap<Rank, Integer> checkRank(List<Lotto> lottos) {  //등수를 확인한다.
+        HashMap<Rank, Integer> numberOfRank = initRank();
+        for (Lotto oneLotto : lottos) {
+            Rank value = oneLotto.coutOfMatchLotto(this);
+            putRank(numberOfRank, value);
         }
+        return numberOfRank;
+    }
+
+    public void putRank(HashMap<Rank, Integer> numberOfRank, Rank value) {
+        if (value != null) {
+            numberOfRank.put(value, numberOfRank.get(value) + 1);
+        }
+    }
+
+    public List<Integer> getWinningLotto() {
+        return winningLotto;
     }
 }

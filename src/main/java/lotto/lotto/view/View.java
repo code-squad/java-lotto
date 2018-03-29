@@ -3,6 +3,7 @@ package lotto.lotto.view;
 import lotto.lotto.domain.Lotto;
 import lotto.lotto.domain.Rank;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class View {
@@ -25,7 +26,7 @@ public class View {
         System.out.println("]");
     }
 
-    public static void resultLottoView(List<Integer> rank) {
+    public static void resultLottoView(HashMap<Rank, Integer> result) {
         System.out.println();
         System.out.println("당첨통계");
         System.out.println("---------");
@@ -33,8 +34,7 @@ public class View {
         for (Rank rankNum : Rank.values()) {
             System.out.print(rankNum.getCountOfMatch() + "개 일치 ");
             System.out.print("(" + rankNum.getWinningMoney() + "원)");
-            System.out.println("-" + rank.get(i) + "개");
-            i++;
+            System.out.println("-" + result.get(rankNum) + "개");
         }
     }
 }
