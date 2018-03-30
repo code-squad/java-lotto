@@ -11,9 +11,10 @@ public class LottoProcess {
 		this.lottos = lottos;
 	}
 
-	public static LottoProcess of(int sheets) {
-		List<Integer> numberRange = makeNumbers();
-		List<Lotto> lottos = makeLottos(sheets, numberRange);
+	public static LottoProcess of(int sheets, List<Lotto> inputUserNum) {
+		List<Lotto> lottos = new ArrayList<>();
+		lottos.addAll(inputUserNum);
+		lottos.addAll(makeLottos(sheets, makeNumbers()));
 		return new LottoProcess(lottos);
 	}
 

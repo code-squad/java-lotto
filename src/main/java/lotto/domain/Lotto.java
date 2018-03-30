@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-abstract class Lotto {
+public abstract class Lotto {
 	public static final int LOTTO_SIZE = 6;
 	private List<Integer> numbers;
 
