@@ -1,8 +1,8 @@
 package lotto.view;
 
-import lotto.domain.Lotto;
 import lotto.domain.LottoProcess;
 import lotto.domain.Result;
+import lotto.domain.UserLotto;
 
 public class Print {
 
@@ -17,11 +17,12 @@ public class Print {
 		}
 	}
 
-	public static void printWinResult(int price, LottoProcess lottoProcess, Lotto beforeWinLotto) {
+	public static void printWinResult(int price, LottoProcess lottoProcess, UserLotto beforeWinLotto) {
+		int bonus = Input.InputBonusNum();
 		System.out.println("\n당첨 통계");
 		System.out.println("-----------");
 		Result result = Result.of();
-		result.calcResult(lottoProcess, beforeWinLotto);
+		result.calcResult(lottoProcess, beforeWinLotto, bonus);
 		result.printWinResult(price);
 	}
 
