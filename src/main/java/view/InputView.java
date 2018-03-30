@@ -9,12 +9,12 @@ import java.util.stream.Collectors;
 public class InputView {
     private static Scanner scanner = new Scanner(System.in);
 
-    public static int putMoney() {
+    public static int inputNumber() {
         try {
             return Integer.parseInt(scanner.nextLine());
         } catch (InputMismatchException e) {
             System.out.println("올바른 값을 입력해 주세요.");
-            return putMoney();
+            return inputNumber();
         }
     }
 

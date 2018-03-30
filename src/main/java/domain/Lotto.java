@@ -23,6 +23,10 @@ public class Lotto {
         return (int) numbers.stream().filter(winningLotto.numbers::contains).count();
     }
 
+    public boolean isBonus(Number bonusNumber) {
+        return numbers.contains(bonusNumber);
+    }
+
     @Override
     public String toString() {
         return numbers.stream().map(Object::toString).collect(Collectors.joining(","));
@@ -41,4 +45,5 @@ public class Lotto {
 
         return Objects.hash(numbers);
     }
+
 }

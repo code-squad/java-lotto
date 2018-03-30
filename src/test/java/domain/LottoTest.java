@@ -25,4 +25,11 @@ public class LottoTest {
         assertThat("1,2,3,4,5,6", is(lotto.toString()));
     }
 
+    @Test
+    public void 보너스유무확인_true(){
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        Lotto lotto = Lotto.of(numbers);
+        Number bonusNumber = Number.of(6);
+        assertThat(lotto.isBonus(bonusNumber), is(true));
+    }
 }
