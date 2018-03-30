@@ -45,8 +45,7 @@ public class Input {
 				UserLotto.check(userNum);
 				userLottos.add(UserLotto.of(userNum));
 			} catch (IllegalArgumentException | IndexOutOfBoundsException e) {
-				e.printStackTrace();
-				System.out.println("(1~45) 여섯개의 중복되지 않는 숫자만 입력해주세요,");
+				System.out.println(e.getMessage());
 				return inputUserNum(userSheets, userLottos);
 			}
 		}
