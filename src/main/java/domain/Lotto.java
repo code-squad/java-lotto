@@ -8,7 +8,7 @@ public class Lotto {
 
     private final List<Number> numbers;
 
-    private Lotto(List<Integer> numbers) {
+    Lotto(List<Integer> numbers) {
         if (numbers.size() != 6) {
             throw new RuntimeException("숫자는 6개 이어야 합니다.");
         }
@@ -23,8 +23,12 @@ public class Lotto {
         return (int) numbers.stream().filter(winningLotto.numbers::contains).count();
     }
 
-    public boolean isBonus(Number bonusNumber) {
-        return numbers.contains(bonusNumber);
+    public Rank getRank(WinningLotto winningLotto) {
+        return Rank.valueOf(getNumOfMatched(winningLotto), isBonus(winningLotto));
+    }
+
+    public boolean isBonus(WinningLotto winningLotto) {
+        return numbers.contains(winningLotto.getBonusNumber());
     }
 
     @Override
@@ -45,5 +49,4 @@ public class Lotto {
 
         return Objects.hash(numbers);
     }
-
 }

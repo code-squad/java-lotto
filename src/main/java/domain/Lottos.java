@@ -1,7 +1,9 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -18,7 +20,7 @@ public class Lottos {
     private static final List<Integer> prizes = Arrays.asList(FORTH_PRIZE, THIRD_PRIZE, SECOND_PRIZE, FIRST_PRIZE);
 
     private Lottos() {
-
+        this.lottos = new ArrayList<Lotto>();
     }
 
     private Lottos(List<Lotto> lottos) {
@@ -37,19 +39,21 @@ public class Lottos {
         this.lottos.add(Lotto.of(numbers));
     }
 
-    public int getMatchLottos(Lotto winningLotto, int wantMatchNum) {
+    public List<Rank> getLottoRanks(WinningLotto winningLotto) {
+        return lottos.stream().map(i -> i.getRank(winningLotto)).collect(Collectors.toList());
+    }
+
+    public int getMatchResults(Lotto winningLotto, int wantMatchNum) {
         return (int) lottos.stream().filter(factor -> factor.getNumOfMatched(winningLotto) == wantMatchNum).count();
     }
 
-    public List<Integer> getResult(Lotto winningLotto) {
-        return IntStream.range(3, 7).mapToObj(i -> getMatchLottos(winningLotto, i)).collect(Collectors.toList());
-    }
 
-    public int calcProfit(Lotto winningLotto) {
-        int totalPrize = IntStream.range(0, 4).map(i -> prizes.get(i) * getResult(winningLotto).get(i)).sum();
-        int bettingMoney = ticketCost * lottos.size();
-        return (totalPrize - bettingMoney) / bettingMoney * 100;
-    }
+
+//    public int calcProfit(Lotto winningLotto) {
+//        int totalPrize = IntStream.range(0, 4).map(i -> prizes.get(i) * getResult(winningLotto).get(i)).sum();
+//        int bettingMoney = ticketCost * lottos.size();
+//        return (totalPrize - bettingMoney) / bettingMoney * 100;
+//    }
 
     @Override
     public String toString() {
