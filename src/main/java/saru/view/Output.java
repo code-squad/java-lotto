@@ -1,7 +1,7 @@
 package saru.view;
 
 import saru.Result;
-import saru.domain.LottoNumberList;
+import saru.domain.LottoLine;
 
 import java.util.List;
 
@@ -41,10 +41,10 @@ public class Output {
         return threeHitMoney + fourHitMoney + fiveHitMoney + sixHitMoney;
     }
 
-    public static void printCreatedNum(List<LottoNumberList> lottoNumberLists) {
+    public static void printCreatedNum(List<LottoLine> lottoLines) {
         // 생성된 번호 출력
-        for (LottoNumberList lottoNumberList : lottoNumberLists) {
-            System.out.println(lottoNumberList);
+        for (LottoLine lottoLine : lottoLines) {
+            System.out.println(lottoLine);
         }
         System.out.println();
     }

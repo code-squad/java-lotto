@@ -30,7 +30,7 @@ public class Result {
         return sixHit;
     }
 
-    void increaseHit(int hitNum) {
+    public void increaseHit(int hitNum) {
         switch (hitNum) {
             case 3:
                 this.threeHit++;

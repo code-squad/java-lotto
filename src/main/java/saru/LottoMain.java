@@ -12,35 +12,10 @@ public class LottoMain {
 
     public static void main(String[] args) {
         int buyNum = Input.promptBuy();
+        List<LottoLine> lottoLines = LottoMaker.of().makeLottoNumber(buyNum);
 
-        List<LottoNumberList> lottoNumberLists = makeLottoNumber(buyNum);
-
-        Output.printCreatedNum(lottoNumberLists);
-
-        Result result = makeResult(lottoNumberLists);
-
-        Output output = new Output(result, buyNum);
+        Output.printCreatedNum(lottoLines);
+        Output output = new Output(LottoCalculator.of(lottoLines).makeResult(), buyNum);
         output.printStatus();
-    }
-
-    private static Result makeResult(List<LottoNumberList> lottoNumberLists) {
-        Result result = Result.of();
-        List<LottoNumber> hitNumberList = Input.makeManualLottoNumbers(Input.promptHitNumber());
-        LottoMatcher lottoMatcher = LottoMatcher.of(hitNumberList);
-
-        for (LottoNumberList lottoNumberList : lottoNumberLists) {
-            result.increaseHit(lottoMatcher.match(lottoNumberList.getNumbers()));
-        }
-        return result;
-    }
-
-    private static List<LottoNumberList> makeLottoNumber(int buyNum) {
-        LottoMaker lottoMaker = LottoMaker.of();
-        List<LottoNumberList> lottoNumberLists = new ArrayList<>();
-
-        for (int i = 0; i < buyNum; i++) {
-            lottoNumberLists.add(new LottoNumberList(lottoMaker.makeLottoList()));
-        }
-        return lottoNumberLists;
     }
 }

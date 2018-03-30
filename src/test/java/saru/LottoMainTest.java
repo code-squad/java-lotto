@@ -1,80 +1,100 @@
 package saru;
 
 import saru.domain.*;
-import saru.view.*;
 
 import java.util.*;
 
 import static junit.framework.TestCase.assertEquals;
+
 import org.junit.Test;
+import org.junit.Before;
 
 public class LottoMainTest {
+    private LottoMaker lottoMaker = LottoMaker.of();
+    private List<LottoLine> lottoLines = new ArrayList<>();
+
+    private String resultStr = "1, 2, 3, 4, 5, 6";
+    private LottoMatcher lottoMatcher = LottoMatcher.of(lottoMaker.makeManualLottoLine(resultStr));
+    private Result result;
+
+    @Before
+    public void init() {
+        result = Result.of();
+
+        String[] compareStr = {"3, 4, 5, 6, 9, 10", "3, 4, 5, 6, 9, 10",
+                "3, 4, 5, 6, 1, 2", "3, 4, 5, 7, 1, 2", "7, 4, 5, 6, 8, 9"};
+
+        List<LottoNum> lottoLine = lottoMaker.makeManualLottoLine(compareStr[0]);
+        List<LottoNum> lottoLine2 = lottoMaker.makeManualLottoLine(compareStr[1]);
+        List<LottoNum> lottoLine3 = lottoMaker.makeManualLottoLine(compareStr[2]);
+        List<LottoNum> lottoLine4 = lottoMaker.makeManualLottoLine(compareStr[3]);
+        List<LottoNum> lottoLine5 = lottoMaker.makeManualLottoLine(compareStr[4]);
+
+        lottoLines.add(LottoLine.of(lottoLine));
+        lottoLines.add(LottoLine.of(lottoLine2));
+        lottoLines.add(LottoLine.of(lottoLine3));
+        lottoLines.add(LottoLine.of(lottoLine4));
+        lottoLines.add(LottoLine.of(lottoLine5));
+
+        result.increaseHit(lottoMatcher.match(lottoLines.get(0)));
+        result.increaseHit(lottoMatcher.match(lottoLines.get(1)));
+        result.increaseHit(lottoMatcher.match(lottoLines.get(2)));
+        result.increaseHit(lottoMatcher.match(lottoLines.get(3)));
+        result.increaseHit(lottoMatcher.match(lottoLines.get(4)));
+    }
+
     @Test
     public void 로또번호() {
-        assertEquals(10, LottoNumber.of(10).getNumber());
+        assertEquals(10, LottoNum.of(10).getNumber());
     }
 
     @Test
     public void 번호자동생성() {
-        List<LottoNumber> lottoNumberList = LottoMaker.of().makeLottoList();
-        assertEquals(6, lottoNumberList.size());
+        List<LottoNum> lottoNumList = LottoMaker.of().makeLottoList();
+        assertEquals(6, lottoNumList.size());
     }
 
     @Test
     public void 로또자동생성여러개() {
-        // TODO 로또넘버리스트 생성
         LottoMaker lottoMaker = LottoMaker.of();
-        List<LottoNumberList> lottoNumberLists = new ArrayList<>();
+        List<LottoLine> lottoNumList = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            lottoNumberLists.add(new LottoNumberList(lottoMaker.makeLottoList()));
+            lottoNumList.add(LottoLine.of(lottoMaker.makeLottoList()));
         }
 
-        assertEquals(10, lottoNumberLists.size());
-        //System.out.println(lottoNumberLists);
+        assertEquals(10, lottoNumList.size());
     }
 
     @Test
     public void 당첨번호갯수() {
-        String resultStr = "1, 2, 3, 4, 5, 6";
-
         String compareStr = "1, 2, 3, 8, 9, 10";
-        List<LottoNumber> inputNumberList = Input.makeManualLottoNumbers(compareStr);
+        LottoMaker lottoMaker = LottoMaker.of();
+        List<LottoNum> lottoLine = lottoMaker.makeManualLottoLine(compareStr);
 
-        LottoMatcher lottoMatcher = LottoMatcher.of(Input.makeManualLottoNumbers(resultStr));
-        int matchNum = lottoMatcher.match(inputNumberList);
+        LottoMatcher lottoMatcher = LottoMatcher.of(lottoMaker.makeManualLottoLine(resultStr));
+        int matchNum = lottoMatcher.match(LottoLine.of(lottoLine));
 
         assertEquals(3, matchNum);
     }
 
     @Test
-    public void 당첨결과확인() {
-        String resultStr = "1, 2, 3, 4, 5, 6";
+    public void 결과셋일치() {
+        assertEquals(1, result.getThreeHit());
+    }
 
-        String compareStr = "3, 4, 5, 6, 9, 10";
-        List<LottoNumber> inputNumberList = Input.makeManualLottoNumbers(compareStr);
-
-        String compareStr2 = "3, 4, 5, 6, 9, 10";
-        List<LottoNumber> inputNumberList2 = Input.makeManualLottoNumbers(compareStr2);
-
-        String compareStr3 = "3, 4, 5, 6, 1, 2";
-        List<LottoNumber> inputNumberList3 = Input.makeManualLottoNumbers(compareStr3);
-
-        List<LottoNumberList> lottoNumberLists = new ArrayList<>();
-
-        lottoNumberLists.add(new LottoNumberList(inputNumberList));
-        lottoNumberLists.add(new LottoNumberList(inputNumberList2));
-        lottoNumberLists.add(new LottoNumberList(inputNumberList3));
-
-        LottoMatcher lottoMatcher = LottoMatcher.of(Input.makeManualLottoNumbers(resultStr));
-        Result result = Result.of();
-
-        result.increaseHit(lottoMatcher.match(inputNumberList));
-        result.increaseHit(lottoMatcher.match(inputNumberList2));
-        result.increaseHit(lottoMatcher.match(inputNumberList3));
-
+    @Test
+    public void 결과넷일치() {
         assertEquals(2, result.getFourHit());
+    }
+
+    @Test
+    public void 결과다섯일치() {
+        assertEquals(1, result.getFiveHit());
+    }
+
+    @Test
+    public void 결과여섯일치() {
         assertEquals(1, result.getSixHit());
-        //System.out.println(result);
     }
 }

@@ -2,20 +2,20 @@ package saru.domain;
 
 import java.util.Objects;
 
-public class LottoNumber {
+public class LottoNum {
     private static final int MAX_LOTTO_NUM = 45;
     private int number;
 
-    private LottoNumber(int number) {
+    private LottoNum(int number) {
         this.number = number;
     }
 
-    public static LottoNumber of(int number) {
+    public static LottoNum of(int number) {
         if (number < 0 || number > MAX_LOTTO_NUM) {
             throw new IllegalArgumentException();
         }
 
-        return new LottoNumber(number);
+        return new LottoNum(number);
     }
 
     public int getNumber() {
@@ -31,7 +31,7 @@ public class LottoNumber {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        LottoNumber that = (LottoNumber) o;
+        LottoNum that = (LottoNum) o;
         return number == that.number;
     }
 

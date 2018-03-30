@@ -3,8 +3,12 @@ package saru.domain;
 import java.util.*;
 
 public class LottoMaker {
+    private static final String COMMA = ",";
+    private static final String SPACE = " ";
+    private static final String BLANK = "";
     private static final int MAX_LOTTO_NUM = 45;
-    private List<LottoNumber> baseNumberList = new ArrayList<>();
+
+    private List<LottoNum> baseNumberList = new ArrayList<>();
 
     private LottoMaker() {
         initBaseNumberList();
@@ -14,18 +18,39 @@ public class LottoMaker {
         return new LottoMaker();
     }
 
-    public List<LottoNumber> makeLottoList() {
+    public List<LottoNum> makeLottoList() {
         Collections.shuffle(baseNumberList);
-        List<LottoNumber> subList = baseNumberList.subList(0, 6);
+        List<LottoNum> subList = baseNumberList.subList(0, 6);
         Collections.sort(subList,
-                Comparator.comparingInt(LottoNumber::getNumber));
+                Comparator.comparingInt(LottoNum::getNumber));
 
         return new ArrayList<>(subList);
     }
 
+    public List<LottoLine> makeLottoNumber(int buyNum) {
+        List<LottoLine> lottoNumberLists = new ArrayList<>();
+
+        for (int i = 0; i < buyNum; i++) {
+            lottoNumberLists.add(LottoLine.of(makeLottoList()));
+        }
+        return lottoNumberLists;
+    }
+
+    public List<LottoNum> makeManualLottoLine(String numStr) {
+        String[] winNumArr = numStr.replaceAll(SPACE, BLANK).split(COMMA);
+
+        List<LottoNum> lottoLine = new ArrayList<>();
+        for (String str : winNumArr) {
+            int toInputNum = Integer.parseInt(str);
+            lottoLine.add(LottoNum.of(toInputNum));
+        }
+
+        return lottoLine;
+    }
+
     private void initBaseNumberList() {
         for (int i = 1; i <= MAX_LOTTO_NUM; i++) {
-            baseNumberList.add(LottoNumber.of(i));
+            baseNumberList.add(LottoNum.of(i));
         }
     }
 }
