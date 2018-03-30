@@ -37,21 +37,22 @@ public class Lottos {
         this.lottos.add(Lotto.of(numbers));
     }
 
-    public int getMatchLottos(List<Integer> answer, int matchNum) {
-        return (int) lottos.stream().filter(factor -> factor.getNumOfMatches(answer) == matchNum).count();
+    public int getMatchLottos(List<Integer> winningNumbers, int wantMatchNum) {
+        return (int) lottos.stream().filter(factor -> factor.getNumOfMatched(winningNumbers) == wantMatchNum).count();
     }
 
-    public List<Integer> getResult(List<Integer> answer) {
-        return IntStream.range(3, 7).mapToObj(i -> getMatchLottos(answer, i)).collect(Collectors.toList());
+    public List<Integer> getResult(List<Integer> winningNumbers) {
+        return IntStream.range(3, 7).mapToObj(i -> getMatchLottos(winningNumbers, i)).collect(Collectors.toList());
     }
 
-    public String toString() {
-        return lottos.stream().map(Object::toString).collect(Collectors.joining("\n"));
-    }
-
-    public int calcProfit(List<Integer> answer) {
-        int totalPrize = IntStream.range(0, 4).map(i -> prizes.get(i) * getResult(answer).get(i)).sum();
+    public int calcProfit(List<Integer> winningNumbers) {
+        int totalPrize = IntStream.range(0, 4).map(i -> prizes.get(i) * getResult(winningNumbers).get(i)).sum();
         int bettingMoney = ticketCost * lottos.size();
         return (totalPrize - bettingMoney) / bettingMoney * 100;
+    }
+
+    @Override
+    public String toString() {
+        return lottos.stream().map(Object::toString).collect(Collectors.joining("\n"));
     }
 }
