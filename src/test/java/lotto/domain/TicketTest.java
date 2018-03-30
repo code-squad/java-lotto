@@ -21,7 +21,7 @@ public class TicketTest {
 
     @Test
     public void findMatch() {
-        int matchCount = ticket.countMatch(winningNums);
+        int matchCount = ticket.countMatchPerTicket(winningNums);
         assertEquals(5, matchCount);
     }
 }

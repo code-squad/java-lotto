@@ -18,14 +18,14 @@ public class Main {
     }
 
     private static int promptUserForPurchase() {
-        int numberOfTickets;
+        int ticketsBought;
         try {
             Output.printMessage("구입 금액을 입력해주세요.");
-            numberOfTickets = Parser.getNumberOfTickets(Parser.parseToInt(Input.takeInput()));
+            ticketsBought = Parser.getNumberOfTickets(Parser.parseToInt(Input.takeInput()));
         } catch (IllegalArgumentException e) {
             return promptUserForPurchase();
         }
-        return numberOfTickets;
+        return ticketsBought;
     }
 
     private static List<Number> promptUserForWinningNumbers() {

@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lotto {
-    private static final int FOURTH = 3;
-    private static final int THIRD = 4;
-    private static final int SECOND = 5;
-    private static final int FIRST = 6;
+    static final int LOTTO_PRICE = 1000;
     private List<Ticket> tickets;
 
-    public Lotto(int numberOfTickets) {
-        this.tickets = generateTicket(numberOfTickets);
+    public Lotto(int ticketsBought) {
+        this.tickets = generateTicket(ticketsBought);
     }
 
     private List<Ticket> generateTicket(int numberOfTickets) {
@@ -30,12 +27,7 @@ public class Lotto {
         return receipt;
     }
 
-    public String[] determineResult(List<Number> winningNumbers) {
-        List<Integer> matchesCounts = Matcher.compareTickets(winningNumbers, tickets);
-        String fourth = String.valueOf(matchesCounts.stream().filter(count -> count.equals(FOURTH)).count());
-        String third = String.valueOf(matchesCounts.stream().filter(count -> count.equals(THIRD)).count());
-        String second = String.valueOf(matchesCounts.stream().filter(count -> count.equals(SECOND)).count());
-        String first = String.valueOf(matchesCounts.stream().filter(count -> count.equals(FIRST)).count());
-        return new String[]{fourth, third, second, first};
+    public Result determineResult(List<Number> winningNumbers) {
+        return new Result(winningNumbers, tickets);
     }
 }

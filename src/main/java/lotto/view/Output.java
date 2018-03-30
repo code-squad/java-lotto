@@ -2,6 +2,7 @@ package lotto.view;
 
 import lotto.domain.Lotto;
 import lotto.domain.Number;
+import lotto.domain.Result;
 
 import java.util.List;
 
@@ -18,13 +19,19 @@ public class Output {
     }
 
     public static void showResult(Lotto lotto, List<Number> winningNumbers) {
+        Result result = lotto.determineResult(winningNumbers);
+        int first = result.countFirstPlace();
+        int second = result.countSecondPlace();
+        int third = result.countThirdPlace();
+        int fourth = result.countFourthPlace();
+        double profit = result.calculateProfit(first, second, third, fourth);
+
         System.out.println("당첨통계");
         System.out.println("----------");
-        String[] result = lotto.determineResult(winningNumbers);
-        System.out.println("3개 일치 (5000원)- " + result[0] + "개");
-        System.out.println("4개 일치 (50000원)- " + result[1] + "개");
-        System.out.println("5개 일치 (15000000원)- " + result[2] + "개");
-        System.out.println("6개 일치 (20000000000원)- " + result[3] + "개");
-
+        System.out.println("3개 일치 (5000원)- " + fourth + "개");
+        System.out.println("4개 일치 (50000원)- " + third + "개");
+        System.out.println("5개 일치 (15000000원)- " + second + "개");
+        System.out.println("6개 일치 (20000000000원)- " + first + "개");
+        System.out.printf("총 수익률은 %.1f 입니다.", profit);
     }
 }
