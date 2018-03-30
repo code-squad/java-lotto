@@ -12,4 +12,23 @@ public class LottoUtilTest {
         assertThat(6, is(LottoUtil.getRandNumbers().size()));
     }
 
+    @Test
+    public void 입력돈유효성체크반환() {
+        assertThat(3000, is(LottoUtil.checkReturnInputMoney(3000)));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void 입력돈유효성체크반환_exception() {
+        LottoUtil.checkReturnInputMoney(-1);
+    }
+
+    @Test
+    public void 입력돈유효성체크_true() {
+        assertThat(true, is(LottoUtil.validInputMoney(3000)));
+    }
+
+    @Test
+    public void 입력돈유효성체크_false() {
+        assertThat(false, is(LottoUtil.validInputMoney(-1)));
+    }
 }

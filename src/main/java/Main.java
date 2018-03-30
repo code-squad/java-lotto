@@ -1,4 +1,5 @@
 import domain.Lotto;
+import domain.LottoUtil;
 import domain.Lottos;
 import view.InputView;
 import view.ResultView;
@@ -10,7 +11,7 @@ public class Main {
     private static Lottos inputLottos(){
         try {
             System.out.println("구입 금액을 입력해 주세요.");
-            int numLotto = InputView.buyLotto();
+            int numLotto = LottoUtil.checkReturnInputMoney(InputView.buyLotto());
             System.out.println(String.format("%d개를 구매했습니다.", numLotto));
             return Lottos.initLottosAuto(numLotto);
         } catch (RuntimeException e){

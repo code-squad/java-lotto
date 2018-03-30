@@ -15,4 +15,15 @@ public class LottoUtil {
         Collections.shuffle(numbers);
         return numbers.subList(0, 6);
     }
+
+    public static int checkReturnInputMoney(int money) {
+        if (!validInputMoney(money)){
+            throw new RuntimeException();
+        }
+        return money;
+    }
+
+    static boolean validInputMoney(int money) {
+        return money > 0;
+    }
 }
