@@ -14,8 +14,8 @@ public class LottoTest {
     public void 맞춘숫자갯수반환() {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         Lotto lotto = Lotto.of(numbers);
-        List<Integer> answer =  Arrays.asList(1, 2, 3, 7, 8, 9);
-        assertThat(3, is(lotto.getNumOfMatched(answer)));
+        Lotto winningLotto = Lotto.of(Arrays.asList(1, 2, 3, 7, 8, 9));
+        assertThat(3, is(lotto.getNumOfMatched(winningLotto)));
     }
 
     @Test
