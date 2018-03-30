@@ -48,13 +48,9 @@ public class Lottos {
     public int calcProfit(WinningLotto winningLotto) {
         int totalPrize = 0;
         List<Integer> prizeResults = getResult(winningLotto);
-        System.out.println(prizeResults);
         for (int i = 0; i < prizeResults.size(); i++){
-            System.out.println(prizeResults.get(i));
-            System.out.println(Rank.values()[i].getWinningMoney());
             totalPrize += prizeResults.get(i)*Rank.values()[i].getWinningMoney();
         }
-        System.out.println("총 금액 " + totalPrize);
         int bettingMoney = ticketCost * lottos.size();
         return (int)(((double)totalPrize - (double)bettingMoney) / (double)bettingMoney * 100);
     }

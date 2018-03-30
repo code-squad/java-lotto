@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -26,21 +25,21 @@ public class LottoTest {
         assertThat("1,2,3,4,5,6", is(lotto.toString()));
     }
 
-//    @Test
-//    public void 보너스유무확인_true(){
-//        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-//        Lotto lotto = Lotto.of(numbers);
-//        Number bonusNumber = Number.of(6);
-//        assertThat(lotto.isBonus(bonusNumber), is(true));
-//    }
-//
-//    @Test
-//    public void 보너스유무확인_false(){
-//        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-//        Lotto lotto = Lotto.of(numbers);
-//        Number bonusNumber = Number.of(10);
-//        assertThat(lotto.isBonus(bonusNumber), is(false));
-//    }
+    @Test
+    public void 보너스유무확인_true(){
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 10);
+        Lotto lotto = Lotto.of(numbers);
+        WinningLotto winningLotto = WinningLotto.of(Arrays.asList(1, 2, 3, 4, 5, 6), Number.of(10));
+        assertThat(lotto.isBonus(winningLotto), is(true));
+    }
+
+    @Test
+    public void 보너스유무확인_false(){
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        Lotto lotto = Lotto.of(numbers);
+        WinningLotto winningLotto = WinningLotto.of(Arrays.asList(1, 2, 3, 4, 5, 6), Number.of(10));
+        assertThat(lotto.isBonus(winningLotto), is(false));
+    }
 
     @Test
     public void 등수확인_FIRST(){
