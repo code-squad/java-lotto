@@ -14,12 +14,12 @@ public class LottoUtilTest {
 
     @Test
     public void 입력돈유효성체크반환() {
-        assertThat(3000, is(LottoUtil.checkReturnInputMoney(3000)));
+        assertThat(3000, is(LottoUtil.checkReturnNumLotto(3000)));
     }
 
     @Test(expected = RuntimeException.class)
     public void 입력돈유효성체크반환_exception() {
-        LottoUtil.checkReturnInputMoney(-1);
+        LottoUtil.checkReturnNumLotto(-1);
     }
 
     @Test

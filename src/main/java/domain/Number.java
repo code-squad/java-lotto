@@ -1,5 +1,7 @@
 package domain;
 
+import sun.awt.SunHints;
+
 import java.util.Objects;
 
 public class Number {
@@ -29,5 +31,10 @@ public class Number {
     public int hashCode() {
 
         return Objects.hash(num);
+    }
+
+    @Override
+    public String toString(){
+        return Integer.toString(num);
     }
 }

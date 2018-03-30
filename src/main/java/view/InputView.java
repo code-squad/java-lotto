@@ -7,23 +7,25 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class InputView {
+    private static Scanner scanner = new Scanner(System.in);
 
-    private static final int LOTTO_COST = 1000;
-
-    public static int buyLotto(){
-        Scanner scanner = new Scanner(System.in);
+    public static int putMoney(){
         try {
-            return (Integer.parseInt(scanner.nextLine())) / LOTTO_COST;
+            return Integer.parseInt(scanner.nextLine());
         } catch (InputMismatchException e){
-            System.out.println("올바른 타입을 입력해 주세요.");
-            return buyLotto();
+            System.out.println("올바른 값을 입력해 주세요.");
+            return putMoney();
         }
     }
 
     public static List<Integer> putAnswer() {
-        Scanner scanner = new Scanner(System.in);
-        String[] temp = scanner.nextLine().split(",");
-        return Arrays.stream(temp).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+        try {
+            String[] temp = scanner.nextLine().split(",");
+            return Arrays.stream(temp).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+        } catch (InputMismatchException e){
+            System.out.println("올바른 값을 입력해 주세요.");
+            return putAnswer();
+        }
     }
 
 }

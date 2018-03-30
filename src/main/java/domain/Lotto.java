@@ -9,6 +9,9 @@ public class Lotto {
     private final List<Number> numbers;
 
     private Lotto(List<Integer> numbers) {
+        if (numbers.size() != 6){
+            throw new RuntimeException("숫자는 6개 이어야 합니다.");
+        }
         this.numbers = numbers.stream().map(Number::of).collect(Collectors.toList());
     }
 
