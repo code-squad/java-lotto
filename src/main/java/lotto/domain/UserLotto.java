@@ -14,7 +14,6 @@ public class UserLotto extends Lotto {
 		for (int i = 0; i < initnumbers.size(); i++) {
 			numbers.add(Integer.parseInt(initnumbers.get(i).trim()));
 		}
-		check(numbers);
 		return new UserLotto(numbers);
 	}
 
