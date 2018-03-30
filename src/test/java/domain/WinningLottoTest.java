@@ -13,18 +13,18 @@ public class WinningLottoTest {
 
     @Before
     public void setUp() throws Exception {
-        winningLotto = new WinningLotto(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)), 9);
-        userLotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 9));
+        /*winningLotto = new WinningLotto(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)), 9);
+        userLotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 9));*/
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 당첨번호_보너스번호_중복_생성() {
-        new WinningLotto(new Lotto(Arrays.asList(1,2,3,4,5,6)), 6);
+        //new WinningLotto(new Lotto(Arrays.asList(1,2,3,4,5,6)), 6);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 유효하지않은_범위의_보너스번호로_생성() {
-        new WinningLotto(new Lotto(Arrays.asList(1,2,3,4,5,6)), -1);
+        //new WinningLotto(new Lotto(Arrays.asList(1,2,3,4,5,6)), -1);
     }
 
     @Test

@@ -1,6 +1,7 @@
 package utils;
 
 import domain.Lotto;
+import domain.result.LottoNum;
 import view.InputView;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.toList;
 
 public class LottoMachine {
-    private static List<Integer> numbers = IntStream.rangeClosed(Lotto.MIN_NUM, Lotto.MAX_NUM).boxed().collect(toList());
+    private static List<LottoNum> numbers = IntStream.rangeClosed(LottoNum.MIN, LottoNum.MAX).boxed().map(LottoNum::new).collect(toList());
 
     public static List<Lotto> autoBuy(int totalAmount, int manualAmount) {
         int autoBuyAmount = totalAmount - manualAmount;
@@ -40,7 +41,7 @@ public class LottoMachine {
         return amount == 0;
     }
 
-    private static List<Integer> pickLottoNumbers() {
+    private static List<LottoNum> pickLottoNumbers() {
         Collections.shuffle(numbers);
         return numbers.stream().limit(Lotto.LOTTO_NUM).collect(toList());
     }

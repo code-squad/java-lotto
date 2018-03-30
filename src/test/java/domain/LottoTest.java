@@ -11,7 +11,7 @@ public class LottoTest {
     private Lotto lotto1;
     private Lotto lotto2;
 
-    @Before
+    /*@Before
     public void setUp() throws Exception {
         lotto1 = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
         lotto2 = new Lotto(Arrays.asList(3, 7, 2, 8, 4, 1));
@@ -50,5 +50,5 @@ public class LottoTest {
     @Test
     public void 번호_순서대로_나열하기() {
         assertEquals("[1, 2, 3, 4, 5, 6]", lotto1.toString());
-    }
+    }*/
 }
