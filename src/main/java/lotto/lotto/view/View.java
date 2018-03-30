@@ -30,11 +30,21 @@ public class View {
         System.out.println();
         System.out.println("당첨통계");
         System.out.println("---------");
-        int i = 0;
         for (Rank rankNum : Rank.values()) {
             System.out.print(rankNum.getCountOfMatch() + "개 일치 ");
+            if (rankNum == Rank.SECOND) {
+                System.out.print(", 보너스 볼  일치");
+            }
             System.out.print("(" + rankNum.getWinningMoney() + "원)");
             System.out.println("-" + result.get(rankNum) + "개");
         }
+    }
+
+    public static void incomeMoney(HashMap<Rank, Integer> result, int money) {
+        int incomeMoney = 0;
+        for (Rank rankNum : Rank.values()) {
+            incomeMoney += (rankNum.getWinningMoney() * result.get(rankNum));
+        }
+        System.out.println("총 수익률은 " + 100*(incomeMoney - money) / money + "%입니다.");
     }
 }

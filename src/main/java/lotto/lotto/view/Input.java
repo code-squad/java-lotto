@@ -20,4 +20,11 @@ public class Input {
         return scan2.nextLine();
     }
 
+    public static int inputBonus() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("보너스 볼을 입력해 주세요");
+        int bonus = scan.nextInt();
+        return bonus;
+    }
+
 }

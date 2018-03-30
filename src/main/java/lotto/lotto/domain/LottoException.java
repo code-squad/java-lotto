@@ -1,5 +1,6 @@
 package lotto.lotto.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -33,5 +34,15 @@ public class LottoException {
         if (money % LOTTO != ZERO) {
             throw new IllegalArgumentException("1000원 단위로 입력해 주세요");
         }
+    }
+
+    public static void checkBonusBallException(List<Integer> winningLotto, int bonusBall) {
+        overException(bonusBall);
+        List<Integer> plusBonus = new ArrayList<>(winningLotto);
+        plusBonus.add(bonusBall);
+
+        HashSet<Integer> set = new HashSet<>(plusBonus);
+        if (plusBonus.size() != set.size())
+            throw new IllegalArgumentException("같은 번호가 입력 되었습니다");
     }
 }

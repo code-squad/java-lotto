@@ -19,10 +19,12 @@ public class LottoGame {
 
         View.lottoAutomaticView(lottos);
         String winningLotto = Input.inputWinningNumber();
+        int bonusBall = Input.inputBonus();
 
-        WeeklyLotto week = new WeeklyLotto(winningLotto);
+        WeeklyLotto week = WeeklyLotto.of(winningLotto, bonusBall);
         HashMap<Rank, Integer> result = week.checkRank(lottos);
 
         View.resultLottoView(result);
+        View.incomeMoney(result, money);
     }
 }

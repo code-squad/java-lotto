@@ -19,14 +19,21 @@ public class Lotto {
         return new Lotto(LottoUtils.createLotto());
     }
 
-    public Rank coutOfMatchLotto(WeeklyLotto weeklyLotto) {     //당첨번호와 비교한다.
+    public Rank valueOfRank(WeeklyLotto weeklyLotto) {     //당첨번호와 비교한다.
         List<Integer> winningLotto = weeklyLotto.getWinningLotto();
-        int collectNum = 0;
+        int bonusBall = weeklyLotto.getBonusBall();
+        int collectNum = coutOfMatchLotto(winningLotto);
+        boolean matchBonus = collectBonusBall(bonusBall);
 
+        return Rank.valueOf(collectNum, matchBonus);
+    }
+
+    public int coutOfMatchLotto(List<Integer> winningLotto) {
+        int collectNum = 0;
         for (Integer num : winningLotto) {
             collectNum = collectNumber(num, collectNum);
         }
-        return Rank.valueOf(collectNum);
+        return collectNum;
     }
 
     public int collectNumber(int num, int collectNum) {   //당첨번호가 포함되있으면 +1
@@ -34,6 +41,13 @@ public class Lotto {
             return collectNum + 1;
         }
         return collectNum;
+    }
+
+    public boolean collectBonusBall(int bonusBall) {
+        if (lotto.contains(bonusBall)) {
+            return true;
+        }
+        return false;
     }
 
     public List<Integer> getLotto() {
