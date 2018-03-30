@@ -20,6 +20,6 @@ public class RandomDrawer {
 
     public List<Number> drawNumber() {
         Collections.shuffle(numberPool);
-        return numberPool.subList(0, 7);
+        return numberPool.subList(0, 6);
     }
 }

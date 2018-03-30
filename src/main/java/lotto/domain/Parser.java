@@ -28,8 +28,13 @@ public class Parser {
         return money / LOTTO_PRICE;
     }
 
-    public static String[] splitString(String text) {
-        return text.split(",\\s*");
+    public static String[] splitString(String text) throws IllegalArgumentException {
+        String[] split = text.split(",\\s*");
+        if (split.length == 6) {
+            return split;
+        }
+        Output.printMessage("당첨 번호 수(6개)가 맞지 않습니다.");
+        throw new IllegalArgumentException();
     }
 
     public static List<Number> parseToNumberArray(String[] splitText) {
