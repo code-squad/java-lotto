@@ -6,6 +6,7 @@ import java.util.List;
 public class Lotto {
     static final int LOTTO_PRICE = 1000;
     private List<Ticket> tickets;
+    private List<Number> winningTicket;
 
     public Lotto(int ticketsBought) {
         this.tickets = generateTicket(ticketsBought);

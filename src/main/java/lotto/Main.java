@@ -12,9 +12,10 @@ public class Main {
 
     public static void main(String[] args) {
         Lotto lotto = new Lotto(promptUserForPurchase());
+
         showReceipt(lotto);
 
-        displayResult(lotto);
+        displayResult(lotto, promptUserForWinningNumbers());
     }
 
     private static int promptUserForPurchase() {
@@ -43,8 +44,7 @@ public class Main {
         Output.showPurchase(lotto);
     }
 
-    private static void displayResult(Lotto lotto) {
-        List<Number> winningNumbers = promptUserForWinningNumbers();
+    private static void displayResult(Lotto lotto, List<Number> winningNumbers) {
         Output.showResult(lotto, winningNumbers);
     }
 }

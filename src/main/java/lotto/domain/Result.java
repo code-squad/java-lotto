@@ -14,18 +14,20 @@ public class Result {
     private static final long SECOND_PRIZE = 1500000;
     private static final long THIRD_PRIZE = 50000;
     private static final long FOURTH_PRIZE = 5000;
-    private List<Integer> matchCounts;
     private final int ticketsBought;
+    private final Ticket winningTicket;
+    private List<Integer> matchCounts;
 
     Result(List<Number> winningNums, List<Ticket> tickets) {
         this.ticketsBought = tickets.size();
-        this.matchCounts = compareTickets(winningNums, tickets);
+        this.winningTicket = new Ticket(winningNums);
+        this.matchCounts = compareTickets(tickets);
     }
 
-    private List<Integer> compareTickets(List<Number> winningNums, List<Ticket> tickets) {
+    private List<Integer> compareTickets(List<Ticket> tickets) {
         matchCounts = new ArrayList<>();
         for (Ticket ticket : tickets) {
-            matchCounts.add(ticket.countMatchPerTicket(winningNums));
+            matchCounts.add(ticket.countMatchInTicket(winningTicket));
         }
         return matchCounts;
     }
