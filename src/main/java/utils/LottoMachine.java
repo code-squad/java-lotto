@@ -1,7 +1,7 @@
 package utils;
 
 import domain.Lotto;
-import domain.result.LottoNum;
+import domain.LottoNum;
 import view.InputView;
 
 import java.util.ArrayList;
@@ -45,7 +45,6 @@ public class LottoMachine {
         Collections.shuffle(numbers);
         return numbers.stream().limit(Lotto.LOTTO_NUM).collect(toList());
     }
-
 
     public static Lotto manualBuy() throws IllegalArgumentException {
         return new Lotto(InputView.getLottoNumbers());

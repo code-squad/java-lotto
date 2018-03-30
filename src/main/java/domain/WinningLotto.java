@@ -1,7 +1,5 @@
 package domain;
 
-import domain.result.LottoNum;
-
 public class WinningLotto {
     private Lotto lotto;
     private LottoNum bonusNum;

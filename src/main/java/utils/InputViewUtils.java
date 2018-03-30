@@ -1,6 +1,6 @@
 package utils;
 
-import domain.result.LottoNum;
+import domain.LottoNum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +25,14 @@ public class InputViewUtils {
     }
 
 
+    public static String[] parseLottoNumbers(String lottoNumbers) {
+        String spaceRemovedNumbers = removeSpace(lottoNumbers);
+        return spaceRemovedNumbers.split(",");
+    }
 
-
-
+    private static String removeSpace(String lottoNumbers) {
+        return lottoNumbers.replaceAll(" ", "");
+    }
 
     public static int convertNumber(String numberMessage) throws IllegalArgumentException {
         try {
@@ -41,29 +46,11 @@ public class InputViewUtils {
         return new LottoNum(convertNumber(numberMessage));
     }
 
-    // TODO : 여기 손봐야해
     public static List<LottoNum> convertLottoNum(String[] numberMessage) throws IllegalArgumentException {
         List<LottoNum> numbers = new ArrayList<>();
         for (String number : numberMessage) {
-            LottoNum convertedNum = convertLottoNum(number);
-            if (numbers.contains(convertedNum)) {
-                throw new IllegalArgumentException("중복 지정된 숫자가 있습니다.");
-            }
             numbers.add(convertLottoNum(number));
         }
         return numbers;
-    }
-
-
-
-
-
-    public static String[] parseLottoNumbers(String lottoNumbers) {
-        String spaceRemovedNumbers = removeSpace(lottoNumbers);
-        return spaceRemovedNumbers.split(",");
-    }
-
-    private static String removeSpace(String lottoNumbers) {
-        return lottoNumbers.replaceAll(" ", "");
     }
 }

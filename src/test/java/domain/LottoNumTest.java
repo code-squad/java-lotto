@@ -1,6 +1,5 @@
 package domain;
 
-import domain.result.LottoNum;
 import org.junit.Test;
 
 import java.util.Arrays;

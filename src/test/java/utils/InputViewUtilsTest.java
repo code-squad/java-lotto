@@ -1,6 +1,6 @@
 package utils;
 
-import domain.result.LottoNum;
+import domain.LottoNum;
 import org.junit.Test;
 
 import java.util.List;

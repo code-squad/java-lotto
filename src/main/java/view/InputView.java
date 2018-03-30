@@ -2,7 +2,7 @@ package view;
 
 import domain.Lotto;
 import domain.WinningLotto;
-import domain.result.LottoNum;
+import domain.LottoNum;
 import utils.LottoMachine;
 import utils.MoneyUtils;
 
@@ -36,9 +36,6 @@ public class InputView {
         }
     }
 
-
-
-    // TODO : 여기부터 아래 손보기
     public static WinningLotto getWinningLotto() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         try {
