@@ -25,7 +25,7 @@ public class Lottos {
         this.lottos = lottos;
     }
 
-    public static Lottos of(){
+    public static Lottos of() {
         return new Lottos();
     }
 
@@ -33,7 +33,7 @@ public class Lottos {
         return new Lottos(IntStream.range(0, n).mapToObj(i -> Lotto.of(LottoUtil.getRandNumbers())).collect(Collectors.toList()));
     }
 
-    public void addLottosManual(List<Integer> numbers){
+    public void addLottosManual(List<Integer> numbers) {
         this.lottos.add(Lotto.of(numbers));
     }
 

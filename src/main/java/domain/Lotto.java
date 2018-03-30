@@ -9,7 +9,7 @@ public class Lotto {
     private final List<Number> numbers;
 
     private Lotto(List<Integer> numbers) {
-        if (numbers.size() != 6){
+        if (numbers.size() != 6) {
             throw new RuntimeException("숫자는 6개 이어야 합니다.");
         }
         this.numbers = numbers.stream().map(Number::of).collect(Collectors.toList());
@@ -20,11 +20,11 @@ public class Lotto {
     }
 
     public int getNumOfMatched(Lotto winningLotto) {
-        return (int)numbers.stream().filter(winningLotto.numbers::contains).count();
+        return (int) numbers.stream().filter(winningLotto.numbers::contains).count();
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return numbers.stream().map(Object::toString).collect(Collectors.joining(","));
     }
 

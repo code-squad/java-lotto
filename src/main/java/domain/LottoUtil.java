@@ -18,7 +18,7 @@ public class LottoUtil {
     }
 
     public static int checkReturnNumLotto(int money) {
-        if (!validInputMoney(money)){
+        if (!validInputMoney(money)) {
             throw new RuntimeException();
         }
         return money / LOTTO_COST;

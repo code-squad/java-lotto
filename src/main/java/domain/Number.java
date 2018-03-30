@@ -1,7 +1,5 @@
 package domain;
 
-import sun.awt.SunHints;
-
 import java.util.Objects;
 
 public class Number {
@@ -9,13 +7,13 @@ public class Number {
     private final int num;
 
     private Number(int num) {
-        if (num > 45 || num <= 0){
+        if (num > 45 || num <= 0) {
             throw new RuntimeException("입력값은 1-45사이 입니다.");
         }
         this.num = num;
     }
 
-    public static Number of(int num){
+    public static Number of(int num) {
         return new Number(num);
     }
 
@@ -34,7 +32,7 @@ public class Number {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return Integer.toString(num);
     }
 }

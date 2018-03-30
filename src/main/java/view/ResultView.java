@@ -21,7 +21,7 @@ public class ResultView {
         print(lottos.toString());
     }
 
-    private static void print(String s){
+    private static void print(String s) {
         System.out.println(s);
     }
 }
