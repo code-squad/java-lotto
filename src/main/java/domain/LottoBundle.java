@@ -3,28 +3,32 @@ package domain;
 import domain.result.LottoResult;
 import domain.result.LottoResults;
 import domain.result.Rank;
-import utils.LottoMachine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LottoBundle {
-    private List<Lotto> lottoBundle;
+    private static LottoBundle lottoBundle = new LottoBundle();
+    private List<Lotto> lottos = new ArrayList<>();
 
-    public LottoBundle(int amount) {
-        if (LottoMachine.isImPossibleBuy(amount)) {
-            throw new IllegalArgumentException("돈이 부족하여 구매할 수 없습니다.");
-        }
-        lottoBundle = buyLotto(amount);
+    private LottoBundle() {
+
     }
 
-    private static List<Lotto> buyLotto(int amount) {
-        LottoMachine machine = LottoMachine.of();
-        return machine.publishLotto(amount);
+    public static LottoBundle of() {
+        return lottoBundle;
+    }
+
+    public void addLotto(List<Lotto> lottoBundle) {
+        if (lottoBundle == null) {
+            return;
+        }
+        lottos.addAll(lottoBundle);
     }
 
     public LottoResults matchLotto(WinningLotto winningLotto) {
         LottoResults results = new LottoResults();
-        for (Lotto lotto : lottoBundle) {
+        for (Lotto lotto : lottos) {
             addResult(results, winningLotto, lotto);
         }
         return results;
@@ -41,10 +45,14 @@ public class LottoBundle {
 
     public String getPurchaseHistory() {
         StringBuilder builder = new StringBuilder();
-        for (Lotto lotto : lottoBundle) {
+        for (Lotto lotto : lottos) {
             builder.append(lotto.toString());
             builder.append("\n");
         }
         return builder.toString();
+    }
+
+    public boolean isExistPurchaseHistory() {
+        return !lottos.isEmpty();
     }
 }

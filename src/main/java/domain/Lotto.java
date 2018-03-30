@@ -1,50 +1,48 @@
 package domain;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static java.util.stream.Collectors.joining;
 
 public class Lotto {
-    public static final int MIN_NUM = 1;
-    public static final int MAX_NUM = 45;
     public static final int LOTTO_NUM = 6;
-    private List<Integer> numbers;
+    private List<LottoNum> nums;
 
-    public Lotto(List<Integer> numbers) {
-        if (isInvalidNumberLength(numbers.size())) {
+    public Lotto(List<LottoNum> nums) {
+        if (isInvalidNumberLength(nums.size())) {
             throw new IllegalArgumentException("길이를 확인해주세요 (" + LOTTO_NUM + "개 입력해야함)");
         }
-
-        if (isIncludeOutRange(numbers)) {
-            throw new IllegalArgumentException("범위를 벗어난 숫자가 포함되어있습니다.");
+        if (isIncludeDuplicateNumber(nums)) {
+            throw new IllegalArgumentException("중복된 번호가 있습니다.");
         }
-        this.numbers = numbers;
+
+        this.nums = nums;
     }
 
     private static boolean isInvalidNumberLength(int length) {
         return LOTTO_NUM != length;
     }
 
-    private static boolean isIncludeOutRange(List<Integer> numbers) {
-        return numbers.stream().anyMatch(number -> number < MIN_NUM || number > MAX_NUM);
-    }
-
-    public static boolean isOutRangeNumber(int number) {
-        return MIN_NUM > number || number > MAX_NUM;
+    private static boolean isIncludeDuplicateNumber(List<LottoNum> nums) {
+        Set<LottoNum> numberPots = new HashSet<>(nums);
+        return numberPots.size() != nums.size();
     }
 
     public int match(Lotto otherLotto) {
-        List<Integer> matchNum = new ArrayList<>();
-        for (Integer num : otherLotto.numbers) {
-            if (numbers.contains(num)) {
-                matchNum.add(num);
+        int matchCount = 0;
+        for (LottoNum num : otherLotto.nums) {
+            if (nums.contains(num)) {
+                matchCount++;
             }
         }
-        return matchNum.size();
+        return matchCount;
     }
 
-    public boolean isContainNumber(int number) {
-        return numbers.contains(number);
+    public boolean isContainNumber(LottoNum num) {
+        return nums.stream().anyMatch(lottoNum -> lottoNum.equals(num));
     }
 
     @Override
@@ -53,7 +51,7 @@ public class Lotto {
     }
 
     private String unfoldNumbers() {
-        Collections.sort(numbers);
-        return numbers.stream().map(String::valueOf).collect(joining(", "));
+        Collections.sort(nums);
+        return nums.stream().map(Object::toString).collect(joining(", "));
     }
 }

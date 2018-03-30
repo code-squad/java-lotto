@@ -3,18 +3,17 @@ package view;
 import domain.LottoBundle;
 import domain.result.LottoResults;
 import domain.result.Rank;
-
-import java.util.Arrays;
-import java.util.List;
+import utils.MoneyUtils;
 
 public class OutputView {
 
-    public static void printPurchaseHistory(LottoBundle lottoBundle) {
+    public static void printPurchaseHistory(LottoBundle lottoBundle, int totalAmount, int manualAmount) {
+        System.out.println("수동으로 " + manualAmount + "장, 자동으로 "+ (totalAmount - manualAmount) + "개를 구매했습니다.");
         System.out.println(lottoBundle.getPurchaseHistory());
     }
 
-    public static void printResult(int amount, LottoResults results) {
-        String resultMessage = buildTitle() + buildRankMessage(results) + buildProfitContent(amount, results);
+    public static void printResult(int totalAmount, LottoResults results) {
+        String resultMessage = buildTitle() + buildRankMessage(results) + buildProfitContent(totalAmount, results);
         System.out.println(resultMessage);
     }
 
@@ -33,11 +32,10 @@ public class OutputView {
     }
 
     private static String doBuild(Rank rank, LottoResults results) {
-        return rank.getMatchPoint() + "개 일치 (" + rank.getPrize() + ") - " + results.calcRankNum(rank) + "개";
+        return rank.getMatchPoint() + "개 일치 (" + rank.getPrize() + "원) - " + results.calcRankNum(rank) + "개";
     }
 
     private static String buildProfitContent(int amount, LottoResults results) {
-        int profit = results.calcLottoProfit(amount);
-        return "총 수익률은 " + profit + "% 입니다.";
+        return "총 수익률은 " + MoneyUtils.calcProfit(results.calcTotalPrizeMoney(), amount) + "% 입니다.";
     }
 }

@@ -1,23 +1,40 @@
 package utils;
 
+import domain.Lotto;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class LottoMachineTest {
 
     @Test
-    public void 몇개살수있나() {
-        assertEquals(1, LottoMachine.calcQuantity(1000));
+    public void 자동구매() {
+        List<Lotto> lotto = LottoMachine.autoBuy(1, 0);
+        assertEquals(1, lotto.size());
     }
 
     @Test
-    public void 사지못한다() {
-        assertEquals(0, LottoMachine.calcQuantity(990));
+    public void 자동수량_0개() {
+        assertNull(LottoMachine.autoBuy(3, 3));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 수동수량보다_자동수량_오버입력() {
+        LottoMachine.autoBuy(3, 4);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 수동수량_마이너스_입력() {
+        LottoMachine.manualBuy(-1);
     }
 
     @Test
-    public void 총_얼마치를_구매했는가() {
-        assertEquals(14000, LottoMachine.calcTotalPurchaseMoney(14));
+    public void 수동수량_0개() {
+        assertNull(LottoMachine.manualBuy(0));
     }
+
+
 }

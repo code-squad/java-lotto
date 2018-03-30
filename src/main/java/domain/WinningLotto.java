@@ -2,14 +2,14 @@ package domain;
 
 public class WinningLotto {
     private Lotto lotto;
-    private int bonusNumber;
+    private LottoNum bonusNum;
 
-    public WinningLotto(Lotto lotto, int bonusNumber) {
-        if (lotto.isContainNumber(bonusNumber) || Lotto.isOutRangeNumber(bonusNumber)) {
-            throw new IllegalArgumentException("유효한 보너스번호가 아닙니다.");
+    public WinningLotto(Lotto lotto, LottoNum bonusNum) {
+        if (lotto.isContainNumber(bonusNum)) {
+            throw new IllegalArgumentException("보너스번호가 당첨번호로 지정된 번호입니다.");
         }
         this.lotto = lotto;
-        this.bonusNumber = bonusNumber;
+        this.bonusNum = bonusNum;
     }
 
     public int match(Lotto otherLotto) {
@@ -17,11 +17,11 @@ public class WinningLotto {
     }
 
     public boolean matchBonus(Lotto otherLotto) {
-        return otherLotto.isContainNumber(bonusNumber);
+        return otherLotto.isContainNumber(bonusNum);
     }
 
     @Override
     public String toString() {
-        return "WinningLotto{" + "lotto=" + lotto.toString() + ", bonusNumber=" + bonusNumber + '}';
+        return "WinningLotto{" + "lotto=" + lotto.toString() + ", bonusNumber=" + bonusNum + '}';
     }
 }
