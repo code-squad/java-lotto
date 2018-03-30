@@ -5,11 +5,15 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class Lotto {
-	public static final int LOTTO_SIZE = 6;
+	static final int LOTTO_SIZE = 6;
 	private List<Integer> numbers;
 
 	public Lotto(List<Integer> numbers) {
 		this.numbers = numbers;
+	}
+
+	public static void check(List<Integer> userNum) {
+		LottoNo.check(userNum);
 	}
 
 	public static List<Integer> makeLottoNum(List<Integer> temp) {
@@ -18,6 +22,7 @@ public abstract class Lotto {
 			numbers.add(temp.get(i));
 		}
 		Collections.sort(numbers);
+		check(numbers);
 		return numbers;
 	}
 

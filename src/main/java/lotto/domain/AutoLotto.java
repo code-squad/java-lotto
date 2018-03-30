@@ -13,5 +13,4 @@ public class AutoLotto extends Lotto {
 		Collections.shuffle(numberRange);
 		return new AutoLotto(makeLottoNum(numberRange));
 	}
-
 }

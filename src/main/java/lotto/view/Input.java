@@ -9,7 +9,6 @@ import lotto.domain.UserLotto;
 import lotto.domain.Lotto;
 
 public class Input {
-
 	public static int inputPrice() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("구매금액을 입력해주세요.");
@@ -42,7 +41,6 @@ public class Input {
 		for (int i = 0; i < userSheets; i++) {
 			List<String> userNum = Arrays.asList(sc.nextLine().split(","));
 			try {
-				UserLotto.check(userNum);
 				userLottos.add(UserLotto.of(userNum));
 			} catch (IllegalArgumentException | IndexOutOfBoundsException e) {
 				System.out.println(e.getMessage());
@@ -66,11 +64,15 @@ public class Input {
 
 	public static UserLotto inputBeforWinNum() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println();
 		System.out.println("지난 주 당첨 번호를 입력해 주세요.");
 		List<String> beforeWinNum = Arrays.asList(sc.nextLine().split(","));
-		UserLotto beforeWinLotto = UserLotto.of(beforeWinNum);
-		return beforeWinLotto;
+		try {
+			UserLotto beforeWinLotto = UserLotto.of(beforeWinNum);
+			return beforeWinLotto;
+		} catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+			System.out.println(e.getMessage());
+			return inputBeforWinNum();
+		}
 	}
 
 }
