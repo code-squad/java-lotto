@@ -3,7 +3,7 @@ package lotto.lotto.domain;
 public enum Rank {
 
     FIRST(6, 2000000000),
-    //    SECOND(5,30000000),
+    SECOND(5, 30000000),
     THIRD(5, 1500000),
     FOURTH(4, 50000),
     FIFTH(3, 5000);
@@ -24,8 +24,11 @@ public enum Rank {
         return winningMoney;
     }
 
-    public static Rank valueOf(int countOfMatch) {
+    public static Rank valueOf(int countOfMatch, boolean matchBonus) {
         for (Rank lotto : Rank.values()) {
+            if (countOfMatch == SECOND.countOfMatch) {
+                return matchBonus ? SECOND : THIRD;
+            }
             if (lotto.countOfMatch == countOfMatch) {
                 return lotto;
             }

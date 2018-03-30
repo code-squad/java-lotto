@@ -1,44 +1,75 @@
 package lotto.lotto.domain;
 
-import com.sun.istack.internal.NotNull;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class WeeklyLotto {
 
-    private List<Integer> winningLotto;
+    private Lotto winningLotto;
+    private int bonusBall;
 
-    public WeeklyLotto(String winningLotto) {
-        this.winningLotto = Parse.parse(winningLotto);   //파싱, 예외체크 후 생성
+    public WeeklyLotto(List<Integer> winningLotto, int bonusBall) {
+        checkBonusBallException(winningLotto, bonusBall);
+        this.winningLotto = new Lotto(winningLotto);
+        this.bonusBall = bonusBall;
     }
 
-    public HashMap<Rank, Integer> initRank() {
-        HashMap<Rank, Integer> numberOfRank = new HashMap<>();
+    public static WeeklyLotto of(String winningLotto, int bonusBall) {
+        List<Integer> weeklyLotto = Parse.parse(winningLotto);
+        return new WeeklyLotto(weeklyLotto, bonusBall);
+    }
+
+    public Map<Rank, Integer> initRank() {
+        Map<Rank, Integer> numberOfRank = new HashMap<>();
         for (Rank r : Rank.values()) {
             numberOfRank.put(r, 0);
         }
         return numberOfRank;
     }
 
-    public HashMap<Rank, Integer> checkRank(List<Lotto> lottos) {  //등수를 확인한다.
-        HashMap<Rank, Integer> numberOfRank = initRank();
+    public Map<Rank, Integer> checkRank(List<Lotto> lottos) {  //등수를 확인한다.
+        Map<Rank, Integer> numberOfRank = initRank();
         for (Lotto oneLotto : lottos) {
-            Rank value = oneLotto.coutOfMatchLotto(this);
+            Rank value = oneLotto.valueOfRank(this);
             putRank(numberOfRank, value);
         }
         return numberOfRank;
     }
 
-    public void putRank(HashMap<Rank, Integer> numberOfRank, Rank value) {
+    public void putRank(Map<Rank, Integer> numberOfRank, Rank value) {
         if (value != null) {
             numberOfRank.put(value, numberOfRank.get(value) + 1);
         }
     }
 
-    public List<Integer> getWinningLotto() {
-        return winningLotto;
+    public int coutOfMatchLotto(List<Integer> lotto) {
+        int collectNum = 0;
+        for (Integer num : lotto) {
+            collectNum = collectNumber(num, collectNum);
+        }
+        return collectNum;
+    }
+
+    public int collectNumber(int num, int collectNum) {   //당첨번호가 포함되있으면 +1
+        if (winningLotto.getLotto().contains(num)) {
+            return collectNum + 1;
+        }
+        return collectNum;
+    }
+
+    public boolean collectBonusBall(List<Integer> lotto) {
+        if (lotto.contains(bonusBall)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void checkBonusBallException(List<Integer> winningLotto, int bonusBall) {
+        Parse.overException(bonusBall);
+        List<Integer> plusBonus = new ArrayList<>(winningLotto);
+        plusBonus.add(bonusBall);
+
+        HashSet<Integer> set = new HashSet<>(plusBonus);
+        if (plusBonus.size() != set.size())
+            throw new IllegalArgumentException("같은 번호가 입력 되었습니다");
     }
 }

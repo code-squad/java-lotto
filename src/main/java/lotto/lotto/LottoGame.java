@@ -9,6 +9,7 @@ import lotto.lotto.view.View;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoGame {
     public static void main(String[] args) {
@@ -19,10 +20,12 @@ public class LottoGame {
 
         View.lottoAutomaticView(lottos);
         String winningLotto = Input.inputWinningNumber();
+        int bonusBall = Input.inputBonus();
 
-        WeeklyLotto week = new WeeklyLotto(winningLotto);
-        HashMap<Rank, Integer> result = week.checkRank(lottos);
+        WeeklyLotto week = WeeklyLotto.of(winningLotto, bonusBall);
+        Map<Rank, Integer> result = week.checkRank(lottos);
 
         View.resultLottoView(result);
+        View.incomeMoney(result, money);
     }
 }
