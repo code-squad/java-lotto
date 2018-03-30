@@ -9,15 +9,9 @@ import java.util.stream.IntStream;
 
 public class Lottos {
 
-    private static final int FORTH_PRIZE = 5000;
-    private static final int THIRD_PRIZE = 50000;
-    private static final int SECOND_PRIZE = 1500000;
-    private static final int FIRST_PRIZE = 2000000000;
     private static final int ticketCost = 1000;
 
     private List<Lotto> lottos;
-
-    private static final List<Integer> prizes = Arrays.asList(FORTH_PRIZE, THIRD_PRIZE, SECOND_PRIZE, FIRST_PRIZE);
 
     private Lottos() {
         this.lottos = new ArrayList<Lotto>();
@@ -43,20 +37,31 @@ public class Lottos {
         return lottos.stream().map(i -> i.getRank(winningLotto)).collect(Collectors.toList());
     }
 
-    public int getMatchResults(Lotto winningLotto, int wantMatchNum) {
-        return (int) lottos.stream().filter(factor -> factor.getNumOfMatched(winningLotto) == wantMatchNum).count();
+    public int getMatchLottos(WinningLotto winningLotto, Rank rank) {
+        return (int) getLottoRanks(winningLotto).stream().filter(factor -> factor == rank).count();
     }
 
+    public List<Integer> getResult(WinningLotto winningLotto) {
+        return Arrays.stream(Rank.values()).mapToInt(i -> getMatchLottos(winningLotto, i)).boxed().collect(Collectors.toList());
+    }
 
-
-//    public int calcProfit(Lotto winningLotto) {
-//        int totalPrize = IntStream.range(0, 4).map(i -> prizes.get(i) * getResult(winningLotto).get(i)).sum();
-//        int bettingMoney = ticketCost * lottos.size();
-//        return (totalPrize - bettingMoney) / bettingMoney * 100;
-//    }
+    public int calcProfit(WinningLotto winningLotto) {
+        int totalPrize = 0;
+        List<Integer> prizeResults = getResult(winningLotto);
+        System.out.println(prizeResults);
+        for (int i = 0; i < prizeResults.size(); i++){
+            System.out.println(prizeResults.get(i));
+            System.out.println(Rank.values()[i].getWinningMoney());
+            totalPrize += prizeResults.get(i)*Rank.values()[i].getWinningMoney();
+        }
+        System.out.println("총 금액 " + totalPrize);
+        int bettingMoney = ticketCost * lottos.size();
+        return (int)(((double)totalPrize - (double)bettingMoney) / (double)bettingMoney * 100);
+    }
 
     @Override
     public String toString() {
         return lottos.stream().map(Object::toString).collect(Collectors.joining("\n"));
     }
+
 }
