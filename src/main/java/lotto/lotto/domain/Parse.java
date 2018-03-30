@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 public class Parse {
 
+    private static final int MIN = 1;
+    private static final int MAX = 45;
+
     public static List<Integer> parse(String numbers) {
         return divideNum(escapeNum(numbers));
     }
@@ -20,14 +23,16 @@ public class Parse {
 
     public static List<Integer> divideNum(String[] numbers) {
         List<Integer> lotto = new ArrayList<>();
-        LottoException.notLottoException(numbers);      //6개의 숫자가 입력되는지 확인
         for (String num : numbers) {
             int oneNumber = intOf(num);
-            LottoException.overException(oneNumber);   //1부터 45까지만 입력되는지 확인
+            overException(oneNumber);   //1부터 45까지만 입력되는지 확인
             lotto.add(oneNumber);
         }
-        LottoException.sameNumberException(lotto);    //같은 번호가 입력되는지 확인
         return lotto;
     }
 
+    public static void overException(int lottoNumber) {
+        if (lottoNumber < MIN || MAX < lottoNumber)
+            throw new IllegalArgumentException("1부터 45까지만 입력해 주세요.");
+    }
 }

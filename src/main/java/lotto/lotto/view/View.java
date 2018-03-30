@@ -5,6 +5,7 @@ import lotto.lotto.domain.Rank;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class View {
 
@@ -26,7 +27,7 @@ public class View {
         System.out.println("]");
     }
 
-    public static void resultLottoView(HashMap<Rank, Integer> result) {
+    public static void resultLottoView(Map<Rank, Integer> result) {
         System.out.println();
         System.out.println("당첨통계");
         System.out.println("---------");
@@ -40,11 +41,11 @@ public class View {
         }
     }
 
-    public static void incomeMoney(HashMap<Rank, Integer> result, int money) {
-        int incomeMoney = 0;
+    public static void incomeMoney(Map<Rank, Integer> result, int money) {
+        double incomeMoney = 0;
         for (Rank rankNum : Rank.values()) {
             incomeMoney += (rankNum.getWinningMoney() * result.get(rankNum));
         }
-        System.out.println("총 수익률은 " + 100*(incomeMoney - money) / money + "%입니다.");
+        System.out.println("총 수익률은 " + 100 * (incomeMoney - money) / money + "%입니다.");
     }
 }
