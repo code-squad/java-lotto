@@ -25,6 +25,6 @@ public class LottoUtil {
     }
 
     static boolean validInputMoney(int money) {
-        return money > LOTTO_COST;
+        return money >= LOTTO_COST;
     }
 }
