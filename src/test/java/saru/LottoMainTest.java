@@ -38,6 +38,16 @@ public class LottoMainTest {
         assertEquals(10, LottoNum.of(10).getNumber());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또번호실패_최소미만() {
+        LottoNum.of(0).getNumber();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또번호실패_최대초과() {
+        LottoNum.of(46).getNumber();
+    }
+
     @Test
     public void 번호자동생성() {
         List<LottoNum> lottoNumList = LottoMaker.of().makeLottoList();

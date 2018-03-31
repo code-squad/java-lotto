@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class LottoNum {
     private static final int MAX_LOTTO_NUM = 45;
-    private static final int START_NUM = 0;
+    private static final int START_NUM = 1;
 
     private int number;
 
