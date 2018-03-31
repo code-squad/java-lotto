@@ -24,23 +24,13 @@ public class LottoMainTest {
         String[] compareStr = {"3, 4, 5, 6, 9, 10", "3, 4, 5, 6, 9, 10",
                 "3, 4, 5, 6, 1, 2", "3, 4, 5, 7, 1, 2", "7, 4, 5, 6, 8, 9"};
 
-        List<LottoNum> lottoLine = lottoMaker.makeManualLottoLine(compareStr[0]);
-        List<LottoNum> lottoLine2 = lottoMaker.makeManualLottoLine(compareStr[1]);
-        List<LottoNum> lottoLine3 = lottoMaker.makeManualLottoLine(compareStr[2]);
-        List<LottoNum> lottoLine4 = lottoMaker.makeManualLottoLine(compareStr[3]);
-        List<LottoNum> lottoLine5 = lottoMaker.makeManualLottoLine(compareStr[4]);
+        for (String str : compareStr) {
+            lottoLines.add(LottoLine.of(lottoMaker.makeManualLottoLine(str)));
+        }
 
-        lottoLines.add(LottoLine.of(lottoLine));
-        lottoLines.add(LottoLine.of(lottoLine2));
-        lottoLines.add(LottoLine.of(lottoLine3));
-        lottoLines.add(LottoLine.of(lottoLine4));
-        lottoLines.add(LottoLine.of(lottoLine5));
-
-        result.increaseHit(lottoMatcher.match(lottoLines.get(0)));
-        result.increaseHit(lottoMatcher.match(lottoLines.get(1)));
-        result.increaseHit(lottoMatcher.match(lottoLines.get(2)));
-        result.increaseHit(lottoMatcher.match(lottoLines.get(3)));
-        result.increaseHit(lottoMatcher.match(lottoLines.get(4)));
+        for (int i = 0; i < 5; i++) {
+            result.increaseHit(lottoMatcher.match(lottoLines.get(i)));
+        }
     }
 
     @Test
