@@ -9,7 +9,9 @@ import java.util.Map;
 
 public class View {
 
-    public static void lottoAutomaticView(List<Lotto> lottos) {
+    public static void lottoAutomaticView(List<Lotto> lottos, int manualNumber) {
+        System.out.println();
+        System.out.printf("수동으로 %d장 자동으로 %d장 구매했습니다.\n", manualNumber, lottos.size() - manualNumber);
         for (Lotto lotto : lottos) {
             printOneLotto(lotto.getLotto());
         }

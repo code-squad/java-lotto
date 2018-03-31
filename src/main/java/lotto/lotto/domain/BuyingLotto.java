@@ -9,13 +9,27 @@ public class BuyingLotto {
     private static final int ZERO = 0;
     private List<Lotto> lottos;
 
-    public BuyingLotto(int money) {
+    public BuyingLotto(int money, List<String> manualLotto) {
         moneyCheckException(money);
-        this.lottos = buyLottoAutomatic(money / LOTTO);
+        this.lottos = buyLotto(money,manualLotto);
     }
 
-    private List<Lotto> buyLottoAutomatic(int buyingNum) {
+    private List<Lotto> buyLotto(int money, List<String> manualLotto) {
+        int automaticNum = money / LOTTO - manualLotto.size();
+        List<Lotto> lottos = buyLottoManual(manualLotto);
+        buyLottoAutomatic(automaticNum, lottos);
+        return lottos;
+    }
+
+    private List<Lotto> buyLottoManual(List<String> manualLotto) {
         List<Lotto> lottos = new ArrayList<>();
+        for (int i = 0; i < manualLotto.size(); i++) {
+            lottos.add(Lotto.of(manualLotto.get(i)));
+        }
+        return lottos;
+    }
+
+    private List<Lotto> buyLottoAutomatic(int buyingNum, List<Lotto> lottos) {
         for (int i = 0; i < buyingNum; i++) {
             lottos.add(Lotto.automaticLotto());
         }

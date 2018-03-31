@@ -1,5 +1,6 @@
 package lotto.lotto.domain;
 
+import lotto.lotto.view.Input;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -80,11 +81,23 @@ public class LottoTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void moneyCheckExceptionTest() {  //돈이 1000원 미만 일때
-        BuyingLotto test = new BuyingLotto(500);
+        List<String> manualLotto = new ArrayList<>();
+        BuyingLotto test = new BuyingLotto(500, manualLotto);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void moneyCheckExceptionTest2() {  //돈이 1000원 단위가 아닐때
-        BuyingLotto test = new BuyingLotto(1300);
+        List<String> manualLotto = new ArrayList<>();
+        BuyingLotto test = new BuyingLotto(1300, manualLotto);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void notEnoughMoneyExceptionTest() {  //돈이 1000원 단위가 아닐때
+        Input.inputManualLotto(3, 2000);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void underNumberExceptionTest() {  //돈이 1000원 단위가 아닐때
+        Input.inputManualLotto(-1, 2000);
     }
 }
