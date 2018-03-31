@@ -40,12 +40,16 @@ public class LottoMaker {
         String[] winNumArr = numStr.replaceAll(SPACE, BLANK).split(COMMA);
 
         List<LottoNum> lottoLine = new ArrayList<>();
+        addLottoNum(winNumArr, lottoLine);
+
+        return lottoLine;
+    }
+
+    private void addLottoNum(String[] winNumArr, List<LottoNum> lottoLine) {
         for (String str : winNumArr) {
             int toInputNum = Integer.parseInt(str);
             lottoLine.add(LottoNum.of(toInputNum));
         }
-
-        return lottoLine;
     }
 
     private void initBaseNumberList() {

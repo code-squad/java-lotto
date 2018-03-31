@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class LottoNum {
     private static final int MAX_LOTTO_NUM = 45;
+    private static final int START_NUM = 0;
+
     private int number;
 
     private LottoNum(int number) {
@@ -11,7 +13,7 @@ public class LottoNum {
     }
 
     public static LottoNum of(int number) {
-        if (number < 0 || number > MAX_LOTTO_NUM) {
+        if (number < START_NUM || number > MAX_LOTTO_NUM) {
             throw new IllegalArgumentException();
         }
 

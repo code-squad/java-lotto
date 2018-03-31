@@ -1,7 +1,6 @@
 package saru.domain;
 
 import saru.*;
-import saru.view.*;
 
 import java.util.*;
 

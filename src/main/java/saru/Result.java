@@ -1,6 +1,11 @@
 package saru;
 
 public class Result {
+    private static final int THREE_HIT = 3;
+    private static final int FOUR_HIT = 4;
+    private static final int FIVE_HIT = 5;
+    private static final int SIX_HIT = 6;
+
     private int threeHit;
     private int fourHit;
     private int fiveHit;
@@ -32,16 +37,16 @@ public class Result {
 
     public void increaseHit(int hitNum) {
         switch (hitNum) {
-            case 3:
+            case THREE_HIT:
                 this.threeHit++;
                 break;
-            case 4:
+            case FOUR_HIT:
                 this.fourHit++;
                 break;
-            case 5:
+            case FIVE_HIT:
                 this.fiveHit++;
                 break;
-            case 6:
+            case SIX_HIT:
                 this.sixHit++;
                 break;
             default:

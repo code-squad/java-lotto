@@ -13,10 +13,11 @@ public class LottoMain {
     public static void main(String[] args) {
         int buyNum = Input.promptBuy();
         List<LottoLine> lottoLines = LottoMaker.of().makeLottoNumber(buyNum);
-
         Output.printCreatedNum(lottoLines);
+
         String hitNumber = Input.promptHitNumber();
-        Output output = new Output(LottoCalculator.of(lottoLines).makeResult(hitNumber), buyNum);
+        LottoCalculator lottoCalculator = LottoCalculator.of(lottoLines);
+        Output output = new Output(lottoCalculator.makeResult(hitNumber), buyNum);
         output.printStatus();
     }
 }

@@ -8,6 +8,13 @@ import java.util.List;
 // SonarLint StandOutput warning 방지용
 @java.lang.SuppressWarnings("squid:S106")
 public class Output {
+    private static final int ONE_LOTTO = 1000;
+    private static final int PERCENT = 100;
+    private static final int THREE_PRIZE = 5000;
+    private static final int FOUR_PRIZE = 50000;
+    private static final int FIVE_PRIZE = 1500000;
+    private static final int SIX_PRIZE = 2000000000;
+
     private Result result;
     private int buyNum;
 
@@ -29,14 +36,14 @@ public class Output {
 
     public long calcIncome() {
         long sumMoney = calcSumMoney();
-        return 100 * (sumMoney / (this.buyNum * 1000));
+        return PERCENT * (sumMoney / (this.buyNum * ONE_LOTTO));
     }
 
     private int calcSumMoney() {
-        int threeHitMoney = result.getThreeHit() * 5000;
-        int fourHitMoney = result.getFourHit() * 50000;
-        int fiveHitMoney = result.getFiveHit() * 1500000;
-        int sixHitMoney = result.getSixHit() * 2000000000;
+        int threeHitMoney = result.getThreeHit() * THREE_PRIZE;
+        int fourHitMoney = result.getFourHit() * FOUR_PRIZE;
+        int fiveHitMoney = result.getFiveHit() * FIVE_PRIZE;
+        int sixHitMoney = result.getSixHit() * SIX_PRIZE;
 
         return threeHitMoney + fourHitMoney + fiveHitMoney + sixHitMoney;
     }
