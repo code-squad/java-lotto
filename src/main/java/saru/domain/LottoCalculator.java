@@ -16,11 +16,11 @@ public class LottoCalculator {
         return new LottoCalculator(lottoLines);
     }
 
-    public Result makeResult() {
+    public Result makeResult(String hitNumString) {
         Result result = Result.of();
         LottoMaker lottoMaker = LottoMaker.of();
 
-        List<LottoNum> hitLottoLine = lottoMaker.makeManualLottoLine(Input.promptHitNumber());
+        List<LottoNum> hitLottoLine = lottoMaker.makeManualLottoLine(hitNumString);
         LottoMatcher lottoMatcher = LottoMatcher.of(hitLottoLine);
 
         for (LottoLine lottoLine : this.lottoLines) {

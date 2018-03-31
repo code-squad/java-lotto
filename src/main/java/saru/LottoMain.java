@@ -15,7 +15,8 @@ public class LottoMain {
         List<LottoLine> lottoLines = LottoMaker.of().makeLottoNumber(buyNum);
 
         Output.printCreatedNum(lottoLines);
-        Output output = new Output(LottoCalculator.of(lottoLines).makeResult(), buyNum);
+        String hitNumber = Input.promptHitNumber();
+        Output output = new Output(LottoCalculator.of(lottoLines).makeResult(hitNumber), buyNum);
         output.printStatus();
     }
 }

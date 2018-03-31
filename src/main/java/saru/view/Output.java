@@ -27,16 +27,16 @@ public class Output {
         System.out.printf("총 수익률은 %d%%입니다.", calcIncome());
     }
 
-    private int calcIncome() {
-        int sumMoney = calcSumMoney();
-        return 100 * sumMoney / (this.buyNum * 1000);
+    public long calcIncome() {
+        long sumMoney = calcSumMoney();
+        return 100 * (sumMoney / (this.buyNum * 1000));
     }
 
     private int calcSumMoney() {
         int threeHitMoney = result.getThreeHit() * 5000;
-        int fourHitMoney = result.getThreeHit() * 50000;
-        int fiveHitMoney = result.getThreeHit() * 1500000;
-        int sixHitMoney = result.getThreeHit() * 2000000000;
+        int fourHitMoney = result.getFourHit() * 50000;
+        int fiveHitMoney = result.getFiveHit() * 1500000;
+        int sixHitMoney = result.getSixHit() * 2000000000;
 
         return threeHitMoney + fourHitMoney + fiveHitMoney + sixHitMoney;
     }
