@@ -10,15 +10,15 @@ public class Print {
 		return price / 1000;
 	}
 
-	public static void printLottoNum(int sheets, LottoProcess lottoProcess) {
-		System.out.println(sheets + "장을 구매했습니다.");
+	public static void printLottoNum(int userSheets, int sheets, LottoProcess lottoProcess) {
+		System.out.println("수동으로 " + userSheets + "장 자동으로 " + (sheets - userSheets) + "장을 구매했습니다.");
 		for (int i = 0; i < lottoProcess.size(); i++) {
 			System.out.println(lottoProcess.getNumber(i));
 		}
 	}
 
 	public static void printWinResult(int price, LottoProcess lottoProcess, UserLotto beforeWinLotto) {
-		int bonus = Input.InputBonusNum();
+		int bonus = Input.inputBonusNum();
 		System.out.println("\n당첨 통계");
 		System.out.println("-----------");
 		Result result = Result.of();
