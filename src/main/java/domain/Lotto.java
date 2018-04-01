@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Lotto {
@@ -41,5 +42,24 @@ public class Lotto {
 
     public Rank askRank(WinningLotto winninglotto) {
         return Rank.valueOf(countMatch(winninglotto), winninglotto.isBonus(balls));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lotto lotto = (Lotto) o;
+        return Objects.equals(balls, lotto.balls);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(balls);
+    }
+
+    @Override
+    public String toString(){
+        return balls.toString();
     }
 }

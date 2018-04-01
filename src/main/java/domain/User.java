@@ -19,22 +19,17 @@ public class User {
         presentMoney = money;
     }
 
-    private boolean isValidMoney(int money) {
+    static boolean isValidMoney(int money) {
         return money > 0 && (money % TICKET_PRICE == 0);
     }
 
-    public static User thatHasMoneyOf(int money) {
+    public static User whoHasMoneyOf(int money) {
         return new User(money);
     }
 
     public void purchaseTicketsAuto(int numTickets) {
         lottos.addAll(Shop.sellAutoTickets(numTickets));
         presentMoney -= numTickets * TICKET_PRICE;
-    }
-
-    public void purchaseTicketsManual(List<List<Integer>> manualInput) {
-        lottos.addAll(Shop.sellManualTickets(manualInput));
-        presentMoney -= manualInput.size() * TICKET_PRICE;
     }
 
     public void checkTotalResult(){

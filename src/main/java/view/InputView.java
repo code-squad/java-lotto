@@ -1,7 +1,6 @@
 package view;
 
 import domain.Ball;
-import domain.Lotto;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,16 +17,6 @@ public class InputView {
         } catch (NumberFormatException e) {
             System.out.println("숫자를 입력해 주세요.");
             return putUserMoney();
-        }
-    }
-
-    public static int putNumOfTicketToBuy() {
-        try {
-            System.out.println("구입할 티켓 수량을 넣어주세요..");
-            return Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("숫자를 입력해 주세요.");
-            return putNumOfTicketToBuy();
         }
     }
 
@@ -54,10 +43,4 @@ public class InputView {
         }
     }
 
-    public static List<Lotto> enterManualNumbers(int i) {
-        return null;
-    }
-
-    public static int enterManualNumTickets() {
-    }
 }

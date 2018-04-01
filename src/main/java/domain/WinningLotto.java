@@ -14,12 +14,12 @@ public class WinningLotto extends Lotto {
         this.bonusBall = bonusBall;
     }
 
-    private boolean isValidBonusBall(List<Integer> numbers, Ball bonusBall) {
-        return !bonusBall.isContainedIn(numbers);
-    }
-
     public static WinningLotto of(List<Integer> numbers, Ball bonusBall) {
         return new WinningLotto(numbers, bonusBall);
+    }
+
+    static boolean isValidBonusBall(List<Integer> numbers, Ball bonusBall) {
+        return !bonusBall.isContainedIn(numbers);
     }
 
     public boolean isBonus(List<Ball> balls) {
