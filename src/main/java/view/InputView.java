@@ -1,6 +1,7 @@
 package view;
 
 import domain.Ball;
+import domain.Lotto;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,5 +52,12 @@ public class InputView {
             System.out.println("올바른 값을 입력해 주세요.");
             return putWinningLotto();
         }
+    }
+
+    public static List<Lotto> enterManualNumbers(int i) {
+        return null;
+    }
+
+    public static int enterManualNumTickets() {
     }
 }

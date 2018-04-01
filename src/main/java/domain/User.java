@@ -27,9 +27,14 @@ public class User {
         return new User(money);
     }
 
-    public void purchaseAutoTickets(int numTickets) {
+    public void purchaseTicketsAuto(int numTickets) {
         lottos.addAll(Shop.sellAutoTickets(numTickets));
         presentMoney -= numTickets * TICKET_PRICE;
+    }
+
+    public void purchaseTicketsManual(List<List<Integer>> manualInput) {
+        lottos.addAll(Shop.sellManualTickets(manualInput));
+        presentMoney -= manualInput.size() * TICKET_PRICE;
     }
 
     public void checkTotalResult(){
@@ -56,4 +61,5 @@ public class User {
     public List<Integer> getPrizeStatistics() {
         return prizeStatistics;
     }
+
 }

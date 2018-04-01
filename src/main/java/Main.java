@@ -1,5 +1,6 @@
 import domain.Ball;
 import domain.LotteryCommission;
+import domain.Lotto;
 import domain.User;
 import view.InputView;
 import view.ResultView;
@@ -17,7 +18,9 @@ public class Main {
             int money = InputView.putUserMoney();
             larry = User.thatHasMoneyOf(money);
             int numTickets = money / TICKET_PRICE;
-            larry.purchaseAutoTickets(numTickets);
+            int numManual= InputView.enterManualNumTickets();
+            larry.purchaseTicketsManual(InputView.enterManualNumbers(numManual));
+            larry.purchaseTicketsAuto(numTickets - numManual);
             ResultView.printLottos(larry);
         } catch (RuntimeException e) {
             buyProcess();
