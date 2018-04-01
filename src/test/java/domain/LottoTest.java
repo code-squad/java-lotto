@@ -11,40 +11,36 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class LottoTest {
 
     @Test
-    public void 맞춘숫자갯수반환() {
+    public void 중복값검사_true() {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-        Lotto lotto = Lotto.of(numbers);
-        Lotto winningLotto = Lotto.of(Arrays.asList(1, 2, 3, 7, 8, 9));
-        assertThat(3, is(lotto.getNumOfMatched(winningLotto)));
+        assertThat(Lotto.hasDuplication(numbers), is(true));
     }
 
     @Test
-    public void 로또문자열변환() {
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-        Lotto lotto = Lotto.of(numbers);
-        assertThat("1,2,3,4,5,6", is(lotto.toString()));
+    public void 중복값검사_false() {
+        List<Integer> numbers = Arrays.asList(1, 1, 3, 4, 5, 6);
+        assertThat(Lotto.hasDuplication(numbers), is(false));
     }
 
     @Test
-    public void 보너스유무확인_true(){
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 10);
-        Lotto lotto = Lotto.of(numbers);
-        WinningLotto winningLotto = WinningLotto.of(Arrays.asList(1, 2, 3, 4, 5, 6), Number.of(10));
-        assertThat(lotto.isBonus(winningLotto), is(true));
+    public void 사이즈검사_true() {
+        List<Integer> numbers = Arrays.asList(1, 1, 3, 4, 5, 6);
+        assertThat(Lotto.isValidSize(numbers), is(true));
     }
 
     @Test
-    public void 보너스유무확인_false(){
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-        Lotto lotto = Lotto.of(numbers);
-        WinningLotto winningLotto = WinningLotto.of(Arrays.asList(1, 2, 3, 4, 5, 6), Number.of(10));
-        assertThat(lotto.isBonus(winningLotto), is(false));
+    public void 사이즈검사_false() {
+        List<Integer> numbers = Arrays.asList(1, 1, 2, 3, 4, 5, 6);
+        assertThat(Lotto.isValidSize(numbers), is(false));
     }
 
     @Test
-    public void 등수확인_FIRST(){
-        Lotto lotto = Lotto.of(Arrays.asList(1, 2, 3, 4, 5, 6));
-        WinningLotto winningLotto = WinningLotto.of(Arrays.asList(1, 2, 3, 4, 5, 6), Number.of(5));
-        assertThat(lotto.getRank(winningLotto), is(Rank.FIRST));
+    public void CountMatch() {
+        List<Integer> winningNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        Ball bonusBall = Ball.of(8);
+        WinningLotto winningLotto = WinningLotto.of(winningNumbers, bonusBall);
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 7, 8, 9);
+        Lotto lotto = Lotto.of(numbers);
+        assertThat(lotto.countMatch(winningLotto), is(3));
     }
 }
