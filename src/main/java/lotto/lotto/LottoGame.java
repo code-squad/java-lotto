@@ -14,11 +14,13 @@ import java.util.Map;
 public class LottoGame {
     public static void main(String[] args) {
         int money = Input.inputMoney();
+        int manualNumber = Input.inputManualNumber();
+        List<String> manualLotto = Input.inputManualLotto(manualNumber, money);
 
-        BuyingLotto man = new BuyingLotto(money);
+        BuyingLotto man = new BuyingLotto(money, manualLotto);
         List<Lotto> lottos = man.getLottos();
 
-        View.lottoAutomaticView(lottos);
+        View.lottoAutomaticView(lottos, manualNumber);
         String winningLotto = Input.inputWinningNumber();
         int bonusBall = Input.inputBonus();
 
