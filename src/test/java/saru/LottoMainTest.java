@@ -4,10 +4,10 @@ import saru.domain.*;
 
 import java.util.*;
 
-import static junit.framework.TestCase.assertEquals;
-
 import org.junit.Test;
 import org.junit.Before;
+
+import static junit.framework.TestCase.assertEquals;
 
 public class LottoMainTest {
     private LottoMaker lottoMaker = LottoMaker.of();
@@ -67,9 +67,30 @@ public class LottoMainTest {
     }
 
     @Test
+    public void 당첨번호갯수_여섯() {
+        String compareStr = "1, 2, 3, 4, 5, 6";
+        List<LottoNum> lottoLine = lottoMaker.makeManualLottoLine(compareStr);
+
+        LottoMatcher lottoMatcher = LottoMatcher.of(lottoMaker.makeManualLottoLine(resultStr));
+        int matchNum = lottoMatcher.match(LottoLine.of(lottoLine));
+
+        assertEquals(6, matchNum);
+    }
+
+    @Test
+    public void 당첨번호갯수_없음() {
+        String compareStr = "11, 12, 13, 18, 19, 20";
+        List<LottoNum> lottoLine = lottoMaker.makeManualLottoLine(compareStr);
+
+        LottoMatcher lottoMatcher = LottoMatcher.of(lottoMaker.makeManualLottoLine(resultStr));
+        int matchNum = lottoMatcher.match(LottoLine.of(lottoLine));
+
+        assertEquals(0, matchNum);
+    }
+
+    @Test
     public void 당첨번호갯수() {
         String compareStr = "1, 2, 3, 8, 9, 10";
-        LottoMaker lottoMaker = LottoMaker.of();
         List<LottoNum> lottoLine = lottoMaker.makeManualLottoLine(compareStr);
 
         LottoMatcher lottoMatcher = LottoMatcher.of(lottoMaker.makeManualLottoLine(resultStr));
