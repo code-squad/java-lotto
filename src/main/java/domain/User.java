@@ -27,9 +27,22 @@ public class User {
         return new User(money);
     }
 
+    public void purchaseTicketsManual(List<List<Integer>> manualInput) {
+        lottos.addAll(Shop.sellManualTickets(manualInput));
+        presentMoney -= manualInput.size() * TICKET_PRICE;
+    }
+
     public void purchaseTicketsAuto(int numTickets) {
+        if (!isValidNumTickets(numTickets)){
+            throw new IllegalArgumentException();
+        }
+        if (numTickets == 0) return;
         lottos.addAll(Shop.sellAutoTickets(numTickets));
         presentMoney -= numTickets * TICKET_PRICE;
+    }
+
+    static boolean isValidNumTickets(int numTickets) {
+        return numTickets >= 0;
     }
 
     public void checkTotalResult(){

@@ -18,8 +18,8 @@ public class BallTest {
 
     @Test
     public void 유효값테스트_false() {
-        assertThat(Ball.isValidBall(0), is(true));
-        assertThat(Ball.isValidBall(46), is(true));
+        assertThat(Ball.isValidBall(0), is(false));
+        assertThat(Ball.isValidBall(46), is(false));
     }
 
     @Test

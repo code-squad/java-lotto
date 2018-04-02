@@ -18,6 +18,16 @@ public class UserTest {
     }
 
     @Test
+    public void 자동로또유효갯수체크_true() {
+        assertThat(User.isValidNumTickets(0), is(true));
+    }
+
+    @Test
+    public void 자동로또유효갯수체크_false() {
+        assertThat(User.isValidNumTickets(-1), is(false));
+    }
+
+    @Test
     public void 수익률계산() {
         User user = User.whoHasMoneyOf(5000);
         user.purchaseTicketsAuto(5);

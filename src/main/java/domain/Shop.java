@@ -1,11 +1,9 @@
 package domain;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 
 public class Shop {
 
@@ -13,7 +11,7 @@ public class Shop {
         return Lotto.of(numbers);
     }
 
-    private static List<Lotto> sellManualTickets(List<List<Integer>> manualInput) {
+    public static List<Lotto> sellManualTickets(List<List<Integer>> manualInput) {
         List<Lotto> lottos = new ArrayList<>();
         for (List<Integer> numbers : manualInput){
             lottos.add(sellTicket(numbers));

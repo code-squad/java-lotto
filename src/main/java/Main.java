@@ -4,6 +4,7 @@ import domain.User;
 import view.InputView;
 import view.ResultView;
 
+import java.io.IOException;
 import java.util.List;
 
 import static domain.LottoUtils.TICKET_PRICE;
@@ -14,21 +15,23 @@ public class Main {
 
     private static void buyProcess() {
         try {
-            int money = InputView.putUserMoney();
+            int money = InputView.enterUserMoney();
             larry = User.whoHasMoneyOf(money);
             int numTickets = money / TICKET_PRICE;
-            int numManual= 0;
+            int numManual= InputView.enterNumManualTickets();
             larry.purchaseTicketsAuto(numTickets - numManual);
+            larry.purchaseTicketsManual(InputView.enterNumsOfManualTicket(numManual));
             ResultView.printLottos(larry);
-        } catch (RuntimeException e) {
+        } catch (RuntimeException | IOException e) {
             buyProcess();
+            e.printStackTrace();
         }
     }
 
     private static void resultProcess() {
         try {
-            List<Integer> winningNumbers = InputView.putWinningLotto();
-            Ball bonusBall = InputView.putBonusBall();
+            List<Integer> winningNumbers = InputView.enterWinningLotto();
+            Ball bonusBall = InputView.enterBonusBall();
             LotteryCommission.selectWinningNumbers(winningNumbers, bonusBall);
             larry.checkTotalResult();
             ResultView.printResult(larry);
