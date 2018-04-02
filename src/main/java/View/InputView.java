@@ -21,7 +21,7 @@ public class InputView {
     }
 
 
-    public static List getWinningNumber() {
+    public static List<Integer> getWinningNumber() {
         // "1, 2, 3, 4, 5, 6"
         scanner = new Scanner(System.in);
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
@@ -30,7 +30,7 @@ public class InputView {
         return parseInt(numbers);
     }
 
-    private static List parseInt(String[] userInput) {
+    private static List<Integer> parseInt(String[] userInput) {
         Integer[] numbers = new Integer[userInput.length];
         int i = 0;
         for (String number : userInput) {
