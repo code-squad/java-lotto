@@ -21,7 +21,7 @@ public class Main {
     private static int promptUserForPurchase() {
         int ticketsBought;
         try {
-            Output.printMessage("구입 금액을 입력해주세요.");
+            Output.printMessage("구입 금액을 입력해 주세요.");
             ticketsBought = Parser.getNumberOfTickets(Parser.parseToInt(Input.takeInput()));
         } catch (IllegalArgumentException e) {
             return promptUserForPurchase();
@@ -32,8 +32,13 @@ public class Main {
     private static List<Number> promptUserForWinningNumbers() {
         List<Number> winningNumbers;
         try {
-            Output.printMessage("지난 주 당첨 번호를 입력해주세요.");
+            Output.printMessage("지난 주 당첨 번호를 입력해 주세요.");
             winningNumbers = Parser.parseToNumberArray(Parser.splitString(Input.takeInput()));
+
+            Output.printMessage("보너스 볼을 입력해 주세요.");
+            Number bonusNumber = Parser.parseToNumber(Parser.parseToInt(Input.takeInput()));
+
+            winningNumbers = Parser.checkDuplicate(winningNumbers, bonusNumber);
         } catch (IllegalArgumentException e) {
             return promptUserForWinningNumbers();
         }

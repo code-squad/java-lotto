@@ -6,7 +6,6 @@ import java.util.List;
 public class Lotto {
     static final int LOTTO_PRICE = 1000;
     private List<Ticket> tickets;
-    private List<Number> winningTicket;
 
     public Lotto(int ticketsBought) {
         this.tickets = generateTicket(ticketsBought);
@@ -29,6 +28,6 @@ public class Lotto {
     }
 
     public Result determineResult(List<Number> winningNumbers) {
-        return new Result(winningNumbers, tickets);
+        return new Result(tickets, new Ticket(winningNumbers.subList(0, 6)), winningNumbers.get(6));
     }
 }

@@ -1,59 +1,62 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static lotto.domain.Lotto.LOTTO_PRICE;
 
 public class Result {
-    private static final int THREE_MATCH = 3;
-    private static final int FOUR_MATCH = 4;
-    private static final int FIVE_MATCH = 5;
-    private static final int SIX_MATCH = 6;
-    private static final long FIRST_PRIZE = 2000000000;
-    private static final long SECOND_PRIZE = 1500000;
-    private static final long THIRD_PRIZE = 50000;
-    private static final long FOURTH_PRIZE = 5000;
+    private final List<Rank> wins;
     private final int ticketsBought;
-    private final Ticket winningTicket;
-    private List<Integer> matchCounts;
+    private Map<Rank, Integer> counts;
 
-    Result(List<Number> winningNums, List<Ticket> tickets) {
+    Result(List<Ticket> tickets, Ticket winningTicket, Number bonusNumber) {
         this.ticketsBought = tickets.size();
-        this.winningTicket = new Ticket(winningNums);
-        this.matchCounts = compareTickets(tickets);
+        this.wins = drawWins(tickets, winningTicket, bonusNumber);
+        this.counts = mapCounts();
     }
 
-    private List<Integer> compareTickets(List<Ticket> tickets) {
-        matchCounts = new ArrayList<>();
+    private static List<Rank> drawWins(List<Ticket> tickets, Ticket winningTicket, Number bonusNumber) {
+        List<Rank> wins = new ArrayList<>();
         for (Ticket ticket : tickets) {
-            matchCounts.add(ticket.countMatchInTicket(winningTicket));
+            Rank win = drawWin(ticket, winningTicket, bonusNumber);
+            if (win != null) {
+                wins.add(win);
+            }
         }
-        return matchCounts;
+        return wins;
     }
 
-    private int countTotalMatch(int place) {
-        return (int) matchCounts.stream().filter(count -> count.equals(place)).count();
+    static Rank drawWin(Ticket ticket, Ticket winningTicket, Number bonusNumber) {
+        int matchCount = ticket.countMatchInTicket(winningTicket);
+        boolean bonus = ticket.bonusMatch(bonusNumber);
+
+        return Rank.ofRank(matchCount, bonus);
     }
 
-    public int countFirstPlace() {
-        return countTotalMatch(SIX_MATCH);
+    private Map<Rank, Integer> mapCounts() {
+        Map<Rank, Integer> counts = new HashMap<>();
+        for (Rank rank : Rank.values()) {
+            counts.put(rank, getWinCount(rank));
+        }
+        return counts;
     }
 
-    public int countSecondPlace() {
-        return countTotalMatch(FIVE_MATCH);
+    private int getWinCount(Rank rank) {
+        return (int) wins.stream().filter(wins -> wins == rank).count();
     }
 
-    public int countThirdPlace() {
-        return countTotalMatch(FOUR_MATCH);
+    public int getCount(Rank rank) {
+        return counts.get(rank);
     }
 
-    public int countFourthPlace() {
-        return countTotalMatch(THREE_MATCH);
-    }
-
-    public double calculateProfit(int first, int second, int third, int fourth) {
-        double earnings = (double) ((first * FIRST_PRIZE) + (second * SECOND_PRIZE) + (third * THIRD_PRIZE) + (fourth * FOURTH_PRIZE));
+    public double calculateProfit() {
+        double earnings = 0;
+        for (Map.Entry<Rank, Integer> entry : counts.entrySet()) {
+            earnings += entry.getKey().getPrize() * entry.getValue();
+        }
         return (earnings / (ticketsBought * LOTTO_PRICE)) * 100;
     }
 }

@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 public class TicketTest {
     private Ticket ticket;
     private Ticket winningTicket;
+    private Number bonusNumber;
 
     @Before
     public void setUp() throws Exception {
@@ -24,5 +25,12 @@ public class TicketTest {
     public void findMatch() {
         int matchCount = ticket.countMatchInTicket(winningTicket);
         assertEquals(6, matchCount);
+    }
+
+    @Test
+    public void bonusMatch() {
+        bonusNumber = new Number(1);
+        boolean bonus = ticket.bonusMatch(bonusNumber);
+        assertEquals(true, bonus);
     }
 }

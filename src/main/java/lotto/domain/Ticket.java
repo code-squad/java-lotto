@@ -35,4 +35,8 @@ public class Ticket {
     public String getTicketString() {
         return Parser.parseToPrintable(ticket);
     }
+
+    public boolean bonusMatch(Number bonusNumber) {
+        return ticket.contains(bonusNumber);
+    }
 }

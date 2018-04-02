@@ -40,10 +40,21 @@ public class Parser {
     public static List<Number> parseToNumberArray(String[] splitText) {
         List<Number> winningNumbers = new ArrayList<>();
         for (String number : splitText) {
-            int winningNumber = parseToInt(number);
-            winningNumbers.add(new Number(winningNumber));
+            winningNumbers.add(parseToNumber(parseToInt(number)));
         }
         return winningNumbers;
+    }
+
+    public static Number parseToNumber(int num) {
+        return new Number(num);
+    }
+
+    public static List<Number> checkDuplicate(List<Number> winningNumbers, Number bonusBall) throws IllegalArgumentException {
+        if (winningNumbers.contains(bonusBall)) {
+            winningNumbers.add(bonusBall);
+            return winningNumbers;
+        }
+        throw new IllegalArgumentException();
     }
 
     public static String parseToPrintable(List<Number> ticket) {
