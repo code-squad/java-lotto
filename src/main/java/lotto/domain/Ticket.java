@@ -2,18 +2,24 @@ package lotto.domain;
 
 import lotto.view.Output;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Ticket {
-    private static final int NUMBER_OF_DRAWS = 6;
+    static final int FIRST = 0;
+    static final int LAST = 6;
     private final List<Number> ticket;
 
     Ticket(List<Number> numbers) {
         this.ticket = checkValid(numbers);
     }
 
+    Ticket(Number num1, Number num2, Number num3, Number num4, Number num5, Number num6) {
+        this.ticket = Arrays.asList(num1, num2, num3, num4, num5, num6);
+    }
+
     private List<Number> checkValid(List<Number> numbers) throws IllegalArgumentException {
-        if (numbers.size() != NUMBER_OF_DRAWS) {
+        if (numbers.size() != LAST) {
             Output.printMessage("6개의 숫자만 허용됩니다.");
             throw new IllegalArgumentException();
         }

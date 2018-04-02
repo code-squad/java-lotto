@@ -3,6 +3,9 @@ package lotto.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import static lotto.domain.Ticket.FIRST;
+import static lotto.domain.Ticket.LAST;
+
 public class Lotto {
     static final int LOTTO_PRICE = 1000;
     private List<Ticket> tickets;
@@ -28,7 +31,7 @@ public class Lotto {
     }
 
     public Result determineResult(List<Number> winningNumbers) {
-        WinningLotto winningLotto = new WinningLotto(winningNumbers.subList(0, 6), winningNumbers.get(6));
+        WinningLotto winningLotto = new WinningLotto(winningNumbers.subList(FIRST, LAST), winningNumbers.get(LAST));
         return new Result(tickets, winningLotto);
     }
 }
