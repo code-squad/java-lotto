@@ -1,23 +1,22 @@
 package saru;
 
-import org.junit.Before;
-import org.junit.Test;
-import saru.domain.LottoLine;
-import saru.domain.LottoMaker;
-import saru.domain.LottoMatcher;
-import saru.view.Output;
+import org.junit.*;
+import saru.domain.*;
+import saru.view.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static junit.framework.TestCase.assertEquals;
 
 public class OutputTest {
+    private static final int INIT_NUM = 6;
+
     private LottoMaker lottoMaker = LottoMaker.of();
     private List<LottoLine> lottoLines = new ArrayList<>();
 
     private String resultStr = "1, 2, 3, 4, 5, 6";
-    private LottoMatcher lottoMatcher = LottoMatcher.of(lottoMaker.makeManualLottoLine(resultStr));
+    private List<LottoNum> resultList = lottoMaker.makeManualLottoLine(resultStr);
+    private LottoMatcher lottoMatcher = LottoMatcher.of(WinningLotto.of(resultList));
     private Result result;
 
     @Before
@@ -25,24 +24,29 @@ public class OutputTest {
         result = Result.of();
 
         String[] compareStr = {"3, 4, 5, 6, 9, 10", "3, 4, 5, 6, 9, 10",
-                "3, 4, 5, 6, 1, 2", "3, 4, 5, 7, 1, 2", "7, 4, 5, 6, 8, 9"};
+                "3, 4, 5, 6, 1, 2", "3, 4, 5, 7, 1, 2", "7, 4, 5, 6, 8, 9",
+                "1, 2, 3, 4, 5, 11"};
 
         for (String str : compareStr) {
             lottoLines.add(LottoLine.of(lottoMaker.makeManualLottoLine(str)));
         }
 
-        for (int i = 0; i < 5; i++) {
-            result.increaseHit(lottoMatcher.match(lottoLines.get(i)));
+        // 매칭을 하는데 보너스 번호 일치 여부가 없음
+        // 보너스 번호 일치 여부를 따로 받아야 할 것 같다.
+        for (int i = 0; i < INIT_NUM; i++) {
+            int bonusNum = 11;
+            result.increaseHit(lottoMatcher.match(lottoLines.get(i)),
+                    lottoLines.get(i).containsBonusNum(bonusNum));
         }
     }
 
     @Test
     public void 수익률계산() {
         Output.printCreatedNum(lottoLines);
-        Output output = new Output(result, 5);
-        // 100 * sumMoney / (this.buyNum * 1000);
-        // 100 * 2001605000 / (5 * 1000);
-        assertEquals(100 * (2001605000 / (5 * 1000)), output.calcIncome());
+        Output output = new Output(result, INIT_NUM);
+
+        assertEquals(100 * ((5000 + 50000 * 2 + 1500000 + 30000000 + 2000000000)
+                / (INIT_NUM * 1000)), output.calcIncome());
         System.out.println("수익률 : " + output.calcIncome() + " %");
     }
 }

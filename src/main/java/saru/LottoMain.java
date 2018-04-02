@@ -15,9 +15,14 @@ public class LottoMain {
         List<LottoLine> lottoLines = LottoMaker.of().makeLottoNumber(buyNum);
         Output.printCreatedNum(lottoLines);
 
+        // 당첨번호를 입력 받고 이어서 보너스 번호도 입력 받는다
         String hitNumber = Input.promptHitNumber();
+        int bonusNumber = Input.promptBonusNumber();
+
         LottoCalculator lottoCalculator = LottoCalculator.of(lottoLines);
-        Output output = new Output(lottoCalculator.makeResult(hitNumber), buyNum);
+
+        // 결과를 만들때 당첨번호와 같이 보너스 번호를 보낸다.
+        Output output = new Output(lottoCalculator.makeResult(hitNumber, bonusNumber), buyNum);
         output.printStatus();
     }
 }

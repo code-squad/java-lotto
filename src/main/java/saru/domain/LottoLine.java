@@ -18,6 +18,11 @@ public class LottoLine {
         return numbers;
     }
 
+    // TODO 라인에 보너스 넘버 포함 여부 있어야 하나?
+    public boolean containsBonusNum(int bonusNum) {
+        return numbers.contains(LottoNum.of(bonusNum));
+    }
+
     @Override
     public String toString() {
         return numbers.toString();
