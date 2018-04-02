@@ -50,7 +50,7 @@ public class Parser {
     }
 
     public static List<Number> checkDuplicate(List<Number> winningNumbers, Number bonusBall) throws IllegalArgumentException {
-        if (winningNumbers.contains(bonusBall)) {
+        if (!winningNumbers.contains(bonusBall)) {
             winningNumbers.add(bonusBall);
             return winningNumbers;
         }

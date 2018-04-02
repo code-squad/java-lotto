@@ -29,6 +29,6 @@ public class Output {
         System.out.println("5개 일치 (" + Rank.THIRD.getPrize() + ") - " + result.getCount(Rank.THIRD) + "개");
         System.out.println("5개 일치 + 보너스 볼 일치 (" + Rank.SECOND.getPrize() + ") - " + result.getCount(Rank.SECOND) + "개");
         System.out.println("6개 일치 (" + Rank.FIRST.getPrize() + ") - " + result.getCount(Rank.FIRST) + "개");
-        System.out.printf("총 수익률은 %.1f 입니다.", result.calculateProfit());
+        System.out.printf("총 수익률은 %.1f%% 입니다.", result.calculateProfit());
     }
 }
