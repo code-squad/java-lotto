@@ -4,6 +4,9 @@ import domain.LottoBundle;
 import domain.result.LottoResults;
 import domain.result.Rank;
 import utils.MoneyUtils;
+import utils.OutputUtils;
+
+import java.util.List;
 
 public class OutputView {
 
@@ -17,22 +20,18 @@ public class OutputView {
         System.out.println(resultMessage);
     }
 
-    private static String buildTitle() {
-        return "당첨 통계\n" + "---------\n";
-    }
-
-    private static String buildRankMessage(LottoResults results) {
-        Rank[] ranks = Rank.values();
+    public static String buildRankMessage(LottoResults results) {
+        List<String> resultMessages = OutputUtils.buildRankMessage(results);
         StringBuilder builder = new StringBuilder();
-        for (Rank rank : ranks) {
-            builder.append(doBuild(rank, results));
+        for (String resultMessage : resultMessages) {
+            builder.append(resultMessage);
             builder.append("\n");
         }
         return builder.toString();
     }
 
-    private static String doBuild(Rank rank, LottoResults results) {
-        return rank.getMatchPoint() + "개 일치 (" + rank.getPrize() + "원) - " + results.calcRankNum(rank) + "개";
+    private static String buildTitle() {
+        return "당첨 통계\n" + "---------\n";
     }
 
     private static String buildProfitContent(int amount, LottoResults results) {

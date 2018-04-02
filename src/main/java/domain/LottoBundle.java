@@ -31,6 +31,8 @@ public class LottoBundle {
         for (Lotto lotto : lottos) {
             addResult(results, winningLotto, lotto);
         }
+        results.calcProfit(lottos.size());
+        results.setResultMessage();
         return results;
     }
 
@@ -54,5 +56,19 @@ public class LottoBundle {
 
     public boolean isExistPurchaseHistory() {
         return !lottos.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (Lotto lotto : lottos) {
+            builder.append(lotto);
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
+
+    public int getPurchaseAmount() {
+        return lottos.size();
     }
 }
