@@ -28,6 +28,7 @@ public class Lotto {
     }
 
     public Result determineResult(List<Number> winningNumbers) {
-        return new Result(tickets, new Ticket(winningNumbers.subList(0, 6)), winningNumbers.get(6));
+        WinningLotto winningLotto = new WinningLotto(winningNumbers.subList(0, 6), winningNumbers.get(6));
+        return new Result(tickets, winningLotto);
     }
 }

@@ -8,53 +8,51 @@ import java.util.Map;
 import static lotto.domain.Lotto.LOTTO_PRICE;
 
 public class Result {
-    private final List<Rank> wins;
     private final int ticketsBought;
-    private Map<Rank, Integer> counts;
+    private Map<Match, Integer> counts;
 
-    Result(List<Ticket> tickets, Ticket winningTicket, Number bonusNumber) {
+    Result(List<Ticket> tickets, WinningLotto winningLotto) {
         this.ticketsBought = tickets.size();
-        this.wins = drawWins(tickets, winningTicket, bonusNumber);
-        this.counts = mapCounts();
+        this.counts = mapCounts(getMatches(tickets, winningLotto));
     }
 
-    private static List<Rank> drawWins(List<Ticket> tickets, Ticket winningTicket, Number bonusNumber) {
-        List<Rank> wins = new ArrayList<>();
+    private static List<Match> getMatches(List<Ticket> tickets, WinningLotto winningLotto) {
+        List<Match> matches = new ArrayList<>();
         for (Ticket ticket : tickets) {
-            Rank win = drawWin(ticket, winningTicket, bonusNumber);
-            if (win != null) {
-                wins.add(win);
+            Match match = compareTicket(ticket, winningLotto);
+            if (match != null) {
+                matches.add(match);
             }
         }
-        return wins;
+        return matches;
     }
 
-    static Rank drawWin(Ticket ticket, Ticket winningTicket, Number bonusNumber) {
-        int matchCount = ticket.countMatchInTicket(winningTicket);
-        boolean bonus = ticket.bonusMatch(bonusNumber);
+    static Match compareTicket(Ticket ticket, WinningLotto winningLotto) {
+        int matchCount = winningLotto.countMatchInTicket(ticket);
+        boolean bonus = winningLotto.bonusMatch(ticket);
 
-        return Rank.ofRank(matchCount, bonus);
+        return Match.ofMatch(matchCount, bonus);
     }
 
-    private Map<Rank, Integer> mapCounts() {
-        Map<Rank, Integer> counts = new HashMap<>();
-        for (Rank rank : Rank.values()) {
-            counts.put(rank, getWinCount(rank));
+    private static Map<Match, Integer> mapCounts(List<Match> matches) {
+        Map<Match, Integer> result = new HashMap<>();
+        for (Match match : Match.values()) {
+            result.put(match, getMatchCount(matches, match));
         }
-        return counts;
+        return result;
     }
 
-    private int getWinCount(Rank rank) {
-        return (int) wins.stream().filter(wins -> wins == rank).count();
+    private static int getMatchCount(List<Match> matches, Match match) {
+        return (int) matches.stream().filter(m -> m == match).count();
     }
 
-    public int getCount(Rank rank) {
-        return counts.get(rank);
+    public int getCount(Match match) {
+        return counts.get(match);
     }
 
     public double calculateProfit() {
         double earnings = 0;
-        for (Map.Entry<Rank, Integer> entry : counts.entrySet()) {
+        for (Map.Entry<Match, Integer> entry : counts.entrySet()) {
             earnings += entry.getKey().getPrize() * entry.getValue();
         }
         return (earnings / (ticketsBought * LOTTO_PRICE)) * 100;

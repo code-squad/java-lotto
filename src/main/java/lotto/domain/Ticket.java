@@ -24,19 +24,11 @@ public class Ticket {
         return numbers;
     }
 
-    private boolean contains(Number number) {
+    boolean contains(Number number) {
         return ticket.contains(number);
-    }
-
-    int countMatchInTicket(Ticket winningTicket) {
-        return (int) ticket.stream().filter(winningTicket::contains).count();
     }
 
     public String getTicketString() {
         return Parser.parseToPrintable(ticket);
-    }
-
-    public boolean bonusMatch(Number bonusNumber) {
-        return ticket.contains(bonusNumber);
     }
 }

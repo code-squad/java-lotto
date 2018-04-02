@@ -23,8 +23,8 @@ public class ResultTest {
 
     @Test
     public void drawWin() {
-        Rank second = Result.drawWin(ticket, winningTicket, bonusNumber);
-        assertThat(Rank.SECOND).isEqualTo(second);
+        Match second = Result.compareTicket(ticket, winningTicket, bonusNumber);
+        assertThat(Match.SECOND).isEqualTo(second);
     }
 
     @Test
