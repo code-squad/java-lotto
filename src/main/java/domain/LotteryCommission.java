@@ -9,15 +9,15 @@ public class LotteryCommission {
 
     private static WinningLotto winningLotto;
 
-    public static void selectWinningNumbers(List<Integer> numbers, Ball ball) {
-        winningLotto = WinningLotto.of(numbers, ball);
+    public static void selectWinningNumbers(LottoNoGroup lottoNoGroup, LottoNo bonusNum) {
+        winningLotto = WinningLotto.of(lottoNoGroup, bonusNum);
     }
 
     private static List<Rank> checkRanks(List<Lotto> lottos) {
         return lottos.stream().map(i -> i.askRank(winningLotto)).collect(Collectors.toList());
     }
 
-    public static List<Integer> informResults(List<Lotto> lottos){
+    public static List<Integer> informResults(List<Lotto> lottos) {
         return LottoUtils.rankToInt(checkRanks(lottos));
     }
 

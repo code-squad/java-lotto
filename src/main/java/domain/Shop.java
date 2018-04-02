@@ -1,22 +1,23 @@
 package domain;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static domain.LottoUtils.getRandNumbers;
+import static domain.LottoUtils.listToLottoNoGroup;
 
 public class Shop {
 
-    static Lotto sellTicket(List<Integer> numbers) {
-        return Lotto.of(numbers);
+    static Lotto sellTicket(LottoNoGroup lottoNoGroup) {
+        return Lotto.of(lottoNoGroup);
     }
 
-    private static List<Lotto> sellManualTickets(List<List<Integer>> manualInput) {
+    public static List<Lotto> sellManualTickets(List<LottoNoGroup> lottoNoGroups) {
         List<Lotto> lottos = new ArrayList<>();
-        for (List<Integer> numbers : manualInput){
-            lottos.add(sellTicket(numbers));
+        for (LottoNoGroup lottoNoGroup: lottoNoGroups) {
+            lottos.add(sellTicket(lottoNoGroup));
         }
         return lottos;
     }
@@ -25,9 +26,9 @@ public class Shop {
         return sellManualTickets(genRandomLists(numTickets));
     }
 
-    private static List<List<Integer>> genRandomLists(int numTickets) {
+    private static List<LottoNoGroup> genRandomLists(int numTickets) {
         return IntStream.range(0, numTickets)
-                .mapToObj(i -> LottoUtils.getRandNumbers())
+                .mapToObj(i -> listToLottoNoGroup(getRandNumbers()))
                 .collect(Collectors.toList());
     }
 

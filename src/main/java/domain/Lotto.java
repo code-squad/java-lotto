@@ -1,47 +1,29 @@
 package domain;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Lotto {
 
-    private List<Ball> balls;
+    private LottoNoGroup lottoNoGroup;
 
     public Lotto() {
 
     }
 
-    Lotto(List<Integer> numbers) {
-        if (!isValidNumbers(numbers)) {
-            throw new IllegalArgumentException("올바른 값을 넣어주세요.");
-        }
-        this.balls = numbers.stream().map(Ball::of).collect(Collectors.toList());
+    Lotto(LottoNoGroup lottoNoGroup) {
+        this.lottoNoGroup = lottoNoGroup;
     }
 
-    public static Lotto of(List<Integer> numbers) {
-        return new Lotto(numbers);
-    }
-
-    static boolean isValidNumbers(List<Integer> numbers) {
-        return isValidSize(numbers) && hasDuplication(numbers);
-    }
-
-    static boolean hasDuplication(List<Integer> numbers) {
-        return numbers.stream().distinct().count() == (long) numbers.size();
-    }
-
-    static boolean isValidSize(List<Integer> numbers) {
-        final int VALID_NUMBER_LENGTH = 6;
-        return numbers.size() == VALID_NUMBER_LENGTH;
+    public static Lotto of(LottoNoGroup lottoNoGroup) {
+        return new Lotto(lottoNoGroup);
     }
 
     int countMatch(Lotto winninglotto) {
-        return (int) this.balls.stream().filter(winninglotto.balls::contains).count();
+        return lottoNoGroup.countMatch(winninglotto.lottoNoGroup);
     }
 
     public Rank askRank(WinningLotto winninglotto) {
-        return Rank.valueOf(countMatch(winninglotto), winninglotto.isBonus(balls));
+        return Rank.valueOf(countMatch(winninglotto), winninglotto.isBonus(lottoNoGroup));
     }
 
     @Override
@@ -49,17 +31,17 @@ public class Lotto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lotto lotto = (Lotto) o;
-        return Objects.equals(balls, lotto.balls);
+        return Objects.equals(lottoNoGroup, lotto.lottoNoGroup);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(balls);
+        return Objects.hash(lottoNoGroup);
     }
 
     @Override
     public String toString(){
-        return balls.toString();
+        return lottoNoGroup.toString();
     }
 }

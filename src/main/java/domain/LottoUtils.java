@@ -34,4 +34,18 @@ public class LottoUtils {
         return totalPrize;
     }
 
+    static List<Integer> stringToIntList(String line) {
+        String[] numbers = line.split(",");
+        return Arrays.stream(numbers).map(String::trim).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+    }
+
+
+    static LottoNoGroup listToLottoNoGroup(List<Integer> numbers) {
+        return LottoNoGroup.of(numbers.stream().map(LottoNo::of).collect(Collectors.toList()));
+    }
+
+    public static LottoNoGroup inputParser(String line) {
+        return listToLottoNoGroup(stringToIntList(line));
+    }
+
 }

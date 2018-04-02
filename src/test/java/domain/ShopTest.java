@@ -12,7 +12,9 @@ public class ShopTest {
 
     @Test
     public void 낱개로또판매확인() {
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-        assertThat(Shop.sellTicket(numbers), is(Lotto.of(numbers)));
+        List<LottoNo> lottoNos = Arrays.asList(LottoNo.of(1), LottoNo.of(2), LottoNo.of(3), LottoNo.of(4), LottoNo.of(5), LottoNo.of(6));
+        LottoNoGroup lottoNoGroup = LottoNoGroup.of(lottoNos);
+        Lotto lotto = Lotto.of(lottoNoGroup);
+        assertThat(Shop.sellTicket(lottoNoGroup), is(lotto));
     }
 }
