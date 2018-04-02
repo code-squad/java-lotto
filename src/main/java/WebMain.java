@@ -1,21 +1,18 @@
 import lotto.Lotto;
 import money.Money;
+import org.slf4j.LoggerFactory;
 import rank.Check;
 import rank.Decision;
 import rank.Rank;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-import view.ResultView;
-
+//import view.ResultView;
 import java.util.*;
-
-import static money.Money.finalCount;
 import static spark.Spark.*;
 
 public class WebMain {
-    private static List<Lotto> lottos;
-    private static String bonusNumber;
-    private static int inputMoney;
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(WebMain.class);
+    private static List<Lotto> lottos = new ArrayList<>();
     public static void main(String[] args) {
         // psvm
         port(8080);
@@ -25,7 +22,6 @@ public class WebMain {
         });
 
         post("/buyLotto", (req, res) -> {
-            List<Lotto> lottos = new ArrayList<>();
             int num = (Integer.parseInt(req.queryParams("inputMoney")) / 1000);
             String [] manualNum = req.queryParams("manualNumber").split("\r?\n");
             int autoNum = num - manualNum.length;
@@ -51,19 +47,14 @@ public class WebMain {
             String bonusNumber = req.queryParams("bonusNumber");
             model.put("winningNumber", winningNumber);
             model.put("bonusNumber", bonusNumber);
-            Check check = new Check();
-            check.checking(lottos);
+            Rank [] ranks = Rank.values();
             Money money = new Money();
             Decision decision = new Decision();
-            decision.addRank(check.getRight(), lottos, bonusNumber);
-            money.money(decision.decisionRank(lottos, check.getRight() , bonusNumber));
-//            printCount(money.finalCount);
-//            printResult(lottos, bonusNumber, inputMoney, check.getRight());
-//
-//            ResultView.result(lottos, bonusNumber, check, inputMoney);
-            Rank [] ranks = Rank.values();
-            model.put("ranks", ranks);
-            model.put("finalCount", finalCount);
+            int inputMoney = lottos.size() * 1000;
+            int profit = money.profit(money.totalMoney(decision.decisionRank(lottos, winningNumber, bonusNumber)), inputMoney);
+            HashMap<Rank, Integer> finalCount = money.money(decision.decisionRank(lottos, winningNumber, bonusNumber));
+            model.put("profit", profit);
+            model.put("finalCount", money);
             return render(model, "/result.html");
         });
     }
