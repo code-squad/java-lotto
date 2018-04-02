@@ -6,8 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Ticket {
-    static final int FIRST = 0;
-    static final int LAST = 6;
+    private static final int MAX_SIZE = 6;
     private final List<Number> ticket;
 
     Ticket(List<Number> numbers) {
@@ -19,7 +18,7 @@ public class Ticket {
     }
 
     private List<Number> checkValid(List<Number> numbers) throws IllegalArgumentException {
-        if (numbers.size() != LAST) {
+        if (numbers.size() != MAX_SIZE) {
             Output.printMessage("6개의 숫자만 허용됩니다.");
             throw new IllegalArgumentException();
         }

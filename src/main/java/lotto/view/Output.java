@@ -1,11 +1,6 @@
 package lotto.view;
 
-import lotto.domain.Lotto;
-import lotto.domain.Number;
-import lotto.domain.Match;
-import lotto.domain.Result;
-
-import java.util.List;
+import lotto.domain.*;
 
 public class Output {
 
@@ -19,8 +14,8 @@ public class Output {
         }
     }
 
-    public static void showResult(Lotto lotto, List<Number> winningNumbers) {
-        Result result = lotto.determineResult(winningNumbers);
+    public static void getResult(Lotto lotto, WinningLotto winningLotto) {
+        Result result = new Result(lotto, winningLotto);
 
         System.out.println("당첨통계");
         System.out.println("----------");

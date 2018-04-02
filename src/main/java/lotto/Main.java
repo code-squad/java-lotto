@@ -16,7 +16,9 @@ public class Main {
 
         showReceipt(lotto);
 
-        displayResult(lotto, promptUserForWinningNumbers());
+        WinningLotto winningLotto = new WinningLotto(promptUserForWinningNumbers());
+
+        getResult(lotto, winningLotto);
     }
 
     private static int promptUserForPurchase() {
@@ -50,7 +52,7 @@ public class Main {
         Output.showPurchase(lotto);
     }
 
-    private static void displayResult(Lotto lotto, List<Number> winningNumbers) {
-        Output.showResult(lotto, winningNumbers);
+    private static void getResult(Lotto lotto, WinningLotto winningLotto) {
+        Output.getResult(lotto, winningLotto);
     }
 }

@@ -3,10 +3,15 @@ package lotto.domain;
 import java.util.List;
 
 public class WinningLotto {
+    private static final int FIRST = 0;
+    private static final int LAST = 6;
     private final List<Number> winningTicket;
     private final Number bonusNumber;
 
-    WinningLotto(List<Number> winningTicket, Number bonusNumber) {
+    public WinningLotto(List<Number> winningNumbers) {
+        List<Number> winningTicket = winningNumbers.subList(FIRST, LAST);
+        Number bonusNumber = winningNumbers.get(LAST);
+
         checkDuplicate(winningTicket, bonusNumber);
         this.winningTicket = winningTicket;
         this.bonusNumber = bonusNumber;
