@@ -6,8 +6,6 @@ import domain.result.LottoResults;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utils.LottoMachine;
-import utils.MoneyUtils;
-import utils.OutputUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +14,11 @@ import java.util.Map;
 import static spark.Spark.*;
 import static utils.InputUtils.*;
 import static utils.MoneyUtils.calcBuyAmount;
+/*
+    [만들어야하는 테이블]
+    1. 구매한 로또 - LottoBundle(각각을 테이블 로우로 저장)
+    2. 위닝 로또와 비교한 결과 - LottoResults (각 랭크에 대한 결과 - String 데이터를 저장하면되지않을까)
+ */
 
 public class LottoWebMain {
     private static LottoBundle lottoBundle = LottoBundle.of();
@@ -47,7 +50,7 @@ public class LottoWebMain {
         });
     }
 
-    public static String render(Map<String, Object> model, String templatePath) {
+    private static String render(Map<String, Object> model, String templatePath) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 }
