@@ -1,6 +1,5 @@
 package domain;
 
-import domain.exceptions.InvalidMoneyException;
 import domain.exceptions.InvalidTicketNumException;
 
 import java.util.ArrayList;
@@ -10,29 +9,22 @@ import static domain.LottoUtils.TICKET_PRICE;
 
 public class User {
 
-    private int presentMoney;
+    private Money presentMoney;
     private List<Lotto> lottos;
     private List<Integer> prizeStatistics;
 
     private User(int money) {
-        if (!isValidMoney(money)) {
-            throw new InvalidMoneyException(String.format("1000원 단위로 입력해 주세요. 입력값 : %d", money));
-        }
         lottos = new ArrayList<>();
-        presentMoney = money;
-    }
-
-    static boolean isValidMoney(int money) {
-        return money > 0 && (money % TICKET_PRICE == 0);
+        presentMoney = Money.of(money);
     }
 
     public static User whoHasMoneyOf(int money) {
         return new User(money);
     }
 
-    public void purchaseTicketsManual(List<List<Integer>> manualInput) {
+    public void purchaseTicketsManual(List<LottoNoGroup> manualInput) {
         lottos.addAll(Shop.sellManualTickets(manualInput));
-        presentMoney -= manualInput.size() * TICKET_PRICE;
+        presentMoney.withDraw(manualInput.size() * TICKET_PRICE);
     }
 
     public void purchaseTicketsAuto(int numTickets) {
@@ -41,7 +33,7 @@ public class User {
         }
         if (numTickets == 0) return;
         lottos.addAll(Shop.sellAutoTickets(numTickets));
-        presentMoney -= numTickets * TICKET_PRICE;
+        presentMoney.withDraw(numTickets * TICKET_PRICE);
     }
 
     static boolean isValidNumTickets(int numTickets) {
@@ -58,11 +50,11 @@ public class User {
     }
 
     private void askForEarnings() {
-        presentMoney += LotteryCommission.giveEarnings(prizeStatistics);
+        presentMoney.depositEarnings(LotteryCommission.giveEarnings(prizeStatistics));
     }
 
     public int calcProfit() {
-        return presentMoney / (lottos.size() * TICKET_PRICE) * 100;
+        return presentMoney.calcProfit();
     }
 
     public List<Lotto> getLottos() {

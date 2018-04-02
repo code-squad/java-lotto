@@ -9,8 +9,8 @@ public class LotteryCommission {
 
     private static WinningLotto winningLotto;
 
-    public static void selectWinningNumbers(List<Integer> numbers, Ball ball) {
-        winningLotto = WinningLotto.of(numbers, ball);
+    public static void selectWinningNumbers(LottoNoGroup lottoNoGroup, LottoNo bonusNum) {
+        winningLotto = WinningLotto.of(lottoNoGroup, bonusNum);
     }
 
     private static List<Rank> checkRanks(List<Lotto> lottos) {

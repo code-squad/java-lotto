@@ -2,40 +2,35 @@ package domain;
 
 import domain.exceptions.InvalidBallException;
 
-import java.util.List;
 import java.util.Objects;
 
-public class Ball {
+public class LottoNo {
 
     private static final int MIN_INCLUSIVE = 0;
     private static final int MAX_INCLUSIVE = 45;
     private final int num;
 
-    private Ball(int num) {
-        if (!isValidBall(num)) {
+    private LottoNo(int num) {
+        if (!isValidLottoNo(num)) {
             throw new InvalidBallException(String.format("입력값은 1-45사이 입니다. 입력값 : %d", num));
         }
         this.num = num;
     }
 
-    static boolean isValidBall(int num) {
+    static boolean isValidLottoNo(int num) {
         return MIN_INCLUSIVE < num && num <= MAX_INCLUSIVE;
     }
 
-    public static Ball of(int num) {
-        return new Ball(num);
-    }
-
-    public boolean isContainedIn(List<Integer> numbers) {
-        return numbers.contains(this.num);
+    public static LottoNo of(int num) {
+        return new LottoNo(num);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Ball ball = (Ball) o;
-        return num == ball.num;
+        LottoNo lottoNo = (LottoNo) o;
+        return num == lottoNo.num;
     }
 
     @Override

@@ -6,26 +6,26 @@ import java.util.List;
 
 public class WinningLotto extends Lotto {
 
-    private Ball bonusBall;
+    private LottoNo bonusNum;
 
-    private WinningLotto(List<Integer> numbers, Ball bonusBall) {
-        super(numbers);
-        if (!isValidBonusBall(numbers, bonusBall)) {
-            throw new DuplicatedBallException("중복된 번호는 넣을 수 없습니다. \n Winning number" + numbers.toString() + "\n BonusBall : " + bonusBall.toString());
+    private WinningLotto(LottoNoGroup winningLottoNoGroup, LottoNo bonusNum) {
+        super(winningLottoNoGroup);
+        if (!isValidBonus(winningLottoNoGroup, bonusNum)) {
+            throw new DuplicatedBallException("중복된 번호는 넣을 수 없습니다. \n Winning number" + winningLottoNoGroup.toString() + "\n BonusBall : " + bonusNum.toString());
         }
-        this.bonusBall = bonusBall;
+        this.bonusNum = bonusNum;
     }
 
-    public static WinningLotto of(List<Integer> numbers, Ball bonusBall) {
-        return new WinningLotto(numbers, bonusBall);
+    public static WinningLotto of(LottoNoGroup lottoNoGroup, LottoNo lottoNo) {
+        return new WinningLotto(lottoNoGroup, lottoNo);
     }
 
-    static boolean isValidBonusBall(List<Integer> numbers, Ball bonusBall) {
-        return !bonusBall.isContainedIn(numbers);
+    static boolean isValidBonus(LottoNoGroup lottoNoGroup, LottoNo bonusNum) {
+        return !lottoNoGroup.contains(bonusNum);
     }
 
-    public boolean isBonus(List<Ball> balls) {
-        return balls.contains(bonusBall);
+    public boolean isBonus(LottoNoGroup lottoNoGroup) {
+        return lottoNoGroup.contains(bonusNum);
     }
 
 }

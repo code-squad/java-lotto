@@ -1,5 +1,6 @@
-import domain.Ball;
 import domain.LotteryCommission;
+import domain.LottoNo;
+import domain.LottoNoGroup;
 import domain.User;
 import domain.exceptions.LottoProcessException;
 import view.InputView;
@@ -31,9 +32,9 @@ public class Main {
 
     private static void resultProcess() {
         try {
-            List<Integer> winningNumbers = InputView.enterWinningLotto();
-            Ball bonusBall = InputView.enterBonusBall();
-            LotteryCommission.selectWinningNumbers(winningNumbers, bonusBall);
+            LottoNoGroup winningNumbers = InputView.enterWinningLotto();
+            LottoNo lottoNo = InputView.enterBonusBall();
+            LotteryCommission.selectWinningNumbers(winningNumbers, lottoNo);
             larry.checkTotalResult();
             ResultView.printResult(larry);
         } catch (LottoProcessException e) {
