@@ -1,5 +1,7 @@
 package domain;
 
+import domain.exceptions.DuplicatedBallException;
+
 import java.util.List;
 
 public class WinningLotto extends Lotto {
@@ -9,7 +11,7 @@ public class WinningLotto extends Lotto {
     private WinningLotto(List<Integer> numbers, Ball bonusBall) {
         super(numbers);
         if (!isValidBonusBall(numbers, bonusBall)) {
-            throw new IllegalArgumentException("중복된 번호는 넣을 수 없습니다.");
+            throw new DuplicatedBallException("중복된 번호는 넣을 수 없습니다.");
         }
         this.bonusBall = bonusBall;
     }

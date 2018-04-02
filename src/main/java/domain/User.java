@@ -1,5 +1,8 @@
 package domain;
 
+import domain.exceptions.InvalidMoneyException;
+import domain.exceptions.InvalidTicketNumException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +16,7 @@ public class User {
 
     private User(int money) {
         if (!isValidMoney(money)) {
-            throw new IllegalArgumentException(String.format("1000원 단위로 입력해 주세요. 입력값 : %d", money));
+            throw new InvalidMoneyException(String.format("1000원 단위로 입력해 주세요. 입력값 : %d", money));
         }
         lottos = new ArrayList<>();
         presentMoney = money;
@@ -34,7 +37,7 @@ public class User {
 
     public void purchaseTicketsAuto(int numTickets) {
         if (!isValidNumTickets(numTickets)){
-            throw new IllegalArgumentException();
+            throw new InvalidTicketNumException(String.format("0 이상의 값을 입력해 주세요 입력값 : %d", numTickets));
         }
         if (numTickets == 0) return;
         lottos.addAll(Shop.sellAutoTickets(numTickets));

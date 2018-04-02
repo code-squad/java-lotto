@@ -1,5 +1,7 @@
 package domain;
 
+import domain.exceptions.InvalidLottoNumberException;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -14,7 +16,7 @@ public class Lotto {
 
     Lotto(List<Integer> numbers) {
         if (!isValidNumbers(numbers)) {
-            throw new IllegalArgumentException("올바른 값을 넣어주세요.");
+            throw new InvalidLottoNumberException("올바른 값을 넣어주세요. 입력값 : " + numbers.toString());
         }
         this.balls = numbers.stream().map(Ball::of).collect(Collectors.toList());
     }

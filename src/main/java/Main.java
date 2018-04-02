@@ -1,6 +1,7 @@
 import domain.Ball;
 import domain.LotteryCommission;
 import domain.User;
+import domain.exceptions.LottoProcessException;
 import view.InputView;
 import view.ResultView;
 
@@ -22,9 +23,9 @@ public class Main {
             larry.purchaseTicketsAuto(numTickets - numManual);
             larry.purchaseTicketsManual(InputView.enterNumsOfManualTicket(numManual));
             ResultView.printLottos(larry);
-        } catch (RuntimeException | IOException e) {
-            buyProcess();
+        } catch (LottoProcessException | IOException e) {
             e.printStackTrace();
+            buyProcess();
         }
     }
 
@@ -35,8 +36,10 @@ public class Main {
             LotteryCommission.selectWinningNumbers(winningNumbers, bonusBall);
             larry.checkTotalResult();
             ResultView.printResult(larry);
-        } catch (RuntimeException e) {
+        } catch (LottoProcessException e) {
+            e.printStackTrace();
             resultProcess();
+
         }
     }
 

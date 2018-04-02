@@ -35,7 +35,7 @@ public class InputView {
         try {
             System.out.println("지난 주 당첨 번호를 입력해 주세요. 구분자 (\",\")");
             return inputParser(scanner.nextLine());
-        } catch (RuntimeException e) {
+        } catch (InputMismatchException e) {
             System.out.println("올바른 값을 입력해 주세요.");
             return enterWinningLotto();
         }
@@ -52,13 +52,13 @@ public class InputView {
     }
 
     public static List<List<Integer>> enterNumsOfManualTicket(int numManual) throws IOException {
-        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        List<List<Integer>> manualInput = new ArrayList<>();
-        for (int i = 0; i < numManual; i++) {
-            manualInput.add(inputParser(br.readLine().trim()));
-        }
-        return manualInput;
+            System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            List<List<Integer>> manualInput = new ArrayList<>();
+            for (int i = 0; i < numManual; i++) {
+                manualInput.add(inputParser(br.readLine().trim()));
+            }
+            return manualInput;
     }
 
     public static List<Integer> inputParser(String line) {

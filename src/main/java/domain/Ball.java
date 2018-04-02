@@ -1,5 +1,7 @@
 package domain;
 
+import domain.exceptions.InvalidBallException;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -11,7 +13,7 @@ public class Ball {
 
     private Ball(int num) {
         if (!isValidBall(num)) {
-            throw new RuntimeException("입력값은 1-45사이 입니다.");
+            throw new InvalidBallException("입력값은 1-45사이 입니다.");
         }
         this.num = num;
     }
