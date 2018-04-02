@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static lotto.domain.Ticket.FIRST;
-import static lotto.domain.Ticket.LAST;
+import static lotto.domain.WinningLotto.FIRST;
+import static lotto.domain.WinningLotto.LAST;
 
 public class RandomDrawer {
     private static final int MIN = 1;

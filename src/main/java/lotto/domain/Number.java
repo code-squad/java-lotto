@@ -13,7 +13,7 @@ public class Number {
         this.number = checkValid(number);
     }
 
-    private int checkValid(int number) throws IllegalArgumentException {
+    static int checkValid(int number) throws IllegalArgumentException {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
             Output.printMessage("1 부터 45 사이의 숫자만 있어야 합니다.");
             throw new IllegalArgumentException();

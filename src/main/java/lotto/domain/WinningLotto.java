@@ -1,10 +1,11 @@
 package lotto.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WinningLotto {
-    private static final int FIRST = 0;
-    private static final int LAST = 6;
+    static final int FIRST = 0;
+    static final int LAST = 6;
     private final List<Number> winningTicket;
     private final Number bonusNumber;
 
@@ -18,9 +19,10 @@ public class WinningLotto {
     }
 
     public static List<Number> checkDuplicate(List<Number> winningNumbers, Number bonusNumber) throws IllegalArgumentException {
+        List<Number> winningTicket = new ArrayList<>();
         if (!winningNumbers.contains(bonusNumber)) {
-            winningNumbers.add(bonusNumber);
-            return winningNumbers;
+            winningTicket.add(bonusNumber);
+            return winningTicket;
         }
         throw new IllegalArgumentException();
     }
@@ -29,11 +31,11 @@ public class WinningLotto {
         return Match.ofMatch(countMatchInTicket(ticket), bonusMatch(ticket));
     }
 
-    int countMatchInTicket(Ticket ticket) {
+    private int countMatchInTicket(Ticket ticket) {
         return (int) winningTicket.stream().filter(ticket::contains).count();
     }
 
-    public boolean bonusMatch(Ticket ticket) {
+    private boolean bonusMatch(Ticket ticket) {
         return ticket.contains(bonusNumber);
     }
 }

@@ -17,21 +17,21 @@ public class Result {
         this.result = mapResult();
     }
 
+    private List<Match> getMatches() {
+        return lotto.createMatch(winningLotto);
+    }
+
     private Map<Match, Integer> mapResult() {
         Map<Match, Integer> result = new HashMap<>();
         List<Match> matches = getMatches();
 
         for (Match nthPlace : Match.values()) {
-            result.put(nthPlace, getMatchCount(matches, nthPlace));
+            result.put(nthPlace, countMatches(matches, nthPlace));
         }
         return result;
     }
 
-    private List<Match> getMatches() {
-        return lotto.createMatch(winningLotto);
-    }
-
-    private static int getMatchCount(List<Match> matches, Match nthPlace) {
+    static int countMatches(List<Match> matches, Match nthPlace) {
         return (int) matches.stream().filter(m -> m == nthPlace).count();
     }
 

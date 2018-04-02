@@ -2,7 +2,6 @@ package lotto.domain;
 
 import lotto.view.Output;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Ticket {
@@ -13,11 +12,7 @@ public class Ticket {
         this.ticket = checkValid(numbers);
     }
 
-    Ticket(Number num1, Number num2, Number num3, Number num4, Number num5, Number num6) {
-        this.ticket = Arrays.asList(num1, num2, num3, num4, num5, num6);
-    }
-
-    private List<Number> checkValid(List<Number> numbers) throws IllegalArgumentException {
+    static List<Number> checkValid(List<Number> numbers) throws IllegalArgumentException {
         if (numbers.size() != MAX_SIZE) {
             Output.printMessage("6개의 숫자만 허용됩니다.");
             throw new IllegalArgumentException();
