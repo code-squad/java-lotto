@@ -13,7 +13,7 @@ public class Ball {
 
     private Ball(int num) {
         if (!isValidBall(num)) {
-            throw new InvalidBallException("입력값은 1-45사이 입니다.");
+            throw new InvalidBallException(String.format("입력값은 1-45사이 입니다. 입력값 : %d", num));
         }
         this.num = num;
     }

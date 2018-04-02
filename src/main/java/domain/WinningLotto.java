@@ -11,7 +11,7 @@ public class WinningLotto extends Lotto {
     private WinningLotto(List<Integer> numbers, Ball bonusBall) {
         super(numbers);
         if (!isValidBonusBall(numbers, bonusBall)) {
-            throw new DuplicatedBallException("중복된 번호는 넣을 수 없습니다.");
+            throw new DuplicatedBallException("중복된 번호는 넣을 수 없습니다. \n Winning number" + numbers.toString() + "\n BonusBall : " + bonusBall.toString());
         }
         this.bonusBall = bonusBall;
     }
