@@ -55,4 +55,14 @@ public class LottoBundle {
     public boolean isExistPurchaseHistory() {
         return !lottos.isEmpty();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (Lotto lotto : lottos) {
+            builder.append(lotto);
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
 }

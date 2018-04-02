@@ -1,5 +1,6 @@
 package utils;
 
+import domain.Lotto;
 import domain.LottoNum;
 
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class InputViewUtils {
     public static boolean isNegativeAmount(int manualAmount) {
         return manualAmount < 0;
     }
-
 
     public static String[] parseLottoNumbers(String lottoNumbers) {
         String spaceRemovedNumbers = removeSpace(lottoNumbers);
@@ -52,5 +52,25 @@ public class InputViewUtils {
             numbers.add(convertLottoNum(number));
         }
         return numbers;
+    }
+
+    public static String[] splitLottoNumbers(String manualLotto) {
+        return manualLotto.split("\r?\n");
+    }
+
+    public static List<String[]> parseLottoNumbers(String[] lottoNumbers) {
+        ArrayList<String[]> numbers = new ArrayList<>();
+        for (String number : lottoNumbers) {
+            numbers.add(parseLottoNumbers(number));
+        }
+        return numbers;
+    }
+
+    public static List<Lotto> convertLottos(List<String[]> lottoNumbers) {
+        ArrayList<Lotto> lottos = new ArrayList<>();
+        for (String[] numbers : lottoNumbers) {
+            lottos.add(new Lotto(convertLottoNum(numbers)));
+        }
+        return lottos;
     }
 }

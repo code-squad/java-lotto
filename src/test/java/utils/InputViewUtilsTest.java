@@ -3,6 +3,7 @@ package utils;
 import domain.LottoNum;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -52,5 +53,30 @@ public class InputViewUtilsTest {
     @Test
     public void 수동구매개수가_0보다_작음() {
         assertTrue(InputViewUtils.isNegativeAmount(-1));
+    }
+
+    @Test
+    public void 행_기준으로_수동구매_나누기() {
+        assertArrayEquals(new String[]{"1,2,3,4,5,6", "1,2,3,4,5,6", "1,2,3,4,5,6"}, InputViewUtils.splitLottoNumbers("1,2,3,4,5,6\n" +
+                "1,2,3,4,5,6\n" +
+                "1,2,3,4,5,6"));
+    }
+
+    @Test
+    public void 행_기준으로_나눠진_수동구매_번호별로나누기() {
+        List<String[]> numbers = InputViewUtils.parseLottoNumbers(new String[]{"1,2,3,4,5,6", "1,2,3,4,5,6", "1,2,3,4,5,6"});
+        assertArrayEquals(numbers.get(0), new String[]{"1", "2", "3", "4", "5", "6"});
+    }
+
+    @Test
+    public void 수동구매_문자열_로또번호로_변경하기() {
+        List<String[]> numbers = InputViewUtils.parseLottoNumbers(new String[]{"1,2,3,4,5,6", "1,2,3,4,5,6", "1,2,3,4,5,6"});
+        assertArrayEquals(numbers.get(0), new String[]{"1", "2", "3", "4", "5", "6"});
+    }
+
+    @Test
+    public void 수동구매_로또번호들_로또로_변환하기() {
+        List<String[]> numbers = InputViewUtils.parseLottoNumbers(new String[]{"1,2,3,4,5,6", "1,2,3,4,5,6", "1,2,3,4,5,6"});
+        assertArrayEquals(numbers.get(0), new String[]{"1", "2", "3", "4", "5", "6"});
     }
 }
