@@ -20,6 +20,10 @@ public class WinningLotto {
         throw new IllegalArgumentException();
     }
 
+    Match createMatch(Ticket ticket) {
+        return Match.ofMatch(countMatchInTicket(ticket), bonusMatch(ticket));
+    }
+
     int countMatchInTicket(Ticket ticket) {
         return (int) winningTicket.stream().filter(ticket::contains).count();
     }

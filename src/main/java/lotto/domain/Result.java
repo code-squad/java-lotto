@@ -28,10 +28,7 @@ public class Result {
     }
 
     static Match compareTicket(Ticket ticket, WinningLotto winningLotto) {
-        int matchCount = winningLotto.countMatchInTicket(ticket);
-        boolean bonus = winningLotto.bonusMatch(ticket);
-
-        return Match.ofMatch(matchCount, bonus);
+        return winningLotto.createMatch(ticket);
     }
 
     private static Map<Match, Integer> mapCounts(List<Match> matches) {
