@@ -9,7 +9,7 @@ import utils.MoneyUtils;
 import java.util.List;
 import java.util.Scanner;
 
-import static utils.InputViewUtils.*;
+import static utils.InputUtils.*;
 
 public class InputView {
     private static Scanner scanner = new Scanner(System.in);

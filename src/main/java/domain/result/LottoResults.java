@@ -25,10 +25,8 @@ public class LottoResults {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("LottoResults{");
         for (LottoResult result : lottoResults) {
-            builder.append(result.toString());
-            builder.append("}\n");
+            builder.append(result);
         }
         return builder.toString();
     }

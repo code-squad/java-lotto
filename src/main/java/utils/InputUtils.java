@@ -6,7 +6,7 @@ import domain.LottoNum;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InputViewUtils {
+public class InputUtils {
     public static void verifyManualAmount(int totalAmount, int manualAmount) {
         if (isOverTotalAmount(totalAmount, manualAmount)) {
             throw new IllegalArgumentException("전체 구매개수보다 수동 지정한 개수가 많습니다.");

@@ -9,13 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
-import static utils.InputViewUtils.*;
+import static utils.InputUtils.*;
 import static utils.MoneyUtils.calcBuyAmount;
 
 public class LottoWebMain {
     public static void main(String[] args) {
         port(8080);
+
         get("/", (req, res) -> render(null, "index.html"));
+
         post("/buyLotto", (req, res) -> {
             int totalAmount = calcBuyAmount(convertNumber(req.queryParams("inputMoney")));
             List<Lotto> manualLottos = convertLottos(parseLottoNumbers(splitLottoNumbers(req.queryParams("manualNumber"))));
@@ -28,6 +30,12 @@ public class LottoWebMain {
             return render(model, "show.html");
         });
 
+        post("/matchLotto", (req, res) -> {
+            //필요한 데이터 : 수익률, 결과(LottoResults)
+            Map<String, Object> model = new HashMap<>();
+
+            return render(model, "result.html");
+        });
     }
 
     public static String render(Map<String, Object> model, String templatePath) {
