@@ -45,16 +45,13 @@ public class WebMain {
             Map<String, Object> model = new HashMap<>();
             Lotto winningNumber = new Lotto(req.queryParams("winningNumber"));
             String bonusNumber = req.queryParams("bonusNumber");
-            model.put("winningNumber", winningNumber);
-            model.put("bonusNumber", bonusNumber);
-            Rank [] ranks = Rank.values();
             Money money = new Money();
             Decision decision = new Decision();
             int inputMoney = lottos.size() * 1000;
             int profit = money.profit(money.totalMoney(decision.decisionRank(lottos, winningNumber, bonusNumber)), inputMoney);
             HashMap<Rank, Integer> finalCount = money.money(decision.decisionRank(lottos, winningNumber, bonusNumber));
             model.put("profit", profit);
-            model.put("finalCount", money);
+            model.put("moeny", money);
             return render(model, "/result.html");
         });
     }
