@@ -4,17 +4,19 @@ import saru.domain.*;
 
 import java.util.*;
 
-import org.junit.Test;
-import org.junit.Before;
+import org.junit.*;
 
 import static junit.framework.TestCase.assertEquals;
 
 public class LottoMainTest {
+    private static final int INIT_NUM = 6;
+
     private LottoMaker lottoMaker = LottoMaker.of();
     private List<LottoLine> lottoLines = new ArrayList<>();
 
     private String resultStr = "1, 2, 3, 4, 5, 6";
-    private LottoMatcher lottoMatcher = LottoMatcher.of(lottoMaker.makeManualLottoLine(resultStr));
+    private List<LottoNum> resultList = lottoMaker.makeManualLottoLine(resultStr);
+    private LottoMatcher lottoMatcher = LottoMatcher.of(WinningLotto.of(resultList));
     private Result result;
 
     @Before
@@ -22,14 +24,17 @@ public class LottoMainTest {
         result = Result.of();
 
         String[] compareStr = {"3, 4, 5, 6, 9, 10", "3, 4, 5, 6, 9, 10",
-                "3, 4, 5, 6, 1, 2", "3, 4, 5, 7, 1, 2", "7, 4, 5, 6, 8, 9"};
+                "3, 4, 5, 6, 1, 2", "3, 4, 5, 7, 1, 2", "7, 4, 5, 6, 8, 9",
+                "1, 2, 3, 4, 5, 11"};
 
         for (String str : compareStr) {
             lottoLines.add(LottoLine.of(lottoMaker.makeManualLottoLine(str)));
         }
 
-        for (int i = 0; i < 5; i++) {
-            result.increaseHit(lottoMatcher.match(lottoLines.get(i)));
+        for (int i = 0; i < INIT_NUM; i++) {
+            int bonusNum = 11;
+            result.increaseHit(lottoMatcher.match(lottoLines.get(i)),
+                    lottoLines.get(i).containsBonusNum(bonusNum));
         }
     }
 
@@ -70,8 +75,6 @@ public class LottoMainTest {
     public void 당첨번호갯수_여섯() {
         String compareStr = "1, 2, 3, 4, 5, 6";
         List<LottoNum> lottoLine = lottoMaker.makeManualLottoLine(compareStr);
-
-        LottoMatcher lottoMatcher = LottoMatcher.of(lottoMaker.makeManualLottoLine(resultStr));
         int matchNum = lottoMatcher.match(LottoLine.of(lottoLine));
 
         assertEquals(6, matchNum);
@@ -81,8 +84,6 @@ public class LottoMainTest {
     public void 당첨번호갯수_없음() {
         String compareStr = "11, 12, 13, 18, 19, 20";
         List<LottoNum> lottoLine = lottoMaker.makeManualLottoLine(compareStr);
-
-        LottoMatcher lottoMatcher = LottoMatcher.of(lottoMaker.makeManualLottoLine(resultStr));
         int matchNum = lottoMatcher.match(LottoLine.of(lottoLine));
 
         assertEquals(0, matchNum);
@@ -92,8 +93,6 @@ public class LottoMainTest {
     public void 당첨번호갯수() {
         String compareStr = "1, 2, 3, 8, 9, 10";
         List<LottoNum> lottoLine = lottoMaker.makeManualLottoLine(compareStr);
-
-        LottoMatcher lottoMatcher = LottoMatcher.of(lottoMaker.makeManualLottoLine(resultStr));
         int matchNum = lottoMatcher.match(LottoLine.of(lottoLine));
 
         assertEquals(3, matchNum);
@@ -112,6 +111,11 @@ public class LottoMainTest {
     @Test
     public void 결과다섯일치() {
         assertEquals(1, result.getFiveHit());
+    }
+
+    @Test
+    public void 결과다섯일치_보너스번호() {
+        assertEquals(1, result.getFiveHitBonus());
     }
 
     @Test

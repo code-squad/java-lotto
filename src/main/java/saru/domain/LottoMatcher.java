@@ -1,24 +1,23 @@
 package saru.domain;
 
-import java.util.List;
-
 // 유틸로 따로 뺄까 생각했지만 비교 기준이 되는 당첨 번호는 만들어 두는게 맞는 것 같다.
 public class LottoMatcher {
-    private List<LottoNum> hitLottoLine;
+    private WinningLotto winningLotto;
 
-    private LottoMatcher(List<LottoNum> lottoLine) {
-        this.hitLottoLine = lottoLine;
+    private LottoMatcher(WinningLotto winningLotto) {
+        this.winningLotto = winningLotto;
     }
 
-    public static LottoMatcher of(List<LottoNum> lottoLine) {
-        return new LottoMatcher(lottoLine);
+    public static LottoMatcher of(WinningLotto winningLotto) {
+        return new LottoMatcher(winningLotto);
     }
 
     public int match(LottoLine lottoLine) {
         int matchNum = 0;
 
-        for (LottoNum lottoNum : hitLottoLine) {
-            if (lottoLine.getNumbers().contains(lottoNum)) {
+        // TODO 위닝 로또의 요소중 해당 로또 넘버와 일치하는게 있는지?
+        for (LottoNum lottoNum : lottoLine.getNumbers()) {
+            if (winningLotto.checkContain(lottoNum)) {
                 matchNum++;
             }
         }
