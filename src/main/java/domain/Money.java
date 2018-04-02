@@ -21,7 +21,6 @@ public class Money {
         return money > 0 && (money % TICKET_PRICE == 0);
     }
 
-
     public static Money of(int money) {
         return new Money(money);
     }

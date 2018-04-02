@@ -39,7 +39,7 @@ public class LottoUtilTest {
     @Test
     public void listToLottoNoGroup() {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-        List<LottoNo> lottoNos = Arrays.asList(LottoNo.of(1), LottoNo.of(2), LottoNo.of(3), LottoNo.of(4), LottoNo.of(5), LottoNo.of(6), LottoNo.of(7));
+        List<LottoNo> lottoNos = Arrays.asList(LottoNo.of(1), LottoNo.of(2), LottoNo.of(3), LottoNo.of(4), LottoNo.of(5), LottoNo.of(6));
         LottoNoGroup lottoNoGroup = LottoNoGroup.of(lottoNos);
         assertThat(LottoUtils.listToLottoNoGroup(numbers), is(lottoNoGroup));
     }
