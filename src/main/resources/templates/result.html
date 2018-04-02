@@ -74,14 +74,14 @@ body {
 				<th><h3 class="text-center">당첨 통계</h3></th>
 			</thead>
 		<tbody>
-			{{#results}}
+			{{#results.resultMessage}}
 			<tr>
 				<th>{{this}}</th>
 			</tr>
-			{{/results}}
+			{{/results.resultMessage}}
 		</tbody>
 		<tfoot>
-			<th><h4 class="text-center">총 수익률은 {{profit}}%입니다.</h4></th>
+			<th><h4 class="text-center">총 수익률은 {{results.profit}}%입니다.</h4></th>
 		</tfoot>
 	</table>
 

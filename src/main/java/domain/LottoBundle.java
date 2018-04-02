@@ -31,6 +31,8 @@ public class LottoBundle {
         for (Lotto lotto : lottos) {
             addResult(results, winningLotto, lotto);
         }
+        results.calcProfit(lottos.size());
+        results.setResultMessage();
         return results;
     }
 

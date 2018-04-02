@@ -42,8 +42,7 @@ public class LottoWebMain {
             WinningLotto winningNumber = new WinningLotto(lotto, bonusNumber);
             LottoResults results = lottoBundle.matchLotto(winningNumber);
             Map<String, Object> model = new HashMap<>();
-            model.put("results", OutputUtils.buildRankMessage(results));
-            model.put("profit", MoneyUtils.calcProfit(results.calcTotalPrizeMoney(), lottoBundle.getPurchaseAmount()));
+            model.put("results", results);
             return render(model, "result.html");
         });
     }
