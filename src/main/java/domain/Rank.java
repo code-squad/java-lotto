@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.HashMap;
+
 // 추후 사용하기 위해 미리 작성
 public enum Rank {
     FIRST(6, 2000000000),
@@ -10,6 +12,7 @@ public enum Rank {
 
     private int countOfMatch;
     private int winningMoney;
+    private static HashMap<Rank, Integer> rank = new HashMap<>();
 
     private Rank(int countOfMatch, int winningMoney) {
         this.countOfMatch = countOfMatch;

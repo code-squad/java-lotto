@@ -7,10 +7,10 @@ public class LottoResult {
     private static final int THIRD_PRIZE = 50000;
     private static final int SECOND_PRIZE = 1500000;
     private static final int FIRST_PRIZE = 2000000000;
-    private static final int PERCENT = 100;
+    private static final Double PERCENT = 100.0;
 
     private HashMap<Rank, Integer> result;
-    private int rateOfProfit;
+    private Integer rateOfProfit;
     public static LottoResult lottoResult = new LottoResult();
 
     private LottoResult() {
@@ -27,40 +27,33 @@ public class LottoResult {
     }
 
     public void calcRateOfProfit(int purchaseFee) {
-        rateOfProfit =
-                (((FOURTH_PRIZE * result.get(Rank.FOURTH))
-                        + (THIRD_PRIZE * result.get(Rank.THIRD))
-                        + (SECOND_PRIZE * result.get(Rank.SECOND))
-                        + (FIRST_PRIZE * result.get(Rank.FIRST))) * PERCENT) / purchaseFee;
+        int fourth = FOURTH_PRIZE * result.get(Rank.FOURTH);
+        int third = THIRD_PRIZE * result.get(Rank.THIRD);
+        int second = SECOND_PRIZE * result.get(Rank.SECOND);
+        int first = FIRST_PRIZE * result.get(Rank.FIRST);
+        // 1등일 경우 * 100을 먼저할 경우 int 범위를 벗어난다.
+        Double result = ( fourth + third + second + first ) * (PERCENT / purchaseFee);
+        rateOfProfit = result.intValue();
     }
 
     public boolean isValid(int matchedCount) {
         if (matchedCount < 3) {
             return false;
         }
-        if (matchedCount == 3) {
-            int value = result.get(Rank.FOURTH);
-            value++;
-            result.put(Rank.FOURTH, value);
-            return true;
-        }
-        if (matchedCount == 4) {
-            int value = result.get(Rank.THIRD);
-            value++;
-            result.put(Rank.THIRD, value);
-            return true;
-        }
-        if (matchedCount == 5) {
-            int value = result.get(Rank.SECOND);
-            value++;
-            result.put(Rank.SECOND, value);
-            return true;
-        }
-        if (matchedCount == 6) {
-            int value = result.get(Rank.FIRST);
-            value++;
-            result.put(Rank.FIRST, value);
-            return true;
+
+        switch (matchedCount) {
+            case 3:
+                result.put(Rank.FOURTH, result.get(Rank.FOURTH) + 1);
+                return true;
+            case 4:
+                result.put(Rank.THIRD, result.get(Rank.THIRD) + 1);
+                return true;
+            case 5:
+                result.put(Rank.SECOND, result.get(Rank.SECOND) + 1);
+                return true;
+            case 6:
+                result.put(Rank.FIRST, result.get(Rank.FIRST) + 1);
+                return true;
         }
         return false;
     }
