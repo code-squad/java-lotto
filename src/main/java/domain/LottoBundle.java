@@ -65,4 +65,8 @@ public class LottoBundle {
         }
         return builder.toString();
     }
+
+    public int getPurchaseAmount() {
+        return lottos.size();
+    }
 }

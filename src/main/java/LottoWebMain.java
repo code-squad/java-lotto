@@ -1,8 +1,13 @@
 import domain.Lotto;
 import domain.LottoBundle;
+import domain.LottoNum;
+import domain.WinningLotto;
+import domain.result.LottoResults;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utils.LottoMachine;
+import utils.MoneyUtils;
+import utils.OutputUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +18,8 @@ import static utils.InputUtils.*;
 import static utils.MoneyUtils.calcBuyAmount;
 
 public class LottoWebMain {
+    private static LottoBundle lottoBundle = LottoBundle.of();
+
     public static void main(String[] args) {
         port(8080);
 
@@ -21,7 +28,6 @@ public class LottoWebMain {
         post("/buyLotto", (req, res) -> {
             int totalAmount = calcBuyAmount(convertNumber(req.queryParams("inputMoney")));
             List<Lotto> manualLottos = convertLottos(parseLottoNumbers(splitLottoNumbers(req.queryParams("manualNumber"))));
-            LottoBundle lottoBundle = LottoBundle.of();
             lottoBundle.addLotto(manualLottos);
             lottoBundle.addLotto(LottoMachine.autoBuy(totalAmount, manualLottos.size()));
             Map<String, Object> model = new HashMap<>();
@@ -31,9 +37,13 @@ public class LottoWebMain {
         });
 
         post("/matchLotto", (req, res) -> {
-            //필요한 데이터 : 수익률, 결과(LottoResults)
+            Lotto lotto = new Lotto(convertLottoNum(parseLottoNumbers(req.queryParams("winningNumber"))));
+            LottoNum bonusNumber = convertLottoNum(req.queryParams("bonusNumber"));
+            WinningLotto winningNumber = new WinningLotto(lotto, bonusNumber);
+            LottoResults results = lottoBundle.matchLotto(winningNumber);
             Map<String, Object> model = new HashMap<>();
-
+            model.put("results", OutputUtils.buildRankMessage(results));
+            model.put("profit", MoneyUtils.calcProfit(results.calcTotalPrizeMoney(), lottoBundle.getPurchaseAmount()));
             return render(model, "result.html");
         });
     }

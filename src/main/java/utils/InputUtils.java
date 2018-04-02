@@ -54,8 +54,8 @@ public class InputUtils {
         return numbers;
     }
 
-    public static String[] splitLottoNumbers(String manualLotto) {
-        return manualLotto.split("\r?\n");
+    public static String[] splitLottoNumbers(String lottoNumber) {
+        return lottoNumber.split("\r?\n");
     }
 
     public static List<String[]> parseLottoNumbers(String[] lottoNumbers) {
