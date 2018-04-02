@@ -33,6 +33,14 @@ public class Input {
         return lottos;
     }
 
+    public List<Lotto> addManualLottos(List<String> manual) {
+        for(int i = 0; i < manual.size(); i++) {
+            Lotto lotto = new Lotto(manual.get(i));
+            lottos.add(lotto);
+        }
+        return lottos;
+    }
+
     public String right() {
         String input = scanner.nextLine();
         return input;

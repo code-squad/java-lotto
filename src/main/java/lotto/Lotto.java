@@ -23,11 +23,10 @@ public class Lotto {
         }
     }
 
-    public Lotto(int inputMoney) {
-        Collections.shuffle(numbers);
+    public Lotto(List<String> manual) {
         lotto = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            lotto.add(numbers.get(i));
+        for(int i = 0; i < manual.size(); i++) {
+            Lotto lotto = new Lotto(manual.get(i));
         }
     }
 

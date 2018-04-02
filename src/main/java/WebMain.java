@@ -1,3 +1,4 @@
+import input.Input;
 import lotto.Lotto;
 import money.Money;
 import org.slf4j.LoggerFactory;
@@ -23,18 +24,11 @@ public class WebMain {
 
         post("/buyLotto", (req, res) -> {
             int num = (Integer.parseInt(req.queryParams("inputMoney")) / 1000);
-            String [] manualNum = req.queryParams("manualNumber").split("\r?\n");
-            int autoNum = num - manualNum.length;
-            for (int i = 0; i < autoNum; i++) {
-                Lotto lotto = new Lotto(i);
-                lottos.add(lotto);
-            }
-
-            for(int i = 0; i < manualNum.length; i++) {
-                Lotto lotto = new Lotto(manualNum[i]);
-                lottos.add(lotto);
-            }
-
+            List<String> manualNum = Arrays.asList(req.queryParams("manualNumber").split("\r?\n"));
+            int autoNum = num - manualNum.size();
+            Input input = new Input();
+            lottos = input.makeLottos(autoNum);
+            input.addManualLottos(manualNum);
             Map<String, Object> model = new HashMap<>();
             model.put("num", num);
             model.put("lottos", lottos);
