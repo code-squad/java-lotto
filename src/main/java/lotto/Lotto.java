@@ -23,6 +23,14 @@ public class Lotto {
         }
     }
 
+    public Lotto(int inputMoney) {
+        Collections.shuffle(numbers);
+        lotto = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            lotto.add(numbers.get(i));
+        }
+    }
+
     public Lotto(String string) {
         right = Arrays.asList(string.split(","));
         lotto = new ArrayList<>();
