@@ -13,7 +13,7 @@ public class Shop {
 
     public static List<Lotto> sellManualTickets(List<List<Integer>> manualInput) {
         List<Lotto> lottos = new ArrayList<>();
-        for (List<Integer> numbers : manualInput){
+        for (List<Integer> numbers : manualInput) {
             lottos.add(sellTicket(numbers));
         }
         return lottos;

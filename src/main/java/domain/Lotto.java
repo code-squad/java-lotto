@@ -61,7 +61,7 @@ public class Lotto {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return balls.toString();
     }
 }

@@ -19,7 +19,7 @@ public class Main {
             int money = InputView.enterUserMoney();
             larry = User.whoHasMoneyOf(money);
             int numTickets = money / TICKET_PRICE;
-            int numManual= InputView.enterNumManualTickets();
+            int numManual = InputView.enterNumManualTickets();
             larry.purchaseTicketsAuto(numTickets - numManual);
             larry.purchaseTicketsManual(InputView.enterNumsOfManualTicket(numManual));
             ResultView.printLottos(larry);
@@ -39,7 +39,6 @@ public class Main {
         } catch (LottoProcessException e) {
             e.printStackTrace();
             resultProcess();
-
         }
     }
 

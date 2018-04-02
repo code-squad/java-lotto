@@ -17,7 +17,7 @@ public class LotteryCommission {
         return lottos.stream().map(i -> i.askRank(winningLotto)).collect(Collectors.toList());
     }
 
-    public static List<Integer> informResults(List<Lotto> lottos){
+    public static List<Integer> informResults(List<Lotto> lottos) {
         return LottoUtils.rankToInt(checkRanks(lottos));
     }
 

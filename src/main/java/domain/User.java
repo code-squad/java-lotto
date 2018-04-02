@@ -36,7 +36,7 @@ public class User {
     }
 
     public void purchaseTicketsAuto(int numTickets) {
-        if (!isValidNumTickets(numTickets)){
+        if (!isValidNumTickets(numTickets)) {
             throw new InvalidTicketNumException(String.format("0 이상의 값을 입력해 주세요 입력값 : %d", numTickets));
         }
         if (numTickets == 0) return;
@@ -48,12 +48,12 @@ public class User {
         return numTickets >= 0;
     }
 
-    public void checkTotalResult(){
+    public void checkTotalResult() {
         checkPrizeStatistics();
         askForEarnings();
     }
 
-    private void checkPrizeStatistics(){
+    private void checkPrizeStatistics() {
         prizeStatistics = LotteryCommission.informResults(lottos);
     }
 
@@ -61,7 +61,7 @@ public class User {
         presentMoney += LotteryCommission.giveEarnings(prizeStatistics);
     }
 
-    public int calcProfit(){
+    public int calcProfit() {
         return presentMoney / (lottos.size() * TICKET_PRICE) * 100;
     }
 
