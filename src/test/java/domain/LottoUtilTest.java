@@ -2,33 +2,30 @@ package domain;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class LottoUtilTest {
 
     @Test
-    public void 랜덤값리스트생성_길이비교() {
-        assertThat(6, is(LottoUtil.getRandNumbers().size()));
+    public void CountSameRank() {
+        List<Rank> ranks = Arrays.asList(Rank.FIRST, Rank.FIRST, Rank.FIRST, Rank.SECOND, Rank.THIRD);
+        assertThat(LottoUtils.countSameRank(ranks, Rank.FIRST), is(3));
     }
 
     @Test
-    public void 입력돈유효성체크반환() {
-        assertThat(3000, is(LottoUtil.checkReturnNumLotto(3000)));
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void 입력돈유효성체크반환_exception() {
-        LottoUtil.checkReturnNumLotto(-1);
+    public void RankToInteger() {
+        List<Rank> ranks = Arrays.asList(Rank.FIRST, Rank.FIRST, Rank.FIRST, Rank.SECOND, Rank.THIRD);
+        List<Integer> ints = Arrays.asList(3, 1, 1, 0, 0);
+        assertThat(LottoUtils.rankToInt(ranks), is(ints));
     }
 
     @Test
-    public void 입력돈유효성체크_true() {
-        assertThat(true, is(LottoUtil.validInputMoney(3000)));
-    }
-
-    @Test
-    public void 입력돈유효성체크_false() {
-        assertThat(false, is(LottoUtil.validInputMoney(-1)));
+    public void 당첨금액계산() {
+        List<Integer> prizeStatistics = Arrays.asList(0, 0, 0, 0, 1);
+        assertThat(LottoUtils.calcTotalEarnings(prizeStatistics), is(5000));
     }
 }

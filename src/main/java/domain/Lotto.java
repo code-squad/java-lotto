@@ -6,26 +6,42 @@ import java.util.stream.Collectors;
 
 public class Lotto {
 
-    private final List<Number> numbers;
+    private List<Ball> balls;
 
-    private Lotto(List<Integer> numbers) {
-        if (numbers.size() != 6) {
-            throw new RuntimeException("숫자는 6개 이어야 합니다.");
+    public Lotto() {
+
+    }
+
+    Lotto(List<Integer> numbers) {
+        if (!isValidNumbers(numbers)) {
+            throw new IllegalArgumentException("올바른 값을 넣어주세요.");
         }
-        this.numbers = numbers.stream().map(Number::of).collect(Collectors.toList());
+        this.balls = numbers.stream().map(Ball::of).collect(Collectors.toList());
     }
 
     public static Lotto of(List<Integer> numbers) {
         return new Lotto(numbers);
     }
 
-    public int getNumOfMatched(Lotto winningLotto) {
-        return (int) numbers.stream().filter(winningLotto.numbers::contains).count();
+    static boolean isValidNumbers(List<Integer> numbers) {
+        return isValidSize(numbers) && hasDuplication(numbers);
     }
 
-    @Override
-    public String toString() {
-        return numbers.stream().map(Object::toString).collect(Collectors.joining(","));
+    static boolean hasDuplication(List<Integer> numbers) {
+        return numbers.stream().distinct().count() == (long) numbers.size();
+    }
+
+    static boolean isValidSize(List<Integer> numbers) {
+        final int VALID_NUMBER_LENGTH = 6;
+        return numbers.size() == VALID_NUMBER_LENGTH;
+    }
+
+    int countMatch(Lotto winninglotto) {
+        return (int) this.balls.stream().filter(winninglotto.balls::contains).count();
+    }
+
+    public Rank askRank(WinningLotto winninglotto) {
+        return Rank.valueOf(countMatch(winninglotto), winninglotto.isBonus(balls));
     }
 
     @Override
@@ -33,12 +49,17 @@ public class Lotto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lotto lotto = (Lotto) o;
-        return Objects.equals(numbers, lotto.numbers);
+        return Objects.equals(balls, lotto.balls);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(numbers);
+        return Objects.hash(balls);
+    }
+
+    @Override
+    public String toString(){
+        return balls.toString();
     }
 }
