@@ -7,8 +7,17 @@ public class WinningLotto {
     private final Number bonusNumber;
 
     WinningLotto(List<Number> winningTicket, Number bonusNumber) {
+        checkDuplicate(winningTicket, bonusNumber);
         this.winningTicket = winningTicket;
         this.bonusNumber = bonusNumber;
+    }
+
+    public static List<Number> checkDuplicate(List<Number> winningNumbers, Number bonusNumber) throws IllegalArgumentException {
+        if (!winningNumbers.contains(bonusNumber)) {
+            winningNumbers.add(bonusNumber);
+            return winningNumbers;
+        }
+        throw new IllegalArgumentException();
     }
 
     int countMatchInTicket(Ticket ticket) {

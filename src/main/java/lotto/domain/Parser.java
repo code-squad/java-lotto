@@ -49,14 +49,6 @@ public class Parser {
         return new Number(num);
     }
 
-    public static List<Number> checkDuplicate(List<Number> winningNumbers, Number bonusBall) throws IllegalArgumentException {
-        if (!winningNumbers.contains(bonusBall)) {
-            winningNumbers.add(bonusBall);
-            return winningNumbers;
-        }
-        throw new IllegalArgumentException();
-    }
-
     public static String parseToPrintable(List<Number> ticket) {
         return String.join(", ", ticket.toString());
     }

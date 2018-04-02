@@ -3,6 +3,7 @@ package lotto;
 import lotto.domain.Lotto;
 import lotto.domain.Number;
 import lotto.domain.Parser;
+import lotto.domain.WinningLotto;
 import lotto.view.Input;
 import lotto.view.Output;
 
@@ -38,7 +39,7 @@ public class Main {
             Output.printMessage("보너스 볼을 입력해 주세요.");
             Number bonusNumber = Parser.parseToNumber(Parser.parseToInt(Input.takeInput()));
 
-            winningNumbers = Parser.checkDuplicate(winningNumbers, bonusNumber);
+            winningNumbers = WinningLotto.checkDuplicate(winningNumbers, bonusNumber);
         } catch (IllegalArgumentException e) {
             return promptUserForWinningNumbers();
         }
