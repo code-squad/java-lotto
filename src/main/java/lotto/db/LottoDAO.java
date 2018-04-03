@@ -10,8 +10,9 @@ import java.util.List;
 
 public class LottoDAO {
 
-	Connection con = null;
-	PreparedStatement pstmt = null;
+	Connection con;
+	PreparedStatement pstmt;
+	ResultSet rs;
 
 	public void insert(String turnNo, LottoDTO lottoDTO) throws SQLException {
 		con = Common.getConnection();
@@ -30,7 +31,7 @@ public class LottoDAO {
 			e.printStackTrace();
 			System.out.println("user_lotto 테이블 insert 실패");
 		} finally {
-			Common.close(pstmt, con);
+			Common.close(rs, pstmt, con);
 		}
 	}
 
@@ -39,7 +40,6 @@ public class LottoDAO {
 		List<LottoDTO> lottos = new ArrayList<>();
 		pstmt = con.prepareStatement("select * from user_lotto where turn_no = ?");
 		pstmt.setInt(1, Integer.parseInt(turnNo));
-		ResultSet rs;
 		try {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -53,15 +53,23 @@ public class LottoDAO {
 			e.printStackTrace();
 			System.out.println("user_lotto 테이블 insert 실패");
 		} finally {
-			Common.close(pstmt, con);
+			Common.close(rs, pstmt, con);
 		}
 		return lottos;
 	}
 
 	public void delete() throws SQLException {
 		con = Common.getConnection();
-		pstmt = con.prepareStatement("delete from user_lotto");
-		Common.excuteUpdate(pstmt, con, "user_lotto 테이블 delete 실패");
+		try {
+			pstmt = con.prepareStatement("delete from user_lotto");
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("user_lotto 테이블 delete 실패");
+		} finally {
+			Common.close(null, pstmt, con);
+		}
+
 	}
 
 }

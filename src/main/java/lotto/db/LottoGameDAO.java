@@ -6,14 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LottoGameDAO {
-	Connection con = null;
-	PreparedStatement pstmt = null;
+	Connection con;
+	PreparedStatement pstmt;
+	ResultSet rs;
 
 	public int selectLatestTurnNo() throws SQLException {
-		con = Common.getConnection();
 		int turnNo = 0;
-		ResultSet rs;
 		try {
+			con = Common.getConnection();
 			pstmt = con.prepareStatement("select max(turn_no) from lotto_game");
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -23,7 +23,7 @@ public class LottoGameDAO {
 			e.printStackTrace();
 			System.out.println("lotto_Game 테이블 select 실패");
 		} finally {
-			Common.close(pstmt, con);
+			Common.close(rs, pstmt, con);
 		}
 		if (turnNo == 0) {
 			return 1;
@@ -33,7 +33,6 @@ public class LottoGameDAO {
 
 	public LottoGameDTO selectWinNo(String turnNo) throws SQLException {
 		con = Common.getConnection();
-		ResultSet rs;
 		LottoGameDTO lottoGameDTO = null;
 		try {
 			pstmt = con.prepareStatement("select * from lotto_game where turn_no= ?");
@@ -54,7 +53,7 @@ public class LottoGameDAO {
 			e.printStackTrace();
 			System.out.println("lotto_Game 테이블 select 실패");
 		} finally {
-			Common.close(pstmt, con);
+			Common.close(rs, pstmt, con);
 		}
 		return lottoGameDTO;
 	}
@@ -77,16 +76,22 @@ public class LottoGameDAO {
 			e.printStackTrace();
 			System.out.println("lotto_game 테이블 insert 실패");
 		} finally {
-			Common.close(pstmt, con);
+			Common.close(rs, pstmt, con);
 		}
 	}
-	
 
 	public void delete() throws SQLException {
 		con = Common.getConnection();
 		String sql = "delete from lotto_game";
-		pstmt = con.prepareStatement(sql);
-		Common.excuteUpdate(pstmt, con, "lotto_game 테이블 delete 실패");
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("lotto_game 테이블 delete 실패");
+		} finally {
+			Common.close(null, pstmt, con);
+		}
 	}
 
 }

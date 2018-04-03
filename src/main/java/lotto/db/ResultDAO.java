@@ -7,8 +7,10 @@ import java.sql.SQLException;
 
 public class ResultDAO {
 
-	Connection con = null;
-	PreparedStatement pstmt = null;
+	Connection con;
+	PreparedStatement pstmt;
+	ResultSet rs;
+
 
 	public void insert(ResultDTO resultDTO, String turnNo) throws SQLException {
 		con = Common.getConnection();
@@ -27,7 +29,7 @@ public class ResultDAO {
 			e.printStackTrace();
 			System.out.println("result_lotto 테이블 insert 실패");
 		} finally {
-			Common.close(pstmt, con);
+			Common.close(rs, pstmt, con);
 		}
 	}
 
@@ -35,7 +37,6 @@ public class ResultDAO {
 		con = Common.getConnection();
 		ResultDTO resultDTO = null;
 		pstmt = con.prepareStatement("select * from result_lotto");
-		ResultSet rs;
 		try {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -52,16 +53,16 @@ public class ResultDAO {
 			e.printStackTrace();
 			System.out.println("result_lotto 테이블 select 실패");
 		} finally {
-			Common.close(pstmt, con);
+			Common.close(rs, pstmt, con);
 		}
 		return resultDTO;
 	}
+
 	public ResultDTO select(String inputTurnNo) throws SQLException {
 		con = Common.getConnection();
 		ResultDTO resultDTO = null;
 		pstmt = con.prepareStatement("select * from result_lotto where turn_no = ?");
 		pstmt.setInt(1, Integer.parseInt(inputTurnNo));
-		ResultSet rs;
 		try {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -78,7 +79,7 @@ public class ResultDAO {
 			e.printStackTrace();
 			System.out.println("result_lotto 테이블 select 실패");
 		} finally {
-			Common.close(pstmt, con);
+			Common.close(rs, pstmt, con);
 		}
 		return resultDTO;
 	}
@@ -86,7 +87,14 @@ public class ResultDAO {
 	public void delete() throws SQLException {
 		con = Common.getConnection();
 		String sql = "delete from result_lotto";
-		pstmt = con.prepareStatement(sql);
-		Common.excuteUpdate(pstmt, con, "result_lotto 테이블 delete 실패");
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("result_lotto 테이블 delete 실패");
+		} finally {
+			Common.close(null, pstmt, con);
+		}
 	}
 }
