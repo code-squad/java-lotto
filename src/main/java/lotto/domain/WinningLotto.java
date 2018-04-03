@@ -1,22 +1,18 @@
 package lotto.domain;
 
-import java.util.List;
-
 public class WinningLotto {
     static final int FIRST = 0;
     static final int LAST = 6;
-    private final List<Number> winningTicket;
+    private final Ticket winningTicket;
     private final Number bonusNumber;
 
-    public WinningLotto(List<Number> winningNumbers, Number bonusNumber) {
+    public WinningLotto(Ticket winningNumbers, Number bonusNumber) {
         this.winningTicket = winningNumbers;
         this.bonusNumber = bonusNumber;
     }
 
-    public static void checkDuplicate(List<Number> winningNumbers, Number bonusNumber) throws IllegalArgumentException {
-        if (winningNumbers.contains(bonusNumber)) {
-            throw new IllegalArgumentException();
-        }
+    public static boolean isDuplicate(Ticket winningNumbers, Number bonusNumber) throws IllegalArgumentException {
+        return winningNumbers.contains(bonusNumber);
     }
 
     Match createMatch(Ticket ticket) {
@@ -24,7 +20,7 @@ public class WinningLotto {
     }
 
     private int countMatchInTicket(Ticket ticket) {
-        return (int) winningTicket.stream().filter(ticket::contains).count();
+        return winningTicket.countMatches(ticket);
     }
 
     private boolean bonusMatch(Ticket ticket) {

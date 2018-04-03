@@ -8,7 +8,7 @@ public class Ticket {
     private static final int MAX_SIZE = 6;
     private final List<Number> ticket;
 
-    Ticket(List<Number> numbers) {
+    public Ticket(List<Number> numbers) {
         this.ticket = checkValid(numbers);
     }
 
@@ -22,6 +22,10 @@ public class Ticket {
             throw new IllegalArgumentException();
         }
         return numbers;
+    }
+
+    int countMatches(Ticket ticket) {
+        return (int) this.ticket.stream().filter(ticket::contains).count();
     }
 
     boolean contains(Number number) {

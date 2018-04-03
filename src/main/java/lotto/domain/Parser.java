@@ -5,8 +5,6 @@ import lotto.view.Output;
 import java.util.ArrayList;
 import java.util.List;
 
-import static lotto.domain.Lotto.LOTTO_PRICE;
-
 public class Parser {
 
     public static int parseToInt(String text) throws IllegalArgumentException {
@@ -18,14 +16,6 @@ public class Parser {
             throw new IllegalArgumentException();
         }
         return number;
-    }
-
-    public static int getNumberOfTickets(int money) throws IllegalArgumentException {
-        if (money < LOTTO_PRICE) {
-            Output.printMessage("1000원 이상으로 입력해주세요.");
-            throw new IllegalArgumentException();
-        }
-        return money / LOTTO_PRICE;
     }
 
     public static String[] splitString(String text) throws IllegalArgumentException {
