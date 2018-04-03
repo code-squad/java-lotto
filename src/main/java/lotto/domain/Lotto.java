@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lotto {
-    static final int LOTTO_PRICE = 1000;
     private List<Ticket> tickets;
 
     public Lotto(int ticketsBought) {
