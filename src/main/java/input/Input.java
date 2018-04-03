@@ -19,4 +19,10 @@ public class Input {
         Lotto winningNumber = new Lotto(winningNum);
         return winningNumber;
     }
+
+    public static Integer bonusNumberInput() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
 }
