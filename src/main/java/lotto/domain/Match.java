@@ -19,6 +19,10 @@ public enum Match {
         return prize;
     }
 
+    public int getMatchCount() {
+        return matchCount;
+    }
+
     public static Match ofMatch(int matchCount, boolean bonus) {
         Match[] matches = values();
         for (Match match : matches) {
