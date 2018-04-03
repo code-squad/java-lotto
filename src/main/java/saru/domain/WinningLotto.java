@@ -8,13 +8,13 @@ public class WinningLotto {
     private List<LottoNum> winningNumbers;
     private int bonusNumber;
 
-    private WinningLotto(List<LottoNum> numbers, int bonusNumer) {
+    private WinningLotto(List<LottoNum> numbers, int bonusNumber) {
         this.winningNumbers = numbers;
-        this.bonusNumber = bonusNumer;
+        this.bonusNumber = bonusNumber;
     }
 
-    public static WinningLotto of(List<LottoNum> hitLottoLine, int bonusNumer) {
-        return new WinningLotto(hitLottoLine, bonusNumer);
+    public static WinningLotto of(List<LottoNum> hitLottoLine, int bonusNumber) {
+        return new WinningLotto(hitLottoLine, bonusNumber);
     }
 
     List<LottoNum> getWinningNumbers() {

@@ -16,7 +16,7 @@ public class LottoMainTest {
     private List<LottoLine> lottoLines = new ArrayList<>();
 
     private String resultStr = "1, 2, 3, 4, 5, 6";
-    private List<LottoNum> resultList = lottoMaker.makeManualLottoLine(resultStr);
+    private List<LottoNum> resultList = lottoMaker.makeManualLottoNums(resultStr);
     private WinningLotto winningLotto = WinningLotto.of(resultList, BONUS_NUMBER);
     private Result result = Result.of(INIT_NUM);
 
@@ -27,7 +27,7 @@ public class LottoMainTest {
                 "1, 2, 3, 4, 5, 11"};
 
         for (String str : compareStr) {
-            lottoLines.add(LottoLine.of(lottoMaker.makeManualLottoLine(str)));
+            lottoLines.add(LottoLine.of(lottoMaker.makeManualLottoNums(str)));
         }
 
         for (int i = 0; i < INIT_NUM; i++) {
@@ -38,22 +38,22 @@ public class LottoMainTest {
 
     @Test
     public void 로또번호() {
-        assertEquals(10, LottoNum.of(10).getNumber());
+        assertEquals(10, LottoNum.of(10).getNum());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 로또번호실패_최소미만() {
-        LottoNum.of(0).getNumber();
+        LottoNum.of(0).getNum();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 로또번호실패_최대초과() {
-        LottoNum.of(46).getNumber();
+        LottoNum.of(46).getNum();
     }
 
     @Test
     public void 번호자동생성() {
-        List<LottoNum> lottoNumList = LottoMaker.of().makeLottoList();
+        List<LottoNum> lottoNumList = LottoMaker.of().makeAutoLottoNums();
         assertEquals(6, lottoNumList.size());
     }
 
@@ -63,7 +63,7 @@ public class LottoMainTest {
         List<LottoLine> lottoNumList = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            lottoNumList.add(LottoLine.of(lottoMaker.makeLottoList()));
+            lottoNumList.add(LottoLine.of(lottoMaker.makeAutoLottoNums()));
         }
 
         assertEquals(10, lottoNumList.size());
@@ -72,7 +72,7 @@ public class LottoMainTest {
     @Test
     public void 당첨번호갯수_여섯() {
         String compareStr = "1, 2, 3, 4, 5, 6";
-        List<LottoNum> lottos = lottoMaker.makeManualLottoLine(compareStr);
+        List<LottoNum> lottos = lottoMaker.makeManualLottoNums(compareStr);
 
         int matchNum = winningLotto.match(LottoLine.of(lottos));
         assertEquals(6, matchNum);
@@ -81,7 +81,7 @@ public class LottoMainTest {
     @Test
     public void 당첨번호갯수_없음() {
         String compareStr = "11, 12, 13, 18, 19, 20";
-        List<LottoNum> lottos = lottoMaker.makeManualLottoLine(compareStr);
+        List<LottoNum> lottos = lottoMaker.makeManualLottoNums(compareStr);
 
         int matchNum = winningLotto.match(LottoLine.of(lottos));
         assertEquals(0, matchNum);
@@ -90,7 +90,7 @@ public class LottoMainTest {
     @Test
     public void 당첨번호갯수() {
         String compareStr = "1, 2, 3, 8, 9, 10";
-        List<LottoNum> lottos = lottoMaker.makeManualLottoLine(compareStr);
+        List<LottoNum> lottos = lottoMaker.makeManualLottoNums(compareStr);
 
         int matchNum = winningLotto.match(LottoLine.of(lottos));
         assertEquals(3, matchNum);

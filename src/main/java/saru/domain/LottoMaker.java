@@ -2,59 +2,60 @@ package saru.domain;
 
 import java.util.*;
 
+// nums, lines = list
 public class LottoMaker {
     private static final String COMMA = ",";
     private static final String SPACE = " ";
     private static final String BLANK = "";
     private static final int MAX_LOTTO_NUM = 45;
 
-    private List<LottoNum> baseNumberList = new ArrayList<>();
+    private List<LottoNum> baseNums = new ArrayList<>();
 
     private LottoMaker() {
-        initBaseNumberList();
+        initBaseNums();
     }
 
     public static LottoMaker of() {
         return new LottoMaker();
     }
 
-    public List<LottoNum> makeLottoList() {
-        Collections.shuffle(baseNumberList);
-        List<LottoNum> subList = baseNumberList.subList(0, 6);
+    public List<LottoNum> makeAutoLottoNums() {
+        Collections.shuffle(baseNums);
+        List<LottoNum> subList = baseNums.subList(0, 6);
         Collections.sort(subList,
-                Comparator.comparingInt(LottoNum::getNumber));
+                Comparator.comparingInt(LottoNum::getNum));
 
         return new ArrayList<>(subList);
     }
 
-    public List<LottoLine> makeLottoNumber(int buyNum) {
-        List<LottoLine> lottoNumberLists = new ArrayList<>();
+    public List<LottoLine> makeAutoLottoLines(int buyNum) {
+        List<LottoLine> lottoNumbers = new ArrayList<>();
 
         for (int i = 0; i < buyNum; i++) {
-            lottoNumberLists.add(LottoLine.of(makeLottoList()));
+            lottoNumbers.add(LottoLine.of(makeAutoLottoNums()));
         }
-        return lottoNumberLists;
+        return lottoNumbers;
     }
 
-    public List<LottoNum> makeManualLottoLine(String numStr) {
-        String[] winNumArr = numStr.replaceAll(SPACE, BLANK).split(COMMA);
+    public List<LottoNum> makeManualLottoNums(String numStr) {
+        String[] numArr = numStr.replaceAll(SPACE, BLANK).split(COMMA);
 
-        List<LottoNum> lottoLine = new ArrayList<>();
-        addLottoNum(winNumArr, lottoLine);
+        List<LottoNum> lottoNums = new ArrayList<>();
+        addArrToLottoNums(numArr, lottoNums);
 
-        return lottoLine;
+        return lottoNums;
     }
 
-    private void addLottoNum(String[] winNumArr, List<LottoNum> lottoLine) {
+    private void addArrToLottoNums(String[] winNumArr, List<LottoNum> lottoNums) {
         for (String str : winNumArr) {
             int toInputNum = Integer.parseInt(str);
-            lottoLine.add(LottoNum.of(toInputNum));
+            lottoNums.add(LottoNum.of(toInputNum));
         }
     }
 
-    private void initBaseNumberList() {
+    private void initBaseNums() {
         for (int i = 1; i <= MAX_LOTTO_NUM; i++) {
-            baseNumberList.add(LottoNum.of(i));
+            baseNums.add(LottoNum.of(i));
         }
     }
 }
