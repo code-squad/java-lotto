@@ -1,35 +1,26 @@
 package lotto.view;
 
-import lotto.domain.Lotto;
+import lotto.domain.*;
 import lotto.domain.Number;
-import lotto.domain.Parser;
-import lotto.domain.WinningLotto;
 
 import java.util.List;
+
+import static lotto.domain.Parser.*;
 
 public class UserPrompt {
     private static final int LOTTO_PRICE = 1000;
 
-    public static Lotto promptUserForPurchase() {
-
-        int total = getNumberOfTickets();
-        int manual = getNumberOfManual(total);
-
-        return new Lotto(ticketsBought);
-
-    }
-
-    private static int getNumberOfTickets() {
+    public static int getTotalNumberOfTickets() {
         try {
             return promptNumberOfTickets();
         } catch (IllegalArgumentException e) {
-            return getNumberOfTickets();
+            return getTotalNumberOfTickets();
         }
     }
 
     private static int promptNumberOfTickets() throws IllegalArgumentException {
         Output.printMessage("구입 금액을 입력해 주세요.");
-        int money = Parser.parseToInt(Input.takeInput());
+        int money = parseToInt(Input.takeInput());
         if (money < LOTTO_PRICE) {
             Output.printMessage("1000원 이상으로 입력해주세요.");
             throw new IllegalArgumentException();
@@ -37,7 +28,7 @@ public class UserPrompt {
         return money / LOTTO_PRICE;
     }
 
-    private static int getNumberOfManual(int total) {
+    public static int getNumberOfManual(int total) {
         try {
             return promptNumberOfManual(total);
         } catch (IllegalArgumentException e) {
@@ -47,7 +38,7 @@ public class UserPrompt {
 
     private static int promptNumberOfManual(int total) throws IllegalArgumentException {
         Output.printMessage("수동으로 구입할 로또 수를 입력해 주세요.");
-        int manual = Parser.parseToInt(Input.takeInput());
+        int manual = parseToInt(Input.takeInput());
         if (manual > total || manual < 0) {
             throw new IllegalArgumentException();
         }

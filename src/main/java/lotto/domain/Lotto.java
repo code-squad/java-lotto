@@ -6,16 +6,8 @@ import java.util.List;
 public class Lotto {
     private List<Ticket> tickets;
 
-    public Lotto(int ticketsBought) {
+    public Lotto(int manual, int automatic) {
         this.tickets = generateTicket(ticketsBought);
-    }
-
-    private List<Ticket> generateTicket(int numberOfTickets) {
-        List<Ticket> tickets = new ArrayList<>();
-        for (int i = 0; i < numberOfTickets; i++) {
-            tickets.add(new Ticket(RandomDrawer.newInstance().drawNumber()));
-        }
-        return tickets;
     }
 
     public List<String> showPurchase() {
