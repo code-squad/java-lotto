@@ -1,8 +1,8 @@
-import input.Input;
+import input.InputCommon;
+import input.InputUI;
 import lotto.Lotto;
 import money.Money;
 import org.slf4j.LoggerFactory;
-import rank.Check;
 import rank.Decision;
 import rank.Rank;
 import spark.ModelAndView;
@@ -15,7 +15,6 @@ public class WebMain {
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(WebMain.class);
     private static List<Lotto> lottos = new ArrayList<>();
     public static void main(String[] args) {
-        // psvm
         port(8080);
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -26,7 +25,7 @@ public class WebMain {
             int num = (Integer.parseInt(req.queryParams("inputMoney")) / 1000);
             List<String> manualNum = Arrays.asList(req.queryParams("manualNumber").split("\r?\n"));
             int autoNum = num - manualNum.size();
-            Input input = new Input();
+            InputCommon input = new InputCommon();
             lottos = input.makeLottos(autoNum);
             input.addManualLottos(manualNum);
             Map<String, Object> model = new HashMap<>();
@@ -42,9 +41,9 @@ public class WebMain {
             Money money = new Money();
             Decision decision = new Decision();
             int inputMoney = lottos.size() * 1000;
-            int profit = money.profit(money.totalMoney(decision.decisionRank(lottos, winningNumber, bonusNumber)), inputMoney);
+//            int profit = money.profit(money.totalMoney(decision.decisionRank(lottos, winningNumber, bonusNumber)), inputMoney);
             HashMap<Rank, Integer> finalCount = money.money(decision.decisionRank(lottos, winningNumber, bonusNumber));
-            model.put("profit", profit);
+//            model.put("profit", profit);
             model.put("moeny", money);
             return render(model, "/result.html");
         });

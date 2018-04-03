@@ -1,19 +1,18 @@
 package view;
 
-import input.Input;
+import input.InputUI;
 import rank.Check;
 import rank.Decision;
 import rank.Rank;
 import money.Money;
 import lotto.Lotto;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ResultView {
     public static void result(List<Lotto> lottos, String bonusNum, Check check, int inputPrice) {
-        Input.rightResult();
+        InputUI.rightResult();
         Money money = new Money();
         Decision decision = new Decision();
         decision.addRank(check.getRight(), lottos, bonusNum);

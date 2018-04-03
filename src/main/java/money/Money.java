@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Money {
+    private int profit;
     public static HashMap<Rank, Integer> finalCount;
     static {
         finalCount = new HashMap<>();
@@ -59,5 +60,9 @@ public class Money {
 
     public Integer profit(int profit, int output) {
         return (profit / output) * 100;
+    }
+
+    public int getProfit() {
+        return profit;
     }
 }
