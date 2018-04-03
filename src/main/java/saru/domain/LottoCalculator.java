@@ -1,8 +1,8 @@
 package saru.domain;
 
-import saru.*;
+import saru.Result;
 
-import java.util.*;
+import java.util.List;
 
 public class LottoCalculator {
     private List<LottoLine> lottoLines;
@@ -15,16 +15,22 @@ public class LottoCalculator {
         return new LottoCalculator(lottoLines);
     }
 
-    public Result makeResult(String hitNumString) {
-        Result result = Result.of();
+    public Result makeResult(int buyNum, String hitNumber, int bonusNumber) {
+        Result result = Result.of(buyNum);
         LottoMaker lottoMaker = LottoMaker.of();
 
-        List<LottoNum> hitLottoLine = lottoMaker.makeManualLottoLine(hitNumString);
-        LottoMatcher lottoMatcher = LottoMatcher.of(hitLottoLine);
+        List<LottoNum> hitLottoLine = lottoMaker.makeManualLottoLine(hitNumber);
+        WinningLotto winningLotto = WinningLotto.of(hitLottoLine, bonusNumber);
 
-        for (LottoLine lottoLine : this.lottoLines) {
-            result.increaseHit(lottoMatcher.match(lottoLine));
-        }
+        loopIncreaseHit(result, winningLotto);
+
         return result;
+    }
+
+    private void loopIncreaseHit(Result result, WinningLotto winningLotto) {
+        for (LottoLine lottoLine : lottoLines) {
+            result.increaseHit(winningLotto.match(lottoLine),
+                    winningLotto.matchBonus(lottoLine));
+        }
     }
 }

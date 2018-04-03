@@ -1,66 +1,56 @@
 package saru;
 
+import java.util.*;
+
 public class Result {
-    private static final int THREE_HIT = 3;
-    private static final int FOUR_HIT = 4;
-    private static final int FIVE_HIT = 5;
-    private static final int SIX_HIT = 6;
+    private Map<Rank, Integer> hitNums = new HashMap<>();
+    private int buyNum;
 
-    private int threeHit;
-    private int fourHit;
-    private int fiveHit;
-    private int sixHit;
-
-    private Result() {
-        // empty
+    private Result(int buyNum) {
+        this.buyNum = buyNum;
+        initHitNums();
     }
 
-    public static Result of() {
-        return new Result();
+    private void initHitNums() {
+        hitNums.put(Rank.FIRST, 0);
+        hitNums.put(Rank.SECOND, 0);
+        hitNums.put(Rank.THIRD, 0);
+        hitNums.put(Rank.FOURTH, 0);
+        hitNums.put(Rank.FIFTH, 0);
     }
 
-    public int getThreeHit() {
-        return threeHit;
+    public static Result of(int buyNum) {
+        return new Result(buyNum);
     }
 
-    public int getFourHit() {
-        return fourHit;
-    }
-
-    public int getFiveHit() {
-        return fiveHit;
-    }
-
-    public int getSixHit() {
-        return sixHit;
-    }
-
-    public void increaseHit(int hitNum) {
-        switch (hitNum) {
-            case THREE_HIT:
-                this.threeHit++;
-                break;
-            case FOUR_HIT:
-                this.fourHit++;
-                break;
-            case FIVE_HIT:
-                this.fiveHit++;
-                break;
-            case SIX_HIT:
-                this.sixHit++;
-                break;
-            default:
-                break;
+    // true 를 넘겨야 보너스번호에 해당
+    public void increaseHit(int match, boolean isBonus) {
+        Rank rank = Rank.valueOf(match, isBonus);
+        if (rank == null) {
+            return;
         }
+
+        int originalValue = hitNums.get(rank);
+        hitNums.put(rank, originalValue + 1);
     }
 
-    @Override
-    public String toString() {
-        return "Result{" +
-                "threeHit=" + threeHit +
-                ", fourHit=" + fourHit +
-                ", fiveHit=" + fiveHit +
-                ", sixHit=" + sixHit +
-                '}';
+    public int getRankHitNum(Rank rank) {
+        return hitNums.get(rank);
+    }
+
+    public int calcIncome() {
+        int totalIncome = getTotalIncome();
+        return 100 * (totalIncome / (buyNum * 1000));
+    }
+
+    private int getTotalIncome() {
+        int totalIncome = 0;
+
+        for (Rank rank : hitNums.keySet()) {
+            int hitNum = hitNums.get(rank);
+            totalIncome += (rank.getWinningMoney() * hitNum);
+        }
+
+        return totalIncome;
     }
 }
