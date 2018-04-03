@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoGame {
-    private List<Integer> allCounts;
-    private List<Integer> winCounts;
-
     public List<Integer> match(List<Lotto> lottos, Lotto winningNumber) {
-        allCounts = new ArrayList<>();
+        List<Integer> allCounts = new ArrayList<>();
         for (Lotto lotto: lottos) {
             allCounts.add(lotto.countNumber(winningNumber));
         }
@@ -25,7 +22,7 @@ public class LottoGame {
     }
 
     public List<Integer> getWinCounts(List<Integer> counts) {
-        winCounts = new ArrayList<>();
+        List<Integer> winCounts = new ArrayList<>();
         for(int i = 3; i < 7; i++)
             winCounts.add(getCount(counts, i));
         return winCounts;

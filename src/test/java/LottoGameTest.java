@@ -41,7 +41,7 @@ public class LottoGameTest {
     @Test
     public void 당첨번호갯수불러오기() {
         LottoGame game = new LottoGame();
-        List<Integer> counts = Arrays.asList(new Integer(1), new Integer(3), new Integer(3), new Integer(4), new Integer(5));
+        List<Integer> counts = Arrays.asList(1,3,3,4,5);
         List<Integer> winCounts = game.getWinCounts(counts);
         int num1 = winCounts.get(0);
         int num2 = winCounts.get(1);
