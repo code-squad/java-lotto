@@ -5,15 +5,15 @@ import lotto.view.Output;
 import java.util.List;
 
 public class Ticket {
-    private static final int NUMBER_OF_DRAWS = 6;
+    private static final int MAX_SIZE = 6;
     private final List<Number> ticket;
 
     Ticket(List<Number> numbers) {
         this.ticket = checkValid(numbers);
     }
 
-    private List<Number> checkValid(List<Number> numbers) throws IllegalArgumentException {
-        if (numbers.size() != NUMBER_OF_DRAWS) {
+    static List<Number> checkValid(List<Number> numbers) throws IllegalArgumentException {
+        if (numbers.size() != MAX_SIZE) {
             Output.printMessage("6개의 숫자만 허용됩니다.");
             throw new IllegalArgumentException();
         }
@@ -24,12 +24,8 @@ public class Ticket {
         return numbers;
     }
 
-    private boolean contains(Number number) {
+    boolean contains(Number number) {
         return ticket.contains(number);
-    }
-
-    int countMatchInTicket(Ticket winningTicket) {
-        return (int) ticket.stream().filter(winningTicket::contains).count();
     }
 
     public String getTicketString() {

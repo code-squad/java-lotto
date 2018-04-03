@@ -6,7 +6,6 @@ import java.util.List;
 public class Lotto {
     static final int LOTTO_PRICE = 1000;
     private List<Ticket> tickets;
-    private List<Number> winningTicket;
 
     public Lotto(int ticketsBought) {
         this.tickets = generateTicket(ticketsBought);
@@ -28,7 +27,15 @@ public class Lotto {
         return receipt;
     }
 
-    public Result determineResult(List<Number> winningNumbers) {
-        return new Result(winningNumbers, tickets);
+    List<Match> createMatch(WinningLotto winningLotto) {
+        List<Match> matches = new ArrayList<>();
+        for (Ticket ticket : tickets) {
+            matches.add(winningLotto.createMatch(ticket));
+        }
+        return matches;
+    }
+
+    int getSize() {
+        return tickets.size();
     }
 }
