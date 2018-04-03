@@ -1,10 +1,8 @@
 package lotto.lotto;
 
 import static spark.Spark.*;
-import lotto.lotto.domain.BuyingLotto;
-import lotto.lotto.domain.Lotto;
-import lotto.lotto.domain.Rank;
-import lotto.lotto.domain.WeeklyLotto;
+
+import lotto.lotto.domain.*;
 import lotto.lotto.view.Input;
 import lotto.lotto.view.View;
 import spark.ModelAndView;
@@ -22,11 +20,11 @@ public class webLotto {
         post("/buyLotto", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
-            List<String> manualLotto = Arrays.asList(req.queryParams("manualNumber"). split("\r?\n"));
+            List<String> manualLotto = Arrays.asList(req.queryParams("manualNumber").split("\r?\n"));
 
             BuyingLotto man = new BuyingLotto(inputMoney, manualLotto);
-           lottos = man.getLottos();
-           int num = lottos.size();
+            lottos = man.getLottos();
+            int num = lottos.size();
             model.put("num", num);
             model.put("lottos", lottos);
 
@@ -40,10 +38,9 @@ public class webLotto {
 
             WeeklyLotto week = WeeklyLotto.of(winningLotto, bonusBall);
             Map<Rank, Integer> result = week.checkRank(lottos);
+            ResultDTO resultLotto = new ResultDTO(result, lottos.size()*1000);
+            model.put("resultLotto", resultLotto);
 
-            for(Rank rank:Rank.values())
-            model.put(rank.name(), result.get(rank));
-            model.put("incomeMoney", WeeklyLotto.incomeMoneyRate(result, lottos.size()*1000));
             return render(model, "result.html");
         });
     }
