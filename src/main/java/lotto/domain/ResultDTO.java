@@ -6,6 +6,15 @@ public class ResultDTO {
 	int third;
 	int fourth;
 	int fifth;
+	int revenue;
+
+	public int getRevenue() {
+		return revenue;
+	}
+
+	public void setRevenue(int revenue) {
+		this.revenue = revenue;
+	}
 
 	public int getFirst() {
 		return first;

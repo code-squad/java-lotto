@@ -16,6 +16,7 @@ import java.util.Map;
 public class Main {
 
 	public static List<LottoDTO> lottos;
+	public static String price;
 
 	public static void main(String[] args) {
 		port(8080);
@@ -26,15 +27,16 @@ public class Main {
 
 		post("/buyLotto", (req, res) -> {
 			Map<String, Object> model = new HashMap<>();
-			int sheets = Input.checkSheets(req.queryParams("inputMoney"));
-			model.put("price", req.queryParams("inputMoney"));
-			model.put("sheets", sheets);
+			price = req.queryParams("inputMoney");
+			int sheets = Input.checkSheets(price);
+			model.put("price", price);
+			model.put("sheets", Input.checkSheets(price));
 			if (req.queryParams("manualNumber").isEmpty()) {
 				lottos = LottoProcess.of(sheets).getAllLottos();
 				model.put("lottos", lottos);
 				return render(model, "show.html");
 			}
-			lottos = LottoProcess.of(sheets,req.queryParams("manualNumber")).getAllLottos();
+			lottos = LottoProcess.of(sheets, req.queryParams("manualNumber")).getAllLottos();
 			model.put("lottos", lottos);
 			return render(model, "show.html");
 		});
@@ -42,8 +44,8 @@ public class Main {
 		post("/matchLotto", (req, res) -> {
 			Map<String, Object> model = new HashMap<>();
 			Result result = Result.of();
-			model.put("result", result.getResult(req.queryParams("bonusNumber"), LottoProcess.of(lottos), req.queryParams("winningNumber")));
-			model.put("revenu", result.calcRevenue(req.queryParams("price")));
+			model.put("result", result.getResult(price, req.queryParams("bonusNumber"), LottoProcess.of(lottos),
+					req.queryParams("winningNumber")));
 			return render(model, "result.html");
 		});
 

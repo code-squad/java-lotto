@@ -24,7 +24,7 @@ public class Result {
 		return rankResult.get(rank);
 	}
 
-	public ResultDTO getResult(String bonusNum, LottoProcess lottoProcess, String beforeWinLotto) {
+	public ResultDTO getResult(String price, String bonusNum, LottoProcess lottoProcess, String beforeWinLotto) {
 
 		calcResult(lottoProcess, beforeWinLotto, bonusNum);
 		ResultDTO resultDTO = new ResultDTO();
@@ -33,6 +33,7 @@ public class Result {
 		resultDTO.setThird(rankNum(Rank.THIRD));
 		resultDTO.setFourth(rankNum(Rank.FOURTH));
 		resultDTO.setFifth(rankNum(Rank.FIFTH));
+		resultDTO.setRevenue(calcRevenue(price));
 		return resultDTO;
 	}
 

@@ -60,13 +60,13 @@ body {
 </head>
 <body>
 
-<form class="form-result" action="/">
-	<div class="submit-button">
-		<button class="btn btn-lg btn-primary btn-block" type="submit">다시
-			하기</button>
-	</div>
-</form>
-<pre class="pre-scrollable">
+	<form class="form-result" action="/">
+		<div class="submit-button">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">다시
+				하기</button>
+		</div>
+	</form>
+	<pre class="pre-scrollable">
 	<table class="table">
 			<thead>
 				<th><h3 class="text-center">당첨 통계</h3></th>
@@ -88,11 +88,11 @@ body {
 			<tr>
 				<th>6개 일치 (2000000000원)- {{first}}개</th>
 			</tr>
-			{{/result}}
 		</tbody>
 		<tfoot>
-			<th><h4 class="text-center">총 수익률은 {{revenu}}%입니다.</h4></th>
+			<th><h4 class="text-center">총 수익률은 {{revenue}}%입니다.</h4></th>
 		</tfoot>
+		{{/result}}
 	</table>
 </pre>
 </body>
