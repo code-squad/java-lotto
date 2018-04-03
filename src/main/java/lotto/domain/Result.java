@@ -1,7 +1,15 @@
 package lotto.domain;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import lotto.db.LottoDAO;
+import lotto.db.LottoDTO;
+import lotto.db.ResultDAO;
+import lotto.db.ResultDTO;
 
 public class Result {
 	private Map<Rank, Integer> rankResult;
@@ -24,9 +32,13 @@ public class Result {
 		return rankResult.get(rank);
 	}
 
-	public ResultDTO getResult(String price, String bonusNum, LottoProcess lottoProcess, String beforeWinLotto) {
+	public static ResultDTO selectResult() throws SQLException {
+		ResultDAO resultDao = new ResultDAO();
+		return resultDao.select();
+	}
 
-		calcResult(lottoProcess, beforeWinLotto, bonusNum);
+	public void insertResult(String price, String bonusNum, String beforeWinLotto) throws SQLException { // insert
+		calcResult(LottoProcess.selectLottos(), bonusNum, beforeWinLotto);
 		ResultDTO resultDTO = new ResultDTO();
 		resultDTO.setFirst(rankNum(Rank.FIRST));
 		resultDTO.setSecond(rankNum(Rank.SECOND));
@@ -34,11 +46,14 @@ public class Result {
 		resultDTO.setFourth(rankNum(Rank.FOURTH));
 		resultDTO.setFifth(rankNum(Rank.FIFTH));
 		resultDTO.setRevenue(calcRevenue(price));
-		return resultDTO;
+		ResultDAO resultDao = new ResultDAO();
+		resultDao.insert(resultDTO);
 	}
 
-	public void calcResult(LottoProcess lottoProcess, String beforeWinLotto, String bonusNum) {
+	public void calcResult(List<LottoDTO> lottodto, String bonusNum, String beforeWinLotto) {
+
 		int countOfMatch = 0;
+		LottoProcess lottoProcess = LottoProcess.of(lottodto);
 		for (int i = 0; i < lottoProcess.size(); i++) {
 			countOfMatch = lottoProcess.countOfMatch(i, beforeWinLotto);
 			calcResult(countOfMatch, checkMatchBonus(lottoProcess, i, bonusNum));

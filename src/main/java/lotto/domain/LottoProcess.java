@@ -1,8 +1,11 @@
 package lotto.domain;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lotto.db.LottoDAO;
+import lotto.db.LottoDTO;
 import lotto.view.Input;
 
 public class LottoProcess {
@@ -42,6 +45,21 @@ public class LottoProcess {
 		return new LottoProcess(lottos);
 	}
 
+	public void insertLottos() throws SQLException { // insert
+		List<LottoDTO> lottodto = getAllLottos();
+		LottoDAO lottoDAO = new LottoDAO();
+		for (int i = 0; i < lottos.size(); i++) {
+			lottoDAO.insert(lottodto.get(i));
+		}
+	}
+
+	public static List<LottoDTO> selectLottos() throws SQLException { // insert
+		List<LottoDTO> lottodto = new ArrayList<>();
+		LottoDAO lottoDao = new LottoDAO();
+		lottodto = lottoDao.select();
+		return lottodto;
+	}
+
 	public static List<Integer> makeNumbers() {
 		List<Integer> numberRange = new ArrayList<>();
 		for (int i = 1; i < MAXNUM_RANGE; i++) {
@@ -78,6 +96,13 @@ public class LottoProcess {
 			lottos.add(lotto);
 		}
 		return lottos;
+	}
+
+	public static LottoProcess getLottoProcess(String manualNumber, int sheets) {
+		if (manualNumber.isEmpty()) {
+			return LottoProcess.of(sheets);
+		}
+		return LottoProcess.of(sheets, manualNumber);
 	}
 
 }

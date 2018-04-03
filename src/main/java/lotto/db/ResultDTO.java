@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.db;
 
 public class ResultDTO {
 	int first;
