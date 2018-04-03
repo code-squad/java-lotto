@@ -54,4 +54,8 @@ public class Lotto {
         Collections.sort(nums);
         return nums.stream().map(Object::toString).collect(joining(", "));
     }
+
+    public String getSavableLottoNumber() {
+        return unfoldNumbers();
+    }
 }

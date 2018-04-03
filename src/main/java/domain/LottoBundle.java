@@ -68,7 +68,12 @@ public class LottoBundle {
         return builder.toString();
     }
 
-    public int getPurchaseAmount() {
-        return lottos.size();
+
+    public List<String> getSavableLottoNumbers() {
+        ArrayList<String> lottoNumbers = new ArrayList<>();
+        for (Lotto lotto : lottos) {
+            lottoNumbers.add(lotto.getSavableLottoNumber());
+        }
+        return lottoNumbers;
     }
 }
