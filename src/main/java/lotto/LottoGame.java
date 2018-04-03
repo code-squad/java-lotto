@@ -1,19 +1,10 @@
 package lotto;
 
 import input.InputCommon;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class LottoGame {
-    private List<Lotto> lottos;
-
-//    public LottoGame(int inputMoney, List<String> manualNum) {
-//        InputCommon input = new InputCommon();
-//        lottos = input.makeLottos(inputMoney);
-//        lottos = input.addManualLottos(manualNum);
-//    }
-
+    private static List<Lotto> lottos;
 
     public List<Lotto> makeLottos(int inputMoney, List<String> manualNum) {
         InputCommon input = new InputCommon();
@@ -21,9 +12,7 @@ public class LottoGame {
         return input.addManualLottos(manualNum);
     }
 
-
-    public List<Lotto> getLottos() {
+    public static List<Lotto> getLottos() {
         return lottos;
     }
-
 }

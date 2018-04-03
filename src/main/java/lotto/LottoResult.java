@@ -9,7 +9,7 @@ import java.util.List;
 
 public class LottoResult {
     private int profit;
-    private HashMap<Rank, Integer> finalCount;
+    private HashMap<Rank, Integer> resultCount;
     private List<Lotto> lottos;
 
     Money money = new Money();
@@ -17,12 +17,12 @@ public class LottoResult {
 
     public int getProfit(List<Lotto> lottos, WinningLotto winningNumber, String bonusNumber) {
         int inputMoney = lottos.size() * 1000;
-        int profit = money.profit(money.totalMoney(decision.decisionRank(lottos, winningNumber.getWinningLotto(), bonusNumber)), inputMoney);
+        profit = money.profit(money.totalMoney(decision.decisionRank(lottos, winningNumber.getWinningLotto(), bonusNumber)), inputMoney);
         return profit;
     }
 
     public HashMap<Rank, Integer> resultCount(WinningLotto winningLotto, List<Lotto> lottos) {
-        HashMap<Rank, Integer> resultCount = money.money(decision.decisionRank(lottos, winningLotto.getWinningLotto(), winningLotto.getBonusNum()));
+        resultCount = money.money(decision.decisionRank(lottos, winningLotto.getWinningLotto(), winningLotto.getBonusNum()));
         return resultCount;
     }
 
@@ -33,22 +33,22 @@ public class LottoResult {
     }
 
     public int getFirst() {
-        return finalCount.get(Rank.FIRST);
+        return resultCount.get(Rank.FIRST);
     }
 
     public int getSecond() {
-        return finalCount.get(Rank.SECOND);
+        return resultCount.get(Rank.SECOND);
     }
 
     public int getThird() {
-        return finalCount.get(Rank.THIRD);
+        return resultCount.get(Rank.THIRD);
     }
 
     public int getFourth() {
-        return finalCount.get(Rank.FOURTH);
+        return resultCount.get(Rank.FOURTH);
     }
 
     public int getFifth() {
-        return finalCount.get(Rank.FIFTH);
+        return resultCount.get(Rank.FIFTH);
     }
 }

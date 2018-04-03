@@ -5,8 +5,8 @@ public class WinningLotto {
     private String bonusNum;
 
     public WinningLotto(String winningNumber, String bonusNumber) {
-        Lotto winnigLotto = new Lotto(winningNumber);
-        String bonusNum = bonusNumber;
+        winningLotto = new Lotto(winningNumber);
+        bonusNum = bonusNumber;
     }
 
     public Lotto getWinningLotto() {
