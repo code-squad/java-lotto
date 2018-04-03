@@ -15,7 +15,7 @@ public class LottoResult {
     Money money = new Money();
     Decision decision = new Decision();
 
-    public int getProfit(List<Lotto> lottos, WinningLotto winningNumber, String bonusNumber) {
+    public int profitPer(List<Lotto> lottos, WinningLotto winningNumber, String bonusNumber) {
         int inputMoney = lottos.size() * 1000;
         profit = money.profit(money.totalMoney(decision.decisionRank(lottos, winningNumber.getWinningLotto(), bonusNumber)), inputMoney);
         return profit;
@@ -50,5 +50,9 @@ public class LottoResult {
 
     public int getFifth() {
         return resultCount.get(Rank.FIFTH);
+    }
+
+    public int getProfit() {
+        return profit;
     }
 }
