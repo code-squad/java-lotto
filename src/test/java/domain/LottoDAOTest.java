@@ -36,4 +36,9 @@ public class LottoDAOTest {
         LottoBundle savedLottoBundle = lottoDAO.getBuyLottos();
         System.out.println(savedLottoBundle);
     }
+
+    @Test
+    public void 로또번호_삭제하기() {
+        lottoDAO.deleteLottosRecord();
+    }
 }

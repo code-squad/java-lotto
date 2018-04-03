@@ -1,7 +1,4 @@
-import domain.Lotto;
-import domain.LottoBundle;
-import domain.LottoNum;
-import domain.WinningLotto;
+import domain.*;
 import domain.result.LottoResults;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -21,25 +18,31 @@ import static utils.MoneyUtils.calcBuyAmount;
  */
 
 public class LottoWebMain {
-    private static LottoBundle lottoBundle = new LottoBundle();
+    private static LottoDAO lottoDAO = new LottoDAO();
 
     public static void main(String[] args) {
         port(8080);
-
-        get("/", (req, res) -> render(null, "index.html"));
+        get("/", (req, res) -> {
+            lottoDAO.deleteLottosRecord();
+            return render(null, "index.html");
+        });
 
         post("/buyLotto", (req, res) -> {
             int totalAmount = calcBuyAmount(convertNumber(req.queryParams("inputMoney")));
             List<Lotto> manualLottos = convertLottos(parseLottoNumbers(splitLottoNumbers(req.queryParams("manualNumber"))));
+            LottoBundle lottoBundle = new LottoBundle();
             lottoBundle.addLotto(manualLottos);
             lottoBundle.addLotto(LottoMachine.autoBuy(totalAmount, manualLottos.size()));
+            lottoDAO.saveBuyLottos(lottoBundle);
+
             Map<String, Object> model = new HashMap<>();
             model.put("buyNum", totalAmount);
             model.put("lottos", lottoBundle);
-            return render(model, "show.html");
+            return render(model, "show");
         });
 
         post("/matchLotto", (req, res) -> {
+            LottoBundle lottoBundle = lottoDAO.getBuyLottos();
             Lotto lotto = new Lotto(convertLottoNum(parseLottoNumbers(req.queryParams("winningNumber"))));
             LottoNum bonusNumber = convertLottoNum(req.queryParams("bonusNumber"));
             WinningLotto winningNumber = new WinningLotto(lotto, bonusNumber);

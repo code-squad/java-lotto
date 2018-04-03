@@ -29,14 +29,12 @@ public class LottoDAO {
         }
     }
 
-    public void saveBuyLotto(String lottoNumber) {
-        String sql = "insert into buylotto values(?,?,?)";
+    private void saveBuyLotto(String lottoNumber) {
+        String sql = "insert into buylotto values(?)";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(sql);
-            statement.setInt(1, 0);
-            statement.setString(2, lottoNumber);
-            statement.setDate(3, null);
+            statement.setString(1, lottoNumber);
             statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -63,5 +61,16 @@ public class LottoDAO {
         }
         lottoBundle.addLotto(lottos);
         return lottoBundle;
+    }
+
+    public void deleteLottosRecord() {
+        String sql = "delete from buylotto";
+        PreparedStatement statement = null;
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
