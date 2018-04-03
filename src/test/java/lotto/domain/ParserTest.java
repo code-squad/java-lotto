@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.view.Parser;
 import org.junit.Test;
 
 import java.util.Arrays;

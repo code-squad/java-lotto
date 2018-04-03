@@ -6,7 +6,7 @@ import lotto.domain.WinningLotto;
 
 import java.util.List;
 
-import static lotto.domain.Parser.*;
+import static lotto.view.Parser.*;
 
 public class UserPrompt {
     public static final int LOTTO_PRICE = 1000;

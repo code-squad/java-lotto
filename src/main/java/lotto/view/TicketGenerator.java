@@ -7,7 +7,7 @@ import lotto.domain.Ticket;
 import java.util.ArrayList;
 import java.util.List;
 
-import static lotto.domain.Parser.*;
+import static lotto.view.Parser.*;
 
 public class TicketGenerator {
 

@@ -9,7 +9,7 @@ public class Number {
     private static final int MAX_NUMBER = 45;
     private final int number;
 
-    Number(int number) {
+    public Number(int number) {
         this.number = checkValid(number);
     }
 
