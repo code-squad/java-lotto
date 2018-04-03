@@ -10,19 +10,18 @@ import static junit.framework.TestCase.assertEquals;
 
 public class LottoMainTest {
     private static final int INIT_NUM = 6;
+    private static final int BONUS_NUMBER = 11;
 
     private LottoMaker lottoMaker = LottoMaker.of();
     private List<LottoLine> lottoLines = new ArrayList<>();
 
     private String resultStr = "1, 2, 3, 4, 5, 6";
     private List<LottoNum> resultList = lottoMaker.makeManualLottoLine(resultStr);
-    private LottoMatcher lottoMatcher = LottoMatcher.of(WinningLotto.of(resultList));
-    private Result result;
+    private WinningLotto winningLotto = WinningLotto.of(resultList, BONUS_NUMBER);
+    private Result result = Result.of(INIT_NUM);
 
     @Before
     public void init() {
-        result = Result.of();
-
         String[] compareStr = {"3, 4, 5, 6, 9, 10", "3, 4, 5, 6, 9, 10",
                 "3, 4, 5, 6, 1, 2", "3, 4, 5, 7, 1, 2", "7, 4, 5, 6, 8, 9",
                 "1, 2, 3, 4, 5, 11"};
@@ -32,9 +31,8 @@ public class LottoMainTest {
         }
 
         for (int i = 0; i < INIT_NUM; i++) {
-            int bonusNum = 11;
-            result.increaseHit(lottoMatcher.match(lottoLines.get(i)),
-                    lottoLines.get(i).containsBonusNum(bonusNum));
+            result.increaseHit(winningLotto.match(lottoLines.get(i)),
+                    winningLotto.matchBonus(lottoLines.get(i)));
         }
     }
 
@@ -74,52 +72,58 @@ public class LottoMainTest {
     @Test
     public void 당첨번호갯수_여섯() {
         String compareStr = "1, 2, 3, 4, 5, 6";
-        List<LottoNum> lottoLine = lottoMaker.makeManualLottoLine(compareStr);
-        int matchNum = lottoMatcher.match(LottoLine.of(lottoLine));
+        List<LottoNum> lottos = lottoMaker.makeManualLottoLine(compareStr);
 
+        int matchNum = winningLotto.match(LottoLine.of(lottos));
         assertEquals(6, matchNum);
     }
 
     @Test
     public void 당첨번호갯수_없음() {
         String compareStr = "11, 12, 13, 18, 19, 20";
-        List<LottoNum> lottoLine = lottoMaker.makeManualLottoLine(compareStr);
-        int matchNum = lottoMatcher.match(LottoLine.of(lottoLine));
+        List<LottoNum> lottos = lottoMaker.makeManualLottoLine(compareStr);
 
+        int matchNum = winningLotto.match(LottoLine.of(lottos));
         assertEquals(0, matchNum);
     }
 
     @Test
     public void 당첨번호갯수() {
         String compareStr = "1, 2, 3, 8, 9, 10";
-        List<LottoNum> lottoLine = lottoMaker.makeManualLottoLine(compareStr);
-        int matchNum = lottoMatcher.match(LottoLine.of(lottoLine));
+        List<LottoNum> lottos = lottoMaker.makeManualLottoLine(compareStr);
 
+        int matchNum = winningLotto.match(LottoLine.of(lottos));
         assertEquals(3, matchNum);
     }
 
     @Test
     public void 결과셋일치() {
-        assertEquals(1, result.getThreeHit());
+        assertEquals(1, result.getRankHitNum(Rank.FIFTH));
     }
 
     @Test
     public void 결과넷일치() {
-        assertEquals(2, result.getFourHit());
+        assertEquals(2, result.getRankHitNum(Rank.FOURTH));
     }
 
     @Test
     public void 결과다섯일치() {
-        assertEquals(1, result.getFiveHit());
+        assertEquals(1, result.getRankHitNum(Rank.SECOND));
     }
 
     @Test
     public void 결과다섯일치_보너스번호() {
-        assertEquals(1, result.getFiveHitBonus());
+        assertEquals(1, result.getRankHitNum(Rank.SECOND));
     }
 
     @Test
     public void 결과여섯일치() {
-        assertEquals(1, result.getSixHit());
+        assertEquals(1, result.getRankHitNum(Rank.FIRST));
+    }
+
+    @Test
+    public void 수익률계산() {
+        assertEquals(100 * ((5000 + 50000 * 2 + 1500000 + 30000000 + 2000000000)
+                / (INIT_NUM * 1000)), result.calcIncome());
     }
 }

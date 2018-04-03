@@ -1,8 +1,8 @@
 package saru.domain;
 
-import saru.*;
+import saru.Result;
 
-import java.util.*;
+import java.util.List;
 
 public class LottoCalculator {
     private List<LottoLine> lottoLines;
@@ -15,29 +15,22 @@ public class LottoCalculator {
         return new LottoCalculator(lottoLines);
     }
 
-    public Result makeResult(String hitNumString, int bonusNum) {
-        // 당첨번호와 같이 보너스 넘버를 입력받았다.
-        Result result = Result.of();
+    public Result makeResult(int buyNum, String hitNumber, int bonusNumber) {
+        Result result = Result.of(buyNum);
         LottoMaker lottoMaker = LottoMaker.of();
 
-        List<LottoNum> hitLottoLine = lottoMaker.makeManualLottoLine(hitNumString);
+        List<LottoNum> hitLottoLine = lottoMaker.makeManualLottoLine(hitNumber);
+        WinningLotto winningLotto = WinningLotto.of(hitLottoLine, bonusNumber);
 
-        // TODO 여기서 위닝로또?
-        LottoMatcher lottoMatcher = LottoMatcher.of(WinningLotto.of(hitLottoLine));
-        loopIncreaseHit(bonusNum, result, lottoMatcher);
+        loopIncreaseHit(result, winningLotto);
 
         return result;
     }
 
-    private void loopIncreaseHit(int bonusNum, Result result, LottoMatcher lottoMatcher) {
-        // 결과 만들때도 보너스 여부 명시해야하는데..
-        for (LottoLine lottoLine : this.lottoLines) {
-            result.increaseHit(lottoMatcher.match(lottoLine),
-                    isMatchBonusNum(lottoLine, bonusNum));
+    private void loopIncreaseHit(Result result, WinningLotto winningLotto) {
+        for (LottoLine lottoLine : lottoLines) {
+            result.increaseHit(winningLotto.match(lottoLine),
+                    winningLotto.matchBonus(lottoLine));
         }
-    }
-
-    private boolean isMatchBonusNum(LottoLine lottoLine, int bonusNum) {
-        return lottoLine.containsBonusNum(bonusNum);
     }
 }
