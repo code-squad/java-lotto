@@ -24,6 +24,10 @@ public class Ticket {
         return numbers;
     }
 
+    int countMatches(Ticket ticket) {
+        return (int) this.ticket.stream().filter(ticket::contains).count();
+    }
+
     boolean contains(Number number) {
         return ticket.contains(number);
     }
