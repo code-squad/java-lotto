@@ -13,17 +13,18 @@ public class LottoDAO {
 	Connection con = null;
 	PreparedStatement pstmt = null;
 
-	public void insert(LottoDTO lottoDTO) throws SQLException {
+	public void insert(String turnNo, LottoDTO lottoDTO) throws SQLException {
 		con = Common.getConnection();
-		String sql = "insert into user_lotto values(NULL,?,?,?,?,?,?)";
+		String sql = "insert into user_lotto values(?,?,?,?,?,?,?)";
 		pstmt = con.prepareStatement(sql);
 		try {
-			pstmt.setInt(1, lottoDTO.getNumbers().get(0));
-			pstmt.setInt(2, lottoDTO.getNumbers().get(1));
-			pstmt.setInt(3, lottoDTO.getNumbers().get(2));
-			pstmt.setInt(4, lottoDTO.getNumbers().get(3));
-			pstmt.setInt(5, lottoDTO.getNumbers().get(4));
-			pstmt.setInt(6, lottoDTO.getNumbers().get(5));
+			pstmt.setInt(1, Integer.parseInt(turnNo));
+			pstmt.setInt(2, lottoDTO.getNumber(0));
+			pstmt.setInt(3, lottoDTO.getNumber(1));
+			pstmt.setInt(4, lottoDTO.getNumber(2));
+			pstmt.setInt(5, lottoDTO.getNumber(3));
+			pstmt.setInt(6, lottoDTO.getNumber(4));
+			pstmt.setInt(7, lottoDTO.getNumber(5));
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -33,11 +34,11 @@ public class LottoDAO {
 		}
 	}
 
-	public List<LottoDTO> select() throws SQLException {
+	public List<LottoDTO> select(String turnNo) throws SQLException {
 		con = Common.getConnection();
 		List<LottoDTO> lottos = new ArrayList<>();
-		String sql = "select * from user_lotto";
-		pstmt = con.prepareStatement(sql);
+		pstmt = con.prepareStatement("select * from user_lotto where turn_no = ?");
+		pstmt.setInt(1, Integer.parseInt(turnNo));
 		ResultSet rs;
 		try {
 			rs = pstmt.executeQuery();
@@ -59,16 +60,8 @@ public class LottoDAO {
 
 	public void delete() throws SQLException {
 		con = Common.getConnection();
-		String sql = "delete from user_lotto";
-		pstmt = con.prepareStatement(sql);
+		pstmt = con.prepareStatement("delete from user_lotto");
 		Common.excuteUpdate(pstmt, con, "user_lotto 테이블 delete 실패");
-	}
-
-	public void init() throws SQLException {
-		con = Common.getConnection();
-		String sql = "alter table user_lotto auto_increment = 1";
-		pstmt = con.prepareStatement(sql);
-		Common.excuteUpdate(pstmt, con, "user_lotto 테이블 init 실패");
 	}
 
 }

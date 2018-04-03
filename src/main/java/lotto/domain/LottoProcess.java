@@ -6,6 +6,7 @@ import java.util.List;
 
 import lotto.db.LottoDAO;
 import lotto.db.LottoDTO;
+import lotto.db.LottoGameDAO;
 import lotto.view.Input;
 
 public class LottoProcess {
@@ -45,18 +46,26 @@ public class LottoProcess {
 		return new LottoProcess(lottos);
 	}
 
-	public void insertLottos() throws SQLException { // insert
+	public void insertLottos(String turnNo) throws SQLException {
+	
+		insertWinLotto(turnNo);
+		
 		List<LottoDTO> lottodto = getAllLottos();
 		LottoDAO lottoDAO = new LottoDAO();
 		for (int i = 0; i < lottos.size(); i++) {
-			lottoDAO.insert(lottodto.get(i));
+			lottoDAO.insert(turnNo, lottodto.get(i));
 		}
 	}
+	
+	public void insertWinLotto(String turnNo) throws SQLException {
+		LottoGameDAO lottogameDAO = new LottoGameDAO();
+		lottogameDAO.insertWinNo(turnNo, LottoProcess.of(1).getLottoDTO(0));
+	}
 
-	public static List<LottoDTO> selectLottos() throws SQLException { // insert
+	public static List<LottoDTO> selectLottos(String turnNo) throws SQLException {
 		List<LottoDTO> lottodto = new ArrayList<>();
 		LottoDAO lottoDao = new LottoDAO();
-		lottodto = lottoDao.select();
+		lottodto = lottoDao.select(turnNo);
 		return lottodto;
 	}
 
@@ -70,6 +79,12 @@ public class LottoProcess {
 
 	public static List<Lotto> makeLottos(int sheets, List<Integer> numberRange) {
 		List<Lotto> lottos = new ArrayList<>();
+		
+		if(sheets==1) {
+			lottos.add(AutoLotto.ofWinLotto(numberRange,sheets));
+			return lottos;
+		}
+		
 		for (int i = 0; i < sheets; i++) {
 			lottos.add(AutoLotto.of(numberRange));
 		}
@@ -84,7 +99,7 @@ public class LottoProcess {
 		return lottos.get(i);
 	}
 
-	public int countOfMatch(int i, String beforeWinLotto) {
+	public int countOfMatch(int i, List<Integer> beforeWinLotto) {
 		return getLotto(i).countOfMatch(beforeWinLotto);
 	}
 
@@ -96,6 +111,9 @@ public class LottoProcess {
 			lottos.add(lotto);
 		}
 		return lottos;
+	}
+	public LottoDTO getLottoDTO(int i) {
+		return getAllLottos().get(i);
 	}
 
 	public static LottoProcess getLottoProcess(String manualNumber, int sheets) {

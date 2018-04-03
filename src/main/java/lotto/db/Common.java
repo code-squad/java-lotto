@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class Common {
 
 	public static Connection getConnection() {
-		String url = "jdbc:mysql://localhost:3306/java_lotto?serverTimezone=UTC";
+		String url = "jdbc:mysql://localhost:3306/java_lotto?serverTimezone=UTC&useSSL=false";
 		String id = "durin93";
 		String pw = "durin93";
 		try {
@@ -36,7 +36,14 @@ public class Common {
 	}
 
 	public static void excuteUpdate(PreparedStatement pstmt, Connection con, String message) {
-
+		try {
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(message);
+		} finally {
+			Common.close(pstmt, con);
+		}
 	}
 
 }

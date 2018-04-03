@@ -31,7 +31,7 @@ public class ResultDAOTest {
 	@Test
 	public void insert() throws Exception {
 		resultDTO.setFirst(1);
-		resultDAO.insert(resultDTO);
+//		resultDAO.insert(resultDTO);
 	}
 
 	@Test

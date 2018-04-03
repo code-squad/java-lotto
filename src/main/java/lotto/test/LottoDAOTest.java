@@ -34,7 +34,7 @@ public class LottoDAOTest {
 	public void insert() throws Exception {
 		List<Integer> temp = Arrays.asList(1, 2, 3, 4, 5, 6);
 		lottoDTO.setNumbers(temp);
-		lottoDAO.insert(lottoDTO);
+//		lottoDAO.insert(lottoDTO);
 	}
 
 	@Test

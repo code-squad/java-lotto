@@ -55,19 +55,28 @@ body {
 .submit-button{
 	margin-top: 10px;
 }
+
+
+input[readonly] {
+ background-color: white !important;
+}
+
 </style>
 </head>
 <body>
 <form class="form-show" method="post" action="/matchLotto">
+	{{#lottoGame}}
+	<input type="hidden" value={{turnNo}} name="turnNo"/>
 	<div class="form-show-div form-group">
-		<label for="winningNumber">지난 주 당첨 번호</label>
-		<input type="text" id="inputMoney" class="form-control"
-				name="winningNumber" placeholder="1,2,3,4,5,6" required autofocus>
+		<label for="winningNumber">{{turnNo}}회차 당첨 번호</label>
+		<input type="text" id="inputMoney" class="form-control" 
+				name="winningNumber" value="{{first}},{{second}},{{third}},{{fourth}},{{fifth}}" readonly/>
 	</div>
 	<div class="form-show-div form-group">
     	<label for="bonusNumber">2등 보너스 볼</label>
     	<input type="text" class="form-control" id="bonusNumber" 
-    		name="bonusNumber" required autofocus>
+    		name="bonusNumber"	value="{{bonus}}" readonly/>
+ 		{{/lottoGame}}
   	</div>
 	<div class="submit-button">
 		<button class="btn btn-lg btn-primary btn-block" type="submit">당첨 번호</button>

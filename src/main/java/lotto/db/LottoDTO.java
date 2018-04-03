@@ -12,5 +12,12 @@ public class LottoDTO {
 	public void setNumbers(List<Integer> numbers) {
 		this.numbers = numbers;
 	}
+	
+
+	public int getNumber(int i) {
+		return numbers.get(i);
+	}
+	
+
 
 }

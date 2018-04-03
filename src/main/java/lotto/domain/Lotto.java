@@ -15,6 +15,10 @@ public abstract class Lotto {
 		LottoNo.check(numbers);
 		this.numbers = numbers;
 	}
+	
+	public Lotto(List<Integer> numbers, int sheets) {
+		this.numbers = numbers;
+	}
 
 	public static List<Integer> makeLottoNum(List<Integer> temp) {
 		List<Integer> numbers = new ArrayList<>();
@@ -24,8 +28,16 @@ public abstract class Lotto {
 		Collections.sort(numbers);
 		return numbers;
 	}
+	public static List<Integer> makeWinLottoNum(List<Integer> temp) {
+		List<Integer> numbers = new ArrayList<>();
+		for (int i = 0; i < LOTTO_SIZE+1; i++) {
+			numbers.add(temp.get(i));
+		}
+		Collections.sort(numbers);
+		return numbers;
+	}
 
-	public int countOfMatch(String beforeWinLotto) {
+	public int countOfMatch(List<Integer> beforeWinLotto) {
 		int countOfMatch = 0;
 		for (Integer no : numbers) {
 			countOfMatch += Input.beforeWinNum(beforeWinLotto).countOfMatch(no);
