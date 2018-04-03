@@ -1,4 +1,7 @@
-package domain;
+package domain.dao;
+
+import domain.Lotto;
+import domain.LottoBundle;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -7,19 +10,15 @@ import java.util.List;
 import static utils.InputUtils.convertLottoNum;
 import static utils.InputUtils.parseLottoNumbers;
 
-public class LottoDAO {
+public class LottoDAO extends DAO {
+    private static LottoDAO lottoDAO = new LottoDAO();
+    private static final String TABLE_NAME = "buylotto";
 
-    public Connection getConnection() {
-        String url = "jdbc:mysql://13.125.184.6:3306/lotto";
-        String id = "colin";
-        String password = "1234";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection(url, id, password);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+    private LottoDAO() {
+    }
+
+    public static LottoDAO of() {
+        return lottoDAO;
     }
 
     public void saveBuyLottos(LottoBundle lottoBundle) {
@@ -30,7 +29,7 @@ public class LottoDAO {
     }
 
     private void saveBuyLotto(String lottoNumber) {
-        String sql = "insert into buylotto values(?)";
+        String sql = "insert into " + TABLE_NAME + " values(?)";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(sql);
@@ -42,7 +41,7 @@ public class LottoDAO {
     }
 
     public LottoBundle getBuyLottos() {
-        String sql = "select numbers from buylotto";
+        String sql = "select numbers from " + TABLE_NAME;
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(sql);
@@ -64,7 +63,7 @@ public class LottoDAO {
     }
 
     public void deleteLottosRecord() {
-        String sql = "delete from buylotto";
+        String sql = "delete from " + TABLE_NAME;
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(sql);
