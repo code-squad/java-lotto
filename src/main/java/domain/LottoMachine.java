@@ -7,8 +7,7 @@ public class LottoMachine {
     private List<LottoTicket> lottoTickets;
     private LottoResult lottoResult;
 
-    public LottoMachine(int ticketCount) {
-        lottoTickets = new ArrayList<>();
+    public LottoMachine(int ticketCount) throws Exception {
         makeLottoTickets(ticketCount);
         lottoResult = LottoResult.getInstance();
     }
@@ -17,24 +16,20 @@ public class LottoMachine {
         return this.lottoTickets;
     }
 
-    public void getMatch(List<Integer> lastWinningNumber) {
+    public void getMatch(List<Integer> lastWinningNumber) throws Exception {
+        LottoTicket winningLottoTicket = LottoTicketFactory.getWinningLottoTicket(lastWinningNumber);
         for (int index = 0; index < lottoTickets.size(); index++) {
-            LottoTicket ticket = lottoTickets.get(index);
-            lottoResult.isValid(countMatchedNumber(ticket, lastWinningNumber));
+            LottoTicket lottoTicket = lottoTickets.get(index);
+            lottoResult.isValidNumber(countMatchedNumber(lottoTicket, winningLottoTicket));
         }
     }
 
-    public int countMatchedNumber(LottoTicket ticket, List<Integer> lastWinningNumber) {
-        int matchedNumberCount = 0;
-        for (Integer number : lastWinningNumber) {
-            if (ticket.contains(number)) {
-                matchedNumberCount++;
-            }
-        }
-        return matchedNumberCount;
+    public int countMatchedNumber(LottoTicket ticket, LottoTicket winningLottoTicket) {
+        return ticket.getMatchedCount(winningLottoTicket);
     }
 
-    public void makeLottoTickets(int ticketCount) {
+    public void makeLottoTickets(int ticketCount) throws Exception {
+        lottoTickets = new ArrayList<>();
         while (lottoTickets.size() < ticketCount) {
             lottoTickets.add(LottoTicketFactory.getLottoTicket());
         }

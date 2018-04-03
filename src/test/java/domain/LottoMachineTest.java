@@ -19,12 +19,7 @@ public class LottoMachineTest {
     }
 
     @Test
-    public void getLottoTicket() {
-        assertEquals(6, lottoMachine.getLottoTicket().size());
-    }
-
-    @Test
     public void getLottoTickets() {
-        assertEquals(10, lottoMachine.getLottoTickets(ticketCount).size());
+        assertEquals(10, lottoMachine.getLottoTickets().size());
     }
 }

@@ -32,28 +32,34 @@ public class LottoResult {
         int second = SECOND_PRIZE * result.get(Rank.SECOND);
         int first = FIRST_PRIZE * result.get(Rank.FIRST);
         // 1등일 경우 * 100을 먼저할 경우 int 범위를 벗어난다.
-        Double result = ( fourth + third + second + first ) * (PERCENT / purchaseFee);
+        Double result = (fourth + third + second + first) * (PERCENT / purchaseFee);
         rateOfProfit = result.intValue();
     }
 
-    public boolean isValid(int matchedCount) {
+    public boolean isValidNumber(int matchedCount) {
         if (matchedCount < 3) {
             return false;
         }
+        countPrize(matchedCount);
+        return true;
+    }
 
-        switch (matchedCount) {
-            case 3:
-                result.put(Rank.FOURTH, result.get(Rank.FOURTH) + 1);
-                return true;
-            case 4:
-                result.put(Rank.THIRD, result.get(Rank.THIRD) + 1);
-                return true;
-            case 5:
-                result.put(Rank.SECOND, result.get(Rank.SECOND) + 1);
-                return true;
-            case 6:
-                result.put(Rank.FIRST, result.get(Rank.FIRST) + 1);
-                return true;
+    private boolean countPrize(int matchedCount) {
+        if (matchedCount == 3) {
+            result.put(Rank.FOURTH, result.get(Rank.FOURTH) + 1);
+            return true;
+        }
+        if (matchedCount == 4) {
+            result.put(Rank.THIRD, result.get(Rank.THIRD) + 1);
+            return true;
+        }
+        if (matchedCount == 5) {
+            result.put(Rank.SECOND, result.get(Rank.SECOND) + 1);
+            return true;
+        }
+        if (matchedCount == 6) {
+            result.put(Rank.FIRST, result.get(Rank.FIRST) + 1);
+            return true;
         }
         return false;
     }
