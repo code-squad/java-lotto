@@ -20,7 +20,6 @@ public class InputView {
         return count;
     }
 
-
     public static List<Integer> getWinningNumber() {
         // "1, 2, 3, 4, 5, 6"
         scanner = new Scanner(System.in);
@@ -28,6 +27,13 @@ public class InputView {
         String[] numbers = scanner.nextLine().split(","); // trim() 유무
 //        System.out.println(Arrays.toString(numbers));
         return parseInt(numbers);
+    }
+
+    public static Integer getBonusNumber() {
+        scanner = new Scanner(System.in);
+        System.out.println("\n보너스 볼을 입력해 주세요.");
+        String bonusNumber = scanner.nextLine();
+        return Integer.parseInt(bonusNumber);
     }
 
     private static List<Integer> parseInt(String[] userInput) {

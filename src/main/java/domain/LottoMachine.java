@@ -16,11 +16,12 @@ public class LottoMachine {
         return this.lottoTickets;
     }
 
-    public void getMatch(List<Integer> lastWinningNumber) throws Exception {
+    public void getMatch(List<Integer> lastWinningNumber, Integer bonusNumber) throws Exception {
         LottoTicket winningLottoTicket = LottoTicketFactory.getWinningLottoTicket(lastWinningNumber);
         for (int index = 0; index < lottoTickets.size(); index++) {
             LottoTicket lottoTicket = lottoTickets.get(index);
-            lottoResult.isValidNumber(countMatchedNumber(lottoTicket, winningLottoTicket));
+            int matchedNumberCount = countMatchedNumber(lottoTicket, winningLottoTicket);
+            lottoResult.isValidNumber(matchedNumberCount, lottoTicket.hasBonusNumber(bonusNumber));
         }
     }
 

@@ -3,7 +3,9 @@ package domain;
 import java.util.List;
 
 public class LottoTicket {
+    private static final int LOTTO_SIZE = 6;
     private List<Integer> numbers;
+    private boolean bonus = false;
 
     public LottoTicket(List<Integer> numbers) throws Exception {
         if (!isValid(numbers)) {
@@ -28,9 +30,17 @@ public class LottoTicket {
         return numbers;
     }
 
+    public boolean hasBonusNumber(Integer bonusNumber) {
+        if ((bonusNumber > 0 || bonusNumber < 46) && this.numbers.contains(bonusNumber)) {
+            bonus = true;
+            return bonus;
+        }
+        return bonus;
+    }
+
     public int getMatchedCount(LottoTicket winningLottoTicket) {
         List<Integer> winningNumbers = winningLottoTicket.getNumbers();
-        this.numbers.retainAll(winningNumbers);
-        return numbers.size();
+        this.numbers.removeAll(winningNumbers);
+        return LOTTO_SIZE - numbers.size();
     }
 }

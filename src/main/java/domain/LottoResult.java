@@ -36,11 +36,11 @@ public class LottoResult {
         rateOfProfit = result.intValue();
     }
 
-    public boolean isValidNumber(int matchedCount) {
+    public boolean isValidNumber(int matchedCount, boolean bonus) {
         if (matchedCount < 3) {
             return false;
         }
-        countPrize(Rank.isRank(matchedCount));
+        countPrize(Rank.getRank(matchedCount, bonus));
         return true;
     }
 
@@ -58,9 +58,10 @@ public class LottoResult {
         StringBuilder sb = new StringBuilder();
         sb.append("\n당첨통계\n");
         sb.append("---------\n");
-        sb.append("3개 일치 (5000원)-" + result.get(Rank.FOURTH) + "개\n");
-        sb.append("4개 일치 (50000원)-" + result.get(Rank.THIRD) + "개\n");
-        sb.append("5개 일치 (1500000원)-" + result.get(Rank.SECOND) + "개\n");
+        sb.append("3개 일치 (5000원)-" + result.get(Rank.FIFTH) + "개\n");
+        sb.append("4개 일치 (50000원)-" + result.get(Rank.FOURTH) + "개\n");
+        sb.append("5개 일치 (1500000원)-" + result.get(Rank.THIRD) + "개\n");
+        sb.append("5개 일치, 보너스볼 일치 (30000000원)-" + result.get(Rank.SECOND) + "개\n");
         sb.append("6개 일치 (2000000000원)-" + result.get(Rank.FIRST) + "개\n");
         sb.append("총 수익률은 " + rateOfProfit + "%입니다.\n");
         return sb.toString();

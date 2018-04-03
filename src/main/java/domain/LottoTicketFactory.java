@@ -7,7 +7,7 @@ import java.util.List;
 public class LottoTicketFactory {
     private static final int MAX_SIZE = 6;
 
-    public static LottoTicket getLottoTicket() throws Exception{
+    public static LottoTicket getLottoTicket() throws Exception {
         return new LottoTicket(makeRandomNumbers());
     }
 
