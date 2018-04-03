@@ -1,11 +1,12 @@
 package lotto.lotto;
 
-import lotto.lotto.domain.BuyingLotto;
-import lotto.lotto.domain.Lotto;
-import lotto.lotto.domain.Rank;
-import lotto.lotto.domain.WeeklyLotto;
+import static spark.Spark.*;
+
+import lotto.lotto.domain.*;
 import lotto.lotto.view.Input;
 import lotto.lotto.view.View;
+import spark.ModelAndView;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +27,9 @@ public class LottoGame {
 
         WeeklyLotto week = WeeklyLotto.of(winningLotto, bonusBall);
         Map<Rank, Integer> result = week.checkRank(lottos);
+        ResultDTO resultLotto = new ResultDTO(result, money);
 
         View.resultLottoView(result);
-        View.incomeMoney(result, money);
+        View.incomeMoney(resultLotto);
     }
 }

@@ -1,7 +1,6 @@
 package lotto.lotto.view;
 
-import lotto.lotto.domain.Lotto;
-import lotto.lotto.domain.Rank;
+import lotto.lotto.domain.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,11 +42,7 @@ public class View {
         }
     }
 
-    public static void incomeMoney(Map<Rank, Integer> result, int money) {
-        double incomeMoney = 0;
-        for (Rank rankNum : Rank.values()) {
-            incomeMoney += (rankNum.getWinningMoney() * result.get(rankNum));
-        }
-        System.out.println("총 수익률은 " + 100 * (incomeMoney - money) / money + "%입니다.");
+    public static void incomeMoney(ResultDTO result) {
+        System.out.println("총 수익률은 " + result.getMoney() + "%입니다.");
     }
 }
