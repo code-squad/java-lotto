@@ -25,6 +25,7 @@ public class webLotto {
             BuyingLotto man = new BuyingLotto(inputMoney, manualLotto);
             lottos = man.getLottos();
             int num = lottos.size();
+
             model.put("num", num);
             model.put("lottos", lottos);
 

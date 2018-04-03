@@ -7,45 +7,31 @@ import static lotto.lotto.domain.Rank.*;
 public class ResultDTO {
 
     private Map<Rank, Integer> result;
-    private int first;
-    private int second;
-    private int third;
-    private int fourth;
-    private int fifth;
     private int money;
 
     public ResultDTO(Map<Rank, Integer> result, int money) {
         this.result = result;
-        inputResult(result);
         this.money = money;
     }
 
-    public void inputResult(Map<Rank, Integer> result) {
-        this.first = result.get(Rank.FIRST);
-        this.second = result.get(Rank.SECOND);
-        this.third = result.get(Rank.THIRD);
-        this.fourth = result.get(Rank.FOURTH);
-        this.fifth = result.get(Rank.FIFTH);
-    }
-
     public int getFirst() {
-        return first;
+        return result.get(Rank.FIRST);
     }
 
     public int getSecond() {
-        return second;
+        return result.get(Rank.SECOND);
     }
 
     public int getThird() {
-        return third;
+        return result.get(Rank.THIRD);
     }
 
     public int getFourth() {
-        return fourth;
+        return result.get(Rank.FOURTH);
     }
 
     public int getFifth() {
-        return fifth;
+        return result.get(Rank.FIFTH);
     }
 
     public double getMoney() {
