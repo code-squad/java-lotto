@@ -1,7 +1,5 @@
 package lotto.domain;
 
-import java.util.List;
-
 public class WinningLotto {
     static final int FIRST = 0;
     static final int LAST = 6;
@@ -13,10 +11,8 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public static void checkDuplicate(List<Number> winningNumbers, Number bonusNumber) throws IllegalArgumentException {
-        if (winningNumbers.contains(bonusNumber)) {
-            throw new IllegalArgumentException();
-        }
+    public static boolean isDuplicate(Ticket winningNumbers, Number bonusNumber) throws IllegalArgumentException {
+        return winningNumbers.contains(bonusNumber);
     }
 
     Match createMatch(Ticket ticket) {

@@ -8,7 +8,7 @@ public class Ticket {
     private static final int MAX_SIZE = 6;
     private final List<Number> ticket;
 
-    Ticket(List<Number> numbers) {
+    public Ticket(List<Number> numbers) {
         this.ticket = checkValid(numbers);
     }
 

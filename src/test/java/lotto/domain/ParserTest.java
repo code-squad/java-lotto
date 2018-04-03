@@ -16,11 +16,6 @@ public class ParserTest {
     }
 
     @Test
-    public void getNumberOfTickets() {
-        assertEquals(10, Parser.getNumberOfTickets(10000));
-    }
-
-    @Test
     public void splitString() {
         assertArrayEquals(new String[]{"1", "2", "3", "4", "5", "6"}, Parser.splitString("1, 2, 3, 4, 5, 6"));
     }
