@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 import lotto.Lotto;
 
-public class Input {
+public class InputUI {
     private List<Lotto> lottos = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     private List<String> right;
@@ -22,15 +22,6 @@ public class Input {
     public static void rightResult() {
         System.out.println("당첨 통계");
         System.out.println("---------");
-    }
-
-    public List<Lotto> makeLottos(int num) {
-        for(int i = 0; i < num; i++) {
-            Lotto lotto = new Lotto();
-            lottos.add(lotto);
-            System.out.println(lotto.getLotto());
-        }
-        return lottos;
     }
 
     public String right() {
