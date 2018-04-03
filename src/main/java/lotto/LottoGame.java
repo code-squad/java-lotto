@@ -8,10 +8,17 @@ import java.util.List;
 public class LottoGame {
     private List<Lotto> lottos;
 
-    public LottoGame(int inputMoney, List<String> manualNum) {
+//    public LottoGame(int inputMoney, List<String> manualNum) {
+//        InputCommon input = new InputCommon();
+//        lottos = input.makeLottos(inputMoney);
+//        lottos = input.addManualLottos(manualNum);
+//    }
+
+
+    public List<Lotto> makeLottos(int inputMoney, List<String> manualNum) {
         InputCommon input = new InputCommon();
         lottos = input.makeLottos(inputMoney);
-        lottos = input.addManualLottos(manualNum);
+        return input.addManualLottos(manualNum);
     }
 
 

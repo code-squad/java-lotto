@@ -28,7 +28,9 @@ public class WebMain {
             int num = (Integer.parseInt(req.queryParams("inputMoney")) / 1000);
             List<String> manualNum = Arrays.asList(req.queryParams("manualNumber").split("\r?\n"));
             int autoNum = num - manualNum.size();
-            LottoGame lottoGame = new LottoGame(autoNum, manualNum);
+//            LottoGame lottoGame = new LottoGame(autoNum, manualNum);
+            LottoGame lottoGame = new LottoGame();
+            lottoGame.makeLottos(autoNum, manualNum);
             lottos = lottoGame.getLottos();
             Map<String, Object> model = new HashMap<>();
             model.put("num", num);
@@ -40,9 +42,12 @@ public class WebMain {
             Map<String, Object> model = new HashMap<>();
             WinningLotto winningLotto = new WinningLotto(req.queryParams("winningNumber"), req.queryParams("bonusNumber"));
             LottoResult result = new LottoResult();
-            int profit = result.getProfit(lottos, winningLotto, winningLotto.getBonusNum());
-            HashMap<Rank, Integer> fianlCount = result.resultCount(winningLotto, lottos);
-            model.put("result", result);
+            lottos = result.getLottos();
+//            int profit = result.getProfit(lottos, winningLotto, winningLotto.getBonusNum());
+//            logger.debug("profit is {}", profit);
+            logger.debug("lottos is {}", lottos.size());
+//            HashMap<Rank, Integer> fianlCount = result.resultCount(winningLotto, lottos);
+//            model.put("result", result);
             return render(model, "/result.html");
         });
 
