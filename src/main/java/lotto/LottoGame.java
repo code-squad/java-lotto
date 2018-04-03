@@ -4,24 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoGame {
-    private List<Integer> counts;
-    private Lotto lotto;
+    private List<Integer> allCounts;
+    private List<Integer> winCounts;
 
     public List<Integer> match(List<Lotto> lottos, Lotto winningNumber) {
-        counts = new ArrayList<>();
+        allCounts = new ArrayList<>();
         for (Lotto lotto: lottos) {
-            counts.add(countNumber(lotto, winningNumber));
+            allCounts.add(lotto.countNumber(winningNumber));
         }
-        return counts;
-    }
-
-    public Integer countNumber(Lotto lotto, Lotto winningNumber) {
-        int count = 0;
-        for(int i = 0; i < winningNumber.getLotto().size(); i++) {
-            if (lotto.getLotto().contains(winningNumber.getLotto().get(i)))
-                count++;
-        }
-        return count;
+        return allCounts;
     }
 
     public int getCount(List<Integer> counts, int matchNumber) {
@@ -31,5 +22,12 @@ public class LottoGame {
                 numberCount++;
         }
         return numberCount;
+    }
+
+    public List<Integer> getWinCounts(List<Integer> counts) {
+        winCounts = new ArrayList<>();
+        for(int i = 3; i < 7; i++)
+            winCounts.add(getCount(counts, i));
+        return winCounts;
     }
 }

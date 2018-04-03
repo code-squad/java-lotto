@@ -33,6 +33,15 @@ public class Lotto {
         return values;
     }
 
+    public Integer countNumber(Lotto winningNumber) {
+        int count = 0;
+        for(int i = 0; i < winningNumber.getLotto().size(); i++) {
+            if (getLotto().contains(winningNumber.getLotto().get(i)))
+                count++;
+        }
+        return count;
+    }
+
     public Integer lottoSize() {
         return lotto.size();
     }

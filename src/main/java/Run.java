@@ -1,16 +1,17 @@
-import input.InputMoney;
-import input.InputWinning;
+import input.Input;
 import lotto.BuyLotto;
 import lotto.Lotto;
 import lotto.LottoGame;
-import view.view;
+import view.View;
 
 public class Run {
     public static void main(String [] args) {
-        int inputMoney = InputMoney.inputMoney();
+        int inputMoney = Input.inputMoney();
         BuyLotto buy = new BuyLotto(inputMoney);
-        view.showNumbers(inputMoney);
-        Lotto winningNumber = InputWinning.winningInput();
-        view.resultView(buy.getLottos() ,winningNumber);
+        View.printLottos(buy.getLottos());
+        View.showNumbers(inputMoney);
+        Lotto winningNumber = Input.winningInput();
+        LottoGame game = new LottoGame();
+        View.resultView(game.getWinCounts(game.match(buy.getLottos(), winningNumber)));
     }
 }
