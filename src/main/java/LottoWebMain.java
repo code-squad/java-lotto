@@ -21,7 +21,7 @@ import static utils.MoneyUtils.calcBuyAmount;
  */
 
 public class LottoWebMain {
-    private static LottoBundle lottoBundle = LottoBundle.of();
+    private static LottoBundle lottoBundle = new LottoBundle();
 
     public static void main(String[] args) {
         port(8080);

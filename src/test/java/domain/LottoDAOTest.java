@@ -8,10 +8,17 @@ import java.util.Arrays;
 
 public class LottoDAOTest {
     private LottoDAO lottoDAO;
+    private LottoBundle lottoBundle;
+    private Lotto lotto;
 
     @Before
     public void setUp() throws Exception {
         lottoDAO = new LottoDAO();
+        lottoBundle = new LottoBundle();
+        lotto = new Lotto(Arrays.asList(
+                new LottoNum(1), new LottoNum(2), new LottoNum(3), new LottoNum(4), new LottoNum(5), new LottoNum(6)
+        ));
+        lottoBundle.addLotto(Arrays.asList(lotto, lotto, lotto, lotto, lotto, lotto, lotto, lotto, lotto, lotto, lotto, lotto));
     }
 
     @Test
@@ -21,11 +28,12 @@ public class LottoDAOTest {
 
     @Test
     public void 로또번호_저장하기() {
-        LottoBundle lottoBundle = LottoBundle.of();
-        Lotto lotto = new Lotto(Arrays.asList(
-                new LottoNum(1), new LottoNum(2), new LottoNum(3), new LottoNum(4), new LottoNum(5), new LottoNum(6)
-        ));
-        lottoBundle.addLotto(Arrays.asList(lotto, lotto, lotto, lotto, lotto, lotto, lotto, lotto, lotto, lotto, lotto, lotto));
         lottoDAO.saveBuyLottos(lottoBundle);
+    }
+
+    @Test
+    public void 로또번호_가져오기() {
+        LottoBundle savedLottoBundle = lottoDAO.getBuyLottos();
+        System.out.println(savedLottoBundle);
     }
 }

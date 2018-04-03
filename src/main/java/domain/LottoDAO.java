@@ -1,7 +1,11 @@
 package domain;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+
+import static utils.InputUtils.convertLottoNum;
+import static utils.InputUtils.parseLottoNumbers;
 
 public class LottoDAO {
 
@@ -39,16 +43,25 @@ public class LottoDAO {
         }
     }
 
-    //번호들을 찾아와서 어떤 작업들을 해서 로또로 만들고 리스트에 추가해서 로또 번들 생성하고 리턴해줘야지
-    public LottoBundle getBuyLottos(String lottoNumber) {
+    public LottoBundle getBuyLottos() {
         String sql = "select numbers from buylotto";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(sql);
-            ResultSet result = statement.executeQuery(sql);
+            return convertLottoBundle(statement.executeQuery(sql));
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    private LottoBundle convertLottoBundle(ResultSet result) throws SQLException {
+        LottoBundle lottoBundle = new LottoBundle();
+        ArrayList<Lotto> lottos = new ArrayList<>();
+        while (result.next()) {
+            lottos.add(new Lotto(convertLottoNum(parseLottoNumbers(result.getString("numbers")))));
+        }
+        lottoBundle.addLotto(lottos);
+        return lottoBundle;
     }
 }
