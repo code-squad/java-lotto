@@ -31,11 +31,12 @@ public class LottoTicket {
     public int getMatchedCount(LottoTicket winningLottoTicket) {
         int matchedCount = 0;
         List<Integer> winningNumbers = winningLottoTicket.getNumbers();
-        for (Integer number : winningNumbers) {
-            if (this.numbers.contains(number)) {
-                matchedCount++;
-            }
-        }
-        return matchedCount;
+//        for (Integer number : winningNumbers) {
+//            if (this.numbers.contains(number)) {
+//                matchedCount++;
+//            }
+//        }
+        this.numbers.retainAll(winningNumbers);
+        return numbers.size();
     }
 }
