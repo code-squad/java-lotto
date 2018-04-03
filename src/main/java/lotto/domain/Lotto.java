@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import lotto.view.Input;
+
 public abstract class Lotto {
 	static final int LOTTO_SIZE = 6;
 	private List<Integer> numbers;
@@ -23,14 +25,10 @@ public abstract class Lotto {
 		return numbers;
 	}
 
-	public String numbers() {
-		return numbers.toString();
-	}
-
-	public int countOfMatch(UserLotto beforeWinLotto) {
+	public int countOfMatch(String beforeWinLotto) {
 		int countOfMatch = 0;
 		for (Integer no : numbers) {
-			countOfMatch += beforeWinLotto.countOfMatch(no);
+			countOfMatch += Input.beforeWinNum(beforeWinLotto).countOfMatch(no);
 		}
 		return countOfMatch;
 	}
@@ -59,6 +57,10 @@ public abstract class Lotto {
 
 	public static boolean isSameNo(int number, int anotherNumber) {
 		return number == anotherNumber;
+	}
+
+	public List<Integer> getNumbers() {
+		return numbers;
 	}
 
 }

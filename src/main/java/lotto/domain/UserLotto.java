@@ -16,5 +16,12 @@ public class UserLotto extends Lotto {
 		}
 		return new UserLotto(numbers);
 	}
-
+	
+	public static UserLotto ofInteger(List<Integer> initnumbers) {
+		ArrayList<Integer> numbers = new ArrayList<>();
+		for (int i = 0; i < initnumbers.size(); i++) {
+			numbers.add(initnumbers.get(i));
+		}
+		return new UserLotto(numbers);
+	}
 }
