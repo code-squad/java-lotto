@@ -30,7 +30,7 @@ public class Main {
 			price = req.queryParams("inputMoney");
 			int sheets = Input.checkSheets(price);
 			model.put("price", price);
-			model.put("sheets", Input.checkSheets(price));
+			model.put("sheets", sheets);
 			if (req.queryParams("manualNumber").isEmpty()) {
 				lottos = LottoProcess.of(sheets).getAllLottos();
 				model.put("lottos", lottos);
