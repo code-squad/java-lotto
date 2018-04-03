@@ -4,6 +4,7 @@
 !gradle/wrapper/gradle-wrapper.jar
 /out/
 /target/
+<<<<<<< HEAD
 
 ### STS ###
 .apt_generated
@@ -19,3 +20,8 @@ bin/
 *.iws
 *.iml
 *.ipr
+=======
+/.gradle/
+*.iml
+/.idea
+>>>>>>> edit gitignore file
