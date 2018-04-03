@@ -12,7 +12,7 @@ public class LottoMachineTest {
     int ticketCount;
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
         int purchaseFee = 10000;
         ticketCount = InputView.getTicketCount(purchaseFee);
         lottoMachine = new LottoMachine(ticketCount);

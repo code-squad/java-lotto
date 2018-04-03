@@ -23,4 +23,17 @@ public enum Rank {
     public int getWinningMoney() {
         return winningMoney;
     }
+
+    public static Rank isRank(int matchedCount) {
+        for (Rank rank : Rank.values()) {
+            if (rank.isMatched(matchedCount)) {
+                return rank;
+            }
+        }
+        return null; // Exception을 발생시킬지 말지
+    }
+
+    public boolean isMatched(int matchedCount) {
+        return this.getCountOfMatch() == matchedCount;
+    }
 }

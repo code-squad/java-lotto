@@ -40,25 +40,15 @@ public class LottoResult {
         if (matchedCount < 3) {
             return false;
         }
-        countPrize(matchedCount);
+        countPrize(Rank.isRank(matchedCount));
         return true;
     }
 
-    private boolean countPrize(int matchedCount) {
-        if (matchedCount == 3) {
-            result.put(Rank.FOURTH, result.get(Rank.FOURTH) + 1);
-            return true;
-        }
-        if (matchedCount == 4) {
-            result.put(Rank.THIRD, result.get(Rank.THIRD) + 1);
-            return true;
-        }
-        if (matchedCount == 5) {
-            result.put(Rank.SECOND, result.get(Rank.SECOND) + 1);
-            return true;
-        }
-        if (matchedCount == 6) {
-            result.put(Rank.FIRST, result.get(Rank.FIRST) + 1);
+    // Pobi's advice
+    private boolean countPrize(Rank rank) {
+        Integer value = result.get(rank);
+        if (value != null) {
+            result.put(rank, result.get(rank) + 1);
             return true;
         }
         return false;

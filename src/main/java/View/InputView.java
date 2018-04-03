@@ -1,7 +1,6 @@
 package View;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,11 +32,9 @@ public class InputView {
 
     private static List<Integer> parseInt(String[] userInput) {
         List<Integer> numbers = new ArrayList<>();
-        int i = 0;
         for (String number : userInput) {
             int convertedNumber = Integer.parseInt(number);
-            numbers.add(i, convertedNumber);
-            i++;
+            numbers.add(convertedNumber);
         }
         return numbers;
     }
