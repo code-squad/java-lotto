@@ -63,6 +63,14 @@ public class WeeklyLotto {
         return false;
     }
 
+    public static double incomeMoneyRate(Map<Rank, Integer> result, int money) {
+        double incomeMoney = 0;
+        for (Rank rankNum : Rank.values()) {
+            incomeMoney += (rankNum.getWinningMoney() * result.get(rankNum));
+        }
+        return 100 * (incomeMoney - money) / money;
+    }
+
     public static void checkBonusBallException(List<Integer> winningLotto, int bonusBall) {
         Parse.overException(bonusBall);
         List<Integer> plusBonus = new ArrayList<>(winningLotto);
