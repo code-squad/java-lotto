@@ -23,7 +23,7 @@ public class InputUI {
         System.out.println("당첨 통계");
         System.out.println("---------");
     }
-    
+
     public String right() {
         String input = scanner.nextLine();
         return input;
