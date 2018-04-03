@@ -12,40 +12,42 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        Lotto lotto = new Lotto(promptUserForPurchase());
-
+        Lotto lotto = promptUserForPurchase();
         showReceipt(lotto);
 
-        WinningLotto winningLotto = new WinningLotto(promptUserForWinningNumbers());
-
+        WinningLotto winningLotto = promptUserForWinningNumbers();
         getResult(lotto, winningLotto);
     }
 
-    private static int promptUserForPurchase() {
-        int ticketsBought;
+    private static Lotto promptUserForPurchase() {
+        Lotto lotto;
         try {
             Output.printMessage("구입 금액을 입력해 주세요.");
-            ticketsBought = Parser.getNumberOfTickets(Parser.parseToInt(Input.takeInput()));
+            int ticketsBought = Parser.getNumberOfTickets(Parser.parseToInt(Input.takeInput()));
+            lotto = new Lotto(ticketsBought);
+
         } catch (IllegalArgumentException e) {
             return promptUserForPurchase();
         }
-        return ticketsBought;
+        return lotto;
     }
 
-    private static List<Number> promptUserForWinningNumbers() {
-        List<Number> winningNumbers;
+    private static WinningLotto promptUserForWinningNumbers() {
+        WinningLotto winningLotto;
         try {
             Output.printMessage("지난 주 당첨 번호를 입력해 주세요.");
-            winningNumbers = Parser.parseToNumberArray(Parser.splitString(Input.takeInput()));
+            List<Number> winningNumbers = Parser.parseToNumberArray(Parser.splitString(Input.takeInput()));
 
             Output.printMessage("보너스 볼을 입력해 주세요.");
             Number bonusNumber = Parser.parseToNumber(Parser.parseToInt(Input.takeInput()));
 
-            winningNumbers = WinningLotto.checkDuplicate(winningNumbers, bonusNumber);
+            WinningLotto.checkDuplicate(winningNumbers, bonusNumber);
+            winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+
         } catch (IllegalArgumentException e) {
             return promptUserForWinningNumbers();
         }
-        return winningNumbers;
+        return winningLotto;
     }
 
     private static void showReceipt(Lotto lotto) {

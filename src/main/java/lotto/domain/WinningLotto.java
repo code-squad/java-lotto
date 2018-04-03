@@ -1,6 +1,5 @@
 package lotto.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WinningLotto {
@@ -9,22 +8,15 @@ public class WinningLotto {
     private final List<Number> winningTicket;
     private final Number bonusNumber;
 
-    public WinningLotto(List<Number> winningNumbers) {
-        List<Number> winningTicket = winningNumbers.subList(FIRST, LAST);
-        Number bonusNumber = winningNumbers.get(LAST);
-
-        checkDuplicate(winningTicket, bonusNumber);
-        this.winningTicket = winningTicket;
+    public WinningLotto(List<Number> winningNumbers, Number bonusNumber) {
+        this.winningTicket = winningNumbers;
         this.bonusNumber = bonusNumber;
     }
 
-    public static List<Number> checkDuplicate(List<Number> winningNumbers, Number bonusNumber) throws IllegalArgumentException {
-        List<Number> winningTicket = new ArrayList<>();
-        if (!winningNumbers.contains(bonusNumber)) {
-            winningTicket.add(bonusNumber);
-            return winningTicket;
+    public static void checkDuplicate(List<Number> winningNumbers, Number bonusNumber) throws IllegalArgumentException {
+        if (winningNumbers.contains(bonusNumber)) {
+            throw new IllegalArgumentException();
         }
-        throw new IllegalArgumentException();
     }
 
     Match createMatch(Ticket ticket) {
