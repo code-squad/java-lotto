@@ -1,5 +1,7 @@
 package lotto.view;
 
+import lotto.domain.Number;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,19 +17,39 @@ public class WebParser {
         return lottoInts;
     }
 
-    public static List<String> splitToLottoStrings(String input) {
+    private static List<String> splitToLottoStrings(String input) { //check format
         return Arrays.asList(input.split("\r?\n"));
     }
 
-    public static List<String> splitToNumberStrings(String numbers) {
-        return Arrays.asList(numbers.split(",\\s*"));
+    private static List<String> splitToNumberStrings(String numbers) {
+        List<String> split = Arrays.asList(numbers.split(",\\s*"));
+        if (split.size() == 6) {
+            return split;
+        }
+        Output.printMessage("당첨 번호 수(6개)가 맞지 않습니다.");
+        throw new IllegalArgumentException();
     }
 
     public static List<Integer> parseToIntegers(List<String> numbers) {
         List<Integer> integers = new ArrayList<>();
         for (String number : numbers) {
-            integers.add(Integer.parseInt(number));
+            integers.add(parseToInt(number));
         }
         return integers;
+    }
+
+    public static int parseToInt(String text) throws IllegalArgumentException {
+        int number;
+        try {
+            number = Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            Output.printMessage("숫자만 입력해주세요.");
+            throw new IllegalArgumentException();
+        }
+        return number;
+    }
+
+    public static String parseToPrintable(List<Number> ticket) {
+        return String.join(", ", ticket.toString());
     }
 }

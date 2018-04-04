@@ -7,6 +7,12 @@ import lotto.domain.WinningLotto;
 import lotto.view.Output;
 import lotto.view.UserPrompt;
 
+import java.util.List;
+
+import static lotto.view.ManualGenerator.generateWinningTicket;
+import static lotto.view.ManualGenerator.getManualTickets;
+import static lotto.view.AutoGenerator.getAutoTickets;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -18,14 +24,24 @@ public class Main {
     }
 
     private static Lotto initLotto() {
-        return new Lotto(UserPrompt.getUserTickets());
+        int total = UserPrompt.getTotalNumberOfTickets();
+        int numberOfManual = UserPrompt.getNumberOfManual(total);
+        String manual = UserPrompt.promptManual(numberOfManual);
+
+        return new Lotto(getAutoTickets(numberOfManual), getManualTickets(manual));
     }
 
     private static WinningLotto initWinningLotto() {
-        Ticket winningTicket = UserPrompt.getWinningTicket();
-        Number bonusNumber = UserPrompt.getBonusNumber(winningTicket);
-        
-        return new WinningLotto(winningTicket, bonusNumber);
+        try {
+            String ticket = UserPrompt.getWinningNumbers();
+            int ball = UserPrompt.getBonusNumber();
+
+            Ticket winningTicket = getManualTickets(ticket);
+            Number bonusNumber = UserPrompt.getBonusNumber(winningTicket);
+            return new WinningLotto(winningTicket, bonusNumber);
+        } catch (IllegalArgumentException e) {
+            return initWinningLotto();
+        }
     }
 
     private static void showReceipt(Lotto lotto) {

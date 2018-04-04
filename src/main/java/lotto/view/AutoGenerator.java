@@ -9,8 +9,13 @@ import java.util.List;
 public class AutoGenerator {
     private final int auto;
 
-    AutoGenerator(int auto){
+    private AutoGenerator(int auto){
         this.auto = auto;
+    }
+
+    public static List<Ticket> getAutoTickets(int auto) {
+        AutoGenerator generator = new AutoGenerator(auto);
+        return generator.generateAutoTickets();
     }
 
     public List<Ticket> generateAutoTickets() {

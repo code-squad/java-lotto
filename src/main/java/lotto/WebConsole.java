@@ -1,9 +1,13 @@
 package lotto;
 
+import lotto.domain.Ticket;
+import lotto.view.AutoGenerator;
+import lotto.view.ManualGenerator;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -30,4 +34,6 @@ public class WebConsole {
     public static String render(Map<String, Object> model, String templatePath) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
+
+
 }

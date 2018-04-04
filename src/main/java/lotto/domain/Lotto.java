@@ -6,7 +6,7 @@ import java.util.List;
 public class Lotto {
     private List<Ticket> tickets;
 
-    public Lotto(List<Ticket> tickets) {
+    public Lotto(List<Ticket> auto, List<Ticket> manual) {
         this.tickets = tickets;
     }
 
