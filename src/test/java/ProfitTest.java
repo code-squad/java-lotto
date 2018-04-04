@@ -1,7 +1,6 @@
 import org.junit.Test;
 import profit.Profit;
 import rank.Rank;
-
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.assertEquals;

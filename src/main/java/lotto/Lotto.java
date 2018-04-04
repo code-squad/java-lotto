@@ -11,6 +11,7 @@ public class Lotto {
     static {
         numbers = init();
     }
+
     public Lotto() {
         Collections.shuffle(numbers);
         lotto = new ArrayList<>();
