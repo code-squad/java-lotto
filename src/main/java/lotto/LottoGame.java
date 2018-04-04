@@ -1,6 +1,7 @@
 package lotto;
 
 import rank.Rank;
+import result.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +13,13 @@ public class LottoGame {
         this.lottos = lottos;
     }
 
-    public List<Rank> match(WinningLotto winLotto) {
+    public Result match(WinningLotto winLotto) {
         List<Rank> ranks = new ArrayList<>();
         for (Lotto lotto: lottos) {
             ranks.add(decision(lotto, winLotto));
         }
-        return ranks;
+        Result result = new Result(ranks);
+        return result;
     }
 
     public Rank decision(Lotto lotto, WinningLotto winLotto) {
@@ -25,13 +27,4 @@ public class LottoGame {
             return Rank.valueOf(lotto.countNumber(winLotto.getWinningNumber()), true);
         return Rank.valueOf(lotto.countNumber(winLotto.getWinningNumber()), false);
     }
-
-//    public List<Rank> match(WinningLotto winLotto) {
-//        List<Rank> ranks = new ArrayList<>();
-//        for (Lotto lotto: lottos) {
-//            ranks.add(decision(lotto, winLotto));
-//        }
-//        return ranks;
-//    }
-
 }

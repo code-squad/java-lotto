@@ -46,9 +46,9 @@ public class LottoGameTest {
         WinningLotto winLotto = new WinningLotto(winningLotto, bonusNumber);
         LottoGame game = new LottoGame(lottos);
         List<Rank> ranks = Arrays.asList(Rank.NONE, Rank.SECOND, Rank.FIRST);
-        assertEquals(ranks.get(0), game.match(winLotto).get(0));
-        assertEquals(ranks.get(1), game.match(winLotto).get(1));
-        assertEquals(ranks.get(2), game.match(winLotto).get(2));
+        assertEquals(ranks.get(0), game.match(winLotto).getRanks().get(0));
+        assertEquals(ranks.get(1), game.match(winLotto).getRanks().get(1));
+        assertEquals(ranks.get(2), game.match(winLotto).getRanks().get(2));
     }
 
     @Test

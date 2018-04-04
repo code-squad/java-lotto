@@ -17,7 +17,6 @@ public class Run {
         LottoGame game = new LottoGame(buy.getLottos());
         WinningLotto lotto = new WinningLotto(winningNumber, bonusNumber);
         Result result = game.match(lotto);
-//        View.resultView(result.insert(game.match(buy.getLottos(), winningNumber, bonusNumber)));
-//        View.printProfit(game.match(buy.getLottos(), winningNumber, bonusNumber));
+        View.printResult(result);
     }
 }

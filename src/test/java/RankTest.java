@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 import rank.Rank;
 import result.Result;
@@ -35,16 +36,18 @@ public class RankTest {
 
     @Test
     public void 랭크에서맞춘갯수출력() {
-        List<Rank> ranks = Arrays.asList(Rank.FOURTH, Rank.FOURTH, Rank.NONE, Rank.FIFTH, Rank.SECOND);
-        Result result = new Result();
-        result.insert(ranks);
+        List<Rank> ranks = Arrays.asList(Rank.FOURTH, Rank.FOURTH, Rank.FIFTH, Rank.SECOND);
+        Result result = new Result(ranks);
+        result.getRanks();
         int num1 = Result.finalResult.get(Rank.FOURTH);
         int num2 = Result.finalResult.get(Rank.FIFTH);
         int num3 = Result.finalResult.get(Rank.SECOND);
         int num4 = Result.finalResult.get(Rank.THIRD);
+        int num5 = Result.finalResult.get(Rank.NONE);
         assertEquals(2, num1);
         assertEquals(1, num2);
         assertEquals(1, num3);
         assertEquals(0, num4);
+        assertEquals(0, num5);
     }
 }

@@ -3,10 +3,13 @@ package result;
 import rank.Rank;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class Result {
     public static HashMap<Rank, Integer> finalResult;
+    private List<Rank> ranks;
+
     static {
         finalResult = new HashMap<>();
         finalResult.put(Rank.FIFTH, 0);
@@ -17,15 +20,19 @@ public class Result {
         finalResult.put(Rank.NONE, 0);
     }
 
-    public HashMap<Rank, Integer> insert(List<Rank> ranks) {
+    public Result(List<Rank> ranks) {
+        this.ranks = ranks;
         for (Rank rank: ranks) {
             int num = finalResult.get(rank);
             finalResult.put(rank , ++num);
         }
-        return finalResult;
     }
 
-    public HashMap<Rank, Integer> getResult() {
+    public List<Rank> getRanks() {
+        return ranks;
+    }
+
+    public static HashMap<Rank, Integer> getFinalResult() {
         return finalResult;
     }
 }

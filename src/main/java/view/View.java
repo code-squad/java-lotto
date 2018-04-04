@@ -4,6 +4,7 @@ import lotto.Lotto;
 import lotto.LottoGame;
 import profit.Profit;
 import rank.Rank;
+import result.Result;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,10 +15,12 @@ public class View {
         System.out.println(num + "개를 구매했습니다.");
     }
 
-    public static void resultView(HashMap<Rank, Integer> finalResult) {
+    public static void printResult(Result result) {
         Rank [] ranks = Rank.values();
+        Profit profit = new Profit();
         for(int i = ranks.length - 2; i >= 0; i--)
-            System.out.println(ranks[i].getCountOfMatch() + "개 일치 (" + ranks[i].getWinningMoney() + "원)- " + finalResult.get(ranks[i]) + "개");
+            System.out.println(ranks[i].getCountOfMatch() + "개 일치 (" + ranks[i].getWinningMoney() + "원)- " + Result.getFinalResult().get(ranks[i]) + "개");
+        System.out.println("총 수익률은 " + profit.percent(result.getRanks()) + "입니다.");
     }
 
     public static void printLottos(List<Lotto> lottos) {
@@ -25,15 +28,4 @@ public class View {
             System.out.println(lotto.getLotto());
         }
     }
-
-    public static void printProfit(List<Rank> ranks) {
-        Profit profit = new Profit();
-        System.out.println("총 수익률은 " + profit.percent(ranks) + "입니다.");
-    }
-
-//    public static void resultView(HashMap<Rank, Integer> finalResult) {
-//        Rank [] ranks = Rank.values();
-//        for(int i = ranks.length - 2; i >= 0; i--)
-//            System.out.println(ranks[i].getCountOfMatch() + "개 일치 (" + ranks[i].getWinningMoney() + "원)- " + finalResult.get(ranks[i]) + "개");
-//    }
 }
