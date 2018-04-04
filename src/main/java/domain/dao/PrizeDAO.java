@@ -40,7 +40,7 @@ public class PrizeDAO {
     }
 
     public void savePrizeInfo(int matchPoint, int rankCount) {
-        String sql = "insert into " + TABLE_NAME + " values(?,?,?)";
+        String sql = "INSERT INTO " + TABLE_NAME + " VALUES(?,?,?)";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setDate(1, null);
             statement.setInt(2, matchPoint);

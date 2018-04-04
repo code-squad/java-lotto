@@ -42,7 +42,7 @@ public class LottoDAO {
     }
 
     private void saveBuyLotto(String lottoNumber) {
-        String sql = "insert into " + TABLE_NAME + " values(?)";
+        String sql = "INSERT INTO " + TABLE_NAME + " VALUES(?)";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setString(1, lottoNumber);
             statement.executeUpdate();
@@ -52,7 +52,7 @@ public class LottoDAO {
     }
 
     public LottoBundle getBuyLottos() {
-        String sql = "select numbers from " + TABLE_NAME;
+        String sql = "SELECT numbers FROM " + TABLE_NAME;
         LottoBundle lottoBundle = null;
         try (PreparedStatement statement = getConnection().prepareStatement(sql)){
             return convertLottoBundle(statement.executeQuery(sql));
@@ -73,7 +73,7 @@ public class LottoDAO {
     }
 
     public void deleteLottosRecord() {
-        String sql = "delete from " + TABLE_NAME;
+        String sql = "DELETE FROM " + TABLE_NAME;
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.executeUpdate();
         } catch (SQLException e) {
