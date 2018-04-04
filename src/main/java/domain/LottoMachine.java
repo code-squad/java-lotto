@@ -16,7 +16,7 @@ public class LottoMachine {
         return this.lottoTickets;
     }
 
-    public void getMatch(List<Integer> lastWinningNumber, Integer bonusNumber) throws Exception {
+    public void findMatchedNumber(List<Integer> lastWinningNumber, Integer bonusNumber) throws Exception {
         LottoTicket winningLottoTicket = LottoTicketFactory.getWinningLottoTicket(lastWinningNumber);
         for (int index = 0; index < lottoTickets.size(); index++) {
             LottoTicket lottoTicket = lottoTickets.get(index);

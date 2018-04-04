@@ -10,7 +10,7 @@ public class LottoMain {
         while (!validation) {
             try {
                 lottoMachine = new LottoMachine(InputView.getTicketCount(purchaseFee));
-                lottoMachine.getMatch(InputView.getWinningNumber(), InputView.getBonusNumber());
+                lottoMachine.findMatchedNumber(InputView.getWinningNumber(), InputView.getBonusNumber());
                 validation = true;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
