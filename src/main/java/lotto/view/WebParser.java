@@ -6,7 +6,16 @@ import java.util.List;
 
 public class WebParser {
 
-    public static List<String> splitToLottoString(String input) {
+    public static List<List<Integer>> parseToLottoInts(String input) {
+        List<List<Integer>> lottoInts = new ArrayList<>();
+        List<String> lottoStrings = splitToLottoStrings(input);
+        for (String lottoString : lottoStrings) {
+            lottoInts.add(parseToIntegers(splitToNumberStrings(lottoString)));
+        }
+        return lottoInts;
+    }
+
+    public static List<String> splitToLottoStrings(String input) {
         return Arrays.asList(input.split("\r?\n"));
     }
 

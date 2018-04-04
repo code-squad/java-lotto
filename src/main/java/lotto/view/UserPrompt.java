@@ -11,12 +11,23 @@ import static lotto.view.Parser.*;
 public class UserPrompt {
     public static final int LOTTO_PRICE = 1000;
 
+    public static List<Ticket> getManualTickets(String manual) {
+        ManualGenerator generator = new ManualGenerator(manual);
+        return generator.generateTickets();
+    }
+
+    public static List<Ticket> getAutoTickets(int auto){
+        AutoGenerator generator = new AutoGenerator(auto);
+        return generator.generateAutoTickets();
+    }
+
+
     public static List<Ticket> getUserTickets() {
         int total = getTotalNumberOfTickets();
         int manual = getNumberOfManual(total);
 
-        List<Ticket> manualTickets = TicketGenerator.generateManualTicket(manual);
-        List<Ticket> autoTickets = TicketGenerator.generateAutoTicket(total - manual);
+        List<Ticket> manualTickets = ManualGenerator.generateManualTicket(manual);
+        List<Ticket> autoTickets = ManualGenerator.generateAutoTicket(total - manual);
         manualTickets.addAll(autoTickets);
 
         return manualTickets;
@@ -62,7 +73,7 @@ public class UserPrompt {
     }
 
     public static Ticket getWinningTicket() {
-        return TicketGenerator.generateWinningTicket(getWinningNumbers());
+        return ManualGenerator.generateWinningTicket(getWinningNumbers());
     }
 
     private static String[] getWinningNumbers() {
@@ -90,7 +101,7 @@ public class UserPrompt {
             throw new IllegalArgumentException();
         }
 
-        Number bonusNumber = TicketGenerator.generateBonusNumber(parseToInt(input));
+        Number bonusNumber = ManualGenerator.generateBonusNumber(parseToInt(input));
         if (WinningLotto.isDuplicate(winningTicket, bonusNumber)) {
             Output.printMessage("보너스 볼이 중복된 숫자 입니다.");
             throw new IllegalArgumentException();

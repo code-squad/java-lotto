@@ -8,8 +8,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static lotto.view.Parser.*;
+import static lotto.view.WebParser.*;
 
-public class TicketGenerator {
+public class ManualGenerator {
+
+    private final List<List<Integer>> manual;
+
+    ManualGenerator(String manual) {
+        this.manual = parseToLottoInts(manual);
+    }
+
+    public List<Ticket> generateTickets() {
+        List<Ticket> manualTickets = new ArrayList<>();
+        for (List<Integer> integers : manual) {
+            manualTickets.add(new Ticket(convertToNumbers(integers)));
+        }
+        return manualTickets;
+    }
+
+    private List<Number> convertToNumbers(List<Integer> integers) {
+        List<Number> numbers = new ArrayList<>();
+        for (Integer number : integers) {
+            numbers.add(new Number(number));
+        }
+        return numbers;
+    }
+
+
+
+//---------------------------------------------------------------------------------------------------------------------------------------
 
     public static List<Ticket> generateManualTicket(int manual) {
         List<Ticket> manualTickets = new ArrayList<>();
