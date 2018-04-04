@@ -10,7 +10,7 @@ import java.util.List;
 import static utils.InputUtils.convertLottoNum;
 import static utils.InputUtils.parseLottoNumbers;
 
-public class LottoDAO extends DAO {
+public class LottoDAO {
     private static LottoDAO lottoDAO = new LottoDAO();
     private static final String TABLE_NAME = "buylotto";
 
@@ -19,6 +19,19 @@ public class LottoDAO extends DAO {
 
     public static LottoDAO of() {
         return lottoDAO;
+    }
+
+    public Connection getConnection() {
+        String url = "jdbc:mysql://13.125.184.6:3306/lotto";
+        String id = "colin";
+        String password = "1234";
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            return DriverManager.getConnection(url, id, password);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public void saveBuyLottos(LottoBundle lottoBundle) {
@@ -30,9 +43,7 @@ public class LottoDAO extends DAO {
 
     private void saveBuyLotto(String lottoNumber) {
         String sql = "insert into " + TABLE_NAME + " values(?)";
-        PreparedStatement statement = null;
-        try {
-            statement = getConnection().prepareStatement(sql);
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setString(1, lottoNumber);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -42,14 +53,13 @@ public class LottoDAO extends DAO {
 
     public LottoBundle getBuyLottos() {
         String sql = "select numbers from " + TABLE_NAME;
-        PreparedStatement statement = null;
-        try {
-            statement = getConnection().prepareStatement(sql);
+        LottoBundle lottoBundle = null;
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)){
             return convertLottoBundle(statement.executeQuery(sql));
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return null;
         }
-        return null;
     }
 
     private LottoBundle convertLottoBundle(ResultSet result) throws SQLException {
@@ -64,9 +74,7 @@ public class LottoDAO extends DAO {
 
     public void deleteLottosRecord() {
         String sql = "delete from " + TABLE_NAME;
-        PreparedStatement statement = null;
-        try {
-            statement = getConnection().prepareStatement(sql);
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
