@@ -1,4 +1,6 @@
-package domain;
+package View;
+
+import domain.Rank;
 
 import java.util.HashMap;
 
@@ -11,19 +13,9 @@ public class LottoResult {
 
     private HashMap<Rank, Integer> result;
     private Integer rateOfProfit;
-    public static LottoResult lottoResult = new LottoResult();
 
-    private LottoResult() {
-        result = new HashMap<>();
-
-        Rank[] ranks = Rank.values();
-        for (Rank rank : ranks) {
-            result.put(rank, 0);
-        }
-    }
-
-    public static LottoResult getInstance() {
-        return lottoResult;
+    public LottoResult(HashMap<Rank, Integer> result) {
+        this.result = result;
     }
 
     public void calcRateOfProfit(int purchaseFee) {
@@ -36,23 +28,23 @@ public class LottoResult {
         rateOfProfit = result.intValue();
     }
 
-    public boolean isValidNumber(int matchedCount, boolean bonus) {
-        if (matchedCount < 3) {
-            return false;
-        }
-        countPrize(Rank.getRank(matchedCount, bonus));
-        return true;
-    }
+//    public boolean isValidNumber(int matchedCount, boolean bonus) {
+//        if (matchedCount < 3) {
+//            return false;
+//        }
+//        countPrize(Rank.getRank(matchedCount, bonus));
+//        return true;
+//    }
 
-    // Pobi's advice
-    private boolean countPrize(Rank rank) {
-        Integer value = result.get(rank);
-        if (value != null) {
-            result.put(rank, result.get(rank) + 1);
-            return true;
-        }
-        return false;
-    }
+//    // Pobi's advice
+//    private boolean countPrize(Rank rank) {
+//        Integer value = result.get(rank);
+//        if (value != null) {
+//            result.put(rank, result.get(rank) + 1);
+//            return true;
+//        }
+//        return false;
+//    }
 
     public String printResult() {
         StringBuilder sb = new StringBuilder();

@@ -11,8 +11,12 @@ public class LottoTicketFactory {
         return new LottoTicket(makeRandomNumbers());
     }
 
-    public static LottoTicket getWinningLottoTicket(List<Integer> numbers) throws Exception {
+    public static LottoTicket getLottoTicket(List<Integer> numbers) throws Exception {
         return new LottoTicket(numbers);
+    }
+
+    public static WinningLotto getWinningLottoTicket(List<Integer> numbers, Integer bonus) throws Exception {
+        return new WinningLotto(numbers, bonus);
     }
 
     public static List<Integer> makeRandomNumbers() {

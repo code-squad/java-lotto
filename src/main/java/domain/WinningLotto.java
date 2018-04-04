@@ -12,7 +12,6 @@ public class WinningLotto extends Lotto {
 
     public boolean hasBonusNo() {
         if (bonus.isEmpty()) {
-            System.out.println(bonus);
             return true;
         }
         return false;

@@ -2,20 +2,18 @@ package domain;
 
 // 추후 사용하기 위해 미리 작성
 public enum Rank {
-    FIRST(6, 2000000000, false),
-    SECOND(5, 30000000, true),
-    THIRD(5, 1500000, false),
-    FOURTH(4, 50000, false),
-    FIFTH(3, 5000, false);
+    FIRST(6, 2000000000),
+    SECOND(5, 30000000),
+    THIRD(5, 1500000),
+    FOURTH(4, 50000),
+    FIFTH(3, 5000);
 
     private int countOfMatch;
     private int winningMoney;
-    private boolean bonus;
 
-    private Rank(int countOfMatch, int winningMoney, boolean bonus) {
+    private Rank(int countOfMatch, int winningMoney) {
         this.countOfMatch = countOfMatch;
         this.winningMoney = winningMoney;
-        this.bonus = bonus;
     }
 
     public int getCountOfMatch() {
@@ -26,23 +24,16 @@ public enum Rank {
         return winningMoney;
     }
 
-    public static Rank getRank(int matchedCount, boolean bonus) {
+    public static Rank getRank(int matchedCount) {
         for (Rank rank : Rank.values()) {
-            if (rank.isMatched(matchedCount, bonus)) {
+            if (rank != SECOND && rank.isMatched(matchedCount)) {
                 return rank;
             }
         }
-        return null; // Exception을 발생시킬지 말지
+        throw new IllegalArgumentException("순위를 벗어났습니다.");
     }
 
-    public boolean isMatched(int matchedCount, boolean bonus) {
-        if (this.getCountOfMatch() == matchedCount && this.getBonus() == bonus) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean getBonus() {
-        return this.bonus;
+    private boolean isMatched(int matchedCount) {
+        return this.getCountOfMatch() == matchedCount;
     }
 }
