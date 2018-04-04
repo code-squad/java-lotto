@@ -26,6 +26,10 @@ public class Lotto {
         return Rank.valueOf(countMatch(winninglotto), winninglotto.isBonus(lottoNoGroup));
     }
 
+    public LottoNoGroup getLottoNoGroup() {
+        return lottoNoGroup;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

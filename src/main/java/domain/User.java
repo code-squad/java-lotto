@@ -65,4 +65,15 @@ public class User {
         return prizeStatistics;
     }
 
+    public Money getPresentMoney() {
+        return presentMoney;
+    }
+
+    public int getLottoLength() {
+        return lottos.size();
+    }
+
+    public int getProfit() {
+        return calcProfit();
+    }
 }
