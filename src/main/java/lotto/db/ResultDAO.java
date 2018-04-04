@@ -7,12 +7,11 @@ import java.sql.SQLException;
 
 public class ResultDAO {
 
-	Connection con = DBconnector.getConnection();
 	ResultSet rs;
 
 	public void insert(ResultDTO resultDTO, String turnNo) throws SQLException {
 		String sql = "insert into result_lotto values(?,?,?,?,?,?,?)";
-		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+		try (Connection con = DBconnector.getInstance().getConnection();PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, Integer.parseInt(turnNo));
 			pstmt.setInt(2, resultDTO.getFirst());
 			pstmt.setInt(3, resultDTO.getSecond());
@@ -29,7 +28,7 @@ public class ResultDAO {
 
 	public ResultDTO select() throws SQLException {
 		ResultDTO resultDTO = null;
-		try (PreparedStatement pstmt = con.prepareStatement("select * from result_lotto")) {
+		try (Connection con = DBconnector.getInstance().getConnection();PreparedStatement pstmt = con.prepareStatement("select * from result_lotto")) {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				resultDTO = new ResultDTO();
@@ -50,7 +49,7 @@ public class ResultDAO {
 
 	public ResultDTO select(String inputTurnNo) throws SQLException {
 		ResultDTO resultDTO = null;
-		try (PreparedStatement pstmt = con.prepareStatement("select * from result_lotto where turn_no = ?")) {
+		try (Connection con = DBconnector.getInstance().getConnection();PreparedStatement pstmt = con.prepareStatement("select * from result_lotto where turn_no = ?")) {
 			pstmt.setInt(1, Integer.parseInt(inputTurnNo));
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -72,7 +71,7 @@ public class ResultDAO {
 
 	public void delete() throws SQLException {
 		String sql = "delete from result_lotto";
-		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+		try (Connection con = DBconnector.getInstance().getConnection();PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

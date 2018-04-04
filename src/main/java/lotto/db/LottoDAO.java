@@ -9,13 +9,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LottoDAO {
-
-	Connection con = DBconnector.getConnection();
+	
 	ResultSet rs;
 
 	public void insert(String turnNo, LottoDTO lottoDTO) throws SQLException {
 		String sql = "insert into user_lotto values(?,?,?,?,?,?,?)";
-		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+		try (Connection con = DBconnector.getInstance().getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, Integer.parseInt(turnNo));
 			pstmt.setInt(2, lottoDTO.getNumber(0));
 			pstmt.setInt(3, lottoDTO.getNumber(1));
@@ -34,7 +33,7 @@ public class LottoDAO {
 	public List<LottoDTO> select(String turnNo) throws SQLException {
 		List<LottoDTO> lottos = new ArrayList<>();
 
-		try (PreparedStatement pstmt = con.prepareStatement("select * from user_lotto where turn_no = ?")) {
+		try (Connection con = DBconnector.getInstance().getConnection();PreparedStatement pstmt = con.prepareStatement("select * from user_lotto where turn_no = ?")) {
 			pstmt.setInt(1, Integer.parseInt(turnNo));
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -52,7 +51,7 @@ public class LottoDAO {
 	}
 
 	public void delete() throws SQLException {
-		try (PreparedStatement pstmt = con.prepareStatement("delete from user_lotto")) {
+		try(Connection con = DBconnector.getInstance().getConnection();PreparedStatement pstmt =  con.prepareStatement("delete from user_lotto")) {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

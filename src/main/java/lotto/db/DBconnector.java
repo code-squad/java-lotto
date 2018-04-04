@@ -6,22 +6,19 @@ import java.sql.DriverManager;
 public class DBconnector {
 
 	private static DBconnector instance;
-	private Connection con;
-	private String url = "jdbc:mysql://localhost:3306/java_lotto?serverTimezone=UTC&useSSL=false";
-	private String id = "durin93";
-	private String pw = "durin93";
 
-	private DBconnector() {
+	public Connection getConnection() {
+		String url = "jdbc:mysql://localhost:3306/java_lotto?serverTimezone=UTC&useSSL=false";
+		String id = "durin93";
+		String pw = "durin93";
+		Connection con = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(url, id, pw);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-	}
-
-	public static Connection getConnection() {
-		return getInstance().con;
+		return con;
 	}
 
 	public static DBconnector getInstance() {

@@ -7,12 +7,12 @@ import java.sql.SQLException;
 
 public class LottoGameDAO {
 
-	Connection con = DBconnector.getConnection();
+	
 	ResultSet rs;
 
 	public int selectLatestTurnNo() throws SQLException {
 		int turnNo = 0;
-		try (PreparedStatement pstmt = con.prepareStatement("select max(turn_no) from lotto_game")) {
+		try (Connection con = DBconnector.getInstance().getConnection();PreparedStatement pstmt = con.prepareStatement("select max(turn_no) from lotto_game")) {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				turnNo = rs.getInt(1);
@@ -30,7 +30,7 @@ public class LottoGameDAO {
 
 	public LottoGameDTO selectWinNo(String turnNo) throws SQLException {
 		LottoGameDTO lottoGameDTO = null;
-		try (PreparedStatement pstmt = con.prepareStatement("select * from lotto_game where turn_no= ?")) {
+		try (Connection con = DBconnector.getInstance().getConnection();PreparedStatement pstmt = con.prepareStatement("select * from lotto_game where turn_no= ?")) {
 			pstmt.setInt(1, Integer.parseInt(turnNo));
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -53,7 +53,7 @@ public class LottoGameDAO {
 
 	public void insertWinNo(String turnNo, LottoDTO lottoDTO) throws SQLException {
 		String sql = "insert into lotto_game values(?,?,?,?,?,?,?,?)";
-		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+		try (Connection con = DBconnector.getInstance().getConnection();PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, Integer.parseInt(turnNo));
 			pstmt.setInt(2, lottoDTO.getNumber(0));
 			pstmt.setInt(3, lottoDTO.getNumber(1));
@@ -70,7 +70,7 @@ public class LottoGameDAO {
 	}
 
 	public void delete() throws SQLException {
-		try (PreparedStatement pstmt = con.prepareStatement("delete from lotto_game")) {
+		try(Connection con = DBconnector.getInstance().getConnection();PreparedStatement pstmt = con.prepareStatement("delete from lotto_game")) {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
