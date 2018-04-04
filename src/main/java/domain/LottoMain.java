@@ -4,12 +4,13 @@ import View.InputView;
 import View.LottoResult;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class LottoMain {
     public static void main(String[] args) {
         boolean validation = false;
         LottoMachine lottoMachine = null;
-        HashMap<Rank, Integer> result = new HashMap<>();
+        Map<Rank, Integer> result = new HashMap<>();
         int purchaseFee = InputView.getPurchaseFee();
         while (!validation) {
             try {

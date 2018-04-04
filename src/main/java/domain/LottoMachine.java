@@ -3,10 +3,11 @@ package domain;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoMachine {
     private List<LottoTicket> lottoTickets;
-    private HashMap<Rank, Integer> result;
+    private Map<Rank, Integer> result;
 
     public LottoMachine(int ticketCount) throws Exception {
         makeLottoTickets(ticketCount);
@@ -30,7 +31,7 @@ public class LottoMachine {
         return this.lottoTickets;
     }
 
-    public HashMap<Rank, Integer> matching(List<Integer> lastWinningNo, Integer bonusNo) throws Exception {
+    public Map<Rank, Integer> matching(List<Integer> lastWinningNo, Integer bonusNo) throws Exception {
         WinningLotto winningLotto = LottoTicketFactory.getWinningLottoTicket(lastWinningNo, bonusNo);
         for (int index = 0; index < lottoTickets.size(); index++) {
             LottoTicket lottoTicket = lottoTickets.get(index);

@@ -3,6 +3,7 @@ package View;
 import domain.Rank;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class LottoResult {
     private static final int FOURTH_PRIZE = 5000;
@@ -11,10 +12,10 @@ public class LottoResult {
     private static final int FIRST_PRIZE = 2000000000;
     private static final Double PERCENT = 100.0;
 
-    private HashMap<Rank, Integer> result;
+    private Map<Rank, Integer> result;
     private Integer rateOfProfit;
 
-    public LottoResult(HashMap<Rank, Integer> result, int purchaseFee) {
+    public LottoResult(Map<Rank, Integer> result, int purchaseFee) {
         this.result = result;
         calcRateOfProfit(purchaseFee);
     }
