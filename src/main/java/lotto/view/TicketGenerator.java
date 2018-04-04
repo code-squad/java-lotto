@@ -11,14 +11,12 @@ import static lotto.view.Parser.*;
 
 public class TicketGenerator {
 
-    public
-
     public static List<Ticket> generateManualTicket(int manual) {
         List<Ticket> manualTickets = new ArrayList<>();
         Output.printMessage("수동으로 구매할 번호를 입력해 주세요.");
 
         for (int i = 0; i < manual; i++) {
-            List<Number> numbers = parseToNumberArray(splitString(Input.takeInput()));
+            List<Number> numbers = parseToNumberArray(splitInput(Input.takeInput()));
             manualTickets.add(new Ticket(numbers));
         }
         return manualTickets;

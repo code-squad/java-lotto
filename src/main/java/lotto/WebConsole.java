@@ -25,7 +25,6 @@ public class WebConsole {
             return render(model, "/result.html");
         });
 
-        get()
     }
 
     public static String render(Map<String, Object> model, String templatePath) {

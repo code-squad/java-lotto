@@ -8,10 +8,6 @@ import java.util.List;
 
 public class Parser {
 
-    public static List<String> parseManualInput(String input) {
-        return Arrays.asList(input.split("\\r?\n"));
-    }
-
     public static int parseToInt(String text) throws IllegalArgumentException {
         int number;
         try {
@@ -23,7 +19,7 @@ public class Parser {
         return number;
     }
 
-    public static String[] splitString(String text) throws IllegalArgumentException {
+    public static String[] splitInput(String text) throws IllegalArgumentException {
         String[] split = text.split(",\\s*");
         if (split.length == 6) {
             return split;

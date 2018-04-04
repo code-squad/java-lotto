@@ -4,8 +4,6 @@ import lotto.domain.Number;
 import lotto.domain.Ticket;
 import lotto.domain.WinningLotto;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static lotto.view.Parser.*;
@@ -70,7 +68,7 @@ public class UserPrompt {
     private static String[] getWinningNumbers() {
         try {
             Output.printMessage("지난 주 당첨 번호를 입력해 주세요.");
-            return splitString(Input.takeInput());
+            return splitInput(Input.takeInput());
         } catch (IllegalArgumentException e) {
             return getWinningNumbers();
         }
