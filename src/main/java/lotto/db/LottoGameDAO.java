@@ -6,15 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LottoGameDAO {
-	Connection con;
-	PreparedStatement pstmt;
+
+	Connection con = DBconnector.getConnection();
 	ResultSet rs;
 
 	public int selectLatestTurnNo() throws SQLException {
 		int turnNo = 0;
-		try {
-			con = Common.getConnection();
-			pstmt = con.prepareStatement("select max(turn_no) from lotto_game");
+		try (PreparedStatement pstmt = con.prepareStatement("select max(turn_no) from lotto_game")) {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				turnNo = rs.getInt(1);
@@ -22,9 +20,8 @@ public class LottoGameDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("lotto_Game 테이블 select 실패");
-		} finally {
-			Common.close(rs, pstmt, con);
 		}
+
 		if (turnNo == 0) {
 			return 1;
 		}
@@ -32,10 +29,8 @@ public class LottoGameDAO {
 	}
 
 	public LottoGameDTO selectWinNo(String turnNo) throws SQLException {
-		con = Common.getConnection();
 		LottoGameDTO lottoGameDTO = null;
-		try {
-			pstmt = con.prepareStatement("select * from lotto_game where turn_no= ?");
+		try (PreparedStatement pstmt = con.prepareStatement("select * from lotto_game where turn_no= ?")) {
 			pstmt.setInt(1, Integer.parseInt(turnNo));
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -52,17 +47,13 @@ public class LottoGameDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("lotto_Game 테이블 select 실패");
-		} finally {
-			Common.close(rs, pstmt, con);
 		}
 		return lottoGameDTO;
 	}
 
 	public void insertWinNo(String turnNo, LottoDTO lottoDTO) throws SQLException {
-		con = Common.getConnection();
 		String sql = "insert into lotto_game values(?,?,?,?,?,?,?,?)";
-		try {
-			pstmt = con.prepareStatement(sql);
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, Integer.parseInt(turnNo));
 			pstmt.setInt(2, lottoDTO.getNumber(0));
 			pstmt.setInt(3, lottoDTO.getNumber(1));
@@ -75,22 +66,15 @@ public class LottoGameDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("lotto_game 테이블 insert 실패");
-		} finally {
-			Common.close(rs, pstmt, con);
 		}
 	}
 
 	public void delete() throws SQLException {
-		con = Common.getConnection();
-		String sql = "delete from lotto_game";
-		try {
-			pstmt = con.prepareStatement(sql);
+		try (PreparedStatement pstmt = con.prepareStatement("delete from lotto_game")) {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("lotto_game 테이블 delete 실패");
-		} finally {
-			Common.close(null, pstmt, con);
 		}
 	}
 

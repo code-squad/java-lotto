@@ -9,7 +9,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import lotto.db.Common;
 import lotto.db.LottoDAO;
 import lotto.db.LottoDTO;
 
@@ -24,11 +23,6 @@ public class LottoDAOTest {
 		lottoDTO = new LottoDTO();
 	}
 
-	@Test
-	public void connection() {
-		Connection con = Common.getConnection();
-		assertNotNull(con);
-	}
 
 	@Test
 	public void insert() throws Exception {

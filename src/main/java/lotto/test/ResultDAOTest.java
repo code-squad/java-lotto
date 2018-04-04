@@ -7,7 +7,6 @@ import java.sql.Connection;
 import org.junit.Before;
 import org.junit.Test;
 
-import lotto.db.Common;
 import lotto.db.ResultDAO;
 import lotto.db.ResultDTO;
 
@@ -22,11 +21,6 @@ public class ResultDAOTest {
 		resultDTO = new ResultDTO();
 	}
 
-	@Test
-	public void connection() {
-		Connection con = Common.getConnection();
-		assertNotNull(con);
-	}
 
 	@Test
 	public void insert() throws Exception {

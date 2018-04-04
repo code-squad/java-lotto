@@ -17,13 +17,6 @@ public class LottoProcess {
 		this.lottos = lottos;
 	}
 
-	public static LottoProcess of(int sheets, List<Lotto> inputUserNum) {
-		List<Lotto> lottos = new ArrayList<>();
-		lottos.addAll(inputUserNum);
-		lottos.addAll(makeLottos(sheets, makeNumbers()));
-		return new LottoProcess(lottos);
-	}
-
 	public static LottoProcess of(int sheets, String inputUserNum) {
 		List<Lotto> manualNumbers = Input.inputUserNum(inputUserNum);
 		List<Lotto> lottos = new ArrayList<>();
@@ -47,16 +40,16 @@ public class LottoProcess {
 	}
 
 	public void insertLottos(String turnNo) throws SQLException {
-	
+
 		insertWinLotto(turnNo);
-		
+
 		List<LottoDTO> lottodto = getAllLottos();
 		LottoDAO lottoDAO = new LottoDAO();
 		for (int i = 0; i < lottos.size(); i++) {
 			lottoDAO.insert(turnNo, lottodto.get(i));
 		}
 	}
-	
+
 	public void insertWinLotto(String turnNo) throws SQLException {
 		LottoGameDAO lottogameDAO = new LottoGameDAO();
 		lottogameDAO.insertWinNo(turnNo, LottoProcess.of(1).getLottoDTO(0));
@@ -79,12 +72,10 @@ public class LottoProcess {
 
 	public static List<Lotto> makeLottos(int sheets, List<Integer> numberRange) {
 		List<Lotto> lottos = new ArrayList<>();
-		
-		if(sheets==1) {
-			lottos.add(AutoLotto.ofWinLotto(numberRange,sheets));
+		if (sheets == 1) {
+			lottos.add(AutoLotto.ofWinLotto(numberRange, sheets));
 			return lottos;
 		}
-		
 		for (int i = 0; i < sheets; i++) {
 			lottos.add(AutoLotto.of(numberRange));
 		}
@@ -112,6 +103,7 @@ public class LottoProcess {
 		}
 		return lottos;
 	}
+
 	public LottoDTO getLottoDTO(int i) {
 		return getAllLottos().get(i);
 	}
