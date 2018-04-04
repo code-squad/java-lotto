@@ -51,7 +51,7 @@ public class Main {
         }
     }
 
-    public static String render(Map<String, Object> model, String templatePath) {
+    private static String render(Map<String, Object> model, String templatePath) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 
@@ -64,10 +64,10 @@ public class Main {
         return manualInput;
     }
 
-    private static Map<String, Object> buyLotto(Request req) {
+    private static Map<String, Object> buyLottoInput(Request req) {
         int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
-        larry = User.whoHasMoneyOf(inputMoney);
         List<LottoNoGroup> manualInput = makeLottoNoGroup(req);
+        larry = User.whoHasMoneyOf(inputMoney);
         larry.purchaseTicketsManual(manualInput);
         larry.purchaseTicketsAuto(inputMoney/ TICKET_PRICE - manualInput.size());
         Map<String, Object> input = new HashMap<>();
@@ -75,19 +75,20 @@ public class Main {
         return input;
     }
 
-    private static Map<String, Object> matchLotto(Request req) {
+    private static Map<String, Object> matchLottoResult(Request req) {
         LottoNo bonusNo = LottoNo.of(Integer.parseInt(req.queryParams("bonusNumber")));
         LotteryCommission.selectWinningNumbers(inputParser(req.queryParams("winningNumber")), bonusNo);
         larry.checkTotalResult();
-        Map<String, Object> output = new HashMap<>();
-        output.put("larry", larry);
-        return output;
+        Map<String, Object> result = new HashMap<>();
+        result.put("larry", larry);
+        return result;
     }
+
     public static void main(String[] args) {
         port(8080);
         staticFiles.location("/template");
         get("/", (req, res) -> render(null, "index.html"));
-        post("/buyLotto", (req, res) -> render(buyLotto(req), "show.html"));
-        post("/matchLotto", (req, res) -> render(matchLotto(req), "result.html"));
+        post("/buyLotto", (req, res) -> render(buyLottoInput(req), "show.html"));
+        post("/matchLotto", (req, res) -> render(matchLottoResult(req), "result.html"));
     }
 }
