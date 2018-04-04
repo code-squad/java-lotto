@@ -7,6 +7,6 @@ import static org.junit.Assert.assertEquals;
 public class RankTest {
     @Test
     public void isRank() {
-//        assertEquals(Rank.FIRST, Rank.getRank(6));
+        assertEquals(Rank.FIRST, Rank.getRank(6));
     }
 }

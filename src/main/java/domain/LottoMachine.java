@@ -13,6 +13,12 @@ public class LottoMachine {
         initResult();
     }
 
+    // for test
+    public LottoMachine(List<Integer> numbers) throws Exception {
+        makeLottoTickets(numbers);
+        initResult();
+    }
+
     public void initResult() {
         result = new HashMap<>();
         for (Rank rank : Rank.values()) {
@@ -48,14 +54,14 @@ public class LottoMachine {
         return true;
     }
 
-    public void makeLottoTickets(int ticketCount) throws Exception {
+    public void makeLottoTickets(int ticketCount) {
         lottoTickets = new ArrayList<>();
         while (lottoTickets.size() < ticketCount) {
             lottoTickets.add(LottoTicketFactory.getLottoTicket());
         }
     }
 
-    public void makeLottoTickets(List<Integer> numbers) throws Exception {
+    public void makeLottoTickets(List<Integer> numbers) {
         lottoTickets = new ArrayList<>();
         lottoTickets.add(LottoTicketFactory.getLottoTicket(numbers));
     }

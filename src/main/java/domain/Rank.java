@@ -1,6 +1,5 @@
 package domain;
 
-// 추후 사용하기 위해 미리 작성
 public enum Rank {
     FIRST(6, 2000000000),
     SECOND(5, 30000000),

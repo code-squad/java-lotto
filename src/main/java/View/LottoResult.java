@@ -14,8 +14,9 @@ public class LottoResult {
     private HashMap<Rank, Integer> result;
     private Integer rateOfProfit;
 
-    public LottoResult(HashMap<Rank, Integer> result) {
+    public LottoResult(HashMap<Rank, Integer> result, int purchaseFee) {
         this.result = result;
+        calcRateOfProfit(purchaseFee);
     }
 
     public void calcRateOfProfit(int purchaseFee) {
@@ -27,24 +28,6 @@ public class LottoResult {
         Double result = (fourth + third + second + first) * (PERCENT / purchaseFee);
         rateOfProfit = result.intValue();
     }
-
-//    public boolean isValidNumber(int matchedCount, boolean bonus) {
-//        if (matchedCount < 3) {
-//            return false;
-//        }
-//        countPrize(Rank.getRank(matchedCount, bonus));
-//        return true;
-//    }
-
-//    // Pobi's advice
-//    private boolean countPrize(Rank rank) {
-//        Integer value = result.get(rank);
-//        if (value != null) {
-//            result.put(rank, result.get(rank) + 1);
-//            return true;
-//        }
-//        return false;
-//    }
 
     public String printResult() {
         StringBuilder sb = new StringBuilder();

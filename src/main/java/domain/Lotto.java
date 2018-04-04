@@ -2,7 +2,6 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Lotto {
     private static final int LOTTO_MAX_SIZE = 6;
@@ -53,7 +52,4 @@ public class Lotto {
         return matchedNoCount;
 
     }
-
-    //  todo 2-3. contains method
-    // todo 3. 다른 티켓과의 겹치는 숫자
 }

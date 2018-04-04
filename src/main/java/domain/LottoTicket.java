@@ -2,10 +2,9 @@ package domain;
 
 import java.util.List;
 
-public class LottoTicket extends Lotto implements Bonus{
-    private static final int LOTTO_SIZE = 6;
+public class LottoTicket extends Lotto implements Bonus {
 
-    public LottoTicket(List<Integer> numbers) throws Exception {
+    public LottoTicket(List<Integer> numbers) {
         super(numbers);
     }
 
@@ -13,12 +12,4 @@ public class LottoTicket extends Lotto implements Bonus{
     public boolean hasBonusNo(LottoNo bonusNo) {
         return super.contains(bonusNo);
     }
-
-//    public int getMatchedCount(Lotto anotherLottoTicket) {
-//        List<Integer> winningNumbers = winningLottoTicket.getNumbers();
-//        this.numbers.removeAll(winningNumbers);
-//        return LOTTO_SIZE - numbers.size();
-//        anotherLottoTicket.getIntersect
-//        return 0;
-//    }
 }

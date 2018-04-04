@@ -21,8 +21,7 @@ public class LottoMain {
                 validation = false;
             }
         }
-        LottoResult lottoResult = new LottoResult(result);
-        lottoResult.calcRateOfProfit(purchaseFee);
+        LottoResult lottoResult = new LottoResult(result, purchaseFee);
         System.out.println(lottoResult.printResult());
     }
 }
