@@ -21,7 +21,7 @@ public class WebParser {
         return Arrays.asList(input.split("\r?\n"));
     }
 
-    private static List<String> splitToNumberStrings(String numbers) {
+    private static List<String> splitToNumberStrings(String numbers) throws IllegalArgumentException {
         List<String> split = Arrays.asList(numbers.split(",\\s*"));
         if (split.size() == 6) {
             return split;
@@ -30,7 +30,7 @@ public class WebParser {
         throw new IllegalArgumentException();
     }
 
-    public static List<Integer> parseToIntegers(List<String> numbers) {
+    private static List<Integer> parseToIntegers(List<String> numbers) {
         List<Integer> integers = new ArrayList<>();
         for (String number : numbers) {
             integers.add(parseToInt(number));

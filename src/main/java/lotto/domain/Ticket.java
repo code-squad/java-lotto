@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import lotto.view.Output;
+import lotto.view.WebParser;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class Ticket {
     private final List<Number> ticket;
 
     public Ticket(List<Number> numbers) {
-        this.ticket = checkValid(numbers);
+        this.ticket = numbers;
     }
 
     static List<Number> checkValid(List<Number> numbers) throws IllegalArgumentException {
@@ -33,6 +34,6 @@ public class Ticket {
     }
 
     public String getTicketString() {
-        return Parser.parseToPrintable(ticket);
+        return WebParser.parseToPrintable(ticket);
     }
 }

@@ -16,7 +16,8 @@ public class ManualGeneratorTest {
     public void setUp() {
         int numberOfTickets = 5;
         List<Integer> manualInts = Arrays.asList(1, 2, 3, 4, 5, 6);
-        generator = new ManualGenerator(5, manualInts);
+        List<List<Integer>> numbers = Arrays.asList(manualInts, manualInts);
+        (manualInts);
     }
 
     @Test

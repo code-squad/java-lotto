@@ -1,5 +1,7 @@
 package lotto.view;
 
+import java.util.List;
+
 public class UserPrompt {
     public static final int LOTTO_PRICE = 1000;
 
@@ -29,7 +31,14 @@ public class UserPrompt {
         }
     }
 
-    public static String promptManual(int manual) {
+//    public static List<List<Integer>> getManual() {
+//        try {
+//            String input = promptManual();
+//
+//        }
+//    }
+
+    public static String promptManual() {
         Output.printMessage("수동으로 구매할 번호를 각각 새 줄에 입력해 주세요.");
         return Input.takeInput();
     }

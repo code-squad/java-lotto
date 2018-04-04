@@ -1,8 +1,5 @@
 package lotto;
 
-import lotto.domain.Ticket;
-import lotto.view.AutoGenerator;
-import lotto.view.ManualGenerator;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 

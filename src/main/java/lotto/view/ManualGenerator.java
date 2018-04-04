@@ -8,19 +8,14 @@ import java.util.List;
 
 import static lotto.view.WebParser.*;
 
-public class ManualGenerator {
+public class ManualGenerator implements Generator {
     private final List<List<Integer>> manual;
 
-    private ManualGenerator(String manual) {
-        this.manual = parseToLottoInts(manual);
+    public ManualGenerator(List<List<Integer>> manual) {
+        this.manual = manual;
     }
 
-    public static List<Ticket> getManualTickets(String manual) {
-        ManualGenerator generator = new ManualGenerator(manual);
-        return generator.generateTickets();
-    }
-
-    private List<Ticket> generateTickets() {
+    public List<Ticket> generateTickets() {
         List<Ticket> manualTickets = new ArrayList<>();
         for (List<Integer> integers : manual) {
             manualTickets.add(new Ticket(convertToNumbers(integers)));
@@ -36,15 +31,17 @@ public class ManualGenerator {
         return numbers;
     }
 
-    public static Ticket generateWinningTicket(List<String> numbers) { //check input format
-        List<Number> winningNumbers = new ArrayList<>();
-        for (String number : numbers) {
-            winningNumbers.add(new Number(Integer.parseInt(number)));
-        }
-        return new Ticket(winningNumbers);
-    }
+//    public static Ticket generateWinningTicket(String input) {
+//        List<Number> winningNumbers = new ArrayList<>();
+//
+//        List<Integer> numbers = parseToIntegers(splitToNumberStrings(input));
+//        for (Integer number : numbers) {
+//            winningNumbers.add(new Number(number));
+//        }
+//        return new Ticket(winningNumbers);
+//    }
 
-    public static Number generateBonusNumber(int number) { //check input format
+    public static Number generateBonusNumber(int number) {
         return new Number(number);
     }
 }

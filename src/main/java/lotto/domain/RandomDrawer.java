@@ -19,11 +19,13 @@ public class RandomDrawer {
         }
     }
 
-    public static RandomDrawer newInstance() {
+    public static RandomDrawer
+    newInstance() {
         return new RandomDrawer();
     }
 
-    public List<Number> drawNumber() {
+    public List<Number>
+    drawNumber() {
         Collections.shuffle(numberPool);
         return numberPool.subList(FIRST, LAST);
     }
