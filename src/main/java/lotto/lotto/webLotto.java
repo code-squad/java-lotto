@@ -12,6 +12,7 @@ import java.util.*;
 
 public class webLotto {
     static List<Lotto> lottos = new ArrayList<>();
+    static LottoDAO lottoDao = new LottoDAO();
 
     public static void main(String[] args) {
         staticFiles.location("/templates");
@@ -25,6 +26,7 @@ public class webLotto {
             BuyingLotto man = new BuyingLotto(inputMoney, manualLotto);
             lottos = man.getLottos();
             int num = lottos.size();
+            lottoDao.insertLottos(lottos);
 
             model.put("num", num);
             model.put("lottos", lottos);
@@ -39,6 +41,7 @@ public class webLotto {
 
             WeeklyLotto week = WeeklyLotto.of(winningLotto, bonusBall);
             Map<Rank, Integer> result = week.checkRank(lottos);
+            lottoDao.insertRank(result);
             ResultDTO resultLotto = new ResultDTO(result, lottos.size()*1000);
             model.put("resultLotto", resultLotto);
 

@@ -19,7 +19,9 @@ public class LottoGame {
         List<String> manualLotto = Input.inputManualLotto(manualNumber, money);
 
         BuyingLotto man = new BuyingLotto(money, manualLotto);
+        LottoDAO lottoDao = new LottoDAO();
         List<Lotto> lottos = man.getLottos();
+        lottoDao.insertLottos(lottos);
 
         View.lottoAutomaticView(lottos, manualNumber);
         String winningLotto = Input.inputWinningNumber();
@@ -27,6 +29,7 @@ public class LottoGame {
 
         WeeklyLotto week = WeeklyLotto.of(winningLotto, bonusBall);
         Map<Rank, Integer> result = week.checkRank(lottos);
+        lottoDao.insertRank(result);
         ResultDTO resultLotto = new ResultDTO(result, money);
 
         View.resultLottoView(result);
