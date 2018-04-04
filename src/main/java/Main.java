@@ -23,7 +23,7 @@ public class Main {
 
     static User larry;
 
-    private static void buyProcess() {
+    private static void buyProcessConsole() {
         try {
             int money = InputView.enterUserMoney();
             larry = User.whoHasMoneyOf(money);
@@ -34,11 +34,11 @@ public class Main {
             ResultView.printLottos(larry);
         } catch (LottoProcessException | IOException e) {
             e.printStackTrace();
-            buyProcess();
+            buyProcessConsole();
         }
     }
 
-    private static void resultProcess() {
+    private static void resultProcessConsole() {
         try {
             LottoNoGroup winningNumbers = InputView.enterWinningLotto();
             LottoNo lottoNo = InputView.enterBonusBall();
@@ -47,7 +47,7 @@ public class Main {
             ResultView.printResult(larry);
         } catch (LottoProcessException e) {
             e.printStackTrace();
-            resultProcess();
+            resultProcessConsole();
         }
     }
 
@@ -55,17 +55,22 @@ public class Main {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 
-    private static Map<String, Object> buyLotto(Request req) {
-        Map<String, Object> input = new HashMap<>();
+    private static List<LottoNoGroup> makeLottoNoGroup(Request req) {
         String[] manualNumbers = req.queryParams("manualNumber").split("\r?\n");
         List<LottoNoGroup> manualInput = new ArrayList<>();
-        for (int i = 0; i < manualNumbers.length; i++) {
-            manualInput.add(inputParser(manualNumbers[i].trim()));
+        for (String manualNumber : manualNumbers) {
+            manualInput.add(inputParser(manualNumber.trim()));
         }
-        larry = User.whoHasMoneyOf(Integer.parseInt(req.queryParams("inputMoney")));
-        int autoNum = Integer.parseInt(req.queryParams("inputMoney")) / TICKET_PRICE - manualInput.size();
+        return manualInput;
+    }
+
+    private static Map<String, Object> buyLotto(Request req) {
+        int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
+        larry = User.whoHasMoneyOf(inputMoney);
+        List<LottoNoGroup> manualInput = makeLottoNoGroup(req);
         larry.purchaseTicketsManual(manualInput);
-        larry.purchaseTicketsAuto(autoNum);
+        larry.purchaseTicketsAuto(inputMoney/ TICKET_PRICE - manualInput.size());
+        Map<String, Object> input = new HashMap<>();
         input.put("larry", larry);
         return input;
     }
