@@ -1,35 +1,21 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Lotto {
     private static final int LOTTO_MAX_SIZE = 6;
     private List<LottoNo> numbers;
 
-    public Lotto(List<Integer> numbers) {
+    public Lotto(List<LottoNo> numbers) {
         if (!isValid(numbers)) {
-            throw new IllegalArgumentException();
-        }
-        generateLottoNo(numbers);
-    }
-
-    private void generateLottoNo(List<Integer> numbers) {
-        this.numbers = new ArrayList<>();
-        for (Integer number : numbers) {
-            LottoNo lottoNo = new LottoNo(number);
-            this.numbers.add(lottoNo);
-        }
-    }
-
-    public boolean isValid(List<Integer> numbers) {
-        if (numbers.size() != LOTTO_MAX_SIZE) {
             throw new IllegalArgumentException("로또 번호 6개를 입력해 주세요.");
         }
-        for (Integer number : numbers) {
-            if (!(number > 0 && number <= 45)) {
-                throw new IllegalArgumentException("로또 번호의 범위는 1~45 입니다.");
-            }
+        this.numbers = numbers;
+    }
+
+    public boolean isValid(List<LottoNo> numbers) {
+        if (numbers.size() != LOTTO_MAX_SIZE) {
+            throw new IllegalArgumentException("로또 번호 6개를 입력해 주세요.");
         }
         return true;
     }

@@ -1,17 +1,10 @@
 package domain;
 
-import View.InputView;
-import domain.LottoMachine;
-import domain.LottoMain;
-import org.assertj.core.api.ListAssert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 
 public class LottoMainTest {
     List<Integer> winningNumber;

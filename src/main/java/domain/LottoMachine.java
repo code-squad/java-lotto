@@ -31,12 +31,12 @@ public class LottoMachine {
         return this.lottoTickets;
     }
 
-    public Map<Rank, Integer> matching(List<Integer> lastWinningNo, Integer bonusNo) throws Exception {
+    public Map<Rank, Integer> matching(List<LottoNo> lastWinningNo, LottoNo bonusNo) {
         WinningLotto winningLotto = LottoTicketFactory.getWinningLottoTicket(lastWinningNo, bonusNo);
         for (int index = 0; index < lottoTickets.size(); index++) {
             LottoTicket lottoTicket = lottoTickets.get(index);
             int matchedCount = lottoTicket.getMatchedNo(winningLotto);
-            boolean bonus = lottoTicket.hasBonusNo(new LottoNo(bonusNo));
+            boolean bonus = lottoTicket.hasBonusNo(bonusNo);
             updateRank(matchedCount, bonus);
         }
         return result;

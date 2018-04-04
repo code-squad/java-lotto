@@ -7,15 +7,17 @@ import java.util.List;
 public class LottoTicketFactory {
     private static final int MAX_SIZE = 6;
 
+    // for auto
     public static LottoTicket getLottoTicket() {
-        return new LottoTicket(makeRandomNumbers());
+        return new LottoTicket(LottoNoFactory.getLottoNo(makeRandomNumbers()));
     }
 
+    // for manual
     public static LottoTicket getLottoTicket(List<Integer> numbers) {
-        return new LottoTicket(numbers);
+        return new LottoTicket(LottoNoFactory.getLottoNo(numbers));
     }
 
-    public static WinningLotto getWinningLottoTicket(List<Integer> numbers, Integer bonus) {
+    public static WinningLotto getWinningLottoTicket(List<LottoNo> numbers, LottoNo bonus) {
         return new WinningLotto(numbers, bonus);
     }
 

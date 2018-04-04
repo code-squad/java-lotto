@@ -1,5 +1,8 @@
 package View;
 
+import domain.LottoNo;
+import domain.LottoNoFactory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,27 +24,26 @@ public class InputView {
         return count;
     }
 
-    public static List<Integer> getWinningNumber() {
+    public static List<LottoNo> getWinningNumber() {
         // "1, 2, 3, 4, 5, 6"
         scanner = new Scanner(System.in);
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
         String[] numbers = scanner.nextLine().replaceAll(" ", "").split(",");
         System.out.println(Arrays.toString(numbers));
-        return parseInt(numbers);
+        return parseLottoNo(numbers);
     }
 
-    public static Integer getBonusNumber() {
+    public static LottoNo getBonusNumber() {
         scanner = new Scanner(System.in);
         System.out.println("\n보너스 볼을 입력해 주세요.");
         String bonusNumber = scanner.nextLine();
-        return Integer.parseInt(bonusNumber);
+        return LottoNoFactory.getLottoNo(bonusNumber);
     }
 
-    private static List<Integer> parseInt(String[] userInput) {
-        List<Integer> numbers = new ArrayList<>();
+    private static List<LottoNo> parseLottoNo(String[] userInput) {
+        List<LottoNo> numbers = new ArrayList<>();
         for (String number : userInput) {
-            int convertedNumber = Integer.parseInt(number);
-            numbers.add(convertedNumber);
+            numbers.add(LottoNoFactory.getLottoNo(number));
         }
         return numbers;
     }

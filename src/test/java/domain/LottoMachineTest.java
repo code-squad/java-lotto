@@ -14,10 +14,6 @@ public class LottoMachineTest {
     LottoMachine lottoMachine;
     int ticketCount;
 
-    @Before
-    public void setup() {
-
-    }
 
     @Test
     public void getLottoTickets() throws Exception {
@@ -31,7 +27,9 @@ public class LottoMachineTest {
     public void matching() throws Exception {
         lottoMachine = new LottoMachine(Arrays.asList(1, 2, 3, 4, 5, 6));
         Map<Rank, Integer> result =
-                lottoMachine.matching(Arrays.asList(1, 2, 3, 7, 8, 9), 10);
+                lottoMachine.matching(
+                        LottoNoFactory.getLottoNo(Arrays.asList(1, 2, 3, 7, 8, 9)),
+                        LottoNoFactory.getLottoNo(10));
         int value = result.get(Rank.FIFTH);
         assertEquals(1, value);
     }

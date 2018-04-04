@@ -4,7 +4,7 @@ import java.util.List;
 
 public class LottoTicket extends Lotto implements Bonus {
 
-    public LottoTicket(List<Integer> numbers) {
+    public LottoTicket(List<LottoNo> numbers) {
         super(numbers);
     }
 
