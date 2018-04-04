@@ -30,4 +30,10 @@ public class View {
         Profit profit = new Profit();
         System.out.println("총 수익률은 " + profit.percent(ranks) + "입니다.");
     }
+
+//    public static void resultView(HashMap<Rank, Integer> finalResult) {
+//        Rank [] ranks = Rank.values();
+//        for(int i = ranks.length - 2; i >= 0; i--)
+//            System.out.println(ranks[i].getCountOfMatch() + "개 일치 (" + ranks[i].getWinningMoney() + "원)- " + finalResult.get(ranks[i]) + "개");
+//    }
 }
