@@ -9,13 +9,15 @@ public class LottoMachine {
     private List<LottoTicket> lottoTickets;
     private Map<Rank, Integer> result;
 
-    public LottoMachine(int ticketCount) throws Exception {
+    public LottoMachine(int ticketCount) {
+        // pobi's advice 구현하기
+        // this(makeLottoTickets(ticketCount));
         makeLottoTickets(ticketCount);
         initResult();
     }
 
     // for test
-    public LottoMachine(List<Integer> numbers) throws Exception {
+    public LottoMachine(List<Integer> numbers) {
         makeLottoTickets(numbers);
         initResult();
     }
@@ -37,20 +39,16 @@ public class LottoMachine {
             LottoTicket lottoTicket = lottoTickets.get(index);
             int matchedCount = lottoTicket.getMatchedNo(winningLotto);
             boolean bonus = lottoTicket.hasBonusNo(bonusNo);
-            updateRank(matchedCount, bonus);
+            isRank(matchedCount, bonus);
         }
         return result;
     }
 
-    public boolean updateRank(int matchedCount, boolean bonus) {
+    public boolean isRank(int matchedCount, boolean bonus) {
         if (matchedCount < 3) {
             return false;
         }
-        if (bonus && matchedCount == 5) {
-            result.put(Rank.SECOND, result.get(Rank.SECOND) + 1);
-            return true;
-        }
-        Rank rank = Rank.getRank(matchedCount);
+        Rank rank = Rank.valueOf(matchedCount, bonus);
         result.put(rank, result.get(rank) + 1);
         return true;
     }

@@ -23,14 +23,29 @@ public enum Rank {
         return winningMoney;
     }
 
-    public static Rank getRank(int matchedCount) {
-        for (Rank rank : Rank.values()) {
-            if (rank != SECOND && rank.isMatched(matchedCount)) {
+    // 어떤 조건에 대한 정해진 값을 찾으려면 valueOf라는 이름 쓰기
+    public static Rank valueOf(int countOfMatch, boolean matchBonus) {
+        Rank[] ranks = values();
+        for (Rank rank : ranks) {
+            if (countOfMatch == SECOND.countOfMatch) {
+                return matchBonus ? SECOND : THIRD;
+            }
+
+            if (rank.countOfMatch == countOfMatch) {
                 return rank;
             }
         }
-        throw new IllegalArgumentException("순위를 벗어났습니다.");
+        return null;
     }
+
+//    public static Rank getRank(int matchedCount) {
+//        for (Rank rank : Rank.values()) {
+//            if (rank != SECOND && rank.isMatched(matchedCount)) {
+//                return rank;
+//            }
+//        }
+//        throw new IllegalArgumentException("순위를 벗어났습니다.");
+//    }
 
     private boolean isMatched(int matchedCount) {
         return this.getCountOfMatch() == matchedCount;

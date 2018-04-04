@@ -30,12 +30,11 @@ public class Lotto {
 
     public int getMatchedNo(Lotto anotherLotto) {
         int matchedNoCount = 0;
-        for (int index = 0; index < numbers.size(); index++) {
-            if (anotherLotto.contains(numbers.get(index))) {
+        for (LottoNo number : numbers) {
+            if (anotherLotto.contains(number)) {
                 matchedNoCount++;
             }
         }
         return matchedNoCount;
-
     }
 }
