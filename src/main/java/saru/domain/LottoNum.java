@@ -14,7 +14,7 @@ public class LottoNum {
 
     public static LottoNum of(int number) {
         if (number < START_NUM || number > MAX_LOTTO_NUM) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("입력값이 정상 범위가 아님");
         }
 
         return new LottoNum(number);

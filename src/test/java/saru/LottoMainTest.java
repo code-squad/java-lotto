@@ -17,7 +17,7 @@ public class LottoMainTest {
 
     private String resultStr = "1, 2, 3, 4, 5, 6";
     private List<LottoNum> resultList = lottoMaker.makeManualLottoNums(resultStr);
-    private WinningLotto winningLotto = WinningLotto.of(resultList, BONUS_NUMBER);
+    private WinningLotto winningLotto = WinningLotto.of(resultList, LottoNum.of(BONUS_NUMBER));
     private Result result = Result.of(INIT_NUM);
 
     @Before
