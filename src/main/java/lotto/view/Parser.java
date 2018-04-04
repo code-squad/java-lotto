@@ -3,9 +3,14 @@ package lotto.view;
 import lotto.domain.Number;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Parser {
+
+    public static List<String> parseManualInput(String input) {
+        return Arrays.asList(input.split("\\r?\n"));
+    }
 
     public static int parseToInt(String text) throws IllegalArgumentException {
         int number;

@@ -4,6 +4,8 @@ import lotto.domain.Number;
 import lotto.domain.Ticket;
 import lotto.domain.WinningLotto;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static lotto.view.Parser.*;

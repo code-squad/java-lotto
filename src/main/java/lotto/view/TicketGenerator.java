@@ -11,6 +11,8 @@ import static lotto.view.Parser.*;
 
 public class TicketGenerator {
 
+    public
+
     public static List<Ticket> generateManualTicket(int manual) {
         List<Ticket> manualTickets = new ArrayList<>();
         Output.printMessage("수동으로 구매할 번호를 입력해 주세요.");
