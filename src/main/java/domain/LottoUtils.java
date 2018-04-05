@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -47,5 +48,14 @@ public class LottoUtils {
     public static LottoNoGroup inputParser(String line) {
         return listToLottoNoGroup(stringToIntList(line));
     }
+
+    public static List<LottoNoGroup> makeLottoNoGroup(String[] manualNumbers) {
+        List<LottoNoGroup> manualInput = new ArrayList<>();
+        for (String manualNumber : manualNumbers) {
+            manualInput.add(inputParser(manualNumber.trim()));
+        }
+        return manualInput;
+    }
+
 
 }

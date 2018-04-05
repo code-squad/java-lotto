@@ -9,6 +9,7 @@ repositories {
 }
 
 dependencies {
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.38'
     compile "com.sparkjava:spark-core:2.7.2"
     compile "com.sparkjava:spark-template-handlebars:2.7.1"
     compile('ch.qos.logback:logback-classic:1.2.3')

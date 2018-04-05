@@ -17,6 +17,7 @@ import java.util.Map;
 
 import static domain.LottoUtils.TICKET_PRICE;
 import static domain.LottoUtils.inputParser;
+import static domain.LottoUtils.makeLottoNoGroup;
 import static spark.Spark.*;
 
 public class Main {
@@ -55,18 +56,10 @@ public class Main {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 
-    private static List<LottoNoGroup> makeLottoNoGroup(Request req) {
-        String[] manualNumbers = req.queryParams("manualNumber").split("\r?\n");
-        List<LottoNoGroup> manualInput = new ArrayList<>();
-        for (String manualNumber : manualNumbers) {
-            manualInput.add(inputParser(manualNumber.trim()));
-        }
-        return manualInput;
-    }
-
     private static Map<String, Object> buyLottoInput(Request req) {
         int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
-        List<LottoNoGroup> manualInput = makeLottoNoGroup(req);
+        String[] manualNumbers = req.queryParams("manualNumber").split("\r?\n");
+        List<LottoNoGroup> manualInput = makeLottoNoGroup(manualNumbers);
         larry = User.whoHasMoneyOf(inputMoney);
         larry.purchaseTicketsManual(manualInput);
         larry.purchaseTicketsAuto(inputMoney/ TICKET_PRICE - manualInput.size());
