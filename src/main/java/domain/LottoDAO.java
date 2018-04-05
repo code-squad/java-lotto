@@ -26,7 +26,7 @@ public class LottoDAO {
 
     public void insertUserInfo(User user, String round, String inputMoney) throws SQLException {
         // add user information into USERS table
-        String sql = "insert into USERS values(?,?,?,?)";
+        String sql = "INSERT INTO users VALUES(?,?,?,?)";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setInt(1, Integer.parseInt(round));
         preparedStatement.setString(2, user.getName());
@@ -39,7 +39,7 @@ public class LottoDAO {
 
     public void insertLottosInfo(User user, String round, String inputMoney) throws SQLException {
         // add lotto numbers information of user into LOTTO table
-        String sql = "insert into LOTTOS values(?,?,?)";
+        String sql = "INSERT INTO LOTTOS VALUES(?,?,?)";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         for (Lotto lotto : user.getLottos()) {
             preparedStatement.setString(1, round);
@@ -70,7 +70,7 @@ public class LottoDAO {
 
     public void insertWinningLotto(String round, String winningNumber, String bonusNumber) throws SQLException {
         // add user information into USERS table
-        String sql = "insert into WINNINGLOTTOS values(?,?,?)";
+        String sql = "INSERT INTO winninglottos VALUES(?,?,?)";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setInt(1, Integer.parseInt(round));
         preparedStatement.setString(2, winningNumber.replaceAll("[\\[\\]\"]", ""));
@@ -90,7 +90,7 @@ public class LottoDAO {
 
     public void updateUserInfo(User user, String round) throws SQLException {
         // update user's prize statistics
-        String sql = "update USERS set prizelist = ? where name = ? AND round = ?";
+        String sql = "UPDATE users SET prizelist = ? WHERE name = ? AND round = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(2, user.getName());
         preparedStatement.setString(3, user.getName());
@@ -100,7 +100,7 @@ public class LottoDAO {
     }
 
     public LotteryCommission findWinningNumberByRound(String round) throws SQLException {
-        String sql = "SELECT * FROM WINNINGLOTTOS where round = ?";
+        String sql = "SELECT * FROM winninglottos WHERE round = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setInt(1, Integer.parseInt(round));
 
@@ -116,7 +116,7 @@ public class LottoDAO {
     }
 
     private List<LottoNoGroup> takeLottoNos(String userName, String round) throws SQLException {
-        String sql = "SELECT * FROM LOTTOS where name = ? AND round = ?";
+        String sql = "SELECT * FROM lottos WHERE name = ? AND round = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(1, userName);
         preparedStatement.setInt(2, Integer.parseInt(round));
@@ -130,7 +130,7 @@ public class LottoDAO {
     }
 
     private int takeInputMoney(String userName, String round) throws SQLException {
-        String sql = "SELECT * FROM USERS where name = ? AND round = ?";
+        String sql = "SELECT * FROM users WHERE name = ? AND round = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(1, userName);
         preparedStatement.setInt(2, Integer.parseInt(round));
