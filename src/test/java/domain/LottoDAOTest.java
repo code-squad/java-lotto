@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -26,15 +27,17 @@ public class LottoDAOTest {
 
     @Test
     public void insert() throws SQLException {
-        User larry = User.whoHasMoneyOf(3000);
-        larry.purchaseTicketsManual();
-        lottoDao.insert(larry);
+        String[] manualInputString = {"1, 2, 3, 4, 5, 6", "4, 5, 6, 7, 8, 9, 10"};
+        List<LottoNoGroup> manualInput = LottoUtils.makeLottoNoGroup(manualInputString);
+        User larry = User.whoHasMoneyOf(2000);
+        larry.purchaseTicketsManual(manualInput);
+        lottoDAO.insert(larry);
     }
 
     @Test
     public void findByUserId() throws Exception {
-        User user = lottoDao.findByUserId("userId");
-        User larry = new User("larryjung", "db1004", "larry", "sscc112@naver.com");
+        User user = lottoDAO.findByUserId("userId");
+
         assertEquals(larry, user);
     }
 

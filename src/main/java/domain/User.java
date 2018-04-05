@@ -9,17 +9,22 @@ import static domain.LottoUtils.TICKET_PRICE;
 
 public class User {
 
+    private String name;
     private Money presentMoney;
     private List<Lotto> lottos;
     private List<Integer> prizeStatistics;
 
-    private User(int money) {
+    private User(String name) {
         lottos = new ArrayList<>();
-        presentMoney = Money.of(money);
+        this.name = name;
     }
 
-    public static User whoHasMoneyOf(int money) {
-        return new User(money);
+    public static User nameOf(String name) {
+        return new User(name);
+    }
+
+    public void hasMoneyOf(int inputMoney) {
+        presentMoney = Money.of(inputMoney);
     }
 
     public void purchaseTicketsManual(List<LottoNoGroup> manualInput) {
@@ -76,4 +81,9 @@ public class User {
     public int getProfit() {
         return calcProfit();
     }
+
+    public String getName() {
+        return name;
+    }
+
 }

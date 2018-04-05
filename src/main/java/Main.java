@@ -60,7 +60,8 @@ public class Main {
         int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
         String[] manualNumbers = req.queryParams("manualNumber").split("\r?\n");
         List<LottoNoGroup> manualInput = makeLottoNoGroup(manualNumbers);
-        larry = User.whoHasMoneyOf(inputMoney);
+        larry = User.nameOf(req.queryParams("name"));
+        larry.hasMoneyOf(inputMoney);
         larry.purchaseTicketsManual(manualInput);
         larry.purchaseTicketsAuto(inputMoney/ TICKET_PRICE - manualInput.size());
         Map<String, Object> input = new HashMap<>();
