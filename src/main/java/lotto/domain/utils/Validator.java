@@ -1,10 +1,8 @@
-package lotto.domain;
-
-import lotto.view.Parser;
+package lotto.domain.utils;
 
 import java.util.List;
 
-public class Utils {
+public class Validator {
     public static final int LOTTO_PRICE = 1000;
 
     public static void validateInput(List<List<Integer>> numbers, int money) throws IllegalArgumentException {
@@ -31,14 +29,8 @@ public class Utils {
         return money % LOTTO_PRICE != 0;
     }
 
-    public static int calcNumberOfAuto(int money, int manual) {
-        int total = money / LOTTO_PRICE;
-        return total - manual;
-    }
-
-    public static void
-    checkOneTicket(String input) throws IllegalArgumentException {
-        if (Parser.splitToLottoStrings(input).size() != 1) {
+    public static void checkOneTicket(String input) throws IllegalArgumentException {
+        if (Parser.splitToLottoStrings(input).length != 1) {
             throw new IllegalArgumentException("당첨 로또는 하나여야 합니다.");
         }
     }

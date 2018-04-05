@@ -1,12 +1,13 @@
 package lotto;
 
 import lotto.domain.*;
-import lotto.domain.Number;
+import lotto.domain.generation.Number;
+import lotto.domain.generation.Ticket;
 import lotto.view.*;
 
 import java.util.List;
 
-import static lotto.view.Generator.*;
+import static lotto.domain.generation.Generator.*;
 
 public class Main {
 
@@ -25,7 +26,7 @@ public class Main {
             String manualTickets = UserPrompt.promptManual();
 
             List<Ticket> manual = generateManualTickets(manualTickets, money);
-            List<Ticket> auto = generateAutoTickets(money, numberOfManual);
+            List<Ticket> auto = generateAutoTickets(manual.size(), numberOfManual);
 
             return new Lotto(auto, manual);
 

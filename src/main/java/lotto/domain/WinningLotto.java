@@ -1,8 +1,9 @@
 package lotto.domain;
 
+import lotto.domain.generation.Number;
+import lotto.domain.generation.Ticket;
+
 public class WinningLotto {
-    static final int FIRST = 0;
-    static final int LAST = 6;
     private final Ticket winningTicket;
     private final Number bonusNumber;
 
@@ -12,7 +13,7 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    private static void isDuplicate(Ticket winningNumbers, Number bonusNumber) throws IllegalArgumentException {
+    static void isDuplicate(Ticket winningNumbers, Number bonusNumber) throws IllegalArgumentException {
         if (winningNumbers.contains(bonusNumber)) {
             throw new IllegalArgumentException("입력된 번호는 당첨번호에 이미 있습니다.");
         }

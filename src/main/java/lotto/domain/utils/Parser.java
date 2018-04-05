@@ -1,6 +1,4 @@
-package lotto.view;
-
-import lotto.domain.Number;
+package lotto.domain.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,23 +8,23 @@ public class Parser {
 
     public static List<List<Integer>> parseToLottoFormat(String input) {
         List<List<Integer>> lottoInts = new ArrayList<>();
-        List<String> lottoStrings = splitToLottoStrings(input);
+        String[] lottoStrings = splitToLottoStrings(input);
         for (String lottoString : lottoStrings) {
             lottoInts.add(parseToIntegers(splitToNumberStrings(lottoString)));
         }
         return lottoInts;
     }
 
-    public static List<String> splitToLottoStrings(String input) { //check format
-        return Arrays.asList(input.split("\r?\n"));
+    public static String[] splitToLottoStrings(String input) {
+        return input.split("\r?\n");
     }
 
     public static List<String> splitToNumberStrings(String numbers) throws IllegalArgumentException {
-        List<String> split = Arrays.asList(numbers.split(",\\s*"));
-        if (split.size() == 6) {
-            return split;
+        String[] splitNumbers = numbers.split(",\\s*");
+        if (splitNumbers.length != 6) {
+            throw new IllegalArgumentException("6개의 숫자를 입력해 주세요.");
         }
-        throw new IllegalArgumentException("당첨 번호 수(6개)가 맞지 않습니다.");
+        return new ArrayList<>(Arrays.asList(splitNumbers));
     }
 
     public static List<Integer> parseToIntegers(List<String> numbers) {
@@ -38,12 +36,10 @@ public class Parser {
     }
 
     public static int parseToInt(String text) throws IllegalArgumentException {
-        int number;
         try {
-            number = Integer.parseInt(text);
+            return Integer.parseInt(text);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자가 아닙니다.");
+            throw new IllegalArgumentException(text);
         }
-        return number;
     }
 }

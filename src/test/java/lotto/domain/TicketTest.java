@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.domain.generation.Number;
+import lotto.domain.generation.Ticket;
 import org.junit.Before;
 import org.junit.Test;
 

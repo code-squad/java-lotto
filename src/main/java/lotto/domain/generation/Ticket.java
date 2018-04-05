@@ -1,6 +1,4 @@
-package lotto.domain;
-
-import lotto.view.Parser;
+package lotto.domain.generation;
 
 import java.util.List;
 
@@ -12,7 +10,7 @@ public class Ticket {
         this.ticket = checkValid(numbers);
     }
 
-    static List<Number> checkValid(List<Number> numbers) throws IllegalArgumentException {
+    public static List<Number> checkValid(List<Number> numbers) throws IllegalArgumentException {
         if (numbers.size() != MAX_SIZE) {
             throw new IllegalArgumentException("6개의 숫자만 허용됩니다.");
         }
@@ -26,16 +24,20 @@ public class Ticket {
         return numbers.size() != numbers.stream().distinct().count();
     }
 
-    int countMatches(Ticket ticket) {
+    public int countMatches(Ticket ticket) {
         return (int) this.ticket.stream().filter(ticket::contains).count();
     }
 
-    boolean contains(Number number) {
+    public boolean contains(Number number) {
         return ticket.contains(number);
     }
 
+    public List<Number> getTicket() {
+        return ticket;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return String.join(", ", ticket.toString());
     }
 }

@@ -1,11 +1,7 @@
 package lotto;
 
 import lotto.domain.Lotto;
-import lotto.domain.Number;
-import lotto.domain.Ticket;
-import lotto.domain.WinningLotto;
-import lotto.view.Output;
-import lotto.view.UserPrompt;
+import lotto.domain.generation.Ticket;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -13,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static lotto.view.Generator.*;
+import static lotto.domain.generation.Generator.*;
 import static spark.Spark.*;
 
 public class WebConsole {
@@ -31,20 +27,20 @@ public class WebConsole {
             String money = req.queryParams("inputMoney");
             String manualNumber = req.queryParams("manualNumber");
 
-            List<Ticket> manual = generateManualTickets(money, manualNumber);
-            List<Ticket> auto = generateAutoTickets(money, manualNumber);
+            List<Ticket> manual = generateManualTickets(manualNumber, money);
+            List<Ticket> auto = generateAutoTickets(manual.size(), money);
 
             Lotto lotto = new Lotto(auto, manual);
             model.put("lotto", lotto);
             return render(model, "/show.html");
         });
 
-        post("/", (req, res) -> {
+        post("/matchLotto", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            String winningNumbers = req.queryParams("winningNumbers");
+            String winningNumber = req.queryParams("winningNumber");
             String bonusNumber = req.queryParams("bonusNumber");
 
-            model.put("winningNumbers", winningNumbers);
+            model.put("winningNumber", winningNumber);
             model.put("bonusNumber", bonusNumber);
 
             return render(model, "/matchLotto");

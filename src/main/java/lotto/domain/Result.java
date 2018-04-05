@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static lotto.domain.Utils.LOTTO_PRICE;
+import static lotto.domain.utils.Validator.LOTTO_PRICE;
 
 public class Result {
     private final int ticketsBought;

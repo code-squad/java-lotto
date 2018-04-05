@@ -1,18 +1,20 @@
-package lotto.view;
+package lotto.domain.generation;
 
-import lotto.domain.Number;
-import lotto.domain.RandomDrawer;
-import lotto.domain.Ticket;
-import lotto.domain.Utils;
+import lotto.domain.utils.Parser;
+import lotto.domain.utils.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static lotto.domain.utils.Validator.LOTTO_PRICE;
+
 public class Generator {
 
-    public static List<Ticket> generateAutoTickets(String money, String manual) {
+    public static List<Ticket> generateAutoTickets(int manual, String money) {
         List<Ticket> autoTickets = new ArrayList<>();
-        int auto = Utils.calcNumberOfAuto(Parser.parseToInt(money), Parser.parseToInt(manual));
+        int total = Parser.parseToInt(money) / LOTTO_PRICE;
+        int auto = total - manual;
+
         for (int i = 0; i < auto; i++) {
             autoTickets.add(new Ticket(RandomDrawer.newInstance().drawNumber()));
         }
@@ -24,7 +26,7 @@ public class Generator {
 
         List<List<Integer>> manual = Parser.parseToLottoFormat(numbers);
         int money = Parser.parseToInt(inputMoney);
-        Utils.validateInput(manual, money);
+        Validator.validateInput(manual, money);
 
         for (List<Integer> integers : manual) {
             manualTickets.add(new Ticket(convertToNumbers(integers)));
@@ -42,7 +44,7 @@ public class Generator {
 
     public static Ticket generateWinningTicket(String input) {
         List<Number> winningNumbers = new ArrayList<>();
-        Utils.checkOneTicket(input);
+        Validator.checkOneTicket(input);
 
         List<Integer> numbers = Parser.parseToIntegers(Parser.splitToNumberStrings(input));
         for (Integer number : numbers) {

@@ -1,13 +1,12 @@
-package lotto.domain;
+package lotto.domain.generation;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static lotto.domain.WinningLotto.FIRST;
-import static lotto.domain.WinningLotto.LAST;
-
-public class RandomDrawer {
+class RandomDrawer {
+    private static final int FIRST = 0;
+    private static final int LAST = 6;
     private static final int MIN = 1;
     private static final int MAX = 45;
     private final List<Number> numberPool;
@@ -19,13 +18,11 @@ public class RandomDrawer {
         }
     }
 
-    public static RandomDrawer
-    newInstance() {
+    static RandomDrawer newInstance() {
         return new RandomDrawer();
     }
 
-    public List<Number>
-    drawNumber() {
+    List<Number> drawNumber() {
         Collections.shuffle(numberPool);
         return numberPool.subList(FIRST, LAST);
     }
