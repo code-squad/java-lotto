@@ -37,7 +37,7 @@ public class ResultDTO {
     public double getMoney() {
         double incomeMoney = 0;
         for (Rank rankNum : Rank.values()) {
-            incomeMoney += (rankNum.getWinningMoney() * result.get(rankNum));
+            incomeMoney += rankNum.getTotalWinnerPrize(result.get(rankNum));
         }
         return 100 * (incomeMoney - money) / money;
     }

@@ -10,8 +10,9 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.util.*;
 
-public class webLotto {
+public class WebLotto {
     static List<Lotto> lottos = new ArrayList<>();
+    static LottoDAO lottoDao = LottoDAO.getInstance();
 
     public static void main(String[] args) {
         staticFiles.location("/templates");
@@ -25,6 +26,7 @@ public class webLotto {
             BuyingLotto man = new BuyingLotto(inputMoney, manualLotto);
             lottos = man.getLottos();
             int num = lottos.size();
+            lottoDao.insertLottos(lottos);
 
             model.put("num", num);
             model.put("lottos", lottos);
@@ -39,7 +41,8 @@ public class webLotto {
 
             WeeklyLotto week = WeeklyLotto.of(winningLotto, bonusBall);
             Map<Rank, Integer> result = week.checkRank(lottos);
-            ResultDTO resultLotto = new ResultDTO(result, lottos.size()*1000);
+            lottoDao.insertRank(result);
+            ResultDTO resultLotto = new ResultDTO(result, lottos.size() * 1000);
             model.put("resultLotto", resultLotto);
 
             return render(model, "result.html");
