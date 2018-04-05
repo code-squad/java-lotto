@@ -10,8 +10,8 @@ public class LotteryCommission {
     private int round;
     private WinningLotto winningLotto;
 
-    public LotteryCommission() {
-        this.round = 0;
+    public LotteryCommission(int round) {
+        this.round = round;
     }
 
     public void selectWinningNumbers(LottoNoGroup lottoNoGroup, LottoNo bonusNum) {

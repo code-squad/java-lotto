@@ -86,7 +86,11 @@ public class User {
         return name;
     }
 
+
+
     public void setPrizeStatistics(List<Integer> prizeStatistics) {
         this.prizeStatistics = prizeStatistics;
     }
+
+
 }

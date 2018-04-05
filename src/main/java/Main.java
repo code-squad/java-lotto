@@ -26,24 +26,35 @@ public class Main {
     }
 
     private static Map<String, Object> buyLottoInput(Request req) {
+        // 사용자 정보 데이터베이스 입력
         try {
             lottoDAO = new LottoDAO();
-            lottoDAO.insertUserInfo(initUser(req), req.queryParams("round"));
+            lottoDAO.insertUserInfo(initUser(req), req.queryParams("round"), req.queryParams("inputMoney"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Map<String, Object> input = new HashMap<>();
-        input.put("user", user);
-        return input;
+        // 사용자 정보 데이터베이스에서 다시 꺼내와서 출력
+        try {
+            Map<String, Object> input = new HashMap<>();
+            User user = lottoDAO.findLottoNumbersByUserNameAndRound(req.queryParams("userName"), req.queryParams("round"));
+            input.put("user", user);
+            return input;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static Map<String, Object> matchLottoResult(Request req) {
-        LottoNo bonusNo = LottoNo.of(Integer.parseInt(req.queryParams("bonusNumber")));
-        LotteryCommission lotteryCommission = new LotteryCommission();
-        lotteryCommission.selectWinningNumbers(inputParser(req.queryParams("winningNumber")), bonusNo);
         try {
-            lottoDAO.insertWinningLotto(lotteryCommission);
-            user.checkTotalResult(lotteryCommission);
+            // data insert
+            lottoDAO.insertWinningLotto(req.queryParams("round"),
+                                        req.queryParams("winningNumber"),
+                                        req.queryParams("bonusNumber"));
+
+            // check result from database
+            user = lottoDAO.findLottoNumbersByUserNameAndRound(req.queryParams("userName"), req.queryParams("round"));
+            user.checkTotalResult(lottoDAO.findWinningNumberByRound(req.queryParams("round")));
             lottoDAO.updateUserInfo(user);
         } catch (SQLException e) {
             e.printStackTrace();
