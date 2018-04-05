@@ -1,37 +1,50 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoMachine {
     private List<LottoTicket> lottoTickets;
-    private LottoResult lottoResult;
+    private Map<Rank, Integer> result;
 
-    public LottoMachine(int ticketCount) throws Exception {
-        makeLottoTickets(ticketCount);
-        lottoResult = LottoResult.getInstance();
+    public LottoMachine(int ticketCount) {
+        // pobi's advice 구현하기
+        this(makeLottoTickets(ticketCount));
     }
 
-    public List<LottoTicket> getLottoTickets() {
-        return this.lottoTickets;
+    public LottoMachine(List<LottoTicket> lottoTickets) {
+        this.lottoTickets = lottoTickets;
+        initResult();
     }
 
-    public void getMatch(List<Integer> lastWinningNumber) throws Exception {
-        LottoTicket winningLottoTicket = LottoTicketFactory.getWinningLottoTicket(lastWinningNumber);
+    public static List<LottoTicket> makeLottoTickets(int ticketCount) {
+        List<LottoTicket> lottoTickets = new ArrayList<>();
+        while (lottoTickets.size() < ticketCount) {
+            lottoTickets.add(LottoTicket.getLottoTicket(LottoNo.getLottoNos()));
+        }
+        return lottoTickets;
+    }
+
+    public void initResult() {
+        result = new HashMap<>();
+        for (Rank rank : Rank.values()) {
+            result.put(rank, 0);
+        }
+    }
+
+    public Map<Rank, Integer> matching(List<LottoNo> lastWinningNo, LottoNo bonusNo) {
+        WinningLotto winningLotto = new WinningLotto(lastWinningNo, bonusNo);
         for (int index = 0; index < lottoTickets.size(); index++) {
             LottoTicket lottoTicket = lottoTickets.get(index);
-            lottoResult.isValidNumber(countMatchedNumber(lottoTicket, winningLottoTicket));
+            Rank rank = winningLotto.match(lottoTicket);
+            try {
+                result.put(rank, result.get(rank) + 1);
+            } catch (Exception e) {
+                continue;
+            }
         }
-    }
-
-    public int countMatchedNumber(LottoTicket ticket, LottoTicket winningLottoTicket) {
-        return ticket.getMatchedCount(winningLottoTicket);
-    }
-
-    public void makeLottoTickets(int ticketCount) throws Exception {
-        lottoTickets = new ArrayList<>();
-        while (lottoTickets.size() < ticketCount) {
-            lottoTickets.add(LottoTicketFactory.getLottoTicket());
-        }
+        return result;
     }
 }

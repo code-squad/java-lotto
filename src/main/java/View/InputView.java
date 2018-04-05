@@ -1,6 +1,9 @@
 package View;
 
+import domain.LottoNo;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,7 +12,7 @@ public class InputView {
     private static Scanner scanner;
 
     public static int getPurchaseFee() {
-        scanner = new Scanner("10000");
+        scanner = new Scanner(System.in);
         System.out.println("구매금액을 입력해주세요.");
         return scanner.nextInt();
     }
@@ -20,21 +23,26 @@ public class InputView {
         return count;
     }
 
-
-    public static List<Integer> getWinningNumber() {
+    public static List<LottoNo> getWinningNumber() {
         // "1, 2, 3, 4, 5, 6"
         scanner = new Scanner(System.in);
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
-        String[] numbers = scanner.nextLine().split(","); // trim() 유무
-//        System.out.println(Arrays.toString(numbers));
-        return parseInt(numbers);
+        String[] numbers = scanner.nextLine().replaceAll(" ", "").split(",");
+        System.out.println(Arrays.toString(numbers));
+        return parseLottoNo(numbers);
     }
 
-    private static List<Integer> parseInt(String[] userInput) {
-        List<Integer> numbers = new ArrayList<>();
+    public static LottoNo getBonusNumber() {
+        scanner = new Scanner(System.in);
+        System.out.println("\n보너스 볼을 입력해 주세요.");
+        String bonusNumber = scanner.nextLine();
+        return new LottoNo(bonusNumber);
+    }
+
+    private static List<LottoNo> parseLottoNo(String[] userInput) {
+        List<LottoNo> numbers = new ArrayList<>();
         for (String number : userInput) {
-            int convertedNumber = Integer.parseInt(number);
-            numbers.add(convertedNumber);
+            numbers.add(new LottoNo(number));
         }
         return numbers;
     }

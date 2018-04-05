@@ -3,34 +3,29 @@ package domain;
 import java.util.List;
 
 public class LottoTicket {
-    private List<Integer> numbers;
+    private static final int LOTTO_MAX_SIZE = 6;
 
-    public LottoTicket(List<Integer> numbers) throws Exception {
+    private List<LottoNo> numbers;
+
+    public LottoTicket(List<LottoNo> numbers) {
         if (!isValid(numbers)) {
-            throw new IllegalArgumentException("\n로또 번호를 다시 입력해주세요. 6자리 - 1~45");
+            throw new IllegalArgumentException("로또 번호 6개를 입력해 주세요.");
         }
         this.numbers = numbers;
     }
 
-    private boolean isValid(List<Integer> numbers) {
-        if (numbers.size() > 6 || numbers.size() <= 5) {
-            return false;
-        }
-        for (Integer number : numbers) {
-            if (number < 1 || number > 45) {
-                return false;
-            }
+    public static LottoTicket getLottoTicket(List<LottoNo> numbers) {
+        return new LottoTicket(numbers);
+    }
+
+    public boolean contains(LottoNo number) {
+        return numbers.contains(number);
+    }
+
+    public boolean isValid(List<LottoNo> numbers) {
+        if (numbers.size() != LOTTO_MAX_SIZE) {
+            throw new IllegalArgumentException("로또 번호 6개를 입력해 주세요.");
         }
         return true;
-    }
-
-    public List<Integer> getNumbers() {
-        return numbers;
-    }
-
-    public int getMatchedCount(LottoTicket winningLottoTicket) {
-        List<Integer> winningNumbers = winningLottoTicket.getNumbers();
-        this.numbers.retainAll(winningNumbers);
-        return numbers.size();
     }
 }

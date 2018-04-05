@@ -1,6 +1,5 @@
 package domain;
 
-// 추후 사용하기 위해 미리 작성
 public enum Rank {
     FIRST(6, 2000000000),
     SECOND(5, 30000000),
@@ -24,16 +23,22 @@ public enum Rank {
         return winningMoney;
     }
 
-    public static Rank isRank(int matchedCount) {
-        for (Rank rank : Rank.values()) {
-            if (rank.isMatched(matchedCount)) {
+    // 어떤 조건에 대한 정해진 값을 찾으려면 valueOf라는 이름 쓰기
+    public static Rank valueOf(int countOfMatch, boolean matchBonus) {
+        Rank[] ranks = values();
+        for (Rank rank : ranks) {
+            if (countOfMatch == SECOND.countOfMatch) {
+                return matchBonus ? SECOND : THIRD;
+            }
+
+            if (rank.countOfMatch == countOfMatch) {
                 return rank;
             }
         }
-        return null; // Exception을 발생시킬지 말지
+        return null;
     }
 
-    public boolean isMatched(int matchedCount) {
-        return this.getCountOfMatch() == matchedCount;
+    public int isTotalPrize(int count) {
+        return this.winningMoney * count;
     }
 }
