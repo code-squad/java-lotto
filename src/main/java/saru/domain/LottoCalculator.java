@@ -2,19 +2,18 @@ package saru.domain;
 
 import saru.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LottoCalculator {
-    private List<LottoLine> manualLines;
-    private List<LottoLine> autoLines;
+    private List<LottoLine> lottoLines;
 
-    private LottoCalculator(List<LottoLine> manualLines, List<LottoLine> autoLines) {
-        this.manualLines = manualLines;
-        this.autoLines = autoLines;
+    private LottoCalculator(List<LottoLine> lottoLines) {
+        this.lottoLines = lottoLines;
     }
 
-    public static LottoCalculator of(List<LottoLine> manualLines, List<LottoLine> autoLines) {
-        return new LottoCalculator(manualLines, autoLines);
+    public static LottoCalculator of(List<LottoLine> lottoLines) {
+        return new LottoCalculator(lottoLines);
     }
 
     public Result makeResult(int buyNum, String hitNumber, int bonusNumber) {
@@ -52,12 +51,7 @@ public class LottoCalculator {
     }
 
     private void loopIncreaseHit(Result result, WinningLotto winningLotto) {
-        for (LottoLine lottoLine : manualLines) {
-            result.increaseHit(winningLotto.match(lottoLine),
-                    winningLotto.matchBonus(lottoLine));
-        }
-
-        for (LottoLine lottoLine : autoLines) {
+        for (LottoLine lottoLine : lottoLines) {
             result.increaseHit(winningLotto.match(lottoLine),
                     winningLotto.matchBonus(lottoLine));
         }

@@ -8,8 +8,7 @@ public class LottoMaker {
     private static final String SPACE = " ";
     private static final String BLANK = "";
     private static final int MAX_LOTTO_NUM = 45;
-    public static final int MAX_ARR_NUM = 6;
-    public static final int ARR_NUM = MAX_ARR_NUM;
+    private static final int ARR_NUM = 6;
 
     private List<LottoNum> baseNums = new ArrayList<>();
 
@@ -23,7 +22,7 @@ public class LottoMaker {
 
     public List<LottoNum> makeAutoLottoNums() {
         Collections.shuffle(baseNums);
-        List<LottoNum> subList = baseNums.subList(0, 6);
+        List<LottoNum> subList = baseNums.subList(0, ARR_NUM);
         Collections.sort(subList,
                 Comparator.comparingInt(LottoNum::getNum));
 

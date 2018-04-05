@@ -14,11 +14,9 @@ public class LottoMain {
         List<LottoLine> manualLottoLines = getLottoLines();
 
         Output.printCreatedNum(manualLottoLines, lottoLines);
+        LottoCalculator lottoCalculator = LottoCalculator.of(LottoUtil.joinLottoLines(manualLottoLines, lottoLines));
 
-        LottoCalculator lottoCalculator = LottoCalculator.of(manualLottoLines, lottoLines);
-        Result result = getResult(buyNum, lottoCalculator);
-
-        Output output = new Output(result);
+        Output output = new Output(getResult(buyNum, lottoCalculator));
         output.printStatus();
     }
 
