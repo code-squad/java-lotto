@@ -34,10 +34,6 @@ public class LottoMachine {
         }
     }
 
-    public List<LottoTicket> getLottoTickets() {
-        return this.lottoTickets;
-    }
-
     public Map<Rank, Integer> matching(List<LottoNo> lastWinningNo, LottoNo bonusNo) {
         WinningLotto winningLotto = new WinningLotto(lastWinningNo, bonusNo);
         for (int index = 0; index < lottoTickets.size(); index++) {

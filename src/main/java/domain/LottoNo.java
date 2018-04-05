@@ -16,9 +16,11 @@ public class LottoNo {
         this.number = number;
     }
 
-    // 왜 getLottoNos가 필요한가? 자동뽑기와 수동뽑기
-    // static 이유, LottoNo를 만들지 않고도 내가 원하는 리스트를 전달해
-    // LottoNo의 리스트를 반환받을 수 있다.
+    public LottoNo(String number) {
+        this(Integer.parseInt(number));
+    }
+
+    // manual
     public static List<LottoNo> getLottoNos(List<Integer> numbers) {
         List<LottoNo> lottoNos = new ArrayList<>();
         for (Integer number : numbers) {
@@ -27,6 +29,7 @@ public class LottoNo {
         return lottoNos;
     }
 
+    // auto
     public static List<LottoNo> getLottoNos() {
         return LottoNo.getLottoNos(makeRandomNumbers());
     }
@@ -37,7 +40,6 @@ public class LottoNo {
         for (int i = 1; i < 46; i++) {
             numberPool.add(i);
         }
-
         Collections.shuffle(numberPool);
         for (Integer number : numberPool) {
             if (numbers.size() >= MAX_SIZE) {
@@ -50,15 +52,11 @@ public class LottoNo {
         return numbers;
     }
 
-    public LottoNo(String number) {
-        this(Integer.parseInt(number));
-    }
-
     public boolean hasNumber(int number) {
         return this.number == number;
     }
 
-    public static boolean isValid(int number) {
+    public boolean isValid(int number) {
         return number > 0 && number < 46;
     }
 

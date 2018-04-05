@@ -16,7 +16,7 @@ public class WinningLotto {
         this.bonus = bonus;
     }
 
-    private static boolean isValid(List<LottoNo> numbers) {
+    private boolean isValid(List<LottoNo> numbers) {
         if (numbers.size() != LOTTO_MAX_SIZE) {
             throw new IllegalArgumentException("로또 번호 6개를 입력해 주세요.");
         }
@@ -24,10 +24,7 @@ public class WinningLotto {
     }
 
     public boolean isMatchedBonus(LottoTicket lottoTicket) {
-        if (lottoTicket.contains(bonus)) {
-            return true;
-        }
-        return false;
+        return lottoTicket.contains(bonus);
     }
 
     public int getMatchedNo(LottoTicket lottoTicket) {

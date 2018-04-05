@@ -2,7 +2,6 @@ package View;
 
 import domain.Rank;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class LottoResult {
@@ -21,12 +20,11 @@ public class LottoResult {
     }
 
     public void calcRateOfProfit(int purchaseFee) {
-        int fourth = FOURTH_PRIZE * result.get(Rank.FOURTH);
-        int third = THIRD_PRIZE * result.get(Rank.THIRD);
-        int second = SECOND_PRIZE * result.get(Rank.SECOND);
-        int first = FIRST_PRIZE * result.get(Rank.FIRST);
-        // 1등일 경우 * 100을 먼저할 경우 int 범위를 벗어난다.
-        Double result = (fourth + third + second + first) * (PERCENT / purchaseFee);
+        int total = 0;
+        for (Rank rank : Rank.values()) {
+            total = total + rank.isTotalPrize(result.get(rank));
+        }
+        Double result = total * (PERCENT / purchaseFee);
         rateOfProfit = result.intValue();
     }
 
