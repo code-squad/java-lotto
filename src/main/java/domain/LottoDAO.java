@@ -23,25 +23,26 @@ public class LottoDAO {
         }
     }
 
-    public void insertUserInfo(User user) throws SQLException {
+    public void insertUserInfo(User user, String round) throws SQLException {
         // add user information into USERS table
-        String sql = "insert into USERS values(?,?)";
+        String sql = "insert into USERS values(?,?,?)";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
-        preparedStatement.setString(1, user.getName());
+        preparedStatement.setInt(1, Integer.parseInt(round));
+        preparedStatement.setString(2, user.getName());
         List<Integer> initPrize = Arrays.asList(0, 0, 0, 0, 0);
-        preparedStatement.setString(2, initPrize.toString());
+        preparedStatement.setString(3, initPrize.toString());
         preparedStatement.executeUpdate();
 
         // add lotto numbers information of user into LOTTO table
-        String sql2 = "insert into LOTTOS values(?,?)";
-        preparedStatement = getConnection().prepareStatement(sql2);
+        sql = "insert into LOTTOS values(?,?,?)";
+        preparedStatement = getConnection().prepareStatement(sql);
         for (Lotto lotto : user.getLottos()) {
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, lotto.toString());
+            preparedStatement.setString(1, round);
+            preparedStatement.setString(2, user.getName());
+            preparedStatement.setString(3, lotto.toString());
             preparedStatement.executeUpdate();
         }
         preparedStatement.close();
-
     }
 
     public void insertWinningLotto(LotteryCommission lotteryCommission) throws SQLException {
@@ -53,7 +54,6 @@ public class LottoDAO {
         preparedStatement.setString(3, lotteryCommission.getWinningLotto().getBonusNum().toString());
         preparedStatement.executeUpdate();
         preparedStatement.close();
-
     }
 
     public void updateUserInfo(User user) throws SQLException {

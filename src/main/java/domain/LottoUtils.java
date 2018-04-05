@@ -1,5 +1,7 @@
 package domain;
 
+import spark.Request;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -55,6 +57,17 @@ public class LottoUtils {
             manualInput.add(inputParser(manualNumber.trim()));
         }
         return manualInput;
+    }
+
+    public static User initUser(Request req) {
+        int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
+        String[] manualNumbers = req.queryParams("manualNumber").split("\r?\n");
+        List<LottoNoGroup> manualInput = makeLottoNoGroup(manualNumbers);
+        User user = User.nameOf(req.queryParams("userName"));
+        user.hasMoneyOf(inputMoney);
+        user.purchaseTicketsManual(manualInput);
+        user.purchaseTicketsAuto(inputMoney/ TICKET_PRICE - manualInput.size());
+        return user;
     }
 
 

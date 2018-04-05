@@ -13,14 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static domain.LottoUtils.TICKET_PRICE;
-import static domain.LottoUtils.inputParser;
-import static domain.LottoUtils.makeLottoNoGroup;
+import static domain.LottoUtils.*;
 import static spark.Spark.*;
 
 public class Main {
 
-    static User larry;
+    static User user;
     static LottoDAO lottoDAO;
 
     private static String render(Map<String, Object> model, String templatePath) {
@@ -28,22 +26,14 @@ public class Main {
     }
 
     private static Map<String, Object> buyLottoInput(Request req) {
-        int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
-        String[] manualNumbers = req.queryParams("manualNumber").split("\r?\n");
-        List<LottoNoGroup> manualInput = makeLottoNoGroup(manualNumbers);
-        larry = User.nameOf(req.queryParams("userName"));
-        larry.hasMoneyOf(inputMoney);
-        larry.purchaseTicketsManual(manualInput);
-        larry.purchaseTicketsAuto(inputMoney/ TICKET_PRICE - manualInput.size());
-        System.out.println("TEMP LOG ===============" + larry.getLottos().toString());
         try {
             lottoDAO = new LottoDAO();
-            lottoDAO.insertUserInfo(larry);
+            lottoDAO.insertUserInfo(initUser(req), req.queryParams("round"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
         Map<String, Object> input = new HashMap<>();
-        input.put("larry", larry);
+        input.put("user", user);
         return input;
     }
 
@@ -53,13 +43,13 @@ public class Main {
         lotteryCommission.selectWinningNumbers(inputParser(req.queryParams("winningNumber")), bonusNo);
         try {
             lottoDAO.insertWinningLotto(lotteryCommission);
-            larry.checkTotalResult(lotteryCommission);
-            lottoDAO.updateUserInfo(larry);
+            user.checkTotalResult(lotteryCommission);
+            lottoDAO.updateUserInfo(user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         Map<String, Object> result = new HashMap<>();
-        result.put("larry", larry);
+        result.put("user", user);
         return result;
     }
 
