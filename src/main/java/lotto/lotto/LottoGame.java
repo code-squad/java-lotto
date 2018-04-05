@@ -19,18 +19,25 @@ public class LottoGame {
         List<String> manualLotto = Input.inputManualLotto(manualNumber, money);
 
         BuyingLotto man = new BuyingLotto(money, manualLotto);
-        LottoDAO lottoDao = new LottoDAO();
+        LottoDAO lottoDao = LottoDAO.getInstance();
         List<Lotto> lottos = man.getLottos();
-        lottoDao.insertLottos(lottos);
-
+        try {
+            lottoDao.insertLottos(lottos);
+        } catch (Exception e){
+            e.getMessage();
+        }
         View.lottoAutomaticView(lottos, manualNumber);
         String winningLotto = Input.inputWinningNumber();
         int bonusBall = Input.inputBonus();
 
         WeeklyLotto week = WeeklyLotto.of(winningLotto, bonusBall);
         Map<Rank, Integer> result = week.checkRank(lottos);
-        lottoDao.insertRank(result);
         ResultDTO resultLotto = new ResultDTO(result, money);
+        try {
+            lottoDao.insertRank(result);
+        } catch (Exception e){
+            e.getMessage();
+        }
 
         View.resultLottoView(result);
         View.incomeMoney(resultLotto);

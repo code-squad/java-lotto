@@ -37,7 +37,7 @@ public class View {
             if (rankNum == Rank.SECOND) {
                 System.out.print(", 보너스 볼  일치");
             }
-            System.out.print("(" + rankNum.getWinningMoney() + "원)");
+            System.out.print("(" + rankNum.getTotalWinnerPrize(1) + "원)");
             System.out.println("-" + result.get(rankNum) + "개");
         }
     }

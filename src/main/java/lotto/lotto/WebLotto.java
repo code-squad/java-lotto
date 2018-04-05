@@ -10,9 +10,9 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.util.*;
 
-public class webLotto {
+public class WebLotto {
     static List<Lotto> lottos = new ArrayList<>();
-    static LottoDAO lottoDao = new LottoDAO();
+    static LottoDAO lottoDao = LottoDAO.getInstance();
 
     public static void main(String[] args) {
         staticFiles.location("/templates");

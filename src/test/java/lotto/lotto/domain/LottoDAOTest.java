@@ -1,5 +1,6 @@
 package lotto.lotto.domain;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Connection;
@@ -13,10 +14,16 @@ import static org.junit.Assert.*;
 
 public class LottoDAOTest {
 
+    private LottoDAO instance;
+
+    @Before
+    public void setup() {
+        instance = LottoDAO.getInstance();
+    }
+
     @Test
     public void getConnectionTest() throws SQLException, ClassNotFoundException {
-        LottoDAO test = new LottoDAO();
-        Connection con = test.getConnection();
+        Connection con = instance.getConnection();
         assertNotNull(con);
     }
 
@@ -28,21 +35,18 @@ public class LottoDAOTest {
         testList.add(test1);
         testList.add(test2);
 
-        LottoDAO test4 = new LottoDAO();
-        test4.deleteLottos();
-        test4.insertLottos(testList);
+        instance.deleteLottos();
+        instance.insertLottos(testList);
 
     }
 
     @Test
     public void insertRankTest() throws SQLException, ClassNotFoundException {
-        LottoDAO test4 = new LottoDAO();
-
         Map<Rank, Integer> numberOfRank = new HashMap<>();
         for (Rank r : Rank.values()) {
             numberOfRank.put(r, 0);
         }
         numberOfRank.put(Rank.FIRST, 3);
-        test4.insertRank(numberOfRank);
+        instance.insertRank(numberOfRank);
     }
 }

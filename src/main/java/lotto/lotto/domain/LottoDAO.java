@@ -8,11 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoDAO {
-    
-    private Connection conn;
 
-    public LottoDAO() {
-        this.conn = getConnection();
+    private LottoDAO() {
     }
 
     public Connection getConnection() {
@@ -28,10 +25,12 @@ public class LottoDAO {
         }
     }
 
-    public void insertLottos(List<Lotto> lottos) {
+    public void insertLottos(List<Lotto> lottos) throws SQLException {
+        Connection conn = getConnection();
+        String sql = "insert into LOTTOS values(0,?,?,?,?,?,?)";
+        PreparedStatement pstmt = getConnection().prepareStatement(sql);
+
         try {
-            String sql = "insert into LOTTOS values(0,?,?,?,?,?,?)";
-            PreparedStatement pstmt = getConnection().prepareStatement(sql);
             for (Lotto lotto : lottos) {
                 pstmt.setInt(1, lotto.getLotto().get(0));
                 pstmt.setInt(2, lotto.getLotto().get(1));
@@ -43,13 +42,18 @@ public class LottoDAO {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            conn.close();
+            pstmt.close();
         }
     }
 
-    public void insertRank(Map<Rank, Integer> numberOfRank) {
+    public void insertRank(Map<Rank, Integer> numberOfRank) throws SQLException {
+        Connection conn = getConnection();
+        String sql = "insert into RANK values(0,?,?,?,?,?)";
+        PreparedStatement pstmt = getConnection().prepareStatement(sql);
+
         try {
-            String sql = "insert into RANK values(0,?,?,?,?,?)";
-            PreparedStatement pstmt = getConnection().prepareStatement(sql);
             pstmt.setInt(1, numberOfRank.get(Rank.FIRST));
             pstmt.setInt(2, numberOfRank.get(Rank.SECOND));
             pstmt.setInt(3, numberOfRank.get(Rank.THIRD));
@@ -58,6 +62,9 @@ public class LottoDAO {
             pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            conn.close();
+            pstmt.close();
         }
     }
 
@@ -65,5 +72,13 @@ public class LottoDAO {
         String sql = "delete from lottos";
         PreparedStatement pstmt = getConnection().prepareStatement(sql);
         pstmt.executeUpdate();
+    }
+
+    public static class Singleton {
+        private static final LottoDAO instance = new LottoDAO();
+    }
+
+    public static LottoDAO getInstance() {
+        return Singleton.instance;
     }
 }
