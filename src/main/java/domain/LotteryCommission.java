@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static domain.LottoUtils.calcTotalEarnings;
@@ -37,5 +38,20 @@ public class LotteryCommission {
 
     public int getRound() {
         return round;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LotteryCommission that = (LotteryCommission) o;
+        return round == that.round &&
+                Objects.equals(winningLotto, that.winningLotto);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(round, winningLotto);
     }
 }

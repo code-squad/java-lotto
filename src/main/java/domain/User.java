@@ -4,6 +4,7 @@ import domain.exceptions.InvalidTicketNumException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static domain.LottoUtils.TICKET_PRICE;
 
@@ -86,11 +87,24 @@ public class User {
         return name;
     }
 
-
-
     public void setPrizeStatistics(List<Integer> prizeStatistics) {
         this.prizeStatistics = prizeStatistics;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name) &&
+                Objects.equals(presentMoney, user.presentMoney) &&
+                Objects.equals(lottos, user.lottos) &&
+                Objects.equals(prizeStatistics, user.prizeStatistics);
+    }
 
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, presentMoney, lottos, prizeStatistics);
+    }
 }

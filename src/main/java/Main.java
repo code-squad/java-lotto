@@ -30,13 +30,14 @@ public class Main {
         try {
             lottoDAO = new LottoDAO();
             lottoDAO.insertUserInfo(initUser(req), req.queryParams("round"), req.queryParams("inputMoney"));
+            lottoDAO.insertLottosInfo(initUser(req), req.queryParams("round"), req.queryParams("inputMoney"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
         // 사용자 정보 데이터베이스에서 다시 꺼내와서 출력
         try {
             Map<String, Object> input = new HashMap<>();
-            User user = lottoDAO.findLottoNumbersByUserNameAndRound(req.queryParams("userName"), req.queryParams("round"));
+            User user = lottoDAO.findLottoNumbersByUserNameAndRoundFromLottos(req.queryParams("userName"), req.queryParams("round"));
             input.put("user", user);
             return input;
         } catch (SQLException e) {
@@ -47,15 +48,15 @@ public class Main {
 
     private static Map<String, Object> matchLottoResult(Request req) {
         try {
-            // data insert
+            // 해당 라운드의 위닝넘버 정보를 저장
             lottoDAO.insertWinningLotto(req.queryParams("round"),
                                         req.queryParams("winningNumber"),
                                         req.queryParams("bonusNumber"));
 
-            // check result from database
-            user = lottoDAO.findLottoNumbersByUserNameAndRound(req.queryParams("userName"), req.queryParams("round"));
+            // 사용자 이름과 라운드 정보를 바탕으로 포상 계산
+            user = lottoDAO.findLottoNumbersByUserNameAndRoundFromLottos(req.queryParams("userName"), req.queryParams("round"));
             user.checkTotalResult(lottoDAO.findWinningNumberByRound(req.queryParams("round")));
-            lottoDAO.updateUserInfo(user);
+            lottoDAO.updateUserInfo(user, req.queryParams("round"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
