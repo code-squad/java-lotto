@@ -1,7 +1,16 @@
 package lotto.domain;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import lotto.db.LottoDTO;
+import lotto.db.LottoGameDAO;
+import lotto.db.LottoGameDTO;
+import lotto.db.ResultDAO;
+import lotto.db.ResultDTO;
 
 public class Result {
 	private Map<Rank, Integer> rankResult;
@@ -24,9 +33,19 @@ public class Result {
 		return rankResult.get(rank);
 	}
 
-	public ResultDTO getResult(String price, String bonusNum, LottoProcess lottoProcess, String beforeWinLotto) {
+	public static ResultDTO selectResult() throws SQLException {
+		ResultDAO resultDao = new ResultDAO();
+		return resultDao.select();
+	}
 
-		calcResult(lottoProcess, beforeWinLotto, bonusNum);
+	public static ResultDTO selectResult(String inputTurnNo) throws SQLException {
+		ResultDAO resultDao = new ResultDAO();
+		return resultDao.select(inputTurnNo);
+	}
+
+	public void insertResult(String price, String turnNo) throws SQLException {
+
+		calcResult(LottoProcess.selectLottos(turnNo), turnNo);
 		ResultDTO resultDTO = new ResultDTO();
 		resultDTO.setFirst(rankNum(Rank.FIRST));
 		resultDTO.setSecond(rankNum(Rank.SECOND));
@@ -34,19 +53,37 @@ public class Result {
 		resultDTO.setFourth(rankNum(Rank.FOURTH));
 		resultDTO.setFifth(rankNum(Rank.FIFTH));
 		resultDTO.setRevenue(calcRevenue(price));
-		return resultDTO;
+		ResultDAO resultDao = new ResultDAO();
+		resultDao.insert(resultDTO, turnNo);
 	}
 
-	public void calcResult(LottoProcess lottoProcess, String beforeWinLotto, String bonusNum) {
+	public void calcResult(List<LottoDTO> lottodto, String turnNo) throws SQLException {
+
+		LottoGameDAO lottoGameDAO = new LottoGameDAO();
+		LottoGameDTO lottoGameDTO = lottoGameDAO.selectWinNo(turnNo);
+		List<Integer> beforeWinLotto = calcResult(lottoGameDTO);
+
 		int countOfMatch = 0;
+		LottoProcess lottoProcess = LottoProcess.of(lottodto);
 		for (int i = 0; i < lottoProcess.size(); i++) {
 			countOfMatch = lottoProcess.countOfMatch(i, beforeWinLotto);
-			calcResult(countOfMatch, checkMatchBonus(lottoProcess, i, bonusNum));
+			calcResult(countOfMatch, checkMatchBonus(lottoProcess, i, lottoGameDTO.getBonus()));
 		}
 	}
 
-	public boolean checkMatchBonus(LottoProcess lottoProcess, int i, String bonusNum) {
-		if (lottoProcess.getLotto(i).haveNumber(Integer.parseInt(bonusNum))) {
+	public List<Integer> calcResult(LottoGameDTO lottoGameDTO) {
+		List<Integer> beforeWinLotto = new ArrayList<>();
+		beforeWinLotto.add(lottoGameDTO.getFirst());
+		beforeWinLotto.add(lottoGameDTO.getSecond());
+		beforeWinLotto.add(lottoGameDTO.getThird());
+		beforeWinLotto.add(lottoGameDTO.getFourth());
+		beforeWinLotto.add(lottoGameDTO.getFifth());
+		beforeWinLotto.add(lottoGameDTO.getSixth());
+		return beforeWinLotto;
+	}
+
+	public boolean checkMatchBonus(LottoProcess lottoProcess, int i, int bonusNum) {
+		if (lottoProcess.getLotto(i).haveNumber(bonusNum)) {
 			return true;
 		}
 		return false;

@@ -19,9 +19,8 @@ public class Input {
 		return userLottos;
 	}
 
-	public static UserLotto beforeWinNum(String beforeWinNumber) {
-		List<String> beforeWinNum = Arrays.asList(beforeWinNumber.split(","));
-		UserLotto beforeWinLotto = UserLotto.of(beforeWinNum);
+	public static UserLotto beforeWinNum(List<Integer> beforeWinNumber) {
+		UserLotto beforeWinLotto = UserLotto.ofInteger(beforeWinNumber);
 		return beforeWinLotto;
 	}
 

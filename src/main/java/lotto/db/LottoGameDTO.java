@@ -1,19 +1,37 @@
-package lotto.domain;
+package lotto.db;
 
-public class ResultDTO {
-	int first;
-	int second;
-	int third;
-	int fourth;
-	int fifth;
-	int revenue;
+public class LottoGameDTO {
+	private int turnNo;
+	private int first;
+	private int second;
+	private int third;
+	private int fourth;
+	private int fifth;
+	private int sixth;
+	private int bonus;
 
-	public int getRevenue() {
-		return revenue;
+	public int getSixth() {
+		return sixth;
 	}
 
-	public void setRevenue(int revenue) {
-		this.revenue = revenue;
+	public void setSixth(int sixth) {
+		this.sixth = sixth;
+	}
+
+	public int getBonus() {
+		return bonus;
+	}
+
+	public void setBonus(int bonus) {
+		this.bonus = bonus;
+	}
+
+	public int getTurnNo() {
+		return turnNo;
+	}
+
+	public void setTurnNo(int turnNo) {
+		this.turnNo = turnNo;
 	}
 
 	public int getFirst() {

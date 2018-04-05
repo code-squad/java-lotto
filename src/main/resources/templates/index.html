@@ -57,7 +57,8 @@ body {
 	  <div class="col-md-4"></div>
 	  <div class="col-md-4">
 		<form class="form-lotto" method="post" action="/buyLotto">
-			<h2 class="text-center">로또 게임</h2>
+		<input type="hidden" name="turnNo" value="{{turnNo}}" />
+			<h2 class="text-center">로또 게임 {{turnNo}} 회차</h2>
 			<div class="input-group">
 				<div class="input-group-addon">￦</div>
 				<input type="number" id="inputMoney" class="form-control"
@@ -74,7 +75,18 @@ body {
 				<button class="btn btn-lg btn-primary btn-block" type="submit">로또
 					구매</button>
 			</div>
-		</form>	  
+		</form>	
+		<form class="form-lotto" method="post" action="/selectBeforeResult">
+			<h2 class="text-center">이전 회차 결과 보기</h2>
+				<div class="input-group" style="width: 300px">
+						<input type="number" id="inputTurnNo" class="form-control"
+							name="inputTurnNo" placeholder="회차" required autofocus>
+				</div>
+				<div class="submit-button">
+				<button class="btn btn-lg btn-primary btn-block" type="submit">조회하기</button>
+				</div>
+		</form>
+		<a style="margin-left: 30%;" href="/deleteAll">프로그램 초기화하기</a>
 	  </div>
 	  <div class="col-md-4"></div>
 	</div>
