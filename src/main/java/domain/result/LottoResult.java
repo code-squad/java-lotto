@@ -7,10 +7,6 @@ public class LottoResult {
         this.rank = rank;
     }
 
-    public int getPrizeMoney() {
-        return rank.getPrize();
-    }
-
     public boolean isSameRank(Rank rank) {
         return this.rank == rank;
     }

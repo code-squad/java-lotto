@@ -12,7 +12,7 @@ public class LottoBundleTest {
 
     @Before
     public void setUp() throws Exception {
-        lottoBundle = LottoBundle.of();
+        lottoBundle = new LottoBundle();
     }
 
     @Test

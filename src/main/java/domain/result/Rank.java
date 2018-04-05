@@ -9,10 +9,10 @@ public enum Rank {
     FOURTH(4, 50000),
     FIFTH(3, 5000);
 
-    private int matchPoint;
-    private int prize;
+    private final int matchPoint;
+    private final int prize;
 
-    Rank(int matchPoint, int prize) {
+    Rank(final int matchPoint, final int prize) {
         this.matchPoint = matchPoint;
         this.prize = prize;
     }
@@ -45,6 +45,10 @@ public enum Rank {
 
     private static boolean isBonusSituation(int matchPoint) {
         return matchPoint == 5;
+    }
+
+    public long getTotalPrize(int matchCount) {
+        return this.prize * matchCount;
     }
 
     @Override

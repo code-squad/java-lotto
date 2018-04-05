@@ -8,16 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoBundle {
-    private static LottoBundle lottoBundle = new LottoBundle();
     private List<Lotto> lottos = new ArrayList<>();
-
-    private LottoBundle() {
-
-    }
-
-    public static LottoBundle of() {
-        return lottoBundle;
-    }
 
     public void addLotto(List<Lotto> lottoBundle) {
         if (lottoBundle == null) {
@@ -68,7 +59,12 @@ public class LottoBundle {
         return builder.toString();
     }
 
-    public int getPurchaseAmount() {
-        return lottos.size();
+
+    public List<String> getSavableLottoNumbers() {
+        ArrayList<String> lottoNumbers = new ArrayList<>();
+        for (Lotto lotto : lottos) {
+            lottoNumbers.add(lotto.getSavableLottoNumber());
+        }
+        return lottoNumbers;
     }
 }

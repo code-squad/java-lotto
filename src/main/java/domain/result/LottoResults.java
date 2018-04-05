@@ -16,11 +16,13 @@ public class LottoResults {
     }
 
     public long calcTotalPrizeMoney() {
-        long money = 0;
-        for (LottoResult result : lottoResults) {
-            money += result.getPrizeMoney();
+        long totalPrize = 0;
+        Rank[] ranks = Rank.values();
+        for (Rank rank : ranks) {
+            int matchCount = calcRankNum(rank);
+            totalPrize += rank.getTotalPrize(matchCount);
         }
-        return money;
+        return totalPrize;
     }
 
     public int calcRankNum(Rank rank) {
