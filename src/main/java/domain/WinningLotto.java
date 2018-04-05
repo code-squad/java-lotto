@@ -28,4 +28,7 @@ public class WinningLotto extends Lotto {
         return lottoNoGroup.contains(bonusNum);
     }
 
+    public LottoNo getBonusNum() {
+        return bonusNum;
+    }
 }

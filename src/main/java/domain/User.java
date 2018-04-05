@@ -45,17 +45,17 @@ public class User {
         return numTickets >= 0;
     }
 
-    public void checkTotalResult() {
-        checkPrizeStatistics();
-        askForEarnings();
+    public void checkTotalResult(LotteryCommission lotteryCommission) {
+        checkPrizeStatistics(lotteryCommission);
+        askForEarnings(lotteryCommission);
     }
 
-    private void checkPrizeStatistics() {
-        prizeStatistics = LotteryCommission.informResults(lottos);
+    private void checkPrizeStatistics(LotteryCommission lotteryCommission) {
+        prizeStatistics = lotteryCommission.informResults(lottos);
     }
 
-    private void askForEarnings() {
-        presentMoney.depositEarnings(LotteryCommission.giveEarnings(prizeStatistics));
+    private void askForEarnings(LotteryCommission lotteryCommission) {
+        presentMoney.depositEarnings(lotteryCommission.giveEarnings(prizeStatistics));
     }
 
     public int calcProfit() {
@@ -86,4 +86,7 @@ public class User {
         return name;
     }
 
+    public void setPrizeStatistics(List<Integer> prizeStatistics) {
+        this.prizeStatistics = prizeStatistics;
+    }
 }

@@ -43,7 +43,8 @@ public class Main {
         try {
             LottoNoGroup winningNumbers = InputView.enterWinningLotto();
             LottoNo lottoNo = InputView.enterBonusBall();
-            LotteryCommission.selectWinningNumbers(winningNumbers, lottoNo);
+            LotteryCommission lotteryCommission = new LotteryCommission();
+            lotteryCommission.selectWinningNumbers(winningNumbers, lottoNo);
             larry.checkTotalResult();
             ResultView.printResult(larry);
         } catch (LottoProcessException e) {
@@ -71,8 +72,9 @@ public class Main {
 
     private static Map<String, Object> matchLottoResult(Request req) {
         LottoNo bonusNo = LottoNo.of(Integer.parseInt(req.queryParams("bonusNumber")));
-        LotteryCommission.selectWinningNumbers(inputParser(req.queryParams("winningNumber")), bonusNo);
-        larry.checkTotalResult();
+        LotteryCommission lotteryCommission = new LotteryCommission();
+        lotteryCommission.selectWinningNumbers(inputParser(req.queryParams("winningNumber")), bonusNo);
+        larry.checkTotalResult(lotteryCommission);
         Map<String, Object> result = new HashMap<>();
         result.put("larry", larry);
         return result;
