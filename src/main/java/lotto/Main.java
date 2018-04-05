@@ -22,16 +22,16 @@ public class Main {
     }
 
     private static Lotto initLotto() {
-        try{
+        try {
             int total = UserPrompt.getTotalNumberOfTickets();
             int numberOfManual = UserPrompt.getNumberOfManual(total);
-            List<List<Integer>> manualNumbers = UserPrompt.getManual();
+            List<List<Integer>> manualNumbers = UserPrompt.getManual(numberOfManual);
 
             Generator manual = new ManualGenerator(manualNumbers);
             Generator auto = new AutoGenerator(total - numberOfManual);
             return new Lotto(manual.generateTickets(), auto.generateTickets());
 
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             Output.printMessage(e.getMessage());
             return initLotto();
         }
@@ -46,7 +46,7 @@ public class Main {
             Number bonusNumber = generateBonusNumber(number);
             return new WinningLotto(winningTicket, bonusNumber);
 
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             Output.printMessage(e.getMessage());
             return initWinningLotto();
         }

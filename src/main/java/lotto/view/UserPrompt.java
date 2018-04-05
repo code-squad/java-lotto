@@ -1,15 +1,17 @@
 package lotto.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserPrompt {
     public static final int LOTTO_PRICE = 1000;
+    private static final int MIN = 0;
+    private static final int MIN_SIZE = 1;
 
     public static int getTotalNumberOfTickets() {
         try {
             return promptNumberOfTickets();
         } catch (IllegalArgumentException e) {
+            Output.printMessage(e.getMessage());
             return getTotalNumberOfTickets();
         }
     }
@@ -27,6 +29,7 @@ public class UserPrompt {
         try {
             return promptNumberOfManual(total);
         } catch (IllegalArgumentException e) {
+            Output.printMessage(e.getMessage());
             return getNumberOfManual(total);
         }
     }
@@ -37,52 +40,55 @@ public class UserPrompt {
         if (manual > total) {
             throw new IllegalArgumentException("총 로또 수보다 많습니다.");
         }
-        if (manual <= 0) {
-            return 0;
+        if (manual <= MIN) {
+            return MIN;
         }
         return manual;
     }
 
-    public static List<List<Integer>> getManual() {
+    public static List<List<Integer>> getManual(int manual) {
         try {
-            String input = promptManual();
+            String input = promptManual(manual);
             return Parser.parseToLottoFormat(input);
         } catch (IllegalArgumentException e) {
-            return getManual();
+            Output.printMessage(e.getMessage());
+            return getManual(manual);
         }
     }
 
-    private static String promptManual() {
-        Output.printMessage("수동으로 구매할 번호를 각각 새 줄에 입력해 주세요.");
-        return Input.takeInput();
+    private static String promptManual(int manual) { //예외 던지기
+        String[] numbers = new String[manual];
+        Output.printMessage("수동으로 구매할 번호를 입력해 주세요.");
+        for (int i = 0; i < manual; i++) {
+            numbers[i] = Input.takeInput();
+        }
+        System.out.println(String.join("\n", numbers));
+        return String.join("\n", numbers);
     }
 
     public static List<Integer> getWinningNumbers() {
         try {
             return promptWinningNumbers();
         } catch (IllegalArgumentException e) {
+            Output.printMessage(e.getMessage());
             return getWinningNumbers();
         }
     }
 
     private static List<Integer> promptWinningNumbers() throws IllegalArgumentException {
-        List<Integer> numbers = new ArrayList<>();
-
         Output.printMessage("지난 주 당첨 번호를 입력해 주세요.");
-        List<String> input = Parser.splitToLottoStrings(Input.takeInput());
-        if (input.size() != 1) {
+        List<List<Integer>> numbers = Parser.parseToLottoFormat(Input.takeInput());
+        if (numbers.size() != MIN_SIZE) {
             throw new IllegalArgumentException("당첨 로또 하나만 입력해 주세요.");
         }
-        for (String num : input) {
-            numbers = Parser.parseToIntegers(Parser.splitToNumberStrings(num));
-        }
-        return numbers;
+        return numbers.get(MIN);
     }
 
     public static int getBonusNumber() { //중복 체크
         try {
             return promptBonusNumber();
         } catch (IllegalArgumentException e) {
+            Output.printMessage(e.getMessage());
             return getBonusNumber();
         }
     }

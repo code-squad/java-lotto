@@ -16,10 +16,14 @@ public class Ticket {
         if (numbers.size() != MAX_SIZE) {
             throw new IllegalArgumentException("6개의 숫자만 허용됩니다.");
         }
-        if (numbers.size() != numbers.stream().distinct().count()) { //메소드 분리
+        if (isDuplicate(numbers)) { //메소드 분리
             throw new IllegalArgumentException("중복되는 숫자가 있습니다.");
         }
         return numbers;
+    }
+
+    private static boolean isDuplicate(List<Number> numbers) {
+        return numbers.size() != numbers.stream().distinct().count();
     }
 
     int countMatches(Ticket ticket) {
