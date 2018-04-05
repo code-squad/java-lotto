@@ -7,22 +7,22 @@ public class UserPrompt {
     private static final int MIN = 0;
     private static final int MIN_SIZE = 1;
 
-    public static int getTotalNumberOfTickets() {
+    public static int getMoney() {
         try {
-            return promptNumberOfTickets();
+            return promptPurchase();
         } catch (IllegalArgumentException e) {
             Output.printMessage(e.getMessage());
-            return getTotalNumberOfTickets();
+            return getMoney();
         }
     }
 
-    private static int promptNumberOfTickets() throws IllegalArgumentException {
+    private static int promptPurchase() throws IllegalArgumentException {
         Output.printMessage("구입 금액을 입력해 주세요.");
         int money = Parser.parseToInt(Input.takeInput());
         if (money < LOTTO_PRICE) {
             throw new IllegalArgumentException("1000원 이상으로 입력해주세요.");
         }
-        return money / LOTTO_PRICE;
+        return money;
     }
 
     public static int getNumberOfManual(int total) {

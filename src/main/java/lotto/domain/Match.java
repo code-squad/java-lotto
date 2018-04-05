@@ -1,11 +1,11 @@
 package lotto.domain;
 
 public enum Match {
-    FIRST(6, 2000000000),
-    SECOND(5, 30000000),
-    THIRD(5, 1500000),
+    FIFTH(3, 5000),
     FOURTH(4, 50000),
-    FIFTH(3, 5000);
+    THIRD(5, 1500000),
+    SECOND(5, 30000000),
+    FIRST(6, 2000000000);
 
     private final int matchCount;
     private int prize;
@@ -34,5 +34,13 @@ public enum Match {
             }
         }
         return null;
+    }
+
+    public int calculatePrize(int count) {
+        return count * prize;
+    }
+
+    public boolean isSecond() {
+        return SECOND == this;
     }
 }

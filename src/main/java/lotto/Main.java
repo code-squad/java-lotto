@@ -22,8 +22,8 @@ public class Main {
 
     private static Lotto initLotto() {
         try {
-            int total = UserPrompt.getTotalNumberOfTickets();
-            int numberOfManual = UserPrompt.getNumberOfManual(total);
+            int money = UserPrompt.getMoney();
+            int numberOfManual = UserPrompt.getNumberOfManual();
             List<List<Integer>> manual = UserPrompt.getManual(numberOfManual);
 
             return new Lotto(generateAutoTickets(total - numberOfManual), generateManualTickets(manual));

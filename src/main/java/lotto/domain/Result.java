@@ -7,28 +7,26 @@ import java.util.Map;
 import static lotto.view.UserPrompt.LOTTO_PRICE;
 
 public class Result {
-    private final Lotto lotto;
-    private final WinningLotto winningLotto;
-    private Map<Match, Integer> result; //이거 인스턴스 변수로 가지게 하지 말자.
+    private final int ticketsBought;
+    private Map<Match, Integer> result;
 
     public Result(Lotto lotto, WinningLotto winningLotto) {
-        this.lotto = lotto;
-        this.winningLotto = winningLotto;
-        this.result = mapResult();
+        this.ticketsBought = lotto.getSize();
+        this.result = mapResult(lotto, winningLotto);
     }
 
-    private List<Match> getMatches() {
-        return lotto.createMatch(winningLotto);
-    }
-
-    private Map<Match, Integer> mapResult() {
+    private Map<Match, Integer> mapResult(Lotto lotto, WinningLotto winningLotto) {
         Map<Match, Integer> result = new HashMap<>();
-        List<Match> matches = getMatches();
+        List<Match> matches = getMatches(lotto, winningLotto);
 
         for (Match nthPlace : Match.values()) {
             result.put(nthPlace, countMatches(matches, nthPlace));
         }
         return result;
+    }
+
+    private List<Match> getMatches(Lotto lotto, WinningLotto winningLotto) {
+        return lotto.createMatch(winningLotto);
     }
 
     static int countMatches(List<Match> matches, Match nthPlace) {
@@ -39,11 +37,11 @@ public class Result {
         return result.get(match);
     }
 
-    public double calculateProfit() { //---------------------enum 활용!!!!!
+    public double calculateProfit() { 
         double earnings = 0;
         for (Map.Entry<Match, Integer> entry : result.entrySet()) {
-            earnings += entry.getKey().getPrize() * entry.getValue();
+            earnings += entry.getKey().calculatePrize(entry.getValue());
         }
-        return (earnings / (lotto.getSize() * LOTTO_PRICE)) * 100;
+        return (earnings / (ticketsBought * LOTTO_PRICE)) * 100;
     }
 }

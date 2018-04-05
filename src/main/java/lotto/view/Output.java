@@ -19,11 +19,12 @@ public class Output {
 
         System.out.println("당첨통계");
         System.out.println("----------");
-        System.out.println(Match.FIFTH.getMatchCount() + "개 일치 (" + Match.FIFTH.getPrize() + ") - " + result.getCount(Match.FIFTH) + "개");
-        System.out.println(Match.FOURTH.getMatchCount() + "개 일치 (" + Match.FOURTH.getPrize() + ") - " + result.getCount(Match.FOURTH) + "개");
-        System.out.println(Match.THIRD.getMatchCount() + "개 일치 (" + Match.THIRD.getPrize() + ") - " + result.getCount(Match.THIRD) + "개");
-        System.out.println(Match.SECOND.getMatchCount() + "개 일치 + 보너스 볼 일치 (" + Match.SECOND.getPrize() + ") - " + result.getCount(Match.SECOND) + "개");
-        System.out.println(Match.FIRST.getMatchCount() + "개 일치 (" + Match.FIRST.getPrize() + ") - " + result.getCount(Match.FIRST) + "개");
+        for (Match match : Match.values()) {
+            if (match.isSecond()) {
+                System.out.println(match.getMatchCount() + "개 일치 + 보너스 볼 일치 (" + match.getPrize() + ") - " + result.getCount(match) + "개");
+            }
+            System.out.println(match.getMatchCount() + "개 일치 (" + match.getPrize() + ") - " + result.getCount(match) + "개");
+        }
         System.out.printf("총 수익률은 %.1f%% 입니다.", result.calculateProfit());
     }
 }
