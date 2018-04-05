@@ -29,9 +29,13 @@ public class WebConsole {
         post("/buyLotto", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String money = req.queryParams("inputMoney");
-            String numbers = req.queryParams("manualNumber");
+            String manualNumber = req.queryParams("manualNumber");
 
-            Lotto lotto = new Lotto(generateAutoTickets(), generateManualTickets());
+            List<Ticket> manual = generateManualTickets(money, manualNumber);
+            List<Ticket> auto = generateAutoTickets(money, manual.size());
+
+            Lotto lotto = new Lotto(auto, manual);
+            model.put("lotto", lotto);
             return render(model, "/show.html");
         });
 

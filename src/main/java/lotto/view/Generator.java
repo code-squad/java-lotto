@@ -19,9 +19,10 @@ public class Generator {
         return autoTickets;
     }
 
-    public static List<Ticket> generateManualTickets(String numbers, int money) throws IllegalArgumentException {
+    public static List<Ticket> generateManualTickets(String numbers, String inputMoney) throws IllegalArgumentException {
         List<Ticket> manualTickets = new ArrayList<>();
         List<List<Integer>> manual = Parser.parseToLottoFormat(numbers);
+        int money = Parser.parseToInt(inputMoney);
 
         if (Utils.isNotEnoughMoney(money)) {
             throw new IllegalArgumentException("최소 1000원 입니다.");
