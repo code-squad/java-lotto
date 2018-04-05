@@ -34,7 +34,8 @@ public class Ticket {
         return ticket.contains(number);
     }
 
-    public String getTicketString() {
-        return Parser.parseToPrintable(ticket);
+    @Override
+    public String toString(){
+        return String.join(", ", ticket.toString());
     }
 }

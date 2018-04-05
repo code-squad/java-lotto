@@ -1,9 +1,7 @@
 package lotto;
 
-import lotto.domain.Lotto;
+import lotto.domain.*;
 import lotto.domain.Number;
-import lotto.domain.Ticket;
-import lotto.domain.WinningLotto;
 import lotto.view.*;
 
 import java.util.List;
@@ -22,11 +20,14 @@ public class Main {
 
     private static Lotto initLotto() {
         try {
-            int money = UserPrompt.getMoney();
-            int numberOfManual = UserPrompt.getNumberOfManual();
-            List<List<Integer>> manual = UserPrompt.getManual(numberOfManual);
+            String money = UserPrompt.promptPurchase();
+            String numberOfManual = UserPrompt.promptNumberOfManual();
+            String manualTickets = UserPrompt.promptManual();
 
-            return new Lotto(generateAutoTickets(total - numberOfManual), generateManualTickets(manual));
+            List<Ticket> manual = generateManualTickets(manualTickets, money);
+            List<Ticket> auto = generateAutoTickets(money, numberOfManual);
+
+            return new Lotto(auto, manual);
 
         } catch (IllegalArgumentException e) {
             Output.printMessage(e.getMessage());
@@ -36,11 +37,11 @@ public class Main {
 
     private static WinningLotto initWinningLotto() {
         try {
-            List<Integer> numbers = UserPrompt.getWinningNumbers();
-            Integer number = UserPrompt.getBonusNumber();
+            String winningNumbers = UserPrompt.promptWinningNumbers();
+            String bonus = UserPrompt.promptBonusNumber();
 
-            Ticket winningTicket = generateWinningTicket(numbers);
-            Number bonusNumber = generateBonusNumber(number);
+            Ticket winningTicket = generateWinningTicket(winningNumbers);
+            Number bonusNumber = generateBonusNumber(bonus);
             return new WinningLotto(winningTicket, bonusNumber);
 
         } catch (IllegalArgumentException e) {

@@ -32,43 +32,23 @@ public class WebConsole {
             String manualNumber = req.queryParams("manualNumber");
 
             List<Ticket> manual = generateManualTickets(money, manualNumber);
-            List<Ticket> auto = generateAutoTickets(money, manual.size());
+            List<Ticket> auto = generateAutoTickets(money, manualNumber);
 
             Lotto lotto = new Lotto(auto, manual);
             model.put("lotto", lotto);
             return render(model, "/show.html");
         });
 
+        post("/", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            String winningNumbers = req.queryParams("winningNumbers");
+            String bonusNumber = req.queryParams("bonusNumber");
 
-    }
+            model.put("winningNumbers", winningNumbers);
+            model.put("bonusNumber", bonusNumber);
 
-    private static Lotto initLotto() {
-        try {
-            int total = UserPrompt.getMoney();
-            int numberOfManual = UserPrompt.getNumberOfManual(total);
-            List<List<Integer>> manual = UserPrompt.getManual(numberOfManual);
-
-            return new Lotto(generateAutoTickets(total - numberOfManual), generateManualTickets(manual));
-
-        } catch (IllegalArgumentException e) {
-            Output.printMessage(e.getMessage());
-            return initLotto();
-        }
-    }
-
-    private static WinningLotto initWinningLotto() {
-        try {
-            List<Integer> numbers = UserPrompt.getWinningNumbers();
-            Integer number = UserPrompt.getBonusNumber();
-
-            Ticket winningTicket = generateWinningTicket(numbers);
-            Number bonusNumber = generateBonusNumber(number);
-            return new WinningLotto(winningTicket, bonusNumber);
-
-        } catch (IllegalArgumentException e) {
-            Output.printMessage(e.getMessage());
-            return initWinningLotto();
-        }
+            return render(model, "/matchLotto");
+        });
     }
 
     public static String render(Map<String, Object> model, String templatePath) {

@@ -8,8 +8,7 @@ import java.util.List;
 
 public class Parser {
 
-    public static List<List<Integer>>
-    parseToLottoFormat(String input) {
+    public static List<List<Integer>> parseToLottoFormat(String input) {
         List<List<Integer>> lottoInts = new ArrayList<>();
         List<String> lottoStrings = splitToLottoStrings(input);
         for (String lottoString : lottoStrings) {
@@ -43,12 +42,8 @@ public class Parser {
         try {
             number = Integer.parseInt(text);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자만 입력해주세요.");
+            throw new IllegalArgumentException("숫자가 아닙니다.");
         }
         return number;
-    }
-
-    public static String parseToPrintable(List<Number> ticket) {
-        return String.join(", ", ticket.toString());
     }
 }

@@ -10,29 +10,21 @@ import java.util.List;
 
 public class Generator {
 
-    public static List<Ticket> generateAutoTickets(String money, int manual) {
+    public static List<Ticket> generateAutoTickets(String money, String manual) {
         List<Ticket> autoTickets = new ArrayList<>();
-        int auto = Utils.calcNumberOfManual(Parser.parseToInt(money), manual);
+        int auto = Utils.calcNumberOfAuto(Parser.parseToInt(money), Parser.parseToInt(manual));
         for (int i = 0; i < auto; i++) {
             autoTickets.add(new Ticket(RandomDrawer.newInstance().drawNumber()));
         }
         return autoTickets;
     }
 
-    public static List<Ticket> generateManualTickets(String numbers, String inputMoney) throws IllegalArgumentException {
+    public static List<Ticket> generateManualTickets(String numbers, String inputMoney) {
         List<Ticket> manualTickets = new ArrayList<>();
+
         List<List<Integer>> manual = Parser.parseToLottoFormat(numbers);
         int money = Parser.parseToInt(inputMoney);
-
-        if (Utils.isNotEnoughMoney(money)) {
-            throw new IllegalArgumentException("최소 1000원 입니다.");
-        }
-        if (Utils.isNotValidMoney(money)) {
-            throw new IllegalArgumentException("1000원 단위만 가능합니다.");
-        }
-        if (Utils.isOverPurchaseAmount(manual, money)) {
-            throw new IllegalArgumentException("총 로또 수보다 많습니다.");
-        }
+        Utils.validateInput(manual, money);
 
         for (List<Integer> integers : manual) {
             manualTickets.add(new Ticket(convertToNumbers(integers)));
@@ -50,14 +42,16 @@ public class Generator {
 
     public static Ticket generateWinningTicket(String input) {
         List<Number> winningNumbers = new ArrayList<>();
-        List<Integer> numbers = Parser.parseToIntegers()
-        for (Integer number : input) {
+        Utils.checkOneTicket(input);
+
+        List<Integer> numbers = Parser.parseToIntegers(Parser.splitToNumberStrings(input));
+        for (Integer number : numbers) {
             winningNumbers.add(new Number(number));
         }
         return new Ticket(winningNumbers);
     }
 
-    public static Number generateBonusNumber(int number) {
-        return new Number(number);
+    public static Number generateBonusNumber(String number) {
+        return new Number(Parser.parseToInt(number));
     }
 }

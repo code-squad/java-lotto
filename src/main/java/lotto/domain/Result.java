@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static lotto.view.UserPrompt.LOTTO_PRICE;
+import static lotto.domain.Utils.LOTTO_PRICE;
 
 public class Result {
     private final int ticketsBought;
     private Map<Match, Integer> result;
 
     public Result(Lotto lotto, WinningLotto winningLotto) {
-        this.ticketsBought = lotto.getSize();
+        this.ticketsBought = lotto.getNumberOfTickets();
         this.result = mapResult(lotto, winningLotto);
     }
 
@@ -37,7 +37,7 @@ public class Result {
         return result.get(match);
     }
 
-    public double calculateProfit() { 
+    public double calculateProfit() {
         double earnings = 0;
         for (Map.Entry<Match, Integer> entry : result.entrySet()) {
             earnings += entry.getKey().calculatePrize(entry.getValue());
