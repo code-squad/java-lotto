@@ -6,16 +6,48 @@ import saru.domain.*;
 import java.util.*;
 
 public class LottoMain {
+    private static LottoMaker lottoMaker = LottoMaker.of();
+
     public static void main(String[] args) {
         int buyNum = Input.promptBuy();
-        List<LottoLine> lottoLines = LottoMaker.of().makeLottoNumber(buyNum);
-        Output.printCreatedNum(lottoLines);
+        List<LottoLine> lottoLines = lottoMaker.makeAutoLottoLines(buyNum);
+        List<LottoLine> manualLottoLines = getLottoLines();
 
+        Output.printCreatedNum(manualLottoLines, lottoLines);
+        LottoCalculator lottoCalculator = LottoCalculator.of(LottoUtil.joinLottoLines(manualLottoLines, lottoLines));
+
+        Output output = new Output(getResult(buyNum, lottoCalculator));
+        output.printStatus();
+    }
+
+    private static Result getResult(int buyNum, LottoCalculator lottoCalculator) {
         String hitNumber = Input.promptHitNumber();
         int bonusNumber = Input.promptBonusNumber();
 
-        LottoCalculator lottoCalculator = LottoCalculator.of(lottoLines);
-        Output output = new Output(lottoCalculator.makeResult(buyNum, hitNumber, bonusNumber));
-        output.printStatus();
+        Result result;
+        try {
+            result = lottoCalculator.makeResult(buyNum, hitNumber, bonusNumber);
+        } catch (IllegalArgumentException e) {
+            System.out.println("다시 입력해라");
+            return getResult(buyNum, lottoCalculator);
+        }
+
+        return result;
+    }
+
+    private static List<LottoLine> getLottoLines() {
+        List<LottoLine> manualLottoLines = null;
+        boolean isTrue = false;
+
+        do {
+            try {
+                manualLottoLines = Input.manualBuy(Input.manualInputProc());
+                isTrue = true;
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        } while (!isTrue);
+
+        return manualLottoLines;
     }
 }

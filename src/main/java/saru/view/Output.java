@@ -28,11 +28,22 @@ public class Output {
         System.out.printf("총 수익률은 %d%%입니다.", result.calcIncome());
     }
 
-    public static void printCreatedNum(List<LottoLine> lottoLines) {
+    public static void printCreatedNum(List<LottoLine> manualLines, List<LottoLine> autoLines) {
         // 생성된 번호 출력
-        for (LottoLine lottoLine : lottoLines) {
+        System.out.printf("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.\n",
+                manualLines.size(), autoLines.size());
+
+        printLottoLines(manualLines, autoLines);
+        System.out.println();
+    }
+
+    private static void printLottoLines(List<LottoLine> manualLines, List<LottoLine> autoLines) {
+        for (LottoLine lottoLine : manualLines) {
             System.out.println(lottoLine);
         }
-        System.out.println();
+
+        for (LottoLine lottoLine : autoLines) {
+            System.out.println(lottoLine);
+        }
     }
 }

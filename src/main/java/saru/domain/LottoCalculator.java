@@ -2,6 +2,7 @@ package saru.domain;
 
 import saru.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LottoCalculator {
@@ -19,12 +20,34 @@ public class LottoCalculator {
         Result result = Result.of(buyNum);
         LottoMaker lottoMaker = LottoMaker.of();
 
-        List<LottoNum> hitLottoLine = lottoMaker.makeManualLottoLine(hitNumber);
-        WinningLotto winningLotto = WinningLotto.of(hitLottoLine, bonusNumber);
-
+        WinningLotto winningLotto = makeWinningLotto(hitNumber, bonusNumber, lottoMaker);
         loopIncreaseHit(result, winningLotto);
 
         return result;
+    }
+
+    private WinningLotto makeWinningLotto(String hitNumber, int bonusNumber, LottoMaker lottoMaker) {
+        List<LottoNum> hitLottoLine;
+        WinningLotto winningLotto;
+        try {
+            hitLottoLine = makeHitLine(hitNumber, lottoMaker);
+            winningLotto = WinningLotto.of(hitLottoLine, LottoNum.of(bonusNumber));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
+        }
+
+        return winningLotto;
+    }
+
+    private List<LottoNum> makeHitLine(String hitNumber, LottoMaker lottoMaker) {
+        List<LottoNum> hitLottoLine;
+        try {
+            hitLottoLine = lottoMaker.makeManualLottoNums(hitNumber);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
+        }
+
+        return hitLottoLine;
     }
 
     private void loopIncreaseHit(Result result, WinningLotto winningLotto) {

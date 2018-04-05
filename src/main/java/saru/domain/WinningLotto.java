@@ -1,28 +1,18 @@
 package saru.domain;
 
-import saru.Rank;
-
 import java.util.*;
 
 public class WinningLotto {
     private List<LottoNum> winningNumbers;
-    private int bonusNumber;
+    private LottoNum bonusNumber;
 
-    private WinningLotto(List<LottoNum> numbers, int bonusNumer) {
+    private WinningLotto(List<LottoNum> numbers, LottoNum bonusNumber) {
         this.winningNumbers = numbers;
-        this.bonusNumber = bonusNumer;
+        this.bonusNumber = bonusNumber;
     }
 
-    public static WinningLotto of(List<LottoNum> hitLottoLine, int bonusNumer) {
-        return new WinningLotto(hitLottoLine, bonusNumer);
-    }
-
-    List<LottoNum> getWinningNumbers() {
-        return winningNumbers;
-    }
-
-    public int getBonusNumber() {
-        return bonusNumber;
+    public static WinningLotto of(List<LottoNum> hitLottoLine, LottoNum bonusNumber) {
+        return new WinningLotto(hitLottoLine, bonusNumber);
     }
 
     private boolean checkContain(LottoNum lottoNum) {
@@ -41,6 +31,6 @@ public class WinningLotto {
     }
 
     public boolean matchBonus(LottoLine lottoLine) {
-        return lottoLine.getNumbers().contains(LottoNum.of(bonusNumber));
+        return lottoLine.getNumbers().contains(bonusNumber);
     }
 }

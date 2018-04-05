@@ -2,59 +2,88 @@ package saru.domain;
 
 import java.util.*;
 
+// nums, lines = list
 public class LottoMaker {
     private static final String COMMA = ",";
     private static final String SPACE = " ";
     private static final String BLANK = "";
     private static final int MAX_LOTTO_NUM = 45;
+    private static final int ARR_NUM = 6;
 
-    private List<LottoNum> baseNumberList = new ArrayList<>();
+    private List<LottoNum> baseNums = new ArrayList<>();
 
     private LottoMaker() {
-        initBaseNumberList();
+        initBaseNums();
     }
 
     public static LottoMaker of() {
         return new LottoMaker();
     }
 
-    public List<LottoNum> makeLottoList() {
-        Collections.shuffle(baseNumberList);
-        List<LottoNum> subList = baseNumberList.subList(0, 6);
+    public List<LottoNum> makeAutoLottoNums() {
+        Collections.shuffle(baseNums);
+        List<LottoNum> subList = baseNums.subList(0, ARR_NUM);
         Collections.sort(subList,
-                Comparator.comparingInt(LottoNum::getNumber));
+                Comparator.comparingInt(LottoNum::getNum));
 
         return new ArrayList<>(subList);
     }
 
-    public List<LottoLine> makeLottoNumber(int buyNum) {
-        List<LottoLine> lottoNumberLists = new ArrayList<>();
+    public List<LottoLine> makeAutoLottoLines(int buyNum) {
+        List<LottoLine> lottoNumbers = new ArrayList<>();
 
         for (int i = 0; i < buyNum; i++) {
-            lottoNumberLists.add(LottoLine.of(makeLottoList()));
+            lottoNumbers.add(LottoLine.of(makeAutoLottoNums()));
         }
-        return lottoNumberLists;
+        return lottoNumbers;
     }
 
-    public List<LottoNum> makeManualLottoLine(String numStr) {
-        String[] winNumArr = numStr.replaceAll(SPACE, BLANK).split(COMMA);
+    public List<LottoNum> makeManualLottoNums(String numStr) {
+        String[] numArr = numStr.replaceAll(SPACE, BLANK).split(COMMA);
 
-        List<LottoNum> lottoLine = new ArrayList<>();
-        addLottoNum(winNumArr, lottoLine);
+        if (numArr.length != ARR_NUM) {
+            throw new IllegalArgumentException("입력한 번호 수가 여섯개가 아님");
+        }
 
-        return lottoLine;
+        List<LottoNum> lottoNums = new ArrayList<>();
+
+        try {
+            addArrToLottoNums(numArr, lottoNums);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("입력값이 정상범위가 아님");
+        }
+
+        return lottoNums;
     }
 
-    private void addLottoNum(String[] winNumArr, List<LottoNum> lottoLine) {
+    public LottoLine makeManualLottoLine(String numStr) {
+        List<LottoNum> lottoNums = null;
+        try {
+            lottoNums = makeManualLottoNums(numStr);
+        } catch (IllegalArgumentException e) {
+            System.out.println("입력한 번호가 잘못 되었습니다.");
+            throw new IllegalArgumentException(e);
+        }
+
+        return LottoLine.of(lottoNums);
+    }
+
+    private void addArrToLottoNums(String[] winNumArr, List<LottoNum> lottoNums) {
         for (String str : winNumArr) {
             int toInputNum = Integer.parseInt(str);
-            lottoLine.add(LottoNum.of(toInputNum));
+
+            try {
+                lottoNums.add(LottoNum.of(toInputNum));
+            } catch (IllegalArgumentException e) {
+                System.out.println("인자가 정상범위가 아닙니다.");
+                throw new IllegalArgumentException(e);
+            }
         }
     }
 
-    private void initBaseNumberList() {
+    private void initBaseNums() {
         for (int i = 1; i <= MAX_LOTTO_NUM; i++) {
-            baseNumberList.add(LottoNum.of(i));
+            baseNums.add(LottoNum.of(i));
         }
     }
 }
