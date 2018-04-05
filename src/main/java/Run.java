@@ -2,6 +2,8 @@ import input.Input;
 import lotto.BuyLotto;
 import lotto.Lotto;
 import lotto.LottoGame;
+import lotto.WinningLotto;
+import result.Result;
 import view.View;
 
 public class Run {
@@ -11,7 +13,10 @@ public class Run {
         View.printLottos(buy.getLottos());
         View.showNumbers(inputMoney);
         Lotto winningNumber = Input.winningInput();
-        LottoGame game = new LottoGame();
-        View.resultView(game.getWinCounts(game.match(buy.getLottos(), winningNumber)));
+        int bonusNumber = Input.bonusNumberInput();
+        LottoGame game = new LottoGame(buy.getLottos());
+        WinningLotto lotto = new WinningLotto(winningNumber, bonusNumber);
+        Result result = game.match(lotto);
+        View.printResult(result);
     }
 }

@@ -1,11 +1,8 @@
 .DS_Store
-.gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 /out/
 /target/
-
-### STS ###
 .apt_generated
 .classpath
 .factorypath
@@ -13,9 +10,6 @@
 .settings
 .springBeans
 bin/
-
-### IntelliJ IDEA ###
-.idea
-*.iws
+/.gradle/
 *.iml
-*.ipr
+/.idea
