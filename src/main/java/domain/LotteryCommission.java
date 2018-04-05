@@ -11,7 +11,7 @@ public class LotteryCommission {
     private WinningLotto winningLotto;
 
     public LotteryCommission() {
-
+        this.round = 0;
     }
 
     public void selectWinningNumbers(LottoNoGroup lottoNoGroup, LottoNo bonusNum) {

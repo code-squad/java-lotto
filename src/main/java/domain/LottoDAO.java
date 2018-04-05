@@ -48,9 +48,9 @@ public class LottoDAO {
         // add user information into USERS table
         String sql = "insert into WINNINGLOTTOS values(?,?,?)";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
-        preparedStatement.setString(1, String.valueOf(lotteryCommission.getRound()));
+        preparedStatement.setInt(1, lotteryCommission.getRound());
         preparedStatement.setString(2, lotteryCommission.getWinningLotto().toString());
-        preparedStatement.setString(2, lotteryCommission.getWinningLotto().getBonusNum().toString());
+        preparedStatement.setString(3, lotteryCommission.getWinningLotto().getBonusNum().toString());
         preparedStatement.executeUpdate();
         preparedStatement.close();
 
