@@ -10,9 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class View {
-    public static void showNumbers(int inputMoney) {
-        int num = inputMoney / 1000;
-        System.out.println(num + "개를 구매했습니다.");
+    public static void showNumbers(int inputMoney, int manualNumber) {
+        System.out.println("수동으로 " + manualNumber + "장, 자동으로 " + ((inputMoney / 1000) - manualNumber) + "개를 구매했습니다.");
     }
 
     public static void printResult(Result result) {
