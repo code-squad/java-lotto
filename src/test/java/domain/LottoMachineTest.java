@@ -4,9 +4,7 @@ import View.InputView;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,11 +23,13 @@ public class LottoMachineTest {
 
     @Test
     public void matching() throws Exception {
-        lottoMachine = new LottoMachine(Arrays.asList(1, 2, 3, 4, 5, 6));
+        List<LottoTicket> lottoTickets = new ArrayList<>();
+        lottoTickets.add(new LottoTicket(LottoNo.getLottoNos(Arrays.asList(1, 2, 3, 4, 5, 6))));
+        lottoMachine = new LottoMachine(lottoTickets);
         Map<Rank, Integer> result =
                 lottoMachine.matching(
-                        LottoNoFactory.getLottoNo(Arrays.asList(1, 2, 3, 7, 8, 9)),
-                        LottoNoFactory.getLottoNo(10));
+                        LottoNo.getLottoNos(Arrays.asList(1, 2, 3, 7, 8, 9)),
+                        new LottoNo(10));
         int value = result.get(Rank.FIFTH);
         assertEquals(1, value);
     }

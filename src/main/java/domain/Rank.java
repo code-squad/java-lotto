@@ -38,16 +38,7 @@ public enum Rank {
         return null;
     }
 
-//    public static Rank getRank(int matchedCount) {
-//        for (Rank rank : Rank.values()) {
-//            if (rank != SECOND && rank.isMatched(matchedCount)) {
-//                return rank;
-//            }
-//        }
-//        throw new IllegalArgumentException("순위를 벗어났습니다.");
+//    private boolean isMatched(int matchedCount) {
+//        return this.getCountOfMatch() == matchedCount;
 //    }
-
-    private boolean isMatched(int matchedCount) {
-        return this.getCountOfMatch() == matchedCount;
-    }
 }

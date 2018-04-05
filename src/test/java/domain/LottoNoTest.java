@@ -14,7 +14,12 @@ public class LottoNoTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void generateLottoNoToString() {
-        lottoNo = new LottoNo("46");
+    public void generateOverLottoNo() {
+        new LottoNo("46");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void generateZeroLottoNo() {
+        new LottoNo("0");
     }
 }

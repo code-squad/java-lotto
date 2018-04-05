@@ -11,15 +11,20 @@ public class LottoMachine {
 
     public LottoMachine(int ticketCount) {
         // pobi's advice 구현하기
-        // this(makeLottoTickets(ticketCount));
-        makeLottoTickets(ticketCount);
+        this(makeLottoTickets(ticketCount));
+    }
+
+    public LottoMachine(List<LottoTicket> lottoTickets) {
+        this.lottoTickets = lottoTickets;
         initResult();
     }
 
-    // for test
-    public LottoMachine(List<Integer> numbers) {
-        makeLottoTickets(numbers);
-        initResult();
+    public static List<LottoTicket> makeLottoTickets(int ticketCount) {
+        List<LottoTicket> lottoTickets = new ArrayList<>();
+        while (lottoTickets.size() < ticketCount) {
+            lottoTickets.add(LottoTicket.getLottoTicket(LottoNo.getLottoNos()));
+        }
+        return lottoTickets;
     }
 
     public void initResult() {
@@ -34,34 +39,16 @@ public class LottoMachine {
     }
 
     public Map<Rank, Integer> matching(List<LottoNo> lastWinningNo, LottoNo bonusNo) {
-        WinningLotto winningLotto = LottoTicketFactory.getWinningLottoTicket(lastWinningNo, bonusNo);
+        WinningLotto winningLotto = new WinningLotto(lastWinningNo, bonusNo);
         for (int index = 0; index < lottoTickets.size(); index++) {
             LottoTicket lottoTicket = lottoTickets.get(index);
-            int matchedCount = lottoTicket.getMatchedNo(winningLotto);
-            boolean bonus = lottoTicket.hasBonusNo(bonusNo);
-            isRank(matchedCount, bonus);
+            Rank rank = winningLotto.match(lottoTicket);
+            try {
+                result.put(rank, result.get(rank) + 1);
+            } catch (Exception e) {
+                continue;
+            }
         }
         return result;
-    }
-
-    public boolean isRank(int matchedCount, boolean bonus) {
-        if (matchedCount < 3) {
-            return false;
-        }
-        Rank rank = Rank.valueOf(matchedCount, bonus);
-        result.put(rank, result.get(rank) + 1);
-        return true;
-    }
-
-    public void makeLottoTickets(int ticketCount) {
-        lottoTickets = new ArrayList<>();
-        while (lottoTickets.size() < ticketCount) {
-            lottoTickets.add(LottoTicketFactory.getLottoTicket());
-        }
-    }
-
-    public void makeLottoTickets(List<Integer> numbers) {
-        lottoTickets = new ArrayList<>();
-        lottoTickets.add(LottoTicketFactory.getLottoTicket(numbers));
     }
 }

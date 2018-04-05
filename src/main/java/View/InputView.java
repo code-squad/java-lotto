@@ -1,7 +1,6 @@
 package View;
 
 import domain.LottoNo;
-import domain.LottoNoFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,13 +36,13 @@ public class InputView {
         scanner = new Scanner(System.in);
         System.out.println("\n보너스 볼을 입력해 주세요.");
         String bonusNumber = scanner.nextLine();
-        return LottoNoFactory.getLottoNo(bonusNumber);
+        return new LottoNo(bonusNumber);
     }
 
     private static List<LottoNo> parseLottoNo(String[] userInput) {
         List<LottoNo> numbers = new ArrayList<>();
         for (String number : userInput) {
-            numbers.add(LottoNoFactory.getLottoNo(number));
+            numbers.add(new LottoNo(number));
         }
         return numbers;
     }

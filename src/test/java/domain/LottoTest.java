@@ -18,13 +18,13 @@ public class LottoTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void isValid() {
-        Lotto lotto = new Lotto(LottoNoFactory.getLottoNo(numbers));
-        lotto.isValid(LottoNoFactory.getLottoNo(Arrays.asList(1,2,3,4,5)));
+        LottoTicket lottoTicket = new LottoTicket(LottoNo.getLottoNos(numbers));
+        lottoTicket.isValid(LottoNo.getLottoNos(Arrays.asList(1,2,3,4,5)));
     }
 
     @Test
     public void contains() {
-        Lotto lotto = new Lotto(LottoNoFactory.getLottoNo(numbers));
-        assertEquals(true, lotto.contains(new LottoNo(1)));
+        LottoTicket LottoTicket = new LottoTicket(LottoNo.getLottoNos(numbers));
+        assertEquals(true, LottoTicket.contains(new LottoNo(1)));
     }
 }
