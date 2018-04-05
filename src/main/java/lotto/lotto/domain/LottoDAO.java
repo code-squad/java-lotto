@@ -26,11 +26,10 @@ public class LottoDAO {
     }
 
     public void insertLottos(List<Lotto> lottos) throws SQLException {
-        Connection conn = getConnection();
-        String sql = "insert into LOTTOS values(0,?,?,?,?,?,?)";
-        PreparedStatement pstmt = getConnection().prepareStatement(sql);
+        String sql = "insert into LOTTOS(FIRST,SECOND,THIRD,FOURTH,FIFTH,SIXTH) values(?,?,?,?,?,?)";
 
-        try {
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
             for (Lotto lotto : lottos) {
                 pstmt.setInt(1, lotto.getLotto().get(0));
                 pstmt.setInt(2, lotto.getLotto().get(1));
@@ -42,18 +41,14 @@ public class LottoDAO {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        } finally {
-            conn.close();
-            pstmt.close();
         }
     }
 
     public void insertRank(Map<Rank, Integer> numberOfRank) throws SQLException {
-        Connection conn = getConnection();
-        String sql = "insert into RANK values(0,?,?,?,?,?)";
-        PreparedStatement pstmt = getConnection().prepareStatement(sql);
+        String sql = "insert into RANK(FIRST,SECOND,THIRD,FOURTH,FIFTH) values(?,?,?,?,?)";
 
-        try {
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
             pstmt.setInt(1, numberOfRank.get(Rank.FIRST));
             pstmt.setInt(2, numberOfRank.get(Rank.SECOND));
             pstmt.setInt(3, numberOfRank.get(Rank.THIRD));
@@ -62,16 +57,17 @@ public class LottoDAO {
             pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        } finally {
-            conn.close();
-            pstmt.close();
         }
     }
 
-    public void deleteLottos() throws SQLException, ClassNotFoundException {
+    public void deleteLottos() {
         String sql = "delete from lottos";
-        PreparedStatement pstmt = getConnection().prepareStatement(sql);
-        pstmt.executeUpdate();
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static class Singleton {

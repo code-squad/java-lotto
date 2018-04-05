@@ -20,8 +20,8 @@ public enum Rank {
         return countOfMatch;
     }
 
-    public int getTotalWinnerPrize(int count){
-        return this.winningMoney*count;
+    public int getTotalWinnerPrize(int count) {
+        return this.winningMoney * count;
     }
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {

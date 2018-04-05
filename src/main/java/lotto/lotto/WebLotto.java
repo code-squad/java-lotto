@@ -42,7 +42,7 @@ public class WebLotto {
             WeeklyLotto week = WeeklyLotto.of(winningLotto, bonusBall);
             Map<Rank, Integer> result = week.checkRank(lottos);
             lottoDao.insertRank(result);
-            ResultDTO resultLotto = new ResultDTO(result, lottos.size()*1000);
+            ResultDTO resultLotto = new ResultDTO(result, lottos.size() * 1000);
             model.put("resultLotto", resultLotto);
 
             return render(model, "result.html");
