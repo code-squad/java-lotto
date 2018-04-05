@@ -24,34 +24,34 @@ public class Main {
 
     static User larry;
 
-    private static void buyProcessConsole() {
-        try {
-            int money = InputView.enterUserMoney();
-            larry = User.whoHasMoneyOf(money);
-            int numTickets = money / TICKET_PRICE;
-            int numManual = InputView.enterNumManualTickets();
-            larry.purchaseTicketsAuto(numTickets - numManual);
-            larry.purchaseTicketsManual(InputView.enterNumsOfManualTicket(numManual));
-            ResultView.printLottos(larry);
-        } catch (LottoProcessException | IOException e) {
-            e.printStackTrace();
-            buyProcessConsole();
-        }
-    }
-
-    private static void resultProcessConsole() {
-        try {
-            LottoNoGroup winningNumbers = InputView.enterWinningLotto();
-            LottoNo lottoNo = InputView.enterBonusBall();
-            LotteryCommission lotteryCommission = new LotteryCommission();
-            lotteryCommission.selectWinningNumbers(winningNumbers, lottoNo);
-            larry.checkTotalResult();
-            ResultView.printResult(larry);
-        } catch (LottoProcessException e) {
-            e.printStackTrace();
-            resultProcessConsole();
-        }
-    }
+//    private static void buyProcessConsole() {
+//        try {
+//            int money = InputView.enterUserMoney();
+//            larry = User.whoHasMoneyOf(money);
+//            int numTickets = money / TICKET_PRICE;
+//            int numManual = InputView.enterNumManualTickets();
+//            larry.purchaseTicketsAuto(numTickets - numManual);
+//            larry.purchaseTicketsManual(InputView.enterNumsOfManualTicket(numManual));
+//            ResultView.printLottos(larry);
+//        } catch (LottoProcessException | IOException e) {
+//            e.printStackTrace();
+//            buyProcessConsole();
+//        }
+//    }
+//
+//    private static void resultProcessConsole() {
+//        try {
+//            LottoNoGroup winningNumbers = InputView.enterWinningLotto();
+//            LottoNo lottoNo = InputView.enterBonusBall();
+//            LotteryCommission lotteryCommission = new LotteryCommission();
+//            lotteryCommission.selectWinningNumbers(winningNumbers, lottoNo);
+//            larry.checkTotalResult();
+//            ResultView.printResult(larry);
+//        } catch (LottoProcessException e) {
+//            e.printStackTrace();
+//            resultProcessConsole();
+//        }
+//    }
 
     private static String render(Map<String, Object> model, String templatePath) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));

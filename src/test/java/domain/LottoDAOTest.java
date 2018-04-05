@@ -13,10 +13,13 @@ import static org.junit.Assert.assertNotNull;
 public class LottoDAOTest {
 
     private LottoDAO lottoDAO;
+    private User larry;
+
 
     @Before
     public void setup() {
         lottoDAO = new LottoDAO();
+        larry = User.nameOf("larry");
     }
 
     @Test
@@ -26,18 +29,26 @@ public class LottoDAOTest {
     }
 
     @Test
-    public void insert() throws SQLException {
+    public void insertUser() throws SQLException {
         String[] manualInputString = {"1, 2, 3, 4, 5, 6", "4, 5, 6, 7, 8, 9, 10"};
         List<LottoNoGroup> manualInput = LottoUtils.makeLottoNoGroup(manualInputString);
-        User larry = User.whoHasMoneyOf(2000);
+        larry.hasMoneyOf(2000);
         larry.purchaseTicketsManual(manualInput);
         lottoDAO.insert(larry);
+        // null check?
     }
 
     @Test
-    public void findByUserId() throws Exception {
-        User user = lottoDAO.findByUserId("userId");
+    public void insertWinningLotto() throws Exception {
+        LotteryCommission koreaLC = new LotteryCommission();
 
+        User user = lottoDAO.findResultByUserName("larry");
+        assertEquals(larry, user);
+    }
+
+    @Test
+    public void findResultByUserName() throws Exception {
+        User user = lottoDAO.findResultByUserName("larry");
         assertEquals(larry, user);
     }
 

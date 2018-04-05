@@ -1,7 +1,11 @@
 package domain;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import static domain.LottoUtils.inputParser;
 
 public class LottoDAO {
 
@@ -19,16 +23,14 @@ public class LottoDAO {
         }
     }
 
-    public void insert(User user) throws SQLException {
+    public void insertUserInfo(User user) throws SQLException {
         // add user information into USERS table
-        String sql = "insert into USERS values(?,?,?,?,?,?)";
+        String sql = "insert into USERS values(?,?)";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(1, user.getName());
-        preparedStatement.setString(2, String.valueOf(user.getPrizeStatistics().get(0))); // FIRST prize
-        preparedStatement.setString(3, String.valueOf(user.getPrizeStatistics().get(1))); // SECOND prize
-        preparedStatement.setString(4, String.valueOf(user.getPrizeStatistics().get(2))); // THIRD prize
-        preparedStatement.setString(5, String.valueOf(user.getPrizeStatistics().get(3))); // FORTH prize
-        preparedStatement.setString(6, String.valueOf(user.getPrizeStatistics().get(4))); // FIFTH prize
+        List<Integer> initPrize = Arrays.asList(0, 0, 0, 0, 0);
+        Array array = getConnection().createArrayOf("int", initPrize.toArray());
+        preparedStatement.setArray(2, array);
         preparedStatement.executeUpdate();
 
         // add lotto numbers information of user into LOTTO table
@@ -42,26 +44,7 @@ public class LottoDAO {
         preparedStatement.close();
     }
 
-    public void update(User user) throws SQLException {
-        // update user's prize statistics
-        String sql = "update USERS set " +
-                "FIRST = ?," +
-                "SECOND = ?," +
-                "THRID = ?," +
-                "FORTH = ?," +
-                "FIFTH = ?," +
-                " where name = ?";
-        PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
-        preparedStatement.setString(5, user.getName());
-        preparedStatement.setString(1, String.valueOf(user.getPrizeStatistics().get(0))); // FIRST prize
-        preparedStatement.setString(2, String.valueOf(user.getPrizeStatistics().get(1))); // SECOND prize
-        preparedStatement.setString(3, String.valueOf(user.getPrizeStatistics().get(2))); // THIRD prize
-        preparedStatement.setString(4, String.valueOf(user.getPrizeStatistics().get(3))); // FORTH prize
-        preparedStatement.setString(5, String.valueOf(user.getPrizeStatistics().get(4))); // FIFTH prize
-        preparedStatement.executeUpdate();
-        }
-
-    public void insert(LotteryCommission lotteryCommission) throws SQLException {
+    public void insertWinningLotto(LotteryCommission lotteryCommission) throws SQLException {
         // add user information into USERS table
         String sql = "insert into WINNINGLOTTOS values(?,?,?)";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
@@ -71,6 +54,16 @@ public class LottoDAO {
         preparedStatement.close();
     }
 
+    public void updateUserInfo(User user) throws SQLException {
+        // update user's prize statistics
+        String sql = "update USERS set prizelist = ? where name = ?";
+        PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+        preparedStatement.setString(2, user.getName());
+        Array array = getConnection().createArrayOf("int", user.getPrizeStatistics().toArray());
+        preparedStatement.setArray(1, array);
+        preparedStatement.executeUpdate();
+        }
+
     public User findResultByUserName(String userName) throws SQLException {
         String sql = "SELECT * FROM USERS where name = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
@@ -79,20 +72,24 @@ public class LottoDAO {
         ResultSet rs = preparedStatement.executeQuery();
         if (rs.next()) {
             User user = User.nameOf(rs.getString("userId"));
-            user.setPrizeStatistics(Arrays.asList(
-                    Integer.parseInt(rs.getString("FIRST")),
-                    Integer.parseInt(rs.getString("SECOND")),
-                    Integer.parseInt(rs.getString("THIRD")),
-                    Integer.parseInt(rs.getString("FORTH")),
-                    Integer.parseInt(rs.getString("FIFTH"))
-            ));
+            user.setPrizeStatistics((List<Integer>) rs.getArray("prizelist"));
             return user;
         }
+        preparedStatement.close();
         return null;
     }
 
-
-
-
+    public List<LottoNoGroup> findLottoNumbersByUserName(String userName) throws SQLException {
+        List<LottoNoGroup> lottoNoGroups = new ArrayList<>();
+        String sql = "SELECT * FROM LOTTOS where name = ?";
+        PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+        preparedStatement.setString(1, userName);
+        ResultSet rs = preparedStatement.executeQuery();
+        while (rs.next()) {
+            lottoNoGroups.add(inputParser(rs.getString("lottoNo")));
+        }
+        preparedStatement.close();
+        return lottoNoGroups;
+    }
 
 }
