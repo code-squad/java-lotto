@@ -7,7 +7,7 @@ public class WinningLotto {
     private final Number bonusNumber;
 
     public WinningLotto(Ticket winningNumbers, Number bonusNumber) {
-
+        isDuplicate(winningNumbers, bonusNumber);
         this.winningTicket = winningNumbers;
         this.bonusNumber = bonusNumber;
     }

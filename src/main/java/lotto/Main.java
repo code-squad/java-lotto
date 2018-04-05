@@ -8,8 +8,7 @@ import lotto.view.*;
 
 import java.util.List;
 
-import static lotto.view.ManualGenerator.*;
-import static lotto.view.AutoGenerator.*;
+import static lotto.view.Generator.*;
 
 public class Main {
 
@@ -25,11 +24,9 @@ public class Main {
         try {
             int total = UserPrompt.getTotalNumberOfTickets();
             int numberOfManual = UserPrompt.getNumberOfManual(total);
-            List<List<Integer>> manualNumbers = UserPrompt.getManual(numberOfManual);
+            List<List<Integer>> manual = UserPrompt.getManual(numberOfManual);
 
-            Generator manual = new ManualGenerator(manualNumbers);
-            Generator auto = new AutoGenerator(total - numberOfManual);
-            return new Lotto(manual.generateTickets(), auto.generateTickets());
+            return new Lotto(generateAutoTickets(total - numberOfManual), generateManualTickets(manual));
 
         } catch (IllegalArgumentException e) {
             Output.printMessage(e.getMessage());

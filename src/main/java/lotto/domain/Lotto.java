@@ -11,8 +11,8 @@ public class Lotto {
     }
 
     private static List<Ticket> concatenate(List<Ticket> auto, List<Ticket> manual) {
-        auto.addAll(manual);
-        return auto;
+        manual.addAll(auto);
+        return manual;
     }
 
     public List<String> showPurchase() {

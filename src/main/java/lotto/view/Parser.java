@@ -8,7 +8,8 @@ import java.util.List;
 
 public class Parser {
 
-    public static List<List<Integer>> parseToLottoFormat(String input) {
+    public static List<List<Integer>>
+    parseToLottoFormat(String input) {
         List<List<Integer>> lottoInts = new ArrayList<>();
         List<String> lottoStrings = splitToLottoStrings(input);
         for (String lottoString : lottoStrings) {

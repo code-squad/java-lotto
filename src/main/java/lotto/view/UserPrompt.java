@@ -62,7 +62,6 @@ public class UserPrompt {
         for (int i = 0; i < manual; i++) {
             numbers[i] = Input.takeInput();
         }
-        System.out.println(String.join("\n", numbers));
         return String.join("\n", numbers);
     }
 
@@ -81,7 +80,7 @@ public class UserPrompt {
         if (numbers.size() != MIN_SIZE) {
             throw new IllegalArgumentException("당첨 로또 하나만 입력해 주세요.");
         }
-        return numbers.get(MIN);
+        return numbers.get(0);
     }
 
     public static int getBonusNumber() { //중복 체크
