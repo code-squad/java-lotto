@@ -1,7 +1,4 @@
-import domain.LotteryCommission;
-import domain.LottoNo;
-import domain.LottoNoGroup;
-import domain.User;
+import domain.*;
 import domain.exceptions.LottoProcessException;
 import spark.ModelAndView;
 import spark.Request;
@@ -10,6 +7,7 @@ import view.InputView;
 import view.ResultView;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +21,7 @@ import static spark.Spark.*;
 public class Main {
 
     static User larry;
+    static LottoDAO lottoDAO;
 
 //    private static void buyProcessConsole() {
 //        try {
@@ -61,10 +60,17 @@ public class Main {
         int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
         String[] manualNumbers = req.queryParams("manualNumber").split("\r?\n");
         List<LottoNoGroup> manualInput = makeLottoNoGroup(manualNumbers);
-        larry = User.nameOf(req.queryParams("name"));
+        larry = User.nameOf(req.queryParams("userName"));
         larry.hasMoneyOf(inputMoney);
         larry.purchaseTicketsManual(manualInput);
         larry.purchaseTicketsAuto(inputMoney/ TICKET_PRICE - manualInput.size());
+        System.out.println("TEMP LOG ===============" + larry.getLottos().toString());
+        try {
+            lottoDAO = new LottoDAO();
+            lottoDAO.insertUserInfo(larry);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Map<String, Object> input = new HashMap<>();
         input.put("larry", larry);
         return input;
@@ -74,7 +80,13 @@ public class Main {
         LottoNo bonusNo = LottoNo.of(Integer.parseInt(req.queryParams("bonusNumber")));
         LotteryCommission lotteryCommission = new LotteryCommission();
         lotteryCommission.selectWinningNumbers(inputParser(req.queryParams("winningNumber")), bonusNo);
-        larry.checkTotalResult(lotteryCommission);
+        try {
+            lottoDAO.insertWinningLotto(lotteryCommission);
+            larry.checkTotalResult(lotteryCommission);
+            lottoDAO.updateUserInfo(larry);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Map<String, Object> result = new HashMap<>();
         result.put("larry", larry);
         return result;

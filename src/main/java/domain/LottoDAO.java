@@ -29,19 +29,19 @@ public class LottoDAO {
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(1, user.getName());
         List<Integer> initPrize = Arrays.asList(0, 0, 0, 0, 0);
-        Array array = getConnection().createArrayOf("int", initPrize.toArray());
-        preparedStatement.setArray(2, array);
+        preparedStatement.setString(2, initPrize.toString());
         preparedStatement.executeUpdate();
 
         // add lotto numbers information of user into LOTTO table
-        sql = "insert into LOTTOS values(?,?)";
-        preparedStatement = getConnection().prepareStatement(sql);
-
+        String sql2 = "insert into LOTTOS values(?,?)";
+        preparedStatement = getConnection().prepareStatement(sql2);
         for (Lotto lotto : user.getLottos()) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, lotto.toString());
+            preparedStatement.executeUpdate();
         }
         preparedStatement.close();
+
     }
 
     public void insertWinningLotto(LotteryCommission lotteryCommission) throws SQLException {
@@ -51,7 +51,9 @@ public class LottoDAO {
         preparedStatement.setString(1, String.valueOf(lotteryCommission.getRound()));
         preparedStatement.setString(2, lotteryCommission.getWinningLotto().toString());
         preparedStatement.setString(2, lotteryCommission.getWinningLotto().getBonusNum().toString());
+        preparedStatement.executeUpdate();
         preparedStatement.close();
+
     }
 
     public void updateUserInfo(User user) throws SQLException {
@@ -59,8 +61,7 @@ public class LottoDAO {
         String sql = "update USERS set prizelist = ? where name = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(2, user.getName());
-        Array array = getConnection().createArrayOf("int", user.getPrizeStatistics().toArray());
-        preparedStatement.setArray(1, array);
+        preparedStatement.setString(1, user.getPrizeStatistics().toString());
         preparedStatement.executeUpdate();
         }
 
