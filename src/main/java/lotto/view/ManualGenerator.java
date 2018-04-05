@@ -6,8 +6,6 @@ import lotto.domain.Ticket;
 import java.util.ArrayList;
 import java.util.List;
 
-import static lotto.view.WebParser.*;
-
 public class ManualGenerator implements Generator {
     private final List<List<Integer>> manual;
 
@@ -31,15 +29,13 @@ public class ManualGenerator implements Generator {
         return numbers;
     }
 
-//    public static Ticket generateWinningTicket(String input) {
-//        List<Number> winningNumbers = new ArrayList<>();
-//
-//        List<Integer> numbers = parseToIntegers(splitToNumberStrings(input));
-//        for (Integer number : numbers) {
-//            winningNumbers.add(new Number(number));
-//        }
-//        return new Ticket(winningNumbers);
-//    }
+    public static Ticket generateWinningTicket(List<Integer> input) {
+        List<Number> winningNumbers = new ArrayList<>();
+        for (Integer number : input) {
+            winningNumbers.add(new Number(number));
+        }
+        return new Ticket(winningNumbers);
+    }
 
     public static Number generateBonusNumber(int number) {
         return new Number(number);

@@ -7,7 +7,12 @@ public class Lotto {
     private List<Ticket> tickets;
 
     public Lotto(List<Ticket> auto, List<Ticket> manual) {
-        this.tickets = tickets;
+        this.tickets = concatenate(auto, manual);
+    }
+
+    private static List<Ticket> concatenate(List<Ticket> auto, List<Ticket> manual) {
+        auto.addAll(manual);
+        return auto;
     }
 
     public List<String> showPurchase() {

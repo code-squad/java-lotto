@@ -9,7 +9,7 @@ import static lotto.view.UserPrompt.LOTTO_PRICE;
 public class Result {
     private final Lotto lotto;
     private final WinningLotto winningLotto;
-    private Map<Match, Integer> result;
+    private Map<Match, Integer> result; //이거 인스턴스 변수로 가지게 하지 말자.
 
     public Result(Lotto lotto, WinningLotto winningLotto) {
         this.lotto = lotto;
@@ -39,7 +39,7 @@ public class Result {
         return result.get(match);
     }
 
-    public double calculateProfit() {
+    public double calculateProfit() { //---------------------enum 활용!!!!!
         double earnings = 0;
         for (Map.Entry<Match, Integer> entry : result.entrySet()) {
             earnings += entry.getKey().getPrize() * entry.getValue();

@@ -13,7 +13,7 @@ public class AutoGenerator implements Generator {
         this.auto = auto;
     }
 
-    private List<Ticket> generateTickets() {
+    public List<Ticket> generateTickets() {
         List<Ticket> autoTickets = new ArrayList<>();
         for (int i = 0; i < auto; i++) {
             autoTickets.add(new Ticket(RandomDrawer.newInstance().drawNumber()));

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class WebParser {
+public class Parser {
 
-    public static List<List<Integer>> parseToLottoInts(String input) {
+    public static List<List<Integer>> parseToLottoFormat(String input) {
         List<List<Integer>> lottoInts = new ArrayList<>();
         List<String> lottoStrings = splitToLottoStrings(input);
         for (String lottoString : lottoStrings) {
@@ -17,20 +17,19 @@ public class WebParser {
         return lottoInts;
     }
 
-    private static List<String> splitToLottoStrings(String input) { //check format
+    public static List<String> splitToLottoStrings(String input) { //check format
         return Arrays.asList(input.split("\r?\n"));
     }
 
-    private static List<String> splitToNumberStrings(String numbers) throws IllegalArgumentException {
+    public static List<String> splitToNumberStrings(String numbers) throws IllegalArgumentException {
         List<String> split = Arrays.asList(numbers.split(",\\s*"));
         if (split.size() == 6) {
             return split;
         }
-        Output.printMessage("당첨 번호 수(6개)가 맞지 않습니다.");
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("당첨 번호 수(6개)가 맞지 않습니다.");
     }
 
-    private static List<Integer> parseToIntegers(List<String> numbers) {
+    public static List<Integer> parseToIntegers(List<String> numbers) {
         List<Integer> integers = new ArrayList<>();
         for (String number : numbers) {
             integers.add(parseToInt(number));
@@ -43,8 +42,7 @@ public class WebParser {
         try {
             number = Integer.parseInt(text);
         } catch (NumberFormatException e) {
-            Output.printMessage("숫자만 입력해주세요.");
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("숫자만 입력해주세요.");
         }
         return number;
     }
