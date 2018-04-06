@@ -9,19 +9,19 @@ public class Result {
         this.count = count;
     }
 
-    public boolean isOfMatch(Match match) {
+    boolean isOfMatch(Match match) {
         return this.match == match;
+    }
+
+    int getCount() {
+        return count;
+    }
+
+    int calculatePrize() {
+        return match.calculatePrize(count);
     }
 
     public Match getMatch() {
         return match;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public int calculatePrize() {
-        return match.calculatePrize(count);
     }
 }

@@ -35,7 +35,7 @@ public class Lotto {
         return matches;
     }
 
-    public int getNumberOfTickets() {
+    int getNumberOfTickets() {
         return numberOfTickets;
     }
 
