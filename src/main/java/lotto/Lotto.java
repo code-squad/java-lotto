@@ -17,7 +17,6 @@ public class Lotto {
         lotto = new ArrayList<>();
         for(int i = 0; i < 6; i++)
             lotto.add(numbers.get(i));
-        System.out.println("로또생성");
     }
 
     public Lotto(String number) {

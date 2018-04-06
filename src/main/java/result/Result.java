@@ -1,15 +1,12 @@
 package result;
 
 import rank.Rank;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 public class Result {
     public static HashMap<Rank, Integer> finalResult;
     private List<Rank> ranks;
-    private static int percent;
     static {
         finalResult = new HashMap<>();
         finalResult.put(Rank.FIFTH, 0);
@@ -65,7 +62,7 @@ public class Result {
     }
 
     public int getPercent() {
-        percent = (earn(ranks) / (ranks.size() * 1000)) * 100;
+        int percent = (earn(ranks) / (ranks.size() * 1000)) * 100;
         return percent;
     }
 }

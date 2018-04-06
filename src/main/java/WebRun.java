@@ -37,7 +37,6 @@ public class WebRun {
             LottoGame game = new LottoGame(lottos);
             WinningLotto winningLotto = new WinningLotto(new Lotto(req.queryParams("winningNumber")), Integer.parseInt(req.queryParams("bonusNumber")));
             Result result = game.match(winningLotto);
-            result.getPercent();
             model.put("result", result);
             return render(model, "/result.html");
         });
