@@ -21,7 +21,7 @@ public class Main {
 
     private static Map<String, Object> buyLottoInput(Request req) {
         // 사용자 정보 데이터베이스 입력
-            lottoDAO = new LottoDAO();
+            lottoDAO = LottoDAO.getInstance(); // singleton instance
             lottoDAO.insertUserInfo(initUser(req), req.queryParams("round"), req.queryParams("inputMoney"));
             lottoDAO.insertLottosInfo(initUser(req), req.queryParams("round"));
         // 사용자 정보 데이터베이스에서 다시 꺼내와서 출력

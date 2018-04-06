@@ -10,6 +10,14 @@ import static domain.LottoUtils.inputParser;
 
 public class LottoDAO {
 
+    private static LottoDAO instance = new LottoDAO();
+
+    private LottoDAO() {}
+
+    public static LottoDAO getInstance() {
+        return instance;
+    }
+
     public Connection getConnection() {
         String addr = "jdbc:mysql://localhost:3306/lottodb";
         String user = "larryjung";
@@ -235,6 +243,4 @@ public class LottoDAO {
         user.purchaseTicketsManual(lottoNoGroups);
         return user;
     }
-
-
 }
