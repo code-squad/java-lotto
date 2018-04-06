@@ -36,7 +36,7 @@ public class LottoDAOTest {
     public void crud_Users_table() throws SQLException {
         user.hasMoneyOf(1000);
         lottoDAO.insertUserInfo(user, round, "1000");
-        User dbUser = lottoDAO.findLottoNumbersByUserNameAndRoundFromUsers("testUser", String.valueOf(round));
+        User dbUser = lottoDAO.findUserByNameAndRoundFromUsers("testUser", String.valueOf(round));
         assertThat(user, is(dbUser));
         lottoDAO.removeUserInfo(user, round);
     }
@@ -46,7 +46,7 @@ public class LottoDAOTest {
         user.hasMoneyOf(1000);
         user.purchaseTicketsManual(makeLottoNoGroup(new String[]{"1, 2, 3, 4, 5, 6"}));
         lottoDAO.insertLottosInfo(user, round, "1000");
-        User dbUser = lottoDAO.findLottoNumbersByUserNameAndRoundFromLottos("testUser", String.valueOf(round));
+        User dbUser = lottoDAO.findUserByNameAndRoundFromLottos("testUser", String.valueOf(round));
         assertThat(user, is(dbUser));
         lottoDAO.removeLottosInfo(user, round);
     }

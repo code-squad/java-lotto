@@ -24,134 +24,213 @@ public class LottoDAO {
         }
     }
 
-    public void insertUserInfo(User user, String round, String inputMoney) throws SQLException {
-        // add user information into USERS table
+    private PreparedStatement createPsmtAboutInsertUserInfo(Connection con, User user, String round, String inputMoney) throws SQLException {
         String sql = "INSERT INTO users VALUES(?,?,?,?)";
-        PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+        PreparedStatement preparedStatement = con.prepareStatement(sql);
         preparedStatement.setInt(1, Integer.parseInt(round));
         preparedStatement.setString(2, user.getName());
         preparedStatement.setInt(3, Integer.parseInt(inputMoney));
         List<Integer> initPrize = Arrays.asList(0, 0, 0, 0, 0);
         preparedStatement.setString(4, initPrize.toString());
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
+        return preparedStatement;
     }
 
-    public void insertLottosInfo(User user, String round, String inputMoney) throws SQLException {
-        // add lotto numbers information of user into LOTTO table
-        String sql = "INSERT INTO LOTTOS VALUES(?,?,?)";
-        PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
-        for (Lotto lotto : user.getLottos()) {
-            preparedStatement.setString(1, round);
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, lotto.toString().replaceAll("[\\[\\]\"]", ""));
+    public void insertUserInfo(User user, String round, String inputMoney) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = createPsmtAboutInsertUserInfo(connection, user, round, inputMoney)) {
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        preparedStatement.close();
     }
 
-    public void removeUserInfo(User user, String round) throws SQLException {
+    private PreparedStatement createPsmtAboutInsertLottosInfo(Connection con, User user, String round) throws SQLException {
+        String sql = "INSERT INTO LOTTOS VALUES(?,?,?)";
+        PreparedStatement preparedStatement = con.prepareStatement(sql);
+        preparedStatement.setString(1, round);
+        preparedStatement.setString(2, user.getName());
+        return preparedStatement;
+    }
+
+    public void insertLottosInfo(User user, String round) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = createPsmtAboutInsertLottosInfo(connection, user, round)) {
+            for (Lotto lotto : user.getLottos()) {
+                preparedStatement.setString(3, lotto.toString().replaceAll("[\\[\\]\"]", ""));
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private PreparedStatement createPsmtAboutRemoveUserInfo(Connection con, User user, String round) throws SQLException {
         String sql = "DELETE FROM users WHERE name = ? AND round = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(1, user.getName());
         preparedStatement.setInt(2, Integer.parseInt(round));
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
+        return preparedStatement;
     }
 
-    public void removeLottosInfo(User user, String round) throws SQLException {
+    public void removeUserInfo(User user, String round) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = createPsmtAboutRemoveUserInfo(connection, user, round)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private PreparedStatement createPsmtAboutRemoveLottosInfo(Connection con, User user, String round) throws SQLException {
         String sql = "DELETE FROM lottos WHERE name = ? AND round = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(1, user.getName());
         preparedStatement.setInt(2, Integer.parseInt(round));
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
+        return preparedStatement;
     }
 
-    public void insertWinningLotto(String round, String winningNumber, String bonusNumber) throws SQLException {
+    public void removeLottosInfo(User user, String round) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = createPsmtAboutRemoveLottosInfo(connection, user, round)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private PreparedStatement createPsmtAboutInsertWinningLotto(Connection con, String round, String winningNumber, String bonusNumber) throws SQLException {
         // add user information into USERS table
         String sql = "INSERT INTO winninglottos VALUES(?,?,?)";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setInt(1, Integer.parseInt(round));
         preparedStatement.setString(2, winningNumber.replaceAll("[\\[\\]\"]", ""));
         preparedStatement.setInt(3, Integer.parseInt(bonusNumber));
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
+        return preparedStatement;
     }
 
-    public void removeWinningLotto(String round) throws SQLException {
+    public void insertWinningLotto(String round, String winningNumber, String bonusNumber) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = createPsmtAboutInsertWinningLotto(connection, round, winningNumber, bonusNumber)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private PreparedStatement createPsmtAboutRemoveWinningLotto(Connection con, String round) throws SQLException {
         String sql = "DELETE FROM winningLottos WHERE round = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setInt(1, Integer.parseInt(round));
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
+        return preparedStatement;
     }
 
+    public void removeWinningLotto(String round) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = createPsmtAboutRemoveWinningLotto(connection, round)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public void updateUserInfo(User user, String round) throws SQLException {
+    private PreparedStatement createPsmtAboutUpdateUserInfo(Connection con, User user, String round) throws SQLException {
         // update user's prize statistics
         String sql = "UPDATE users SET prizelist = ? WHERE name = ? AND round = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(2, user.getName());
         preparedStatement.setString(3, round);
         preparedStatement.setString(1, user.getPrizeStatistics().toString());
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
+        return preparedStatement;
     }
 
-    public LotteryCommission findWinningNumberByRound(String round) throws SQLException {
+    public void updateUserInfo(User user, String round) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = createPsmtAboutUpdateUserInfo(connection, user, round)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private PreparedStatement createPsmtAboutFindWinningNumberByRound(Connection con, String round) throws SQLException {
         String sql = "SELECT * FROM winninglottos WHERE round = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setInt(1, Integer.parseInt(round));
-
-        ResultSet rs = preparedStatement.executeQuery();
-        if (rs.next()) {
-            LotteryCommission lotteryCommission = new LotteryCommission(rs.getInt("round"));
-            lotteryCommission.selectWinningNumbers(inputParser(rs.getString("lottoNo")),
-                    LottoNo.of(rs.getInt("bonusNo")));
-            return lotteryCommission;
-        }
-        preparedStatement.close();
-        return null;
+        return preparedStatement;
     }
 
-    private List<LottoNoGroup> takeLottoNos(String userName, String round) throws SQLException {
+    public LotteryCommission findWinningNumberByRound(String round) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = createPsmtAboutFindWinningNumberByRound(connection, round);
+             ResultSet rs = preparedStatement.executeQuery()) {
+            if (rs.next()) {
+                LotteryCommission lotteryCommission = new LotteryCommission(rs.getInt("round"));
+                lotteryCommission.selectWinningNumbers(inputParser(rs.getString("lottoNo")),
+                        LottoNo.of(rs.getInt("bonusNo")));
+                return lotteryCommission;
+            }
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private PreparedStatement createPsmtAboutTakeLottoNoGroups(Connection con, String userName, String round) throws SQLException {
         String sql = "SELECT * FROM lottos WHERE name = ? AND round = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(1, userName);
         preparedStatement.setInt(2, Integer.parseInt(round));
-        ResultSet rs = preparedStatement.executeQuery();
-        List<LottoNoGroup> lottoNoGroups = new ArrayList<>();
-        while (rs.next()) {
-            lottoNoGroups.add(inputParser(rs.getString("lottoNo")));
-        }
-        preparedStatement.close();
-        return lottoNoGroups;
+        return preparedStatement;
     }
 
-    private int takeInputMoney(String userName, String round) throws SQLException {
+    private List<LottoNoGroup> takeLottoNoGroups(String userName, String round) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = createPsmtAboutTakeLottoNoGroups(connection, userName, round);
+             ResultSet rs = preparedStatement.executeQuery()) {
+            List<LottoNoGroup> lottoNoGroups = new ArrayList<>();
+            while (rs.next()) {
+                lottoNoGroups.add(inputParser(rs.getString("lottoNo")));
+            }
+            return lottoNoGroups;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private PreparedStatement createPsmtAboutTakeInputMoney(Connection con, String userName, String round) throws SQLException {
         String sql = "SELECT * FROM users WHERE name = ? AND round = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(1, userName);
         preparedStatement.setInt(2, Integer.parseInt(round));
-        ResultSet rs = preparedStatement.executeQuery();
-        int inputMoney = 0;
-        if (rs.next()) {
-            return Integer.parseInt(rs.getString("inputMoney"));
-        }
-        preparedStatement.close();
-        return inputMoney;
+        return preparedStatement;
     }
 
-    public User findLottoNumbersByUserNameAndRoundFromUsers(String userName, String round) throws SQLException {
+    private int takeInputMoney(String userName, String round) throws SQLException {
+        int inputMoney = 0;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = createPsmtAboutTakeInputMoney(connection, userName, round);
+             ResultSet rs = preparedStatement.executeQuery()) {
+            if (rs.next()) {
+                return Integer.parseInt(rs.getString("inputMoney"));
+            }
+            return inputMoney;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return inputMoney;
+        }
+    }
+
+    public User findUserByNameAndRoundFromUsers(String userName, String round) throws SQLException {
         User user = User.nameOf(userName);
         user.hasMoneyOf(takeInputMoney(userName, round));
         return user;
     }
 
-    public User findLottoNumbersByUserNameAndRoundFromLottos(String userName, String round) throws SQLException {
+    public User findUserByNameAndRoundFromLottos(String userName, String round) throws SQLException {
         User user = User.nameOf(userName);
-        List<LottoNoGroup> lottoNoGroups = takeLottoNos(userName, round);
+        List<LottoNoGroup> lottoNoGroups = takeLottoNoGroups(userName, round);
         user.hasMoneyOf(lottoNoGroups.size() * TICKET_PRICE);
         user.purchaseTicketsManual(lottoNoGroups);
         return user;
