@@ -93,7 +93,7 @@ public class LottoDAO {
         String sql = "UPDATE users SET prizelist = ? WHERE name = ? AND round = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(2, user.getName());
-        preparedStatement.setString(3, user.getName());
+        preparedStatement.setString(3, round);
         preparedStatement.setString(1, user.getPrizeStatistics().toString());
         preparedStatement.executeUpdate();
         preparedStatement.close();
