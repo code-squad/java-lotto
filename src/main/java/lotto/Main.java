@@ -23,7 +23,7 @@ public class Main {
         try {
             String money = UserPrompt.promptPurchase();
             String numberOfManual = UserPrompt.promptNumberOfManual();
-            String manualTickets = UserPrompt.promptManual();
+            String manualTickets = UserPrompt.promptManual(numberOfManual);
 
             List<Ticket> manual = generateManualTickets(manualTickets, money);
             List<Ticket> auto = generateAutoTickets(manual.size(), money);

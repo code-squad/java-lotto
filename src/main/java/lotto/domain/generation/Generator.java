@@ -12,7 +12,7 @@ public class Generator {
 
     public static List<Ticket> generateAutoTickets(int manual, String money) {
         List<Ticket> autoTickets = new ArrayList<>();
-        int total = Parser.parseToInt(money) / LOTTO_PRICE;
+        int total = Parser.parseToInt(money) / LOTTO_PRICE; //throws exception
         int auto = total - manual;
 
         for (int i = 0; i < auto; i++) {
@@ -24,9 +24,9 @@ public class Generator {
     public static List<Ticket> generateManualTickets(String numbers, String inputMoney) {
         List<Ticket> manualTickets = new ArrayList<>();
 
-        List<List<Integer>> manual = Parser.parseToLottoFormat(numbers);
-        int money = Parser.parseToInt(inputMoney);
-        Validator.validateInput(manual, money);
+        List<List<Integer>> manual = Parser.parseToLottoFormat(numbers); //throws exception
+        int money = Parser.parseToInt(inputMoney); //throws exception
+        Validator.validateInput(manual, money); //throws exception
 
         for (List<Integer> integers : manual) {
             manualTickets.add(new Ticket(convertToNumbers(integers)));
@@ -44,9 +44,9 @@ public class Generator {
 
     public static Ticket generateWinningTicket(String input) {
         List<Number> winningNumbers = new ArrayList<>();
-        Validator.checkOneTicket(input);
+        Validator.checkOneTicket(input); //throws exception
 
-        List<Integer> numbers = Parser.parseToIntegers(Parser.splitToNumberStrings(input));
+        List<Integer> numbers = Parser.parseToIntegers(Parser.splitToNumberStrings(input)); //throws exception
         for (Integer number : numbers) {
             winningNumbers.add(new Number(number));
         }

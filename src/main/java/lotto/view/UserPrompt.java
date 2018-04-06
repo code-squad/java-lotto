@@ -1,5 +1,7 @@
 package lotto.view;
 
+import lotto.domain.utils.Parser;
+
 public class UserPrompt {
 
     public static String promptPurchase() {
@@ -12,9 +14,14 @@ public class UserPrompt {
         return Input.takeInput();
     }
 
-    public static String promptManual() {
+    public static String promptManual(String number) {
+        StringBuilder builder = new StringBuilder();
+        int manual = Parser.parseToInt(number); //throws exception
         Output.printMessage("수동으로 로또를 입력해 주세요.");
-        return Input.takeInput();
+        for (int i = 0; i < manual; i++) {
+            builder.append(Input.takeInput()).append("\n");
+        }
+        return builder.toString();
     }
 
     public static String promptWinningNumbers() {
