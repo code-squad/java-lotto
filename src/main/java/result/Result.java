@@ -9,7 +9,7 @@ import java.util.List;
 public class Result {
     public static HashMap<Rank, Integer> finalResult;
     private List<Rank> ranks;
-
+    private static int percent;
     static {
         finalResult = new HashMap<>();
         finalResult.put(Rank.FIFTH, 0);
@@ -26,6 +26,14 @@ public class Result {
             int num = finalResult.get(rank);
             finalResult.put(rank , ++num);
         }
+    }
+
+    public int earn(List<Rank> ranks) {
+        int sum = 0;
+        for (Rank rank: ranks) {
+            sum += rank.getWinningMoney();
+        }
+        return sum;
     }
 
     public List<Rank> getRanks() {
@@ -54,5 +62,10 @@ public class Result {
 
     public int getFifth() {
         return finalResult.get(Rank.FIFTH);
+    }
+
+    public int getPercent() {
+        percent = (earn(ranks) / (ranks.size() * 1000)) * 100;
+        return percent;
     }
 }

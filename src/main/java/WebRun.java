@@ -26,8 +26,9 @@ public class WebRun {
             webBuy.webAutoBuy(((Integer.parseInt(req.queryParams("inputMoney")) / 1000) - manualNum.size()));
             webBuy.webManualBuy(manualNum);
             Map<String, Object> model = new HashMap<>();
+            lottos = webBuy.getLottos();
             model.put("num", (Integer.parseInt(req.queryParams("inputMoney")) / 1000));
-            model.put("lottos", webBuy.getLottos());
+            model.put("lottos", lottos);
             return render(model, "/show.html");
         });
 
@@ -36,6 +37,7 @@ public class WebRun {
             LottoGame game = new LottoGame(lottos);
             WinningLotto winningLotto = new WinningLotto(new Lotto(req.queryParams("winningNumber")), Integer.parseInt(req.queryParams("bonusNumber")));
             Result result = game.match(winningLotto);
+            result.getPercent();
             model.put("result", result);
             return render(model, "/result.html");
         });
