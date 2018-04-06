@@ -13,6 +13,10 @@ public class Result {
         return this.match == match;
     }
 
+    public Match getMatch() {
+        return match;
+    }
+
     public int getCount() {
         return count;
     }
