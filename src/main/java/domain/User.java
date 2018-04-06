@@ -4,22 +4,28 @@ import domain.exceptions.InvalidTicketNumException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static domain.LottoUtils.TICKET_PRICE;
 
 public class User {
 
+    private String name;
     private Money presentMoney;
     private List<Lotto> lottos;
     private List<Integer> prizeStatistics;
 
-    private User(int money) {
+    private User(String name) {
         lottos = new ArrayList<>();
-        presentMoney = Money.of(money);
+        this.name = name;
     }
 
-    public static User whoHasMoneyOf(int money) {
-        return new User(money);
+    public static User nameOf(String name) {
+        return new User(name);
+    }
+
+    public void hasMoneyOf(int inputMoney) {
+        presentMoney = Money.of(inputMoney);
     }
 
     public void purchaseTicketsManual(List<LottoNoGroup> manualInput) {
@@ -40,17 +46,17 @@ public class User {
         return numTickets >= 0;
     }
 
-    public void checkTotalResult() {
-        checkPrizeStatistics();
-        askForEarnings();
+    public void checkTotalResult(LotteryCommission lotteryCommission) {
+        checkPrizeStatistics(lotteryCommission);
+        askForEarnings(lotteryCommission);
     }
 
-    private void checkPrizeStatistics() {
-        prizeStatistics = LotteryCommission.informResults(lottos);
+    private void checkPrizeStatistics(LotteryCommission lotteryCommission) {
+        prizeStatistics = lotteryCommission.informResults(lottos);
     }
 
-    private void askForEarnings() {
-        presentMoney.depositEarnings(LotteryCommission.giveEarnings(prizeStatistics));
+    private void askForEarnings(LotteryCommission lotteryCommission) {
+        presentMoney.depositEarnings(lotteryCommission.giveEarnings(prizeStatistics));
     }
 
     public int calcProfit() {
@@ -75,5 +81,30 @@ public class User {
 
     public int getProfit() {
         return calcProfit();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setPrizeStatistics(List<Integer> prizeStatistics) {
+        this.prizeStatistics = prizeStatistics;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name) &&
+                Objects.equals(presentMoney, user.presentMoney) &&
+                Objects.equals(lottos, user.lottos) &&
+                Objects.equals(prizeStatistics, user.prizeStatistics);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, presentMoney, lottos, prizeStatistics);
     }
 }

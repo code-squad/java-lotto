@@ -1,86 +1,57 @@
-import domain.LotteryCommission;
-import domain.LottoNo;
-import domain.LottoNoGroup;
-import domain.User;
-import domain.exceptions.LottoProcessException;
+import domain.*;
 import spark.ModelAndView;
 import spark.Request;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-import view.InputView;
-import view.ResultView;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static domain.LottoUtils.TICKET_PRICE;
-import static domain.LottoUtils.inputParser;
+import static domain.LottoUtils.*;
 import static spark.Spark.*;
 
 public class Main {
 
-    static User larry;
-
-    private static void buyProcessConsole() {
-        try {
-            int money = InputView.enterUserMoney();
-            larry = User.whoHasMoneyOf(money);
-            int numTickets = money / TICKET_PRICE;
-            int numManual = InputView.enterNumManualTickets();
-            larry.purchaseTicketsAuto(numTickets - numManual);
-            larry.purchaseTicketsManual(InputView.enterNumsOfManualTicket(numManual));
-            ResultView.printLottos(larry);
-        } catch (LottoProcessException | IOException e) {
-            e.printStackTrace();
-            buyProcessConsole();
-        }
-    }
-
-    private static void resultProcessConsole() {
-        try {
-            LottoNoGroup winningNumbers = InputView.enterWinningLotto();
-            LottoNo lottoNo = InputView.enterBonusBall();
-            LotteryCommission.selectWinningNumbers(winningNumbers, lottoNo);
-            larry.checkTotalResult();
-            ResultView.printResult(larry);
-        } catch (LottoProcessException e) {
-            e.printStackTrace();
-            resultProcessConsole();
-        }
-    }
+    static User user;
+    static LottoDAO lottoDAO;
 
     private static String render(Map<String, Object> model, String templatePath) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 
-    private static List<LottoNoGroup> makeLottoNoGroup(Request req) {
-        String[] manualNumbers = req.queryParams("manualNumber").split("\r?\n");
-        List<LottoNoGroup> manualInput = new ArrayList<>();
-        for (String manualNumber : manualNumbers) {
-            manualInput.add(inputParser(manualNumber.trim()));
-        }
-        return manualInput;
-    }
-
     private static Map<String, Object> buyLottoInput(Request req) {
-        int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
-        List<LottoNoGroup> manualInput = makeLottoNoGroup(req);
-        larry = User.whoHasMoneyOf(inputMoney);
-        larry.purchaseTicketsManual(manualInput);
-        larry.purchaseTicketsAuto(inputMoney/ TICKET_PRICE - manualInput.size());
-        Map<String, Object> input = new HashMap<>();
-        input.put("larry", larry);
-        return input;
+        // 사용자 정보 데이터베이스 입력
+            lottoDAO = LottoDAO.getInstance(); // singleton instance
+            lottoDAO.insertUserInfo(initUser(req), req.queryParams("round"), req.queryParams("inputMoney"));
+            lottoDAO.insertLottosInfo(initUser(req), req.queryParams("round"));
+        // 사용자 정보 데이터베이스에서 다시 꺼내와서 출력
+        try {
+            Map<String, Object> input = new HashMap<>();
+            User user = lottoDAO.findUserByNameAndRoundFromLottos(req.queryParams("userName"), req.queryParams("round"));
+            input.put("user", user);
+            return input;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static Map<String, Object> matchLottoResult(Request req) {
-        LottoNo bonusNo = LottoNo.of(Integer.parseInt(req.queryParams("bonusNumber")));
-        LotteryCommission.selectWinningNumbers(inputParser(req.queryParams("winningNumber")), bonusNo);
-        larry.checkTotalResult();
+        try {
+            // 해당 라운드의 위닝넘버 정보를 저장
+            lottoDAO.insertWinningLotto(req.queryParams("round"),
+                                        req.queryParams("winningNumber"),
+                                        req.queryParams("bonusNumber"));
+
+            // 사용자 이름과 라운드 정보를 바탕으로 포상 계산
+            user = lottoDAO.findUserByNameAndRoundFromLottos(req.queryParams("userName"), req.queryParams("round"));
+            user.checkTotalResult(lottoDAO.findWinningNumberByRound(req.queryParams("round")));
+            lottoDAO.updateUserInfo(user, req.queryParams("round"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Map<String, Object> result = new HashMap<>();
-        result.put("larry", larry);
+        result.put("user", user);
         return result;
     }
 

@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Objects;
+
 import static domain.LottoUtils.TICKET_PRICE;
 
 public class Money {
@@ -41,5 +43,21 @@ public class Money {
 
     public int getPresentMoney() {
         return presentMoney;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Money money = (Money) o;
+        return presentMoney == money.presentMoney &&
+                drawedMoney == money.drawedMoney &&
+                earnedMoney == money.earnedMoney;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(presentMoney, drawedMoney, earnedMoney);
     }
 }

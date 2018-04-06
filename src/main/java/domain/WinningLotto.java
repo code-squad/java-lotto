@@ -3,6 +3,7 @@ package domain;
 import domain.exceptions.DuplicatedBallException;
 
 import java.util.List;
+import java.util.Objects;
 
 public class WinningLotto extends Lotto {
 
@@ -28,4 +29,22 @@ public class WinningLotto extends Lotto {
         return lottoNoGroup.contains(bonusNum);
     }
 
+    public LottoNo getBonusNum() {
+        return bonusNum;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        WinningLotto that = (WinningLotto) o;
+        return Objects.equals(bonusNum, that.bonusNum);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), bonusNum);
+    }
 }

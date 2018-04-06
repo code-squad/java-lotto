@@ -58,7 +58,14 @@ body {
 	  <div class="col-md-4">
 		<form class="form-lotto" method="post" action="/buyLotto">
 			<h2 class="text-center">로또 게임</h2>
+			<input type="number" id="round" class="form-control"
+				   name="round" placeholder="x 회차">
+
 			<div class="input-group">
+
+				<input type="text" id="userName" class="form-control"
+					   name="userName" placeholder="홍길동">
+
 				<div class="input-group-addon">￦</div>
 				<input type="number" id="inputMoney" class="form-control"
 					name="inputMoney" placeholder="금액 입력" required autofocus>

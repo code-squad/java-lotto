@@ -64,7 +64,8 @@
 <body>
 <form class="form-show" method="post" action="/matchLotto">
     <div class="form-show-div form-group">
-        <label for="winningNumber">지난 주 당첨 번호</label>
+        <label for="userResult"> 확인하고 싶은 유저 <input type="text" id="userName" name="userName"> </label>
+        <label for="winningNumber"> <input type="text" id="round" name="round"> 회차 당첨 번호</label>
         <input type="text" id="inputMoney" class="form-control"
                name="winningNumber" placeholder="1,2,3,4,5,6" required autofocus>
     </div>
@@ -79,19 +80,19 @@
 </form>
 
 <pre class="pre-scrollable">
-	<h4 class="text-center"><{{larry.lottoLength}}장 구매 하셨습니다></h4>
+	<h4 class="text-center"><{{user.name}}가 {{user.lottoLength}}장 구매 하셨습니다></h4>
 	<table class="table">
 		<thead>
 			<th></th>
 			<th class="text-center">로또 번호</th>
 		</thead>
 		<tbody>
-        {{#larry.lottos}}
+        {{#user.lottos}}
 		<tr>
 			<th>{{@index}}</th>
 			<td>{{lottoNoGroup}}</td>
 		</tr>
-        {{/larry.lottos}}
+        {{/user.lottos}}
 		</tbody>
 	</table>
 </pre>
