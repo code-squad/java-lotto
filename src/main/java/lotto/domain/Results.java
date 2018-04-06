@@ -8,10 +8,12 @@ import static lotto.domain.utils.Validator.LOTTO_PRICE;
 public class Results {
     private final int ticketsBought;
     private List<Result> results;
+    private final double profit;
 
     public Results(Lotto lotto, WinningLotto winningLotto) {
         this.ticketsBought = lotto.getNumberOfTickets();
         this.results = produceResults(lotto, winningLotto);
+        this.profit = calculateProfit();
     }
 
     private List<Result> produceResults(Lotto lotto, WinningLotto winningLotto) {
@@ -51,5 +53,9 @@ public class Results {
 
     public List<Result> getResults() {
         return results;
+    }
+
+    public double getProfit() {
+        return profit;
     }
 }

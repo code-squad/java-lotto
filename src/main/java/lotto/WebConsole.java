@@ -51,7 +51,7 @@ public class WebConsole {
 
             Results results = new Results(lotto, winningLotto);
             model.put("results", results);
-            return render(model, "/results.html");
+            return render(model, "/result.html");
         });
     }
 

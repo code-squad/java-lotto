@@ -74,12 +74,12 @@ body {
 		<tbody>
 		{{#results.results}}
 			<tr>
-				<th>result.match- result.count개</th>
+				<th>{{match}} {{count}}개</th>
 			</tr>
 		{{/results.results}}
 		</tbody>
 		<tfoot>
-			<th><h4 class="text-center">총 수익률은 20%입니다.</h4></th>
+			<th><h4 class="text-center">총 수익률은 {{results.profit}}%입니다.</h4></th>
 		</tfoot>
 	</table>
 </pre>
