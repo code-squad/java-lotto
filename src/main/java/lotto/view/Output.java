@@ -22,8 +22,9 @@ public class Output {
         for (Match match : Match.values()) {
             if (match.isSecond()) {
                 System.out.println(match.getMatchCount() + "개 일치 + 보너스 볼 일치 (" + match.getPrize() + ") - " + results.getCount(match) + "개");
+            } else {
+                System.out.println(match.getMatchCount() + "개 일치 (" + match.getPrize() + ") - " + results.getCount(match) + "개");
             }
-            System.out.println(match.getMatchCount() + "개 일치 (" + match.getPrize() + ") - " + results.getCount(match) + "개");
         }
         System.out.printf("총 수익률은 %.1f%% 입니다.", results.calculateProfit());
     }

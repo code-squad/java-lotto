@@ -26,7 +26,7 @@ public class Main {
             String manualTickets = UserPrompt.promptManual();
 
             List<Ticket> manual = generateManualTickets(manualTickets, money);
-            List<Ticket> auto = generateAutoTickets(manual.size(), numberOfManual);
+            List<Ticket> auto = generateAutoTickets(manual.size(), money);
 
             return new Lotto(auto, manual);
 
