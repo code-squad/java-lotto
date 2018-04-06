@@ -1,36 +1,20 @@
 package domain;
 
-import View.InputView;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class LottoMachineTest {
-    LottoMachine lottoMachine;
-    int ticketCount;
-
-
     @Test
-    public void getLottoTickets() throws Exception {
-        int purchaseFee = 10000;
-        ticketCount = InputView.getTicketCount(purchaseFee);
-        lottoMachine = new LottoMachine(ticketCount);
-        assertEquals(10, lottoMachine.getLottoTickets().size());
-    }
-
-    @Test
-    public void matching() throws Exception {
-        List<LottoTicket> lottoTickets = new ArrayList<>();
-        lottoTickets.add(new LottoTicket(LottoNo.getLottoNos(Arrays.asList(1, 2, 3, 4, 5, 6))));
-        lottoMachine = new LottoMachine(lottoTickets);
-        Map<Rank, Integer> result =
-                lottoMachine.matching(
-                        LottoNo.getLottoNos(Arrays.asList(1, 2, 3, 7, 8, 9)),
-                        new LottoNo(10));
-        int value = result.get(Rank.FIFTH);
-        assertEquals(1, value);
+    public void getManualTickets() {
+        LottoMachine lottoMachine = new LottoMachine();
+        // 2개의 수동 입력이 들어올 때, 2개의 LottoTicket을 만들어 내는가?
+        List<String> numbers = new ArrayList<>(Arrays.asList("1,2,3,4,5,6", "7,8,9,10,11,12"));
+        List<LottoTicket> lottoTickets = lottoMachine.createManualTickets(numbers);
+        assertEquals(2, lottoTickets.size());
     }
 }

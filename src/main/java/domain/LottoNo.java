@@ -7,26 +7,40 @@ import java.util.Objects;
 
 public class LottoNo {
     private static final int MAX_SIZE = 6;
-    private int number;
+    private int lottoNo;
 
     public LottoNo(int number) {
         if (!isValid(number)) {
             throw new IllegalArgumentException("로또 번호는 1~45까지 입니다.");
         }
-        this.number = number;
+        this.lottoNo = number;
     }
 
     public LottoNo(String number) {
         this(Integer.parseInt(number));
     }
 
-    // manual
+    // manual : 1줄(6개) 로또 번호 생성
     public static List<LottoNo> getLottoNos(List<Integer> numbers) {
         List<LottoNo> lottoNos = new ArrayList<>();
         for (Integer number : numbers) {
-            lottoNos.add(new LottoNo(number));
+            LottoNo lottoNo = new LottoNo(number);
+            lottoNos.add(lottoNo);
         }
         return lottoNos;
+    }
+
+    public static List<LottoNo> getLottoNosFromString(String numberLine) {
+        List<Integer> lottoNumbers = new ArrayList<>();
+        String[] splitNos = numberLine.replaceAll(" ", "").trim().split(",");
+        for (String number : splitNos) {
+            int lottoNo = Integer.parseInt(number);
+            if (!isValid(lottoNo)) {
+                throw new IllegalArgumentException("0부터 46까지 숫자만 입력 가능합니다.");
+            }
+            lottoNumbers.add(lottoNo);
+        }
+        return getLottoNos(lottoNumbers);
     }
 
     // auto
@@ -48,15 +62,15 @@ public class LottoNo {
             numbers.add(number);
         }
         numbers.sort(Integer::compareTo);
-        System.out.println(numbers);
+        // System.out.println(numbers);
         return numbers;
     }
 
     public boolean hasNumber(int number) {
-        return this.number == number;
+        return this.lottoNo == number;
     }
 
-    public boolean isValid(int number) {
+    public static boolean isValid(int number) {
         return number > 0 && number < 46;
     }
 
@@ -65,11 +79,16 @@ public class LottoNo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LottoNo lottoNo = (LottoNo) o;
-        return number == lottoNo.number;
+        return this.lottoNo == lottoNo.lottoNo;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(number);
+        return Objects.hash(lottoNo);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(lottoNo);
     }
 }
