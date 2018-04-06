@@ -1,18 +1,23 @@
 package lotto.domain;
 
+import lotto.domain.generation.Number;
+import lotto.domain.generation.Ticket;
+
 public class WinningLotto {
-    static final int FIRST = 0;
-    static final int LAST = 6;
     private final Ticket winningTicket;
     private final Number bonusNumber;
 
-    public WinningLotto(Ticket winningNumbers, Number bonusNumber) {
+    public
+    WinningLotto(Ticket winningNumbers, Number bonusNumber) {
+        isDuplicate(winningNumbers, bonusNumber);
         this.winningTicket = winningNumbers;
         this.bonusNumber = bonusNumber;
     }
 
-    public static boolean isDuplicate(Ticket winningNumbers, Number bonusNumber) throws IllegalArgumentException {
-        return winningNumbers.contains(bonusNumber);
+    static void isDuplicate(Ticket winningNumbers, Number bonusNumber) throws IllegalArgumentException {
+        if (winningNumbers.contains(bonusNumber)) {
+            throw new IllegalArgumentException("입력된 번호는 당첨번호에 이미 있습니다.");
+        }
     }
 
     Match createMatch(Ticket ticket) {

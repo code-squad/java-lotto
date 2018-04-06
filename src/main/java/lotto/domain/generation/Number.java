@@ -1,6 +1,4 @@
-package lotto.domain;
-
-import lotto.view.Output;
+package lotto.domain.generation;
 
 import java.util.Objects;
 
@@ -9,14 +7,13 @@ public class Number {
     private static final int MAX_NUMBER = 45;
     private final int number;
 
-    Number(int number) {
+    public Number(int number) {
         this.number = checkValid(number);
     }
 
-    static int checkValid(int number) throws IllegalArgumentException {
+    public static int checkValid(int number) throws IllegalArgumentException {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
-            Output.printMessage("1 부터 45 사이의 숫자만 있어야 합니다.");
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("1 부터 45 사이의 숫자만 있어야 합니다.");
         }
         return number;
     }

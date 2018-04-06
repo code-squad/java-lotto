@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.domain.generation.Number;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
