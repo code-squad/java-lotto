@@ -40,13 +40,13 @@ body {
 	margin: 0 auto;
 }
 
-.form-result {
+.form-results {
 	max-width: 330px;
 	padding: 15px;
 	margin: 0 auto;
 }
 
-.form-result .form-control {
+.form-results .form-control {
 	position: relative;
 	height: auto;
 	-webkit-box-sizing: border-box;
@@ -60,7 +60,7 @@ body {
 </head>
 <body>
 
-<form class="form-result" action="/">
+<form class="form-results" action="/">
 	<div class="submit-button">
 		<button class="btn btn-lg btn-primary btn-block" type="submit">다시
 			하기</button>
@@ -72,8 +72,9 @@ body {
 				<th><h3 class="text-center">당첨 통계</h3></th>
 			</thead>
 		<tbody>
+		{{#results.results}}
 			<tr>
-				<th>3개 일치 (5000원)- 3개</th>
+				<th>개 일치 (5000원)- 3개</th>
 			</tr>
 			<tr>
 				<th>4개 일치 (50000원)- 1개</th>

@@ -1,6 +1,9 @@
 package lotto;
 
 import lotto.domain.Lotto;
+import lotto.domain.Results;
+import lotto.domain.WinningLotto;
+import lotto.domain.generation.Number;
 import lotto.domain.generation.Ticket;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -13,6 +16,7 @@ import static lotto.domain.generation.Generator.*;
 import static spark.Spark.*;
 
 public class WebConsole {
+    private static Lotto lotto;
 
     public static void main(String[] args) {
         port(8080);
@@ -30,7 +34,8 @@ public class WebConsole {
             List<Ticket> manual = generateManualTickets(manualNumber, money);
             List<Ticket> auto = generateAutoTickets(manual.size(), money);
 
-            Lotto lotto = new Lotto(auto, manual);
+            Lotto lottery = new Lotto(auto, manual);
+            lotto = lottery;
             model.put("lotto", lotto);
             return render(model, "/show.html");
         });
@@ -40,10 +45,13 @@ public class WebConsole {
             String winningNumber = req.queryParams("winningNumber");
             String bonusNumber = req.queryParams("bonusNumber");
 
-            model.put("winningNumber", winningNumber);
-            model.put("bonusNumber", bonusNumber);
+            Ticket winningTicket = generateWinningTicket(winningNumber);
+            Number bonusBall = generateBonusNumber(bonusNumber);
+            WinningLotto winningLotto = new WinningLotto(winningTicket, bonusBall);
 
-            return render(model, "/matchLotto");
+            Results results = new Results(lotto, winningLotto);
+            model.put("results", results);
+            return render(model, "/results.html");
         });
     }
 

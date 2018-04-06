@@ -43,4 +43,9 @@ public enum Match {
     public boolean isSecond() {
         return SECOND == this;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(matchCount);
+    }
 }
