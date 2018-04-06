@@ -1,11 +1,14 @@
 package domain;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LottoMachine {
     private static final int paymentPerTicket = 1000;
     private List<LottoTicket> lottoTickets;
-    Map<Rank, Integer> result;
+    Map<Rank, Integer> ranking;
 
     public LottoMachine() {
         init();
@@ -29,7 +32,7 @@ public class LottoMachine {
     }
 
     // 테스트 이유를 제외하면 static을 할 이유가 있는가
-    public List<LottoTicket> getManualTickets(List<String> numberLines) {
+    public List<LottoTicket> createManualTickets(List<String> numberLines) {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         for (String numberLine : numberLines) {
             LottoTicket lottoTicket = LottoTicket.getLottoTicket(LottoNo.getLottoNosFromString(numberLine));
@@ -39,7 +42,7 @@ public class LottoMachine {
         return lottoTickets;
     }
 
-    public List<LottoTicket> getAutoTickets(int autoCount) {
+    public List<LottoTicket> createAutoTickets(int autoCount) {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         for (int index = 0; index < autoCount; index++) {
             lottoTickets.add(LottoTicket.getLottoTicket(LottoNo.getLottoNos()));
@@ -61,14 +64,13 @@ public class LottoMachine {
     public void init() {
         lottoTickets = new ArrayList<>();
 
-        result = new HashMap<>();
+        ranking = new HashMap<>();
         for (Rank rank : Rank.values()) {
-            result.put(rank, 0);
+            ranking.put(rank, 0);
         }
     }
 
-    public Map<Rank, Integer> matching(String lastWinningNo, String bonusNo) {
-
+    public Result matching(String lastWinningNo, String bonusNo, int payment) {
         List<LottoNo> lottoNos = LottoNo.getLottoNosFromString(lastWinningNo);
         LottoNo lottoNo = new LottoNo(bonusNo);
         WinningLotto winningLotto = new WinningLotto(lottoNos, lottoNo);
@@ -76,11 +78,11 @@ public class LottoMachine {
             LottoTicket lottoTicket = lottoTickets.get(index);
             Rank rank = winningLotto.match(lottoTicket);
             try {
-                result.put(rank, result.get(rank) + 1);
+                ranking.put(rank, this.ranking.get(rank) + 1);
             } catch (Exception e) {
                 // NullException
             }
         }
-        return result;
+        return new Result(ranking, payment);
     }
 }
