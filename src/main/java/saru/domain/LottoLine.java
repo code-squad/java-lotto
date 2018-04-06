@@ -18,6 +18,10 @@ public class LottoLine {
         return numbers;
     }
 
+    public String getLotto() {
+        return numbers.toString();
+    }
+
     @Override
     public String toString() {
         return numbers.toString();
