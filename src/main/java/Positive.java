@@ -1,19 +1,15 @@
-import java.util.Collections;
-import java.util.List;
-
 public class Positive {
 
-    List<Integer> split;
+    int number;
 
-    Positive() {
-        this.split = Collections.EMPTY_LIST;
+    Positive(int number) {
+        if (number < 0) {
+            throw new RuntimeException();
+        }
+        this.number = number;
     }
 
-    Positive(List<Integer> split) {
-        this.split = split;
-    }
-
-    public List<Integer> getSplit() {
-        return this.split;
+    public int getNumber() {
+        return this.number;
     }
 }

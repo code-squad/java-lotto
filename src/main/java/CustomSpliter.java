@@ -1,31 +1,31 @@
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class CustomSpliter implements Spliter {
 
     private static final String CUSTOM_DELIMITER = "//(.)\n(.*)";
-    private String input;
-
-    CustomSpliter(String input) {
-        this.input = input;
-    }
 
     @Override
-    public Positive split() {
-        Matcher m = Pattern.compile(CUSTOM_DELIMITER).matcher(input);
+    public List<Positive> split(String input) {
+        Matcher m = getMatcher(input, CUSTOM_DELIMITER);
 
         if (m.find()) {
             String customDelimiter = m.group(1);
             String[] tokens= m.group(2).split(customDelimiter);
-            return new Positive(getSplited(tokens));
+            return getSplited(tokens);
         }
-        return new Positive();
+        return Collections.EMPTY_LIST;
     }
 
-    private List<Integer> getSplited(String[] tokens) {
-        return Arrays.stream(tokens).map(Integer::new).collect(Collectors.toList());
+    @Override
+    public boolean isSpliterable(String input) {
+        return getMatcher(input, CUSTOM_DELIMITER).find();
+    }
+
+    private List<Positive> getSplited(String[] tokens) {
+        return Arrays.stream(tokens).map(Integer::new).map(Positive::new).collect(Collectors.toList());
     }
 }
