@@ -12,7 +12,7 @@ public class Generator {
 
     public static List<Ticket> generateAutoTickets(int manual, String money) {
         List<Ticket> autoTickets = new ArrayList<>();
-≠        int total = Parser.parseToInt(money) / LOTTO_PRICE; //throws exception
+        int total = Parser.parseToInt(money) / LOTTO_PRICE; //throws exception
         int auto = total - manual;
 
         for (int i = 0; i < auto; i++) {
