@@ -25,7 +25,7 @@ public class Output {
                 result.getRankHitNum(Rank.THIRD), result.getRankHitNum(Rank.SECOND),
                 result.getRankHitNum(Rank.FIRST));
 
-        System.out.printf("총 수익률은 %d%%입니다.", result.calcIncome());
+        System.out.printf("총 수익률은 %d%%입니다.", result.getCalcIncome());
     }
 
     public static void printCreatedNum(List<LottoLine> manualLines, List<LottoLine> autoLines) {

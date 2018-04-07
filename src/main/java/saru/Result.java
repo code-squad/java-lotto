@@ -38,7 +38,27 @@ public class Result {
         return hitNums.get(rank);
     }
 
-    public int calcIncome() {
+    public int getMatchNum_first() {
+        return getRankHitNum(Rank.FIRST);
+    }
+
+    public int getMatchNum_second() {
+        return getRankHitNum(Rank.SECOND);
+    }
+
+    public int getMatchNum_third() {
+        return getRankHitNum(Rank.THIRD);
+    }
+
+    public int getMatchNum_fourth() {
+        return getRankHitNum(Rank.FOURTH);
+    }
+
+    public int getMatchNum_fifth() {
+        return getRankHitNum(Rank.FIFTH);
+    }
+
+    public int getCalcIncome() {
         int totalIncome = getTotalIncome();
         return 100 * (totalIncome / (buyNum * 1000));
     }

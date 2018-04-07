@@ -1,59 +1,68 @@
 package saru;
 
-import saru.domain.LottoLine;
-import saru.domain.LottoMaker;
-import saru.domain.LottoUtil;
-import saru.view.Input;
+import saru.domain.*;
+import saru.view.*;
+
+import java.util.*;
+
+import static spark.Spark.*;
+
 import spark.ModelAndView;
 import spark.Request;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static spark.Spark.get;
-import static spark.Spark.port;
-import static spark.Spark.post;
-
 public class WebMain {
-    public WebMain() {
-        // empty
-    }
+    private static List<LottoLine> storeLottoLines = null;
+    private static int buyNum = 0;
 
     public static void main(String[] args) {
+        initWebMain();
+
+        post("/buyLotto", (req, res) -> {
+            storeBuyNum(req);
+            storeLottoLines(req, buyNum);
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("buyNum", buyNum);
+            model.put("lottos", storeLottoLines);
+
+            return render(model, "show.html");
+        });
+
+        post("/matchLotto", (req, res) -> {
+            String winningNum = req.queryParams("winningNumber");
+            int bonusNum = Integer.parseInt(req.queryParams("bonusNumber"));
+
+            LottoCalculator lottoCalculator = LottoCalculator.of(storeLottoLines);
+            Result result = lottoCalculator.makeResult(buyNum, winningNum, bonusNum);
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("result", result);
+            return render(model, "result.html");
+        });
+    }
+
+    private static void initWebMain() {
         port(8080);
 
         get("/", (req, res) ->
                 new HandlebarsTemplateEngine().render(
                         new ModelAndView(null, "index.html")));
-
-        post("/buyLotto", (req, res) -> {
-            int buyNum = getBuyNum(req);
-
-            List<LottoLine> lottoLines = getLottoLines(req, buyNum);
-
-            Map<String, Object> model = new HashMap<>();
-            model.put("buyNum", buyNum);
-            model.put("lottos", lottoLines);
-
-            return render(model, "show.html");
-        });
     }
 
-    private static List<LottoLine> getLottoLines(Request req, int buyNum) {
+    private static void storeLottoLines(Request req, int buyNum) {
         String manualQuery = req.queryParams("manualNumber");
         List<LottoLine> manualLines = LottoUtil.splitManualQueryToLines(manualQuery);
 
         LottoMaker lottoMaker = LottoMaker.of();
         List<LottoLine> autoLines = lottoMaker.makeAutoLottoLines(buyNum - manualLines.size());
 
-        return LottoUtil.joinLottoLines(autoLines, manualLines);
+        storeLottoLines = LottoUtil.joinLottoLines(autoLines, manualLines);
     }
 
-    private static int getBuyNum(Request req) {
+    private static void storeBuyNum(Request req) {
         String inputMoney = req.queryParams("inputMoney");
-        return Input.buy(Integer.parseInt(inputMoney));
+        buyNum = Input.buy(Integer.parseInt(inputMoney));
     }
 
     private static String render(Map<String, Object> model, String templatePath) {
