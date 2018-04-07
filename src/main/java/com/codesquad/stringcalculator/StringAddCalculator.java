@@ -4,9 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringAddCalculator {
-    public static int add(String expression) {
+    public static Positive add(String expression) {
 
-        if (isBlank(expression)) return 0;
+        if (isBlank(expression)) return new Positive(0);
 
         String[] numbers = split(expression);
         return sum(numbers);
@@ -21,23 +21,13 @@ public class StringAddCalculator {
         return false;
     }
 
-    private static int sum(String[] numbers) {
-        int sum = 0;
+    private static Positive sum(String[] numbers) {
+        Positive sum = new Positive(0);
         for(String number : numbers) {
-            int operand = parseOperand(number);
-            validatePositive(operand);
-            sum += operand;
+            Positive operand = new Positive(number);
+            sum = sum.add(operand);
         }
         return sum;
-    }
-
-    private static void validatePositive(int number) {
-        if (number < 0)
-            throw new IllegalArgumentException("음수는 입력할 수 없습니다.");
-    }
-
-    private static int parseOperand(String number) {
-        return Integer.parseInt(number);
     }
 
     private static String[] split(String expression) {
