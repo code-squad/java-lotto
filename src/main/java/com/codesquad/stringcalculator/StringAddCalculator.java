@@ -1,10 +1,20 @@
 package com.codesquad.stringcalculator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringAddCalculator {
-    public static Positive add(String expression) {
+    private List<Splitter> splitters;
+
+    public StringAddCalculator() {
+        splitters = new ArrayList<>();
+        splitters.add(new DefaultSplitter());
+        splitters.add(new CustomSplitter());
+    }
+
+    public Positive add(String expression) {
 
         if (isBlank(expression)) return new Positive(0);
 
@@ -12,16 +22,14 @@ public class StringAddCalculator {
         return sum(numbers);
     }
 
-    private static boolean isBlank(String expression) {
+    private boolean isBlank(String expression) {
         if(expression == null)
             return true;
 
-        if(expression.isEmpty())
-            return true;
-        return false;
+        return expression.isEmpty();
     }
 
-    private static Positive sum(String[] numbers) {
+    private Positive sum(String[] numbers) {
         Positive sum = new Positive(0);
         for(String number : numbers) {
             Positive operand = new Positive(number);
@@ -30,22 +38,11 @@ public class StringAddCalculator {
         return sum;
     }
 
-    private static String[] split(String expression) {
-        Matcher m = Pattern.compile("//(.)\n(.*)").matcher(expression);
-        if(m.find()) {
-            String customDelimiter = m.group(1);
-            return m.group(2).split(customDelimiter);
+    private String[] split(String expression) {
+        for(Splitter splitter : splitters){
+            if(splitter.supports(expression))
+                return splitter.split(expression);
         }
-        return expression.split(",|:");
-    }
-
-    private static String[] splitOther(String expression) {
-        String delimiter = ",|:";
-        Matcher m = Pattern.compile("//(.)\n(.*)").matcher(expression);
-        if(m.find()) {
-            delimiter = m.group(1);
-            expression = m.group(2);
-        }
-        return expression.split(delimiter);
+        return new String[] { };
     }
 }
