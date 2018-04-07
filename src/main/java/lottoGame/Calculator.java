@@ -7,10 +7,10 @@ public class Calculator {
 
     public static int addOperate(String text) {
 
-        return isEmptyValue(text) ? 0 : sumValue(toInts(getSplit(getPureText(text),getCustomDelimetor(text))));
+        return isEmptyValue(text) ? 0 : sumValue(toInts(getSplit(getRealText(text),getCustomDelimetor(text))));
     }
 
-    private static String getPureText(String text) {
+    private static String getRealText(String text) {
         Matcher m = getMatcher(text);
         if(m.find()) {
             return m.group(2);
@@ -32,11 +32,8 @@ public class Calculator {
         return Pattern.compile("//(.)\n(.*)").matcher(text);
     }
 
-    private static boolean isEmptyValue(String s) {
-        if(s == "" || s == null) {
-            return true;
-        }
-        return false;
+    private static boolean isEmptyValue(String text) {
+        return (text == "" || text == null);
     }
 
     private static int[] toInts(String[] values) {
