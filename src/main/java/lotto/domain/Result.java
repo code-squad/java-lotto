@@ -13,7 +13,7 @@ public class Result {
         return this.match == match;
     }
 
-    int getCount() {
+    public int getCount() {
         return count;
     }
 
