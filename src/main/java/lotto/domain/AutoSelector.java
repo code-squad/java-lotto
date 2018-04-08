@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 public class AutoSelector {
     private static final Integer DEFAULT_VALID_LOTTO_SIZE = 6;
     private static final Integer START_NUMBER_INCLUSIVE = 6;
-    private static final Integer END_NUMBER_EXCLUSIVE = 43;
+    private static final Integer END_NUMBER_EXCLUSIVE = 46;
     private static final List<Integer> ALL_LOTTO_NUMBERS = IntStream.range(START_NUMBER_INCLUSIVE, END_NUMBER_EXCLUSIVE).boxed().collect(Collectors.toList());
 
     public static List<Integer> generate() {
