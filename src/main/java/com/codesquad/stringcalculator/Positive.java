@@ -12,9 +12,7 @@ public class Positive {
     }
 
     public Positive(String number) {
-        int parsedNumber = Integer.parseInt(number);
-        validatePositive(parsedNumber);
-        this.number = parsedNumber;
+        this(Integer.parseInt(number));
     }
 
     public Positive add(Positive positive) {
