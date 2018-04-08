@@ -8,25 +8,21 @@ public class CustomSplitter implements Splitter {
     @Override
     public boolean supports(String expression) {
         Matcher m = getMatch(expression);
-        if(!m.find())
-            return false;
-
-        String delimiter = m.group(1);
-        String splitExpression = m.group(2);
-        return splitExpression.matches("^[0-9("+ delimiter +")(:)(\\-)]*$");
+        return m.find();
     }
 
     @Override
     public String[] split(String expression) {
-        if(!supports(expression))
-            return new String[]{};
-
         Matcher m = getMatch(expression);
         if(!m.find())
-            return new String[]{};
+            throw new IllegalArgumentException("지원하지 않는 식입니다.");
 
         String delimiter = m.group(1);
         String splitExpression = m.group(2);
+
+        if(!splitExpression.matches("^[0-9("+ delimiter +")(:)(\\-)]*$"))
+            throw new IllegalArgumentException("잘못된 구분자를 사용한 식입니다.");
+
         return splitExpression.split(delimiter);
     }
 

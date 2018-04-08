@@ -26,20 +26,24 @@ public class CustomSplitterTest {
     }
 
     @Test
-    public void 커스텀지원안함() {
-        boolean canSupport = splitter.supports("//;\n3!4!5");
-        assertThat(canSupport).isFalse();
-    }
-
-    @Test
-    public void Custom_문자열_세미콜론() {
+    public void 커스텀문자열_세미콜론() {
         String[] split = splitter.split("//;\n1;2;3");
         assertThat(split).containsExactly("1", "2", "3");
     }
 
     @Test
-    public void Custom_문자열_느낌표() {
+    public void 커스텀문자열_느낌표() {
         String[] split = splitter.split("//!\n3!4!5");
         assertThat(split).containsExactly("3","4","5");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 커스텀문자열_지원하지않는식() {
+        splitter.split("3!4!5");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 커스텀문자열_잘못된구분자() {
+        splitter.split("//;\n3!4!5");
     }
 }
