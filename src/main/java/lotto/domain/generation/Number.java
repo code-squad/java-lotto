@@ -36,4 +36,8 @@ public class Number {
     public String toString() {
         return String.valueOf(number);
     }
+
+    public Integer getNumber() {
+        return number;
+    }
 }

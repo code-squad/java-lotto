@@ -42,4 +42,8 @@ public class Lotto {
     public List<Ticket> getTickets() {
         return tickets;
     }
+
+    public List<Integer> getNumbers(int index) {
+        return tickets.get(index).getNumbers();
+    }
 }
