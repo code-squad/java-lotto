@@ -19,7 +19,6 @@ public class StringAddCalculator {
 
         if (isBlank(expression)) return new Positive(0);
 
-//        String[] numbers = splitWithFor(expression);
         String[] numbers = split(expression);
         return sum(numbers);
     }
@@ -32,12 +31,11 @@ public class StringAddCalculator {
     }
 
     private Positive sum(String[] numbers) {
-        Positive sum = Arrays.stream(numbers)
-                .map(Positive::new)
-                .reduce((leftOperand, rightOperand) -> leftOperand.add(rightOperand))
-                .get();
 
-        return sum;
+        return Arrays.stream(numbers)
+                .map(Positive::new)
+                .reduce(Positive::add)
+                .get();
     }
 
     private Positive sumWithFor(String[] numbers) {
@@ -50,11 +48,15 @@ public class StringAddCalculator {
     }
 
     private String[] split(String expression) {
+        Splitter splitter = findSplitter(expression);
+        return splitter.split(expression);
+    }
+
+    private Splitter findSplitter(String expression) {
         return splitters.stream()
                 .filter(splitter -> splitter.supports(expression))
                 .findFirst()
-                .map(splitter -> splitter.split(expression))
-                .get();
+                .orElseThrow(() -> new IllegalArgumentException("분리 가능한 구분자를 식에서 찾을 수 없습니다."));
     }
 
     private String[] splitWithFor(String expression) {
@@ -62,6 +64,7 @@ public class StringAddCalculator {
             if(splitter.supports(expression))
                 return splitter.split(expression);
         }
-        return new String[] { };
+
+        throw new IllegalArgumentException("분리 가능한 구분자를 식에서 찾을 수 없습니다.");
     }
 }
