@@ -1,18 +1,17 @@
 package calculator.domain;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class StringCalculator {
-	private Set<String> defaultDelimiters;
+	private Delimiters defaultDelimiters;
 	private static final String FORMULA_REGEX = "//(.)\n(.*)";
 	
 	public StringCalculator(String... defaultDelimiters) {
-		this.defaultDelimiters = new HashSet<>(Arrays.asList(defaultDelimiters));
+		this.defaultDelimiters = new Delimiters(defaultDelimiters);
 	}
 	
 	public int calculate(String formula) {
@@ -20,7 +19,7 @@ public class StringCalculator {
 			return 0;
 		}
 		
-		return sum(getOperands(formula, getDelimiters(getCustomDelimiter(formula))));
+		return sum(getOperands(getPureFormula(formula), getDelimiters(getCustomDelimiter(formula))));
 	}
 	
 	private static boolean isEmptyFormula(String s) {
@@ -42,43 +41,32 @@ public class StringCalculator {
 		return Pattern.compile(FORMULA_REGEX).matcher(formula);
 	}
 	
-	private Set<String> getDelimiters(String customDelimiter) {
+	private Delimiters getDelimiters(String customDelimiter) {
 		if(customDelimiter == null) {
 			return defaultDelimiters;
 		}
 		
-		Set<String> delimiters = new HashSet<>(defaultDelimiters);
-		delimiters.add(customDelimiter);
-		return delimiters;
+		return defaultDelimiters.clone(customDelimiter);
 	}
 	
-	private int[] getOperands(String formula, Set<String> delimiters) {
+	private List<Operand> getOperands(String formula, Delimiters delimiters) {
+		return Arrays.stream(formula.split(delimiters.joining("|")))
+				.map(operand -> new Operand(operand))
+				.filter(operand -> operand.validate())
+				.collect(Collectors.toList());
+	}
+	
+	private String getPureFormula(String formula) {
 		Matcher matcher = getMatcherCustomFormula(formula);
 		if(matcher.find()) {
 			formula = matcher.group(2);
 		}
-		
-		String regex  = delimiters.stream()
-				.collect(Collectors.joining("|"));
-		return Arrays.stream(formula.split(regex))
-				.mapToInt(this::changeIntegerOperand)
-				.toArray();
+		return formula;
 	}
 	
-	private int changeIntegerOperand(String operand) {
-		int integerOperand = Integer.parseInt(operand);
-		validateOperand(integerOperand);
-		return integerOperand;
-	}
-	
-	private void validateOperand(int integerOperand) {
-		if(integerOperand < 0) {
-			throw new RuntimeException("음수가 입력되었습니다.");
-		}
-	}
-	
-	private int sum(int[] operands) {
-		return Arrays.stream(operands)
+	private int sum(List<Operand> operands) {
+		return operands.stream()
+				.mapToInt(Operand::getOperand)
 				.sum();
 	}
 }
