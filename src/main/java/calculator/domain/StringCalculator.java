@@ -29,6 +29,14 @@ public class StringCalculator {
 		return false;
 	}
 	
+	private String getPureFormula(String formula) {
+		Matcher matcher = getMatcherCustomFormula(formula);
+		if(matcher.find()) {
+			formula = matcher.group(2);
+		}
+		return formula;
+	}
+	
 	private String getCustomDelimiter(String formula) {
 		Matcher matcher = getMatcherCustomFormula(formula);
 		if(!matcher.find()) {
@@ -49,24 +57,16 @@ public class StringCalculator {
 		return defaultDelimiters.clone(customDelimiter);
 	}
 	
-	private List<Operand> getOperands(String formula, Delimiters delimiters) {
+	private List<Positive> getOperands(String formula, Delimiters delimiters) {
 		return Arrays.stream(formula.split(delimiters.joining("|")))
-				.map(operand -> new Operand(operand))
-				.filter(operand -> operand.validate())
+				.map(operand -> new Positive(operand))
 				.collect(Collectors.toList());
 	}
 	
-	private String getPureFormula(String formula) {
-		Matcher matcher = getMatcherCustomFormula(formula);
-		if(matcher.find()) {
-			formula = matcher.group(2);
-		}
-		return formula;
-	}
-	
-	private int sum(List<Operand> operands) {
-		return operands.stream()
-				.mapToInt(Operand::getOperand)
-				.sum();
+	private int sum(List<Positive> positives) {
+		return positives.stream()
+				.reduce(Positive::sum)
+				.get()
+				.getNumber();
 	}
 }
