@@ -46,9 +46,9 @@ public class LottoWebMain {
         });
 
         post("/matchLotto", (request, response) -> {
-            inputStorage.put("winningNumber", request.queryParams("winningNumber"));
-            inputStorage.put("bonusNumber", request.queryParams("bonusNumber"));
-            Result result = lottoMachine.matching((String) inputStorage.get("winningNumber"), (String) inputStorage.get("bonusNumber"), payment);
+            String winningNumber = request.queryParams("winningNumber");
+            String bonusNumber = request.queryParams("bonusNumber");
+            Result result = lottoMachine.matching(winningNumber, bonusNumber, payment);
             inputStorage.put("result", result);
             return render(inputStorage, "result.html");
         });
