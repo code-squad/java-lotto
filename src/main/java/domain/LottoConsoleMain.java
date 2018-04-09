@@ -3,7 +3,7 @@ package domain;
 import View.InputView;
 import View.ResultView;
 
-public class LottoMain {
+public class LottoConsoleMain {
     public static void main(String[] args) {
         boolean validation = false;
         while (!validation) {

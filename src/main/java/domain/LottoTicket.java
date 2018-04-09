@@ -17,6 +17,14 @@ public class LottoTicket {
         this.numbers = numbers;
     }
 
+    public String getName() {
+        return "name is here";
+    }
+
+    public String getLottoTicket() {
+        return this.toString();
+    }
+
     public static LottoTicket getLottoTicket(List<LottoNo> lottoNos) {
         return new LottoTicket(lottoNos);
     }

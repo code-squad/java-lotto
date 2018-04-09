@@ -12,7 +12,6 @@ public class LottoMachine {
 
     public LottoMachine() {
         init();
-
     }
 
     public static int getTotalCount(int payment) {
@@ -61,9 +60,12 @@ public class LottoMachine {
         return sb.toString();
     }
 
-    public void init() {
+    private void init() {
         lottoTickets = new ArrayList<>();
+        rankingInit();
+    }
 
+    private void rankingInit() {
         ranking = new HashMap<>();
         for (Rank rank : Rank.values()) {
             ranking.put(rank, 0);
@@ -71,6 +73,7 @@ public class LottoMachine {
     }
 
     public Result matching(String lastWinningNo, String bonusNo, int payment) {
+//        rankingInit(); // web에서 다시하기 했을 때, 이전 데이터 누적 방지
         List<LottoNo> lottoNos = LottoNo.getLottoNosFromString(lastWinningNo);
         LottoNo lottoNo = new LottoNo(bonusNo);
         WinningLotto winningLotto = new WinningLotto(lottoNos, lottoNo);
@@ -80,7 +83,7 @@ public class LottoMachine {
             try {
                 ranking.put(rank, this.ranking.get(rank) + 1);
             } catch (Exception e) {
-                // NullException
+                // todo refactor : NullException -> RuntimeException
             }
         }
         return new Result(ranking, payment);
