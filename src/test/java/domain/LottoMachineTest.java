@@ -17,4 +17,24 @@ public class LottoMachineTest {
         List<LottoTicket> lottoTickets = lottoMachine.createManualTickets(numbers);
         assertEquals(2, lottoTickets.size());
     }
+
+    @Test
+    public void getTotalCount() {
+        assertEquals(10, LottoMachine.getTotalCount(10000));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void checkUnderPayment() {
+        LottoMachine.getTotalCount(100);
+    }
+
+    @Test
+    public void getAutoCount() {
+        assertEquals(6, LottoMachine.getAutoCount(10, 4));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void checkOverManualCount() {
+        LottoMachine.getAutoCount(10, 11);
+    }
 }

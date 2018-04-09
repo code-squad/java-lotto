@@ -7,6 +7,7 @@ import java.util.Map;
 public class Result {
     private static final Double PERCENT = 100.0;
 
+    // 클래스의 필드가 iterable dataStructure일 때는 handlebar에서 어떻게 처리해줄까
     private Map<Rank, Integer> result;
     private Integer rateOfProfit;
 
@@ -22,6 +23,34 @@ public class Result {
         }
         Double result = total * (PERCENT / payment);
         rateOfProfit = result.intValue();
+    }
+
+    public Map<Rank, Integer> getResult() {
+        return this.result;
+    }
+
+    public int getFirst() {
+        return result.get(Rank.FIRST);
+    }
+
+    public int getSecond() {
+        return result.get(Rank.SECOND);
+    }
+
+    public int getThird() {
+        return result.get(Rank.THIRD);
+    }
+
+    public int getFourth() {
+        return result.get(Rank.FOURTH);
+    }
+
+    public int getFifth() {
+        return result.get(Rank.FIFTH);
+    }
+
+    public int getRate() {
+        return rateOfProfit;
     }
 
     @Override
