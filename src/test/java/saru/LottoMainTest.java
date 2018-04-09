@@ -124,6 +124,6 @@ public class LottoMainTest {
     @Test
     public void 수익률계산() {
         assertEquals(100 * ((5000 + 50000 * 2 + 1500000 + 30000000 + 2000000000)
-                / (INIT_NUM * 1000)), result.calcIncome());
+                / (INIT_NUM * 1000)), result.getCalcIncome());
     }
 }
