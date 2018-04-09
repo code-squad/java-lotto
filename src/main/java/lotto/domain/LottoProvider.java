@@ -7,7 +7,7 @@ import java.util.List;
  * @author sangsik.kim
  */
 public class LottoProvider {
-    private static final int PRICE_PER_LOTTO = 1000;
+    public static final int PRICE_PER_LOTTO = 1000;
 
     public static LottoGame order(int amount) {
         List<Lotto> lottos = new ArrayList();
