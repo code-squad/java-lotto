@@ -24,6 +24,9 @@ public class Generator {
     public static List<Ticket> generateManualTickets(String numbers, String inputMoney) {
         List<Ticket> manualTickets = new ArrayList<>();
 
+        if(numbers.length() == 0){
+            return new ArrayList<>();
+        }
         List<List<Integer>> manual = Parser.parseToLottoFormat(numbers); //throws exception
         int money = Parser.parseToInt(inputMoney); //throws exception
         Validator.validateInput(manual, money); //throws exception

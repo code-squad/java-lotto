@@ -8,7 +8,7 @@ public enum Match {
     FIRST(6, 2000000000);
 
     private final int matchCount;
-    private int prize;
+    private final int prize;
 
     private Match(int matchCount, int prize) {
         this.matchCount = matchCount;
@@ -50,5 +50,21 @@ public enum Match {
             return matchCount + "개 일치 (" + prize + "원)- ";
         }
         return matchCount + "개 일치, 보너스 볼 일치 (" + prize + "원)- ";
+    }
+
+    public String identify(Match rank) {
+        switch (rank) {
+            case FIRST:
+                return "1등";
+            case SECOND:
+                return "2등";
+            case THIRD:
+                return "3등";
+            case FOURTH:
+                return "4등";
+            case FIFTH:
+                return "5등";
+        }
+        return "";
     }
 }

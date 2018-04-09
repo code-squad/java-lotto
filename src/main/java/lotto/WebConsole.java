@@ -34,8 +34,8 @@ public class WebConsole {
             List<Ticket> manual = generateManualTickets(manualNumber, money);
             List<Ticket> auto = generateAutoTickets(manual.size(), money);
 
-            Lotto lottery = new Lotto(auto, manual);
-            lotto = lottery;
+            lotto = new Lotto(auto, manual);
+
             model.put("lotto", lotto);
             return render(model, "/show.html");
         });

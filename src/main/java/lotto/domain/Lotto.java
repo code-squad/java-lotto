@@ -35,11 +35,15 @@ public class Lotto {
         return matches;
     }
 
-    int getNumberOfTickets() {
+    public int getNumberOfTickets() {
         return numberOfTickets;
     }
 
     public List<Ticket> getTickets() {
         return tickets;
+    }
+
+    public List<Integer> getNumbers(int index) {
+        return tickets.get(index).getNumbers();
     }
 }

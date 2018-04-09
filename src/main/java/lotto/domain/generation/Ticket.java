@@ -1,5 +1,6 @@
 package lotto.domain.generation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ticket {
@@ -39,5 +40,13 @@ public class Ticket {
     @Override
     public String toString() {
         return String.join(", ", ticket.toString());
+    }
+
+    public List<Integer> getNumbers() {
+        List<Integer> numbers = new ArrayList<>();
+        for (Number number : ticket) {
+            numbers.add(number.getNumber());
+        }
+        return numbers;
     }
 }
