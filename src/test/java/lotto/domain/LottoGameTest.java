@@ -5,16 +5,16 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LottoTestGameTest {
+public class LottoGameTest {
 	private LottoGame lottoGame;
 	
 	@Before
 	public void setUp() throws Exception {
-		lottoGame = new LottoGame();
+		lottoGame = new LottoGame(new TestLottoGenerator());
 	}
 	
 	@Test
 	public void 당첨번호123456_테스트() {
-		assertThat(lottoGame.play(5000)).isEqualTo(500);
+		assertThat(lottoGame.play(5000, new Numbers(1,2,3,4,5,6))).isEqualTo(500);
 	}
 }
