@@ -9,8 +9,11 @@ import java.util.List;
 
 public class LottoDAO {
     private static final String userLottoTable = "userLotto";
-    private final String resultTable = "result";
+    private static final String resultTable = "result";
     private static LottoDAO lottoDAO;
+
+    private LottoDAO() {
+    }
 
     public static LottoDAO getInstance() {
         if (lottoDAO == null) {
@@ -35,9 +38,8 @@ public class LottoDAO {
     }
 
     public void addToUserLotto(Lotto lotto) {
-        try {
-            String sql = "INSERT INTO " + userLottoTable + "(first,second,third,fourth,fifth,sixth) values(?,?,?,?,?,?)";
-            PreparedStatement pstmt = getConnection().prepareStatement(sql);
+        String sql = "INSERT INTO " + userLottoTable + "(first,second,third,fourth,fifth,sixth) values(?,?,?,?,?,?)";
+        try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
 
             int ticketCount = lotto.getNumberOfTickets();
             for (int i = 0; i < ticketCount; i++) {
@@ -51,8 +53,6 @@ public class LottoDAO {
 
                 pstmt.execute();
             }
-            pstmt.close();
-            getConnection().close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
