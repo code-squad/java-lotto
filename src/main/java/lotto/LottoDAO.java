@@ -85,6 +85,7 @@ public class LottoDAO {
     public void renewResultTable() {
         try (Connection connection = getConnection();
              Statement stmt = connection.createStatement()) {
+
             String sql = "DROP TABLE IF EXISTS " + RESULT_TABLE;
             stmt.executeUpdate(sql);
 
@@ -115,13 +116,13 @@ public class LottoDAO {
     }
 
 
-    public List<List<Integer>> getFromUserLotto() {
+    public List<Integer[]> getFromUserLotto() {
         try (Connection connection = getConnection();
              Statement stmt = connection.createStatement()) {
 
             String sql = "SELECT * FROM " + USER_LOTTO_TABLE;
             ResultSet rs = stmt.executeQuery(sql);
-            List<List<Integer>> numbers = new ArrayList<>();
+            List<Integer[]> numbers = new ArrayList<>();
             while (rs.next()) {
                 int first = rs.getInt("first");
                 int second = rs.getInt("second");
@@ -129,7 +130,7 @@ public class LottoDAO {
                 int fourth = rs.getInt("fourth");
                 int fifth = rs.getInt("fifth");
                 int sixth = rs.getInt("sixth");
-                numbers.add(Arrays.asList(first, second, third, fourth, fifth, sixth));
+                numbers.add(new Integer[]{first, second, third, fourth, fifth, sixth});
             }
             return numbers;
 
