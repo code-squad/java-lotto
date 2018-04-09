@@ -8,7 +8,6 @@ import java.util.*;
 
 import static spark.Spark.*;
 
-
 public class LottoMain {
     private static LottoMachine lottoMachine = null;
 
@@ -40,9 +39,9 @@ public class LottoMain {
             inputStorage.put("lottoTickets", lottoTickets);
 
             ResultView.printAutoManualCount(totalCount, manualCount);
-            System.out.println(lottoMachine.toString());
             return render(inputStorage, "show.html");
         });
+
         post("/matchLotto", (request, response) -> {
             inputStorage.put("winningNumber", request.queryParams("winningNumber"));
             inputStorage.put("bonusNumber", request.queryParams("bonusNumber"));
@@ -54,7 +53,6 @@ public class LottoMain {
 
     public static List<String> convertToList(String inputManualNumber) {
         List<String> manualNumber = Arrays.asList(inputManualNumber.split("\\r?\\n"));
-        System.out.println("convertToList");
         return manualNumber;
     }
 }
