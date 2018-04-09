@@ -8,8 +8,9 @@ import java.util.*;
 
 import static spark.Spark.*;
 
-public class LottoMain {
+public class LottoWebMain {
     private static LottoMachine lottoMachine = null;
+    private static int payment = 0;
 
     public static String render(Map<String, Object> model, String templatePath) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
@@ -26,15 +27,13 @@ public class LottoMain {
         });
 
         post("/buyLotto", (request, response) -> {
-            inputStorage.put("payment", request.queryParams("inputMoney"));
-            inputStorage.put("manualNumber", request.queryParams("manualNumber"));
-            int payment = Integer.parseInt((String) inputStorage.get("payment"));
+            payment = Integer.parseInt(request.queryParams("inputMoney"));
             int totalCount = LottoMachine.getTotalCount(payment);
             inputStorage.put("totalCount", totalCount);
             int manualCount = 0;
 
             List<LottoTicket> lottoTickets = new ArrayList<>();
-            List<String> manualNumbers = convertToList((String) inputStorage.get("manualNumber"));
+            List<String> manualNumbers = convertToList(request.queryParams("manualNumber"));
             if ( manualNumbers !=null){
                 manualCount =manualNumbers.size();
                 lottoTickets.addAll(lottoMachine.createManualTickets(manualNumbers));
@@ -49,7 +48,7 @@ public class LottoMain {
         post("/matchLotto", (request, response) -> {
             inputStorage.put("winningNumber", request.queryParams("winningNumber"));
             inputStorage.put("bonusNumber", request.queryParams("bonusNumber"));
-            Result result = lottoMachine.matching((String) inputStorage.get("winningNumber"), (String) inputStorage.get("bonusNumber"), Integer.parseInt((String) inputStorage.get("payment")));
+            Result result = lottoMachine.matching((String) inputStorage.get("winningNumber"), (String) inputStorage.get("bonusNumber"), payment);
             inputStorage.put("result", result);
             return render(inputStorage, "result.html");
         });
