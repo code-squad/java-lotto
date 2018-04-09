@@ -9,27 +9,23 @@ public class LottoGame {
 	public LottoGame(LottoGenerator lottoGenerator) {
 		this.lottoGenerator = lottoGenerator;
 	}
-	
-	public int play(int money, Numbers winNumbers) {
-		return calculateProfitRate(winNumbers, money);
-	}
-	
+
 	public List<Lotto> generateLottos(int money) {
 		lottos = lottoGenerator.generate(getLottoNumer(money));
 		return lottos;
 	}
-	
-	private int sumPrize(List<Lotto> lottos, Numbers winNumbers) {
+
+    public int calculateProfitRate(Numbers winNumbers, int money) {
+        return sumPrize(winNumbers) / money * 100;
+    }
+
+    private int getLottoNumer(int money) {
+        return money / Lotto.LOTTO_PRICE;
+    }
+
+	private int sumPrize(Numbers winNumbers) {
 		return lottos.stream()
 				.mapToInt(lotto -> LottoWinType.getPrizeByMatchCount(lotto.countMatchNumbers(winNumbers)))
 				.sum();
-	}
-	
-	public int calculateProfitRate(Numbers winNumbers, int money) {
-		return sumPrize(lottos, winNumbers) / money * 100;
-	}
-	
-	private int getLottoNumer(int money) {
-		return money / Lotto.LOTTO_PRICE;
 	}
 }

@@ -1,8 +1,11 @@
 package lotto.domain;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum LottoWinType {
+	ZERO_MATCH(0, 0),
 	THREE_MATCH(3, 5000),
 	FOUR_MATCH(4, 50000),
 	FIVE_MATCH(5, 1500000),
@@ -16,33 +19,19 @@ public enum LottoWinType {
 		this.prize = prize;
 	}
 	
-	public int getMatchCount() {
-		return matchCount;
-	}
-	
 	public int getPrize() {
 		return prize;
 	}
 	
-	public boolean hasMatchCount(int matchCount) {
-		return matchCount == matchCount;
-	}
-	
-	public int getPrize(int lottoNum) {
-		return lottoNum * prize;
-	}
-	
-	public static int[] getMatchCountValues() {
-		return Arrays.stream(LottoWinType.values())
-				.mapToInt(LottoWinType::getMatchCount)
-				.toArray();
+	public boolean isMatchCount(int matchCount) {
+		return this.matchCount == matchCount;
 	}
 	
 	public static int getPrizeByMatchCount(int matchCount) {
 		return Arrays.stream(LottoWinType.values())
-				.filter(lottoWinType -> lottoWinType.hasMatchCount(matchCount))
-				.findAny()
-				.orElseThrow(() -> new IllegalArgumentException("입력한 로또 번호 매칭카운트가 잘못되었습니다."))
+				.filter(lottoWinType -> lottoWinType.isMatchCount(matchCount))
+				.findFirst()
+				.orElse(ZERO_MATCH)
 				.getPrize();
 	}
 }

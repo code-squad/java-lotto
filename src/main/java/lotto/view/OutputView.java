@@ -23,7 +23,7 @@ public class OutputView {
 	}
 	
 	public static void showNumbersView(Numbers numbers) {
-		System.out.print(numbers.getNumbers().stream()
+		System.out.print(numbers.stream()
 				.map(number -> Integer.toString(number))
 				.collect(joining(NUMBERS_VIEW_DELIMITER)));
 	}
