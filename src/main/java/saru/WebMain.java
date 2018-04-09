@@ -33,8 +33,10 @@ public class WebMain {
             String winningNum = req.queryParams("winningNumber");
             int bonusNum = Integer.parseInt(req.queryParams("bonusNumber"));
 
+            // TODO 여기서 디비에서 불러온다
             LottoCalculator lottoCalculator = LottoCalculator.of(storeLottoLines);
             Result result = lottoCalculator.makeResult(buyNum, winningNum, bonusNum);
+            // TODO 여기서 result 디비에 넣는다
 
             Map<String, Object> model = new HashMap<>();
             model.put("result", result);
@@ -58,6 +60,7 @@ public class WebMain {
         List<LottoLine> autoLines = lottoMaker.makeAutoLottoLines(buyNum - manualLines.size());
 
         storeLottoLines = LottoUtil.joinLottoLines(autoLines, manualLines);
+        // TODO 여기서 디비에 넣는다
     }
 
     private static void storeBuyNum(Request req) {
