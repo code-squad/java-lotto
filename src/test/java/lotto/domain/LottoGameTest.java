@@ -11,10 +11,11 @@ public class LottoGameTest {
 	@Before
 	public void setUp() throws Exception {
 		lottoGame = new LottoGame(new TestLottoGenerator());
+		lottoGame.generateLottos(5000);
 	}
 	
 	@Test
 	public void 당첨번호123456_테스트() {
-		assertThat(lottoGame.play(5000, new Numbers(1,2,3,4,5,6))).isEqualTo(500);
+		assertThat(lottoGame.calculateProfitRate(new Numbers(1,2,3,4,5,6), 5000)).isEqualTo(500);
 	}
 }

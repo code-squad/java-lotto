@@ -15,4 +15,8 @@ public class Numbers {
 	public int countMatch(Numbers numbers2) {
 		return 3;
 	}
+	
+	public List<Integer> getNumbers() {
+		return numbers;
+	}
 }

@@ -4,13 +4,19 @@ import java.util.List;
 
 public class LottoGame {
 	private LottoGenerator lottoGenerator;
+	private List<Lotto> lottos;
 	
 	public LottoGame(LottoGenerator lottoGenerator) {
 		this.lottoGenerator = lottoGenerator;
 	}
 	
 	public int play(int money, Numbers winNumbers) {
-		return calculateProfitRate(lottoGenerator.generate(getLottoNumer(money)), winNumbers, money);
+		return calculateProfitRate(winNumbers, money);
+	}
+	
+	public List<Lotto> generateLottos(int money) {
+		lottos = lottoGenerator.generate(getLottoNumer(money));
+		return lottos;
 	}
 	
 	private int sumPrize(List<Lotto> lottos, Numbers winNumbers) {
@@ -19,7 +25,7 @@ public class LottoGame {
 				.sum();
 	}
 	
-	private int calculateProfitRate(List<Lotto> lottos, Numbers winNumbers, int money) {
+	public int calculateProfitRate(Numbers winNumbers, int money) {
 		return sumPrize(lottos, winNumbers) / money * 100;
 	}
 	

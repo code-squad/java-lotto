@@ -12,6 +12,10 @@ public class Lotto {
 		this.numbers = new Numbers(numbers);
 	}
 	
+	public Numbers getNumbers() {
+		return numbers;
+	}
+	
 	public int countMatchNumbers(Numbers winNumbers) {
 		return numbers.countMatch(winNumbers);
 	}
