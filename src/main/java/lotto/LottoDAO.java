@@ -5,11 +5,11 @@ import lotto.domain.Match;
 import lotto.domain.Results;
 
 import java.sql.*;
-import java.util.List;
+import java.util.*;
 
 public class LottoDAO {
-    private static final String userLottoTable = "userLotto";
-    private static final String resultTable = "result";
+    private static final String USER_LOTTO_TABLE = "userLotto";
+    private static final String RESULT_TABLE = "result";
     private static LottoDAO lottoDAO;
 
     private LottoDAO() {
@@ -38,8 +38,9 @@ public class LottoDAO {
     }
 
     public void addToUserLotto(Lotto lotto) {
-        String sql = "INSERT INTO " + userLottoTable + "(first,second,third,fourth,fifth,sixth) values(?,?,?,?,?,?)";
-        try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
+        String sql = "INSERT INTO " + USER_LOTTO_TABLE + "(first,second,third,fourth,fifth,sixth) values(?,?,?,?,?,?)";
+        try (Connection connection = getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             int ticketCount = lotto.getNumberOfTickets();
             for (int i = 0; i < ticketCount; i++) {
@@ -59,12 +60,13 @@ public class LottoDAO {
     }
 
     public void renewUserLottoTable() {
-        try (Statement stmt = getConnection().createStatement()) {
+        try (Connection connection = getConnection();
+             Statement stmt = connection.createStatement()) {
 
-            String sql = "DROP TABLE IF EXISTS " + userLottoTable;
+            String sql = "DROP TABLE IF EXISTS " + USER_LOTTO_TABLE;
             stmt.executeUpdate(sql);
 
-            sql = "CREATE TABLE " + userLottoTable +
+            sql = "CREATE TABLE " + USER_LOTTO_TABLE +
                     "(count TINYINT PRIMARY KEY AUTO_INCREMENT," +
                     "first TINYINT NOT NULL," +
                     "second TINYINT NOT NULL," +
@@ -81,11 +83,12 @@ public class LottoDAO {
     }
 
     public void renewResultTable() {
-        try (Statement stmt = getConnection().createStatement()) {
-            String sql = "DROP TABLE IF EXISTS " + resultTable;
+        try (Connection connection = getConnection();
+             Statement stmt = connection.createStatement()) {
+            String sql = "DROP TABLE IF EXISTS " + RESULT_TABLE;
             stmt.executeUpdate(sql);
 
-            sql = "CREATE TABLE " + resultTable +
+            sql = "CREATE TABLE " + RESULT_TABLE +
                     "(rank CHAR(16) NOT NULL," +
                     "count TINYINT DEFAULT 0);";
             stmt.executeUpdate(sql);
@@ -96,8 +99,9 @@ public class LottoDAO {
     }
 
     public void addToResult(Results results) {
-        String sql = "INSERT INTO " + resultTable + " VALUES(?,?);";
-        try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
+        String sql = "INSERT INTO " + RESULT_TABLE + " VALUES(?,?);";
+        try (Connection connection = getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             for (Match rank : Match.values()) {
                 pstmt.setString(1, rank.identify(rank));
@@ -107,6 +111,51 @@ public class LottoDAO {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+
+    public List<List<Integer>> getFromUserLotto() {
+        try (Connection connection = getConnection();
+             Statement stmt = connection.createStatement()) {
+
+            String sql = "SELECT * FROM " + USER_LOTTO_TABLE;
+            ResultSet rs = stmt.executeQuery(sql);
+            List<List<Integer>> numbers = new ArrayList<>();
+            while (rs.next()) {
+                int first = rs.getInt("first");
+                int second = rs.getInt("second");
+                int third = rs.getInt("third");
+                int fourth = rs.getInt("fourth");
+                int fifth = rs.getInt("fifth");
+                int sixth = rs.getInt("sixth");
+                numbers.add(Arrays.asList(first, second, third, fourth, fifth, sixth));
+            }
+            return numbers;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public Map<String, Integer> getFromResult() {
+        try (Connection connection = getConnection();
+             Statement stmt = connection.createStatement()) {
+
+            String sql = "SELECT * FROM " + RESULT_TABLE;
+            ResultSet rs = stmt.executeQuery(sql);
+            Map<String, Integer> result = new HashMap<>();
+            while (rs.next()) {
+                String rank = rs.getString("rank");
+                int count = rs.getInt("count");
+                result.put(rank, count);
+            }
+            return result;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 }

@@ -45,7 +45,8 @@ public class Generator {
         return numbers;
     }
 
-    public static Ticket generateWinningTicket(String input) {
+    public static Ticket generate
+    WinningTicket(String input) {
         List<Number> winningNumbers = new ArrayList<>();
         Validator.checkOneTicket(input); //throws exception
 
