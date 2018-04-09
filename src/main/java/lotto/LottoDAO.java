@@ -8,8 +8,17 @@ import java.sql.*;
 import java.util.List;
 
 public class LottoDAO {
-    private final String userLottoTable = "user_lotto";
+    private static final String userLottoTable = "userLotto";
     private final String resultTable = "result";
+    private static LottoDAO lottoDAO;
+
+    public static LottoDAO getInstance() {
+        if (lottoDAO == null) {
+            lottoDAO = new LottoDAO();
+            return lottoDAO;
+        }
+        return lottoDAO;
+    }
 
     public Connection getConnection() {
         String url = "jdbc:mysql://192.168.56.101:3306/lotto";
@@ -43,14 +52,14 @@ public class LottoDAO {
                 pstmt.execute();
             }
             pstmt.close();
+            getConnection().close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void renewUserLottoTable() {
-        try {
-            Statement stmt = getConnection().createStatement();
+        try (Statement stmt = getConnection().createStatement()) {
 
             String sql = "DROP TABLE IF EXISTS " + userLottoTable;
             stmt.executeUpdate(sql);
@@ -66,16 +75,13 @@ public class LottoDAO {
                     ");";
             stmt.executeUpdate(sql);
 
-            stmt.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void renewResultTable() {
-        try {
-            Statement stmt = getConnection().createStatement();
-
+        try (Statement stmt = getConnection().createStatement()) {
             String sql = "DROP TABLE IF EXISTS " + resultTable;
             stmt.executeUpdate(sql);
 
@@ -84,16 +90,14 @@ public class LottoDAO {
                     "count TINYINT DEFAULT 0);";
             stmt.executeUpdate(sql);
 
-            stmt.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void addToResult(Results results) {
-        try {
-            String sql = "INSERT INTO " + resultTable + " VALUES(?,?);";
-            PreparedStatement pstmt = getConnection().prepareStatement(sql);
+        String sql = "INSERT INTO " + resultTable + " VALUES(?,?);";
+        try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
 
             for (Match rank : Match.values()) {
                 pstmt.setString(1, rank.identify(rank));
@@ -101,7 +105,6 @@ public class LottoDAO {
                 pstmt.execute();
             }
 
-            pstmt.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

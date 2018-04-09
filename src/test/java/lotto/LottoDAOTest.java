@@ -42,7 +42,7 @@ public class LottoDAOTest {
     }
 
     @Test
-    public void renewTable() {
+    public void renewUserLottoTable() {
         lottoDAO.renewUserLottoTable();
     }
 
