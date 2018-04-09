@@ -1,15 +1,12 @@
 package result;
 
 import rank.Rank;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 public class Result {
     public static HashMap<Rank, Integer> finalResult;
     private List<Rank> ranks;
-
     static {
         finalResult = new HashMap<>();
         finalResult.put(Rank.FIFTH, 0);
@@ -28,11 +25,44 @@ public class Result {
         }
     }
 
+    public int earn(List<Rank> ranks) {
+        int sum = 0;
+        for (Rank rank: ranks) {
+            sum += rank.getWinningMoney();
+        }
+        return sum;
+    }
+
     public List<Rank> getRanks() {
         return ranks;
     }
 
     public static HashMap<Rank, Integer> getFinalResult() {
         return finalResult;
+    }
+
+    public int getFirst() {
+        return finalResult.get(Rank.FIRST);
+    }
+
+    public int getSecond() {
+        return finalResult.get(Rank.SECOND);
+    }
+
+    public int getThird() {
+        return finalResult.get(Rank.THIRD);
+    }
+
+    public int getFourth() {
+        return finalResult.get(Rank.FOURTH);
+    }
+
+    public int getFifth() {
+        return finalResult.get(Rank.FIFTH);
+    }
+
+    public int getPercent() {
+        int percent = (earn(ranks) / (ranks.size() * 1000)) * 100;
+        return percent;
     }
 }

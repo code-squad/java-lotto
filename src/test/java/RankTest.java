@@ -1,8 +1,6 @@
-import org.junit.Before;
 import org.junit.Test;
 import rank.Rank;
 import result.Result;
-
 import java.util.Arrays;
 import java.util.List;
 
