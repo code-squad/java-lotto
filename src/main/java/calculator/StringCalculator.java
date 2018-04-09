@@ -63,6 +63,7 @@ public class StringCalculator {
 
     static class DefaultSplitter implements Splitter {
         private final static String PATTERNS = ",|:";
+        private final static String CUSTOM_PATTERNS = "//(.)\n(.*)";
         
         @Override
         public String[] split(String expression) {
@@ -71,7 +72,8 @@ public class StringCalculator {
 
         @Override
         public boolean isSupport(String expression) {
-            return true;
+            Matcher m = Pattern.compile(CUSTOM_PATTERNS).matcher(expression);
+            return m.find() == false;
         }
     }
 
