@@ -14,53 +14,39 @@ public class AddCalculator {
     }
 
     private static int sum(String text){
-        return addNums(toInts(splitComma(getText(text),getDelimeter(text))));
+        return addNums(toInts(splitText(text)));
     }
 
-    private static String getText(String text) {
+    private static String[] splitText(String text) {
         Matcher m = Pattern.compile("//(.)\n(.*)").matcher(text);
         if (m.find()) {
-            return m.group(2);
+            return m.group(2).split(m.group(1));
         }
 
-        return text;
+        return text.split(",|:");
     }
 
-    private static String getDelimeter(String text) {
-        Matcher m = Pattern.compile("//(.)\n(.*)").matcher(text);
-        if (m.find()) {
-            return ",|:|"+m.group(1);
+    private static int[] toInts(String[] nums) {
+        int[] intValues = new int[nums.length];
+        for(int i = 0; i < nums.length; i++){
+            intValues[i] = Integer.valueOf(nums[i]);
         }
 
-        return ",|:";
+        return checkMinus(intValues);
     }
 
-    private static String[] splitComma(String text,String delemeter) {
-        return text.split(delemeter);
-    }
-
-    private static int[] toInts(String[] numArr) {
-        int[] numIntArr = new int[numArr.length];
-        for(int i=0; i<numArr.length; i++){
-            numIntArr[i] = Integer.valueOf(numArr[i]);
-        }
-
-        return checkMinus(numIntArr);
-    }
-
-    private static int[] checkMinus(int[] numArr) {
-        for(int num : numArr){
+    private static int[] checkMinus(int[] nums) {
+        for(int num : nums) {
             if(num < 0)
                 throw new RuntimeException();
         }
 
-        return numArr;
-
+        return nums;
     }
 
-    private static int addNums(int[] numArr) {
+    private static int addNums(int[] nums) {
         int sum = 0;
-        for(int num : numArr){
+        for(int num : nums){
             sum += num;
         }
 
