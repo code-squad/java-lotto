@@ -12,7 +12,7 @@ public class LottoMachineTest {
     LottoMachine lottoMachine = new LottoMachine();
 
     @Test
-    public void getManualTickets() {
+    public void getManualTickets() throws Exception {
         // 2개의 수동 입력이 들어올 때, 2개의 LottoTicket을 만들어 내는가?
         List<String> numbers = new ArrayList<>(Arrays.asList("1,2,3,4,5,6", "7,8,9,10,11,12"));
         List<LottoTicket> lottoTickets = lottoMachine.createManualTickets(numbers);
@@ -20,7 +20,7 @@ public class LottoMachineTest {
     }
 
     @Test
-    public void createAutoTickets() {
+    public void createAutoTickets() throws Exception {
         List<LottoTicket> lottoTickets = lottoMachine.createAutoTickets(6);
         assertEquals(6, lottoTickets.size());
     }

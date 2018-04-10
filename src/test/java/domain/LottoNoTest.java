@@ -1,15 +1,24 @@
 package domain;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class LottoNoTest {
+    LottoDAO lottoDAO;
     LottoNo lottoNo;
+    List<LottoNo> lottoNos;
+
+    @Before
+    public void setup() {
+        lottoDAO = new LottoDAO();
+        String numberLine = "1, 2, 3, 4, 5, 6";
+        lottoNos = LottoNo.getLottoNosFromString(numberLine);
+    }
 
     @Test
     public void generateLottoNo() {
@@ -30,14 +39,14 @@ public class LottoNoTest {
     @Test
     public void getLottoNoFromString() {
         String numberLine = "1, 2, 3, 4, 5, 6";
-        List<LottoNo> lottoNos = LottoNo.getLottoNosFromString(numberLine);
+        lottoNos = LottoNo.getLottoNosFromString(numberLine);
         LottoNo lottoNo = new LottoNo(1);
         assertEquals(lottoNo, lottoNos.get(0));
     }
 
     @Test
-    public void insertNumbers() throws SQLException {
-        LottoNo.insert(Arrays.asList(1,2,3,4,5,6));
+    public void insertNumbers() throws Exception {
+        lottoDAO.insertNo(lottoNos);
     }
 
     @Test

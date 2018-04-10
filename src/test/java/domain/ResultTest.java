@@ -12,20 +12,21 @@ import static org.junit.Assert.assertEquals;
 public class ResultTest {
     private static final int PAYMENT = 10000;
     Result result = null;
+    Map<Rank, Integer> ranking;
 
     @Before
-    public void setup() {
-        Map<Rank, Integer> ranking = new HashMap<>();
+    public void setup() throws Exception {
+        ranking = new HashMap<>();
         for (Rank rank : Rank.values()) {
             ranking.put(rank, 1);
         }
-
         result = new Result(ranking, PAYMENT);
     }
 
     @Test
     public void insertResult() throws Exception {
-        result.insertResult();
+        LottoDAO lottoDAO = new LottoDAO();
+        lottoDAO.insertResult(ranking, result.calcRateOfProfit(PAYMENT));
     }
 
     @Test

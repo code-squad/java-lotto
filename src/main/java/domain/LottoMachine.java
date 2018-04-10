@@ -1,8 +1,5 @@
 package domain;
 
-import Util.Database;
-
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +31,7 @@ public class LottoMachine {
     }
 
     // 테스트 이유를 제외하면 static을 할 이유가 있는가
-    public List<LottoTicket> createManualTickets(List<String> numberLines) {
+    public List<LottoTicket> createManualTickets(List<String> numberLines) throws Exception {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         for (String numberLine : numberLines) {
             LottoTicket lottoTicket = LottoTicket.getLottoTicket(LottoNo.getLottoNosFromString(numberLine));
@@ -44,7 +41,7 @@ public class LottoMachine {
         return lottoTickets;
     }
 
-    public List<LottoTicket> createAutoTickets(int autoCount) {
+    public List<LottoTicket> createAutoTickets(int autoCount) throws Exception {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         for (int index = 0; index < autoCount; index++) {
             lottoTickets.add(LottoTicket.getLottoTicket(LottoNo.getLottoNos()));
@@ -89,9 +86,6 @@ public class LottoMachine {
                 // todo refactor : NullException -> RuntimeException
             }
         }
-
-
-
         return new Result(ranking, payment);
     }
 }

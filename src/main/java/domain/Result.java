@@ -1,20 +1,17 @@
 package domain;
 
-import Util.Database;
-
-import java.sql.PreparedStatement;
 import java.util.Map;
 
 public class Result {
     private static final Double PERCENT = 100.0;
-
-    // 클래스의 필드가 iterable dataStructure일 때는 handlebar에서 어떻게 처리해줄까
     private Map<Rank, Integer> result;
     private Integer rateOfProfit;
 
-    public Result(Map<Rank, Integer> result, int payment) {
+    public Result(Map<Rank, Integer> result, int payment) throws Exception {
         this.result = result;
         rateOfProfit = calcRateOfProfit(payment);
+        LottoDAO lottoDAO = new LottoDAO();
+        lottoDAO.insertResult(result, rateOfProfit);
     }
 
     public int calcRateOfProfit(int payment) {
@@ -24,19 +21,6 @@ public class Result {
         }
         Double result = total * (PERCENT / payment);
         return result.intValue();
-    }
-
-    public void insertResult() throws Exception {
-        String sql = "insert into RESULT(FIRST, SECOND, THIRD, FOURTH, FIFTH, RATE) values (?,?,?,?,?,?)";
-        PreparedStatement pstmt = Database.getConnection().prepareStatement(sql);
-        //각 랭크의 회수를 저장하려고 하는 중.
-        int index = 1;
-        for (Rank rank : Rank.values()) {
-            pstmt.setInt(index, this.result.get(rank));
-            index++;
-        }
-        pstmt.setInt(6, rateOfProfit);
-        pstmt.executeUpdate();
     }
 
     public Map<Rank, Integer> getResult() {

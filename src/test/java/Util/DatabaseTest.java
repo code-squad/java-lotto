@@ -7,7 +7,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class DatabaseTest {
     @Test
-    public void connection() {
+    public void connection() throws Exception {
         assertNotNull(Database.getConnection());
     }
 }

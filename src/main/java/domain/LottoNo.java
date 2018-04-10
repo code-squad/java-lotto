@@ -1,9 +1,5 @@
 package domain;
 
-import Util.Database;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -66,7 +62,6 @@ public class LottoNo {
             numbers.add(number);
         }
         numbers.sort(Integer::compareTo);
-        // System.out.println(numbers);
         return numbers;
     }
 
@@ -96,13 +91,7 @@ public class LottoNo {
         return String.valueOf(lottoNo);
     }
 
-    public static void insert(List<Integer> numbers) throws SQLException {
-        String sql = "insert into NUMBERS(NO1,NO2,NO3,NO4,NO5,NO6) values (?,?,?,?,?,?)";
-        PreparedStatement pstmt = Database.getConnection().prepareStatement(sql);
-        for (int i = 0; i < 6; i++) {
-            pstmt.setInt(i+1, numbers.get(i));
-        }
-
-        pstmt.executeUpdate();
+    public int getLottoNo() {
+        return this.lottoNo;
     }
 }
