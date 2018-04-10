@@ -1,8 +1,11 @@
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class LearningTest {
 
@@ -32,5 +35,17 @@ public class LearningTest {
         Matcher m = Pattern.compile(PATTERNS).matcher(text);
 
         Assertions.assertThat(m.group(0)).isEqualTo(PATTERNS);
+    }
+
+    @Test
+    public void stream_distinct_테스트() {
+        //given
+        List<Integer> integers = Arrays.asList(1, 1, 2, 3, 4);
+
+        //when
+        List<Integer> distinct = integers.stream().distinct().collect(Collectors.toList());
+
+        //then
+        Assertions.assertThat(distinct).hasSize(integers.size() - 1);
     }
 }

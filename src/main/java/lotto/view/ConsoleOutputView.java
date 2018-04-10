@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class ConsoleOutputView {
     private static final String PRIZE_DIVISION_RESULT_FORMAT = "%s개 일치 (%s원): %s개";
+    private static final String RATE_OF_RETURN_FORMAT = "총 수익률은 %.0f%%입니다.";
 
     private ConsoleOutputView() { }
 
@@ -18,5 +19,9 @@ public class ConsoleOutputView {
                 System.out.println(String.format(PRIZE_DIVISION_RESULT_FORMAT,
                 k.getMatchedNumber(), k.getPrize(), v))
         );
+    }
+
+    public static void printRateOfReturn(float rateOfReturn) {
+        System.out.println(String.format(RATE_OF_RETURN_FORMAT, rateOfReturn));
     }
 }
