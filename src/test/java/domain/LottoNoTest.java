@@ -2,6 +2,7 @@ package domain;
 
 import org.junit.Test;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,7 +36,13 @@ public class LottoNoTest {
     }
 
     @Test
-    public void insertNumbers() {
+    public void insertNumbers() throws SQLException {
+        LottoNo.insert(Arrays.asList(1,2,3,4,5,6));
+    }
 
+    @Test
+    public void makeRandomNumbers() {
+        List<Integer> numbers = LottoNo.makeRandomNumbers();
+        assertEquals(6, numbers.size());
     }
 }
