@@ -81,7 +81,7 @@ public class JavaLottoTest {
     public void 퍼센트계산100 ()throws Exception{
         List<Integer> result = new ArrayList<>();
         result.add(3);
-        int percent = Grade.returnPercent(result,5000);
+        double percent = Grade.returnPercent(result,5000);
         assertThat(percent).isEqualTo(100);
     }
 
@@ -90,7 +90,7 @@ public class JavaLottoTest {
         List<Integer> result = new ArrayList<>();
         result.add(3);
         result.add(3);
-        int percent = Grade.returnPercent(result,5000);
+        double percent = Grade.returnPercent(result,5000);
         assertThat(percent).isEqualTo(200);
     }
 

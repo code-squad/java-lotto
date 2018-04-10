@@ -37,7 +37,7 @@ public class Grade {
     }
 
 
-    public static int returnPercent(List<Integer> result, int inputPrice) {
+    public static double returnPercent(List<Integer> result, int inputPrice) {
         int percent = 0;
         for (int price : getTotalPrice(result)) {
             percent += price;
@@ -57,7 +57,7 @@ public class Grade {
         return totalPrice;
     }
 
-    private static int changePercent(int inputPrice, int percent) {
-        return percent / inputPrice * 100;
+    private static double changePercent(int inputPrice, int percent) {
+        return ((double)percent / (double)inputPrice) * 100.0;
     }
 }
