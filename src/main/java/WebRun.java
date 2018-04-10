@@ -1,3 +1,5 @@
+import dao.LottoDAO;
+import dao.RankDAO;
 import lotto.*;
 
 import static spark.Spark.*;
@@ -27,6 +29,8 @@ public class WebRun {
             webBuy.webManualBuy(manualNum);
             Map<String, Object> model = new HashMap<>();
             lottos = webBuy.getLottos();
+            LottoDAO lottoDao = new LottoDAO();
+            lottoDao.lottosInserting(lottos);
             model.put("num", (Integer.parseInt(req.queryParams("inputMoney")) / 1000));
             model.put("lottos", lottos);
             return render(model, "/show.html");
@@ -37,6 +41,8 @@ public class WebRun {
             LottoGame game = new LottoGame(lottos);
             WinningLotto winningLotto = new WinningLotto(new Lotto(req.queryParams("winningNumber")), Integer.parseInt(req.queryParams("bonusNumber")));
             Result result = game.match(winningLotto);
+            RankDAO rankDao = new RankDAO();
+            rankDao.insert(result);
             model.put("result", result);
             return render(model, "/result.html");
         });

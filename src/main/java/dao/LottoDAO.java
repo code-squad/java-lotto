@@ -33,6 +33,11 @@ public class LottoDAO {
         pstmt.executeUpdate();
     }
 
+    public void lottosInserting(List<Lotto> lottos) throws SQLException {
+        for(Lotto lotto : lottos)
+            insert(lotto);
+    }
+
     public List<Lotto> readLottos() throws SQLException {
         String sql = "select * from lottos";
         PreparedStatement pstmp = getConnection().prepareStatement(sql);
