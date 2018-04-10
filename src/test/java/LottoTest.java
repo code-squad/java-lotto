@@ -36,5 +36,4 @@ public class LottoTest {
         Lotto lotto = new Lotto(numbers);
         assertEquals(6, lotto.getMatchCount(winningLotto));
     }
-
 }

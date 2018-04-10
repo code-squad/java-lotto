@@ -14,11 +14,12 @@ public class WinningLotto {
         this.numbers = createWinningLotto(split(text));
 
     }
-    private static String[] split(String text) {
+
+    public static String[] split(String text) {
         return text.split(",");
     }
 
-    private static List<Integer> createWinningLotto(String[] arr) {
+    public static List<Integer> createWinningLotto(String[] arr) {
         List<Integer> numbers = new ArrayList<>();
         for (String str : arr) {
             numbers.add(Integer.parseInt(trim(str)));
@@ -26,7 +27,7 @@ public class WinningLotto {
         return numbers;
     }
 
-    private static String trim(String str) {
+    public static String trim(String str) {
         return str.trim();
     }
 
@@ -34,8 +35,20 @@ public class WinningLotto {
         return numbers;
     }
 
+    public int getMatchCount(List<Integer> numbers) {
+        int matchCount = 0;
+        for (Integer number : numbers) {
+            if (numbers.contains(number)) {
+                matchCount++;
+            }
+        }
+        return matchCount;
+    }
+
+
     @Override
     public String toString() {
         return numbers + "";
     }
+
 }
