@@ -22,22 +22,14 @@ public class Numbers {
 	}
 
 	public int countMatch(Numbers numbers2) {
-		int i = 0,
-			j = 0,
-			count = 0;
+		int count = 0;
 		Numbers n1 = clone().sort();
 		Numbers n2 = numbers2.clone().sort();
-		while(i < n1.size() && j < n2.size()) {
+		for(int i = 0, j = 0, iSize = n1.size(), jSize = n2.size(); i < iSize && j < jSize; i++, j++) {
 			int compareValue = n1.get(i).compareTo(n2.get(j));
-			if(compareValue == 0) {
-				count++;
-				i++;
-				j++;
-			} else if(compareValue == -1) {
-				i++;
-			} else if(compareValue == 1) {
-				j++;
-			}
+			count += 1 + (compareValue * compareValue * -1);
+			i += compareValue < 0 ? 0 : -1;
+			j += compareValue < 0 ? -1 : 0;
 		}
 		return count;
 	}
