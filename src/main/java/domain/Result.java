@@ -1,7 +1,9 @@
 package domain;
 
+import Util.Database;
 import domain.Rank;
 
+import java.sql.PreparedStatement;
 import java.util.Map;
 
 public class Result {
@@ -11,18 +13,29 @@ public class Result {
     private Map<Rank, Integer> result;
     private Integer rateOfProfit;
 
-    public Result(Map<Rank, Integer> result, int payment) {
+    public Result(Map<Rank, Integer> result, int payment) throws Exception {
         this.result = result;
         calcRateOfProfit(payment);
     }
 
-    private void calcRateOfProfit(int payment) {
+    private void calcRateOfProfit(int payment) throws Exception{
         int total = 0;
         for (Rank rank : Rank.values()) {
             total = total + rank.isTotalPrize(result.get(rank));
         }
         Double result = total * (PERCENT / payment);
         rateOfProfit = result.intValue();
+
+        String sql = "insert into RESULT(FIRST, SECOND, THIRD, FOURTH, FIFTH, RATE) values (?,?,?,?,?,?)";
+        PreparedStatement pstmt = Database.getConnection().prepareStatement(sql);
+        //각 랭크의 회수를 저장하려고 하는 중.
+        int index = 1;
+        for (Rank rank : Rank.values()) {
+            pstmt.setInt(index, this.result.get(rank));
+            index++;
+        }
+        pstmt.setInt(6, rateOfProfit);
+        pstmt.executeUpdate();
     }
 
     public Map<Rank, Integer> getResult() {

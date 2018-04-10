@@ -1,5 +1,8 @@
 package domain;
 
+import Util.Database;
+
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,7 +75,7 @@ public class LottoMachine {
         }
     }
 
-    public Result matching(String lastWinningNo, String bonusNo, int payment) {
+    public Result matching(String lastWinningNo, String bonusNo, int payment) throws Exception {
 //        rankingInit(); // web에서 다시하기 했을 때, 이전 데이터 누적 방지
         List<LottoNo> lottoNos = LottoNo.getLottoNosFromString(lastWinningNo);
         LottoNo lottoNo = new LottoNo(bonusNo);
@@ -86,6 +89,9 @@ public class LottoMachine {
                 // todo refactor : NullException -> RuntimeException
             }
         }
+
+
+
         return new Result(ranking, payment);
     }
 }

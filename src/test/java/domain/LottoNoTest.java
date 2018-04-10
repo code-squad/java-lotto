@@ -33,4 +33,9 @@ public class LottoNoTest {
         LottoNo lottoNo = new LottoNo(1);
         assertEquals(lottoNo, lottoNos.get(0));
     }
+
+    @Test
+    public void insertNumbers() {
+
+    }
 }
