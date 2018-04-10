@@ -10,10 +10,12 @@ public class LottoTicket {
 
     private List<LottoNo> numbers;
 
-    public LottoTicket(List<LottoNo> numbers) {
+    public LottoTicket(List<LottoNo> numbers) throws Exception {
         if (!isValid(numbers)) {
             throw new IllegalArgumentException("로또 번호 6개를 입력해 주세요.");
         }
+        LottoDAO lottoDAO = LottoDAO.getInstance();
+        lottoDAO.insertNo(numbers);
         this.numbers = numbers;
     }
 
@@ -25,7 +27,7 @@ public class LottoTicket {
         return this.toString();
     }
 
-    public static LottoTicket getLottoTicket(List<LottoNo> lottoNos) {
+    public static LottoTicket getLottoTicket(List<LottoNo> lottoNos) throws Exception {
         return new LottoTicket(lottoNos);
     }
 
@@ -48,7 +50,7 @@ public class LottoTicket {
             sb.append(lottoNo.toString());
             sb.append(COMMA_SAPERATOR);
         }
-        sb.delete(sb.length()-2, sb.length());
+        sb.delete(sb.length() - 2, sb.length());
         sb.append(RIGHT_BRACKET);
         return sb.toString();
     }

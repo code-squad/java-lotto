@@ -62,7 +62,6 @@ public class LottoNo {
             numbers.add(number);
         }
         numbers.sort(Integer::compareTo);
-        // System.out.println(numbers);
         return numbers;
     }
 
@@ -90,5 +89,9 @@ public class LottoNo {
     @Override
     public String toString() {
         return String.valueOf(lottoNo);
+    }
+
+    public int getLottoNo() {
+        return this.lottoNo;
     }
 }

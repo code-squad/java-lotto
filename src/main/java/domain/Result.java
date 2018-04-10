@@ -1,28 +1,26 @@
 package domain;
 
-import domain.Rank;
-
 import java.util.Map;
 
 public class Result {
     private static final Double PERCENT = 100.0;
-
-    // 클래스의 필드가 iterable dataStructure일 때는 handlebar에서 어떻게 처리해줄까
     private Map<Rank, Integer> result;
     private Integer rateOfProfit;
 
-    public Result(Map<Rank, Integer> result, int payment) {
+    public Result(Map<Rank, Integer> result, int payment) throws Exception {
         this.result = result;
-        calcRateOfProfit(payment);
+        rateOfProfit = calcRateOfProfit(payment);
+        LottoDAO lottoDAO = LottoDAO.getInstance();
+        lottoDAO.insertResult(result, rateOfProfit);
     }
 
-    private void calcRateOfProfit(int payment) {
+    public int calcRateOfProfit(int payment) {
         int total = 0;
         for (Rank rank : Rank.values()) {
             total = total + rank.isTotalPrize(result.get(rank));
         }
         Double result = total * (PERCENT / payment);
-        rateOfProfit = result.intValue();
+        return result.intValue();
     }
 
     public Map<Rank, Integer> getResult() {

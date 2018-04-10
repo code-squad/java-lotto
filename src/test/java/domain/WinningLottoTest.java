@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class WinningLottoTest {
     @Test
-    public void isMatchedBonus() {
+    public void isMatchedBonus() throws Exception {
         WinningLotto winningLotto =
                 new WinningLotto(
                         LottoNo.getLottoNos(Arrays.asList(1, 2, 3, 4, 5, 6)),
@@ -19,7 +19,7 @@ public class WinningLottoTest {
     }
 
     @Test
-    public void match() {
+    public void match() throws Exception {
         List<LottoNo> numbers = LottoNo.getLottoNos(Arrays.asList(1,2,3,4,5,6));
         LottoNo bonus = new LottoNo(7);
         WinningLotto winningLotto = new WinningLotto(numbers, bonus);

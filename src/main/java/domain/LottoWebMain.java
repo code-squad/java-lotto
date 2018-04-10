@@ -1,15 +1,18 @@
 package domain;
 
-import View.ResultView;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
+import view.ResultView;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static spark.Spark.*;
 
 public class LottoWebMain {
-    private static LottoMachine lottoMachine = null;
+
     private static int payment = 0;
 
     public static String render(Map<String, Object> model, String templatePath) {
@@ -17,11 +20,13 @@ public class LottoWebMain {
     }
 
     public static void main(String[] args) {
+        LottoMachine lottoMachine = new LottoMachine();
         Map<String, Object> inputStorage = new HashMap<>();
         port(8080);
 
         get("/", (request, response) -> {
-            lottoMachine = new LottoMachine();
+            // 로또 머신
+            lottoMachine.init();
             Map<String, Object> model = new HashMap<>();
             return render(model, "index.html");
         });
@@ -32,14 +37,15 @@ public class LottoWebMain {
             inputStorage.put("totalCount", totalCount);
             int manualCount = 0;
 
-            List<LottoTicket> lottoTickets = new ArrayList<>();
             List<String> manualNumbers = convertToList(request.queryParams("manualNumber"));
-            if ( manualNumbers !=null){
-                manualCount =manualNumbers.size();
-                lottoTickets.addAll(lottoMachine.createManualTickets(manualNumbers));
+
+            if (manualNumbers != null) {
+                manualCount = manualNumbers.size();
             }
-            lottoTickets.addAll(lottoMachine.createAutoTickets(LottoMachine.getAutoCount(totalCount, manualCount)));
-            inputStorage.put("lottoTickets", lottoTickets);
+            lottoMachine.createManualTickets(manualNumbers);
+            lottoMachine.createAutoTickets(LottoMachine.getAutoCount(totalCount, manualCount));
+            LottoDAO lottoDAO = LottoDAO.getInstance();
+            inputStorage.put("numbers", lottoDAO.selectNumbers(totalCount));
 
             ResultView.printAutoManualCount(totalCount, manualCount);
             return render(inputStorage, "show.html");

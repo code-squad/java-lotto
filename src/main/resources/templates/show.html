@@ -84,12 +84,19 @@ body {
 			<th class="text-center">로또 번호</th>
 		</thead>
 		<tbody>
-		{{#lottoTickets}}
-		  <tr>
-			  <th>{{@index}}</th>
-			  <td>{{lottoTicket}}</td>
-		  </tr>
-		{{/lottoTickets}}
+        <!--Query 조회기능이 없을 때 코드-->
+		<!--{{#lottoTickets}}-->
+		  <!--<tr>-->
+			  <!--<th>{{@index}}</th>-->
+			  <!--<td>{{lottoTicket}}</td>-->
+		  <!--</tr>-->
+		<!--{{/lottoTickets}}-->
+        {{#numbers}}
+        <tr>
+            <th>{{@index}}</th>
+            <td>{{this}}</td>
+        </tr>
+        {{/numbers}}
 		</tbody>
 	</table>
 </pre>
