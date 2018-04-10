@@ -1,3 +1,5 @@
+package dao;
+
 import lotto.Lotto;
 import java.sql.Connection;
 import java.sql.*;
@@ -7,7 +9,7 @@ import java.util.List;
 public class LottoDAO {
     private List<Lotto> lottos;
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Lotto", "root", "12345");
@@ -20,7 +22,7 @@ public class LottoDAO {
     }
 
     public void insert(Lotto lotto) throws SQLException {
-        String sql = "insert into lottos (firstNumber, secondNumber, thirdNumber, fourthNumber, fifthNumber, sixthNumber) values(?,?,?,?,?,?)";
+        String sql = "insert into lottos values(?,?,?,?,?,?)";
         PreparedStatement pstmt = getConnection().prepareStatement(sql);
         pstmt.setInt(1, lotto.getLotto().get(0));
         pstmt.setInt(2, lotto.getLotto().get(1));
@@ -42,10 +44,6 @@ public class LottoDAO {
             System.out.println(lotto.getLotto());
             lottos.add(lotto);
         }
-        return lottos;
-    }
-
-    public List<Lotto> getLottos() {
         return lottos;
     }
 }

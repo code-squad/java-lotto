@@ -1,3 +1,4 @@
+import dao.LottoDAO;
 import lotto.Lotto;
 import org.junit.Before;
 import org.junit.Test;
