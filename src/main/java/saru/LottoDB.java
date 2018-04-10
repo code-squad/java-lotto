@@ -9,18 +9,6 @@ public class LottoDB {
     private String user;
     private String pw;
 
-    public String getAddr() {
-        return addr;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public String getPw() {
-        return pw;
-    }
-
     private LottoDB() {
         loadDriver();
     }
