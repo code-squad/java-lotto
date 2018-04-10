@@ -27,7 +27,7 @@ public class Numbers {
 		Numbers n2 = numbers2.clone().sort();
 		for(int i = 0, j = 0, iSize = n1.size(), jSize = n2.size(); i < iSize && j < jSize; i++, j++) {
 			int compareValue = n1.get(i).compareTo(n2.get(j));
-			count += 1 + (compareValue * compareValue * -1);
+			count += compareValue == 0 ? 1 : 0;
 			i += compareValue < 0 ? 0 : -1;
 			j += compareValue < 0 ? -1 : 0;
 		}
