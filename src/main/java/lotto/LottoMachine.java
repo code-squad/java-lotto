@@ -7,8 +7,7 @@ import java.util.stream.IntStream;
 public class LottoMachine {
 
     private static final int COUNT_OF_SELECT_LOTTO = 6;
-    private static final int LOTTO_PRICE = 1000;
-    private int countOfLotto;
+    public static final int LOTTO_PRICE = 1000;
     private static List<Integer> number;
 
     static {
@@ -16,20 +15,18 @@ public class LottoMachine {
     }
 
     public int getCountOfLotto(int money) {
-        countOfLotto = money / LOTTO_PRICE;
-        return countOfLotto;
+        return money / LOTTO_PRICE;
     }
 
-    public List<Integer> getLottoNumber() {
-        List<Integer> result = createLottoNumbers();
-        return result;
+    public static List<Integer> getLottoNumber() {
+        return createLottoNumbers();
     }
 
-    private List<Integer> createLottoNumbers() {
+    private static List<Integer> createLottoNumbers() {
         List<Integer> result = new ArrayList<>();
         Collections.shuffle(number);
         for (int index = 0; index < COUNT_OF_SELECT_LOTTO; index++) {
-            result.add(number.get(0));
+            result.add(number.get(index));
         }
         Collections.sort(result);
         return result;
