@@ -3,24 +3,30 @@ package lotto;
 import java.util.*;
 
 public class GameResult {
-    private static final int FIRST_LOTTO_MATCH_NUMBER = 6;
-    private static final int THIRD_LOTTO_MATCH_NUMBER = 5;
-    private static final int FOURTH_LOTTO_MATCH_NUMBER = 4;
-    private static final int FIFTH_LOTTO_MATCH_NUMBER = 3;
 
-    Map<Integer, List<Lotto>> winLottos;
+    private Map<Integer, Integer> winningLottos;
 
     GameResult() {
-        winLottos = new HashMap<>();
-        winLottos.put(FIRST_LOTTO_MATCH_NUMBER, new ArrayList<>());
-        winLottos.put(THIRD_LOTTO_MATCH_NUMBER, new ArrayList<>());
-        winLottos.put(FOURTH_LOTTO_MATCH_NUMBER, new ArrayList<>());
-        winLottos.put(FIFTH_LOTTO_MATCH_NUMBER, new ArrayList<>());
+        winningLottos = new HashMap<>();
+        winningLottos.put(ResultView.THREE_MATCH, 0);
+        winningLottos.put(ResultView.FOUR_MATCH, 0);
+        winningLottos.put(ResultView.FIVE_MATCH, 0);
+        winningLottos.put(ResultView.SIX_MATCH, 0);
     }
 
-    void saveGameResult(int matchNumber, Lotto lotto) {
-        List<Lotto> lottos = winLottos.get(matchNumber);
-        lottos.add(lotto);
-        winLottos.put(matchNumber, lottos);
+    void accumulateWinLottoCount(int matchNumber) {
+        if (isWinningNumber(matchNumber)) {
+            int count = winningLottos.get(matchNumber);
+            winningLottos.put(matchNumber, ++count);
+        }
+    }
+
+    private boolean isWinningNumber(int matchNumber) {
+        return matchNumber >= ResultView.THREE_MATCH
+                && matchNumber <= ResultView.SIX_MATCH;
+    }
+
+    int getWinningCount(int matchNumber) {
+        return this.winningLottos.get(matchNumber);
     }
 }
