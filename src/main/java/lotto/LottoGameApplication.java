@@ -15,6 +15,7 @@ public class LottoGameApplication {
 		OutputView.showLottosView(lottoGame.generateLottos(money));
 		
 		Numbers winNumbers = InputView.showGetWinNumbersView();
+		OutputView.showResultView(lottoGame.getResults(winNumbers));
 		OutputView.showProfitRateView(lottoGame.calculateProfitRate(winNumbers, money));
 	}
 }
