@@ -6,8 +6,7 @@ public enum LottoWinType {
 	THREE_MATCH(3, 5000),
 	FOUR_MATCH(4, 50000),
 	FIVE_MATCH(5, 1500000),
-	SIX_MATCH(6, 2000000000),
-	ETC(0, 0);
+	SIX_MATCH(6, 2000000000);
 
 	private int matchCount;
 	private int prize;
@@ -32,7 +31,13 @@ public enum LottoWinType {
 	public static LottoWinType valueOf(int matchCount) {
 		return Arrays.stream(LottoWinType.values())
 				.filter(lottoWinType -> lottoWinType.isMatchCount(matchCount))
-				.findAny()
-				.orElse(ETC);
+				.findFirst()
+				.orElseThrow(() -> new IllegalArgumentException("올바르지 않은 matchCount를 입력하였습니다."));
+	}
+
+	public static boolean contains(int matchCount) {
+		return Arrays.stream(LottoWinType.values())
+				.filter(lottoWinType -> lottoWinType.getMatchCount() == matchCount)
+				.count() > 0;
 	}
 }
