@@ -4,13 +4,11 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoWinType;
 import lotto.domain.Numbers;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.*;
 
 public class OutputView {
 	private static final String NUMBERS_VIEW_DELIMITER = ", ";
@@ -47,6 +45,6 @@ public class OutputView {
 	}
 
 	public static void showProfitRateView(double profitRate) {
-		System.out.println("총 수익률은 " + profitRate + "%입니다.");
+		System.out.println("총 수익률은 " + String.format("%.2f",profitRate) + "%입니다.");
 	}
 }

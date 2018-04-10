@@ -71,4 +71,5 @@ public class Numbers {
 	public Numbers clone() {
 		return new Numbers(numbers.stream().collect(toList()));
 	}
+
 }

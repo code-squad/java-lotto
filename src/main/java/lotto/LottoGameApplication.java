@@ -3,7 +3,6 @@ package lotto;
 import lotto.domain.LottoGame;
 import lotto.domain.Numbers;
 import lotto.domain.RandomLottoGenerator;
-import lotto.domain.TestLottoGenerator;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 

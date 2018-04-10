@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.*;
-import static java.util.stream.Collectors.counting;
 
 public class LottoGame {
     private LottoGenerator lottoGenerator;

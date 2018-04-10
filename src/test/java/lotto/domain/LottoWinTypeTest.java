@@ -6,10 +6,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoWinTypeTest {
     @Test
-    public void getPrizeByMatchCount테스트() {
-        assertThat(LottoWinType.valueOf(3).getPrize()).isEqualTo(5000);
-        assertThat(LottoWinType.valueOf(4).getPrize()).isEqualTo(50000);
-        assertThat(LottoWinType.valueOf(5).getPrize()).isEqualTo(1500000);
-        assertThat(LottoWinType.valueOf(6).getPrize()).isEqualTo(2000000000);
+    public void isMatchCount테스트() {
+        assertThat(LottoWinType.FOUR_MATCH.isMatchCount(4)).isEqualTo(true);
+    }
+
+    @Test
+    public void valueOf테스트() {
+        assertThat(LottoWinType.valueOf(3)).isEqualTo(LottoWinType.THREE_MATCH);
+        assertThat(LottoWinType.valueOf(4)).isEqualTo(LottoWinType.FOUR_MATCH);
+        assertThat(LottoWinType.valueOf(5)).isEqualTo(LottoWinType.FIVE_MATCH);
+        assertThat(LottoWinType.valueOf(6)).isEqualTo(LottoWinType.SIX_MATCH);
+    }
+
+    @Test
+    public void contains테스트() {
+        assertThat(LottoWinType.contains(3)).isEqualTo(true);
+        assertThat(LottoWinType.contains(7)).isEqualTo(false);
     }
 }
