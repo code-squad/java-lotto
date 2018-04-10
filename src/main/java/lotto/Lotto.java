@@ -4,10 +4,27 @@ import java.util.List;
 import java.util.Objects;
 
 public class Lotto {
-    List<Integer> numbers;
+    private List<Integer> numbers;
 
     Lotto(List<Integer> numbers) {
         this.numbers = numbers;
+    }
+
+    List<Integer> getNumbers() {
+        return this.numbers;
+    }
+
+    int matcherNumber(Lotto winningLotto) {
+        int matchCount = 0;
+        for (Integer number : this.numbers) {
+            if (isContains(winningLotto, number))
+                matchCount++;
+        }
+        return matchCount;
+    }
+
+    private boolean isContains(Lotto winningLotto, Integer number) {
+        return winningLotto.getNumbers().contains(number);
     }
 
     @Override
