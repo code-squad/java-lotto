@@ -1,3 +1,5 @@
+import dao.LottoDAO;
+import dao.RankDAO;
 import lotto.*;
 
 import static spark.Spark.*;
@@ -12,7 +14,6 @@ import java.util.*;
 import static spark.Spark.port;
 
 public class WebRun {
-    private static List<Lotto> lottos = new ArrayList<>();
     public static void main(String [] args) {
         port(8080);
         get("/", (req, res) -> {
@@ -26,7 +27,9 @@ public class WebRun {
             webBuy.webAutoBuy(((Integer.parseInt(req.queryParams("inputMoney")) / 1000) - manualNum.size()));
             webBuy.webManualBuy(manualNum);
             Map<String, Object> model = new HashMap<>();
-            lottos = webBuy.getLottos();
+            List<Lotto> lottos = webBuy.getLottos();
+            LottoDAO lottoDao = new LottoDAO();
+            lottoDao.lottosInserting(lottos);
             model.put("num", (Integer.parseInt(req.queryParams("inputMoney")) / 1000));
             model.put("lottos", lottos);
             return render(model, "/show.html");
@@ -34,9 +37,12 @@ public class WebRun {
 
         post("/matchLotto", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            LottoGame game = new LottoGame(lottos);
+            LottoDAO lottoDao = new LottoDAO();
+            LottoGame game = new LottoGame(lottoDao.readLottos());
             WinningLotto winningLotto = new WinningLotto(new Lotto(req.queryParams("winningNumber")), Integer.parseInt(req.queryParams("bonusNumber")));
             Result result = game.match(winningLotto);
+            RankDAO rankDao = new RankDAO();
+            rankDao.insert(result);
             model.put("result", result);
             return render(model, "/result.html");
         });

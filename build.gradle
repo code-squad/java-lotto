@@ -12,6 +12,7 @@ dependencies {
     compile('com.sparkjava:spark-core:2.6.0')
     compile('com.sparkjava:spark-template-handlebars:2.5.5')
 	compile('ch.qos.logback:logback-classic:1.2.3')
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
     testCompile('junit:junit:4.12')
 }
 
