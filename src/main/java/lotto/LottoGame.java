@@ -3,46 +3,27 @@ package lotto;
 import java.util.*;
 
 public class LottoGame {
-    private static final int FIFTH_LOTTO_MATCH_NUMBER = 3;
-
-    List<Lotto> lottos;
+    private List<Lotto> purchasedLotto;
 
     public LottoGame(int money) {
-        lottos = LottoStore.buyLotto(money);
+        purchasedLotto = LottoStore.buyLotto(money);
     }
 
     public GameResult play(List<Integer> winningNumber) {
-        Lotto winLotto = new Lotto(winningNumber);
+        Lotto winningLotto = new Lotto(winningNumber);
 
         GameResult result = new GameResult();
-
-        for (Lotto lotto : lottos) {
-            saveWinResult(result, lotto, howManyMatchCount(lotto, winLotto));
+        for (Lotto lotto : purchasedLotto) {
+            accumulateWinLottoCount(winningLotto, result, lotto);
         }
         return result;
     }
 
-    private void saveWinResult(GameResult result, Lotto lotto, int matchCount) {
-        if (isWinMatch(matchCount)) {
-            result.saveGameResult(matchCount, lotto);
-        }
+    private void accumulateWinLottoCount(Lotto winningLotto, GameResult result, Lotto lotto) {
+        result.accumulateWinLottoCount(lotto.matcherNumber(winningLotto));
     }
 
-    private static boolean isWinMatch(int matchCount) {
-        return matchCount >= FIFTH_LOTTO_MATCH_NUMBER;
-    }
-
-    static int howManyMatchCount(Lotto target, Lotto source) {
-        int count = 0;
-        for (int number : source.numbers) {
-            if (isContains(target, number)) {
-                ++count;
-            }
-        }
-        return count;
-    }
-
-    private static boolean isContains(Lotto target, int number) {
-        return target.numbers.contains(number);
+    List<Lotto> getPurchasedLotto() {
+        return this.purchasedLotto;
     }
 }
