@@ -1,29 +1,29 @@
 package lotto;
 
 import static org.assertj.core.api.Assertions.*;
-import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
+import org.junit.Test;
 
 public class GameResultTest {
 
+    @SuppressWarnings("NonAsciiCharacters")
     @Test
     public void 게임결과_생성_5등_한명() {
         GameResult gameResult = new GameResult();
-        gameResult.saveGameResult(3, new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
-        assertThat(gameResult.winLottos.get(3)).hasSize(1).isInstanceOf(List.class);
+        gameResult.accumulateWinLottoCount(3);
+        assertThat(gameResult.getWinningCount(3)).isEqualTo(1);
     }
 
+    @SuppressWarnings("NonAsciiCharacters")
     @Test
     public void 게임결과_생성_3등_2명_1등_1명() {
         GameResult gameResult = new GameResult();
 
-        gameResult.saveGameResult(5, new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
-        gameResult.saveGameResult(5, new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
-        gameResult.saveGameResult(6, new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
+        gameResult.accumulateWinLottoCount(3);
+        gameResult.accumulateWinLottoCount(3);
+        gameResult.accumulateWinLottoCount(6);
 
-        assertThat(gameResult.winLottos.get(5)).hasSize(2).isInstanceOf(List.class);
-        assertThat(gameResult.winLottos.get(6)).hasSize(1).isInstanceOf(List.class);
+        assertThat(gameResult.getWinningCount(3)).isEqualTo(2);
+        assertThat(gameResult.getWinningCount(6)).isEqualTo(1);
     }
 }
