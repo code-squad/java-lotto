@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoDAO {
-    private List<Lotto> lottos;
-
     public static Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -42,7 +40,7 @@ public class LottoDAO {
         String sql = "select * from lottos";
         PreparedStatement pstmp = getConnection().prepareStatement(sql);
         ResultSet rs = pstmp.executeQuery();
-        lottos = new ArrayList<>();
+        List<Lotto> lottos = new ArrayList<>();
         while (rs.next()) {
             String strNumber = rs.getString("firstNumber") + "," + rs.getString("secondNumber") + "," +rs.getString("thirdNumber") + "," + rs.getString("fourthNumber") + "," +rs.getString("fifthNumber") + "," + rs.getString("sixthNumber");
             Lotto lotto = new Lotto(strNumber);
