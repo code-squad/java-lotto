@@ -33,7 +33,9 @@ public class OutputView {
 				.collect(joining(NUMBERS_VIEW_DELIMITER)));
 	}
 
-	public static void showResultView(TreeMap<LottoWinType, ? extends Number> results) {
+	public static void showResultView(Map<LottoWinType, ? extends Number> results) {
+		results = new TreeMap<>(results);
+
 		System.out.println("당첨 통계\n---------");
 
 		results.forEach((lottoWinType, count) -> System.out.println(new StringBuilder().append(lottoWinType.getMatchCount())
