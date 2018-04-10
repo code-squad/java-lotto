@@ -46,7 +46,7 @@ public class OutputView {
 				.append("개")));
 	}
 
-	public static void showProfitRateView(int profitRate) {
+	public static void showProfitRateView(double profitRate) {
 		System.out.println("총 수익률은 " + profitRate + "%입니다.");
 	}
 }

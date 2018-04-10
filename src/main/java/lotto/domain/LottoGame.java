@@ -20,7 +20,7 @@ public class LottoGame {
         return lottos;
     }
 
-    public int calculateProfitRate(Numbers winNumbers, int money) {
+    public double calculateProfitRate(Numbers winNumbers, int money) {
         return sumPrize(winNumbers) / money * 100;
     }
 
@@ -45,7 +45,7 @@ public class LottoGame {
         return money / Lotto.LOTTO_PRICE;
     }
 
-    private int sumPrize(Numbers winNumbers) {
+    private double sumPrize(Numbers winNumbers) {
         return lottos.stream()
                 .filter(lotto -> LottoWinType.contains(lotto.countMatchNumbers(winNumbers)))
                 .mapToInt(lotto -> LottoWinType.valueOf(lotto.countMatchNumbers(winNumbers)).getPrize())
