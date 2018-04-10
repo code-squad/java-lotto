@@ -14,7 +14,7 @@ public class LottoLine {
         return new LottoLine(numbers);
     }
 
-    List<LottoNum> getNumbers() {
+    public List<LottoNum> getNumbers() {
         return numbers;
     }
 
