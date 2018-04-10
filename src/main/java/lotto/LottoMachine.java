@@ -1,18 +1,25 @@
 package lotto;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-
-class LottoRandomNumber implements Random {
-
+class LottoMachine {
     private static final int FIRST_INDEX = 0;
     private static final int LAST_INDEX = 6;
 
-    @Override
-    public List<Integer> getLottoNumbers() {
+    static List<Lotto> publishLotto(int amount) {
+        List<Lotto> lottoList = new ArrayList<>();
+        for(;amount > 0; amount--) {
+            lottoList.add(new Lotto(makeRandomLottoNumber()));
+        }
 
+        return lottoList;
+    }
+
+    private static List<Integer> makeRandomLottoNumber() {
         List<Integer> list = IntStream
                 .rangeClosed(1, 45)
                 .boxed()
@@ -21,7 +28,7 @@ class LottoRandomNumber implements Random {
         return sortASC(slice(shuffleList(list)));
     }
 
-    private List<Integer> sortASC(List<Integer> list) {
+    private static List<Integer> sortASC(List<Integer> list) {
         Collections.sort(list);
         return list;
     }

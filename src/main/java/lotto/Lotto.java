@@ -1,27 +1,25 @@
 package lotto;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Lotto {
+    List<Integer> numbers;
 
-    public List<Integer> numbers;
-
-    public Lotto(Random random) {
-        numbers = random.getLottoNumbers();
+    Lotto(List<Integer> numbers) {
+        this.numbers = numbers;
     }
 
-    public int matchesNumber(List<Integer> luckyNumbers) {
-        int count = 0;
-        for (Integer luckyNumber : luckyNumbers) {
-            if(isContains(luckyNumber)) {
-                count++;
-            }
-        }
-
-        return count;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lotto lotto = (Lotto) o;
+        return Objects.equals(numbers, lotto.numbers);
     }
 
-    private boolean isContains(Integer luckyNumber) {
-        return this.numbers.contains(luckyNumber);
+    @Override
+    public int hashCode() {
+        return Objects.hash(numbers);
     }
 }
