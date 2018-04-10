@@ -37,14 +37,7 @@ public class LottoWebMain {
             inputStorage.put("totalCount", totalCount);
             int manualCount = 0;
 
-//            List<LottoTicket> lottoTickets = new ArrayList<>();
             List<String> manualNumbers = convertToList(request.queryParams("manualNumber"));
-//            if (manualNumbers != null) {
-//                manualCount = manualNumbers.size();
-//                lottoTickets.addAll(lottoMachine.createManualTickets(manualNumbers));
-//            }
-//            lottoTickets.addAll(lottoMachine.createAutoTickets(LottoMachine.getAutoCount(totalCount, manualCount)));
-//            inputStorage.put("lottoTickets", lottoTickets);
 
             if (manualNumbers != null) {
                 manualCount = manualNumbers.size();

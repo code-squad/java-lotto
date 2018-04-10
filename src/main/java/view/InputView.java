@@ -13,7 +13,7 @@ public class InputView {
             scanner = new Scanner(System.in);
             System.out.println("구매금액을 입력해주세요.");
             return scanner.nextInt();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new Exception("구매금액을 확인해 주세요. 1000원이상 숫자만 가능합니다.");
         }
     }
@@ -23,7 +23,7 @@ public class InputView {
             scanner = new Scanner(System.in);
             System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
             return scanner.nextInt();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new Exception("숫자만 입력이 가능합니다.");
         }
     }

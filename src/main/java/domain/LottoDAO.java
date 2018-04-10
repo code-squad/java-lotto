@@ -1,6 +1,5 @@
 package domain;
 
-import org.mozilla.javascript.EcmaError;
 import util.Database;
 
 import java.sql.PreparedStatement;
@@ -59,7 +58,7 @@ public class LottoDAO {
             ResultSet rs = pstmt.executeQuery();
             numbers = new ArrayList<>();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 sb.setLength(0);
                 sb.append(rs.getInt("NO1") + ", ");
                 sb.append(rs.getInt("NO2") + ", ");
