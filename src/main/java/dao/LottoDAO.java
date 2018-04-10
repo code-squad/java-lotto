@@ -19,33 +19,42 @@ public class LottoDAO {
         }
     }
 
-    public void insert(Lotto lotto) throws SQLException {
+    public void insert(Lotto lotto) {
         String sql = "insert into lottos values(?,?,?,?,?,?)";
-        PreparedStatement pstmt = getConnection().prepareStatement(sql);
-        pstmt.setInt(1, lotto.getLotto().get(0));
-        pstmt.setInt(2, lotto.getLotto().get(1));
-        pstmt.setInt(3, lotto.getLotto().get(2));
-        pstmt.setInt(4, lotto.getLotto().get(3));
-        pstmt.setInt(5, lotto.getLotto().get(4));
-        pstmt.setInt(6, lotto.getLotto().get(5));
-        pstmt.executeUpdate();
+        try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
+            pstmt.setInt(1, lotto.getLotto().get(0));
+            pstmt.setInt(2, lotto.getLotto().get(1));
+            pstmt.setInt(3, lotto.getLotto().get(2));
+            pstmt.setInt(4, lotto.getLotto().get(3));
+            pstmt.setInt(5, lotto.getLotto().get(4));
+            pstmt.setInt(6, lotto.getLotto().get(5));
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    public void lottosInserting(List<Lotto> lottos) throws SQLException {
+    public void lottosInserting(List<Lotto> lottos) {
         for(Lotto lotto : lottos)
             insert(lotto);
     }
 
-    public List<Lotto> readLottos() throws SQLException {
+    public List<Lotto> readLottos() {
         String sql = "select * from lottos";
-        PreparedStatement pstmp = getConnection().prepareStatement(sql);
-        ResultSet rs = pstmp.executeQuery();
         List<Lotto> lottos = new ArrayList<>();
-        while (rs.next()) {
-            String strNumber = rs.getString("firstNumber") + "," + rs.getString("secondNumber") + "," +rs.getString("thirdNumber") + "," + rs.getString("fourthNumber") + "," +rs.getString("fifthNumber") + "," + rs.getString("sixthNumber");
-            Lotto lotto = new Lotto(strNumber);
-            System.out.println(lotto.getLotto());
-            lottos.add(lotto);
+        try (PreparedStatement pstmp = getConnection().prepareStatement(sql)) {
+            try (ResultSet rs = pstmp.executeQuery()){
+                while (rs.next()) {
+                    String strNumber = rs.getString("firstNumber") + "," + rs.getString("secondNumber") + "," +rs.getString("thirdNumber") + "," + rs.getString("fourthNumber") + "," +rs.getString("fifthNumber") + "," + rs.getString("sixthNumber");
+                    Lotto lotto = new Lotto(strNumber);
+                    System.out.println(lotto.getLotto());
+                    lottos.add(lotto);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return lottos;
     }

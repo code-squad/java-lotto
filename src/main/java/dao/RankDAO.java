@@ -6,14 +6,17 @@ import java.sql.SQLException;
 import static dao.LottoDAO.getConnection;
 
 public class RankDAO {
-    public void insert(Result result) throws SQLException {
+    public void insert(Result result) {
         String sql = "insert into ranks (firstRank, secondRank, thirdRank, fourthRank, fifthRank) values (?,?,?,?,?)";
-        PreparedStatement pstmt = getConnection().prepareStatement(sql);
-        pstmt.setInt(1, result.getFirst());
-        pstmt.setInt(2, result.getSecond());
-        pstmt.setInt(3, result.getThird());
-        pstmt.setInt(4, result.getFourth());
-        pstmt.setInt(5, result.getFifth());
-        pstmt.executeUpdate();
+        try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
+            pstmt.setInt(1, result.getFirst());
+            pstmt.setInt(2, result.getSecond());
+            pstmt.setInt(3, result.getThird());
+            pstmt.setInt(4, result.getFourth());
+            pstmt.setInt(5, result.getFifth());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

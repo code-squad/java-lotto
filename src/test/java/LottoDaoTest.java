@@ -10,11 +10,9 @@ import java.util.List;
 
 public class LottoDaoTest {
     private LottoDAO lottoDao;
-    private Lotto testLotto;
-    private List<Lotto> lottos;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         lottoDao = new LottoDAO();
     }
 
@@ -25,13 +23,13 @@ public class LottoDaoTest {
     }
 
     @Test
-    public void 로또넣기() throws SQLException {
+    public void 로또넣기() {
         Lotto testLotto = new Lotto("1,2,3,4,5,6");
         assertNotNull(lottoDao.readLottos());
     }
 
     @Test
-    public void 로또불러오기() throws SQLException {
+    public void 로또불러오기() {
         lottoDao.readLottos();
         assertNotNull(lottoDao.readLottos());
     }
