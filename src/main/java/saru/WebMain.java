@@ -33,10 +33,14 @@ public class WebMain {
             String winningNum = req.queryParams("winningNumber");
             int bonusNum = Integer.parseInt(req.queryParams("bonusNumber"));
 
-            // TODO 여기서 디비에서 불러온다
-            LottoCalculator lottoCalculator = LottoCalculator.of(storeLottoLines);
+            // 여기서 디비에서 불러온다 LottoLineDAO
+            List<LottoLine> lottoLines = LottoLineDAO.of().getLottoLines();
+
+            LottoCalculator lottoCalculator = LottoCalculator.of(lottoLines);
             Result result = lottoCalculator.makeResult(buyNum, winningNum, bonusNum);
-            // TODO 여기서 result 디비에 넣는다
+
+            // 여기서 result 디비에 넣는다 ResultDAO
+            ResultDAO.of().insertResult(result);
 
             Map<String, Object> model = new HashMap<>();
             model.put("result", result);
@@ -45,6 +49,12 @@ public class WebMain {
     }
 
     private static void initWebMain() {
+        String addr = "jdbc:mysql://localhost/LOTTO";
+        String user = "saru";
+        String pw = "kke";
+
+        LottoDB.getInstance().saveConnectInfo(addr, user, pw);
+
         port(8080);
 
         get("/", (req, res) ->
@@ -60,7 +70,9 @@ public class WebMain {
         List<LottoLine> autoLines = lottoMaker.makeAutoLottoLines(buyNum - manualLines.size());
 
         storeLottoLines = LottoUtil.joinLottoLines(autoLines, manualLines);
-        // TODO 여기서 디비에 넣는다
+
+        // 여기서 디비에 넣는다 LottoLineDAO
+        LottoLineDAO.of().insertLottoLines(storeLottoLines);
     }
 
     private static void storeBuyNum(Request req) {
