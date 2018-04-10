@@ -6,13 +6,14 @@ import lotto.WinningLotto;
 import org.junit.Before;
 import org.junit.Test;
 import result.Result;
-
+import static org.junit.Assert.*;
 import java.sql.SQLException;
 
 public class LottoResultTest {
     private LottoDAO lottoDao;
     private LottoGame game;
     private WinningLotto winningLotto;
+    private Result result;
 
     @Before
     public void setUp() throws SQLException {
@@ -31,6 +32,6 @@ public class LottoResultTest {
     public void 등수db삽입() throws SQLException {
         Result result = game.match(winningLotto);
         RankDAO rankDAO = new RankDAO();
-        rankDAO.insert(result.getRanks().get(0));
+        rankDAO.insert(result);
     }
 }
