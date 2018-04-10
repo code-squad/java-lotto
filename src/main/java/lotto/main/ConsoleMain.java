@@ -9,7 +9,6 @@ import java.util.List;
 
 public class ConsoleMain {
     public static void main(String[] args) {
-
         int money = InputView.getWon();
         LottoGame lottoGame = new LottoGame(money);
         ResultView.printLotto(lottoGame);

@@ -16,7 +16,7 @@ class LottoStore {
     }
 
     private static void checkLowPayment(int money) {
-        if(isLowPayment(money)) {
+        if (isLowPayment(money)) {
             throw new RuntimeException();
         }
     }
