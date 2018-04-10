@@ -35,8 +35,9 @@ public class LottoGame {
 
     private Map<LottoWinType, Long> getWinResults(Numbers winNumbers) {
         Map<LottoWinType, Long> winResults = lottos.stream()
-                .filter(lotto -> LottoWinType.contains(lotto.countMatchNumbers(winNumbers)))
-                .collect(groupingBy(lotto -> LottoWinType.valueOf(lotto.countMatchNumbers(winNumbers)), counting()));
+                .map(lotto -> lotto.countMatchNumbers(winNumbers))
+                .filter(matchCount -> LottoWinType.contains(matchCount))
+                .collect(groupingBy(matchCount -> LottoWinType.valueOf(matchCount), counting()));
 
         return winResults;
     }
@@ -47,8 +48,9 @@ public class LottoGame {
 
     private double sumPrize(Numbers winNumbers) {
         return lottos.stream()
-                .filter(lotto -> LottoWinType.contains(lotto.countMatchNumbers(winNumbers)))
-                .mapToInt(lotto -> LottoWinType.valueOf(lotto.countMatchNumbers(winNumbers)).getPrize())
+                .map(lotto -> lotto.countMatchNumbers(winNumbers))
+                .filter(matchCount -> LottoWinType.contains(matchCount))
+                .mapToInt(matchCount -> LottoWinType.valueOf(matchCount).getPrize())
                 .sum();
     }
 }
