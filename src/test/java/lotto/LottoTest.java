@@ -1,7 +1,7 @@
 package lotto;
 
 import lotto.domain.Lotto;
-import lotto.domain.WinningTier;
+import lotto.domain.Rank;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -19,27 +19,34 @@ public class LottoTest {
     public void 당첨확인_1등() {
         Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
 
-        assertThat(lotto.tier(this.winningLotto)).isEqualTo(WinningTier.FIRST);
+        assertThat(lotto.getRank(this.winningLotto, 10)).isEqualTo(Rank.FIRST);
     }
 
     @Test
     public void 당첨확인_2등() {
         Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 10));
 
-        assertThat(lotto.tier(this.winningLotto)).isEqualTo(WinningTier.SECOND);
+        assertThat(lotto.getRank(this.winningLotto, 10)).isEqualTo(Rank.SECOND);
     }
 
     @Test
     public void 당첨확인_3등() {
-        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 10, 20));
+        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 20));
 
-        assertThat(lotto.tier(this.winningLotto)).isEqualTo(WinningTier.THIRD);
+        assertThat(lotto.getRank(this.winningLotto, 10)).isEqualTo(Rank.THIRD);
     }
 
     @Test
     public void 당첨확인_4등() {
+        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 20, 30));
+
+        assertThat(lotto.getRank(this.winningLotto, 10)).isEqualTo(Rank.FOURTH);
+    }
+
+    @Test
+    public void 당첨확인_5등() {
         Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 10, 20, 30));
 
-        assertThat(lotto.tier(this.winningLotto)).isEqualTo(WinningTier.FOURTH);
+        assertThat(lotto.getRank(this.winningLotto, 10)).isEqualTo(Rank.FIFTH);
     }
 }

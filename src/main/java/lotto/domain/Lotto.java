@@ -16,11 +16,11 @@ public class Lotto {
         this(AutoSelector.generate());
     }
 
-    public WinningTier tier(Lotto winningLotto) {
-        return WinningTier.get(Math.toIntExact(this.numbers
+    public Rank getRank(Lotto winningLotto, Integer bonusNumber) {
+        return Rank.valueOf(Math.toIntExact(this.numbers
                 .stream()
                 .filter(integer -> winningLotto.numbers.contains(integer))
-                .count()));
+                .count()), this.numbers.contains(bonusNumber));
     }
 
     @Override

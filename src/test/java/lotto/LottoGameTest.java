@@ -3,7 +3,7 @@ package lotto;
 import lotto.domain.LottoResult;
 import lotto.domain.Lotto;
 import lotto.domain.LottoGame;
-import lotto.domain.WinningTier;
+import lotto.domain.Rank;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +40,7 @@ public class LottoGameTest {
         LottoGame lottoGame = new LottoGame(lottos);
         Lotto winningLotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
 
-        int count = lottoGame.winningLottoCount(WinningTier.FIRST, winningLotto);
+        int count = lottoGame.countOfWinningLotto(Rank.FIRST, winningLotto, 10);
 
         assertThat(count).isEqualTo(1);
     }
@@ -50,7 +50,7 @@ public class LottoGameTest {
         LottoGame lottoGame = new LottoGame(lottos);
         Lotto winningLotto = new Lotto(Arrays.asList(15, 16, 17, 18, 19, 20));
 
-        int count = lottoGame.winningLottoCount(WinningTier.FAIL, winningLotto);
+        int count = lottoGame.countOfWinningLotto(Rank.MISS, winningLotto, 10);
 
         assertThat(count).isEqualTo(5);
     }
@@ -60,13 +60,13 @@ public class LottoGameTest {
         LottoGame lottoGame = new LottoGame(lottos);
         Lotto winningLotto = new Lotto(Arrays.asList(14, 15, 16, 17, 18, 19));
 
-        LottoResult result = lottoGame.createResult(winningLotto);
+        LottoResult result = lottoGame.createResult(winningLotto, 10);
 
-        assertThat(result.get(WinningTier.FIRST)).isEqualTo(0);
-        assertThat(result.get(WinningTier.SECOND)).isEqualTo(0);
-        assertThat(result.get(WinningTier.THIRD)).isEqualTo(0);
-        assertThat(result.get(WinningTier.FOURTH)).isEqualTo(1);
-        assertThat(result.get(WinningTier.FAIL)).isEqualTo(4);
+        assertThat(result.get(Rank.FIRST)).isEqualTo(0);
+        assertThat(result.get(Rank.SECOND)).isEqualTo(0);
+        assertThat(result.get(Rank.THIRD)).isEqualTo(0);
+        assertThat(result.get(Rank.FIFTH)).isEqualTo(1);
+        assertThat(result.get(Rank.MISS)).isEqualTo(4);
     }
 
     @After

@@ -28,18 +28,18 @@ public class LottoGame {
         return this.lottos;
     }
 
-    public LottoResult createResult(Lotto winningLotto) {
-        Map<WinningTier, Integer> result = new HashMap();
-        for (WinningTier tier : WinningTier.values()) {
-            result.put(tier, winningLottoCount(tier, winningLotto));
+    public LottoResult createResult(Lotto winningLotto, Integer bonusNumber) {
+        Map<Rank, Integer> result = new HashMap();
+        for (Rank rank : Rank.values()) {
+            result.put(rank, countOfWinningLotto(rank, winningLotto, bonusNumber));
         }
         return new LottoResult(result, calculateBuyAmount());
     }
 
-    public int winningLottoCount(WinningTier tier, Lotto winningLotto) {
+    public int countOfWinningLotto(Rank rank, Lotto winningLotto, Integer bonusNumber) {
         return Math.toIntExact(this.lottos
                 .stream()
-                .filter(lotto -> lotto.tier(winningLotto).equals(tier))
+                .filter(lotto -> lotto.getRank(winningLotto, bonusNumber).equals(rank))
                 .count());
     }
 }
