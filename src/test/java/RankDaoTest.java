@@ -6,26 +6,18 @@ import lotto.WinningLotto;
 import org.junit.Before;
 import org.junit.Test;
 import result.Result;
-import static org.junit.Assert.*;
 import java.sql.SQLException;
 
-public class LottoResultTest {
+public class RankDaoTest {
     private LottoDAO lottoDao;
     private LottoGame game;
     private WinningLotto winningLotto;
-    private Result result;
 
     @Before
     public void setUp() throws SQLException {
         lottoDao = new LottoDAO();
         game = new LottoGame(lottoDao.readLottos());
         winningLotto = new WinningLotto(new Lotto("1,2,3,4,5,10"), 19);
-    }
-
-    @Test
-    public void 등수출력() throws SQLException {
-        Result result = game.match(winningLotto);
-        System.out.println(result.getRanks());
     }
 
     @Test
