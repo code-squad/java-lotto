@@ -3,12 +3,14 @@ package saru;
 import java.sql.*;
 
 public class ResultDAO {
+    private static ResultDAO resultDAO = new ResultDAO();
+
     private ResultDAO() {
         // empty
     }
 
-    public static ResultDAO of() {
-        return new ResultDAO();
+    public static ResultDAO getInstance() {
+        return resultDAO;
     }
 
     void insertResult(Result result) {

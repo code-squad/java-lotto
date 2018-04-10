@@ -4,12 +4,16 @@ import java.sql.*;
 
 public class LottoDB {
     private static final String COM_MYSQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static LottoDB lottoDB = new LottoDB();
+    private static LottoDB lottoDB;
     private String addr;
     private String user;
     private String pw;
 
-    private LottoDB() {
+    private LottoDB(String addr, String user, String pw) {
+        this.addr = addr;
+        this.user = user;
+        this.pw = pw;
+
         loadDriver();
     }
 
@@ -29,10 +33,13 @@ public class LottoDB {
         System.out.println("Success to load JDBC Driver");
     }
 
-    public void saveConnectInfo(String addr, String user, String pw) {
-        this.addr = addr;
-        this.user = user;
-        this.pw = pw;
+    public static void initLottoDB(String addr, String user, String pw) {
+        if (lottoDB == null) {
+            lottoDB = new LottoDB(addr, user, pw);
+            return;
+        }
+
+        System.out.println("이미 초기화 되었습니다.");
     }
 
     public Connection createConnection() {

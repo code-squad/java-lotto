@@ -6,12 +6,14 @@ import java.sql.*;
 import java.util.*;
 
 public class LottoLineDAO {
+    private static LottoLineDAO lottoLineDAO = new LottoLineDAO();
+
     private LottoLineDAO() {
         // empty
     }
 
-    public static LottoLineDAO of() {
-        return new LottoLineDAO();
+    public static LottoLineDAO getInstance() {
+        return lottoLineDAO;
     }
 
     void insertLottoNums(List<LottoNum> lottoNums) {
@@ -55,12 +57,9 @@ public class LottoLineDAO {
 
     void clear() {
         LottoDB lottoDB = LottoDB.getInstance();
-        try (Connection conn = lottoDB.createConnection()) {
-            String sql = "DELETE FROM buyData";
-
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.execute();
-            }
+        try (Connection conn = lottoDB.createConnection();
+             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM buyData")) {
+            pstmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }

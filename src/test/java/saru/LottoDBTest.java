@@ -11,7 +11,7 @@ import org.junit.*;
 import saru.domain.*;
 
 public class LottoDBTest {
-    private LottoDB lottoDB = LottoDB.getInstance();
+    private LottoDB lottoDB;
 
     @Before
     public void init() {
@@ -19,7 +19,8 @@ public class LottoDBTest {
         String user = "saru";
         String pw = "kke";
 
-        lottoDB.saveConnectInfo(addr, user, pw);
+        LottoDB.initLottoDB(addr, user, pw);
+        lottoDB = LottoDB.getInstance();
     }
 
     @Test
@@ -33,7 +34,7 @@ public class LottoDBTest {
         LottoMaker lottoMaker = LottoMaker.of();
         List<LottoNum> lottoNums = lottoMaker.makeManualLottoNums("1,2,3,4,5,6");
 
-        LottoLineDAO lottoLineDAO = LottoLineDAO.of();
+        LottoLineDAO lottoLineDAO = LottoLineDAO.getInstance();
         lottoLineDAO.insertLottoNums(lottoNums);
     }
 
@@ -42,14 +43,14 @@ public class LottoDBTest {
         LottoMaker lottoMaker = LottoMaker.of();
         List<LottoLine> lottoLines = lottoMaker.makeAutoLottoLines(10);
 
-        LottoLineDAO lottoLineDAO = LottoLineDAO.of();
+        LottoLineDAO lottoLineDAO = LottoLineDAO.getInstance();
         lottoLineDAO.insertLottoLines(lottoLines);
         System.out.println(lottoLines);
     }
 
     @Test
     public void getLottoLines() {
-        LottoLineDAO lottoLineDAO = LottoLineDAO.of();
+        LottoLineDAO lottoLineDAO = LottoLineDAO.getInstance();
 
         LottoMaker lottoMaker = LottoMaker.of();
         List<LottoNum> lottoNums = lottoMaker.makeManualLottoNums("9,10,11,12,13,14");
@@ -61,7 +62,7 @@ public class LottoDBTest {
 
     @Test
     public void getLottoLinesFail() {
-        LottoLineDAO lottoLineDAO = LottoLineDAO.of();
+        LottoLineDAO lottoLineDAO = LottoLineDAO.getInstance();
         lottoLineDAO.clear();
         List<LottoLine> lottoLines = lottoLineDAO.getLottoLines();
         assertEquals(0, lottoLines.size());
@@ -73,7 +74,7 @@ public class LottoDBTest {
         List<LottoLine> lottoLines = null;
 
         String sql = "SELECT NOTEXIST * FROM NOTEXIST";
-        LottoLineDAO lottoLineDAO = LottoLineDAO.of();
+        LottoLineDAO lottoLineDAO = LottoLineDAO.getInstance();
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             lottoLines = lottoLineDAO.resultSetToLottoLines(pstmt);
         } catch (SQLException e) {
@@ -89,7 +90,7 @@ public class LottoDBTest {
 
         resultTestInit(result);
 
-        ResultDAO resultDAO = ResultDAO.of();
+        ResultDAO resultDAO = ResultDAO.getInstance();
         resultDAO.insertResult(result);
     }
 
