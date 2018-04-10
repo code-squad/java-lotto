@@ -15,7 +15,7 @@ public class LottoNoTest {
 
     @Before
     public void setup() {
-        lottoDAO = new LottoDAO();
+        lottoDAO = LottoDAO.getInstance();
         String numberLine = "1, 2, 3, 4, 5, 6";
         lottoNos = LottoNo.getLottoNosFromString(numberLine);
     }

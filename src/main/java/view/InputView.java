@@ -1,11 +1,6 @@
-package View;
+package view;
 
-import domain.LottoNo;
-import domain.LottoTicket;
-
-import java.rmi.server.ExportException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 

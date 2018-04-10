@@ -60,7 +60,7 @@ public class LottoMachine {
         return sb.toString();
     }
 
-    private void init() {
+    public void init() {
         lottoTickets = new ArrayList<>();
         rankingInit();
     }

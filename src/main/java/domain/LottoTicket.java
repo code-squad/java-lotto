@@ -14,7 +14,7 @@ public class LottoTicket {
         if (!isValid(numbers)) {
             throw new IllegalArgumentException("로또 번호 6개를 입력해 주세요.");
         }
-        LottoDAO lottoDAO = new LottoDAO();
+        LottoDAO lottoDAO = LottoDAO.getInstance();
         lottoDAO.insertNo(numbers);
         this.numbers = numbers;
     }

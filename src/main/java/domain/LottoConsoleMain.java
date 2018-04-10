@@ -1,7 +1,7 @@
 package domain;
 
-import View.InputView;
-import View.ResultView;
+import view.InputView;
+import view.ResultView;
 
 public class LottoConsoleMain {
     public static void main(String[] args) {

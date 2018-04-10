@@ -10,7 +10,7 @@ public class Result {
     public Result(Map<Rank, Integer> result, int payment) throws Exception {
         this.result = result;
         rateOfProfit = calcRateOfProfit(payment);
-        LottoDAO lottoDAO = new LottoDAO();
+        LottoDAO lottoDAO = LottoDAO.getInstance();
         lottoDAO.insertResult(result, rateOfProfit);
     }
 

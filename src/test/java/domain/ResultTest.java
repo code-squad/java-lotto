@@ -25,7 +25,7 @@ public class ResultTest {
 
     @Test
     public void insertResult() throws Exception {
-        LottoDAO lottoDAO = new LottoDAO();
+        LottoDAO lottoDAO = LottoDAO.getInstance();
         lottoDAO.insertResult(ranking, result.calcRateOfProfit(PAYMENT));
     }
 
