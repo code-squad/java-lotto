@@ -1,19 +1,20 @@
 import lotto.Lotto;
-
 import java.sql.Connection;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LottoDAO {
+    private List<Lotto> lottos;
+
     public Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Lotto", "root", "12345");
-            System.out.println("연결성공" + conn);
             return conn;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-            System.out.println("연결실패");
             return null;
         }
     }
@@ -28,5 +29,23 @@ public class LottoDAO {
         pstmt.setInt(5, lotto.getLotto().get(4));
         pstmt.setInt(6, lotto.getLotto().get(5));
         pstmt.executeUpdate();
+    }
+
+    public List<Lotto> readLottos() throws SQLException {
+        String sql = "select * from lottos";
+        PreparedStatement pstmp = getConnection().prepareStatement(sql);
+        ResultSet rs = pstmp.executeQuery();
+        lottos = new ArrayList<>();
+        while (rs.next()) {
+            String strNumber = rs.getString("firstNumber") + "," + rs.getString("secondNumber") + "," +rs.getString("thirdNumber") + "," + rs.getString("fourthNumber") + "," +rs.getString("fifthNumber") + "," + rs.getString("sixthNumber");
+            Lotto lotto = new Lotto(strNumber);
+            System.out.println(lotto.getLotto());
+            lottos.add(lotto);
+        }
+        return lottos;
+    }
+
+    public List<Lotto> getLottos() {
+        return lottos;
     }
 }
