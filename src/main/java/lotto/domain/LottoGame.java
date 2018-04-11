@@ -39,7 +39,7 @@ public class LottoGame {
     public int countOfWinningLotto(Rank rank, Lotto winningLotto, Integer bonusNumber) {
         return Math.toIntExact(this.lottos
                 .stream()
-                .filter(lotto -> lotto.getRank(winningLotto, bonusNumber).equals(rank))
+                .filter(lotto -> lotto.match(winningLotto, bonusNumber).equals(rank))
                 .count());
     }
 }

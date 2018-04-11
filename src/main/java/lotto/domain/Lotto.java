@@ -16,7 +16,7 @@ public class Lotto {
         this(AutoSelector.generate());
     }
 
-    public Rank getRank(Lotto winningLotto, Integer bonusNumber) {
+    public Rank match(Lotto winningLotto, Integer bonusNumber) {
         return Rank.valueOf(Math.toIntExact(this.numbers
                 .stream()
                 .filter(integer -> winningLotto.numbers.contains(integer))
