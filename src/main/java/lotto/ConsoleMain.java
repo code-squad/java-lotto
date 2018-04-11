@@ -1,17 +1,21 @@
 package lotto;
 
+import java.util.Map;
 import java.util.Scanner;
 
-public class InputView {
+public class ConsoleMain {
     public static void main(String[] args) {
-        String inputPrice =  getInputPrice();
-        return;
+        InputView inputView = new InputView();
+        String inputPrice =  inputView.getInputPrice();
+        Lotto lotto = new Lotto();
+        lotto.buy(inputPrice);
+        ResultView resultView = new ResultView();
+        resultView.printHavingLotto(lotto);
+
+        String winNumbers = inputView.getWinNumbers();
+        Map<Integer, Integer> winResults = lotto.getWinnerMap(winNumbers);
+        resultView.printWinResult(lotto.getHavingCount(), winResults);
+
     }
 
-    private static String getInputPrice() {
-        System.out.println("구입금액을 입력해주세요.");
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-        return userInput;
-    }
-}
+ }
