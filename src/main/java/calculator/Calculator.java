@@ -29,31 +29,34 @@ public class Calculator {
         List<String> inputStrings = new ArrayList<>();
         inputStrings.add(userInput);
 
-        resultNumber = sumSplittedString(splitByOperators(inputStrings));
+        splitByOperators(inputStrings);
+
+        resultNumber = sumSplittedString(inputStrings);
         return resultNumber;
 
     }
 
-    public List<String> splitByOperators(List<String> inputStrings){
+    public void splitByOperators(List<String> inputStrings){
         for(int i=0; i<operators.size(); i++){
-            inputStrings = splitStringBySplittor(inputStrings, operators.get(i));
+            splitStringBySplittor(inputStrings, operators.get(i));
         }
-        return inputStrings;
     }
 
-    public List<String> splitStringBySplittor(List<String> resultStrings, String splitor) {
+    public void splitStringBySplittor(List<String> resultStrings, String splitor) {
         String userInput;
 
         for(int i=0; i<resultStrings.size(); i++){
             userInput = resultStrings.get(i);
-            if( !userInput.contains(splitor) )
-                continue;
+            splitFromList(resultStrings, splitor, userInput, i);
+        }
+    }
 
+    private void splitFromList(List<String> resultStrings, String splitor, String userInput, int i) {
+        if( userInput.contains(splitor) ) {
             String[] splitStrings = userInput.split(splitor);
             resultStrings.addAll(makeNewList(splitStrings, resultStrings));
             resultStrings.remove(i);
         }
-        return resultStrings;
     }
 
     private List<String> makeNewList(String[] splitStrings, List<String> paramStrings) {
