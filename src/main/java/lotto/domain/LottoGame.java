@@ -34,7 +34,8 @@ public class LottoGame {
 
     private Map<LottoWinType, Long> getWinResults(Numbers winNumbers) {
         Map<LottoWinType, Long> winResults = lottos.stream()
-                .map(lotto -> lotto.countMatchNumbers(winNumbers))
+                .mapToInt(lotto -> lotto.countMatchNumbers(winNumbers))
+                .boxed()
                 .filter(matchCount -> LottoWinType.contains(matchCount))
                 .collect(groupingBy(matchCount -> LottoWinType.valueOf(matchCount), counting()));
 

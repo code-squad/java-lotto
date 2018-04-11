@@ -23,7 +23,7 @@ public class Lotto {
 		return numbers;
 	}
 	
-	public long countMatchNumbers(Numbers winNumbers) {
+	public int countMatchNumbers(Numbers winNumbers) {
 		return numbers.countMatch(winNumbers);
 	}
 }

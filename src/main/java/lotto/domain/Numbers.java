@@ -21,8 +21,8 @@ public class Numbers {
 		this.numbers = numbers.stream().collect(toList());
 	}
 
-	public long countMatch(Numbers numbers2) {
-		return numbers2.stream()
+	public int countMatch(Numbers numbers2) {
+		return (int) numbers2.stream()
 				.filter(number -> numbers.contains(number))
 				.count();
 	}
