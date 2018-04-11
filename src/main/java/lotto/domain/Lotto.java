@@ -7,9 +7,9 @@ import static java.util.stream.Collectors.toList;
 
 public class Lotto {
 
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
     static final int DEFAULT_PRICE = 1_000;
-    static final int MIN_NUMBER = 1;
-    static final int MAX_NUMBER = 45;
     static final int NUMBER_COUNT = 6;
 
     private final List<Integer> numbers;
@@ -19,6 +19,8 @@ public class Lotto {
     }
 
     public Lotto(List<String> numbers) {
+        valid(numbers);
+
         this.numbers = numbers
                 .stream()
                 .mapToInt(Integer::parseInt)
@@ -26,7 +28,7 @@ public class Lotto {
                 .collect(toList());
     }
 
-    List<Integer> createNumbers() {
+    private List<Integer> createNumbers() {
         List<Integer> numbers = IntStream
                 .rangeClosed(MIN_NUMBER, MAX_NUMBER)
                 .boxed()
@@ -37,8 +39,18 @@ public class Lotto {
         return numbers.subList(0, 6);
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
+    public Rank match(Lotto lotto) {
+        int matchCount = (int) lotto
+                .numbers
+                .stream()
+                .filter(this.numbers::contains)
+                .count();
+
+        return Rank.getRank(matchCount);
+    }
+
+    public int size() {
+        return Objects.isNull(numbers) ? 0 : numbers.size();
     }
 
     @Override
@@ -59,4 +71,15 @@ public class Lotto {
 
         return Objects.hash(numbers);
     }
+
+    private void valid(List<String> numbers) {
+        if (numbers == null) {
+            throw new IllegalArgumentException();
+        }
+
+        if (numbers.size() != NUMBER_COUNT) {
+            throw new IllegalArgumentException();
+        }
+    }
+
 }

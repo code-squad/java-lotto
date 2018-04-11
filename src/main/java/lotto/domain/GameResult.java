@@ -20,31 +20,18 @@ public class GameResult {
     }
 
     public void record(final List<Lotto> lottos) {
-        rank.forEach((key, value) -> rank.put(key, match(lottos, key.matchCount())));
+        rank.forEach((key, value) -> rank.put(key, match(lottos, key)));
     }
 
-    int match(final List<Lotto> lottos, final int matchCount) {
-        long count = lottos.stream()
-                .filter(lotto -> countMatchNumber(lotto) == matchCount)
+    int match(final List<Lotto> lottos, final Rank matchRank) {
+        return (int) lottos.stream()
+                .filter(lotto -> matchRank.equals(winning.match(lotto)))
                 .count();
-
-        return (int) count;
-    }
-
-    private int countMatchNumber(final Lotto lotto) {
-        List<Integer> numbers = lotto.getNumbers();
-        List<Integer> winningNumbers = winning.getNumbers();
-
-        long count = numbers.stream()
-                .filter(winningNumbers::contains)
-                .count();
-
-        return (int) count;
     }
 
     long totalPrizeMoney() {
         AtomicLong totalPrizeMoney = new AtomicLong(0L);
-        rank.forEach((key, value) -> totalPrizeMoney.addAndGet(key.prizeMoney() * value));
+        rank.forEach((key, count) -> totalPrizeMoney.addAndGet(key.totalPrizeMoney(count)));
         return totalPrizeMoney.longValue();
     }
 

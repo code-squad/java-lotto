@@ -25,12 +25,22 @@ public class GameResultTest {
         List<String> matchNumbers = Arrays.asList("1", "2", "3", "7", "8", "9");
 
         GameResult gameResult = new GameResult(winningNumbers);
-        int matchCount = gameResult.match(
-                Arrays.asList(new Lotto(matchNumbers), new Lotto(matchNumbers)),
-                Rank.FORTH.matchCount());
+        gameResult.record(Arrays.asList(new Lotto(matchNumbers)));
 
-        assertThat(matchCount)
-                .isEqualTo(2);
+        assertThat(gameResult.totalPrizeMoney())
+                .isEqualTo(Rank.FORTH.totalPrizeMoney(1));
+    }
+
+    @Test
+    public void 당첨번호_4개_매칭() {
+        List<String> winningNumbers = Arrays.asList("1", "2", "3", "4", "5", "6");
+        List<String> matchNumbers = Arrays.asList("1", "2", "3", "4", "8", "9");
+
+        GameResult gameResult = new GameResult(winningNumbers);
+        gameResult.record(Arrays.asList(new Lotto(matchNumbers)));
+
+        assertThat(gameResult.totalPrizeMoney())
+                .isEqualTo(Rank.THIRD.totalPrizeMoney(1));
     }
 
     @Test
