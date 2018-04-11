@@ -1,6 +1,5 @@
 package lotto;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -21,11 +20,11 @@ public class InputView {
         return inputMoney;
     }
 
-    public static List<Integer> inputMyLottoNumber() {
+    public static List<Integer> inputWinNumber() {
         System.out.println("지난 주 당첨 번호를 입력 해주세요.");
         String[] inputNumber = scanner.nextLine().split(",\\s*");
         List<Integer> result = Arrays.asList(inputNumber).stream().map(s -> Integer.parseInt(s))
-                       .collect(Collectors.toList());
+                                     .collect(Collectors.toList());
         return result;
     }
 }

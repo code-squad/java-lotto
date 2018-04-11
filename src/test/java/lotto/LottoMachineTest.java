@@ -3,52 +3,48 @@ package lotto;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoMachineTest {
 
-    LottoMachine lotto;
+    LottoMachine lottoMachine;
 
     @Before
     public void setup() {
-        lotto = new LottoMachine();
+        lottoMachine = new LottoMachine();
     }
 
     @Test
     public void 로또_구매() {
-        int result = lotto.getCountOfLotto(13000);
+        int result = lottoMachine.getCountOfLotto(13000);
         assertThat(result).isEqualTo(13);
     }
 
-    @Test
-    public void test() {
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        list.add(5);
-        list.add(6);
-
-        StringBuilder sb = new StringBuilder();
-        String result = sb.append("[")
-          .append(list
-                  .stream()
-                  .map(Object::toString)
-                  .collect(Collectors.joining(", ")))
-          .append("]").toString();
-        assertThat(result).isEqualTo("[1, 2, 3, 4, 5, 6]");
+    @Test(expected = IllegalArgumentException.class)
+    public void 음수개_로또_구매() {
+        int result = lottoMachine.getCountOfLotto(-1);
     }
 
     @Test
-    public void test2() {
-        String input = "1, 2, 3, 4, 5, 6";
-        String[] split = input.split(",| ");
-        System.out.println(split[0] + "/");
+    public void 로또_매치() {
+        List<Integer>[] myLottos = new List[3];
+        myLottos[0] = Arrays.asList(1, 2, 3, 7, 8, 9); // 3개 일치
+        myLottos[1] = Arrays.asList(1, 2, 3, 4, 10, 20); // 4개 일치
+        myLottos[2] = Arrays.asList(1, 2, 3, 4, 5, 30); // 5개 일치
+        List<Integer> winLotto = Arrays.asList(1, 2, 3, 4, 5, 6);
+
+        int[] expected = lottoMachine.getMatchCounts(myLottos, winLotto);
+        int[] actual = {0, 0, 0, 1, 1, 1, 0};
+        assertThat(expected).isEqualTo(actual);
+    }
+
+    @Test
+    public void 수익률_계산() {
+        int money = 15000;
+        int[] matchCount = {0, 0, 0, 1, 0, 0, 0};
+        int rate = (int) lottoMachine.getRateOfInvestment(money, matchCount);
+        assertThat(rate).isEqualTo(33);
     }
 }

@@ -15,7 +15,10 @@ public class LottoApplication {
             List<Integer> purchasedLotto = lotto.purchaseLotto(index);
             ResultView.printPurchasedLotto(purchasedLotto);
         }
-        List<Integer> myLottoNumber = InputView.inputMyLottoNumber();
-        System.out.println(myLottoNumber.toString());
+
+        List<Integer> winLottoNumber = InputView.inputWinNumber();
+        int[] matchCount = lottoMachine.getMatchCounts(lotto.getLottos(), winLottoNumber);
+        ResultView.printWinLotto(matchCount);
+        ResultView.printRateOfInvestment(lottoMachine.getRateOfInvestment(money, matchCount));
     }
 }

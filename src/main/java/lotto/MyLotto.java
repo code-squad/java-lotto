@@ -18,6 +18,10 @@ public class MyLotto {
         return lottos[position];
     }
 
+    public List<Integer>[] getLottos() {
+        return lottos;
+    }
+
     public String toStringLotto(int position) {
         StringBuilder sb = new StringBuilder();
         return null;
