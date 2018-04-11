@@ -1,13 +1,12 @@
 package javaLotto;
 
-import javaLotto.domain.Grade;
-import javaLotto.domain.JavaLotto;
-import javaLotto.domain.Lotto;
-import javaLotto.domain.WinningNumber;
+import javaLotto.domain.*;
 import javaLotto.utils.LottoNumberGenerator;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,34 +30,24 @@ public class JavaLottoTest {
     }
     @Test
     public void 로또번호생성()throws Exception{
-        List<Integer> numbers = LottoNumberGenerator.makeLottoNumber();
-        assertThat(numbers.size()).isEqualTo(6);
+       LottoTicket numbers = LottoNumberGenerator.makeLottoNumber();
+        assertThat(numbers.getLottoTicket().size()).isEqualTo(6);
     }
     @Test
     public void 지난주당첨번호생성()throws Exception{
         WinningNumber winngNumber = new WinningNumber("1,2,3,4,5,6");
-        List<Integer> expect = new ArrayList<>();
-        expect.add(1);
-        expect.add(2);
-        expect.add(3);
-        expect.add(4);
-        expect.add(5);
-        expect.add(6);
+        List expect = Arrays.asList(1,2,3,4,5,6);
         assertThat(winngNumber.getWinningNumber()).isEqualTo(expect);
     }
     @Test
     public void 당첨번호확인3등 ()throws Exception{
-        List<Integer> result = new ArrayList<>();
-        result.add(3);
-        result.add(3);
+        List result = Arrays.asList(3,3);
         int count = Grade.returnGrade(result,3);
         assertThat(count).isEqualTo(2);
     }
     @Test
     public void 당첨번호확인4등 ()throws Exception{
-        List<Integer> result = new ArrayList<>();
-        result.add(4);
-        result.add(4);
+        List result = Arrays.asList(4,4);
         int count = Grade.returnGrade(result,4);
         assertThat(count).isEqualTo(2);
     }
@@ -87,9 +76,7 @@ public class JavaLottoTest {
 
     @Test
     public void 퍼센트계산200 ()throws Exception{
-        List<Integer> result = new ArrayList<>();
-        result.add(3);
-        result.add(3);
+        List result = Arrays.asList(3,3);
         double percent = Grade.returnPercent(result,5000);
         assertThat(percent).isEqualTo(200);
     }

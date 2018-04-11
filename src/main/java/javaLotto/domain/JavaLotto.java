@@ -9,7 +9,7 @@ public class JavaLotto {
     private static final int LOTTO_PRICE = 1000;
     public static Lotto buyLotto(int price) throws Exception {
         int ea = price / LOTTO_PRICE;
-        List<List<Integer>> lottosNumber = new ArrayList<>();
+        List<LottoTicket> lottosNumber = new ArrayList<>();
         for (int i = 0; i < ea ; i++) {
             lottosNumber.add(makeLottoNumber());
         }

@@ -1,5 +1,7 @@
 package javaLotto.domain;
 
+import javaLotto.GameResult;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,22 +12,8 @@ public class Grade {
     private static final int GRADE5 = 1500000;
     private static final int GRADE6 = 2000000000;
 
-    public static List<Integer> checkGrade(Lotto lottos, WinningNumber winngNumber) {
-        List<Integer> result = new ArrayList<>();
-        for (List<Integer> lotto : lottos.getLottos()) {
-             result.add(checkMatchCount(winngNumber, lotto));
-        }
-        return result;
-    }
-
-    private static int checkMatchCount(WinningNumber winngNumber, List<Integer> lotto) {
-        int matchCount = 0;
-        for (int number : winngNumber.getWinningNumber()) {
-            if (lotto.contains(number)) {
-                matchCount++;
-            }
-        }
-        return matchCount;
+    public static GameResult checkGrade(Lotto lottos, WinningNumber winningNumber) {
+        return winningNumber.checkGrade2(lottos);
     }
 
     public static int returnGrade(List<Integer> sta, int grade) {
@@ -35,7 +23,6 @@ public class Grade {
         }
         return count;
     }
-
 
     public static double returnPercent(List<Integer> result, int inputPrice) {
         int percent = 0;
@@ -58,6 +45,6 @@ public class Grade {
     }
 
     private static double changePercent(int inputPrice, int percent) {
-        return ((double)percent / (double)inputPrice) * 100.0;
+        return ((double)percent / (double)inputPrice) * 100;
     }
 }
