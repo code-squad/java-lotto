@@ -48,8 +48,13 @@ public class Lotto {
     }
 
     public int getMatchCount(WinningLotto winningLotto) {
+        // 객체에게 메시지 전달
         return winningLotto.getMatchCount(numbers);
+    }
 
+    public boolean matchBonus(WinningLotto winningLotto) {
+        // 객체에게 메시지 전달
+        return winningLotto.matchBonus(numbers);
     }
 
     @Override

@@ -23,8 +23,10 @@ public class ConsoleMain {
         ConsoleResultView.printPurchaseNumber(lottos.get().size());
         ConsoleResultView.printLottos(lottos);
 
-        WinningLotto winningLotto = new WinningLotto(ConsoleInputView.getWinningNumber(sc));
-        List<Result> results = lottoGame.getMatchResult(winningLotto);
+        WinningLotto winningLotto = new WinningLotto(
+                ConsoleInputView.getWinningNumber(sc),
+                ConsoleInputView.getBonusNumber(sc));
+        List<Result> results = lottoGame.getRankResults(winningLotto);
         int yield = lottoGame.getYield(results, money);
         ConsoleResultView.printResult(results, yield);
 

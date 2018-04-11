@@ -8,11 +8,12 @@ import java.util.List;
  */
 public class WinningLotto {
 
-    private List<Integer> numbers;
+    private List<Integer> winningNumbers;
+    private int bonusNumber;
 
-    public WinningLotto(String text) {
-        this.numbers = createWinningLotto(split(text));
-
+    public WinningLotto(String text, int bonusNumber) {
+        this.winningNumbers = createWinningLotto(split(text));
+        this.bonusNumber = bonusNumber;
     }
 
     public static String[] split(String text) {
@@ -31,24 +32,22 @@ public class WinningLotto {
         return str.trim();
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
-    }
 
     public int getMatchCount(List<Integer> numbers) {
         int matchCount = 0;
         for (Integer number : numbers) {
-            if (numbers.contains(number)) {
+            if (winningNumbers.contains(number)) {
                 matchCount++;
             }
         }
         return matchCount;
     }
 
-
-    @Override
-    public String toString() {
-        return numbers + "";
+    public boolean matchBonus(List<Integer> numbers) {
+        if (numbers.contains(bonusNumber)) {
+            return true;
+        }
+        return false;
     }
 
 }

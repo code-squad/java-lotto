@@ -28,7 +28,7 @@ public class LottoTest {
 
     @Test
     public void 일치하는개수() {
-        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,6");
+        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,6", 7);
         List<Integer> numbers = new ArrayList<>();
         for (int i = 1; i <= 6; i++) {
             numbers.add(i);

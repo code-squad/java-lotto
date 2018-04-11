@@ -28,7 +28,7 @@ public class ConsoleResultView {
         System.out.println("---------");
 
         for (Result result : results) {
-            System.out.println(result.getMatch().getMessage() + result.getCount() + "개");
+            System.out.println(result.getRank().getMessage() + result.getCount() + "개");
         }
 
         System.out.printf("총 수익률은 %d%%입니다.", yield);

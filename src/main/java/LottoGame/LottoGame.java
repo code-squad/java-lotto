@@ -33,38 +33,35 @@ public class LottoGame {
     }
 
 
-    public List<Result> getMatchResult(WinningLotto winningLotto) {
-        List<Match> matches = lottos.getMatches(winningLotto);
-        for (Match match : matches) {
-            calculateCount(match);
+    public List<Result> getRankResults(WinningLotto winningLotto) {
+        List<Rank> ranks = lottos.getRanks(winningLotto);
+        for (Rank rank : ranks) {
+            calculateCountPerRank(rank);
         }
         return results;
     }
 
-    private void calculateCount(Match match) {
+    public List<Result> initResultList() {
+        List<Result> results = new ArrayList<>();
+        for (Rank rank : Rank.values()) {
+            results.add(new Result(rank));
+        }
+        return results;
+    }
+
+    private void calculateCountPerRank(Rank rank) {
         for (Result result : results) {
-            if (result.equalMatchValue(match)) {
+            if (result.equal(rank)) {
                 result.plusCount();
             }
         }
     }
 
-
-    public List<Result> initResultList() {
-        List<Result> results = new ArrayList<>();
-        for (Match match : Match.values()) {
-            results.add(new Result(match));
-        }
-        return results;
-    }
-
-
     public int getYield(List<Result> results, int money) {
-        int totalProfit = 0;
-        for (int i = 0; i < results.size(); i++) {
-            Result result = results.get(i);
-            totalProfit += result.calculatePrice();
+        int totalReward = 0;
+        for(Result result : results) {
+            totalReward += result.calculateReward();
         }
-        return (int) (((double) totalProfit / money) * 100);
+        return (int) (((double) totalReward / money) * 100);
     }
 }
