@@ -9,10 +9,10 @@ import static lotto.domain.LottoProvider.PRICE_PER_LOTTO;
 /**
  * @author sangsik.kim
  */
-public class LottoGame {
+public class LottoTicket {
     private List<Lotto> lottos;
 
-    public LottoGame(List<Lotto> lottos) {
+    public LottoTicket(List<Lotto> lottos) {
         this.lottos = lottos;
     }
 
@@ -28,18 +28,18 @@ public class LottoGame {
         return this.lottos;
     }
 
-    public LottoResult createResult(Lotto winningLotto, Integer bonusNumber) {
+    public LottoResult createResult(WinningLotto winningLotto) {
         Map<Rank, Integer> result = new HashMap();
         for (Rank rank : Rank.values()) {
-            result.put(rank, countOfWinningLotto(rank, winningLotto, bonusNumber));
+            result.put(rank, countOfWinningLotto(rank, winningLotto));
         }
         return new LottoResult(result, calculateBuyAmount());
     }
 
-    public int countOfWinningLotto(Rank rank, Lotto winningLotto, Integer bonusNumber) {
+    public int countOfWinningLotto(Rank rank, WinningLotto winningLotto) {
         return Math.toIntExact(this.lottos
                 .stream()
-                .filter(lotto -> lotto.match(winningLotto, bonusNumber).equals(rank))
+                .filter(lotto -> lotto.match(winningLotto).equals(rank))
                 .count());
     }
 }

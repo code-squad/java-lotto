@@ -1,6 +1,6 @@
 package lotto;
 
-import lotto.domain.LottoGame;
+import lotto.domain.LottoTicket;
 import lotto.domain.LottoProvider;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class LottoProviderTest {
 
     @Test
     public void 로또_구입() {
-        LottoGame lottoGame = LottoProvider.order(5000);
+        LottoTicket lottoGame = LottoProvider.order(5000);
         assertThat(lottoGame.getQuantity()).isEqualTo(5);
     }
 }

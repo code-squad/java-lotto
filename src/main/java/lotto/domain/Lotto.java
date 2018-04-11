@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author sangsik.kim
@@ -16,11 +17,11 @@ public class Lotto {
         this(AutoSelector.generate());
     }
 
-    public Rank match(Lotto winningLotto, Integer bonusNumber) {
+    public Rank match(WinningLotto winningLotto) {
         return Rank.valueOf(Math.toIntExact(this.numbers
                 .stream()
-                .filter(integer -> winningLotto.numbers.contains(integer))
-                .count()), this.numbers.contains(bonusNumber));
+                .filter(integer -> winningLotto.contains(integer))
+                .count()), this.numbers.contains(winningLotto.getBonusNumber()));
     }
 
     @Override

@@ -1,7 +1,9 @@
 package lotto;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import lotto.domain.Lotto;
 import lotto.domain.Rank;
+import lotto.domain.WinningLotto;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -12,41 +14,45 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author sangsik.kim
  */
 public class LottoTest {
-    private Lotto winningLotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
-
+    private WinningLotto winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6), 10);
 
     @Test
     public void 당첨확인_1등() {
         Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
 
-        assertThat(lotto.match(this.winningLotto, 10)).isEqualTo(Rank.FIRST);
+        assertThat(lotto.match(this.winningLotto)).isEqualTo(Rank.FIRST);
     }
 
     @Test
     public void 당첨확인_2등() {
         Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 10));
 
-        assertThat(lotto.match(this.winningLotto, 10)).isEqualTo(Rank.SECOND);
+        assertThat(lotto.match(this.winningLotto)).isEqualTo(Rank.SECOND);
     }
 
     @Test
     public void 당첨확인_3등() {
         Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 20));
 
-        assertThat(lotto.match(this.winningLotto, 10)).isEqualTo(Rank.THIRD);
+        assertThat(lotto.match(this.winningLotto)).isEqualTo(Rank.THIRD);
     }
 
     @Test
     public void 당첨확인_4등() {
         Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 20, 30));
 
-        assertThat(lotto.match(this.winningLotto, 10)).isEqualTo(Rank.FOURTH);
+        assertThat(lotto.match(this.winningLotto)).isEqualTo(Rank.FOURTH);
     }
 
     @Test
     public void 당첨확인_5등() {
         Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 10, 20, 30));
 
-        assertThat(lotto.match(this.winningLotto, 10)).isEqualTo(Rank.FIFTH);
+        assertThat(lotto.match(this.winningLotto)).isEqualTo(Rank.FIFTH);
+    }
+
+    @Test(expected = InvalidArgumentException.class)
+    public void 로또_유효성확인() {
+        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5));
     }
 }

@@ -1,8 +1,9 @@
 package lotto.view;
 
-import lotto.domain.Lotto;
+import lotto.domain.WinningLotto;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -20,14 +21,18 @@ public class InputView {
         return scanner.nextInt();
     }
 
-    public static Lotto getWinningLotto() {
-        System.out.println(GET_WINNING_LOTTO_TEXT);
-        return new Lotto(Arrays.stream(scanner.next().split(","))
-                .map(s -> Integer.parseInt(s))
-                .collect(Collectors.toList()));
+    public static WinningLotto getWinningLotto() {
+        return new WinningLotto(getWinningNumbers(), getBonusNumber());
     }
 
-    public static Integer getBonusNumber() {
+    private static List<Integer> getWinningNumbers() {
+        System.out.println(GET_WINNING_LOTTO_TEXT);
+        return Arrays.stream(scanner.next().split(","))
+                .map(s -> Integer.parseInt(s))
+                .collect(Collectors.toList());
+    }
+
+    private static Integer getBonusNumber() {
         System.out.println(GET_BONUS_NUMBER_TEXT);
         return scanner.nextInt();
     }
