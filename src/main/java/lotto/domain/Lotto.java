@@ -5,10 +5,12 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Lotto {
+    private static final int LOTTO_SIZE = 6;
+
     private final Set<LottoNumber> lotto;
 
     public Lotto(Set<LottoNumber> lotto) {
-        if (lotto.size() != 6) {
+        if (lotto.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException();
         }
 
@@ -31,7 +33,7 @@ public class Lotto {
         return new Lotto(lotto);
     }
 
-    public static Lotto of(String text) {
+    public static Lotto ofComma(String text) {
         if (Objects.isNull(text)) {
             throw new IllegalArgumentException();
         }
