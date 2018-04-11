@@ -3,6 +3,7 @@ package lotto;
 import lotto.domain.GameResult;
 import lotto.domain.LottoTicket;
 import lotto.domain.LottoTicketIssuer;
+import lotto.domain.WinningTicket;
 import lotto.view.ConsoleInputView;
 import lotto.view.ConsoleOutputView;
 
@@ -21,7 +22,10 @@ public class ConsoleMain {
 
         // 3. 당첨번호 입력
         String winningNumber = ConsoleInputView.getWinningNumbers();
-        GameResult gameResult = new GameResult(lottoTickets, new LottoTicket(toList(winningNumber)));
+        
+        // 4. 보너스번호 입력
+        int bonusNumber = ConsoleInputView.getBonusNumber();
+        GameResult gameResult = new GameResult(lottoTickets, new WinningTicket(toList(winningNumber), bonusNumber));
 
         // 4. 당첨통계 출력
         ConsoleOutputView.printResult(gameResult.analyzeResult());

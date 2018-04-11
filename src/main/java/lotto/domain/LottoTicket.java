@@ -7,7 +7,7 @@ import java.util.Set;
 public class LottoTicket {
     private static final int HOLD_NUMBERS = 6;
     
-    private Set<Integer> numbers;
+    private final Set<Integer> numbers;
 
     public LottoTicket(List<Integer> numbers) {
         this.numbers = setNumbers(numbers);
