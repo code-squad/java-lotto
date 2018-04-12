@@ -15,18 +15,24 @@ public class LottoGameTest {
 
 	@Test
 	public void generateLottos테스트() {
-		assertThat(lottoGame.generateLottos(4400).size()).isEqualTo(4);
+		assertThat(lottoGame.generateLottos(4400)
+				.size())
+				.isEqualTo(4);
 	}
 
 	@Test
 	public void 당첨번호123456_테스트() {
 		lottoGame.generateLottos(5000);
-		assertThat(lottoGame.calculateProfitRate(new Numbers(1, 2, 3, 4, 5, 6), 5000)).isEqualTo(500);
+		assertThat(lottoGame.calculateProfitRate(new LottoWinNumbers(new LottoNumbers(1, 2, 3, 4, 5, 6), new LottoNumber(7)), 5000))
+				.isEqualTo(500);
 	}
 
 	@Test
 	public void getResults테스트() {
 		lottoGame.generateLottos(5000);
-		assertThat(lottoGame.getResults(new Numbers(1, 2, 3, 4, 5, 6)).size()).isEqualTo(LottoWinType.values().length);
+		int numbers[] = {1, 2, 3, 4, 5, 6};
+		assertThat(lottoGame.getResults(new LottoWinNumbers(new LottoNumbers(1, 2, 3, 4, 5, 6), new LottoNumber(7)))
+				.size())
+				.isEqualTo(LottoWinType.values().length);
 	}
 }

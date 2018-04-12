@@ -3,17 +3,21 @@ package lotto.domain;
 import java.util.Arrays;
 
 public enum LottoWinType {
-	THREE_MATCH(3, 5000),
-	FOUR_MATCH(4, 50000),
-	FIVE_MATCH(5, 1500000),
-	SIX_MATCH(6, 2000000000);
+	FIRST(6, 2000000000, false),
+	SECOND(5, 30000000, true),
+	THIRD(5, 1500000, false),
+	FOURTH(4, 50000, false),
+	FIFTH(3, 5000, false),
+	MISS(0, 0, false);
 
 	private int matchCount;
 	private int prize;
+	private boolean bonusFlag;
 
-	LottoWinType(int matchCount, int prize) {
+	LottoWinType(int matchCount, int prize, boolean bonusFlag) {
 		this.matchCount = matchCount;
 		this.prize = prize;
+		this.bonusFlag = bonusFlag;
 	}
 
 	public int getMatchCount() {
@@ -28,16 +32,18 @@ public enum LottoWinType {
 		return this.matchCount == matchCount;
 	}
 
-	public static LottoWinType valueOf(int matchCount) {
-		return Arrays.stream(LottoWinType.values())
-				.filter(lottoWinType -> lottoWinType.isMatchCount(matchCount))
-				.findFirst()
-				.orElseThrow(() -> new IllegalArgumentException("올바르지 않은 matchCount를 입력하였습니다."));
+	public boolean isBonusFlag(boolean bonusFlag) {
+		return this.bonusFlag == bonusFlag;
 	}
 
-	public static boolean contains(int matchCount) {
+	public static LottoWinType valueOf(int matchCount, boolean bonusFlag) {
 		return Arrays.stream(LottoWinType.values())
-				.filter(lottoWinType -> lottoWinType.getMatchCount() == matchCount)
-				.count() > 0;
+				.filter(lottoWinType -> lottoWinType.isMatchCount(matchCount) && lottoWinType.isBonusFlag(bonusFlag))
+				.findFirst()
+				.orElse(MISS);
+	}
+
+	public static LottoWinType valueOf(int matchCount) {
+		return valueOf(matchCount, false);
 	}
 }

@@ -1,8 +1,9 @@
 package lotto.view;
 
 import lotto.domain.Lotto;
+import lotto.domain.LottoNumber;
 import lotto.domain.LottoWinType;
-import lotto.domain.Numbers;
+import lotto.domain.LottoNumbers;
 
 import java.util.List;
 import java.util.Map;
@@ -21,13 +22,13 @@ public class OutputView {
 	
 	public static void showLottoView(Lotto lotto) {
 		System.out.print("[");
-		showNumbersView(lotto.getNumbers());
+		showLottoNumbersView(lotto.getLottoNumbers());
 		System.out.println("]");
 	}
 	
-	public static void showNumbersView(Numbers numbers) {
-		System.out.print(numbers.stream()
-				.map(number -> Integer.toString(number))
+	public static void showLottoNumbersView(LottoNumbers lottoNumbers) {
+		System.out.print(lottoNumbers.stream()
+				.map(LottoNumber::toString)
 				.collect(joining(NUMBERS_VIEW_DELIMITER)));
 	}
 
@@ -36,12 +37,16 @@ public class OutputView {
 
 		System.out.println("당첨 통계\n---------");
 
-		results.forEach((lottoWinType, count) -> System.out.println(new StringBuilder().append(lottoWinType.getMatchCount())
-				.append("개 일치 (")
-				.append(lottoWinType.getPrize())
-				.append("원) - ")
-				.append(count)
-				.append("개")));
+		results.forEach((lottoWinType, count) -> {
+			if(!LottoWinType.MISS.equals(lottoWinType)) {
+				System.out.println(new StringBuilder().append(lottoWinType.getMatchCount())
+						.append("개 일치 (")
+						.append(lottoWinType.getPrize())
+						.append("원) - ")
+						.append(count)
+						.append("개"));
+			}
+		});
 	}
 
 	public static void showProfitRateView(double profitRate) {
