@@ -26,8 +26,8 @@ public class Numbers {
 		return this;
 	}
 
-	public int countMatch(Numbers numbers2) {
-		return (int) numbers2.stream()
+	public int countMatch(Numbers numbersToCompare) {
+		return (int) numbersToCompare.stream()
 				.filter(number -> numbers.contains(number))
 				.count();
 	}
