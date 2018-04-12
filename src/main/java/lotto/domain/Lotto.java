@@ -19,15 +19,20 @@ public class Lotto {
                 .collect(Collectors.toList());
     }
 
+    public Lotto() {
+        this.numbers = AutoSelector.generate();
+    }
+
     private void validation(List<Integer> numbers) {
         Set<Integer> removeDuplicates = new HashSet(numbers);
-        if(removeDuplicates.size() != 6){
+        if (removeDuplicates.size() != 6) {
             throw new IllegalArgumentException("INVALID NUMBERS");
         }
     }
 
-    public Lotto() {
-        this.numbers = AutoSelector.generate();
+    public boolean contains(LottoNumber lottoNumber) {
+        return this.numbers.stream()
+                .anyMatch(number -> number.equals(lottoNumber));
     }
 
     public Rank match(WinningLotto winningLotto) {
