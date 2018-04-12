@@ -1,54 +1,44 @@
 package LottoGame;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.List;
 
 /**
  * Created by hongjong-wan on 2018. 4. 8..
  */
 public class WinningLotto {
 
-    private List<Integer> numbers;
+    private LottoNos winningLottoNos;
+    private LottoNo bonusNumber;
 
-    public WinningLotto(String text) {
-        this.numbers = createWinningLotto(split(text));
-
+    public WinningLotto(String text, LottoNo bonusNumber) {
+        this.winningLottoNos = createWinningLotto(split(text));
+        if (winningLottoNos.isDuplicate(bonusNumber)) {
+            throw new IllegalArgumentException("보너스 번호는 당첨 번호 6개 값이아니어야 합니다.");
+        }
+        this.bonusNumber = bonusNumber;
     }
 
     public static String[] split(String text) {
         return text.split(",");
     }
 
-    public static List<Integer> createWinningLotto(String[] arr) {
-        List<Integer> numbers = new ArrayList<>();
+    public static LottoNos createWinningLotto(String[] arr) {
+        LottoNos winningLottoNos = new LottoNos();
         for (String str : arr) {
-            numbers.add(Integer.parseInt(trim(str)));
+            winningLottoNos.add(new LottoNo(Integer.parseInt(trim(str))));
         }
-        return numbers;
+        return winningLottoNos;
     }
 
     public static String trim(String str) {
         return str.trim();
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
+    public int getMatchCount(LottoNos lottoNos) {
+        return lottoNos.getMatchCount(winningLottoNos);
     }
 
-    public int getMatchCount(List<Integer> numbers) {
-        int matchCount = 0;
-        for (Integer number : numbers) {
-            if (numbers.contains(number)) {
-                matchCount++;
-            }
-        }
-        return matchCount;
+    public boolean matchBonus(LottoNos lottoNos) {
+        return lottoNos.matchBonus(bonusNumber);
     }
-
-
-    @Override
-    public String toString() {
-        return numbers + "";
-    }
-
 }

@@ -4,6 +4,7 @@ import LottoGame.LottoGame;
 import LottoGame.Lottos;
 import LottoGame.WinningLotto;
 import LottoGame.Result;
+import LottoGame.LottoNo;
 
 import java.util.List;
 import java.util.Scanner;
@@ -23,8 +24,10 @@ public class ConsoleMain {
         ConsoleResultView.printPurchaseNumber(lottos.get().size());
         ConsoleResultView.printLottos(lottos);
 
-        WinningLotto winningLotto = new WinningLotto(ConsoleInputView.getWinningNumber(sc));
-        List<Result> results = lottoGame.getMatchResult(winningLotto);
+        WinningLotto winningLotto = new WinningLotto(
+                ConsoleInputView.getWinningNumber(sc),
+                new LottoNo(ConsoleInputView.getBonusNumber(sc)));
+        List<Result> results = lottoGame.getRankResults(winningLotto);
         int yield = lottoGame.getYield(results, money);
         ConsoleResultView.printResult(results, yield);
 

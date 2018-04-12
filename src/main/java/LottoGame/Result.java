@@ -5,31 +5,33 @@ package LottoGame;
  */
 public class Result {
 
-    private Match match;
+    private Rank rank;
     private int count;
 
-    public Result(Match match) {
-        this.match = match;
+    public Result(Rank rank) {
+        this.rank = rank;
     }
 
-    public boolean equalMatchValue(Match match) {
-        return this.match == match;
-    }
-
-    public int calculatePrice() {
-        return match.calculatePrice(count);
+    public int calculateReward() {
+        return rank.calculateReward(count);
     }
 
     public void plusCount() {
         count++;
     }
 
-    public Match getMatch() {
-        return match;
+    public boolean equal(Rank rank) {
+        if (this.rank == rank) {
+            return true;
+        }
+        return false;
+    }
+
+    public Rank getRank() {
+        return rank;
     }
 
     public int getCount() {
         return count;
     }
-
 }

@@ -15,18 +15,17 @@ public class Lottos {
     }
 
     public List<Lotto> get() {
-        return this.lottos;
+        return lottos;
     }
 
-    public List<Match> getMatches(WinningLotto winningLotto) {
-        List<Match> matches = new ArrayList<>();
+    public List<Rank> getRanks(WinningLotto winningLotto) {
+        List<Rank> ranks = new ArrayList<>();
         for (Lotto lotto : lottos) {
-            Match match = Match.ofMatch(lotto.getMatchCount(winningLotto));
-            if (match != null) {
-                matches.add(match);
+            Rank rank = Rank.valueOf(lotto.getMatchCount(winningLotto), lotto.matchBonus(winningLotto));
+            if (rank != null) {
+                ranks.add(rank);
             }
         }
-        return matches;
+        return ranks;
     }
-
 }

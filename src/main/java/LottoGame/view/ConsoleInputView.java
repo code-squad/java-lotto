@@ -18,4 +18,9 @@ public class ConsoleInputView {
         return text;
     }
 
+    public static int getBonusNumber(Scanner sc) {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return Integer.parseInt(sc.nextLine());
+    }
+
 }
