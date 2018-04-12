@@ -13,13 +13,7 @@ public class StringAddCalculator {
     }
 
     private boolean isBlank(String text){
-        if (text.isEmpty()){
-            return true;
-        }
-        if (text == null){
-            return true;
-        }
-        return false;
+        return text == null || text.isEmpty();
     }
 
     private String[] parsePattern(String text){
