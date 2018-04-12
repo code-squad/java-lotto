@@ -1,11 +1,5 @@
-import LottoGame.Lotto;
-import LottoGame.Lottos;
-import LottoGame.Rank;
-import LottoGame.WinningLotto;
+import LottoGame.*;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,14 +14,16 @@ public class LottosTest {
 
     @Test
     public void 랭킹확인() {
-        List<Integer> numbers = new ArrayList<>();
+        LottoNos lottoNos = new LottoNos();
         for (int i = 1; i <= 6; i++) {
-            numbers.add(i);
+            lottoNos.add(new LottoNo(i));
         }
-        Lottos lottos = new Lottos();
-        lottos.add(new Lotto(numbers));
+        Lotto lotto = new Lotto(lottoNos);
 
-        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,14", 7);
+        Lottos lottos = new Lottos();
+        lottos.add(lotto);
+
+        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,14", new LottoNo(7));
         assertEquals(Rank.THIRD, lottos.getRanks(winningLotto).get(0));
     }
 }

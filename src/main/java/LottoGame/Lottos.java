@@ -28,5 +28,4 @@ public class Lottos {
         }
         return ranks;
     }
-
 }

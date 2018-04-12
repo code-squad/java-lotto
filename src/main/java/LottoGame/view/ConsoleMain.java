@@ -4,6 +4,7 @@ import LottoGame.LottoGame;
 import LottoGame.Lottos;
 import LottoGame.WinningLotto;
 import LottoGame.Result;
+import LottoGame.LottoNo;
 
 import java.util.List;
 import java.util.Scanner;
@@ -25,7 +26,7 @@ public class ConsoleMain {
 
         WinningLotto winningLotto = new WinningLotto(
                 ConsoleInputView.getWinningNumber(sc),
-                ConsoleInputView.getBonusNumber(sc));
+                new LottoNo(ConsoleInputView.getBonusNumber(sc)));
         List<Result> results = lottoGame.getRankResults(winningLotto);
         int yield = lottoGame.getYield(results, money);
         ConsoleResultView.printResult(results, yield);

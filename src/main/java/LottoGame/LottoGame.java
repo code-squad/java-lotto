@@ -10,7 +10,7 @@ public class LottoGame {
 
     private static final int LOTTO_PRICE = 1000;
     private Lottos lottos = new Lottos();
-    private List<Result> results = new ArrayList<>();
+    private List<Result> results;
 
     public LottoGame(int money) {
         int lottoTicketNumber = getLottoTicketNumber(money);

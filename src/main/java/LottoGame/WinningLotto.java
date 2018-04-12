@@ -1,18 +1,20 @@
 package LottoGame;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.List;
 
 /**
  * Created by hongjong-wan on 2018. 4. 8..
  */
 public class WinningLotto {
 
-    private List<Integer> winningNumbers;
-    private int bonusNumber;
+    private LottoNos winningLottoNos;
+    private LottoNo bonusNumber;
 
-    public WinningLotto(String text, int bonusNumber) {
-        this.winningNumbers = createWinningLotto(split(text));
+    public WinningLotto(String text, LottoNo bonusNumber) {
+        this.winningLottoNos = createWinningLotto(split(text));
+        if (winningLottoNos.isDuplicate(bonusNumber)) {
+            throw new IllegalArgumentException("보너스 번호는 당첨 번호 6개 값이아니어야 합니다.");
+        }
         this.bonusNumber = bonusNumber;
     }
 
@@ -20,34 +22,23 @@ public class WinningLotto {
         return text.split(",");
     }
 
-    public static List<Integer> createWinningLotto(String[] arr) {
-        List<Integer> numbers = new ArrayList<>();
+    public static LottoNos createWinningLotto(String[] arr) {
+        LottoNos winningLottoNos = new LottoNos();
         for (String str : arr) {
-            numbers.add(Integer.parseInt(trim(str)));
+            winningLottoNos.add(new LottoNo(Integer.parseInt(trim(str))));
         }
-        return numbers;
+        return winningLottoNos;
     }
 
     public static String trim(String str) {
         return str.trim();
     }
 
-
-    public int getMatchCount(List<Integer> numbers) {
-        int matchCount = 0;
-        for (Integer number : numbers) {
-            if (winningNumbers.contains(number)) {
-                matchCount++;
-            }
-        }
-        return matchCount;
+    public int getMatchCount(LottoNos lottoNos) {
+        return lottoNos.getMatchCount(winningLottoNos);
     }
 
-    public boolean matchBonus(List<Integer> numbers) {
-        if (numbers.contains(bonusNumber)) {
-            return true;
-        }
-        return false;
+    public boolean matchBonus(LottoNos lottoNos) {
+        return lottoNos.matchBonus(bonusNumber);
     }
-
 }

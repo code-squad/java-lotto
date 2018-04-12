@@ -1,10 +1,9 @@
-import LottoGame.WinningLotto;
-import org.junit.Test;
+import LottoGame.LottoNo;
+        import LottoGame.LottoNos;
+        import LottoGame.WinningLotto;
+        import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
+        import static org.junit.Assert.assertEquals;
 
 /**
  * Created by hongjong-wan on 2018. 4. 11..
@@ -18,31 +17,21 @@ public class WinningLottoTest {
      */
     @Test
     public void 매치카운트확인() {
-        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,6", 7);
-
-        List<Integer> numbers = new ArrayList<>();
-        numbers.add(1);
-        numbers.add(2);
-        numbers.add(11);
-        numbers.add(12);
-        numbers.add(13);
-        numbers.add(14);
-
-        assertEquals(2, winningLotto.getMatchCount(numbers));
+        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,6", new LottoNo(7));
+        LottoNos lottoNos = new LottoNos();
+        for (int i = 1; i <= 6; i++) {
+            lottoNos.add(new LottoNo(i));
+        }
+        assertEquals(6, winningLotto.getMatchCount(lottoNos));
     }
 
     @Test
     public void 보너스번호매치확인() {
-        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,6", 7);
-
-        List<Integer> numbers = new ArrayList<>();
-        numbers.add(1);
-        numbers.add(2);
-        numbers.add(11);
-        numbers.add(12);
-        numbers.add(13);
-        numbers.add(14);
-
-        assertEquals(false, winningLotto.matchBonus(numbers));
+        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,6", new LottoNo(7));
+        LottoNos lottoNos = new LottoNos();
+        for (int i = 1; i <= 6; i++) {
+            lottoNos.add(new LottoNo(i));
+        }
+        assertEquals(false, winningLotto.matchBonus(lottoNos));
     }
 }
