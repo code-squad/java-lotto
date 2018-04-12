@@ -25,26 +25,23 @@ public class CalculatorTest {
     @Test
     public void splitByComma() {
         Calculator calculator = new Calculator();
-        List<String> expectResults = new ArrayList<>();
-        expectResults.add("1");
-        expectResults.add("2");
 
-        List<String> inputStrings = new ArrayList<>();
-        inputStrings.add("1,2");
-        List<String> resultStrings = calculator.splitStringBySplittor(inputStrings, ",");
+        String expectResults = "1 2";
+
+        String inputStrings = "1,2";
+        Splitter splitter = new CustomSplitter(",");
+        String resultStrings = calculator.splitStringBySplittor(inputStrings, splitter);
         assertThat(resultStrings).isEqualTo(expectResults);
     }
 
     @Test
     public void splitByColon() {
         Calculator calculator = new Calculator();
-        List<String> expectResults = new ArrayList<>();
-        expectResults.add("1");
-        expectResults.add("2");
+        String expectResults = "1 2";
 
-        List<String> inputStrings = new ArrayList<>();
-        inputStrings.add("1:2");
-        List<String> resultStrings = calculator.splitStringBySplittor(inputStrings, ":");
+        String inputStrings = "1:2";
+        Splitter splitter = new CustomSplitter(":");
+        String resultStrings = calculator.splitStringBySplittor(inputStrings, splitter);
         assertThat(resultStrings).isEqualTo(expectResults);
     }
 
@@ -52,15 +49,11 @@ public class CalculatorTest {
     @Test
     public void splitByCommaAndColon() {
         Calculator calculator = new Calculator();
-        List<String> expectResults = new ArrayList<>();
-        expectResults.add("1");
-        expectResults.add("2");
-        expectResults.add("3");
+        String expectString = "1 2 3";
+        String inputString = "1,2:3";
 
-        List<String> inputStrings = new ArrayList<>();
-        inputStrings.add("1,2:3");
-        List<String> resultStrings = calculator.splitByOperators(inputStrings);
-        assertThat(resultStrings).isEqualTo(expectResults);
+
+        assertThat(calculator.splitByOperators(inputString)).isEqualTo(expectString);
     }
 
     @Test
@@ -68,13 +61,13 @@ public class CalculatorTest {
         Calculator calculator = new Calculator();
         calculator.addNewOperator("\\\\;\\n");
 
-        List<String> operators = new ArrayList<>();
+        List<Splitter> operators = new ArrayList<>();
 
-        operators.add(",");
-        operators.add(":");
-        operators.add(";");
+        operators.add(new CustomSplitter(","));
+        operators.add(new CustomSplitter(":"));
+        operators.add(new CustomSplitter(";"));
 
-        assertThat(calculator.getOperators()).isEqualTo(operators);
+        assertThat(calculator.getOperators().size()).isEqualTo(operators.size());
     }
 
     @Test
