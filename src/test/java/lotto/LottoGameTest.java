@@ -103,4 +103,10 @@ public class LottoGameTest {
         assertThat(winnerMap.get(0)).isEqualTo(2);
 
     }
+
+    @Test
+    public void 초기생성시_리워드앱_세팅확인() {
+        LottoGames lottoGames = new LottoGames();
+        assertThat(lottoGames.getRewardMap().size()).isEqualTo(4);
+    }
 }

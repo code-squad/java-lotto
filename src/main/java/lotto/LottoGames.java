@@ -6,12 +6,23 @@ import java.util.*;
 
 public class LottoGames {
     public static final int LOTTO_PRICE_PER_TICKET = 1000;
+    public static final int MATCH_3 = 5000;
+    public static final int MATCH_4 = 50000;
+    public static final int MATCH_5 = 1500000;
+    public static final int MATCH_6 = 2000000000;
 
     List<Lotto> havingLottos;
     Lotto winnerLotto;
 
+    Map<Integer, Integer> rewardMap;
+
     public LottoGames(){
         havingLottos = new ArrayList<>();
+        rewardMap = new HashMap<>();
+        rewardMap.put(3, MATCH_3);
+        rewardMap.put(4, MATCH_4);
+        rewardMap.put(5, MATCH_5);
+        rewardMap.put(6, MATCH_6);
     }
 
     //테스트용
@@ -23,6 +34,11 @@ public class LottoGames {
     Lotto getWinnerLotto(){
         return winnerLotto;
     }
+
+    public Map<Integer, Integer> getRewardMap() {
+        return rewardMap;
+    }
+
 
     public int getHavingCount(){
         return havingLottos.size();

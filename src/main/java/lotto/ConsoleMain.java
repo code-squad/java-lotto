@@ -1,19 +1,16 @@
 package lotto;
 
-import java.util.Map;
-
 public class ConsoleMain {
     public static void main(String[] args) {
         InputView inputView = new InputView();
         String inputPrice =  inputView.getInputPrice();
-        LottoGames lotto = new LottoGames();
-        lotto.buy(inputPrice);
-        ResultView resultView = new ResultView();
-        resultView.printHavingLotto(lotto);
-
+        LottoGames lottoGames = new LottoGames();
+        lottoGames.buy(inputPrice);
         String winNumbers = inputView.getWinNumbers();
-        Map<Integer, Integer> winResults = lotto.getWinnerMap();
-        resultView.printWinResult(lotto.getHavingCount(), winResults);
+        lottoGames.setWinnerLotto(winNumbers);
+        ResultView resultView = new ResultView();
+        resultView.printHavingLotto(lottoGames);
+        resultView.printWinResult(lottoGames.getHavingCount(), lottoGames.getWinnerMap(), lottoGames.getRewardMap());
 
     }
 
