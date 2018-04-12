@@ -1,11 +1,16 @@
 package lotto.domain;
 
-public class LottoWinNumbers extends Numbers{
+public class LottoWinNumbers{
+	private Numbers winNumbers;
 	private int bonusNumber;
 	
-	public LottoWinNumbers(int[] numbers, int bonusNumber) {
-		super(numbers);
+	public LottoWinNumbers(int[] winNumbers, int bonusNumber) {
+		this.winNumbers = new Numbers(winNumbers);
 		this.bonusNumber = bonusNumber;
+	}
+	
+	public Numbers getWinNumbers() {
+		return winNumbers;
 	}
 	
 	public int getBonusNumber() {

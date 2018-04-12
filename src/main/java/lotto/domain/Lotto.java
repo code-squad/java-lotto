@@ -24,7 +24,7 @@ public class Lotto {
 	}
 	
 	public LottoWinType getWinType(LottoWinNumbers winNumbers) {
-		int matchCount = numbers.countMatch(winNumbers);
+		int matchCount = numbers.countMatch(winNumbers.getWinNumbers());
 		if(matchCount == 4 && numbers.contains(winNumbers.getBonusNumber())) {
 			return LottoWinType.SECOND;
 		}
