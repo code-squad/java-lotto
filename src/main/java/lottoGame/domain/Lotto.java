@@ -2,23 +2,25 @@ package lottoGame.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Lotto {
 
-    ArrayList<Integer> lottoNums = new ArrayList<>();
+    private List<Integer> lottoNumbers = new ArrayList<>();
 
-    public Lotto(ArrayList<Integer> lottoNums) {
-        this.lottoNums = lottoNums;
+    public Lotto(List<Integer> lottoNums) {
+        this.lottoNumbers = lottoNums;
     }
 
-    public ArrayList<Integer> getLottoNums() {
-        return lottoNums;
+    public List<Integer> getLottoNums() {
+        return Collections.unmodifiableList(lottoNumbers);
     }
 
     public boolean isSameLottoNum(int expectedLottoNum) {
         int sameCnt = 0;
 
-        for(int lottoNum : lottoNums) {
+        for(int lottoNum : lottoNumbers) {
              if(expectedLottoNum == lottoNum) {
                  sameCnt++;
              }
@@ -27,10 +29,10 @@ public class Lotto {
     }
 
     public boolean isContainLuckyNum(int lottoNum) {
-        return lottoNums.contains(lottoNum);
+        return lottoNumbers.contains(lottoNum);
     }
 
-    public int getSameLuckNumCnt(int[] luckyNums) {
+    public int getSameLuckNumCnt(List<Integer> luckyNums) {
         int cnt = 0;
         for(int luckyNum : luckyNums) {
             if(isContainLuckyNum(luckyNum)) {
@@ -42,6 +44,6 @@ public class Lotto {
 
     @Override
     public String toString() {
-        return lottoNums.toString();
+        return lottoNumbers.toString();
     }
 }

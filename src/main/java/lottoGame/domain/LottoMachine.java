@@ -5,7 +5,7 @@ import java.util.*;
 public class LottoMachine {
 
     private static final int TIKETPAY = 1000;
-    private static ArrayList<Integer> machineLottoNumbers = new ArrayList<>();
+    private static List<Integer> machineLottoNumbers = new ArrayList<>();
 
     static {
         for(int i = 1; i < 46; i++) {
@@ -13,12 +13,12 @@ public class LottoMachine {
         }
     }
 
-    public Lotto[] giveLottoTiket(int totalTiketPrice) {
+    public List<Lotto> giveLottoTiket(int totalTiketPrice) {
 
-        Lotto[] lottoes = new Lotto[caculateLottoTiketCnt(totalTiketPrice)];
+        List<Lotto> lottoes = new ArrayList<>();
 
-        for(int i = 0; i < lottoes.length; i++) {
-            lottoes[i] = new Lotto(makeLottoNumbers());
+        for(int i = 0; i < caculateLottoTiketCnt(totalTiketPrice); i++) {
+            lottoes.add(new Lotto(makeLottoNumbers()));
         }
 
         return lottoes;
@@ -29,16 +29,16 @@ public class LottoMachine {
         return totalTiketPrice / TIKETPAY;
     }
 
-    ArrayList<Integer> makeLottoNumbers() {
+    List<Integer> makeLottoNumbers() {
 
         shuffleLottoNumber();
-        ArrayList<Integer> lottoNums = createLottoNumbers();
+        List<Integer> lottoNums = createLottoNumbers();
         sortLottoNumbers(lottoNums);
 
         return lottoNums;
     }
 
-    private ArrayList<Integer> createLottoNumbers() {
+    private List<Integer> createLottoNumbers() {
         ArrayList<Integer> lottoNums = new ArrayList<>();
 
         for(int i = 0; i < 6; i++) {
@@ -47,7 +47,7 @@ public class LottoMachine {
         return lottoNums;
     }
 
-    private void sortLottoNumbers(ArrayList<Integer> lottoNums) {
+    private void sortLottoNumbers(List<Integer> lottoNums) {
         Collections.sort(lottoNums);
     }
 

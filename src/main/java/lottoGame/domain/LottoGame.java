@@ -1,5 +1,7 @@
 package lottoGame.domain;
 
+import java.util.List;
+
 import static lottoGame.view.ResultView.*;
 import static lottoGame.view.InputView.*;
 
@@ -9,7 +11,7 @@ public class LottoGame {
 
         LottoMachine lottoMachine = new LottoMachine();
         int lottoTiketPrices = inputLottoPrice();
-        Lotto[] lottoes = lottoMachine.giveLottoTiket(lottoTiketPrices);
+        List<Lotto> lottoes = lottoMachine.giveLottoTiket(lottoTiketPrices);
 
         printLottoTiketCnt(lottoes);
         printLottoNumbers(lottoes);
