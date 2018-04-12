@@ -6,10 +6,10 @@ import java.util.*;
 
 public class LottoGames {
     public static final int LOTTO_PRICE_PER_TICKET = 1000;
-    public static final int MATCH_3 = 5000;
-    public static final int MATCH_4 = 50000;
-    public static final int MATCH_5 = 1500000;
-    public static final int MATCH_6 = 2000000000;
+    private static final int MATCH_3 = 5000;
+    private static final int MATCH_4 = 50000;
+    private static final int MATCH_5 = 1500000;
+    private static final int MATCH_6 = 2000000000;
 
     List<Lotto> havingLottos;
     Lotto winnerLotto;
@@ -25,9 +25,22 @@ public class LottoGames {
         rewardMap.put(6, MATCH_6);
     }
 
-    //테스트용
-    List<Lotto> addSingleTicket(Lotto newLotto){
-        havingLottos.add(newLotto);
+    private List<String> generateRandomLottoNumbers(){
+        List<String> candidateNumbers = new ArrayList<>();
+        List<String> lottoNumber;
+
+        for(int i=0; i<45; i++){
+            candidateNumbers.add(  (i+1) + "" );
+        }
+
+        Collections.shuffle(candidateNumbers);
+        lottoNumber = candidateNumbers.subList(0, 6);
+        Collections.sort(lottoNumber);
+        return lottoNumber;
+    }
+
+    public List<Lotto> addSingleLotto(String lottoNumbers){
+        havingLottos.add(new Lotto(lottoNumbers));
         return havingLottos;
     }
 
@@ -52,7 +65,10 @@ public class LottoGames {
 
     void buyLottoNCounts(int ticketCounts) {
         for(int i=0; i<ticketCounts; i++){
-            havingLottos.add(new Lotto());
+            List<String> randomNumbers = generateRandomLottoNumbers();
+            String numbers = String.join(", ", randomNumbers.toArray(new String[randomNumbers.size()]) );
+
+            havingLottos.add(new Lotto(numbers));
         }
     }
 

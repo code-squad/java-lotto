@@ -11,7 +11,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class LottoTest {
     @Test
     public void 한라운드_생성_테스트() {
-        Lotto lotto = new Lotto();
+        Lotto lotto = new Lotto("1, 2, 3, 4, 5, 6");
         assertThat(lotto.getLotto().size()).isEqualTo(6);
     }
 

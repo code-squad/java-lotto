@@ -57,7 +57,7 @@ public class LottoGameTest {
     @Test
     public void 테스트용_내역추가() {
         LottoGames lottoGames = new LottoGames();
-        lottoGames.addSingleTicket(new Lotto("1, 2, 3, 4, 5, 6"));
+        lottoGames.addSingleLotto("1, 2, 3, 4, 5, 6");
         assertThat(lottoGames.getHavingLottos().size()).isEqualTo(1);
     }
 
@@ -73,8 +73,8 @@ public class LottoGameTest {
     @Test
     public void 두장_매칭결과가2개인지확인() {
         LottoGames lottoGames = new LottoGames();
-        lottoGames.addSingleTicket(new Lotto("1, 2, 3, 4, 5, 26"));
-        lottoGames.addSingleTicket(new Lotto("1, 2, 3, 4, 5, 6"));
+        lottoGames.addSingleLotto("1, 2, 3, 4, 5, 26");
+        lottoGames.addSingleLotto("1, 2, 3, 4, 5, 6");
         lottoGames.setWinnerLotto("1, 2, 3, 4, 5, 6");
 
         Map<Integer, Integer> winnerMap = lottoGames.getWinnerMap();
@@ -84,8 +84,8 @@ public class LottoGameTest {
     @Test
     public void 두개모두전체꽝인경우_Map이1개리턴하나확인() {
         LottoGames lottoGames = new LottoGames();
-        lottoGames.addSingleTicket(new Lotto("11, 12, 13, 14, 15, 16"));
-        lottoGames.addSingleTicket(new Lotto("21, 22, 23, 24, 25, 26"));
+        lottoGames.addSingleLotto("11, 12, 13, 14, 15, 16");
+        lottoGames.addSingleLotto("21, 22, 23, 24, 25, 26");
         lottoGames.setWinnerLotto("1, 2, 3, 4, 5, 6");
 
         Map<Integer, Integer> winnerMap = lottoGames.getWinnerMap();
@@ -95,8 +95,8 @@ public class LottoGameTest {
     @Test
     public void 두개모두전체꽝인경우_Map0이2인지확인() {
         LottoGames lottoGames = new LottoGames();
-        lottoGames.addSingleTicket(new Lotto("11, 12, 13, 14, 15, 16"));
-        lottoGames.addSingleTicket(new Lotto("21, 22, 23, 24, 25, 26"));
+        lottoGames.addSingleLotto("11, 12, 13, 14, 15, 16");
+        lottoGames.addSingleLotto("21, 22, 23, 24, 25, 26");
         lottoGames.setWinnerLotto("1, 2, 3, 4, 5, 6");
 
         Map<Integer, Integer> winnerMap = lottoGames.getWinnerMap();

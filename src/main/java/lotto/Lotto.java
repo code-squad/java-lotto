@@ -1,6 +1,7 @@
 package lotto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,30 +9,23 @@ public class Lotto {
 
     private List<Integer> lotto;
 
-    public List<Integer> getLotto() {
-        return lotto;
-    }
-    public Lotto(){
-        List<Integer> candidateNumbers = new ArrayList<>();
-
-        for(int i=0; i<45; i++){
-            candidateNumbers.add(i+1);
-        }
-
-        Collections.shuffle(candidateNumbers);
-        lotto = candidateNumbers.subList(0, 6);
-        Collections.sort(lotto);
-    }
+    public Lotto(){}
 
     public Lotto(String lottoNumbers){
         List<Integer> winNumbers = new ArrayList<>();
         String[] winStringNumbers = lottoNumbers.split(",");
-        if(winStringNumbers.length != 6){
-            throw new IllegalArgumentException();
-        }
 
         for(String winToken:winStringNumbers){
             winNumbers.add(Integer.parseInt(winToken.trim()));
+        }
+
+        checkConstructorValidation(winStringNumbers, winNumbers);
+        lotto = winNumbers;
+    }
+
+    private void checkConstructorValidation(String[] winStringNumbers, List<Integer> winNumbers) {
+        if(winStringNumbers.length != 6){
+            throw new IllegalArgumentException();
         }
 
         for(int i=0; i<winNumbers.size()-1; i++) {
@@ -40,11 +34,15 @@ public class Lotto {
             }
         }
 
-        lotto = winNumbers;
+
+    }
+
+    public List<Integer> getLotto() {
+        List<Integer> unModifiableLotto = Collections.unmodifiableList(lotto);
+        return unModifiableLotto;
     }
 
     public int getMatchCount(Lotto param){
-
         int winCount = 0;
         for(Integer winNumber:param.getLotto()) {
             if( lotto.contains(winNumber) ){
