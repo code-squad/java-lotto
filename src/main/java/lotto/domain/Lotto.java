@@ -22,12 +22,8 @@ public class Lotto {
 	public Numbers getNumbers() {
 		return numbers;
 	}
-	
-	public LottoWinType getWinType(LottoWinNumbers winNumbers) {
-		int matchCount = numbers.countMatch(winNumbers.getWinNumbers());
-		if(matchCount == 4 && numbers.contains(winNumbers.getBonusNumber())) {
-			return LottoWinType.SECOND;
-		}
-		return LottoWinType.valueOf(matchCount);
+
+	public boolean contains(int number) {
+		return numbers.contains(number);
 	}
 }
