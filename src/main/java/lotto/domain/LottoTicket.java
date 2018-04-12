@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 public class LottoTicket {
-    private static final int HOLD_NUMBERS = 6;
-    
     private final Set<Integer> numbers;
 
     public LottoTicket(List<Integer> numbers) {
@@ -28,12 +26,8 @@ public class LottoTicket {
     }
 
     private Set<Integer> setNumbers(List<Integer> numbers) {
-        Set<Integer> toSet = new HashSet<>(numbers);
-        if (HOLD_NUMBERS != toSet.size()) {
-            throw new IllegalArgumentException("로또 번호는 중복 없이 6자리 여야 합니다.");
-        }
-        
-        return toSet;
+        LottoNumbersValidator.validate(numbers);
+        return new HashSet<>(numbers);
     }
 
     @Override

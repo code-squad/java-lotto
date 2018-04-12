@@ -18,7 +18,7 @@ public class GameResult {
     public List<PrizeDivision> getResult() {
         return tickets.stream()
                 .map(ticket -> PrizeDivision.valueOf(
-                        ticket.match(winningTicket), 
+                        ticket.match(winningTicket.getLottoTicket()), 
                         ticket.contains(winningTicket.getBonusNumber())))
                 .collect(Collectors.toList());
     }
