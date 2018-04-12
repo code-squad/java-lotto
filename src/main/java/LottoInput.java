@@ -14,7 +14,6 @@ public class LottoInput {
         Scanner scanner = new Scanner(System.in);
         String luckyNumbers = scanner.nextLine();
         String[] names = luckyNumbers.split(",");
-//        return Arrays.asList(names);
         return toInts(Arrays.asList(names));
     }
     private static List<Integer> toInts(List<String> source){

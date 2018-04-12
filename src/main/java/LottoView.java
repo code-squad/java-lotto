@@ -6,10 +6,6 @@ public class LottoView {
             System.out.println(card.getNumbers());
         }
     }
-    public static void echoLuckyNumbers(Collection<String> source){
-        String result = String.join(", ", source);
-        System.out.println(result);
-    }
 
     public static void announceResult(List<Integer> result, int budget){
 
@@ -23,7 +19,6 @@ public class LottoView {
 
         System.out.println("투자금:"+budget+", 수익:"+ benefit);
         System.out.println("총 수익률은 "+((benefit-budget)/budget)*100 + "% 입니다");
-        //TODO: 총 수익률 표시
 
     }
     private static int getPrize(int numOfOccurence){
