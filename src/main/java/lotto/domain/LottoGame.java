@@ -15,15 +15,15 @@ public class LottoGame {
     }
 
     public List<Lotto> generateLottos(int money) {
-        lottos = lottoGenerator.generate(getLottoNumer(money));
+        lottos = lottoGenerator.generate(getLottoNumber(money));
         return lottos;
     }
 
-    public double calculateProfitRate(Numbers winNumbers, int money) {
+    public double calculateProfitRate(LottoWinNumbers winNumbers, int money) {
         return sumPrize(winNumbers) / money * 100;
     }
 
-    public Map<LottoWinType, Long> getResults(Numbers winNumbers) {
+    public Map<LottoWinType, Long> getResults(LottoWinNumbers winNumbers) {
         Map<LottoWinType, Long> winResults = getWinResults(winNumbers);
 
         Arrays.stream(LottoWinType.values())
@@ -31,26 +31,19 @@ public class LottoGame {
                 .forEach(lottoWinType -> winResults.put(lottoWinType, 0l));
         return winResults;
     }
-
-    private Map<LottoWinType, Long> getWinResults(Numbers winNumbers) {
-        Map<LottoWinType, Long> winResults = lottos.stream()
-                .mapToInt(lotto -> lotto.countMatchNumbers(winNumbers))
-                .boxed()
-                .filter(matchCount -> LottoWinType.contains(matchCount))
-                .collect(groupingBy(matchCount -> LottoWinType.valueOf(matchCount), counting()));
-
-        return winResults;
+    
+    private Map<LottoWinType, Long> getWinResults(LottoWinNumbers winNumbers) {
+        return lottos.stream()
+                .collect(groupingBy(lotto -> lotto.getWinType(winNumbers), counting()));
     }
-
-    private int getLottoNumer(int money) {
+    
+    private int getLottoNumber(int money) {
         return money / Lotto.LOTTO_PRICE;
     }
 
-    private double sumPrize(Numbers winNumbers) {
+    private double sumPrize(LottoWinNumbers winNumbers) {
         return lottos.stream()
-                .map(lotto -> lotto.countMatchNumbers(winNumbers))
-                .filter(matchCount -> LottoWinType.contains(matchCount))
-                .mapToInt(matchCount -> LottoWinType.valueOf(matchCount).getPrize())
+                .mapToInt(lotto -> lotto.getWinType(winNumbers).getPrize())
                 .sum();
     }
 }

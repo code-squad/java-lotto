@@ -23,7 +23,11 @@ public class Lotto {
 		return numbers;
 	}
 	
-	public int countMatchNumbers(Numbers winNumbers) {
-		return numbers.countMatch(winNumbers);
+	public LottoWinType getWinType(LottoWinNumbers winNumbers) {
+		int matchCount = numbers.countMatch(winNumbers);
+		if(matchCount == 4 && numbers.contains(winNumbers.getBonusNumber())) {
+			return LottoWinType.SECOND;
+		}
+		return LottoWinType.valueOf(matchCount);
 	}
 }

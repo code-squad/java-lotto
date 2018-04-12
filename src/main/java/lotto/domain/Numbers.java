@@ -20,13 +20,18 @@ public class Numbers {
 	public Numbers(List<Integer> numbers) {
 		this.numbers = numbers.stream().collect(toList());
 	}
+	
+	public Numbers add(Integer number) {
+		numbers.add(number);
+		return this;
+	}
 
 	public int countMatch(Numbers numbers2) {
 		return (int) numbers2.stream()
 				.filter(number -> numbers.contains(number))
 				.count();
 	}
-
+	
 	public Numbers subNumbers(int start, int end) {
 		return new Numbers(numbers.subList(start, end));
 	}
@@ -55,6 +60,10 @@ public class Numbers {
 
 	public Numbers clone() {
 		return new Numbers(numbers.stream().collect(toList()));
+	}
+	
+	public boolean contains(Integer number) {
+		return numbers.contains(number);
 	}
 
 }
