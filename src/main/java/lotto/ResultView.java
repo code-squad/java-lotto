@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ResultView {
-    public void printHavingLotto(Lotto lotto){
-        List<List<Integer>> havingLottos = lotto.getHavingLottos();
+    public void printHavingLotto(LottoGames lotto){
+        List<Lotto> havingLottos = lotto.getHavingLottos();
         System.out.println(havingLottos.size() + "개를 구매하였습니다.");
 
         for(int i=0; i<havingLottos.size(); i++){
@@ -15,7 +15,7 @@ public class ResultView {
     }
 
     public void printWinResult(int havingCount, Map<Integer,Integer> winResults) {
-        int buyAmt = havingCount * Lotto.LOTTO_PRICE_PER_TICKET;
+        int buyAmt = havingCount * LottoGames.LOTTO_PRICE_PER_TICKET;
 
         System.out.println("당첨통계");
         System.out.println("---------");
