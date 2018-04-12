@@ -20,7 +20,6 @@ public class Calculator {
     }
 
     public int calculate(String userInput) {
-        int resultNumber = 0;
         if(userInput == null || userInput.isEmpty())
             return 0;
 
@@ -29,8 +28,8 @@ public class Calculator {
         List<String> inputStrings = new ArrayList<>();
         inputStrings.add(userInput);
 
-        resultNumber = sumSplittedString(splitByOperators(inputStrings));
-        return resultNumber;
+        Positive resultNumber = sumSplittedString(splitByOperators(inputStrings));
+        return resultNumber.getNumber();
 
     }
 
@@ -68,11 +67,14 @@ public class Calculator {
     }
 
 
-    public int sumSplittedString(List<String> inputStrings){
-        int result = 0;
-        for(String number:inputStrings)
-            result += checkNonNegative(number);
-        return result;
+    public Positive sumSplittedString(List<String> inputStrings){
+        Positive resultNumber = new Positive(0);
+        Positive newNumber;
+        for(String number:inputStrings) {
+            newNumber = new Positive(number);
+            resultNumber.addNumber(newNumber);
+        }
+        return resultNumber;
     }
 
     private int checkNonNegative(String number) {

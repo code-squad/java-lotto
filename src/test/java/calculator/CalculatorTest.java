@@ -92,17 +92,4 @@ public class CalculatorTest {
         assertThat(resultSum).isEqualTo(10);
 
     }
-
-    @Test(expected = RuntimeException.class)
-    public void exceptionNegativeNumber() {
-        Calculator calculator = new Calculator();
-        calculator.calculate("-1:2");
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void exceptionNonNumber() {
-        Calculator calculator = new Calculator();
-        calculator.calculate("*:2");
-
-    }
 }
