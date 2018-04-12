@@ -7,6 +7,6 @@ public class LottoTest {
 
     @Before
     public void setUp() throws Exception {
-        lotto = new Lotto(1, 2, 3, 4, 5, 6);
+        lotto = new Lotto(new LottoNumbers(1, 2, 3, 4, 5, 6));
     }
 }

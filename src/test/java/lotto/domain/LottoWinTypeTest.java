@@ -16,5 +16,6 @@ public class LottoWinTypeTest {
         assertThat(LottoWinType.valueOf(4)).isEqualTo(LottoWinType.FOURTH);
         assertThat(LottoWinType.valueOf(5)).isEqualTo(LottoWinType.THIRD);
         assertThat(LottoWinType.valueOf(6)).isEqualTo(LottoWinType.FIRST);
+        assertThat(LottoWinType.valueOf(5, true)).isEqualTo(LottoWinType.SECOND);
     }
 }
