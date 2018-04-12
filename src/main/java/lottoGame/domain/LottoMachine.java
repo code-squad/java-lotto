@@ -39,7 +39,7 @@ public class LottoMachine {
     }
 
     private List<Integer> createLottoNumbers() {
-        ArrayList<Integer> lottoNums = new ArrayList<>();
+        List<Integer> lottoNums = new ArrayList<>();
 
         for(int i = 0; i < 6; i++) {
             lottoNums.add(machineLottoNumbers.get(i));
