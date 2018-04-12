@@ -8,16 +8,18 @@ import java.util.stream.Collectors;
 
 public class GameResult {
     private final List<LottoTicket> tickets;
-    private final LottoTicket winningTicket;
+    private final WinningTicket winningTicket;
 
-    public GameResult(List<LottoTicket> tickets, LottoTicket winningTicket) {
+    public GameResult(List<LottoTicket> tickets, WinningTicket winningTicket) {
         this.tickets = tickets;
         this.winningTicket = winningTicket;
     }
 
     public List<PrizeDivision> getResult() {
         return tickets.stream()
-                .map(ticket -> PrizeDivision.findByMatchedNumbers(ticket.match(winningTicket)))
+                .map(ticket -> PrizeDivision.valueOf(
+                        ticket.match(winningTicket.getLottoTicket()), 
+                        ticket.contains(winningTicket.getBonusNumber())))
                 .collect(Collectors.toList());
     }
 
@@ -34,13 +36,14 @@ public class GameResult {
     public float getRateOfReturn() {
         int investment = LottoTicketIssuer.getTicketPrice() * tickets.size();
         int profit = getResult().stream().mapToInt(PrizeDivision::getPrize).sum();
-        
-        return (profit * 100) / (float) investment;
+        return (profit / (float) investment) * 100;
     }
     
     private static int count(List<PrizeDivision> winningResult, PrizeDivision division) {
         return (int) winningResult.stream()
-                .filter(winning -> winning.matchNumberEqualsOf(division.getMatchedNumber()))
+                .filter(winning -> winning.compareBy(
+                        division.getMatchedNumber(), 
+                        division.isMatchedBonusNumber()))
                 .count();
     }
 }
