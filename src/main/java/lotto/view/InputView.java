@@ -32,7 +32,7 @@ public class InputView {
                 .collect(Collectors.toList());
     }
 
-    private static Integer getBonusNumber() {
+    private static int getBonusNumber() {
         System.out.println(GET_BONUS_NUMBER_TEXT);
         return scanner.nextInt();
     }

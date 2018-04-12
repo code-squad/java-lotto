@@ -11,17 +11,17 @@ public enum Rank {
     FIFTH(3, 5000, "3개 일치"),
     MISS(0, 0, "낙첨");
 
-    private Integer countOfMatch;
-    private Integer winningMoney;
+    private int countOfMatch;
+    private int winningMoney;
     private String description;
 
-    Rank(Integer countOfMatch, Integer winningMoney, String description) {
+    Rank(int countOfMatch, int winningMoney, String description) {
         this.countOfMatch = countOfMatch;
         this.winningMoney = winningMoney;
         this.description = description;
     }
 
-    public Integer getWinningMoney() {
+    public int getWinningMoney() {
         return this.winningMoney;
     }
 
@@ -29,21 +29,15 @@ public enum Rank {
         return this.description;
     }
 
-    public static Rank valueOf(Integer value, Boolean matchBonus) {
-        switch (value) {
-            case 6:
-                return FIRST;
-            case 5:
-                if (matchBonus) {
-                    return SECOND;
-                }
-                return THIRD;
-            case 4:
-                return FOURTH;
-            case 3:
-                return FIFTH;
-            default:
-                return MISS;
+    public static Rank valueOf(Integer countOfMatch, Boolean matchBonus) {
+        for (Rank rank : values()) {
+            if (countOfMatch == SECOND.countOfMatch) {
+                return matchBonus ? SECOND : THIRD;
+            }
+            if (countOfMatch == rank.countOfMatch) {
+                return rank;
+            }
         }
+        return MISS;
     }
 }

@@ -51,8 +51,13 @@ public class LottoTest {
         assertThat(lotto.match(this.winningLotto)).isEqualTo(Rank.FIFTH);
     }
 
-    @Test(expected = InvalidArgumentException.class)
-    public void 로또_유효성확인() {
-        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5));
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또_숫자개수_유효성() {
+        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또_숫자중복_유효성() {
+        Lotto lotto = new Lotto(Arrays.asList(1, 1, 1, 4, 5, 6));
     }
 }
