@@ -6,15 +6,15 @@ import java.util.Map;
  * @author sangsik.kim
  */
 public class LottoResult {
-    private Map<WinningTier, Integer> result;
+    private Map<Rank, Integer> result;
     private int buyAmount;
 
-    public LottoResult(Map<WinningTier, Integer> result, int buyAmount) {
+    public LottoResult(Map<Rank, Integer> result, int buyAmount) {
         this.result = result;
         this.buyAmount = buyAmount;
     }
 
-    public int get(WinningTier winningTier) {
+    public int get(Rank winningTier) {
         return this.result.get(winningTier);
     }
 
@@ -24,8 +24,8 @@ public class LottoResult {
 
     private int getTotalAmount() {
         int sum = 0;
-        for (WinningTier tier : result.keySet()) {
-            sum += result.get(tier) * tier.prizeAmount();
+        for (Rank tier : result.keySet()) {
+            sum += result.get(tier) * tier.getWinningMoney();
         }
         return sum;
     }

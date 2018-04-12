@@ -9,12 +9,12 @@ import java.util.List;
 public class LottoProvider {
     public static final int PRICE_PER_LOTTO = 1000;
 
-    public static LottoGame order(int amount) {
+    public static LottoTicket order(int amount) {
         List<Lotto> lottos = new ArrayList();
         for (int i = 0; i < availableQuantity(amount); i++) {
             lottos.add(new Lotto());
         }
-        return new LottoGame(lottos);
+        return new LottoTicket(lottos);
     }
 
     private static int availableQuantity(int amount) {

@@ -1,17 +1,18 @@
 package lotto.view;
 
-import lotto.domain.LottoGame;
-import lotto.domain.LottoProvider;
+import lotto.domain.*;
 
 /**
  * @author sangsik.kim
  */
 public class Console {
     public static void main(String[] args) {
-        LottoGame lottoGame = LottoProvider.order(InputView.getAmount());
+        LottoTicket lottoTickets = LottoProvider.order(InputView.getAmount());
+        ResultView.printLottos(lottoTickets);
 
-        ResultView.printLottos(lottoGame.getLottos());
+        WinningLotto winningLotto = InputView.getWinningLotto();
 
-        ResultView.printResult(lottoGame.createResult(InputView.getWinningNumbers()));
+        LottoResult result = lottoTickets.createResult(winningLotto);
+        ResultView.printResult(result);
     }
 }
