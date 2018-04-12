@@ -7,9 +7,7 @@ import static java.util.stream.Collectors.toList;
 
 public class RandomLottoGenerator implements LottoGenerator {
 	private static final int LOTTO_NUMBERS_SIZE = 6;
-	private static LottoNumbers lottoNumbersSet = new LottoNumbers(IntStream.rangeClosed(LottoNumber.MIN_NUMBER, LottoNumber.MAX_NUMBER)
-			.mapToObj(LottoNumber::new)
-			.collect(toList()));
+	private static LottoNumbers lottoNumbersSet = LottoNumbers.createRanged(LottoNumber.MIN_NUMBER, LottoNumber.MAX_NUMBER);
 
 	@Override
 	public List<Lotto> generate(int number) {

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
@@ -60,5 +61,11 @@ public class LottoNumbers {
 				.filter(number -> number.equals(anotherLottoNumber))
 				.findFirst()
 				.isPresent();
+	}
+
+	public static LottoNumbers createRanged(int startInclusive, int endInclusive) {
+		return new LottoNumbers(IntStream.rangeClosed(startInclusive, endInclusive)
+				.mapToObj(LottoNumber::new)
+				.collect(toList()));
 	}
 }
