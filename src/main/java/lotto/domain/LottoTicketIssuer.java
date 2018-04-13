@@ -19,6 +19,10 @@ public class LottoTicketIssuer {
         return new LottoTicket(range.subList(0, 6));
     }
 
+    public static LottoTicket issue(List<Integer> numbers) {
+        return new LottoTicket(numbers);
+    }
+
     public static List<LottoTicket> issue(int pay) {
         List<LottoTicket> tickets = new ArrayList<>();
         IntStream.range(0, getPurchasableTicketCount(pay))
@@ -27,11 +31,15 @@ public class LottoTicketIssuer {
         return tickets;
     }
 
-    static int getTicketPrice() {
+    public static int getTicketPrice() {
         return TICKET_PRICE;
     }
 
-    static int getPurchasableTicketCount(int pay) {
+    public static int getTicketPrice(int ticketCount) {
+        return getTicketPrice() * ticketCount;
+    }
+
+    public static int getPurchasableTicketCount(int pay) {
         return pay / TICKET_PRICE;
     }
 

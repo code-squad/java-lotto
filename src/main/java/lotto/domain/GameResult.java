@@ -7,16 +7,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GameResult {
-    private final List<LottoTicket> tickets;
+    private final LottoTickets tickets;
     private final WinningTicket winningTicket;
 
-    public GameResult(List<LottoTicket> tickets, WinningTicket winningTicket) {
+    public GameResult(LottoTickets tickets, WinningTicket winningTicket) {
         this.tickets = tickets;
         this.winningTicket = winningTicket;
     }
 
     public List<PrizeDivision> getResult() {
-        return tickets.stream()
+        return tickets.getAllTickets().stream()
                 .map(ticket -> PrizeDivision.valueOf(
                         ticket.match(winningTicket.getLottoTicket()), 
                         ticket.contains(winningTicket.getBonusNumber())))
