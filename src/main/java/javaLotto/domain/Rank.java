@@ -1,7 +1,5 @@
 package javaLotto.domain;
 
-import java.util.List;
-
 public enum Rank {
     FIRST(6, 2000000000, false),
     SECOND(5, 30000000, true),
