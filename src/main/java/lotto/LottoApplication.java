@@ -15,7 +15,9 @@ public class LottoApplication {
         ResultView.printLotto(lottoGame);
 
         List<String> winningNumber = InputView.getWinningNumber();
-        GameResult gameResult = lottoGame.play(winningNumber);
+        String bonusNumber = InputView.getBonusNumber();
+
+        GameResult gameResult = lottoGame.play(winningNumber, bonusNumber);
         ResultView.statistic(gameResult, amount);
     }
 }

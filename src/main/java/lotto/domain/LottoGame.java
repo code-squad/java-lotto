@@ -32,11 +32,11 @@ public class LottoGame {
             throw new IllegalArgumentException();
         }
 
-        return (int)(amount / Lotto.DEFAULT_PRICE);
+        return (int)(amount / LottoRule.DEFAULT_PRICE);
     }
 
-    public GameResult play(List<String> winningNumber) {
-        GameResult gameResult = new GameResult(winningNumber);
+    public GameResult play(List<String> winningNumber, String bonusNumber) {
+        GameResult gameResult = new GameResult(winningNumber, bonusNumber);
         gameResult.record(lottos);
 
         return gameResult;
