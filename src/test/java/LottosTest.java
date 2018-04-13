@@ -14,11 +14,7 @@ public class LottosTest {
 
     @Test
     public void 랭킹확인() {
-        LottoNos lottoNos = new LottoNos();
-        for (int i = 1; i <= 6; i++) {
-            lottoNos.add(new LottoNo(i));
-        }
-        Lotto lotto = new Lotto(lottoNos);
+        Lotto lotto = new Lotto("1,2,3,4,5,8");
 
         Lottos lottos = new Lottos();
         lottos.add(lotto);

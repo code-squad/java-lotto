@@ -22,7 +22,6 @@ public class LottoNo {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(number);
     }
 

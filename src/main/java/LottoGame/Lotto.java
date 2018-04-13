@@ -1,5 +1,9 @@
 package LottoGame;
 
+import LottoGameUtil.LottoUtils;
+import LottoGameUtil.MyStringUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Collections;
 
 /**
@@ -11,17 +15,30 @@ public class Lotto {
     private LottoNos lottoNos;
 
     public Lotto() {
+        createAutoLotto();
+    }
 
+    public Lotto(String text) {
+        createManualLotto(text);
+    }
+
+    public void createAutoLotto() {
         lottoNos = chooseSixNumber(suffle(createfortyFiveNumbers()));
+
+    }
+
+    public void createManualLotto(String text) {
+        if(StringUtils.isBlank(text)){
+            throw new IllegalArgumentException("공백을 입력하면 안됩니다.");
+        }
+
+        lottoNos = LottoUtils.createLotto(MyStringUtils.split(text));
 
         if (lottoNos.getSize() != LOTTO_CHOOSE_COUNT) {
             throw new IllegalArgumentException("로또는 6개의 숫자를 가져야만 합니다.");
         }
     }
 
-    public Lotto(LottoNos lottoNos) {
-        this.lottoNos = lottoNos;
-    }
 
     public static LottoNos createfortyFiveNumbers() {
         LottoNos lottoNos = new LottoNos();

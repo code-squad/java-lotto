@@ -39,7 +39,6 @@ public class LottoNos {
         return false;
     }
 
-
     public List<LottoNo> getLottoNos() {
         return lottoNos;
     }

@@ -8,30 +8,22 @@ import java.util.List;
  */
 public class LottoGame {
 
-    private static final int LOTTO_PRICE = 1000;
     private Lottos lottos = new Lottos();
     private List<Result> results;
 
-    public LottoGame(int money) {
-        int lottoTicketNumber = getLottoTicketNumber(money);
-        for (int i = 0; i < lottoTicketNumber; i++) {
-            lottos.add(createLotto());
-        }
+    public LottoGame() {
         results = initResultList();
     }
 
-    private static Lotto createLotto() {
-        return new Lotto();
+    public void createAutoLotto(int autoLottoCount) {
+        for (int i = 0; i < autoLottoCount; i++) {
+            lottos.add(new Lotto());
+        }
     }
 
-    private int getLottoTicketNumber(int money) {
-        return (money / LOTTO_PRICE);
+    public void createManualLotto(String text) {
+        lottos.add(new Lotto(text));
     }
-
-    public Lottos getLottos() {
-        return lottos;
-    }
-
 
     public List<Result> getRankResults(WinningLotto winningLotto) {
         List<Rank> ranks = lottos.getRanks(winningLotto);
@@ -59,9 +51,13 @@ public class LottoGame {
 
     public int getYield(List<Result> results, int money) {
         int totalReward = 0;
-        for(Result result : results) {
+        for (Result result : results) {
             totalReward += result.calculateReward();
         }
         return (int) (((double) totalReward / money) * 100);
+    }
+
+    public Lottos getLottos() {
+        return lottos;
     }
 }
