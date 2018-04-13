@@ -18,9 +18,9 @@ public class LottoWinLottoNumbersTest {
     @Test
     public void match테스트() {
         LottoWinNumbers lottoWinNumbers = new LottoWinNumbers(new LottoNumbers(1, 2, 3, 4, 5, 6), new LottoNumber(7));
-        assertThat(lottoWinNumbers.match(new Lotto(new LottoNumbers(1, 2, 3, 10, 8, 9))))
+        assertThat(lottoWinNumbers.match(new Lotto(new LottoNumbers(1, 2, 3, 10, 8, 9), false)))
                 .isEqualTo(LottoWinType.FIFTH);
-        assertThat(lottoWinNumbers.match(new Lotto(new LottoNumbers(1, 2, 3, 4, 7, 9))))
+        assertThat(lottoWinNumbers.match(new Lotto(new LottoNumbers(1, 2, 3, 4, 7, 9), false)))
                 .isEqualTo(LottoWinType.SECOND);
     }
 }

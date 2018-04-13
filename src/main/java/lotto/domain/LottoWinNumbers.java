@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.util.ExceptionUtils;
+
 public class LottoWinNumbers{
 	private LottoNumbers winNumbers;
 	private LottoNumber bonusNumber;
@@ -23,7 +25,7 @@ public class LottoWinNumbers{
 
 	private void validateBonusNumber(LottoNumber bonusNumber) {
 		if(winNumbers.contains(bonusNumber)) {
-			throw new IllegalArgumentException("보너스 번호는 당첨번호 6개의 값이 아니어야 합니다.");
+			ExceptionUtils.throwIllegalArgumentException(LottoWinNumbers.class, "보너스 번호는 당첨번호 6개의 값이 아니어야 합니다.");
 		}
 	}
 }
