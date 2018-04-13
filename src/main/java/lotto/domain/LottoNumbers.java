@@ -26,6 +26,10 @@ public class LottoNumbers {
 		this.numbers = numbers.stream().collect(toList());
 	}
 	
+	public List<LottoNumber> getNumbers() {
+		return numbers;
+	}
+	
 	public LottoNumbers subNumbers(int start, int end) {
 		return new LottoNumbers(numbers.subList(start, end));
 	}

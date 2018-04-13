@@ -12,6 +12,10 @@ public class LottoNumber extends Number implements Comparable<LottoNumber>{
         validateNumber(number);
         this.number = number;
     }
+    
+    public int getNumber() {
+        return number;
+    }
 
     @Override
     public int compareTo(LottoNumber anotherLottoNumber) {

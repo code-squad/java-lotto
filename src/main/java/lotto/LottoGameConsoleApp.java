@@ -7,7 +7,7 @@ import lotto.view.OutputView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LottoGameApplication {
+public class LottoGameConsoleApp {
 	public static void main(String[] args) {
 		LottoGame lottoGame = new LottoGame(new RandomLottoGenerator());
 		
