@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.*;
 
 public class InputView {
 	private static Scanner scanner = new Scanner(System.in);
-	private static final String WIN_NUMBER_SPLIT_REGEX = ", |,";
+	private static final String NUMBER_SPLIT_REGEX = ", |,";
 	
 	public static int showGetMoneyView() {
 		System.out.println("구입금액을 입력해 주세요.");
@@ -57,7 +57,7 @@ public class InputView {
 		List<Lotto> lottos = null;
 		try {
 			lottos = inputValues.stream()
-					.map(inputValue -> Arrays.stream(inputValue.split(WIN_NUMBER_SPLIT_REGEX))
+					.map(inputValue -> Arrays.stream(inputValue.split(NUMBER_SPLIT_REGEX))
 							.map(LottoNumber::parseLottoNumber)
 							.collect(toList()))
 					.map(LottoNumbers::new)
@@ -102,7 +102,7 @@ public class InputView {
 		
 		LottoNumbers lottoNumbers = null;
 		try {
-			lottoNumbers = new LottoNumbers(Arrays.stream(inputValue.split(WIN_NUMBER_SPLIT_REGEX))
+			lottoNumbers = new LottoNumbers(Arrays.stream(inputValue.split(NUMBER_SPLIT_REGEX))
 					.map(LottoNumber::parseLottoNumber)
 					.collect(toList()));
 		} catch (IllegalArgumentException e) {

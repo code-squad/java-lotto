@@ -45,16 +45,12 @@ public class OutputView {
 
 		System.out.println("당첨 통계\n---------");
 
-		results.forEach((lottoWinType, count) -> {
-			if(!LottoWinType.MISS.equals(lottoWinType)) {
-				System.out.println(new StringBuilder().append(lottoWinType.getMatchCount())
+		results.forEach((lottoWinType, count) -> System.out.println(new StringBuilder().append(lottoWinType.getMatchCount())
 						.append("개 일치 (")
 						.append(lottoWinType.getPrize())
 						.append("원) - ")
 						.append(count)
-						.append("개"));
-			}
-		});
+						.append("개")));
 	}
 
 	public static void showProfitRateView(double profitRate) {
