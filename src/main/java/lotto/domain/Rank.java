@@ -1,7 +1,10 @@
 package lotto.domain;
 
+import org.apache.commons.lang3.StringUtils;
+
 public enum Rank {
     FIRST(6, 2_000_000_000),
+    BONUS(5, 30_000_000),
     SECOND(5, 1_500_000),
     THIRD(4, 50_000),
     FORTH(3, 5_000),
@@ -19,7 +22,11 @@ public enum Rank {
         return prizeMoney * count;
     }
 
-    public static Rank getRank(int matchCount) {
+    public static Rank valueOf(int matchCount, boolean bonus) {
+        if (bonus && BONUS.matchCount == matchCount) {
+            return BONUS;
+        }
+
         for (Rank rank : Rank.values()) {
             if (rank.matchCount == matchCount) {
                 return rank;
@@ -29,6 +36,10 @@ public enum Rank {
     }
 
     public String print(int count) {
-        return matchCount + "개 일치 (" + prizeMoney + "원)- " + count + "개";
+        String bonusText = " ";
+        if(StringUtils.equals(this.name(), Rank.BONUS.name())) {
+            bonusText = ", 보너스 볼 일치";
+        }
+        return matchCount + "개 일치" + bonusText + "(" + prizeMoney + "원) - " + count + "개";
     }
 }

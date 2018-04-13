@@ -28,12 +28,13 @@ public class LottoGameTest {
         // given
         LottoGame lottoGame = new LottoGame();
         final List<String> winningNumber = Arrays.asList("1", "2", "3", "4", "5", "6");
+        String bonusNumber = "10";
 
         // when
-        GameResult gameResult = lottoGame.play(winningNumber);
+        GameResult gameResult = lottoGame.play(winningNumber, bonusNumber);
 
         // then
         assertThat(gameResult.getWinning())
-                .isEqualTo(new Lotto(winningNumber));
+                .isEqualTo(new WinningLotto(winningNumber, bonusNumber));
     }
 }

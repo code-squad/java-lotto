@@ -25,4 +25,9 @@ public class InputView implements View {
 
         return Arrays.asList(splitNumber);
     }
+
+    public static String getBonusNumber() throws IllegalArgumentException, NoSuchElementException, IllegalStateException {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return scanner.next();
+    }
 }
