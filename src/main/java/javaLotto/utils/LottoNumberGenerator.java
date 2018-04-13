@@ -18,8 +18,8 @@ public class LottoNumberGenerator {
     }
 
     private static List<Integer> setLottoNumber(List<Integer> numbers) {
-        for (int i = 1; i < 45 ; i++) {
-            numbers.add(i);
+        for (int number = 1; number < 45 ; number++) {
+            numbers.add(number);
         }
         return numbers;
     }

@@ -1,25 +1,30 @@
 package javaLotto.domain;
 
 public class Statics {
-    private int grade;
-    private int prizeMoney;
     private int count;
+    private Rank rank;
 
-    public Statics(int grade, int prizeMoney, int count) {
-        this.grade = grade;
-        this.prizeMoney = prizeMoney;
+
+    public Statics(Rank rank, Integer count) {
+        this.rank = rank;
         this.count = count;
-    }
-
-    public int getPrizeMoney() {
-        return prizeMoney;
-    }
-
-    public int getGrade() {
-        return grade;
     }
 
     public int getCount() {
         return count;
+    }
+
+    public Rank getRank() { return rank;}
+
+    public static int printMatch(Statics info) {
+        return info.getRank().getCountOfMatch();
+    }
+
+    public static int printMoney(Statics info) {
+        return info.getRank().getWinningMoney();
+    }
+
+    public static int printCount(Statics info) {
+        return info.getCount();
     }
 }

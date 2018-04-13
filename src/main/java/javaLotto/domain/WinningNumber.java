@@ -27,28 +27,17 @@ public class WinningNumber {
         return winningNumber;
     }
 
-    public Result match(List<Integer> lotto) {
-        int matchCount = 0;
-        boolean bonus = false;
-        for (int number : winningNumber) {
-            if (lotto.contains(number)) {
-                matchCount++;
-            }
-            if (isBonus(lotto, matchCount)) {
-                bonus = true;
-            }
-        }
-        return new Result(valueOf(matchCount, bonus));
-    }
+    public Result match(LottoTicket lotto) {
+        int matchCount = LottoTicket.matchCount(winningNumber,lotto);
+        boolean bonus = LottoTicket.matchBonus(bonusBall,lotto);
 
-    private boolean isBonus(List<Integer> lotto, int matchCount) {
-        return matchCount == 5 && lotto.contains(bonusBall);
+        return new Result(valueOf(matchCount, bonus));
     }
 
     public GameResult checkGrade(Lotto lottos) {
         List<Result> result = new ArrayList<>();
         for (LottoTicket lotto : lottos.getLottos()) {
-            result.add(match(lotto.getLottoTicket()));
+            result.add(match(lotto));
         }
         return new GameResult(result);
     }

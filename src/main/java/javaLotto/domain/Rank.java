@@ -1,21 +1,19 @@
 package javaLotto.domain;
 
 public enum Rank {
-    FIRST(6, 2000000000, false),
-    SECOND(5, 30000000, true),
-    THIRD(5, 1500000, false),
-    FOURTH(4, 50000, false),
-    FIFTH(3, 5000, false),
-    MISS(0, 0, false);
+    FIRST(6, 2000000000),
+    SECOND(5, 30000000),
+    THIRD(5, 1500000),
+    FOURTH(4, 50000),
+    FIFTH(3, 5000),
+    MISS(0, 0);
 
     private int countOfMatch;
     private int winningMoney;
-    private boolean bonus;
 
-    private Rank(int countOfMatch, int winningMoney, boolean bonus) {
+    private Rank(int countOfMatch, int winningMoney) {
         this.countOfMatch = countOfMatch;
         this.winningMoney = winningMoney;
-        this.bonus = bonus;
     }
 
     public int getCountOfMatch() {
@@ -26,9 +24,6 @@ public enum Rank {
         return winningMoney;
     }
 
-    public boolean isBonus() {
-        return bonus;
-    }
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {
         for (Rank rank : values()) {

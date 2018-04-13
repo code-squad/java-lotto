@@ -35,11 +35,62 @@ public class JavaLottoTest {
     }
     @Test
     public void 지난주당첨번호생성()throws Exception{
-        WinningNumber winngNumber = new WinningNumber("1,2,3,4,5,6");
+        WinningNumber winngNumber = new WinningNumber("1,2,3,4,5,6","7");
         List expect = Arrays.asList(1,2,3,4,5,6);
         assertThat(winngNumber.getWinningNumber()).isEqualTo(expect);
     }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또티켓_중복불가()throws Exception{
+        LottoTicket ticket = new LottoTicket(Arrays.asList(1,1,1,2,3,4));
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또번호_6개이상()throws Exception{
+        LottoTicket ticket = new LottoTicket(Arrays.asList(1,1,1,2,3,4,7));
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또번호_6개이하()throws Exception{
+        LottoTicket ticket = new LottoTicket(Arrays.asList(1,1,1));
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또티켓_범위1to45이하()throws Exception{
+        LottoTicket ticket = new LottoTicket(Arrays.asList(-1,1,1,2,3,4,7));
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또티켓_범위1to45이상()throws Exception{
+        LottoTicket ticket = new LottoTicket(Arrays.asList(1,1,1,2,3,4,46));
+    }
+
     @Test
+    public void 로또티켓_valueOf_5등()throws Exception{
+       Rank rank = Rank.valueOf(3,false);
+        assertThat(rank.name()).isEqualTo(Rank.FIFTH.name());
+    }
+    @Test
+    public void 로또티켓_valueOf_4등()throws Exception{
+        Rank rank = Rank.valueOf(4,false);
+        assertThat(rank.name()).isEqualTo(Rank.FOURTH.name());
+    }
+    @Test
+    public void 로또티켓_valueOf_3등()throws Exception{
+        Rank rank = Rank.valueOf(5,false);
+        assertThat(rank.name()).isEqualTo(Rank.THIRD.name());
+    }
+    @Test
+    public void 로또티켓_valueOf_2등()throws Exception{
+        Rank rank = Rank.valueOf(5,true);
+        assertThat(rank.name()).isEqualTo(Rank.SECOND.name());
+    }
+
+    @Test
+    public void 로또티켓_valueOf_1등()throws Exception{
+        Rank rank = Rank.valueOf(6,false);
+        assertThat(rank.name()).isEqualTo(Rank.FIRST.name());
+    }
+
+
+ /*   @Test
     public void 당첨번호확인3등 ()throws Exception{
         List result = Arrays.asList(3,3);
         int count = Grade.returnGrade(result,3);
@@ -79,7 +130,7 @@ public class JavaLottoTest {
         List result = Arrays.asList(3,3);
         double percent = Grade.returnPercent(result,5000);
         assertThat(percent).isEqualTo(200);
-    }
+    }*/
 
 
 /*    @Test

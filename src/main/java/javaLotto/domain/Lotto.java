@@ -1,5 +1,6 @@
 package javaLotto.domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
@@ -9,18 +10,12 @@ public class Lotto {
         this.lottos = lottos;
     }
 
-    public void printLottos() {
-        for (LottoTicket lotto : lottos){
-            System.out.println(lotto.getLottoTicket());
-        }
-    }
-
     public void printLottoSize() {
             System.out.println(lottos.size() + "개를 구입했습니다.");
     }
 
     public  List<LottoTicket> getLottos() {
-        return lottos;
+        return Collections.unmodifiableList(lottos);
     }
     public int getSize(){
         return lottos.size();
