@@ -6,20 +6,23 @@ import java.util.List;
 
 public class GenerateLottoNumber {
 
-    public Lotto generateRandomNumber(){
+    public Lotto generateRandomNumber(ArrayList<Integer> ranNumber){
 
-        ArrayList<Integer> ranNumber = getNumberRange();
+        try {
+            Collections.shuffle(ranNumber);
 
-        Collections.shuffle(ranNumber);
+            List<Integer> selectedNumbers = pickRandomNumber(ranNumber);
 
-        List<Integer> selectedNumbers = pickRandomNumber(ranNumber);
+            Collections.sort(selectedNumbers, new Ascending());
 
-        Collections.sort(selectedNumbers, new Ascending());
+            return new Lotto(selectedNumbers);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
 
-        return new Lotto(selectedNumbers);
     }
 
-    public List<Integer> pickRandomNumber(ArrayList<Integer> ranNumber) {
+    private List<Integer> pickRandomNumber(ArrayList<Integer> ranNumber) {
         List<Integer> selectedNumbers = new ArrayList<>();
 
         for (int k = 0; k <= 5; k++)

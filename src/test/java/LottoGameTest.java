@@ -3,6 +3,7 @@ import lotto.Lotto;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static lotto.LottoGame.*;
@@ -44,13 +45,7 @@ public class LottoGameTest {
     public void 결과저장() {
         List<Lotto> lottoList = new ArrayList<>();
 
-        List<Integer> temp = new ArrayList<>();
-        temp.add(1);
-        temp.add(2);
-        temp.add(3);
-        temp.add(4);
-        temp.add(5);
-        temp.add(6);
+        List<Integer> temp = Arrays.asList(1, 2, 3, 4, 5, 6);
 
         Lotto lotto = new Lotto(temp);
 
@@ -59,7 +54,7 @@ public class LottoGameTest {
         GameResult result = new GameResult();
         result.addMatch_six(matchNumber(lotto, new String[]{"1", "2", "3", "4", "5", "6"}));
 
-        assertThat(saveResult(lottoList, new String[]{"1", "2", "3", "4", "5", "6"}, new GameResult()).getMatch_six().get(0)).isEqualTo(temp);
+        assertThat(saveResult(lottoList, new String[]{"1", "2", "3", "4", "5", "6"}, new GameResult()).getMatchSix().get(0)).isEqualTo(temp);
     }
 
 }

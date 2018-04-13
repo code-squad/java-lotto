@@ -9,6 +9,9 @@ import java.util.stream.Stream;
 
 import static lotto.LottoInput.inputLastWeekNumber;
 import static lotto.LottoInput.startLotto;
+import static lotto.ResultView.printSingleLotto;
+import static lotto.ResultView.showAmount;
+import static lotto.ResultView.showResult;
 
 
 /**
@@ -23,22 +26,19 @@ public class LottoGame {
         int price = startLotto();
         int times = price / 1000;
 
-        System.out.println(times + "개를 구매했습니다.");
+        showAmount(times);
 
         List<Lotto> selectedLottos = new ArrayList<>();
         GenerateLottoNumber gl = new GenerateLottoNumber();
 
+        ArrayList<Integer> range = gl.getNumberRange();
 
         for (int i = 0; i < times; i++) {
-            Lotto lotto = gl.generateRandomNumber();
+            Lotto lotto = gl.generateRandomNumber(range);
 
-            final String singleLotto =
-            Stream.of(lotto)
-                    .flatMap(obj -> obj.getSelectedNumbers().stream())
-                    .map(num -> Integer.toString(num))
-                    .collect(Collectors.joining(", ", "[", "]"));
+            if (lotto == null) continue;
 
-            System.out.println(singleLotto);
+            printSingleLotto(lotto);
 
             selectedLottos.add(lotto);
         }
@@ -51,10 +51,7 @@ public class LottoGame {
 
         int[] ints = convertStringArrayToIntArray(arr);
 
-        return Stream.of(result)
-                .flatMap(lotto -> lotto.getSelectedNumbers().stream())
-                .filter(num -> assertMatch(ints, num))
-                .collect(Collectors.toList());
+        return result.getMatchNumberList(ints);
     }
 
     public static int[] convertStringArrayToIntArray(String[] strs) {
@@ -91,17 +88,6 @@ public class LottoGame {
         }
 
         return result;
-    }
-
-    private static void showResult(GameResult result, int price) {
-        System.out.println("당첨 통계");
-        System.out.println("---------");
-        System.out.println("3개 일치 (5000원)- " + result.getMatch_three().size() + "개");
-        System.out.println("4개 일치 (50000원)- " + result.getMatch_four().size() + "개");
-        System.out.println("5개 일치 (1500000원)- " + result.getMatch_five().size() + "개");
-        System.out.println("6개 일치 (2000000000원)- " + result.getMatch_six().size() + "개");
-
-        System.out.println("총 수익률은 " + getEarnRate(((double) result.getEarnedMoney()), (double) price) + "%입니다");
     }
 
     public static long getEarnRate(double earned, double price) {

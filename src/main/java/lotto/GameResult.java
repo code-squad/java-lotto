@@ -20,7 +20,7 @@ public class GameResult {
         this.match_three = new ArrayList<>();
     }
 
-    public List<List<Integer>> getMatch_six() {
+    public List<List<Integer>> getMatchSix() {
         return match_six;
     }
 
@@ -28,28 +28,32 @@ public class GameResult {
         this.match_six.add(match_six);
     }
 
-    public List<List<Integer>> getMatch_five() {
-        return match_five;
-    }
-
     public void addMatch_five(List<Integer> match_five) {
         this.match_five.add(match_five);
-    }
-
-    public List<List<Integer>> getMatch_four() {
-        return match_four;
     }
 
     public void addMatch_four(List<Integer> match_four) {
         this.match_four.add(match_four);
     }
 
-    public List<List<Integer>> getMatch_three() {
-        return match_three;
-    }
-
     public void addMatch_three(List<Integer> match_three) {
         this.match_three.add(match_three);
+    }
+
+    public int getMatchSixCount() {
+        return match_six.size();
+    }
+
+    public int getMatchFiveCount() {
+        return match_five.size();
+    }
+
+    public int getMatchFourCount() {
+        return match_four.size();
+    }
+
+    public int getMatchThreeCount() {
+        return match_three.size();
     }
 
     public long getEarnedMoney() {
