@@ -1,48 +1,78 @@
 package Lotto;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class LottoGame {
 
-    private Integer[] lottoNumberRange
-            = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-            11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-            21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-            31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-            41, 42, 43, 44, 45
-    };
+    private List<Integer> lottoNumberRange;
     private int count;
+    private int money;
 
-    public void setCount(int money) {
-        count = money / 1000;
+    private List<List<Integer>> lottoNumbers;
+
+    public LottoGame(int money) {
+        lottoNumbers = new ArrayList<>();
+
+        this.count = money / 1000;
+        this.money = money;
+
+        lottoNumberRange = new ArrayList<>();
+        for (int i = 1; i <= 45; i++) {
+            lottoNumberRange.add(i);
+        }
     }
 
     public int getCount() {
         return count;
     }
 
-    public Integer[] lottoNumber() {
-        Collections.shuffle(Arrays.asList(lottoNumberRange));
+    public List<Integer> lottoNumber() {
+        Collections.shuffle(lottoNumberRange);
 
-        Integer[] lottoNumber = new Integer[7];
-        System.arraycopy(lottoNumberRange, 0, lottoNumber, 0, 7);
+        List<Integer> lottoNumber = makeLottoNumber();
+        Collections.sort(lottoNumber);
 
-        Collections.sort(Arrays.asList(lottoNumber));
+        lottoNumbers.add(lottoNumber);
+
         return lottoNumber;
     }
 
-    public int returnContainNumber(List<String> winnerNumber, Integer[] lottoNumbers) {
+    private List<Integer> makeLottoNumber() {
+        List<Integer> lottoNumber = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            lottoNumber.add(lottoNumberRange.get(i));
+        }
+
+        return lottoNumber;
+    }
+
+    public LottoGameResult playLottoGame(List<String> winningNumber) {
+        LottoGameResult lottoGameResult = new LottoGameResult();
+
+        for (int i = 0; i < count; i++) {
+            lottoGameResult.setMatchCount(returnContainNumber(winningNumber, lottoNumbers.get(i)));
+        }
+
+        return lottoGameResult;
+    }
+
+    public int returnContainNumber(List<String> winnerNumber, List<Integer> lottoNumber) {
         int numberOfWinnerNumber = 0;
-        for (int i = 0; i < lottoNumbers.length; i++) {
-            numberOfWinnerNumber = checkContainNumber(winnerNumber, lottoNumbers[i], numberOfWinnerNumber);
+        for (int i = 0; i < lottoNumber.size(); i++) {
+            numberOfWinnerNumber += checkContainNumber(winnerNumber, lottoNumber.get(i));
         }
         return numberOfWinnerNumber;
     }
 
-    private int checkContainNumber(List<String> winnerNumber, int lottoNumber, int numberOfWinnerNumber) {
-        return winnerNumber.contains(String.valueOf(lottoNumber)) ? ++numberOfWinnerNumber : numberOfWinnerNumber;
+    private int checkContainNumber(List<String> winnerNumber, int lottoNumber) {
+        return winnerNumber.contains(stringToInt(lottoNumber)) ? 1 : 0;
+    }
+
+    private String stringToInt(int lottoNumber) {
+        return String.valueOf(lottoNumber);
     }
 
 }

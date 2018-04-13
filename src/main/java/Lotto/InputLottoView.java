@@ -9,7 +9,15 @@ public class InputLottoView {
     public static int inputMoney() {
         System.out.println("구입금액을 입력해 주세요.");
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        return checkInputMoney(scanner.nextInt());
+    }
+
+    public static int checkInputMoney(int money) {
+        if (money < 1000) {
+            throw new IllegalArgumentException();
+        }
+
+        return money;
     }
 
     public static List<String> inputWinnerNumber() {

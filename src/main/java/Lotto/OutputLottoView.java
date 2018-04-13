@@ -1,38 +1,25 @@
 package Lotto;
 
-import java.util.Arrays;
-
 public class OutputLottoView {
 
-    public static void numberOfLottoPurchase(int count) {
-        System.out.println(count + "개를 구매했습니다.");
+    public static void printNumberOfLottoPurchase(LottoGame lottoGame) {
+        System.out.println(lottoGame.getCount() + "개를 구매했습니다.");
     }
 
-    public static String lottoNumberPrint(Integer[] lottoNumber) {
-        return makeLottoNumberFormat(changeLottoNumberType(lottoNumber));
-    }
-
-    private static String makeLottoNumberFormat(String[] lottoNumber) {
-        return Arrays.toString(lottoNumber);
-    }
-
-    private static String[] changeLottoNumberType(Integer[] lottoNumber) {
-        String[] returnLottoNumber = new String[7];
-
-        for (int i = 0; i < returnLottoNumber.length; i++) {
-            returnLottoNumber[i] = String.valueOf(lottoNumber[i]);
+    public static void printPurchaseLotto(LottoGame lottoGame) {
+        for (int i = 0; i < lottoGame.getCount(); i++) {
+            System.out.println(lottoGame.lottoNumber());
         }
-
-        return returnLottoNumber;
     }
 
-    public static void winStat(Lotto lotto) {
+    public static void winStat(LottoGameResult lottoGameResult, int money) {
         System.out.println("당첨 통계");
         System.out.println("----------");
-        System.out.println("3개 일치 (5000원)- " + lotto.getThreeMatchCount() + "개");
-        System.out.println("4개 일치 (50000원)- " + lotto.getFourMatchCount() + "개");
-        System.out.println("5개 일치 (1500000원)- " + lotto.getFiveMatchCount() + "개");
-        System.out.println("6개 일치 (2000000000원)- " + lotto.getSixMatchCount() + "개");
-        System.out.println("총 수익률은 " + lotto.getYield() + "%입니다.");
+        System.out.println("3개 일치 (5000원)- " + lottoGameResult.getThreeMatchCount() + "개");
+        System.out.println("4개 일치 (50000원)- " + lottoGameResult.getFourMatchCount() + "개");
+        System.out.println("5개 일치 (1500000원)- " + lottoGameResult.getFiveMatchCount() + "개");
+        System.out.println("6개 일치 (2000000000원)- " + lottoGameResult.getSixMatchCount() + "개");
+        System.out.println("총 수익률은 " + lottoGameResult.getYield(money) + "%입니다.");
     }
+
 }
