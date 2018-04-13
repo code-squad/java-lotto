@@ -13,7 +13,8 @@ public class Main {
         OutputView.printPurchasedLotto(lottoGame);
 
         List<Integer> lastPrizeOfNumbers = InputView.initLastPrizeOfNumber();
-        LottoGameResult lottoGameResult = lottoGame.play(lastPrizeOfNumbers);
+        int bonusNumber = InputView.initBonusNumber();
+        LottoGameResult lottoGameResult = lottoGame.play(lastPrizeOfNumbers, bonusNumber);
         OutputView.printLottoResult(lottoGameResult);
     }
 }

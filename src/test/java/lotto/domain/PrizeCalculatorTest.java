@@ -22,9 +22,10 @@ public class PrizeCalculatorTest {
                 new LottoNumber(Lists.newArrayList(13, 14, 15, 16, 17, 18))
         );
         LottoNumber 당첨된_로또_번호 = new LottoNumber(Lists.newArrayList(1, 2, 3, 4, 5 ,6));
+        BonusNumber 보너스_로또_번호 = new BonusNumber(7);
 
         // Then
-        Map<Prize, Integer> 로또_당첨_결과 = PrizeCalculator.calculate(내가_구매한_로또_번호, 당첨된_로또_번호);
+        Map<Prize, Integer> 로또_당첨_결과 = PrizeCalculator.calculate(내가_구매한_로또_번호, 당첨된_로또_번호, 보너스_로또_번호);
         assertEquals((Integer)1, 로또_당첨_결과.get(Prize.FIRST));
     }
 
@@ -40,13 +41,14 @@ public class PrizeCalculatorTest {
                 new LottoNumber(Lists.newArrayList(13, 14, 15, 16, 17, 18))
         );
         LottoNumber 당첨된_로또_번호 = new LottoNumber(Lists.newArrayList(1, 2, 3, 4, 5 ,6));
+        BonusNumber 보너스_로또_번호 = new BonusNumber(7);
 
-        Map<Prize, Integer> calculate = PrizeCalculator.calculate(내가_구매한_로또_번호, 당첨된_로또_번호);
+        Map<Prize, Integer> calculate = PrizeCalculator.calculate(내가_구매한_로또_번호, 당첨된_로또_번호, 보너스_로또_번호);
         int calculateEarningRate = PrizeCalculator.calculateEarningRate(5000, calculate);
 
 
         // Then
-        assertEquals(40031100, calculateEarningRate);
+        assertEquals(40000000, calculateEarningRate);
 
     }
 }

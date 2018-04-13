@@ -9,6 +9,7 @@ public class InputView {
 
     private static final String PURCHASE_AMOUNT_FORMAT = "구입금액을 입력해 주세요.";
     private static final String LAST_PRIZE_OF_NUMBER_FORMAT = "지난 주 당첨 번호를 입력해 주세요.";
+    private static final String BONUS_BALL_FORMAT = "보너스 볼을 입력해 주세요.";
 
     public static int initPurchasePrice() {
         println(PURCHASE_AMOUNT_FORMAT);
@@ -26,5 +27,10 @@ public class InputView {
 
     private static void println(String input) {
         System.out.println(input);
+    }
+
+    public static int initBonusNumber() {
+        System.out.println(BONUS_BALL_FORMAT);
+        return new Scanner(System.in).nextInt();
     }
 }

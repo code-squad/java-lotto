@@ -15,10 +15,10 @@ public class LottoGame {
 
     public LottoGame(int purchaseAmount) {
         this.purchaseAmount = purchaseAmount;
-        this.purchasedLottos = create();
+        this.purchasedLottos = generateLottoNumbers();
     }
 
-    List<LottoNumber> create() {
+    private List<LottoNumber> generateLottoNumbers() {
         int purchaseCount = purchaseAmount / LOTTO_PRICE;
         List<LottoNumber> lottoNumbers = Lists.newArrayList();
 
@@ -27,9 +27,10 @@ public class LottoGame {
         return lottoNumbers;
     }
 
-    public LottoGameResult play(List<Integer> winningNumber) {
+    public LottoGameResult play(List<Integer> winningNumber, int bonusNumber) {
         LottoNumber winningLottoNummber = new LottoNumber(winningNumber);
-        Map<Prize, Integer> calculatedResult = PrizeCalculator.calculate(purchasedLottos, winningLottoNummber);
+        BonusNumber bonusNumberMeta = new BonusNumber(bonusNumber);
+        Map<Prize, Integer> calculatedResult = PrizeCalculator.calculate(purchasedLottos, winningLottoNummber, bonusNumberMeta);
         int calculateEarningRate = PrizeCalculator.calculateEarningRate(purchaseAmount, calculatedResult);
 
         return new LottoGameResult(calculatedResult, calculateEarningRate);
