@@ -30,5 +30,23 @@ public class PrizeCalculatorTest {
 
     @Test
     public void calculateEarningRate() {
+
+        // Given
+        List<LottoNumber> 내가_구매한_로또_번호 = Lists.newArrayList(
+                new LottoNumber(Lists.newArrayList(1, 2, 3, 4, 5, 6)),
+                new LottoNumber(Lists.newArrayList(7, 8, 9, 10, 11, 12)),
+                new LottoNumber(Lists.newArrayList(13, 14, 15, 16, 17, 18)),
+                new LottoNumber(Lists.newArrayList(13, 14, 15, 16, 17, 18)),
+                new LottoNumber(Lists.newArrayList(13, 14, 15, 16, 17, 18))
+        );
+        LottoNumber 당첨된_로또_번호 = new LottoNumber(Lists.newArrayList(1, 2, 3, 4, 5 ,6));
+
+        Map<Prize, Integer> calculate = PrizeCalculator.calculate(내가_구매한_로또_번호, 당첨된_로또_번호);
+        int calculateEarningRate = PrizeCalculator.calculateEarningRate(5000, calculate);
+
+
+        // Then
+        assertEquals(40031100, calculateEarningRate);
+
     }
 }

@@ -2,7 +2,6 @@ package lotto;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Optional;
 
 import static java.util.stream.Collectors.toMap;
 
@@ -31,6 +30,6 @@ public enum Prize {
     }
 
     public static Prize findPrize(int matchCount) {
-        return Optional.ofNullable(prizeMap.getOrDefault(matchCount, null)).orElseThrow(IllegalArgumentException::new);
+        return prizeMap.getOrDefault(matchCount, null);
     }
 }

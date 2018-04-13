@@ -9,23 +9,23 @@ public class LottoMeta {
     private int number;
 
     LottoMeta() {
-        this.number = new Random().nextInt(RANDOM_LIMIT) + 1;
-        validate();
+        this(new Random().nextInt(RANDOM_LIMIT) + 1);
     }
 
     LottoMeta(int number) {
+        validate(number);
         this.number = number;
-        validate();
     }
 
-    private void validate() {
-        if (this.number <= 0 || this.number > RANDOM_LIMIT) {
+    private void validate(int number) {
+        if (number <= 0 || number > RANDOM_LIMIT) {
             throw new IllegalArgumentException();
         }
     }
 
-    public int getNumber() {
-        return this.number;
+    @Override
+    public String toString() {
+        return String.valueOf(this.number);
     }
 
     @Override

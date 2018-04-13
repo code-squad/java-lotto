@@ -3,7 +3,7 @@ package lotto.domain;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
-public class LottoNumberTest {
+public class LottoGameNumberTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void 로또_한장에_적혀있는_번호가_6개가_아니면_예외발생() {

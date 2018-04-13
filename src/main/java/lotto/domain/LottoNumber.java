@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class LottoNumber {
 
@@ -40,19 +39,5 @@ public class LottoNumber {
 
     public int getEqualCount(LottoNumber winnerLottoNumber) {
         return Math.toIntExact(this.getLottos().stream().filter(winnerLottoNumber::contains).count());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LottoNumber that = (LottoNumber) o;
-        return Objects.equals(lottos, that.lottos);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(lottos);
     }
 }

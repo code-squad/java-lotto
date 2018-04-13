@@ -1,27 +1,18 @@
 package lotto.domain;
 
-import com.google.common.collect.Lists;
 import lotto.Prize;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class PrizeCalculator {
 
-    private static List<PrizeEvaluator> prizeEvaluators = Lists.newArrayList(
-            new PrizeEvaluator.First(),
-            new PrizeEvaluator.Second(),
-            new PrizeEvaluator.Third(),
-            new PrizeEvaluator.Fourth()
-    );
-
     public static Map<Prize, Integer> calculate(List<LottoNumber> lottoNumbers, LottoNumber lastPrizeOfNumbers) {
         List<Prize> myPrize = lottoNumbers.stream()
-                .flatMap(lottoNumber -> prizeEvaluators.stream()
-                        .filter(c -> c.isMatch(lottoNumber, lastPrizeOfNumbers))
-                        .map(PrizeEvaluator::getCount)
-                        .map(Prize::findPrize))
+                .map(lottoNumber -> Prize.findPrize(lottoNumber.getEqualCount(lastPrizeOfNumbers)))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
         return PrizeResult.calculatePrizeResult(myPrize);
@@ -33,6 +24,6 @@ public class PrizeCalculator {
         if (summerizedEarningMoney == 0) {
             return 0;
         }
-        return payMoney / summerizedEarningMoney * 100;
+        return summerizedEarningMoney / payMoney * 100;
     }
 }

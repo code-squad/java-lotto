@@ -11,14 +11,4 @@ public class PrizeTest {
         Prize prize = Prize.findPrize(6);
         assertEquals(Prize.FIRST, prize);
     }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void 로또_맞은_갯수가_상품을_받는_갯수보다_작을경우_예외발생() {
-        Prize.findPrize(2);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void 로또_맞은_갯수가_상품을_받는_갯수보다_클경우_예외발생() {
-        Prize.findPrize(7);
-    }
 }

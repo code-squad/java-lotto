@@ -2,7 +2,7 @@ package lotto.domain;
 
 import org.junit.Test;
 
-public class LottoMetaTest {
+public class LottoGameMetaTest {
 
 
     @Test(expected = IllegalArgumentException.class)
