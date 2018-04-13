@@ -49,15 +49,15 @@ public class LottoMachine {
         return new LottoNumbers(result);
     }
 
-    public int[] getMatchCounts(List<LottoNumbers> lottos, LottoNumbers winLotto) {
+    public GameResult calculate(List<LottoNumbers> lottos, LottoNumbers winLotto) {
         int[] matchCount = new int[7];
         for (LottoNumbers lotto : lottos) {
             matchCount[lotto.getMatchCount(winLotto)]++;
         }
-        return matchCount;
+        return new GameResult(matchCount, getRateOfInvestment(matchCount));
     }
 
-    public double getRateOfInvestment(long money, int[] matchCount) {
+    double getRateOfInvestment(int[] matchCount) {
         int price = 0;
         for (int index = MIN_COUNT_WIN_LOTTO; index <= COUNT_OF_SELECT_LOTTO; index++) {
             price += matchCount[index] * winPrice.get(index);

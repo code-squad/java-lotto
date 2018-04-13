@@ -9,8 +9,7 @@ public class LottoApplication {
         ResultView.printPurchasedLotto(lotto.purchaseLottos(money));
 
         LottoNumbers winLottoNumber = InputView.inputWinNumber();
-        int[] matchCount = lottoMachine.getMatchCounts(lotto.getLottos(), winLottoNumber);
-        ResultView.printWinLotto(matchCount);
-        ResultView.printRateOfInvestment(lottoMachine.getRateOfInvestment(money, matchCount));
+        GameResult gameResult = lottoMachine.calculate(lotto.getLottos(), winLottoNumber);
+        ResultView.printWinLotto(gameResult);
     }
 }

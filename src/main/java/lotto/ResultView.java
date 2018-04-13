@@ -22,13 +22,13 @@ public class ResultView {
         System.out.println(sb.toString());
     }
 
-    public static void printWinLotto(int[] matchCounts) {
+    public static void printWinLotto(GameResult gameResult) {
         StringBuilder sb = new StringBuilder();
         System.out.println("당첨 통계");
         System.out.println("----------");
 
         for (int i = LottoMachine.MIN_COUNT_WIN_LOTTO; i <= LottoMachine.COUNT_OF_SELECT_LOTTO; i++) {
-            System.out.printf("%d개 일치 (%d원)- %d개\n", i, LottoMachine.winPrice.get(i), matchCounts[i]);
+            System.out.printf("%d개 일치 (%d원)- %d개\n", i, LottoMachine.winPrice.get(i), gameResult.getMatchCount(i));
         }
     }
 
