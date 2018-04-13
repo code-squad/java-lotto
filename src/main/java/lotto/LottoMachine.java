@@ -11,6 +11,8 @@ public class LottoMachine {
     public static final int LOTTO_PRICE = 1000;
     private static List<Integer> number;
     public static Map<Integer, Integer> winPrice;
+    public int countOfLotto;
+    private long money;
 
     static {
          number = IntStream.rangeClosed(1, 45).boxed().collect(Collectors.toList());
@@ -21,42 +23,41 @@ public class LottoMachine {
          winPrice.put(6, 2000000000);
     }
 
-    public int getCountOfLotto(int money) {
+    public LottoMachine(long money) {
+        this.money = money;
+        this.countOfLotto = getCountOfLotto();
+    }
+
+    int getCountOfLotto() {
         if (money < 0) {
             throw new IllegalArgumentException();
         }
-        return money / LOTTO_PRICE;
+        return (int) money / LOTTO_PRICE;
     }
 
-    public static List<Integer> getLottoNumber() {
+    public static LottoNumbers getLottoNumber() {
         return createLottoNumbers();
     }
 
-    private static List<Integer> createLottoNumbers() {
+    private static LottoNumbers createLottoNumbers() {
         List<Integer> result = new ArrayList<>();
         Collections.shuffle(number);
         for (int index = 0; index < COUNT_OF_SELECT_LOTTO; index++) {
             result.add(number.get(index));
         }
         Collections.sort(result);
-        return result;
+        return new LottoNumbers(result);
     }
 
-    public int[] getMatchCounts(List<Integer>[] lottos, List<Integer> winLotto) {
+    public int[] getMatchCounts(List<LottoNumbers> lottos, LottoNumbers winLotto) {
         int[] matchCount = new int[7];
-        for (int index = 0; index < lottos.length; index++) {
-            matchCount[getMatchCount(lottos[index], winLotto)]++;
+        for (LottoNumbers lotto : lottos) {
+            matchCount[lotto.getMatchCount(winLotto)]++;
         }
         return matchCount;
     }
 
-    private int getMatchCount(List<Integer> myLotto, List<Integer> winLotto) {
-        Set<Integer> intersect = new HashSet<Integer>(myLotto);
-        intersect.retainAll(winLotto);
-        return intersect.size();
-    }
-
-    public double getRateOfInvestment(int money, int[] matchCount) {
+    public double getRateOfInvestment(long money, int[] matchCount) {
         int price = 0;
         for (int index = MIN_COUNT_WIN_LOTTO; index <= COUNT_OF_SELECT_LOTTO; index++) {
             price += matchCount[index] * winPrice.get(index);

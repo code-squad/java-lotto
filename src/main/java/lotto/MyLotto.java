@@ -4,32 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyLotto {
-    private int countOfLotto;
-    private List<Integer>[] lottos;
+    private List<LottoNumbers> lottos;
 
-    public MyLotto(int countOfLotto) {
-        this.countOfLotto = countOfLotto;
-        lottos = new ArrayList[countOfLotto];
-        initLottos();
+    public MyLotto() {
+        lottos = new ArrayList<LottoNumbers>();
     }
 
-    public List<Integer> purchaseLotto(int position) {
-        lottos[position] = LottoMachine.getLottoNumber();
-        return lottos[position];
-    }
-
-    public List<Integer>[] getLottos() {
+    public List<LottoNumbers> purchaseLottos(long money) {
+        int countOfLotto = (int) money / LottoMachine.LOTTO_PRICE;
+        System.out.println(countOfLotto);
+        for (int index = 0; index < countOfLotto; index++) {
+            lottos.add(LottoMachine.getLottoNumber());
+        }
         return lottos;
     }
 
-    public String toStringLotto(int position) {
-        StringBuilder sb = new StringBuilder();
-        return null;
-    }
-
-    private void initLottos() {
-        for (int index = 0; index < countOfLotto; index++) {
-            lottos[index] = new ArrayList<>();
-        }
+    public List<LottoNumbers> getLottos() {
+        return lottos;
     }
 }

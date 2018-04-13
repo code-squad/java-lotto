@@ -1,19 +1,25 @@
 package lotto;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ResultView {
-    public static void printCountOfLotto(int money) {
+    public static void printCountOfLotto(long money) {
         System.out.println((money / LottoMachine.LOTTO_PRICE) + "개를 구매했습니다.");
     }
 
-    public static void printPurchasedLotto(List<Integer> purchasedLotto) {
+    public static void printPurchasedLotto(List<LottoNumbers> lottos) {
         StringBuilder sb = new StringBuilder();
-        System.out.println(sb.append("[")
-                .append(purchasedLotto.stream().map(Object::toString).collect(Collectors.joining(", ")))
-                .append("]").toString());
+
+        for (LottoNumbers lotto : lottos) {
+            List<Integer> purchasedLotto = new ArrayList<Integer>(lotto.getNumbers());
+                  sb.append("[")
+                    .append(purchasedLotto.stream().map(Object::toString).collect(Collectors.joining(", ")))
+                    .append("]").append("\n");
+        }
+        System.out.println(sb.toString());
     }
 
     public static void printWinLotto(int[] matchCounts) {
