@@ -12,7 +12,7 @@ public class RandomLottoGenerator implements LottoGenerator {
 	@Override
 	public List<Lotto> generate(int number) {
 		return IntStream.range(0, number)
-				.mapToObj(n -> new Lotto(getSortedRandomNumbers()))
+				.mapToObj(n -> new Lotto(getSortedRandomNumbers(), true))
 				.collect(toList());
 	}
 

@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.util.ExceptionUtils;
+
 public class LottoNumber extends Number implements Comparable<LottoNumber>{
     private final int number;
 
@@ -51,7 +53,7 @@ public class LottoNumber extends Number implements Comparable<LottoNumber>{
 
     private void validateNumber(int number) {
         if(!(number >= MIN_NUMBER && number <= MAX_NUMBER)) {
-            throw new IllegalArgumentException("로또 번호 또는 당첨번호는 " + MIN_NUMBER + "~" + MAX_NUMBER + " 사이 값이어야 합니다.");
+            ExceptionUtils.throwIllegalArgumentException(LottoNumber.class, "로또 번호 또는 당첨번호는 " + MIN_NUMBER + "~" + MAX_NUMBER + " 사이 값이어야 합니다.");
         }
     }
 }
