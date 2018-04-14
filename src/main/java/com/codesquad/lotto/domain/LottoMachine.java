@@ -1,9 +1,7 @@
 package com.codesquad.lotto.domain;
 
-import com.codesquad.lotto.vo.Money;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoMachine {
@@ -27,11 +25,8 @@ public class LottoMachine {
     }
 
     private List<LottoNumber> generateLotteries(final int quotient) {
-        final List<LottoNumber> lotteries = new ArrayList<>();
-        IntStream.range(0, quotient)
-                .forEach(n -> {
-                    lotteries.add(generator.generate());
-                });
-        return lotteries;
+        return IntStream.range(0, quotient)
+                .mapToObj(n -> generator.generate())
+                .collect(Collectors.toList());
     }
 }

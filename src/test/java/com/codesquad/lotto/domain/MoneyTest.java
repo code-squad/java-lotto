@@ -1,4 +1,4 @@
-package com.codesquad.lotto.vo;
+package com.codesquad.lotto.domain;
 
 import org.junit.Before;
 import org.junit.Test;

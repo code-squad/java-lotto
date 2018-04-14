@@ -1,6 +1,6 @@
 package com.codesquad.lotto.view;
 
-import com.codesquad.lotto.vo.Money;
+import com.codesquad.lotto.domain.Money;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
