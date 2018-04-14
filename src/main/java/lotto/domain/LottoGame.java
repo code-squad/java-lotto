@@ -1,30 +1,46 @@
 package lotto.domain;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 public class LottoGame {
 
-    private final List<Lotto> lottos;
+    private final List<Lotto> autoLottos;
+    private final List<Lotto> manualLottos;
 
-    public LottoGame() {
-        lottos = new ArrayList<>();
+    LottoGame() {
+        autoLottos = Collections.emptyList();
+        manualLottos = Collections.emptyList();
     }
 
     public LottoGame(long amount) {
-        this.lottos = buy(amount);
+        this.autoLottos = buy(count(amount));
+        this.manualLottos = Collections.emptyList();
     }
 
-    static List<Lotto> buy(long amount) {
-        List<Lotto> lottos = IntStream
-                .range(0, count(amount))
-                .mapToObj(lotto -> new Lotto())
-                .collect(Collectors.toList());
+    public LottoGame(long amount, List<List<String>> manualLottos) {
+        int count = count(amount) - manualLottos.size();
+        this.autoLottos = buy(count);
+        this.manualLottos = buy(manualLottos);
+    }
 
-        return Collections.unmodifiableList(lottos);
+    static List<Lotto> buy(int count) {
+        return IntStream
+                .range(0, count)
+                .mapToObj(lotto -> new Lotto())
+                .collect(toList());
+    }
+
+    static List<Lotto> buy(List<List<String>> manualLottos) {
+        return manualLottos.stream()
+                .map(Lotto::new)
+                .collect(toList());
     }
 
     static int count(long amount) throws IllegalArgumentException {
@@ -37,12 +53,30 @@ public class LottoGame {
 
     public GameResult play(List<String> winningNumber, String bonusNumber) {
         GameResult gameResult = new GameResult(winningNumber, bonusNumber);
-        gameResult.record(lottos);
+        gameResult.record(getLottos());
 
         return gameResult;
     }
 
-    public List<Lotto> getLottos() {
-        return lottos;
+    private List<Lotto> getLottos() {
+        return Stream.of(autoLottos, manualLottos)
+                .flatMap(Collection::stream)
+                .collect(toList());
+    }
+
+    public int sizeAutoLottos() {
+        return autoLottos.size();
+    }
+
+    public int sizeManualLottos() {
+        return manualLottos.size();
+    }
+
+    @Override
+    public String toString() {
+        return getLottos()
+                .stream()
+                .map(Lotto::toString)
+                .collect(joining("\n"));
     }
 }
