@@ -54,8 +54,5 @@ public class LottoNumber {
         return numbers.stream()
                 .filter(winNumbers::contains)
                 .count();
-        //return IntStream.range(0, NUMBER_SIZE - 1)
-//                .filter(i -> (winNumbers.get(i)))
-//                .count();
     }
 }
