@@ -10,8 +10,13 @@ public class LottoGames {
     Lottos lottos;
     WinLotto winLotto;
 
-    public LottoGames(){
+    public LottoGames(long buyAmt){
         lottos = new Lottos();
+
+        checkPriceValidation(buyAmt);
+        long ticketCounts = buyAmt / LOTTO_PRICE_PER_TICKET;
+        buyLottoNCounts(ticketCounts);
+
     }
 
     private List<String> generateRandomLottoNumbers(){
@@ -40,15 +45,7 @@ public class LottoGames {
         return lottos.getLottosCount();
     }
 
-
-    public void buy(String price) {
-        checkPriceValidation(price);
-        int ticketCounts = Integer.parseInt(price) / LOTTO_PRICE_PER_TICKET;
-        buyLottoNCounts(ticketCounts);
-    }
-
-
-    void buyLottoNCounts(int ticketCounts) {
+    void buyLottoNCounts(long ticketCounts) {
         for(int i=0; i<ticketCounts; i++){
             List<String> randomNumbers = generateRandomLottoNumbers();
             String numbers = String.join(", ", randomNumbers.toArray(new String[randomNumbers.size()]) );
@@ -57,21 +54,17 @@ public class LottoGames {
         }
     }
 
-    private void checkPriceValidation(String price) {
-        checkIsNotNullAndIsNumber(price);
+    private void checkPriceValidation(long price) {
 
-        int priceAmt = Integer.parseInt(price);
-
-        if(priceAmt % 1000 != 0){
+        if(price % 1000 != 0){
             throw new IllegalArgumentException();
         }
     }
 
 
-    public void setWinnerLotto(String winString, String bonusNumber) {
-        checkIsNotNullAndIsNumber(bonusNumber);
-
-        winLotto = new WinLotto(new Lotto(winString), Integer.parseInt(bonusNumber));
+    public void setWinnerLotto(List<String> winNumbers) {
+        checkIsNotNullAndIsNumber(winNumbers.get(1));
+        winLotto = new WinLotto(new Lotto(winNumbers.get(0)), Integer.parseInt(winNumbers.get(1)));
     }
 
     private void checkIsNotNullAndIsNumber(String inputNumber) {

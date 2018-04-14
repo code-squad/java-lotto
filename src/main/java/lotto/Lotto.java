@@ -1,5 +1,7 @@
 package lotto;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,28 +9,29 @@ public class Lotto {
 
     private List<Integer> lotto;
 
-    @Override
-    public String toString() {
-        String str = "";
-        for(Integer integer : lotto){
-            str += integer + ", ";
-        }
-
-        return "[" + str.substring(0, str.length()-2) + "]";
-
-
-    }
-
     public Lotto(String lottoNumbers){
         List<Integer> newLotto = new ArrayList<>();
         String[] winStringNumbers = lottoNumbers.split(",");
 
-        for(String winToken:winStringNumbers){
-            newLotto.add(Integer.parseInt(winToken.trim()));
+        for(String singleNumber:winStringNumbers){
+            int lottoNumber = getLottoSingleNumber(singleNumber.trim());
+            newLotto.add(lottoNumber);
         }
 
         checkConstructorValidation(winStringNumbers, newLotto);
         lotto = newLotto;
+    }
+
+    private int getLottoSingleNumber(String singleNumber) {
+        if(singleNumber == null || singleNumber.isEmpty() || singleNumber.trim().isEmpty() || !StringUtils.isNumeric(singleNumber)){
+            throw new IllegalArgumentException();
+        }
+
+        int lottoNumber = Integer.parseInt(singleNumber.trim());
+        if(lottoNumber < 1 || lottoNumber > 45){
+            throw new IllegalArgumentException();
+        }
+        return lottoNumber;
     }
 
     private void checkConstructorValidation(String[] winStringNumbers, List<Integer> winNumbers) {
@@ -62,5 +65,15 @@ public class Lotto {
 
     public boolean contains(Integer number) {
         return lotto.contains(number);
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        for(Integer integer : lotto){
+            str += integer + ", ";
+        }
+
+        return "[" + str.substring(0, str.length()-2) + "]";
     }
 }

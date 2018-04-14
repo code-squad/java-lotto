@@ -14,7 +14,7 @@ public class RankTest {
 
     @Test
     public void 매칭1개() {
-        Rank rank = Rank.valueOf(1, true);
+        Rank rank = Rank.valueOf(1, false);
         assertThat(rank.getWinningMoney()).isEqualTo(Rank.MISS.getWinningMoney());
 
     }

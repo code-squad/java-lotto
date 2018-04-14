@@ -2,7 +2,7 @@ package lotto;
 
 public class WinLotto {
     private Lotto winLotto;
-    int bonusNumber;
+    private int bonusNumber;
 
     public WinLotto(Lotto winLotto, int bonusNumber){
 

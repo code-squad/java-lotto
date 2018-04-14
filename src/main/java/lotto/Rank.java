@@ -26,17 +26,24 @@ public enum Rank {
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {
 
-        switch (countOfMatch){
-            case 6:
-                return Rank.FIRST;
-            case 5:
-                return matchBonus ? Rank.SECOND : Rank.THIRD;
-            case 4:
-                return Rank.FOURTH;
-            case 3:
-                return Rank.FIFTH;
-            default:
-                return Rank.MISS;
+        if(countOfMatch < 3) {
+            return Rank.MISS;
         }
+
+        if(countOfMatch == 5 && matchBonus){
+            return Rank.SECOND;
+        }
+
+        if(countOfMatch == 5 && !matchBonus){
+            return Rank.THIRD;
+        }
+
+
+        for (Rank rank : Rank.values()){
+            if ( rank.getCountOfMatch() == countOfMatch){
+                return rank;
+            }
+        }
+        return Rank.MISS;
     }
 }
