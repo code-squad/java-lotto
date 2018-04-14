@@ -1,28 +1,29 @@
 package lotto.domain;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static lotto.domain.Lotto.LOTTO_SIZE;
+import static lotto.domain.LottoNumber.MAX_VALUE;
+import static lotto.domain.LottoNumber.MIN_VALUE;
 
 /**
  * @author sangsik.kim
  */
 public class AutoSelector {
-    private static final int DEFAULT_VALID_LOTTO_SIZE = 6;
-    private static final List<LottoNumber> ALL_LOTTO_NUMBERS = IntStream.rangeClosed(LottoNumber.MIN_VALUE, LottoNumber.MAX_VALUE)
-            .mapToObj(LottoNumber::new)
+    private static final List<Integer> ALL_LOTTO_NUMBERS = IntStream
+            .rangeClosed(MIN_VALUE, MAX_VALUE)
+            .boxed()
             .collect(Collectors.toList());
 
-    public static List<LottoNumber> generate() {
+    public static List<Integer> generate() {
         Collections.shuffle(ALL_LOTTO_NUMBERS);
         return ALL_LOTTO_NUMBERS
                 .stream()
-                .limit(DEFAULT_VALID_LOTTO_SIZE)
-                .sorted(Comparator.comparingInt(LottoNumber::getValue))
-                .mapToInt(LottoNumber::getValue)
-                .mapToObj(LottoNumber::new)
+                .limit(LOTTO_SIZE)
+                .sorted()
                 .collect(Collectors.toList());
     }
 }

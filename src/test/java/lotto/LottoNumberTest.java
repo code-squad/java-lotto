@@ -10,11 +10,11 @@ public class LottoNumberTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void 티켓_사이즈_유효성_1미만() {
-        LottoNumber lottoNumber = new LottoNumber(0);
+        LottoNumber lottoNumber = LottoNumber.of(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 티켓_사이즈_유효성_45초과() {
-        LottoNumber lottoNumber = new LottoNumber(46);
+        LottoNumber lottoNumber = LottoNumber.of(46);
     }
 }

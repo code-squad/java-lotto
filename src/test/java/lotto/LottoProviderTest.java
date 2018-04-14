@@ -29,8 +29,8 @@ public class LottoProviderTest {
         Money money = new Money(5000);
 
         List<Lotto> customLottos = new ArrayList();
-        customLottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
-        customLottos.add(new Lotto(Arrays.asList(12, 13, 14, 15, 16, 17)));
+        customLottos.add(Lotto.of(1, 2, 3, 4, 5, 6));
+        customLottos.add(Lotto.of(12, 13, 14, 15, 16, 17));
 
         LottoTicket lottoTicket = LottoProvider.order(money, customLottos);
 
@@ -42,8 +42,8 @@ public class LottoProviderTest {
         Money money = new Money(1000);
 
         List<Lotto> customLottos = new ArrayList();
-        customLottos.add(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
-        customLottos.add(new Lotto(Arrays.asList(12, 13, 14, 15, 16, 17)));
+        customLottos.add(Lotto.of(1, 2, 3, 4, 5, 6));
+        customLottos.add(Lotto.of(12, 13, 14, 15, 16, 17));
 
         LottoProvider.order(money, customLottos);
     }

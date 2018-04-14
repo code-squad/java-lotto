@@ -22,7 +22,7 @@ public class LottoProvider {
 
     private static LottoTicket makeLottoTicket(Money money, List<Lotto> lottos) {
         for (int i = 0; i < availableQuantity(money); i++) {
-            lottos.add(new Lotto());
+            lottos.add(Lotto.of(AutoSelector.generate()));
         }
         return new LottoTicket(lottos);
     }

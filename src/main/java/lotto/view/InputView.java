@@ -27,7 +27,7 @@ public class InputView {
     }
 
     public static WinningLotto getWinningLotto() {
-        return new WinningLotto(getWinningNumbers(), getBonusNumber());
+        return WinningLotto.of(getWinningNumbers(), getBonusNumber());
     }
 
     private static List<Integer> getWinningNumbers() {
@@ -56,7 +56,7 @@ public class InputView {
 
         List<Lotto> customLottos = new ArrayList();
         for (int i = 0; i < customOrderCount; i++) {
-            customLottos.add(new Lotto(convertInputStringToNumberList()));
+            customLottos.add(Lotto.of(convertInputStringToNumberList()));
         }
         return customLottos;
     }
