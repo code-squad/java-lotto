@@ -23,7 +23,7 @@ public class GameResult {
                 .collect(Collectors.toList());
     }
 
-    public Map<PrizeDivision, Integer> analyzeResult() {
+    public Map<PrizeDivision, Integer> getAnalyzeResult() {
         List<PrizeDivision> winningResults = getResult();
         Map<PrizeDivision, Integer> result = new EnumMap<>(PrizeDivision.class);
         Arrays.stream(PrizeDivision.values()).forEach(division ->
@@ -34,7 +34,7 @@ public class GameResult {
     }
 
     public float getRateOfReturn() {
-        int investment = LottoTicketIssuer.getTicketPrice() * tickets.size();
+        int investment = LottoTicketIssuer.getTicketPrice() * tickets.getSize();
         int profit = getResult().stream().mapToInt(PrizeDivision::getPrize).sum();
         return (profit / (float) investment) * 100;
     }

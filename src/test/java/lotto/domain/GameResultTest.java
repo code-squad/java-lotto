@@ -15,7 +15,7 @@ public class GameResultTest {
     @Before
     public void setUp() {
         LottoTicket losingTicket = new LottoTicket(Arrays.asList(7, 8, 9, 10, 11, 12));
-        WinningTicket winningTicket = new WinningTicket(Arrays.asList(1, 2, 3, 4, 5, 6), 45);
+        WinningTicket winningTicket = new WinningTicket(new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)), 45);
         LottoTickets tickets = new LottoTickets(
                 Arrays.asList(winningTicket.getLottoTicket()),
                 Arrays.asList(losingTicket));
@@ -36,7 +36,7 @@ public class GameResultTest {
     @Test
     public void 각_등수별_당첨된_티켓수를_반환한다() {
         //given when
-        Map<PrizeDivision, Integer> prizeDivisions = gameResult.analyzeResult();
+        Map<PrizeDivision, Integer> prizeDivisions = gameResult.getAnalyzeResult();
 
         //then
         Assertions.assertThat(prizeDivisions.get(PrizeDivision.FIRST)).isEqualTo(1);

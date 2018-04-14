@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +32,16 @@ public class LottoTicketIssuer {
         return tickets;
     }
 
+    public static LottoTicket issue(String numbers) {
+        return issue(toList(numbers));
+    }
+
+    public static List<LottoTicket> issue(String[] numbers) {
+        return Arrays.stream(numbers)
+                    .map(number -> issue(toList(number)))
+                    .collect(Collectors.toList());
+    }
+
     public static int getTicketPrice() {
         return TICKET_PRICE;
     }
@@ -45,5 +56,21 @@ public class LottoTicketIssuer {
 
     private static void shuffle() {
         Collections.shuffle(range);
+    }
+
+    private static List<Integer> toList(String numbersText) {
+        return Arrays.stream(parseInts(split(numbersText)))
+                .boxed()
+                .collect(Collectors.toList());
+    }
+
+    private static String[] split(String text) {
+        return text.split(",");
+    }
+
+    private static int[] parseInts(String[] numbers) {
+        return Arrays.stream(numbers)
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
 }
