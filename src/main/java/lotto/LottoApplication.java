@@ -10,8 +10,11 @@ import java.util.List;
 public class LottoApplication {
 
     public static void main(String[] args) {
-        long amount = InputView.getAmount();
-        LottoGame lottoGame = new LottoGame(amount);
+        int amount = InputView.getAmount();
+        int manualLottoCount = InputView.getManualLottoCount();
+        List<List<String>> manualLotto = InputView.getManualLotto(manualLottoCount);
+
+        LottoGame lottoGame = new LottoGame(amount, manualLotto);
         ResultView.printLotto(lottoGame);
 
         List<String> winningNumber = InputView.getWinningNumber();

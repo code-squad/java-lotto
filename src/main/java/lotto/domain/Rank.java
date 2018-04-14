@@ -2,6 +2,8 @@ package lotto.domain;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Arrays;
+
 public enum Rank {
     FIRST(6, 2_000_000_000),
     BONUS(5, 30_000_000),
@@ -27,15 +29,14 @@ public enum Rank {
             return BONUS;
         }
 
-        for (Rank rank : Rank.values()) {
-            if (rank.matchCount == matchCount) {
-                return rank;
-            }
-        }
-        return BLANK;
+        return Arrays.stream(Rank.values())
+                .filter(rank -> ! BONUS.name().equals(rank.name()))
+                .filter(rank -> rank.matchCount == matchCount)
+                .findFirst()
+                .orElse(BLANK);
     }
 
-    public String print(int count) {
+    public String toString(int count) {
         String bonusText = " ";
         if(StringUtils.equals(this.name(), Rank.BONUS.name())) {
             bonusText = ", 보너스 볼 일치";

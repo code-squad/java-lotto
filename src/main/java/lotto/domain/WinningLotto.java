@@ -16,7 +16,7 @@ public class WinningLotto {
     }
 
     public Rank match(Lotto lotto) {
-        return Rank.valueOf(this.lotto.countOfMatch(lotto), this.lotto.contains(bonusNumber));
+        return Rank.valueOf(this.lotto.countOfMatch(lotto), lotto.contains(bonusNumber));
     }
 
     private void valid(String bonusNumber) {

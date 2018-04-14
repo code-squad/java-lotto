@@ -42,12 +42,12 @@ public class Lotto {
         return (int) lotto
                 .numbers
                 .stream()
-                .filter(this.numbers::contains)
+                .filter(numbers::contains)
                 .count();
     }
 
-    public boolean contains(String bonusNumber) {
-        return numbers.contains(bonusNumber);
+    public boolean contains(String number) {
+        return numbers.contains(Integer.parseInt(number));
     }
 
     private void valid(List<String> numbers) {

@@ -2,6 +2,7 @@ package lotto.domain;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class LottoGameTest {
         final int count = LottoGame.count(amount);
 
         // when
-        List<Lotto> lotos = LottoGame.buy(amount);
+        List<Lotto> lotos = LottoGame.buy(count);
 
         // then
         assertThat(lotos)
@@ -36,5 +37,20 @@ public class LottoGameTest {
         // then
         assertThat(gameResult.getWinning())
                 .isEqualTo(new WinningLotto(winningNumber, bonusNumber));
+    }
+
+    @Test
+    public void 수동_구매와_자동_구매() {
+        int amount = 14_000;
+        List<List<String>> manualLottos = new ArrayList<>();
+        manualLottos.add(Arrays.asList("1", "2", "3", "4", "5", "6"));
+
+        LottoGame lottoGame = new LottoGame(amount, manualLottos);
+
+        assertThat(lottoGame.sizeManualLottos())
+                .isEqualTo(1);
+
+        assertThat(lottoGame.sizeAutoLottos())
+                .isEqualTo(13);
     }
 }
