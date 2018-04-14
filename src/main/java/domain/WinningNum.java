@@ -3,6 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WinningNum {
     private List<Integer> preWinNums;
@@ -20,16 +21,16 @@ public class WinningNum {
         return preWinNums;
     }
 
-    private HashMap<Rank, Integer> initRank() {
-        HashMap<Rank, Integer> numOfRank = new HashMap<>();
+    private Map<Rank, Integer> initRank() {
+        Map<Rank, Integer> numOfRank = new HashMap<>();
         for (Rank r : Rank.values()) {
             numOfRank.put(r, 0);
         }
         return numOfRank;
     }
 
-    public HashMap<Rank, Integer> checkRank(List<Lotto> lottos) {
-        HashMap<Rank, Integer> numOfRank = initRank();
+    public Map<Rank, Integer> checkRank(List<Lotto> lottos) {
+        Map<Rank, Integer> numOfRank = initRank();
         for (Lotto lotto : lottos) {
             Rank value = lotto.matchedLotto(this);
             putRank(numOfRank, value);
@@ -37,7 +38,7 @@ public class WinningNum {
         return numOfRank;
     }
 
-    private void putRank(HashMap<Rank, Integer> numOfRank, Rank value) {
+    private void putRank(Map<Rank, Integer> numOfRank, Rank value) {
         if (value != null) {
             numOfRank.put(value, numOfRank.get(value) + 1);
         }

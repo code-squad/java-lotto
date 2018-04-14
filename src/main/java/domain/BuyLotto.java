@@ -6,11 +6,10 @@ import java.util.List;
 public class BuyLotto {
     private static final int PER_LOTTO_PRICE = 1000;
     private List<Lotto> lottos;
-    public int ticketNum;
 
     public BuyLotto(int totalPrice) {
         ExceptionCheck.priceCheck(totalPrice);
-        this.ticketNum = totalPrice / PER_LOTTO_PRICE;
+        int ticketNum = totalPrice / PER_LOTTO_PRICE;
         this.lottos = buyingLottos(ticketNum);
     }
 

@@ -6,10 +6,11 @@ import domain.Rank;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Output {
-    public static void allLottoNum(List<Lotto> lottos, BuyLotto buyLotto) {
-        System.out.println(buyLotto.ticketNum + "개를 구매했습니다.");
+    public static void allLottoNum(List<Lotto> lottos) {
+        System.out.println(lottos.size() + "개를 구매했습니다.");
         for (Lotto lotto : lottos) {
             printLotto(lotto.getLotto());
         }
@@ -27,7 +28,7 @@ public class Output {
         System.out.println("]");
     }
 
-    public static void resultView(HashMap<Rank, Integer> result) {
+    public static void resultView(Map<Rank, Integer> result) {
         System.out.println("\n당첨통계");
         System.out.println("---------");
         for (Rank rankNum : Rank.values()) {

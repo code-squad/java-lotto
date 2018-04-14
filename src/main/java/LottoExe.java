@@ -7,6 +7,7 @@ import view.UserInput;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class LottoExe {
@@ -18,12 +19,12 @@ public class LottoExe {
         BuyLotto purchaseLotto = new BuyLotto(totalPay);
         List<Lotto> lottos = purchaseLotto.getLottos();
 
-        Output.allLottoNum(lottos, purchaseLotto);
+        Output.allLottoNum(lottos);
 
         String winningNum = UserInput.winningNumber(scanner);
         WinningNum preWinNum = new WinningNum(winningNum);
 
-        HashMap<Rank, Integer> result = preWinNum.checkRank(lottos);
+        Map<Rank, Integer> result = preWinNum.checkRank(lottos);
 
         Output.resultView(result);
 
