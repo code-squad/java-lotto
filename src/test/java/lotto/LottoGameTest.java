@@ -44,31 +44,23 @@ public class LottoGameTest {
     public void 구매수량확인() {
         LottoGames lottoGames = new LottoGames();
         lottoGames.buy("4000");
-        assertThat(lottoGames.getHavingLottos().size()).isEqualTo(4);
+        assertThat(lottoGames.getHavingCount()).isEqualTo(4);
     }
 
     @Test
     public void 원하는수량만큼추가여부확인() {
         LottoGames lottoGames = new LottoGames();
         lottoGames.buyLottoNCounts(11);
-        assertThat(lottoGames.getHavingLottos().size()).isEqualTo(11);
+        assertThat(lottoGames.getHavingCount()).isEqualTo(11);
     }
 
     @Test
     public void 테스트용_내역추가() {
         LottoGames lottoGames = new LottoGames();
         lottoGames.addSingleLotto("1, 2, 3, 4, 5, 6");
-        assertThat(lottoGames.getHavingLottos().size()).isEqualTo(1);
+        assertThat(lottoGames.getHavingCount()).isEqualTo(1);
     }
 
-
-    @Test
-    public void 당첨번호입력시_리스트생성_확인() {
-        LottoGames lottoGames = new LottoGames();
-        String winString = "1, 2, 3, 4, 5, 6";
-        lottoGames.setWinnerLotto(winString, "7");
-        assertThat(lottoGames.getWinLotto().getWinLotto().getLotto().size()).isEqualTo(6);
-    }
 
 
     @Test

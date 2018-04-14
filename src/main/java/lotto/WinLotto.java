@@ -10,7 +10,7 @@ public class WinLotto {
             throw new IllegalArgumentException();
         }
 
-        if(winLotto.getLotto().contains(bonusNumber)){
+        if(winLotto.contains(bonusNumber)){
             throw new IllegalArgumentException();
         }
 
@@ -24,5 +24,9 @@ public class WinLotto {
 
     public int getBonusNumber() {
         return bonusNumber;
+    }
+
+    public boolean contain(Integer number) {
+        return winLotto.contains(number);
     }
 }

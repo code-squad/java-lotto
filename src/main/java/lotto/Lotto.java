@@ -1,16 +1,23 @@
 package lotto;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
 
     private List<Integer> lotto;
-    private Rank rank;
 
-    public Lotto(){}
+    @Override
+    public String toString() {
+        String str = "";
+        for(Integer integer : lotto){
+            str += integer + ", ";
+        }
+
+        return "[" + str.substring(0, str.length()-2) + "]";
+
+
+    }
 
     public Lotto(String lottoNumbers){
         List<Integer> newLotto = new ArrayList<>();
@@ -34,32 +41,26 @@ public class Lotto {
                 throw new IllegalArgumentException();
             }
         }
-
-
-    }
-
-    public List<Integer> getLotto() {
-        List<Integer> unModifiableLotto = Collections.unmodifiableList(lotto);
-        return unModifiableLotto;
-    }
-
-    public Rank getRank(){
-        return rank;
     }
 
     public int getMatchCount(WinLotto winLotto){
         int winCount = 0;
-        for(Integer winNumber:winLotto.getWinLotto().getLotto()) {
-            if( lotto.contains(winNumber) ){
+
+        for(Integer number : lotto){
+            if( winLotto.contain(number) ) {
                 winCount++;
             }
         }
         return winCount;
     }
 
-    public void setRank(WinLotto winLotto){
-        rank = Rank.valueOf(getMatchCount(winLotto), lotto.contains(winLotto.getBonusNumber()));
+
+    public Rank calculateRank(WinLotto winLotto){
+        return Rank.valueOf(getMatchCount(winLotto), lotto.contains(winLotto.getBonusNumber()));
     }
 
 
+    public boolean contains(Integer number) {
+        return lotto.contains(number);
+    }
 }

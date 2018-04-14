@@ -7,11 +7,11 @@ import java.util.*;
 public class LottoGames {
     public static final int LOTTO_PRICE_PER_TICKET = 1000;
 
-    List<Lotto> havingLottos;
+    Lottos lottos;
     WinLotto winLotto;
 
     public LottoGames(){
-        havingLottos = new ArrayList<>();
+        lottos = new Lottos();
     }
 
     private List<String> generateRandomLottoNumbers(){
@@ -28,19 +28,18 @@ public class LottoGames {
         return lottoNumber;
     }
 
-    public List<Lotto> addSingleLotto(String lottoNumbers){
-        havingLottos.add(new Lotto(lottoNumbers));
-        return havingLottos;
+    public void addSingleLotto(String lottoNumbers){
+        lottos.add(new Lotto(lottoNumbers));
     }
 
     WinLotto getWinLotto(){
         return winLotto;
     }
 
-
     public int getHavingCount(){
-        return havingLottos.size();
+        return lottos.getLottosCount();
     }
+
 
     public void buy(String price) {
         checkPriceValidation(price);
@@ -48,12 +47,13 @@ public class LottoGames {
         buyLottoNCounts(ticketCounts);
     }
 
+
     void buyLottoNCounts(int ticketCounts) {
         for(int i=0; i<ticketCounts; i++){
             List<String> randomNumbers = generateRandomLottoNumbers();
             String numbers = String.join(", ", randomNumbers.toArray(new String[randomNumbers.size()]) );
 
-            havingLottos.add(new Lotto(numbers));
+            lottos.add(new Lotto(numbers));
         }
     }
 
@@ -68,15 +68,10 @@ public class LottoGames {
     }
 
 
-    public List<Lotto> getHavingLottos() {
-        return havingLottos;
-    }
-
     public void setWinnerLotto(String winString, String bonusNumber) {
         checkIsNotNullAndIsNumber(bonusNumber);
 
         winLotto = new WinLotto(new Lotto(winString), Integer.parseInt(bonusNumber));
-        setResultRank();
     }
 
     private void checkIsNotNullAndIsNumber(String inputNumber) {
@@ -89,27 +84,14 @@ public class LottoGames {
         }
     }
 
-    private void setResultRank(){
-        for(Lotto lotto : havingLottos){
-            lotto.setRank(winLotto);
-        }
-    }
 
     public Map<Rank, Integer> getRankMap(){
-        Map<Rank, Integer> rankCountMap = new HashMap<>();
-        rankCountMap.put(Rank.FIRST, 0);
-        rankCountMap.put(Rank.SECOND, 0);
-        rankCountMap.put(Rank.THIRD, 0);
-        rankCountMap.put(Rank.FOURTH, 0);
-        rankCountMap.put(Rank.FIFTH, 0);
-        rankCountMap.put(Rank.MISS, 0);
 
-        for(Lotto lotto : havingLottos){
-            rankCountMap.put( lotto.getRank(), rankCountMap.get(lotto.getRank()) +1 );
-        }
-
-        return rankCountMap;
+        return lottos.makeRankCountMap(winLotto);
     }
 
 
+    public Lottos getLottos() {
+        return lottos;
+    }
 }

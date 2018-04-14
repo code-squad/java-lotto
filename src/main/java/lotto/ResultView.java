@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 public class ResultView {
-    public void printHavingLotto(LottoGames lotto){
-        List<Lotto> havingLottos = lotto.getHavingLottos();
-        System.out.println(havingLottos.size() + "개를 구매하였습니다.");
+    public void printHavingLotto(LottoGames lottoGames){
 
-        for(int i=0; i<havingLottos.size(); i++){
-            System.out.println(havingLottos.get(i).getLotto());
+        System.out.println(lottoGames.getHavingCount() + "개를 구매하였습니다.");
+        Lottos lottos = lottoGames.getLottos();
+
+        for(Lotto lotto : lottos.getLottos()){
+            System.out.println(lotto.toString());
         }
     }
 
