@@ -61,12 +61,13 @@ public class LottoGameTest {
         assertThat(lottoGames.getHavingLottos().size()).isEqualTo(1);
     }
 
+
     @Test
     public void 당첨번호입력시_리스트생성_확인() {
         LottoGames lottoGames = new LottoGames();
         String winString = "1, 2, 3, 4, 5, 6";
-        lottoGames.setWinnerLotto(winString);
-        assertThat(lottoGames.getWinnerLotto().getLotto().size()).isEqualTo(6);
+        lottoGames.setWinnerLotto(winString, "7");
+        assertThat(lottoGames.getWinLotto().getWinLotto().getLotto().size()).isEqualTo(6);
     }
 
 
@@ -75,38 +76,27 @@ public class LottoGameTest {
         LottoGames lottoGames = new LottoGames();
         lottoGames.addSingleLotto("1, 2, 3, 4, 5, 26");
         lottoGames.addSingleLotto("1, 2, 3, 4, 5, 6");
-        lottoGames.setWinnerLotto("1, 2, 3, 4, 5, 6");
+        lottoGames.setWinnerLotto("1, 2, 3, 4, 5, 6", "7");
 
-        Map<Integer, Integer> winnerMap = lottoGames.getWinnerMap();
-        assertThat(winnerMap.size()).isEqualTo(2);
+        int winCount = 0;
+        Map<Rank, Integer> rankMap = lottoGames.getRankMap();
+        for(Rank rank : rankMap.keySet()){
+            winCount += rankMap.get(rank);
+        }
+        assertThat(winCount).isEqualTo(2);
     }
 
-    @Test
-    public void 두개모두전체꽝인경우_Map이1개리턴하나확인() {
-        LottoGames lottoGames = new LottoGames();
-        lottoGames.addSingleLotto("11, 12, 13, 14, 15, 16");
-        lottoGames.addSingleLotto("21, 22, 23, 24, 25, 26");
-        lottoGames.setWinnerLotto("1, 2, 3, 4, 5, 6");
-
-        Map<Integer, Integer> winnerMap = lottoGames.getWinnerMap();
-        assertThat(winnerMap.size()).isEqualTo(1);
-    }
 
     @Test
     public void 두개모두전체꽝인경우_Map0이2인지확인() {
         LottoGames lottoGames = new LottoGames();
         lottoGames.addSingleLotto("11, 12, 13, 14, 15, 16");
         lottoGames.addSingleLotto("21, 22, 23, 24, 25, 26");
-        lottoGames.setWinnerLotto("1, 2, 3, 4, 5, 6");
+        lottoGames.setWinnerLotto("1, 2, 3, 4, 5, 6", "7");
 
-        Map<Integer, Integer> winnerMap = lottoGames.getWinnerMap();
-        assertThat(winnerMap.get(0)).isEqualTo(2);
+        Map<Rank, Integer> rankMap = lottoGames.getRankMap();
+        assertThat(rankMap.get(Rank.MISS)).isEqualTo(2);
 
     }
 
-    @Test
-    public void 초기생성시_리워드앱_세팅확인() {
-        LottoGames lottoGames = new LottoGames();
-        assertThat(lottoGames.getRewardMap().size()).isEqualTo(4);
-    }
 }

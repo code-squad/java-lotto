@@ -30,6 +30,7 @@ public class LottoTest {
         Lotto lotto = new Lotto("1, 2, 3, 4, 5, 1");
     }
 
+    /*
     @Test
     public void 한장_전체매칭확인() {
         Lotto lotto = new Lotto("1, 2, 3, 4, 5, 6");
@@ -47,6 +48,7 @@ public class LottoTest {
         int matchCount = lotto.getMatchCount(winLotto);
         assertThat(matchCount).isEqualTo(5);
     }
+    */
 
 
 }

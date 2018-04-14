@@ -6,11 +6,14 @@ public class ConsoleMain {
         String inputPrice =  inputView.getInputPrice();
         LottoGames lottoGames = new LottoGames();
         lottoGames.buy(inputPrice);
+
         String winNumbers = inputView.getWinNumbers();
-        lottoGames.setWinnerLotto(winNumbers);
+        String bonusNumber = inputView.getBonusNumber();
+        lottoGames.setWinnerLotto(winNumbers, bonusNumber);
+
         ResultView resultView = new ResultView();
         resultView.printHavingLotto(lottoGames);
-        resultView.printWinResult(lottoGames.getHavingCount(), lottoGames.getWinnerMap(), lottoGames.getRewardMap());
+        resultView.printWinResult(lottoGames.getHavingCount(), lottoGames.getRankMap());
 
     }
 

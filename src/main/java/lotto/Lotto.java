@@ -8,19 +8,20 @@ import java.util.List;
 public class Lotto {
 
     private List<Integer> lotto;
+    private Rank rank;
 
     public Lotto(){}
 
     public Lotto(String lottoNumbers){
-        List<Integer> winNumbers = new ArrayList<>();
+        List<Integer> newLotto = new ArrayList<>();
         String[] winStringNumbers = lottoNumbers.split(",");
 
         for(String winToken:winStringNumbers){
-            winNumbers.add(Integer.parseInt(winToken.trim()));
+            newLotto.add(Integer.parseInt(winToken.trim()));
         }
 
-        checkConstructorValidation(winStringNumbers, winNumbers);
-        lotto = winNumbers;
+        checkConstructorValidation(winStringNumbers, newLotto);
+        lotto = newLotto;
     }
 
     private void checkConstructorValidation(String[] winStringNumbers, List<Integer> winNumbers) {
@@ -42,14 +43,22 @@ public class Lotto {
         return unModifiableLotto;
     }
 
-    public int getMatchCount(Lotto param){
+    public Rank getRank(){
+        return rank;
+    }
+
+    public int getMatchCount(WinLotto winLotto){
         int winCount = 0;
-        for(Integer winNumber:param.getLotto()) {
+        for(Integer winNumber:winLotto.getWinLotto().getLotto()) {
             if( lotto.contains(winNumber) ){
                 winCount++;
             }
         }
         return winCount;
+    }
+
+    public void setRank(WinLotto winLotto){
+        rank = Rank.valueOf(getMatchCount(winLotto), lotto.contains(winLotto.getBonusNumber()));
     }
 
 

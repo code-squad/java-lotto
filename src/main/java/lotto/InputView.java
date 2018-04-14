@@ -17,4 +17,11 @@ public class InputView {
         return userInput;
     }
 
+    public String getBonusNumber(){
+        System.out.println("보너스 볼을 입력해주세요.");
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+        return userInput;
+    }
+
 }

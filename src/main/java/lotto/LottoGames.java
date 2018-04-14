@@ -6,23 +6,12 @@ import java.util.*;
 
 public class LottoGames {
     public static final int LOTTO_PRICE_PER_TICKET = 1000;
-    private static final int MATCH_3 = 5000;
-    private static final int MATCH_4 = 50000;
-    private static final int MATCH_5 = 1500000;
-    private static final int MATCH_6 = 2000000000;
 
     List<Lotto> havingLottos;
-    Lotto winnerLotto;
-
-    Map<Integer, Integer> rewardMap;
+    WinLotto winLotto;
 
     public LottoGames(){
         havingLottos = new ArrayList<>();
-        rewardMap = new HashMap<>();
-        rewardMap.put(3, MATCH_3);
-        rewardMap.put(4, MATCH_4);
-        rewardMap.put(5, MATCH_5);
-        rewardMap.put(6, MATCH_6);
     }
 
     private List<String> generateRandomLottoNumbers(){
@@ -44,12 +33,8 @@ public class LottoGames {
         return havingLottos;
     }
 
-    Lotto getWinnerLotto(){
-        return winnerLotto;
-    }
-
-    public Map<Integer, Integer> getRewardMap() {
-        return rewardMap;
+    WinLotto getWinLotto(){
+        return winLotto;
     }
 
 
@@ -73,13 +58,7 @@ public class LottoGames {
     }
 
     private void checkPriceValidation(String price) {
-        if(price == null || price.isEmpty() || price.trim().isEmpty()){
-            throw new IllegalArgumentException();
-        }
-
-        if(!StringUtils.isNumeric(price)){
-            throw new IllegalArgumentException();
-        }
+        checkIsNotNullAndIsNumber(price);
 
         int priceAmt = Integer.parseInt(price);
 
@@ -93,23 +72,44 @@ public class LottoGames {
         return havingLottos;
     }
 
-    public void setWinnerLotto(String winString) {
-        winnerLotto = new Lotto(winString);
+    public void setWinnerLotto(String winString, String bonusNumber) {
+        checkIsNotNullAndIsNumber(bonusNumber);
+
+        winLotto = new WinLotto(new Lotto(winString), Integer.parseInt(bonusNumber));
+        setResultRank();
     }
 
-    public Map<Integer,Integer> getWinnerMap() {
-        Map<Integer,Integer> winnerMap = new HashMap<>();
-
-        for(Lotto lotto : havingLottos) {
-            Integer matchCount = lotto.getMatchCount(winnerLotto);
-            if (winnerMap.containsKey(matchCount)) {
-                Integer existCount = winnerMap.get(matchCount);
-                winnerMap.put(matchCount, existCount+1);
-                continue;
-            }
-            winnerMap.put(matchCount, 1);
+    private void checkIsNotNullAndIsNumber(String inputNumber) {
+        if(inputNumber == null || inputNumber.isEmpty() || inputNumber.trim().isEmpty()){
+            throw new IllegalArgumentException();
         }
-        return winnerMap;
 
+        if(!StringUtils.isNumeric(inputNumber)){
+            throw new IllegalArgumentException();
+        }
     }
+
+    private void setResultRank(){
+        for(Lotto lotto : havingLottos){
+            lotto.setRank(winLotto);
+        }
+    }
+
+    public Map<Rank, Integer> getRankMap(){
+        Map<Rank, Integer> rankCountMap = new HashMap<>();
+        rankCountMap.put(Rank.FIRST, 0);
+        rankCountMap.put(Rank.SECOND, 0);
+        rankCountMap.put(Rank.THIRD, 0);
+        rankCountMap.put(Rank.FOURTH, 0);
+        rankCountMap.put(Rank.FIFTH, 0);
+        rankCountMap.put(Rank.MISS, 0);
+
+        for(Lotto lotto : havingLottos){
+            rankCountMap.put( lotto.getRank(), rankCountMap.get(lotto.getRank()) +1 );
+        }
+
+        return rankCountMap;
+    }
+
+
 }
