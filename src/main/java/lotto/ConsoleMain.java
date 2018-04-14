@@ -1,16 +1,17 @@
 package lotto;
 
+import java.util.List;
+
 public class ConsoleMain {
     public static void main(String[] args) {
-        InputView inputView = new InputView();
-        String inputPrice =  inputView.getInputPrice();
-        LottoGames lottoGames = new LottoGames();
-        lottoGames.buy(inputPrice);
-        String winNumbers = inputView.getWinNumbers();
+        long buyAmt =  InputView.getInputPrice();
+        LottoGames lottoGames = new LottoGames(buyAmt);
+
+        List<String> winNumbers = InputView.getWinNumbers();
         lottoGames.setWinnerLotto(winNumbers);
-        ResultView resultView = new ResultView();
-        resultView.printHavingLotto(lottoGames);
-        resultView.printWinResult(lottoGames.getHavingCount(), lottoGames.getWinnerMap(), lottoGames.getRewardMap());
+
+        ResultView.printHavingLotto(lottoGames);
+        ResultView.printWinResult(buyAmt, lottoGames.getRankMap());
 
     }
 
