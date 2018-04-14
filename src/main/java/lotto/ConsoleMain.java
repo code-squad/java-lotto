@@ -8,9 +8,7 @@ import lotto.domain.WinningTicket;
 import lotto.view.ConsoleInputView;
 import lotto.view.ConsoleOutputView;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ConsoleMain {
@@ -26,9 +24,9 @@ public class ConsoleMain {
         }
 
         ConsoleInputView.printInputSelfNumbersMessage();
-        List<LottoTicket> selfLottoTickets = IntStream.range(0, selfSelectLottoCount)
-                .mapToObj(i -> LottoTicketIssuer.issue(toList(ConsoleInputView.getLottoNumbers())))
-                .collect(Collectors.toList());
+        String[] selfSelectLottoNumbers = IntStream.range(0, selfSelectLottoCount)
+                .mapToObj(i -> ConsoleInputView.getLottoNumbers()).toArray(String[]::new);
+        List<LottoTicket> selfLottoTickets = LottoTicketIssuer.issue(selfSelectLottoNumbers);
 
         // 3. 구입 결과 출력
         int restMoney = pay - LottoTicketIssuer.getTicketPrice(selfSelectLottoCount);
@@ -40,26 +38,11 @@ public class ConsoleMain {
         
         // 5. 보너스번호 입력
         int bonusNumber = ConsoleInputView.getBonusNumber();
-        GameResult gameResult = new GameResult(lottoTickets, new WinningTicket(toList(winningNumber), bonusNumber));
+        LottoTicket winningTicket = LottoTicketIssuer.issue(winningNumber);
+        GameResult gameResult = new GameResult(lottoTickets, new WinningTicket(winningTicket, bonusNumber));
 
         // 6. 당첨통계 출력
-        ConsoleOutputView.printResult(gameResult.analyzeResult());
+        ConsoleOutputView.printResult(gameResult.getAnalyzeResult());
         ConsoleOutputView.printRateOfReturn(gameResult.getRateOfReturn());
-    }
-
-    private static List<Integer> toList(String numbersText) {
-        return Arrays.stream(parseInts(split(numbersText)))
-                .boxed()
-                .collect(Collectors.toList());
-    }
-
-    private static String[] split(String text) {
-        return text.split(",");
-    }
-
-    private static int[] parseInts(String[] numbers) {
-        return Arrays.stream(numbers)
-                .mapToInt(Integer::parseInt)
-                .toArray();
     }
 }

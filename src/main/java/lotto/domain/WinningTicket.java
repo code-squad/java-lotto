@@ -1,13 +1,11 @@
 package lotto.domain;
 
-import java.util.List;
-
 public class WinningTicket {
     private final LottoTicket lottoTicket;
     private final int bonusNumber;
 
-    public WinningTicket(List<Integer> numbers, int bonusNumber) {
-        lottoTicket = new LottoTicket(numbers);
+    public WinningTicket(LottoTicket lottoTicket, int bonusNumber) {
+        this.lottoTicket = lottoTicket;
         this.bonusNumber = setBonusNumber(bonusNumber);
     }
 

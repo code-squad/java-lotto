@@ -26,7 +26,7 @@ public class LottoTickets {
                 .collect(Collectors.toList());
     }
 
-    public int size() {
+    public int getSize() {
         return selfSelectTickets.size() + autoSelectTickets.size();
     }
 }

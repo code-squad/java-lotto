@@ -21,7 +21,7 @@ public class LottoTicket {
         return numbers.contains(expected);
     }
 
-    Set<Integer> getNumbers() {
+    public Set<Integer> getNumbers() {
         return numbers;
     }
 
