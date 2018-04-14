@@ -3,21 +3,30 @@ package lotto.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import static lotto.domain.Money.PRICE_PER_LOTTO;
+
 /**
  * @author sangsik.kim
  */
 public class LottoProvider {
-    public static final int PRICE_PER_LOTTO = 1000;
 
-    public static LottoTicket order(int amount) {
-        List<Lotto> lottos = new ArrayList();
-        for (int i = 0; i < availableQuantity(amount); i++) {
-            lottos.add(new Lotto());
+    public static LottoTicket order(Money money) {
+        return makeLottoTicket(money, new ArrayList());
+    }
+
+    public static LottoTicket order(Money money, List<Lotto> customLottos) {
+        Money remainingMoney = money.spend(customLottos.size() * PRICE_PER_LOTTO);
+        return makeLottoTicket(remainingMoney, customLottos);
+    }
+
+    private static LottoTicket makeLottoTicket(Money money, List<Lotto> lottos) {
+        for (int i = 0; i < availableQuantity(money); i++) {
+            lottos.add(Lotto.of(AutoSelector.generate()));
         }
         return new LottoTicket(lottos);
     }
 
-    private static int availableQuantity(int amount) {
-        return amount / PRICE_PER_LOTTO;
+    private static int availableQuantity(Money money) {
+        return money.calculateNumberOfPurchase(PRICE_PER_LOTTO);
     }
 }

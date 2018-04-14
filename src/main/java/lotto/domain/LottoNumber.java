@@ -9,25 +9,21 @@ public class LottoNumber {
 
     private int value;
 
-    public LottoNumber(int value) {
-        validation(value);
-        this.value = value;
-    }
-
-    public int getValue() {
-        return this.value;
-    }
-
-    private void validation(int value) {
-        if (value < MIN_VALUE || value > MAX_VALUE) {
+    private LottoNumber(int number) {
+        if (number < MIN_VALUE || number > MAX_VALUE) {
             throw new IllegalArgumentException("INVALID NUMBER");
         }
+        this.value = number;
+    }
+
+    public static LottoNumber of(int number) {
+        return new LottoNumber(number);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof LottoNumber) {
-            return this.value == ((LottoNumber) obj).getValue();
+            return this.value == ((LottoNumber) obj).value;
         }
         return false;
     }
@@ -35,5 +31,10 @@ public class LottoNumber {
     @Override
     public String toString() {
         return String.valueOf(this.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.value;
     }
 }

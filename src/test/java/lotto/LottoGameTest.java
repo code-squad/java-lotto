@@ -22,11 +22,11 @@ public class LottoGameTest {
     public void setup() {
         List<Lotto> lottos = new ArrayList();
 
-        Lotto FIRST_TIER = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
-        Lotto SECOND_TIER = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 10));
-        Lotto THIRD_TIER = new Lotto(Arrays.asList(3, 4, 5, 6, 10, 20));
-        Lotto FOURTH_TIER = new Lotto(Arrays.asList(4, 5, 6, 10, 20, 30));
-        Lotto FAIL_TIER = new Lotto(Arrays.asList(11, 12, 13, 14, 15, 16));
+        Lotto FIRST_TIER = Lotto.of(1, 2, 3, 4, 5, 6);
+        Lotto SECOND_TIER = Lotto.of(1, 2, 3, 4, 5, 10);
+        Lotto THIRD_TIER = Lotto.of(3, 4, 5, 6, 10, 20);
+        Lotto FOURTH_TIER = Lotto.of(4, 5, 6, 10, 20, 30);
+        Lotto FAIL_TIER = Lotto.of(11, 12, 13, 14, 15, 16);
 
         lottos.add(FIRST_TIER);
         lottos.add(SECOND_TIER);
@@ -39,7 +39,7 @@ public class LottoGameTest {
 
     @Test
     public void 당첨내역_확인_1개() {
-        WinningLotto winningLotto = new WinningLotto(Arrays.asList(1, 2, 3, 4, 5, 6), 10);
+        WinningLotto winningLotto = WinningLotto.of(Lotto.of(1, 2, 3, 4, 5, 6), LottoNumber.of(10));
 
         int count = this.lottoTickets.countOfWinningLotto(Rank.FIRST, winningLotto);
 
@@ -48,7 +48,7 @@ public class LottoGameTest {
 
     @Test
     public void 당첨내역_확인_없음() {
-        WinningLotto winningLotto = new WinningLotto(Arrays.asList(15, 16, 17, 18, 19, 20), 10);
+        WinningLotto winningLotto = WinningLotto.of(Lotto.of(15, 16, 17, 18, 19, 20), LottoNumber.of(10));
 
         int count = this.lottoTickets.countOfWinningLotto(Rank.MISS, winningLotto);
 
@@ -57,7 +57,7 @@ public class LottoGameTest {
 
     @Test
     public void 결과조회() {
-        WinningLotto winningLotto = new WinningLotto(Arrays.asList(14, 15, 16, 17, 18, 19), 10);
+        WinningLotto winningLotto = WinningLotto.of(Lotto.of(14, 15, 16, 17, 18, 19), LottoNumber.of(10));
 
         LottoResult result = this.lottoTickets.createResult(winningLotto);
 
