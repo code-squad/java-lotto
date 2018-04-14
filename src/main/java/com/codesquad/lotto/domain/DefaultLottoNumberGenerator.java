@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class DefaultLottoGenerator implements LottoGenerator {
+public class DefaultLottoNumberGenerator implements LottoNumberGenerator {
     private final Shuffler shuffler;
     private final List<Integer> numbers;
 
-    public DefaultLottoGenerator(final Shuffler shuffler) {
+    public DefaultLottoNumberGenerator(final Shuffler shuffler) {
         this.numbers = IntStream.rangeClosed(LottoNumber.MIN_NUMBER, LottoNumber.MAX_NUMBER)
                 .boxed()
                 .collect(Collectors.toList());
@@ -16,11 +16,10 @@ public class DefaultLottoGenerator implements LottoGenerator {
     }
 
     @Override
-    public LottoNumber generate() {
+    public List<Integer> generate() {
         shuffler.shuffle(numbers);
-        final List<Integer> lottoNumbers = numbers.stream()
+        return numbers.stream()
                 .limit(LottoNumber.NUMBER_SIZE)
                 .collect(Collectors.toList());
-        return new LottoNumber(lottoNumbers);
     }
 }

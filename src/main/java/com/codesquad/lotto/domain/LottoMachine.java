@@ -7,9 +7,9 @@ import java.util.stream.IntStream;
 public class LottoMachine {
 
     private final Money listPrice;
-    private final LottoGenerator generator;
+    private final LottoNumberGenerator generator;
 
-    public LottoMachine(final Money listPrice, final LottoGenerator generator) {
+    public LottoMachine(final Money listPrice, final LottoNumberGenerator generator) {
         this.listPrice = listPrice;
         this.generator = generator;
     }
@@ -27,6 +27,7 @@ public class LottoMachine {
     private List<LottoNumber> generateLotteries(final int quotient) {
         return IntStream.range(0, quotient)
                 .mapToObj(n -> generator.generate())
+                .map(LottoNumber::new)
                 .collect(Collectors.toList());
     }
 }

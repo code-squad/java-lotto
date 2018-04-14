@@ -9,27 +9,25 @@ import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DefaultLottoGeneratorTest {
+public class DefaultLottoNumberGeneratorTest {
 
     @Test
     public void 번호생성_2to7() {
-        final DefaultLottoGenerator generator = new DefaultLottoGenerator(numbers -> {
+        final DefaultLottoNumberGenerator generator = new DefaultLottoNumberGenerator(numbers -> {
             numbers.clear();
             numbers.addAll(Arrays.asList(2, 3, 4, 5, 6, 7));
         });
-        final LottoNumber lottoNumber = generator.generate();
-        final List<Integer> numbers = lottoNumber.getNumbers();
+        final List<Integer> numbers = generator.generate();
         assertThat(numbers).contains(2, 3, 4, 5, 6, 7);
     }
 
     @Test
     public void 번호생성_5to10() {
-        final DefaultLottoGenerator generator = new DefaultLottoGenerator(numbers -> {
+        final DefaultLottoNumberGenerator generator = new DefaultLottoNumberGenerator(numbers -> {
             numbers.clear();
             numbers.addAll(Arrays.asList(5, 6, 7, 8, 9, 10));
         });
-        final LottoNumber lottoNumber = generator.generate();
-        final List<Integer> numbers = lottoNumber.getNumbers();
+        final List<Integer> numbers = generator.generate();
         assertThat(numbers).contains(5, 6, 7, 8, 9, 10);
     }
 
@@ -38,13 +36,12 @@ public class DefaultLottoGeneratorTest {
         final List<Integer> partialNumbers = IntStream.rangeClosed(1, 39)
                 .boxed()
                 .collect(Collectors.toList());
-        final DefaultLottoGenerator generator = new DefaultLottoGenerator(numbers -> {
+        final DefaultLottoNumberGenerator generator = new DefaultLottoNumberGenerator(numbers -> {
             numbers.clear();
             numbers.addAll(Arrays.asList(40, 41, 42, 43, 44, 45));
             numbers.addAll(partialNumbers);
         });
-        final LottoNumber lottoNumber = generator.generate();
-        final List<Integer> numbers = lottoNumber.getNumbers();
+        final List<Integer> numbers = generator.generate();
         assertThat(numbers).containsExactly(40, 41, 42, 43, 44, 45);
     }
 }
