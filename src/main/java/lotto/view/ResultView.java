@@ -15,7 +15,7 @@ public class ResultView implements View {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
         gameResult.getRank()
-                .forEach((key, count) -> System.out.println(key.print(count)));
+                .forEach((key, count) -> System.out.println(key.toString(count)));
 
         System.out.println("총 수익률은 " + gameResult.rateOfReturn(amount) + "%입니다.");
     }

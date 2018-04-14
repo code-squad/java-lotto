@@ -19,11 +19,6 @@ public class LottoGame {
         manualLottos = Collections.emptyList();
     }
 
-    public LottoGame(long amount) {
-        this.autoLottos = buy(count(amount));
-        this.manualLottos = Collections.emptyList();
-    }
-
     public LottoGame(long amount, List<List<String>> manualLottos) {
         int count = count(amount) - manualLottos.size();
         this.autoLottos = buy(count);

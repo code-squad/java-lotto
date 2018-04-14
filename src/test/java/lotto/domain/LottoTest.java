@@ -41,4 +41,12 @@ public class LottoTest {
         assertThat(lotto.toString())
                 .isEqualTo("[1, 2, 3, 4, 5, 6]");
     }
+
+    @Test
+    public void 로또가_소유한_번호인가() {
+        Lotto lotto = new Lotto(Arrays.asList("1", "2", "3", "4", "5", "6"));
+
+        assertThat(lotto.contains("6"))
+                .isTrue();
+    }
 }
