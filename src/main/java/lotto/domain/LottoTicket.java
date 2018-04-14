@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static lotto.domain.LottoProvider.PRICE_PER_LOTTO;
+import static lotto.domain.Money.PRICE_PER_LOTTO;
+
 
 /**
  * @author sangsik.kim

@@ -23,7 +23,7 @@ public class InputView {
 
     public static Money getAmount() {
         System.out.println(GET_AMOUNT_TEXT);
-        return new Money(scanner.nextLong());
+        return Money.of(scanner.nextLong());
     }
 
     public static WinningLotto getWinningLotto() {
