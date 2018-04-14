@@ -1,4 +1,5 @@
 package com.codesquad.lotto.domain;
 
-public class LottoGenerator {
+public interface LottoGenerator {
+    LottoNumber generate();
 }

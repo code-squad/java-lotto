@@ -9,9 +9,11 @@ import java.util.stream.IntStream;
 public class LottoMachine {
 
     private final Money listPrice;
+    private final LottoGenerator generator;
 
-    public LottoMachine(final Money listPrice) {
+    public LottoMachine(final Money listPrice, final LottoGenerator generator) {
         this.listPrice = listPrice;
+        this.generator = generator;
     }
 
     public List<LottoNumber> buy(final Money payment) {
@@ -28,13 +30,8 @@ public class LottoMachine {
         final List<LottoNumber> lotteries = new ArrayList<>();
         IntStream.range(0, quotient)
                 .forEach(n -> {
-                    lotteries.add(generateLottery());
+                    lotteries.add(generator.generate());
                 });
         return lotteries;
-    }
-
-    private LottoNumber generateLottery() {
-        //return new LottoNumber();
-        return null;
     }
 }
