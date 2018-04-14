@@ -16,13 +16,19 @@ public class Card {
     public List<Integer> getNumbers(){
         return this.numbers;
     }
-    public int numMatchLuckNumber(List<Integer> luckyNumbers){
-        int sum = 0;
-        for (Integer luckyNumber : luckyNumbers){
-            if(this.getNumbers().contains(luckyNumber)){
-                sum++;
-            }
+
+    public int numMatchLuckNumber(Card luckyCard){
+        int hit = 0;
+        for (Integer luckyNumber : luckyCard.getNumbers()){
+            hit += hasLottoNumber(luckyNumber);
         }
-        return sum;
+        return hit;
+    }
+
+    private int hasLottoNumber(Integer luckyNumber) {
+        if(this.getNumbers().contains(luckyNumber)){
+            return 1;
+        }
+        return 0;
     }
 }

@@ -3,10 +3,9 @@ import java.util.List;
 
 public class LottoController {
     public static void main(String[] args){
-        int budget = LottoInput.scanBudget();
-        Lotto lotto = new Lotto(budget);
-        LottoView.announceMyCards(lotto.getCards());
-        List<Integer> result = lotto.getResult(LottoInput.scanLuckyNumber());
-        LottoView.announceResult(result, budget);
+        Lotto lotto = new Lotto(LottoInput.scanBudget());
+        LottoView.cards(lotto.getCards());
+        LottoResult result = lotto.sendLuckyCard(LottoInput.scanLuckyNumber());
+        LottoView.announce(result);
     }
 }
