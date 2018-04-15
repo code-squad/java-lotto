@@ -54,4 +54,44 @@ public class MoneyTest {
     public void 나누기0() {
         money.divide(new Money(0));
     }
+
+    @Test
+    public void 더하기_1000() {
+        final Money result = money.add(new Money(1000));
+        assertThat(result).isEqualTo(new Money(6000));
+    }
+
+    @Test
+    public void 더하기_2000() {
+        final Money result = money.add(new Money(2000));
+        assertThat(result).isEqualTo(new Money(7000));
+    }
+
+    @Test
+    public void 곱하기_10() {
+        final Money result = money.multiply(10);
+        assertThat(result).isEqualTo(new Money(50000));
+    }
+
+    @Test
+    public void 곱하기_5() {
+        final Money result = money.multiply(5);
+        assertThat(result).isEqualTo(new Money(25000));
+    }
+
+    @Test
+    public void 수익율_100() {
+        final Money winMoney = new Money(10000);
+        final Money payment = new Money(5000);
+        final int profitRate = Money.calculateProfitRate(winMoney, payment);
+        assertThat(profitRate).isEqualTo(100);
+    }
+
+    @Test
+    public void 수익율_400() {
+        final Money winMoney = new Money(5000);
+        final Money payment = new Money(1000);
+        final int profitRate = Money.calculateProfitRate(winMoney, payment);
+        assertThat(profitRate).isEqualTo(400);
+    }
 }

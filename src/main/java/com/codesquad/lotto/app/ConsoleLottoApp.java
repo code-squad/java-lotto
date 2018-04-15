@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ConsoleLottoApp {
     public static void main(final String[] args) {
-        final LottoMachine machine = prepareLottoMachine(1000);
+        final LottoMachine machine = prepareLottoMachine();
 
         final Money payment = InputView.inputPayment();
         final List<Lotto> lotteries = machine.buy(payment);
@@ -19,13 +19,13 @@ public class ConsoleLottoApp {
         ResultView.print(model);
 
         final Lotto winLotto = InputView.inputWinLotto();
-        
+
 //        ResultView.printStats();
     }
 
-    private static LottoMachine prepareLottoMachine(int listPrice) {
+    private static LottoMachine prepareLottoMachine() {
         final LottoNumberGenerator generator = createGenerator();
-        return new LottoMachine(new Money(listPrice), generator);
+        return new LottoMachine(generator);
     }
 
     private static LottoNumberGenerator createGenerator() {
