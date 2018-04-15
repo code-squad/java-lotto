@@ -11,4 +11,8 @@ public class Result {
         return rank;
     }
 
+
+    public static int returnMoney(Result result) {
+        return result.getRank().getWinningMoney();
+    }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class Lotto {
     private List<LottoTicket> lottos;
 
-    public Lotto(List<LottoTicket> lottos)throws Exception {
+    public Lotto(List<LottoTicket> lottos){
         this.lottos = lottos;
     }
 

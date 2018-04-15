@@ -1,31 +1,19 @@
 package javaLotto.utils;
 
+import javaLotto.domain.LottoNo;
 import javaLotto.domain.LottoTicket;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.*;
 
 public class LottoNumberGenerator {
     public static LottoTicket makeLottoNumber() {
-        List<Integer> numbers = new ArrayList<>();
-        Collections.shuffle(setLottoNumber(numbers));
-        return sortLottoNumber(selectNumbers(numbers));
-    }
-
-    private static LottoTicket selectNumbers(List<Integer> numbers) {
-       return new LottoTicket(numbers.subList(0,6));
-    }
-
-    private static List<Integer> setLottoNumber(List<Integer> numbers) {
-        for (int number = 1; number < 45 ; number++) {
-            numbers.add(number);
-        }
-        return numbers;
-    }
-
-    private static LottoTicket sortLottoNumber(LottoTicket list) {
-        Collections.sort(list.getLottoTicket());
-        return  list;
+        List<LottoNo> lotto = new ArrayList<>(IntStream.rangeClosed(1,45).distinct().mapToObj(no -> LottoNo.of(no)).collect(toList()));
+        Collections.shuffle(lotto);
+        return new LottoTicket(lotto.stream().limit(6).collect(toSet()));
     }
 }

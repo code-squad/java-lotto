@@ -3,56 +3,41 @@ package javaLotto.domain;
 import java.util.*;
 
 public class LottoTicket {
-    private List<Integer> lottoTicket = new ArrayList<>();
+    private static final int LOTTO_NUMBER_SIZE = 6;
+    private  Set<LottoNo> lottoTicket;
 
-    public LottoTicket(List<Integer> lottoTicket) {
-        validation(lottoTicket.size() > 6, "로또 번호는 6개 이하이여야 합니다.");
-        for(int number : lottoTicket){
-            validation(number > 45 || number < 1, "로또 번호는 1~45 사이여야 합니다.");
+    public LottoTicket(Set<LottoNo> lottoTicket) {
+        if(lottoTicket.size() != LOTTO_NUMBER_SIZE){
+            throw new IllegalArgumentException("로또 숫자의 사이즈는 6개여야 합니다.");
         }
-        for (int i = 0; i < lottoTicket.size() ; i++) {
-
-        }
-       compareNumber(lottoTicket);
         this.lottoTicket = lottoTicket;
     }
 
-    private void compareNumber(List<Integer> lottoTicket) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < lottoTicket.size() ; i++) {
-            if(!result.contains(lottoTicket.get(i))){
-                result.add(lottoTicket.get(i));
-            }else{
-                throw new IllegalArgumentException("로또 번호는 중복 될 수 없습니다.");
-            }
-        }
-    }
-
-    private void validation(boolean b, String s) {
-        if (b) {
-            throw new IllegalArgumentException(s);
-        }
-    }
-
-    public List<Integer> getLottoTicket() {
+    public Set<LottoNo> getLottoTicket() {
         return lottoTicket;
     }
 
-    public static int matchCount(List<Integer> winningNumber ,LottoTicket lotto) {
-            int matchCount = 0;
-            for (int number : winningNumber){
-                if(lotto.getLottoTicket().contains(number)){
-                    matchCount++;
-                }
-            }
+    public static int matchCount(Set<LottoNo> winningNumber ,LottoTicket lotto) {
+        int matchCount = 0;
+        for (LottoNo number : winningNumber){
+            matchCount += addCheck(lotto,number);
+        }
         return matchCount;
     }
 
-    public static boolean matchBonus(int bonusBall, LottoTicket lottoTicket) {
-        return lottoTicket.getLottoTicket().contains(bonusBall);
+    private static int addCheck(LottoTicket lotto, LottoNo number) {
+        if(lotto.getLottoTicket().contains(number)){
+            return 1;
+        }
+        return 0;
     }
 
-    public static List<Integer> printTicket(LottoTicket ticket) {
-        return ticket.getLottoTicket();
+    public static boolean matchBonus(int bonusBall, LottoTicket lotto) {
+           return lotto.getLottoTicket().stream().anyMatch(no -> no.getNo() == bonusBall);
+    }
+
+    public static void printTicket(LottoTicket ticket) {
+        ticket.getLottoTicket().stream().forEach(n -> System.out.print(n.getNo() + " "));
+        System.out.println();
     }
 }

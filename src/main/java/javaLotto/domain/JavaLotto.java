@@ -2,7 +2,6 @@ package javaLotto.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import static javaLotto.utils.LottoNumberGenerator.makeLottoNumber;
 
 public class JavaLotto {

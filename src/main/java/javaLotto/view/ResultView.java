@@ -9,8 +9,8 @@ public class ResultView {
     public static void buyLottoInfoPrint(Lotto lottos) {
         lottos.printLottoSize();
         for (LottoTicket ticket : lottos.getLottos()){
-            System.out.println(LottoTicket.printTicket(ticket));
-        }
+             LottoTicket.printTicket(ticket);
+          }
     }
 
     public static void resultPrint(GameResult result, int inputPrice) {
