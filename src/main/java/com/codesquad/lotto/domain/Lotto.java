@@ -1,5 +1,6 @@
 package com.codesquad.lotto.domain;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,21 @@ public class Lotto {
         this.numbers = numbers.stream()
                 .sorted()
                 .collect(Collectors.toList());
+    }
+
+    public static Lotto fromComma(final String numbers) {
+        if (numbers == null) {
+            throw new IllegalArgumentException();
+        }
+
+        if (numbers.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+
+        final String[] split = numbers.split(", ");
+        return new Lotto(Arrays.stream(split)
+                .map(Integer::parseInt)
+                .collect(Collectors.toList()));
     }
 
     private boolean isIncludeGreaterThanMax(final List<Integer> numbers) {

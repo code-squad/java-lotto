@@ -65,6 +65,30 @@ public class LottoTest {
         new Lotto(null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void 콤마_Null() {
+        Lotto.fromComma(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 콤마_빈문자열() {
+        Lotto.fromComma("");
+    }
+
+    @Test
+    public void 콤마로_생성() {
+        final Lotto lotto = Lotto.fromComma("10, 11, 12, 13, 14, 15");
+        final List<Integer> numbers = lotto.getNumbers();
+        assertThat(numbers).contains(10, 11, 12, 13, 14, 15);
+    }
+
+    @Test
+    public void 콤마로_다른생성() {
+        final Lotto lotto = Lotto.fromComma("20, 21, 22, 23, 24, 25");
+        final List<Integer> numbers = lotto.getNumbers();
+        assertThat(numbers).contains(20, 21, 22, 23, 24, 25);
+    }
+
     @Test
     public void 일치하는숫자개수_3() {
         final Lotto winNumber = new Lotto(Arrays.asList(1, 20, 5, 45, 17, 45));

@@ -10,19 +10,26 @@ import java.util.List;
 
 public class ConsoleLottoApp {
     public static void main(final String[] args) {
+        final LottoMachine machine = prepareLottoMachine(1000);
+
         final Money payment = InputView.inputPayment();
-        LottoNumberGenerator generator = createGenerator();
-        final LottoMachine machine = new LottoMachine(new Money(1000), generator);
         final List<Lotto> lotteries = machine.buy(payment);
+
         final LottoReceiptPresentationModel model = new LottoReceiptPresentationModel(lotteries);
         ResultView.print(model);
-//
-//        InputView.inputWinningNumber();
+
+        final Lotto winLotto = InputView.inputWinLotto();
+        
 //        ResultView.printStats();
     }
 
+    private static LottoMachine prepareLottoMachine(int listPrice) {
+        final LottoNumberGenerator generator = createGenerator();
+        return new LottoMachine(new Money(listPrice), generator);
+    }
+
     private static LottoNumberGenerator createGenerator() {
-        Shuffler shuffler = new DefaultShuffler();
+        final Shuffler shuffler = new DefaultShuffler();
         return new DefaultLottoNumberGenerator(shuffler);
     }
 }
