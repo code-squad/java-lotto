@@ -13,8 +13,11 @@ public class ConsoleMain {
         LottoGame lottoGame = new LottoGame(money);
         ResultView.printLotto(lottoGame);
 
-        List<Integer> winningNumber = InputView.getLucyNumbers();
-        GameResult result = lottoGame.play(winningNumber);
+        List<Integer> winningNumbers = InputView.getLucyNumbers();
+
+        int bonusNumber = InputView.getBonusNumber();
+
+        GameResult result = lottoGame.play(winningNumbers, bonusNumber);
         ResultView.statistic(result, money);
     }
 }

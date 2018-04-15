@@ -4,29 +4,25 @@ import java.util.*;
 
 public class GameResult {
 
-    private Map<Integer, Integer> winningLottos;
+    private Map<Rank, Integer> winningLottos;
 
     GameResult() {
         winningLottos = new HashMap<>();
-        winningLottos.put(ResultView.THREE_MATCH, 0);
-        winningLottos.put(ResultView.FOUR_MATCH, 0);
-        winningLottos.put(ResultView.FIVE_MATCH, 0);
-        winningLottos.put(ResultView.SIX_MATCH, 0);
+        winningLottos.put(Rank.FIRST, 0);
+        winningLottos.put(Rank.SECOND, 0);
+        winningLottos.put(Rank.THIRD, 0);
+        winningLottos.put(Rank.FOURTH, 0);
+        winningLottos.put(Rank.FIFTH, 0);
+        winningLottos.put(Rank.MISS, 0);
     }
 
-    void accumulateWinLottoCount(int matchNumber) {
-        if (isWinningNumber(matchNumber)) {
-            int count = winningLottos.get(matchNumber);
-            winningLottos.put(matchNumber, ++count);
-        }
+    void accumulateWinLotto(Rank rank) {
+        int count = winningLottos.get(rank);
+        winningLottos.put(rank, ++count);
     }
 
-    private boolean isWinningNumber(int matchNumber) {
-        return matchNumber >= ResultView.THREE_MATCH
-                && matchNumber <= ResultView.SIX_MATCH;
+    int getRankCount(Rank rank) {
+        return winningLottos.get(rank);
     }
 
-    int getWinningCount(int matchNumber) {
-        return this.winningLottos.get(matchNumber);
-    }
 }

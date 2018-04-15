@@ -1,42 +1,53 @@
 package lotto;
 
+import lotto.vo.BonusNumber;
+import lotto.vo.LottoNumber;
+
 import java.util.List;
 import java.util.Objects;
 
 public class Lotto {
-    private List<Integer> numbers;
+    private LottoNumber lottoNumber;
 
-    Lotto(List<Integer> numbers) {
-        this.numbers = numbers;
+    private Lotto(LottoNumber lottoNumber) {
+        this.lottoNumber = lottoNumber;
     }
 
-    List<Integer> getNumbers() {
-        return this.numbers;
+    static Lotto of() {
+        return new Lotto(LottoNumber.of());
     }
 
-    int matcherNumber(Lotto winningLotto) {
-        int matchCount = 0;
-        for (Integer number : this.numbers) {
-            if (isContains(winningLotto, number))
-                matchCount++;
-        }
-        return matchCount;
+    static Lotto of(LottoNumber lottoNumber) {
+        return new Lotto(lottoNumber);
     }
 
-    private boolean isContains(Lotto winningLotto, Integer number) {
-        return winningLotto.getNumbers().contains(number);
+    static Lotto of(List<Integer> numbers) {
+        return new Lotto(LottoNumber.of(numbers));
+    }
+
+    int matchCount(Lotto winLotto) {
+        return lottoNumber.matchCount(winLotto.lottoNumber);
+    }
+
+    boolean matchBonus(BonusNumber bonusNumber) {
+        return lottoNumber.matchBonus(bonusNumber);
+    }
+
+    @Override
+    public String toString() {
+        return this.lottoNumber.toString();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Lotto lotto = (Lotto) o;
-        return Objects.equals(numbers, lotto.numbers);
+        Lotto that = (Lotto) o;
+        return lottoNumber.equals(that.lottoNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(numbers);
+        return Objects.hash(lottoNumber);
     }
 }

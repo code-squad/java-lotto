@@ -2,33 +2,33 @@ package lotto;
 
 import static org.assertj.core.api.Assertions.*;
 
+import lotto.vo.LottoNumber;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+@SuppressWarnings("NonAsciiCharacters")
 public class LottoTest {
-    @SuppressWarnings("NonAsciiCharacters")
-    @Test
-    public void new_lotto_6개의_숫자_리스트_보유() {
-        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
-        assertThat(lotto.getNumbers()).hasSize(6).contains(1, 2, 3, 4, 5, 6);
+    private Lotto lotto;
+
+    @Before
+    public void setUp() {
+        LottoNumber lottoNumber = LottoNumber.of(Stream.of(1, 2, 3, 4, 5, 6).collect(Collectors.toSet()));
+        lotto = Lotto.of(lottoNumber);
     }
 
-    @SuppressWarnings("NonAsciiCharacters")
     @Test
-    public void 당첨갯수_3개() {
-        Lotto winningLotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
-        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 11, 12, 13));
-
-        assertThat(lotto.matcherNumber(winningLotto)).isEqualTo(3);
+    public void 기본_로또_생성_랜덤_6자리_숫자() {
+        Lotto lotto = Lotto.of();
+        assertThat(lotto.toString().split(", ")).hasSize(6);
     }
 
-    @SuppressWarnings("NonAsciiCharacters")
     @Test
-    public void 당첨갯수_6개() {
-        Lotto winningLotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
-        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
-
-        assertThat(lotto.matcherNumber(winningLotto)).isEqualTo(6);
+    public void 로또_생성_지정_6자리_숫자() {
+        LottoNumber lottoNumber2 = LottoNumber.of(Stream.of(1, 2, 3, 4, 5, 6).collect(Collectors.toSet()));
+        Lotto lotto2 = Lotto.of(lottoNumber2);
+        assertThat(lotto).isEqualTo(lotto2);
     }
 }

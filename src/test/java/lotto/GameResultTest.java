@@ -9,21 +9,21 @@ public class GameResultTest {
     @SuppressWarnings("NonAsciiCharacters")
     @Test
     public void 게임결과_생성_5등_한명() {
-        GameResult gameResult = new GameResult();
-        gameResult.accumulateWinLottoCount(3);
-        assertThat(gameResult.getWinningCount(3)).isEqualTo(1);
+        GameResult result = new GameResult();
+        result.accumulateWinLotto(Rank.FIFTH);
+        assertThat(result.getRankCount(Rank.FIFTH)).isEqualTo(1);
     }
 
     @SuppressWarnings("NonAsciiCharacters")
     @Test
     public void 게임결과_생성_3등_2명_1등_1명() {
-        GameResult gameResult = new GameResult();
+        GameResult result = new GameResult();
 
-        gameResult.accumulateWinLottoCount(3);
-        gameResult.accumulateWinLottoCount(3);
-        gameResult.accumulateWinLottoCount(6);
+        result.accumulateWinLotto(Rank.THIRD);
+        result.accumulateWinLotto(Rank.THIRD);
+        result.accumulateWinLotto(Rank.FIRST);
 
-        assertThat(gameResult.getWinningCount(3)).isEqualTo(2);
-        assertThat(gameResult.getWinningCount(6)).isEqualTo(1);
+        assertThat(result.getRankCount(Rank.THIRD)).isEqualTo(2);
+        assertThat(result.getRankCount(Rank.FIRST)).isEqualTo(1);
     }
 }

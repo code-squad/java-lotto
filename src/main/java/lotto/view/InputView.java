@@ -22,6 +22,11 @@ public class InputView {
         return luckyNumbers;
     }
 
+    public static int getBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return getNextInt();
+    }
+
     private static int getNextInt() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
