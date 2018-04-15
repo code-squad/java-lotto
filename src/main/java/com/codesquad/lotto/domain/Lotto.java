@@ -51,7 +51,11 @@ public class Lotto {
 
     public long getMatchedCount(final Lotto winLotto) {
         return numbers.stream()
-                .filter(winLotto.numbers::contains)
+                .filter(winLotto::contains)
                 .count();
+    }
+
+    public boolean contains(Integer number) {
+        return numbers.contains(number);
     }
 }

@@ -79,5 +79,50 @@ public class LottoTest {
         assertThat(count).isEqualTo(6);
     }
 
+    @Test
+    public void 일치하는숫자개수_0() {
+        final Lotto winNumber = new Lotto(Arrays.asList(3, 4, 5, 6, 7, 8));
+        final long count = lotto.getMatchedCount(winNumber);
+        assertThat(count).isEqualTo(0);
+    }
 
+    @Test
+    public void 포함확인_1() {
+        assertThat(lotto.contains(1)).isTrue();
+    }
+
+    @Test
+    public void 포함확인_10() {
+        assertThat(lotto.contains(1)).isTrue();
+    }
+
+    @Test
+    public void 포함확인_40() {
+        assertThat(lotto.contains(1)).isTrue();
+    }
+
+    @Test
+    public void 포함확인_33() {
+        assertThat(lotto.contains(1)).isTrue();
+    }
+
+    @Test
+    public void 포함확인_17() {
+        assertThat(lotto.contains(1)).isTrue();
+    }
+
+    @Test
+    public void 포함확인_45() {
+        assertThat(lotto.contains(1)).isTrue();
+    }
+
+    @Test
+    public void 미포함확인_2() {
+        assertThat(lotto.contains(2)).isFalse();
+    }
+
+    @Test
+    public void 미포함확인_45() {
+        assertThat(lotto.contains(44)).isFalse();
+    }
 }
