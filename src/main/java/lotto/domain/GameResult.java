@@ -1,16 +1,18 @@
-package lotto;
+package lotto.domain;
+
+import java.util.Map;
 
 public class GameResult {
-    private int[] matchCount;
+    private Map<Rank, Integer> matchCount;
     private double rateOfInvestment;
 
-    public GameResult(int[] matchCount, double rateOfInvestment) {
+    public GameResult(Map<Rank, Integer> matchCount, double rateOfInvestment) {
         this.matchCount = matchCount;
         this.rateOfInvestment = rateOfInvestment;
     }
 
-    public int getMatchCount(int position) {
-        return matchCount[position];
+    public int getMatchCount(Rank rank) {
+        return matchCount.get(rank);
     }
 
     public double getRateOfInvestment() {

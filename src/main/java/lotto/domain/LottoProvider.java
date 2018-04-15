@@ -1,25 +1,24 @@
-package lotto;
+package lotto.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyLotto {
-    private List<LottoNumbers> lottos;
+public class LottoProvider {
+    private List<Lotto> lottos;
 
-    public MyLotto() {
-        lottos = new ArrayList<LottoNumbers>();
+    public LottoProvider() {
+        lottos = new ArrayList<Lotto>();
     }
 
-    public List<LottoNumbers> purchaseLottos(long money) {
+    public List<Lotto> purchaseLottos(long money) {
         int countOfLotto = (int) money / LottoMachine.LOTTO_PRICE;
-        System.out.println(countOfLotto);
         for (int index = 0; index < countOfLotto; index++) {
             lottos.add(LottoMachine.getLottoNumber());
         }
         return lottos;
     }
 
-    public List<LottoNumbers> getLottos() {
+    public List<Lotto> getPurchasedLottos() {
         return lottos;
     }
 }

@@ -1,19 +1,20 @@
-package lotto;
+package lotto.view;
+
+import lotto.domain.GameResult;
+import lotto.domain.Lotto;
+import lotto.domain.Rank;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ResultView {
-    public static void printCountOfLotto(long money) {
-        System.out.println((money / LottoMachine.LOTTO_PRICE) + "개를 구매했습니다.");
-    }
-
-    public static void printPurchasedLotto(List<LottoNumbers> lottos) {
+    public static void printPurchasedLotto(List<Lotto> lottos) {
         StringBuilder sb = new StringBuilder();
 
-        for (LottoNumbers lotto : lottos) {
+        for (Lotto lotto : lottos) {
             List<Integer> purchasedLotto = new ArrayList<Integer>(lotto.getNumbers());
                   sb.append("[")
                     .append(purchasedLotto.stream().map(Object::toString).collect(Collectors.joining(", ")))
@@ -22,14 +23,19 @@ public class ResultView {
         System.out.println(sb.toString());
     }
 
-    public static void printWinLotto(GameResult gameResult) {
+    public static void printWinLotto2(GameResult gameResult) {
         StringBuilder sb = new StringBuilder();
         System.out.println("당첨 통계");
         System.out.println("----------");
 
-        for (int i = LottoMachine.MIN_COUNT_WIN_LOTTO; i <= LottoMachine.COUNT_OF_SELECT_LOTTO; i++) {
-            System.out.printf("%d개 일치 (%d원)- %d개\n", i, LottoMachine.winPrice.get(i), gameResult.getMatchCount(i));
-        }
+        Arrays.stream(Rank.values())
+              .sorted(Comparator.comparing(Rank::getMoney))
+              .forEach(rank -> {
+                  if (rank != Rank.NONE) {
+                      System.out.printf("%d개 일치 (%d원)- %d개\n", rank.getCountOfMatch(), rank.getMoney(), gameResult.getMatchCount(rank));
+                  }
+              });
+        printRateOfInvestment(gameResult.getRateOfInvestment());
     }
 
     public static void printRateOfInvestment(double rateOfInvestment) {
