@@ -3,14 +3,14 @@ package com.codesquad.lotto.domain;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LottoNumber {
+public class Lotto {
     public static final int NUMBER_SIZE = 6;
     public static final int MIN_NUMBER = 1;
     public static final int MAX_NUMBER = 45;
 
     private final List<Integer> numbers;
 
-    public LottoNumber(final List<Integer> numbers) {
+    public Lotto(final List<Integer> numbers) {
 
         if (numbers == null) {
             throw new IllegalArgumentException("6자리 숫자목록이 필요합니다.");
@@ -49,10 +49,9 @@ public class LottoNumber {
         return this.numbers;
     }
 
-    public long getMatchedCount(final LottoNumber winNumber) {
-        final List<Integer> winNumbers = winNumber.getNumbers();
+    public long getMatchedCount(final Lotto winLotto) {
         return numbers.stream()
-                .filter(winNumbers::contains)
+                .filter(winLotto.numbers::contains)
                 .count();
     }
 }

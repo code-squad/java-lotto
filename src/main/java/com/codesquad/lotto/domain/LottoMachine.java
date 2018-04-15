@@ -7,14 +7,14 @@ import java.util.stream.IntStream;
 public class LottoMachine {
 
     private final Money listPrice;
-    private final LottoNumberGenerator generator;
+    private final LottoNumberGenerator numberGenerator;
 
-    public LottoMachine(final Money listPrice, final LottoNumberGenerator generator) {
+    public LottoMachine(final Money listPrice, final LottoNumberGenerator numberGenerator) {
         this.listPrice = listPrice;
-        this.generator = generator;
+        this.numberGenerator = numberGenerator;
     }
 
-    public List<LottoNumber> buy(final Money payment) {
+    public List<Lotto> buy(final Money payment) {
 
         final int quotient = calcQtyFromPayment(payment);
         return generateLotteries(quotient);
@@ -24,10 +24,10 @@ public class LottoMachine {
         return payment.divide(listPrice);
     }
 
-    private List<LottoNumber> generateLotteries(final int quotient) {
+    private List<Lotto> generateLotteries(final int quotient) {
         return IntStream.range(0, quotient)
-                .mapToObj(n -> generator.generate())
-                .map(LottoNumber::new)
+                .mapToObj(n -> numberGenerator.generate())
+                .map(Lotto::new)
                 .collect(Collectors.toList());
     }
 }

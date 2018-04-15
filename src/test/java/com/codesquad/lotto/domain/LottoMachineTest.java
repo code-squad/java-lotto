@@ -17,21 +17,21 @@ public class LottoMachineTest {
     @Test
     public void 구매_5000원() {
         final LottoMachine machine = new LottoMachine(new Money(1000), () -> Arrays.asList(1, 2, 3, 4, 5, 6));
-        final List<LottoNumber> lotteries = machine.buy(new Money(5000));
+        final List<Lotto> lotteries = machine.buy(new Money(5000));
         assertThat(lotteries.size()).isEqualTo(5);
     }
 
     @Test
     public void 구매_3000원() {
         final LottoMachine machine = new LottoMachine(new Money(1500), () -> Arrays.asList(1, 2, 3, 4, 5, 6));
-        final List<LottoNumber> lotteries = machine.buy(new Money(3000));
+        final List<Lotto> lotteries = machine.buy(new Money(3000));
         assertThat(lotteries.size()).isEqualTo(2);
     }
 
     @Test
     public void 잔돈무시() {
         final LottoMachine machine = new LottoMachine(new Money(1200), () -> Arrays.asList(1, 2, 3, 4, 5, 6));
-        final List<LottoNumber> lotteries = machine.buy(new Money(3000));
+        final List<Lotto> lotteries = machine.buy(new Money(3000));
         assertThat(lotteries.size()).isEqualTo(2);
     }
 }

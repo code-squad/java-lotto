@@ -9,7 +9,7 @@ public class DefaultLottoNumberGenerator implements LottoNumberGenerator {
     private final List<Integer> numbers;
 
     public DefaultLottoNumberGenerator(final Shuffler shuffler) {
-        this.numbers = IntStream.rangeClosed(LottoNumber.MIN_NUMBER, LottoNumber.MAX_NUMBER)
+        this.numbers = IntStream.rangeClosed(Lotto.MIN_NUMBER, Lotto.MAX_NUMBER)
                 .boxed()
                 .collect(Collectors.toList());
         this.shuffler = shuffler;
@@ -19,7 +19,7 @@ public class DefaultLottoNumberGenerator implements LottoNumberGenerator {
     public List<Integer> generate() {
         shuffler.shuffle(numbers);
         return numbers.stream()
-                .limit(LottoNumber.NUMBER_SIZE)
+                .limit(Lotto.NUMBER_SIZE)
                 .collect(Collectors.toList());
     }
 }
