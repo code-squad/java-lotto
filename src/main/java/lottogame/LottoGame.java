@@ -1,4 +1,4 @@
-package LottoGame;
+package lottogame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +17,12 @@ public class LottoGame {
 
     public void createAutoLotto(int autoLottoCount) {
         for (int i = 0; i < autoLottoCount; i++) {
-            lottos.add(new Lotto());
+            lottos.add(LottoFactory.createAutoLotto());
         }
     }
 
     public void createManualLotto(String text) {
-        lottos.add(new Lotto(text));
+        lottos.add(LottoFactory.createManualLotto(text));
     }
 
     public List<Result> getRankResults(WinningLotto winningLotto) {

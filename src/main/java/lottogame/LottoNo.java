@@ -1,4 +1,4 @@
-package LottoGame;
+package lottogame;
 
 import java.util.Objects;
 

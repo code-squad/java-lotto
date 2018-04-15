@@ -1,4 +1,4 @@
-package LottoGameUtil;
+package lottogame.util;
 
 public class MyStringUtils {
     public static String[] split(String text) {

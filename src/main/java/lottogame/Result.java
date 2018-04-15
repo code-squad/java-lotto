@@ -1,4 +1,4 @@
-package LottoGame;
+package lottogame;
 
 /**
  * Created by hongjong-wan on 2018. 4. 8..

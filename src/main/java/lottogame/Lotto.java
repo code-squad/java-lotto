@@ -1,9 +1,9 @@
-package LottoGame;
+package lottogame;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LottoNos {
+public class Lotto {
 
     private List<LottoNo> lottoNos = new ArrayList<>();
 
@@ -21,15 +21,19 @@ public class LottoNos {
         return false;
     }
 
-    public int getMatchCount(LottoNos winningLottoNos) {
-        List<LottoNo> winningLottoNoList = winningLottoNos.getLottoNos();
+    public int getMatchCount(Lotto winningLotto) {
         int matchCount = 0;
         for (LottoNo lottoNo : lottoNos) {
-            if (winningLottoNoList.contains(lottoNo)) {
+            if (winningLotto.contains(lottoNo)) {
                 matchCount++;
             }
         }
         return matchCount;
+    }
+
+    private boolean contains(LottoNo lottoNo) {
+        if (lottoNos.contains(lottoNo)) return true;
+        return false;
     }
 
     public boolean matchBonus(LottoNo bonusNumber) {

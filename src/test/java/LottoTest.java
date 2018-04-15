@@ -1,6 +1,6 @@
-import LottoGame.Lotto;
-import LottoGame.LottoNo;
-import LottoGame.LottoNos;
+import lottogame.Lotto;
+import lottogame.LottoFactory;
+import lottogame.LottoNo;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -16,10 +16,10 @@ public class LottoTest {
 
     @Test
     public void 로또6개번호선택() {
-        LottoNos lottoNos = new LottoNos();
+        Lotto lotto = new Lotto();
         for (int i = 1; i <= 45; i++) {
-            lottoNos.add(new LottoNo(i));
+            lotto.add(new LottoNo(i));
         }
-        assertEquals(6, Lotto.chooseSixNumber(lottoNos).getSize());
+        assertEquals(6, LottoFactory.chooseSixNumber(lotto).getSize());
     }
 }

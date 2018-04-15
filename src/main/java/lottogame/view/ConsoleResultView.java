@@ -1,8 +1,8 @@
-package LottoGame.view;
+package lottogame.view;
 
-import LottoGame.Lotto;
-import LottoGame.Lottos;
-import LottoGame.Result;
+import lottogame.Lotto;
+import lottogame.Lottos;
+import lottogame.Result;
 
 import java.util.List;
 
