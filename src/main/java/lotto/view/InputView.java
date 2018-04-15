@@ -1,15 +1,21 @@
 package lotto.view;
 
+import com.google.common.collect.Lists;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class InputView {
 
     private static final String PURCHASE_AMOUNT_FORMAT = "구입금액을 입력해 주세요.";
     private static final String LAST_PRIZE_OF_NUMBER_FORMAT = "지난 주 당첨 번호를 입력해 주세요.";
     private static final String BONUS_BALL_FORMAT = "보너스 볼을 입력해 주세요.";
+    private static final String MANUAL_PURCHASE_COUNT_FORMAT = "\n수동으로 구매할 로또 수를 입력해 주세요.";
+    private static final String MANUAL_PURCHASE_NUMBER_FORMAT = "\n수동으로 구매할 번호를 입력해 주세요.";
 
     public static int initPurchasePrice() {
         println(PURCHASE_AMOUNT_FORMAT);
@@ -32,5 +38,20 @@ public class InputView {
     public static int initBonusNumber() {
         System.out.println(BONUS_BALL_FORMAT);
         return new Scanner(System.in).nextInt();
+    }
+
+    public static int initManualPurchaseCount() {
+        System.out.println(MANUAL_PURCHASE_COUNT_FORMAT);
+        return new Scanner(System.in).nextInt();
+    }
+
+    public static List<String> initManualPurchaseOfNumber(int manualPurchaseCount) {
+        System.out.println(MANUAL_PURCHASE_NUMBER_FORMAT);
+        List<String> purchaseOfNumbers = Lists.newArrayList();
+
+        IntStream.range(0, manualPurchaseCount)
+                .forEach(i -> purchaseOfNumbers.add(new Scanner(System.in).nextLine()));
+
+        return purchaseOfNumbers;
     }
 }
