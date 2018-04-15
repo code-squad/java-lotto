@@ -13,7 +13,7 @@ public class Money {
     }
 
     public static int calculateProfitRate(final Money winMoney, final Money payment) {
-        return (int) ((winMoney.value - payment.value) / payment.value * 100);
+        return (int) ((double) (winMoney.value - payment.value) / payment.value * 100);
     }
 
     public int getValue() {

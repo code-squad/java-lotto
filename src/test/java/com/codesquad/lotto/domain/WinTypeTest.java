@@ -56,4 +56,18 @@ public class WinTypeTest {
         final Money prize = WinType.FOUR.calculatePrize(2);
         assertThat(prize).isEqualTo(new Money(100000));
     }
+
+    @Test
+    public void 당첨_참() {
+        final WinType type = WinType.SIX;
+        final boolean isWin = type.isWin();
+        assertThat(isWin).isTrue();
+    }
+
+    @Test
+    public void 당첨_거짓() {
+        final WinType type = WinType.OUT;
+        final boolean isWin = type.isWin();
+        assertThat(isWin).isFalse();
+    }
 }

@@ -18,28 +18,28 @@ public class LottoStats {
 
         initializeMap();
 
-        payment = LottoMachine.LIST_PRICE.multiply(lotteries.size());
+        payment = calculatePayment(lotteries.size());
 
         lotteries.stream()
                 .map(lotto -> lotto.matchedCount(winLotto))
                 .map(WinType::valueOf)
-                .filter(type -> isWin(type))
+                .filter(WinType::isWin)
                 .forEach(this::increaseCount);
     }
 
     private void initializeMap() {
         Arrays.stream(WinType.values())
-                .filter(type -> isWin(type))
+                .filter(WinType::isWin)
                 .forEach(type -> accumulatedCountMap.put(type, 0));
+    }
+
+    private Money calculatePayment(final int purchasedCount) {
+        return LottoMachine.LIST_PRICE.multiply(purchasedCount);
     }
 
     private void increaseCount(final WinType winType) {
         final Integer count = accumulatedCountMap.get(winType);
         accumulatedCountMap.put(winType, count + 1);
-    }
-
-    private boolean isWin(final WinType winType) {
-        return !winType.equals(WinType.OUT);
     }
 
     public int getWiningCount(final WinType type) {

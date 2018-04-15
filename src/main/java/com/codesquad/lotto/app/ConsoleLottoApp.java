@@ -4,6 +4,7 @@ import com.codesquad.lotto.domain.*;
 import com.codesquad.lotto.infrastructure.DefaultShuffler;
 import com.codesquad.lotto.view.InputView;
 import com.codesquad.lotto.view.LottoReceiptPresentationModel;
+import com.codesquad.lotto.view.LottoStatsPresentationModel;
 import com.codesquad.lotto.view.ResultView;
 
 import java.util.List;
@@ -15,12 +16,15 @@ public class ConsoleLottoApp {
         final Money payment = InputView.inputPayment();
         final List<Lotto> lotteries = machine.buy(payment);
 
-        final LottoReceiptPresentationModel model = new LottoReceiptPresentationModel(lotteries);
-        ResultView.print(model);
+        final LottoReceiptPresentationModel receiptModel = new LottoReceiptPresentationModel(lotteries);
+        ResultView.print(receiptModel);
+        
+        System.out.println();
 
         final Lotto winLotto = InputView.inputWinLotto();
-
-//        ResultView.printStats();
+        final LottoStats stats = new LottoStats(lotteries, winLotto);
+        final LottoStatsPresentationModel statsModel = new LottoStatsPresentationModel(stats);
+        ResultView.print(statsModel);
     }
 
     private static LottoMachine prepareLottoMachine() {

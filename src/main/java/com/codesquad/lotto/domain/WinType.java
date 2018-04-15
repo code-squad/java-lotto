@@ -44,4 +44,8 @@ public enum WinType {
     public Money calculatePrize(final int count) {
         return new Money(prizePrice * count);
     }
+
+    public boolean isWin() {
+        return this != WinType.OUT;
+    }
 }

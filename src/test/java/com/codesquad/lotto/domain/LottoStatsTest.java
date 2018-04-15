@@ -105,7 +105,7 @@ public class LottoStatsTest {
     }
 
     @Test
-    public void 번호3개일치_1개_수익율_() {
+    public void 번호3개일치_1개_수익율_0() {
         final List<Lotto> lotteries = Arrays.asList(
                 Lotto.of(1, 2, 3, 4, 5, 6),
                 Lotto.of(20, 21, 22, 23, 24, 25),
