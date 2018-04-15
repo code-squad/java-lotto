@@ -9,7 +9,12 @@ import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DefaultLottoGeneratorTest {
+public class DefaultLottoNumberGeneratorTest {
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 셔플_Null() {
+        new DefaultLottoNumberGenerator(null);
+    }
 
     @Test
     public void 번호생성_2to7() {

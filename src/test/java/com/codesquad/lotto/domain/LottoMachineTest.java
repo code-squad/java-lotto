@@ -14,6 +14,22 @@ public class LottoMachineTest {
         new LottoMachine(new Money(1000), () -> Arrays.asList(1, 2, 3, 4, 5, 6));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void 단가_Null() {
+        new LottoMachine(null, () -> Arrays.asList(1, 2, 3, 4, 5, 6));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 번호생성기_Null() {
+        new LottoMachine(new Money(1000), null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 구매금액_Null() {
+        final LottoMachine machine = new LottoMachine(new Money(1000), () -> Arrays.asList(1, 2, 3, 4, 5, 6));
+        machine.buy(null);
+    }
+
     @Test
     public void 구매_5000원() {
         final LottoMachine machine = new LottoMachine(new Money(1000), () -> Arrays.asList(1, 2, 3, 4, 5, 6));

@@ -55,7 +55,12 @@ public class Lotto {
                 .count();
     }
 
-    public boolean contains(Integer number) {
+    public boolean contains(final Integer number) {
         return numbers.contains(number);
+    }
+
+    @Override
+    public String toString() {
+        return numbers.toString();
     }
 }

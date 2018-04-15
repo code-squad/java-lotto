@@ -125,4 +125,9 @@ public class LottoTest {
     public void 미포함확인_45() {
         assertThat(lotto.contains(44)).isFalse();
     }
+
+    @Test
+    public void toString테스트() {
+        assertThat(lotto.toString()).isEqualTo("[1, 10, 17, 33, 40, 45]");
+    }
 }

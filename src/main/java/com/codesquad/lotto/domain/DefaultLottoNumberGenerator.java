@@ -9,6 +9,10 @@ public class DefaultLottoNumberGenerator implements LottoNumberGenerator {
     private final List<Integer> numbers;
 
     public DefaultLottoNumberGenerator(final Shuffler shuffler) {
+        if (shuffler == null) {
+            throw new IllegalArgumentException("셔플이 필요합니다.");
+        }
+
         this.numbers = IntStream.rangeClosed(Lotto.MIN_NUMBER, Lotto.MAX_NUMBER)
                 .boxed()
                 .collect(Collectors.toList());
