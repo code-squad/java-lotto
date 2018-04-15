@@ -1,19 +1,13 @@
 package javaLotto.domain;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
     private List<LottoTicket> lottos;
 
-    public Lotto(List<LottoTicket> lottos)throws Exception {
+    public Lotto(List<LottoTicket> lottos){
         this.lottos = lottos;
-    }
-
-    public void printLottos() {
-        for (LottoTicket lotto : lottos){
-            System.out.println(lotto.getLottoTicket());
-        }
     }
 
     public void printLottoSize() {
@@ -21,7 +15,7 @@ public class Lotto {
     }
 
     public  List<LottoTicket> getLottos() {
-        return lottos;
+        return Collections.unmodifiableList(lottos);
     }
     public int getSize(){
         return lottos.size();

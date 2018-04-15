@@ -3,21 +3,25 @@ package javaLotto.view;
 import java.util.Scanner;
 
 public class InputView {
+    static Scanner scanner = new Scanner(System.in);
     public static String setPrice(){
         System.out.println("구입금액을 입력해 주세요.");
-        Scanner scanner = new Scanner(System.in);
-        return checkPrice(scanner.nextLine());
+        return checkNull(scanner.nextLine());
     }
 
     public static String setWinningNumber(){
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+        return checkNull(scanner.nextLine());
     }
 
-    private static String checkPrice(String inputPrice) {
+    public static String setBonusNumber(){
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return checkNull(scanner.nextLine());
+    }
+
+    private static String checkNull(String inputPrice) {
         if(inputPrice == null || inputPrice.isEmpty()){
-            throw new IllegalArgumentException("exception");
+            throw new IllegalArgumentException();
         }
         return inputPrice;
     }
