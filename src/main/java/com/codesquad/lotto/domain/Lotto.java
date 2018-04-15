@@ -49,6 +49,13 @@ public class Lotto {
                 .collect(Collectors.toList()));
     }
 
+    public static Lotto of(final int... numbers) {
+        return new Lotto(Arrays.stream(numbers)
+                .boxed()
+                .collect(Collectors.toList()));
+    }
+
+
     private boolean isIncludeGreaterThanMax(final List<Integer> numbers) {
         return numbers.stream().anyMatch(num -> num > MAX_NUMBER);
     }
@@ -65,8 +72,8 @@ public class Lotto {
         return this.numbers;
     }
 
-    public long getMatchedCount(final Lotto winLotto) {
-        return numbers.stream()
+    public int matchedCount(final Lotto winLotto) {
+        return (int) numbers.stream()
                 .filter(winLotto::contains)
                 .count();
     }

@@ -89,24 +89,50 @@ public class LottoTest {
         assertThat(numbers).contains(20, 21, 22, 23, 24, 25);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void 콤마로_숫자부족() {
+        Lotto.fromComma("20, 21, 22, 23, 24");
+    }
+
+    @Test
+    public void 숫자나열로_생성() {
+        final Lotto lotto = Lotto.of(1, 2, 3, 4, 5, 6);
+        final List<Integer> numbers = lotto.getNumbers();
+        assertThat(numbers).contains(1, 2, 3, 4, 5, 6);
+    }
+
+    @Test
+    public void 숫자나열로_다른생성() {
+        final Lotto lotto = Lotto.of(11, 12, 13, 14, 15, 16);
+        final List<Integer> numbers = lotto.getNumbers();
+        assertThat(numbers).contains(11, 12, 13, 14, 15, 16);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 숫자나열로_생성_숫자부족() {
+        final Lotto lotto = Lotto.of(11, 12, 13, 14, 15);
+        final List<Integer> numbers = lotto.getNumbers();
+        assertThat(numbers).contains(11, 12, 13, 14, 15);
+    }
+
     @Test
     public void 일치하는숫자개수_3() {
         final Lotto winNumber = new Lotto(Arrays.asList(1, 20, 5, 45, 17, 45));
-        final long count = lotto.getMatchedCount(winNumber);
+        final int count = lotto.matchedCount(winNumber);
         assertThat(count).isEqualTo(3);
     }
 
     @Test
     public void 일치하는숫자개수_6() {
         final Lotto winNumber = new Lotto(Arrays.asList(17, 45, 1, 10, 40, 33));
-        final long count = lotto.getMatchedCount(winNumber);
+        final int count = lotto.matchedCount(winNumber);
         assertThat(count).isEqualTo(6);
     }
 
     @Test
     public void 일치하는숫자개수_0() {
         final Lotto winNumber = new Lotto(Arrays.asList(3, 4, 5, 6, 7, 8));
-        final long count = lotto.getMatchedCount(winNumber);
+        final int count = lotto.matchedCount(winNumber);
         assertThat(count).isEqualTo(0);
     }
 
