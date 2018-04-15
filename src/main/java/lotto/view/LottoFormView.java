@@ -2,18 +2,24 @@ package lotto.view;
 
 import java.util.Scanner;
 
+import lotto.model.Lotto;
+import lotto.model.LottoNumber;
+import lotto.model.Money;
 import lotto.model.WinningLotto;
 
 public class LottoFormView {
-    public static int inputMoney(Scanner scanner) {
+    public static Money inputMoney(Scanner scanner) {
         System.out.println("구입금액을 입력해 주세요.");
         int money = Integer.parseInt(scanner.nextLine());
-        return money;
+        return new Money(money);
     }
     
     public static WinningLotto inputWinningLotto(Scanner scanner) {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String winningLotto = scanner.nextLine();
-        return new WinningLotto(winningLotto);
+
+        System.out.println("보너스 번호를 입력해 주세요.");
+        int bonus = Integer.parseInt(scanner.nextLine());
+        return new WinningLotto(Lotto.ofComma(winningLotto), LottoNumber.of(bonus));
     }
 }

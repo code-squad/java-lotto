@@ -5,93 +5,44 @@ import java.util.Collections;
 import java.util.List;
 
 public class MatchingResults {
-    private List<MatchingResult> results = new ArrayList<>();
-    
-    private int countOfLotto;
+    private final List<MatchingResult> results = new ArrayList<>();
+    private final int countOfLotto;
 
     public MatchingResults(int countOfLotto) {
         this.countOfLotto = countOfLotto;
         
-        results.add(new MatchingResult(Match.MATCH3));
-        results.add(new MatchingResult(Match.MATCH4));
-        results.add(new MatchingResult(Match.MATCH5));
-        results.add(new MatchingResult(Match.MATCH6));
+        results.add(new MatchingResult(Rank.FIRST));
+        results.add(new MatchingResult(Rank.SECOND));
+        results.add(new MatchingResult(Rank.THIRD));
+        results.add(new MatchingResult(Rank.FOURTH));
+        results.add(new MatchingResult(Rank.FIFTH));
     }
 
-    public void add(Match match) {
-        if (match == null) {
+    public void add(Rank rank) {
+        if (rank == null || rank == Rank.MISS) {
             return;
         }
-        
-        // results.stream().filter(e -> e.supports(match)).findFirst().get().match();
-        
-        MatchingResult matchingResult = getMatchingResult(match);
-        
-        if (matchingResult != null) {
-        	matchingResult.match();
-        }
+
+        getMatchingResult(rank).match();
     }
 
-	private MatchingResult getMatchingResult(Match match) {
-		MatchingResult matchingResult = null;
-        for (MatchingResult e : results) {
-			if (e.supports(match)) {
-				matchingResult = e;
-			}
-		}
-		return matchingResult;
+	private MatchingResult getMatchingResult(Rank rank) {
+        return results.stream()
+                .filter(r -> r.supports(rank))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
 	}
 
     public double getProfit() {
-        int buyingMoney = countOfLotto * UserLotto.MONEY_PER_TICKET;
-        long winningMoney = 0;
-        
-        for (MatchingResult matchingResult : results) {
-            winningMoney += matchingResult.winningMoney();
+        Money winningMoney = new Money(0);
+        for (MatchingResult result : results) {
+            winningMoney = winningMoney.sum(result.prizePerRank());
         }
-        
-        System.out.println("Winning Money : " + winningMoney);
-        return (winningMoney * 100) / buyingMoney;
+
+        return Money.buyingMoney(countOfLotto).profitRate(winningMoney);
     }
     
     public List<MatchingResult> getResults() {
         return Collections.unmodifiableList(results);
     }
-    
-    public int getCountOfLotto() {
-        return countOfLotto;
-    }
-    
-    public int getCountOfMatch(Match match) {
-    	return getMatchingResult(match).getCountOfMatch();
-    }
-    
-    public static class MatchingResult {
-        private int countOfMatchingLotto = 0;
-        private Match match;
-
-        private MatchingResult(Match match) {
-            this.match = match;
-        }
-        
-        private boolean supports(Match match) {
-            return this.match == match;
-        }
-        
-        private void match() {
-            countOfMatchingLotto++;
-        }
-        
-        public int getCountOfMatchingLotto() {
-            return countOfMatchingLotto;
-        }
-        
-        public int getCountOfMatch() {
-            return match.getCountOfMatch();
-        }
-        
-        public long winningMoney() {
-            return match.winningMoney(countOfMatchingLotto);
-        }
-    }
-}
+ }

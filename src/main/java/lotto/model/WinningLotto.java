@@ -1,29 +1,21 @@
 package lotto.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 public class WinningLotto {
-    private List<Integer> lotto;
+    private Lotto lotto;
+    private LottoNumber bonus;
 
-    public WinningLotto(String lottoNo) {
-        String[] values = lottoNo.split(",");
-        List<Integer> lotto = new ArrayList<>();
-        for (String value : values) {
-            lotto.add(Integer.parseInt(value.trim()));
+    public WinningLotto(Lotto lotto, LottoNumber bonus) {
+        if (lotto.contains(bonus)) {
+            throw new IllegalArgumentException();
         }
-        Collections.sort(lotto);
+
         this.lotto = lotto;
+        this.bonus = bonus;
     }
-    
-    public Match countOfMatch(List<Integer> lotto) {
-        List<Integer> result = new ArrayList<>(lotto);
-        result.retainAll(this.lotto);
 
-        if (result.size() < 3) {
-            return null;
-        }
-        return Match.valueOf(result.size());
+    public Rank match(Lotto userLotto) {
+        int countOfMatch = lotto.match(userLotto);
+        boolean matchBonus = userLotto.contains(bonus);
+        return Rank.valueOf(countOfMatch, matchBonus);
     }
 }

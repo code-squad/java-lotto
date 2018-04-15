@@ -9,14 +9,14 @@ import lotto.model.WinningLotto;
 import lotto.view.LottoResultView;
 
 public class LottoGameTest {
-    @Test
-    public void start() {
-        WinningLotto winningLotto = new WinningLotto("5,15,20,31,34,42");
-        Lottos lottos = LottoGenerator.generateByMoney(100000000);
-        
-        MatchingResults result = lottos.match(winningLotto);
-
-        LottoResultView.show(result);
-    }
+//    @Test
+//    public void start() {
+//        WinningLotto winningLotto = new WinningLotto("5,15,20,31,34,42");
+//        Lottos lottos = LottoGenerator.generateByMoney(100000000);
+//
+//        MatchingResults result = lottos.match(winningLotto);
+//
+//        LottoResultView.show(result);
+//    }
 
 }

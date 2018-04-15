@@ -3,9 +3,9 @@ package lotto.model;
 import java.util.List;
 
 public class Lottos {
-    private List<UserLotto> lottos;
+    private List<Lotto> lottos;
 
-    public Lottos(List<UserLotto> lottos) {
+    public Lottos(List<Lotto> lottos) {
         this.lottos = lottos;
     }
 
@@ -15,8 +15,8 @@ public class Lottos {
 
     public MatchingResults match(WinningLotto winningLotto) {
         MatchingResults result = new MatchingResults(lottos.size());
-        for (UserLotto userLotto : lottos) {
-            result.add(userLotto.countOfMatch(winningLotto));
+        for (Lotto userLotto : lottos) {
+            result.add(winningLotto.match(userLotto));
         }
         return result;
     }

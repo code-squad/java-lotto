@@ -2,14 +2,29 @@ package lotto.model;
 
 import org.junit.Test;
 
-import lotto.model.WinningLotto;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class WinningLottoTest {
-
     @Test
-    public void create() {
-        WinningLotto lotto = new WinningLotto("1, 2, 3, 4, 5, 6");
-        System.out.println(lotto);
+    public void match_first() {
+        Lotto userLotto = Lotto.of(1, 2, 3, 4, 5, 6);
+        WinningLotto lotto = new WinningLotto(userLotto, LottoNumber.of(7));
+        assertThat(lotto.match(userLotto)).isEqualTo(Rank.FIRST);
     }
 
+    @Test
+    public void match_second() {
+        Lotto userLotto = Lotto.of(1, 2, 3, 4, 5, 7);
+        Lotto winningLotto = Lotto.of(1, 2, 3, 4, 5, 6);
+        WinningLotto lotto = new WinningLotto(winningLotto, LottoNumber.of(7));
+        assertThat(lotto.match(userLotto)).isEqualTo(Rank.SECOND);
+    }
+
+    @Test
+    public void match_miss() {
+        Lotto userLotto = Lotto.of(1, 2, 3, 4, 5, 7);
+        Lotto winningLotto = Lotto.of(1, 2, 8, 9, 10, 11);
+        WinningLotto lotto = new WinningLotto(winningLotto, LottoNumber.of(7));
+        assertThat(lotto.match(userLotto)).isEqualTo(Rank.MISS);
+    }
 }
