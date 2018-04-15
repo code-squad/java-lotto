@@ -1,12 +1,12 @@
 package com.codesquad.lotto.view;
 
-import com.codesquad.lotto.domain.Lotto;
 import com.codesquad.lotto.domain.LottoStats;
+import com.codesquad.lotto.domain.Money;
 import com.codesquad.lotto.domain.WinType;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,9 +14,8 @@ public class LottoStatsPresentationModelTest {
     @Test
     public void 번호3개일치_1개() {
         final LottoStatsPresentationModel model = new LottoStatsPresentationModel(
-                new LottoStats(Arrays.asList(
-                        Lotto.of(1, 2, 3, 4, 5, 6)
-                ), Lotto.of(1, 2, 3, 7, 8, 9)));
+                createStats(1, 0, 0, 0, 1000)
+        );
 
         final String msg = model.winCountMessage(WinType.THREE);
         assertThat(msg).isEqualTo("3개 일치 (5000원)- 1개");
@@ -25,10 +24,8 @@ public class LottoStatsPresentationModelTest {
     @Test
     public void 번호4개일치_2개() {
         final LottoStatsPresentationModel model = new LottoStatsPresentationModel(
-                new LottoStats(Arrays.asList(
-                        Lotto.of(1, 2, 3, 4, 5, 6),
-                        Lotto.of(5, 6, 7, 8, 9, 10)
-                ), Lotto.of(3, 4, 5, 6, 7, 8)));
+                createStats(0, 2, 0, 0, 2000)
+        );
 
         final String msg = model.winCountMessage(WinType.FOUR);
         assertThat(msg).isEqualTo("4개 일치 (50000원)- 2개");
@@ -37,13 +34,8 @@ public class LottoStatsPresentationModelTest {
     @Test
     public void 번호일치개수별_당첨수목록_1개씩() {
         final LottoStatsPresentationModel model = new LottoStatsPresentationModel(
-                new LottoStats(Arrays.asList(
-                        Lotto.of(1, 2, 3, 4, 5, 6),
-                        Lotto.of(2, 3, 4, 5, 6, 7),
-                        Lotto.of(3, 4, 5, 6, 7, 8),
-                        Lotto.of(4, 5, 6, 7, 8, 9),
-                        Lotto.of(5, 6, 7, 8, 9, 10)
-                ), Lotto.of(1, 2, 3, 4, 5, 6)));
+                createStats(1, 1, 1, 1, 5000)
+        );
 
         final String msg = model.winCountListMessage();
 
@@ -59,18 +51,8 @@ public class LottoStatsPresentationModelTest {
     @Test
     public void 번호일치개수별_당첨수목록_2개씩() {
         final LottoStatsPresentationModel model = new LottoStatsPresentationModel(
-                new LottoStats(Arrays.asList(
-                        Lotto.of(1, 2, 3, 4, 5, 6),
-                        Lotto.of(2, 3, 4, 5, 6, 7),
-                        Lotto.of(3, 4, 5, 6, 7, 8),
-                        Lotto.of(4, 5, 6, 7, 8, 9),
-                        Lotto.of(5, 6, 7, 8, 9, 10),
-                        Lotto.of(1, 2, 3, 4, 5, 6),
-                        Lotto.of(2, 3, 4, 5, 6, 7),
-                        Lotto.of(3, 4, 5, 6, 7, 8),
-                        Lotto.of(4, 5, 6, 7, 8, 9),
-                        Lotto.of(5, 6, 7, 8, 9, 10)
-                ), Lotto.of(1, 2, 3, 4, 5, 6)));
+                createStats(2, 2, 2, 2, 10000)
+        );
 
         final String msg = model.winCountListMessage();
 
@@ -85,12 +67,9 @@ public class LottoStatsPresentationModelTest {
 
     @Test
     public void 수익율400출력() {
-        final List<Lotto> lotteries = Arrays.asList(
-                Lotto.of(1, 2, 3, 4, 5, 6)
+        final LottoStatsPresentationModel model = new LottoStatsPresentationModel(
+                createStats(1, 0, 0, 0, 1000)
         );
-        final Lotto winLotto = Lotto.of(1, 2, 3, 10, 11, 12);
-        final LottoStats stats = new LottoStats(lotteries, winLotto);
-        final LottoStatsPresentationModel model = new LottoStatsPresentationModel(stats);
 
         final String msg = model.profitMessage();
 
@@ -99,19 +78,22 @@ public class LottoStatsPresentationModelTest {
 
     @Test
     public void 수익율900출력() {
-        final List<Lotto> lotteries = Arrays.asList(
-                Lotto.of(1, 2, 3, 4, 5, 6),
-                Lotto.of(10, 11, 12, 13, 14, 15),
-                Lotto.of(10, 11, 12, 13, 14, 15),
-                Lotto.of(10, 11, 12, 13, 14, 15),
-                Lotto.of(10, 11, 12, 13, 14, 15)
+        final LottoStatsPresentationModel model = new LottoStatsPresentationModel(
+                createStats(0, 1, 0, 0, 5000)
         );
-        final Lotto winLotto = Lotto.of(1, 2, 3, 4, 8, 9);
-        final LottoStats stats = new LottoStats(lotteries, winLotto);
-        final LottoStatsPresentationModel model = new LottoStatsPresentationModel(stats);
 
         final String msg = model.profitMessage();
 
         assertThat(msg).isEqualTo("총 수익률은 900%입니다.");
+    }
+
+    private LottoStats createStats(final int three, final int four, final int five, final int six, final int payment) {
+        final Map<WinType, Integer> map = new HashMap<>();
+        map.put(WinType.THREE, three);
+        map.put(WinType.FOUR, four);
+        map.put(WinType.FIVE, five);
+        map.put(WinType.SIX, six);
+
+        return new LottoStats(map, new Money(payment));
     }
 }

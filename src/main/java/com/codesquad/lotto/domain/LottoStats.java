@@ -1,45 +1,24 @@
 package com.codesquad.lotto.domain;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
 
 public class LottoStats {
 
     private final Money payment;
-    private final Map<WinType, Integer> accumulatedCountMap = new HashMap<>();
+    private final Map<WinType, Integer> accumulatedCountMap;
 
-    public LottoStats(final List<Lotto> lotteries, final Lotto winLotto) {
-        if (Objects.isNull(lotteries)) {
+    public LottoStats(final Map<WinType, Integer> accumulatedCountMap, final Money payment) {
+        if (Objects.isNull(accumulatedCountMap)) {
             throw new IllegalArgumentException();
         }
 
-        if (Objects.isNull(winLotto)) {
+        if (payment == null) {
             throw new IllegalArgumentException();
         }
 
-        initializeMap();
-
-        payment = calculatePayment(lotteries.size());
-
-        lotteries.stream()
-                .map(lotto -> lotto.matchedCount(winLotto))
-                .map(WinType::valueOf)
-                .filter(WinType::isWin)
-                .forEach(this::increaseCount);
-    }
-
-    private void initializeMap() {
-        Arrays.stream(WinType.values())
-                .filter(WinType::isWin)
-                .forEach(type -> accumulatedCountMap.put(type, 0));
-    }
-
-    private Money calculatePayment(final int purchasedCount) {
-        return LottoMachine.LIST_PRICE.multiply(purchasedCount);
-    }
-
-    private void increaseCount(final WinType winType) {
-        final Integer count = accumulatedCountMap.get(winType);
-        accumulatedCountMap.put(winType, count + 1);
+        this.accumulatedCountMap = accumulatedCountMap;
+        this.payment = payment;
     }
 
     public int getWiningCount(final WinType type) {
@@ -54,5 +33,24 @@ public class LottoStats {
         }
 
         return Money.calculateProfitRate(sum, payment);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final LottoStats stats = (LottoStats) o;
+        return Objects.equals(payment, stats.payment) &&
+                Objects.equals(accumulatedCountMap, stats.accumulatedCountMap);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(payment, accumulatedCountMap);
     }
 }

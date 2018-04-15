@@ -18,11 +18,13 @@ public class ConsoleLottoApp {
 
         final LottoReceiptPresentationModel receiptModel = new LottoReceiptPresentationModel(lotteries);
         ResultView.print(receiptModel);
-        
+
         System.out.println();
 
         final Lotto winLotto = InputView.inputWinLotto();
-        final LottoStats stats = new LottoStats(lotteries, winLotto);
+
+        LottoBundle bundle = new LottoBundle(lotteries);
+        final LottoStats stats = bundle.match(winLotto);
         final LottoStatsPresentationModel statsModel = new LottoStatsPresentationModel(stats);
         ResultView.print(statsModel);
     }
