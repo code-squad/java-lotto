@@ -11,7 +11,7 @@ public class Lotto {
 
     private final List<Integer> numbers;
 
-    public Lotto(final List<Integer> numbers) {
+    private Lotto(final List<Integer> numbers) {
 
         if (numbers == null) {
             throw new IllegalArgumentException("6자리 숫자목록이 필요합니다.");
@@ -32,6 +32,10 @@ public class Lotto {
         this.numbers = numbers.stream()
                 .sorted()
                 .collect(Collectors.toList());
+    }
+
+    public static Lotto fromList(final List<Integer> numbers) {
+        return new Lotto(numbers);
     }
 
     public static Lotto fromComma(final String numbers) {

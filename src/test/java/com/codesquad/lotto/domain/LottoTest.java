@@ -14,7 +14,7 @@ public class LottoTest {
 
     @Before
     public void setUp() throws Exception {
-        this.lotto = lotto = new Lotto(Arrays.asList(1, 10, 40, 33, 17, 45));
+        this.lotto = lotto = Lotto.fromList(Arrays.asList(1, 10, 40, 33, 17, 45));
     }
 
     @Test
@@ -25,7 +25,7 @@ public class LottoTest {
 
     @Test
     public void 다른숫자조회() {
-        final Lotto otherLotto = new Lotto(Arrays.asList(3, 11, 40, 32, 28, 1));
+        final Lotto otherLotto = Lotto.fromList(Arrays.asList(3, 11, 40, 32, 28, 1));
         final List<Integer> numbers = otherLotto.getNumbers();
         assertThat(numbers).contains(3, 11, 40, 32, 28, 1);
     }
@@ -39,30 +39,30 @@ public class LottoTest {
     @Test(expected = IllegalArgumentException.class)
     public void 숫자_개수_부족() {
         final List<Integer> notEnoughNumbers = Arrays.asList(1, 2, 3, 4, 5);
-        new Lotto(notEnoughNumbers);
+        Lotto.fromList(notEnoughNumbers);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 숫자_개수_많음() {
         final List<Integer> overFlowNumbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
-        new Lotto(overFlowNumbers);
+        Lotto.fromList(overFlowNumbers);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 최소값보다_작은숫자포함() {
         final List<Integer> includeLessNumbers = Arrays.asList(-5, -1, 2, 3, 4, 5);
-        new Lotto(includeLessNumbers);
+        Lotto.fromList(includeLessNumbers);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 최대값보다_큰숫자포함() {
         final List<Integer> includeGreatNumbers = Arrays.asList(42, 43, 44, 45, 46, 50);
-        new Lotto(includeGreatNumbers);
+        Lotto.fromList(includeGreatNumbers);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void Null생성() {
-        new Lotto(null);
+        Lotto.fromList(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -117,21 +117,21 @@ public class LottoTest {
 
     @Test
     public void 일치하는숫자개수_3() {
-        final Lotto winNumber = new Lotto(Arrays.asList(1, 20, 5, 45, 17, 45));
+        final Lotto winNumber = Lotto.fromList(Arrays.asList(1, 20, 5, 45, 17, 45));
         final int count = lotto.matchedCount(winNumber);
         assertThat(count).isEqualTo(3);
     }
 
     @Test
     public void 일치하는숫자개수_6() {
-        final Lotto winNumber = new Lotto(Arrays.asList(17, 45, 1, 10, 40, 33));
+        final Lotto winNumber = Lotto.fromList(Arrays.asList(17, 45, 1, 10, 40, 33));
         final int count = lotto.matchedCount(winNumber);
         assertThat(count).isEqualTo(6);
     }
 
     @Test
     public void 일치하는숫자개수_0() {
-        final Lotto winNumber = new Lotto(Arrays.asList(3, 4, 5, 6, 7, 8));
+        final Lotto winNumber = Lotto.fromList(Arrays.asList(3, 4, 5, 6, 7, 8));
         final int count = lotto.matchedCount(winNumber);
         assertThat(count).isEqualTo(0);
     }
