@@ -20,12 +20,12 @@ public class Lotto {
         for (Card card : getCards()){
             numMatchResults.add(card.numMatchLuckNumber(luckyCard));
         }
-        HashMap<Integer, Integer> countMap = toMap(numMatchResults);
+        Map<Integer, Integer> countMap = toMap(numMatchResults);
         return new LottoResult(countMap, calcBenefitRate(countMap));
     }
 
-    public HashMap<Integer, Integer> toMap(List<Integer> hits){
-        HashMap<Integer, Integer> result = new HashMap<Integer,Integer>();
+    private Map<Integer, Integer> toMap(List<Integer> hits){
+        Map<Integer, Integer> result = new HashMap<Integer,Integer>();
         for (int i = 0; i<7; i++){
             int count = Collections.frequency(hits, i);
             result.put(i, count);
@@ -33,7 +33,7 @@ public class Lotto {
         return result;
     }
 
-    public int calcBenefitRate(HashMap<Integer, Integer> result){
+    private int calcBenefitRate(Map<Integer, Integer> result){
         int benefit = 0;
         List<Integer> winnerPrize = Arrays.asList(0, 0, 0, 5000, 50000, 150000, 2000000000);
         for (int i=0; i<7; i++){

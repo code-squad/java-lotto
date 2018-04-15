@@ -1,16 +1,14 @@
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import static java.util.Arrays.asList;
 
 public class Card {
     private List<Integer> numbers;
+
     public Card(List<Integer> sixNumbers) {
-        this.numbers = sixNumbers;
+        if (sixNumbers.size() != 6){
+            throw new IllegalArgumentException("argument size is not equal to 6" + sixNumbers.size());
+        }
+        this.numbers = Collections.unmodifiableList(sixNumbers);
     }
 
     public List<Integer> getNumbers(){

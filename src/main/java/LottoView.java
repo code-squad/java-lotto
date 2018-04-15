@@ -12,7 +12,7 @@ public class LottoView {
         printBenefit(lottoResult.getBenefit());
     }
 
-    private static void printResult(HashMap<Integer, Integer> result) {
+    private static void printResult(Map<Integer, Integer> result) {
         result.forEach((key, value) -> System.out.println(key + "번 일치:" + value + "개") );
     }
 

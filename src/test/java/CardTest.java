@@ -12,7 +12,7 @@ public class CardTest {
         List<Integer> sixNumbers = Arrays.asList(1,2,3,4,5,6);
         Card card = new Card(sixNumbers);
         List<Integer> luckyNumbers = Arrays.asList(1,2,3,4,5,7);
-        assertThat(card.numMatchLuckNumber(luckyNumbers)).isEqualTo(5);
+        Card luckyCard = new Card(luckyNumbers);
+        assertThat(card.numMatchLuckNumber(luckyCard)).isEqualTo(5);
     }
-
 }

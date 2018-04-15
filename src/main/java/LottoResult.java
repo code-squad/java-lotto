@@ -1,15 +1,15 @@
-import java.util.HashMap;
+import java.util.Map;
 
 public class LottoResult {
     private int benefit;
-    private HashMap<Integer, Integer> result;
+    private Map<Integer, Integer> result;
 
-    public LottoResult(HashMap<Integer, Integer> result, int benefit) {
+    public LottoResult(Map<Integer, Integer> result, int benefit) {
         this.result = result;
         this.benefit = benefit;
     }
 
-    public HashMap<Integer, Integer> getResult() {
+    public Map<Integer, Integer> getResult() {
         return result;
     }
     public int getBenefit(){

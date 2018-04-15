@@ -24,7 +24,9 @@ public class LottoGenerator {
     }
 
     public static List<Integer> pickSixNumbers(List<Integer> source){
-        return source.subList(0, 6);
+        List<Integer> sixNumber = source.subList(0, 6);
+        Collections.sort(sixNumber);
+        return sixNumber;
     }
 
 }
