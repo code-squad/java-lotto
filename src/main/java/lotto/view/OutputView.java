@@ -5,13 +5,13 @@ import lotto.domain.LottoGameResult;
 
 public class OutputView {
 
-    private static final String PURCASED_COUNT_FORMAT = "%s개를 구매했습니다.";
-    private static final String WIN_STATISTICS_FORMAT = "\n당첨 통계\n---------\n";
+    private static final String PURCASED_COUNT_FORMAT = "\n수동으로 %s장, 자동으로 %s개를 구매했습니다.";
+    private static final String WIN_STATISTICS_FORMAT = "\n당첨 통계\n---------";
     private static final String WIN_FORMAT = "%s개 일치 (%s) - %s개";
     private static final String EARNING_RATE_FORMAT = "총 수익률은 %s%%입니다.";
 
     public static void printPurchasedLotto(LottoGame lottoGame) {
-        System.out.println(String.format(PURCASED_COUNT_FORMAT, lottoGame.getSize()));
+        System.out.println(String.format(PURCASED_COUNT_FORMAT, lottoGame.getPurchaseManualCount(), lottoGame.getPurchaseAutomaticCount()));
         lottoGame.getPurchasedLottos().forEach(lotto -> System.out.println(lotto.getLottos().toString()));
         System.out.println();
     }
