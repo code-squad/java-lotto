@@ -6,8 +6,8 @@ import javaLotto.domain.LottoTicket;
 import javaLotto.domain.Statics;
 
 public class ResultView {
-    public static void buyLottoInfoPrint(Lotto lottos) {
-        lottos.printLottoSize();
+    public static void buyLottoInfoPrint(Lotto lottos , int manual) {
+        Lotto.print(lottos , manual);
         for (LottoTicket ticket : lottos.getLottos()){
              LottoTicket.printTicket(ticket);
           }

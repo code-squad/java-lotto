@@ -1,11 +1,11 @@
 package javaLotto.domain;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static javaLotto.domain.Rank.valueOf;
 
 public class WinningNumber {
-    //private static List<Integer> winningNumber;
     private static Set<LottoNo> winningNumber;
     private static int bonusBall;
 
@@ -15,12 +15,10 @@ public class WinningNumber {
     }
 
     public static Set<LottoNo> stringToList(String winningNumber) {
-        String[] splitNumber = winningNumber.split(",");
-        Set<LottoNo> numbers = new HashSet<>();
-        for (String number : splitNumber) {
-            numbers.add(new LottoNo(Integer.parseInt(number)));
-        }
-        return numbers;
+        return new HashSet<>(Arrays.asList(winningNumber.split(","))
+                .stream()
+                .map(no -> LottoNo.of(Integer.parseInt(no)))
+                .limit(6).collect(Collectors.toSet()));
     }
 
     public Set<LottoNo> getWinningNumber() {
@@ -28,9 +26,7 @@ public class WinningNumber {
     }
 
     public Result match(LottoTicket lotto) {
-        int matchCount = LottoTicket.matchCount(winningNumber,lotto);
-        boolean bonus = LottoTicket.matchBonus(bonusBall,lotto);
-        return new Result(valueOf(matchCount, bonus));
+        return new Result(valueOf(LottoTicket.matchCount(winningNumber,lotto), LottoTicket.matchBonus(bonusBall,lotto)));
     }
 
     public GameResult checkGrade(Lotto lottos) {

@@ -8,12 +8,12 @@ public class GameResult {
 
     public GameResult(List<Result> result) {
         this.results = result;
-        map.put(Rank.FIRST,0);
-        map.put(Rank.SECOND,0);
-        map.put(Rank.THIRD,0);
-        map.put(Rank.FOURTH,0);
-        map.put(Rank.FIFTH,0);
-        map.put(Rank.MISS,0);
+        map.put(Rank.FIRST, 0);
+        map.put(Rank.SECOND, 0);
+        map.put(Rank.THIRD, 0);
+        map.put(Rank.FOURTH, 0);
+        map.put(Rank.FIFTH, 0);
+        map.put(Rank.MISS, 0);
     }
 
     public static int getPercent(int inputPrice) {
@@ -32,14 +32,14 @@ public class GameResult {
     }
 
     private static void addList(List<Statics> statics) {
-        for(Rank rank : Rank.values()){
-          statics.add(new Statics(rank , map.get(rank)));
+        for (Rank rank : Rank.values()) {
+            statics.add(new Statics(rank, map.get(rank)));
         }
     }
 
     private static void resultDivide() {
-       for (Result result : results) {
-            map.put(result.getRank(), map.get(result.getRank())+1);
-       }
+        for (Result result : results) {
+            map.put(result.getRank(), map.get(result.getRank()) + 1);
+        }
     }
 }
