@@ -53,7 +53,7 @@ public class LottoGame {
         return gameResult;
     }
 
-    private List<Lotto> getLottos() {
+    public List<Lotto> getLottos() {
         return Stream.of(autoLottos, manualLottos)
                 .flatMap(Collection::stream)
                 .collect(toList());
