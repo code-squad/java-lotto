@@ -24,11 +24,10 @@ public class LottoExe {
         String winningNum = UserInput.winningNumber(scanner);
 
         int bonusBall = UserInput.bonusBall(scanner);
-        WinningNum preWinNum = new WinningNum(winningNum,bonusBall);
+        WinningNum preWinNum = new WinningNum(winningNum, bonusBall);
 
         Map<Rank, Integer> result = preWinNum.checkRank(lottos);
 
         Output.resultView(result);
-
     }
 }
