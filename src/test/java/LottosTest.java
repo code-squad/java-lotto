@@ -1,4 +1,4 @@
-import LottoGame.*;
+import lottogame.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -14,16 +14,11 @@ public class LottosTest {
 
     @Test
     public void 랭킹확인() {
-        LottoNos lottoNos = new LottoNos();
-        for (int i = 1; i <= 6; i++) {
-            lottoNos.add(new LottoNo(i));
-        }
-        Lotto lotto = new Lotto(lottoNos);
-
         Lottos lottos = new Lottos();
-        lottos.add(lotto);
+        lottos.add(LottoFactory.createManualLotto("1,2,3,4,5,6"));
 
-        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,14", new LottoNo(7));
+        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,14");
+        winningLotto.addBonusNumber(new LottoNo(7));
         assertEquals(Rank.THIRD, lottos.getRanks(winningLotto).get(0));
     }
 }

@@ -1,4 +1,4 @@
-package LottoGame;
+package lottogame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class Lottos {
     public List<Rank> getRanks(WinningLotto winningLotto) {
         List<Rank> ranks = new ArrayList<>();
         for (Lotto lotto : lottos) {
-            Rank rank = Rank.valueOf(lotto.getMatchCount(winningLotto), lotto.matchBonus(winningLotto));
+            Rank rank = Rank.valueOf(winningLotto.getMatchCount(lotto), winningLotto.matchBonus(lotto));
             if (rank != null) {
                 ranks.add(rank);
             }

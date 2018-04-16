@@ -1,4 +1,4 @@
-package LottoGame;
+package lottogame;
 
 import java.util.Objects;
 
@@ -22,7 +22,6 @@ public class LottoNo {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(number);
     }
 

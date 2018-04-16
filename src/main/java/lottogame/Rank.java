@@ -1,4 +1,4 @@
-package LottoGame;
+package lottogame;
 
 /**
  * Created by hongjong-wan on 2018. 4. 8..
@@ -32,8 +32,10 @@ public enum Rank {
     }
 
     public static Rank getRank(Rank rank, boolean matchBonus) {
-        if(rank == Rank.SECOND) {
-            if(matchBonus) { return Rank.SECOND; }
+        if (rank == Rank.SECOND) {
+            if (matchBonus) {
+                return Rank.SECOND;
+            }
             return Rank.THIRD;
         }
         return rank;

@@ -1,4 +1,4 @@
-import LottoGame.Rank;
+import lottogame.Rank;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

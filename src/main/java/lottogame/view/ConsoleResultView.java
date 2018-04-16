@@ -1,8 +1,8 @@
-package LottoGame.view;
+package lottogame.view;
 
-import LottoGame.Lotto;
-import LottoGame.Lottos;
-import LottoGame.Result;
+import lottogame.Lotto;
+import lottogame.Lottos;
+import lottogame.Result;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class ConsoleResultView {
 
-    public static void printPurchaseNumber(int number) {
-        System.out.println(number + "개를 구매했습니다");
+    public static void printPurchaseNumber(int manualLottoCount, int autoLottoCount) {
+        System.out.println("수동으로 " + manualLottoCount + "장, 자동으로 " + autoLottoCount + "개를 구매했습니다");
     }
 
     public static void printLottos(Lottos lottos) {
