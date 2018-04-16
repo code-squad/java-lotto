@@ -7,14 +7,16 @@ import java.util.Map;
 
 public class WinningNum {
     private List<Integer> preWinNums;
+    private int bonusBall;
 
-    public WinningNum(String preWinNum) {
+    public WinningNum(String preWinNum, int bonusBall) {
         String[] winNum = preWinNum.split(",");
         ExceptionCheck.numLengthCheck(winNum);
         preWinNums = new ArrayList<>();
         for (String winningNum : winNum) {
             preWinNums.add(Integer.parseInt(winningNum));
         }
+        this.bonusBall = bonusBall;
     }
 
     public List<Integer> getPreWinNums() {
@@ -32,7 +34,7 @@ public class WinningNum {
     public Map<Rank, Integer> checkRank(List<Lotto> lottos) {
         Map<Rank, Integer> numOfRank = initRank();
         for (Lotto lotto : lottos) {
-            Rank value = lotto.matchedLotto(this);
+            Rank value = lotto.matchedLotto(this, bonusBall);
             putRank(numOfRank, value);
         }
         return numOfRank;

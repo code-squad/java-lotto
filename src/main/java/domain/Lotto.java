@@ -17,14 +17,15 @@ public class Lotto {
         return new Lotto(LottoNumGenerator.createLotto());
     }
 
-    public Rank matchedLotto(WinningNum winningNum) {
+    public Rank matchedLotto(WinningNum winningNum, int bonusBall) {
         List<Integer> winningLotto = winningNum.getPreWinNums();
         int count = 0;
-
+        boolean checkBonusBall = false;
         for (Integer num : winningLotto) {
             count = countMatchedNumbs(num, count);
+            checkBonusBall = checkForBonusBall(bonusBall);
         }
-        return Rank.valueOf(count);
+        return Rank.valueOf(count, checkBonusBall);
     }
 
     private int countMatchedNumbs(int num, int count) {
@@ -32,5 +33,9 @@ public class Lotto {
             return ++count;
         }
         return count;
+    }
+
+    private boolean checkForBonusBall(int bonusBall) {
+        return lotto.contains(bonusBall);
     }
 }

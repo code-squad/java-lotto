@@ -23,10 +23,14 @@ public enum Rank {
         return winningMoney;
     }
 
-    public static Rank valueOf(int countOfMatch) {
-        for (Rank lotto : Rank.values()) {
-            if (lotto.countOfMatch == countOfMatch) {
-                return lotto;
+    public static Rank valueOf(int countOfMatch, boolean matchBonus) {
+        for (Rank rank : Rank.values()) {
+            if (countOfMatch == SECOND.countOfMatch) {
+                return matchBonus ? SECOND : THIRD;
+            }
+
+            if (rank.countOfMatch == countOfMatch) {
+                return rank;
             }
         }
         return null;
