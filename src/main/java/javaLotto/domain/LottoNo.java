@@ -12,12 +12,13 @@ public class LottoNo {
         this.no = no;
     }
     public LottoNo(String no) {
+        this(Integer.parseInt(no));
         if(no == null || no.isEmpty()){
             throw new IllegalArgumentException("숫자를 입력해주세요");
         }
-        this.no = Integer.parseInt(no);
+        //this.no = Integer.parseInt(no);
     }
-    public static LottoNo of(int number) {
+    private static LottoNo of(int number) {
         return new LottoNo(number);
     }
 

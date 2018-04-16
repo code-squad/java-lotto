@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.*;
 public class LottoNumberGenerator {
     public static LottoTicket makeLottoNumber() {
         List<LottoNo> lotto = new ArrayList<>(IntStream.rangeClosed(1,45).distinct()
-                .mapToObj(no -> LottoNo.of(no))
+                .mapToObj(no -> new LottoNo(no))
                 .collect(toList()));
         Collections.shuffle(lotto);
         return new LottoTicket(lotto.stream().limit(6).collect(toSet()));

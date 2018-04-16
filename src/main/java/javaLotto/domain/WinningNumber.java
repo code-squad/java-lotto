@@ -17,7 +17,7 @@ public class WinningNumber {
     public static Set<LottoNo> stringToList(String winningNumber) {
         return new HashSet<>(Arrays.asList(winningNumber.split(","))
                 .stream()
-                .map(no -> LottoNo.of(Integer.parseInt(no)))
+                .map(no -> new LottoNo(no))
                 .limit(6).collect(Collectors.toSet()));
     }
 
