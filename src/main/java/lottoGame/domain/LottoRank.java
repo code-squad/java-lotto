@@ -56,10 +56,7 @@ public enum LottoRank {
 
     private static LottoRank isSecondLotto(boolean matchBonus, int lottoRankNum) {
         if(lottoRankNum == LottoRank.SECOND.getCountOfMatch()) {
-             if(matchBonus) {
-                 return SECOND;
-             }
-             return THIRD;
+             return matchBonus ? SECOND : THIRD;
         }
         return null;
     }
