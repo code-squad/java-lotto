@@ -26,29 +26,6 @@ public class LottoMachineTest {
     }
 
     @Test
-    public void 발권받은로또가알맞은숫자인지확인한다() {
-        LottoMachine lm = new LottoMachine();
-
-        for(int k = 0; k < 10; k++) {
-
-            List<Integer> lottoNums = lm.makeLottoNumbers();
-
-            for (int i = 0; i < lottoNums.size() - 1; i++) {
-                for (int j = i + 1; j < lottoNums.size(); j++) {
-                    if (lottoNums.get(i) == lottoNums.get(j)) {
-                        fail();
-                    }
-                }
-            }
-
-            for(int j:lottoNums) {
-                System.out.print(j+" ");
-            }
-            System.out.println();
-        }
-    }
-
-    @Test
     public void 금액을입력받아티켓을발권받은후로또를생성한다() {
 
         LottoMachine lm = new LottoMachine();

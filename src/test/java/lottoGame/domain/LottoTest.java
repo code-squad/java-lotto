@@ -5,8 +5,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 public class LottoTest {
@@ -20,19 +23,19 @@ public class LottoTest {
         assertThat(lotto.isContainLuckyNum(10)).isFalse();
     }
 
-    @Test
-    public void 당첨번호카운트세기테스트() {
-
-        Lotto lotto = new Lotto(Arrays.asList(1,2,10,4,24,6));
-
-        assertThat(lotto.getSameLuckNumCnt(Arrays.asList(1,4,5,24,6,11))).isEqualTo(4);
-        assertThat(lotto.getSameLuckNumCnt(Arrays.asList(1,2,30,40,50,6))).isEqualTo(3);
-    }
-
     @Test(expected = java.lang.UnsupportedOperationException.class)
     public void 로또번호추출했을때불변리스트인것확인() {
         Lotto lotto = new Lotto(Arrays.asList(35,40,22,15,16,17));
-        List<Integer> list = lotto.getLottoNums();
-        list.remove(1);
+
+        Set<Integer> lottoNums = lotto.getLottoNums();
+        lottoNums.remove(1);
+    }
+
+    @Test
+    public void 보너스번호소유여부확인() {
+        Lotto lotto = new Lotto(Arrays.asList(1,2,3,4,5,6));
+
+        assertTrue(lotto.isContainBonusNum(5));
+        assertFalse(lotto.isContainBonusNum(8));
     }
 }

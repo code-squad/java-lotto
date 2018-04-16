@@ -29,26 +29,21 @@ public class LottoMachine {
         return totalTiketPrice / TIKETPAY;
     }
 
-    List<Integer> makeLottoNumbers() {
+    Set<Integer> makeLottoNumbers() {
 
         shuffleLottoNumber();
-        List<Integer> lottoNums = createLottoNumbers();
-        sortLottoNumbers(lottoNums);
+        Set<Integer> lottoNums = createLottoNumbers();
 
         return lottoNums;
     }
 
-    private List<Integer> createLottoNumbers() {
-        List<Integer> lottoNums = new ArrayList<>();
+    private Set<Integer> createLottoNumbers() {
+        Set<Integer> lottoNums = new HashSet<>();
 
         for(int i = 0; i < 6; i++) {
             lottoNums.add(machineLottoNumbers.get(i));
         }
         return lottoNums;
-    }
-
-    private void sortLottoNumbers(List<Integer> lottoNums) {
-        Collections.sort(lottoNums);
     }
 
     private void shuffleLottoNumber() {

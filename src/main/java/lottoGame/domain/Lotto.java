@@ -1,49 +1,46 @@
 package lottoGame.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Lotto {
 
-    private List<Integer> lottoNumbers = new ArrayList<>();
+    private Set<Integer> lottoNumbers;
 
-    public Lotto(List<Integer> lottoNums) {
+    public Lotto(Set<Integer> lottoNums) {
         this.lottoNumbers = lottoNums;
     }
 
-    public List<Integer> getLottoNums() {
-        return Collections.unmodifiableList(lottoNumbers);
+    public Lotto(List<Integer> lottoNums) {
+        this.lottoNumbers = new HashSet<>(lottoNums);
     }
 
-    public boolean isSameLottoNum(int expectedLottoNum) {
-        int sameCnt = 0;
-
-        for(int lottoNum : lottoNumbers) {
-             if(expectedLottoNum == lottoNum) {
-                 sameCnt++;
-             }
-        }
-        return sameCnt == 1;
+    public Set<Integer> getLottoNums() {
+        return Collections.unmodifiableSet(lottoNumbers);
     }
 
     public boolean isContainLuckyNum(int lottoNum) {
         return lottoNumbers.contains(lottoNum);
     }
 
-    public int getSameLuckNumCnt(List<Integer> luckyNums) {
-        int cnt = 0;
-        for(int luckyNum : luckyNums) {
-            if(isContainLuckyNum(luckyNum)) {
-                cnt++;
-            }
+    public boolean isContainBonusNum(int bonusNum) {
+        return lottoNumbers.contains(bonusNum);
+    }
+
+    private List<Integer> getSortedList() {
+        List<Integer> lottoSortedNumbers = new ArrayList<>(lottoNumbers);
+        Collections.sort(lottoSortedNumbers);
+        return lottoSortedNumbers;
+    }
+
+    private int addContainLuckyNum(int cnt, int luckyNum) {
+        if(isContainLuckyNum(luckyNum)) {
+            return 1;
         }
-        return cnt;
+        return 0;
     }
 
     @Override
     public String toString() {
-        return lottoNumbers.toString();
+        return getSortedList().toString();
     }
 }

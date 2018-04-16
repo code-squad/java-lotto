@@ -15,6 +15,6 @@ public class LottoGame {
 
         printLottoTiketCnt(lottoes);
         printLottoNumbers(lottoes);
-        printPrizeStaicResult(LottoStaticResult.makeLottoStaticResult(lottoes,inputLuckyNumbers()),lottoTiketPrices);
+        printPrizeStaicResult(LottoStaticResult.makeLottoStaticResult(lottoes,new WinningLotto(inputLuckyNumbers(),inputBonusLottoBall())),lottoTiketPrices);
     }
 }
