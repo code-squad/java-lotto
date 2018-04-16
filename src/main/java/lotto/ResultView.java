@@ -17,18 +17,6 @@ public class ResultView {
         System.out.println("5개일치, 보너스 볼  일치 (30000000원) - " + result.getRankCount(Rank.SECOND));
         System.out.println("6개일치 (2000000000원) - " + result.getRankCount(Rank.FIRST));
         System.out.println();
-        System.out.println("총 수익률은 " + rateOfReturn(getTotal(result), money) + "%입니다.");
-    }
-
-    static String rateOfReturn(int total, int money) {
-        return Long.toUnsignedString(Long.parseUnsignedLong(total + "00") / money);
-    }
-
-    static int getTotal(GameResult result) {
-        int total = 0;
-        for (Rank rank : Rank.values()) {
-            total += result.getRankCount(rank) * rank.getWinningMoney();
-        }
-        return total;
+        System.out.println("총 수익률은 " + result.rateOfReturn(money) + "%입니다.");
     }
 }
