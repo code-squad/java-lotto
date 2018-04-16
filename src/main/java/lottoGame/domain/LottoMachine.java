@@ -5,11 +5,11 @@ import java.util.*;
 public class LottoMachine {
 
     private static final int TIKETPAY = 1000;
-    private static List<Integer> machineLottoNumbers = new ArrayList<>();
+    private static List<LottoNo> machineLottoNumbers = new ArrayList<>();
 
     static {
         for(int i = 1; i < 46; i++) {
-            machineLottoNumbers.add(i);
+            machineLottoNumbers.add(new LottoNo(i));
         }
     }
 
@@ -29,16 +29,16 @@ public class LottoMachine {
         return totalTiketPrice / TIKETPAY;
     }
 
-    Set<Integer> makeLottoNumbers() {
+    Set<LottoNo> makeLottoNumbers() {
 
         shuffleLottoNumber();
-        Set<Integer> lottoNums = createLottoNumbers();
+        Set<LottoNo> lottoNums = createLottoNumbers();
 
         return lottoNums;
     }
 
-    private Set<Integer> createLottoNumbers() {
-        Set<Integer> lottoNums = new HashSet<>();
+    private Set<LottoNo> createLottoNumbers() {
+        Set<LottoNo> lottoNums = new HashSet<>();
 
         for(int i = 0; i < 6; i++) {
             lottoNums.add(machineLottoNumbers.get(i));

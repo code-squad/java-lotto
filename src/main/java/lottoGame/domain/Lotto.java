@@ -4,39 +4,39 @@ import java.util.*;
 
 public class Lotto {
 
-    private Set<Integer> lottoNumbers;
+    private Set<LottoNo> lottoNumbers;
 
-    public Lotto(Set<Integer> lottoNums) {
-        this.lottoNumbers = lottoNums;
+    public Lotto(Set<LottoNo> lottoNums) {
+        this.lottoNumbers = vaildLottoSize(lottoNums);
     }
 
-    public Lotto(List<Integer> lottoNums) {
-        this.lottoNumbers = new HashSet<>(lottoNums);
+    public Lotto(List<LottoNo> lottoNums) {
+        this.lottoNumbers = vaildLottoSize(new HashSet<>(lottoNums));
     }
 
-    public Set<Integer> getLottoNums() {
+    public Set<LottoNo> getLottoNums() {
         return Collections.unmodifiableSet(lottoNumbers);
     }
 
-    public boolean isContainLuckyNum(int lottoNum) {
+    public boolean isContainLottoNum(LottoNo lottoNum) {
         return lottoNumbers.contains(lottoNum);
     }
 
-    public boolean isContainBonusNum(int bonusNum) {
+    public boolean isContainBonusNum(LottoNo bonusNum) {
         return lottoNumbers.contains(bonusNum);
     }
 
-    private List<Integer> getSortedList() {
-        List<Integer> lottoSortedNumbers = new ArrayList<>(lottoNumbers);
+    private List<LottoNo> getSortedList() {
+        List<LottoNo> lottoSortedNumbers = new ArrayList<>(lottoNumbers);
         Collections.sort(lottoSortedNumbers);
         return lottoSortedNumbers;
     }
 
-    private int addContainLuckyNum(int cnt, int luckyNum) {
-        if(isContainLuckyNum(luckyNum)) {
-            return 1;
+    private Set<LottoNo> vaildLottoSize(Set<LottoNo> lottoNums) {
+        if(lottoNums.size() != 6) {
+            throw new IllegalArgumentException();
         }
-        return 0;
+        return lottoNums;
     }
 
     @Override

@@ -29,13 +29,10 @@ public enum LottoRank {
         return winningMoney;
     }
 
-    public int getTotalWinningMoney(int totalCnt) {
-        return winningMoney * totalCnt;
-    }
-
     public static LottoRank valueOf(int countOfMatch, boolean matchBonus) {
-        // TODO 일치하는 수를 로또 등수로 변경한다. enum 값 목록은 "Rank[] ranks = values();"와 같이 가져올 수 있다.
+
         LottoRank rankLotto = null;
+
         for(LottoRank lottoRank: values()) {
            rankLotto = judgeLottoRank(countOfMatch, matchBonus, lottoRank);
            if (rankLotto != null) {
@@ -46,18 +43,22 @@ public enum LottoRank {
     }
 
     private static LottoRank judgeLottoRank(int countOfMatch, boolean matchBonus, LottoRank lottoRank) {
-        int lottoRankNum = lottoRank.getCountOfMatch();
-        if(lottoRankNum == countOfMatch) {
-            LottoRank secondOrThirdLotto = isSecondLotto(matchBonus, lottoRankNum);
+
+        if(lottoRank.isMatch(countOfMatch)) {
+            LottoRank secondOrThirdLotto = isSecondLotto(matchBonus, countOfMatch);
             return secondOrThirdLotto != null ? secondOrThirdLotto : lottoRank;
         }
         return null;
     }
 
     private static LottoRank isSecondLotto(boolean matchBonus, int lottoRankNum) {
-        if(lottoRankNum == LottoRank.SECOND.getCountOfMatch()) {
+        if(SECOND.isMatch(lottoRankNum)) {
              return matchBonus ? SECOND : THIRD;
         }
         return null;
+    }
+
+    private boolean isMatch(int countOfMatch) {
+        return this.countOfMatch == countOfMatch;
     }
 }

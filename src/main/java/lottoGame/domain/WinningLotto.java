@@ -5,20 +5,20 @@ import java.util.Set;
 
 public class WinningLotto {
 
-    private Set<Integer> winningLottoNumbers;
-    private int bonusBall;
+    private Lotto winningLotto;
+    private LottoNo bonusBall;
 
-    public WinningLotto(Set<Integer> winningLottoNumbers,int bonusBall) {
+    public WinningLotto(Set<LottoNo> winningLottoNumbers,LottoNo bonusBall) {
 
         isDuplicateBonusBall(winningLottoNumbers, bonusBall);
 
-        this.winningLottoNumbers = winningLottoNumbers;
+        this.winningLotto = new Lotto(winningLottoNumbers);
         this.bonusBall = bonusBall;
     }
 
     public int getSameLuckNumCnt(Lotto lotto) {
         int cnt = 0;
-        for(int lottoNum : lotto.getLottoNums()) {
+        for(LottoNo lottoNum : lotto.getLottoNums()) {
             cnt += addContainLuckyNum(cnt, lottoNum);
         }
         return cnt;
@@ -28,18 +28,18 @@ public class WinningLotto {
         return lotto.isContainBonusNum(bonusBall);
     }
 
-    private int addContainLuckyNum(int cnt, int lottoNum) {
+    private int addContainLuckyNum(int cnt, LottoNo lottoNum) {
         if(isContainWinningNum(lottoNum)) {
             return 1;
         }
         return 0;
     }
 
-    private boolean isContainWinningNum(int lottoNum) {
-        return winningLottoNumbers.contains(lottoNum);
+    private boolean isContainWinningNum(LottoNo lottoNum) {
+        return winningLotto.isContainLottoNum(lottoNum);
     }
 
-    private void isDuplicateBonusBall(Set<Integer> winningLottoNumbers, int bonusBall) {
+    private void isDuplicateBonusBall(Set<LottoNo> winningLottoNumbers, LottoNo bonusBall) {
         if(winningLottoNumbers.contains(bonusBall)==true)
             throw new IllegalArgumentException();
     }
