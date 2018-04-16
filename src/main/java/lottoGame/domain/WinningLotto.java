@@ -8,11 +8,11 @@ public class WinningLotto {
     private Lotto winningLotto;
     private LottoNo bonusBall;
 
-    public WinningLotto(Set<LottoNo> winningLottoNumbers,LottoNo bonusBall) {
+    public WinningLotto(Lotto winningLotto, LottoNo bonusBall) {
 
-        isDuplicateBonusBall(winningLottoNumbers, bonusBall);
+        isDuplicateBonusBall(winningLotto, bonusBall);
 
-        this.winningLotto = new Lotto(winningLottoNumbers);
+        this.winningLotto = winningLotto;
         this.bonusBall = bonusBall;
     }
 
@@ -39,8 +39,8 @@ public class WinningLotto {
         return winningLotto.isContainLottoNum(lottoNum);
     }
 
-    private void isDuplicateBonusBall(Set<LottoNo> winningLottoNumbers, LottoNo bonusBall) {
-        if(winningLottoNumbers.contains(bonusBall)==true)
+    private void isDuplicateBonusBall(Lotto winningLottoNumbers, LottoNo bonusBall) {
+        if(winningLottoNumbers.isContainBonusNum(bonusBall)==true)
             throw new IllegalArgumentException();
     }
 

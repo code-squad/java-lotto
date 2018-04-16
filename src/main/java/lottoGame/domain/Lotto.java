@@ -14,6 +14,14 @@ public class Lotto {
         this.lottoNumbers = vaildLottoSize(new HashSet<>(lottoNums));
     }
 
+    public Lotto(int... lottoNums) {
+        lottoNumbers = new HashSet<>();
+        for(int lottoNum:lottoNums) {
+            lottoNumbers.add(new LottoNo(lottoNum));
+        }
+        vaildLottoSize(lottoNumbers);
+    }
+
     public Set<LottoNo> getLottoNums() {
         return Collections.unmodifiableSet(lottoNumbers);
     }
