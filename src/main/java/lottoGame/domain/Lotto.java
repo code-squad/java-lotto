@@ -1,49 +1,54 @@
 package lottoGame.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Lotto {
 
-    private List<Integer> lottoNumbers = new ArrayList<>();
+    private Set<LottoNo> lottoNumbers;
 
-    public Lotto(List<Integer> lottoNums) {
-        this.lottoNumbers = lottoNums;
+    public Lotto(Set<LottoNo> lottoNums) {
+        this.lottoNumbers = vaildLottoSize(lottoNums);
     }
 
-    public List<Integer> getLottoNums() {
-        return Collections.unmodifiableList(lottoNumbers);
+    public Lotto(List<LottoNo> lottoNums) {
+        this.lottoNumbers = vaildLottoSize(new HashSet<>(lottoNums));
     }
 
-    public boolean isSameLottoNum(int expectedLottoNum) {
-        int sameCnt = 0;
-
-        for(int lottoNum : lottoNumbers) {
-             if(expectedLottoNum == lottoNum) {
-                 sameCnt++;
-             }
+    public Lotto(int... lottoNums) {
+        lottoNumbers = new HashSet<>();
+        for(int lottoNum:lottoNums) {
+            lottoNumbers.add(new LottoNo(lottoNum));
         }
-        return sameCnt == 1;
+        vaildLottoSize(lottoNumbers);
     }
 
-    public boolean isContainLuckyNum(int lottoNum) {
+    public Set<LottoNo> getLottoNums() {
+        return Collections.unmodifiableSet(lottoNumbers);
+    }
+
+    public boolean isContainLottoNum(LottoNo lottoNum) {
         return lottoNumbers.contains(lottoNum);
     }
 
-    public int getSameLuckNumCnt(List<Integer> luckyNums) {
-        int cnt = 0;
-        for(int luckyNum : luckyNums) {
-            if(isContainLuckyNum(luckyNum)) {
-                cnt++;
-            }
+    public boolean isContainBonusNum(LottoNo bonusNum) {
+        return lottoNumbers.contains(bonusNum);
+    }
+
+    private List<LottoNo> getSortedList() {
+        List<LottoNo> lottoSortedNumbers = new ArrayList<>(lottoNumbers);
+        Collections.sort(lottoSortedNumbers);
+        return lottoSortedNumbers;
+    }
+
+    private Set<LottoNo> vaildLottoSize(Set<LottoNo> lottoNums) {
+        if(lottoNums.size() != 6) {
+            throw new IllegalArgumentException();
         }
-        return cnt;
+        return lottoNums;
     }
 
     @Override
     public String toString() {
-        return lottoNumbers.toString();
+        return getSortedList().toString();
     }
 }
