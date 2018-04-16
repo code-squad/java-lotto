@@ -51,8 +51,8 @@ public enum LottoRank {
         return null;
     }
 
-    private static LottoRank isSecondLotto(boolean matchBonus, int lottoRankNum) {
-        if(SECOND.isMatch(lottoRankNum)) {
+    private static LottoRank isSecondLotto(boolean matchBonus, int countOfMatch) {
+        if(SECOND.isMatch(countOfMatch)) {
              return matchBonus ? SECOND : THIRD;
         }
         return null;
