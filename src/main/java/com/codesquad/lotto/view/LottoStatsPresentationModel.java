@@ -1,6 +1,6 @@
 package com.codesquad.lotto.view;
 
-import com.codesquad.lotto.domain.LottoStats;
+import com.codesquad.lotto.domain.LottoGameResult;
 import com.codesquad.lotto.domain.WinType;
 
 import java.util.Arrays;
@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 
 public class LottoStatsPresentationModel {
 
-    private final LottoStats stats;
+    private final LottoGameResult stats;
 
-    public LottoStatsPresentationModel(final LottoStats stats) {
+    public LottoStatsPresentationModel(final LottoGameResult stats) {
         this.stats = stats;
     }
 

@@ -1,9 +1,10 @@
 package com.codesquad.lotto.domain;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LottoBundle {
@@ -13,20 +14,22 @@ public class LottoBundle {
         this.lotteries = lotteries;
     }
 
-
-    public LottoStats match(final Lotto winLotto) {
+    public LottoGameResult match(final Lotto winLotto) {
         if (winLotto == null) {
             throw new IllegalArgumentException();
         }
 
-        final Map<WinType, Integer> accumulatedCountMap = initializeMap();
         final Money payment = calculatePayment();
 
         final Stream<WinType> winTypes = matchedWinTypes(winLotto);
 
-        increaseCount(accumulatedCountMap, winTypes);
+        final Map<WinType, Long> winTypeCount = groupByWinType(winTypes);
 
-        return new LottoStats(accumulatedCountMap, payment);
+        return new LottoGameResult(winTypeCount, payment);
+    }
+
+    private Map<WinType, Long> groupByWinType(final Stream<WinType> winTypes) {
+        return winTypes.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
     private Stream<WinType> matchedWinTypes(final Lotto winLotto) {
@@ -36,20 +39,36 @@ public class LottoBundle {
                 .filter(WinType::isWin);
     }
 
-    private Map<WinType, Integer> initializeMap() {
-        final Map<WinType, Integer> map = new HashMap<>();
-        Arrays.stream(WinType.values())
-                .filter(WinType::isWin)
-                .forEach(type -> map.put(type, 0));
-        return map;
-    }
-
     private Money calculatePayment() {
         final int purchasedCount = lotteries.size();
         return LottoMachine.LIST_PRICE.multiply(purchasedCount);
     }
 
-    private void increaseCount(final Map<WinType, Integer> map, final Stream<WinType> winTypes) {
-        winTypes.forEach(t -> map.put(t, map.get(t) + 1));
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final LottoBundle that = (LottoBundle) o;
+        return Objects.equals(lotteries, that.lotteries);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(lotteries);
+    }
+
+    public List<String> lotteriesString() {
+        return lotteries.stream()
+                .map(Lotto::toString)
+                .collect(Collectors.toList());
+    }
+
+    public int count() {
+        return lotteries.size();
     }
 }

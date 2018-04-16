@@ -1,41 +1,23 @@
 package com.codesquad.lotto.app;
 
-import com.codesquad.lotto.domain.*;
+import com.codesquad.lotto.domain.LottoGame;
+import com.codesquad.lotto.domain.LottoGameResult;
 import com.codesquad.lotto.infrastructure.DefaultShuffler;
 import com.codesquad.lotto.view.InputView;
-import com.codesquad.lotto.view.LottoReceiptPresentationModel;
-import com.codesquad.lotto.view.LottoStatsPresentationModel;
 import com.codesquad.lotto.view.ResultView;
 
 import java.util.List;
 
 public class ConsoleLottoApp {
     public static void main(final String[] args) {
-        final LottoMachine machine = prepareLottoMachine();
-
-        final Money payment = InputView.inputPayment();
-        final List<Lotto> lotteries = machine.buy(payment);
-
-        final LottoReceiptPresentationModel receiptModel = new LottoReceiptPresentationModel(lotteries);
-        ResultView.print(receiptModel);
+        final int amount = InputView.inputPayment();
+        final LottoGame lottoGame = new LottoGame(amount, new DefaultShuffler());
+        ResultView.printLotto(lottoGame);
 
         System.out.println();
 
-        final Lotto winLotto = InputView.inputWinLotto();
-
-        LottoBundle bundle = new LottoBundle(lotteries);
-        final LottoStats stats = bundle.match(winLotto);
-        final LottoStatsPresentationModel statsModel = new LottoStatsPresentationModel(stats);
-        ResultView.print(statsModel);
-    }
-
-    private static LottoMachine prepareLottoMachine() {
-        final LottoNumberGenerator generator = createGenerator();
-        return new LottoMachine(generator);
-    }
-
-    private static LottoNumberGenerator createGenerator() {
-        final Shuffler shuffler = new DefaultShuffler();
-        return new DefaultLottoNumberGenerator(shuffler);
+        final List<String> winningNumbers = InputView.inputWinningNumbers();
+        final LottoGameResult gameResult = lottoGame.play(winningNumbers);
+        ResultView.statistic(gameResult);
     }
 }

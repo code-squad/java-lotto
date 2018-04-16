@@ -27,14 +27,11 @@ public class LottoBundleTest {
         );
         final LottoBundle lottoBundle = new LottoBundle(lotteries);
 
-        final LottoStats stats = lottoBundle.match(Lotto.of(1, 2, 3, 4, 5, 6));
+        final LottoGameResult stats = lottoBundle.match(Lotto.of(1, 2, 3, 4, 5, 6));
 
-        final Map<WinType, Integer> map = new HashMap<>();
-        map.put(WinType.THREE, 0);
-        map.put(WinType.FOUR, 0);
-        map.put(WinType.FIVE, 0);
-        map.put(WinType.SIX, 1);
-        assertThat(stats).isEqualTo(new LottoStats(map, new Money(1000)));
+        final Map<WinType, Long> map = new HashMap<>();
+        map.put(WinType.SIX, 1L);
+        assertThat(stats).isEqualTo(new LottoGameResult(map, new Money(1000)));
     }
 
     @Test
@@ -45,14 +42,11 @@ public class LottoBundleTest {
         );
         final LottoBundle lottoBundle = new LottoBundle(lotteries);
 
-        final LottoStats stats = lottoBundle.match(Lotto.of(1, 2, 3, 4, 5, 6));
+        final LottoGameResult stats = lottoBundle.match(Lotto.of(1, 2, 3, 4, 5, 6));
 
-        final Map<WinType, Integer> map = new HashMap<>();
-        map.put(WinType.THREE, 0);
-        map.put(WinType.FOUR, 0);
-        map.put(WinType.FIVE, 0);
-        map.put(WinType.SIX, 2);
-        assertThat(stats).isEqualTo(new LottoStats(map, new Money(2000)));
+        final Map<WinType, Long> map = new HashMap<>();
+        map.put(WinType.SIX, 2L);
+        assertThat(stats).isEqualTo(new LottoGameResult(map, new Money(2000)));
     }
 
     @Test
@@ -64,14 +58,10 @@ public class LottoBundleTest {
         );
         final LottoBundle lottoBundle = new LottoBundle(lotteries);
 
-        final LottoStats stats = lottoBundle.match(Lotto.of(11, 12, 13, 14, 15, 16));
+        final LottoGameResult stats = lottoBundle.match(Lotto.of(11, 12, 13, 14, 15, 16));
 
-        final Map<WinType, Integer> map = new HashMap<>();
-        map.put(WinType.THREE, 0);
-        map.put(WinType.FOUR, 0);
-        map.put(WinType.FIVE, 0);
-        map.put(WinType.SIX, 0);
-        assertThat(stats).isEqualTo(new LottoStats(map, new Money(3000)));
+        final Map<WinType, Long> map = new HashMap<>();
+        assertThat(stats).isEqualTo(new LottoGameResult(map, new Money(3000)));
     }
 
     @Test
@@ -81,14 +71,11 @@ public class LottoBundleTest {
         );
         final LottoBundle lottoBundle = new LottoBundle(lotteries);
 
-        final LottoStats stats = lottoBundle.match(Lotto.of(1, 2, 3, 7, 8, 9));
+        final LottoGameResult stats = lottoBundle.match(Lotto.of(1, 2, 3, 7, 8, 9));
 
-        final Map<WinType, Integer> map = new HashMap<>();
-        map.put(WinType.THREE, 1);
-        map.put(WinType.FOUR, 0);
-        map.put(WinType.FIVE, 0);
-        map.put(WinType.SIX, 0);
-        assertThat(stats).isEqualTo(new LottoStats(map, new Money(1000)));
+        final Map<WinType, Long> map = new HashMap<>();
+        map.put(WinType.THREE, 1L);
+        assertThat(stats).isEqualTo(new LottoGameResult(map, new Money(1000)));
     }
 
     @Test
@@ -99,13 +86,10 @@ public class LottoBundleTest {
         );
         final LottoBundle lottoBundle = new LottoBundle(lotteries);
 
-        final LottoStats stats = lottoBundle.match(Lotto.of(1, 2, 3, 7, 8, 9));
+        final LottoGameResult stats = lottoBundle.match(Lotto.of(1, 2, 3, 7, 8, 9));
 
-        final Map<WinType, Integer> map = new HashMap<>();
-        map.put(WinType.THREE, 2);
-        map.put(WinType.FOUR, 0);
-        map.put(WinType.FIVE, 0);
-        map.put(WinType.SIX, 0);
-        assertThat(stats).isEqualTo(new LottoStats(map, new Money(2000)));
+        final Map<WinType, Long> map = new HashMap<>();
+        map.put(WinType.THREE, 2L);
+        assertThat(stats).isEqualTo(new LottoGameResult(map, new Money(2000)));
     }
 }

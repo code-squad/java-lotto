@@ -3,13 +3,13 @@ package com.codesquad.lotto.domain;
 import java.util.Map;
 import java.util.Objects;
 
-public class LottoStats {
+public class LottoGameResult {
 
     private final Money payment;
-    private final Map<WinType, Integer> accumulatedCountMap;
+    private final Map<WinType, Long> winTypeCount;
 
-    public LottoStats(final Map<WinType, Integer> accumulatedCountMap, final Money payment) {
-        if (Objects.isNull(accumulatedCountMap)) {
+    public LottoGameResult(final Map<WinType, Long> winTypeCount, final Money payment) {
+        if (Objects.isNull(winTypeCount)) {
             throw new IllegalArgumentException();
         }
 
@@ -17,19 +17,23 @@ public class LottoStats {
             throw new IllegalArgumentException();
         }
 
-        this.accumulatedCountMap = accumulatedCountMap;
+        this.winTypeCount = winTypeCount;
         this.payment = payment;
     }
 
     public int getWiningCount(final WinType type) {
-        return accumulatedCountMap.get(type);
+        if (winTypeCount.containsKey(type)) {
+            return winTypeCount.get(type).intValue();
+        }
+        
+        return 0;
     }
 
     public int getProfitRate() {
         Money sum = new Money(0);
 
-        for (final Map.Entry<WinType, Integer> entry : accumulatedCountMap.entrySet()) {
-            sum = sum.add(entry.getKey().calculatePrize(entry.getValue()));
+        for (final Map.Entry<WinType, Long> entry : winTypeCount.entrySet()) {
+            sum = sum.add(entry.getKey().calculatePrize(entry.getValue().intValue()));
         }
 
         return Money.calculateProfitRate(sum, payment);
@@ -43,14 +47,14 @@ public class LottoStats {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        final LottoStats stats = (LottoStats) o;
+        final LottoGameResult stats = (LottoGameResult) o;
         return Objects.equals(payment, stats.payment) &&
-                Objects.equals(accumulatedCountMap, stats.accumulatedCountMap);
+                Objects.equals(winTypeCount, stats.winTypeCount);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(payment, accumulatedCountMap);
+        return Objects.hash(payment, winTypeCount);
     }
 }

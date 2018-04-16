@@ -1,6 +1,6 @@
 package com.codesquad.lotto.view;
 
-import com.codesquad.lotto.domain.LottoStats;
+import com.codesquad.lotto.domain.LottoGameResult;
 import com.codesquad.lotto.domain.Money;
 import com.codesquad.lotto.domain.WinType;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LottoStatsPresentationModelTest {
+public class LottoGameResultPresentationModelTest {
     @Test
     public void 번호3개일치_1개() {
         final LottoStatsPresentationModel model = new LottoStatsPresentationModel(
@@ -87,13 +87,13 @@ public class LottoStatsPresentationModelTest {
         assertThat(msg).isEqualTo("총 수익률은 900%입니다.");
     }
 
-    private LottoStats createStats(final int three, final int four, final int five, final int six, final int payment) {
-        final Map<WinType, Integer> map = new HashMap<>();
+    private LottoGameResult createStats(final long three, final long four, final long five, final long six, final int payment) {
+        final Map<WinType, Long> map = new HashMap<>();
         map.put(WinType.THREE, three);
         map.put(WinType.FOUR, four);
         map.put(WinType.FIVE, five);
         map.put(WinType.SIX, six);
 
-        return new LottoStats(map, new Money(payment));
+        return new LottoGameResult(map, new Money(payment));
     }
 }
