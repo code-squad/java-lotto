@@ -9,7 +9,7 @@ public class LottoNumGenerator {
 
     public static List<Integer> createLotto() {
         List<Integer> lotto = createNumber();
-        lotto = suffleNumber(lotto);
+        lotto = shuffleNumber(lotto);
         lotto = selectSixNumber(lotto);
         return sortNumber(lotto);
     }
@@ -22,7 +22,7 @@ public class LottoNumGenerator {
         return lottoNum;
     }
 
-    private static List<Integer> suffleNumber(List<Integer> lottoNum) {
+    private static List<Integer> shuffleNumber(List<Integer> lottoNum) {
         Collections.shuffle(lottoNum);
         return lottoNum;
     }

@@ -6,16 +6,36 @@ import java.util.List;
 import java.util.Map;
 
 public class WinningNum {
-    private List<Integer> preWinNums;
 
-    public WinningNum(String preWinNum) {
+    private static final int PREVIOUS_WINNER_NUMBER_LENGTH = 6;
+
+    private List<Integer> preWinNums;
+    private int bonusBall;
+
+    public WinningNum(String preWinNum, int bonusBall) {
         String[] winNum = preWinNum.split(",");
-        ExceptionCheck.numLengthCheck(winNum);
+        numLengthCheck(winNum);
         preWinNums = new ArrayList<>();
         for (String winningNum : winNum) {
             preWinNums.add(Integer.parseInt(winningNum));
         }
+        this.bonusBall = bonusBall;
     }
+
+    private void numLengthCheck(String[] previousWinNum) {
+        if (previousWinNum.length != PREVIOUS_WINNER_NUMBER_LENGTH) {
+            throw new IllegalArgumentException("지난 주 당첨 번호는 숫자 6개입니다.");
+        }
+    }
+
+    /*
+    public Rank matchCount(List<Integer> lotto) {
+        int matchCount = lotto.matchCount(preWinNums);
+        boolean matchBonus = lotto.matchBonus(bonusBall);
+        return Rank.valueOf(matchCount, matchBonus);
+    }
+    */
+
 
     public List<Integer> getPreWinNums() {
         return preWinNums;
@@ -42,5 +62,9 @@ public class WinningNum {
         if (value != null) {
             numOfRank.put(value, numOfRank.get(value) + 1);
         }
+    }
+
+    public int getBonusBall() {
+        return bonusBall;
     }
 }

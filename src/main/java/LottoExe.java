@@ -22,11 +22,12 @@ public class LottoExe {
         Output.allLottoNum(lottos);
 
         String winningNum = UserInput.winningNumber(scanner);
-        WinningNum preWinNum = new WinningNum(winningNum);
+
+        int bonusBall = UserInput.bonusBall(scanner);
+        WinningNum preWinNum = new WinningNum(winningNum, bonusBall);
 
         Map<Rank, Integer> result = preWinNum.checkRank(lottos);
 
         Output.resultView(result);
-
     }
 }
