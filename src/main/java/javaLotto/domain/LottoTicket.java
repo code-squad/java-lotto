@@ -33,11 +33,15 @@ public class LottoTicket {
     }
 
     public static boolean matchBonus(int bonusBall, LottoTicket lotto) {
-           return lotto.getLottoTicket().stream().anyMatch(no -> no.getNo() == bonusBall);
+           return lotto.getLottoTicket()
+                   .stream()
+                   .anyMatch(no -> no.getNo() == bonusBall);
     }
 
     public static void printTicket(LottoTicket ticket) {
-        ticket.getLottoTicket().stream().forEach(n -> System.out.print(n.getNo() + " "));
+        ticket.getLottoTicket()
+                .stream().
+                forEach(n -> System.out.print(n.getNo() + " "));
         System.out.println();
     }
 }

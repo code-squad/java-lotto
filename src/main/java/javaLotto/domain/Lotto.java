@@ -10,10 +10,6 @@ public class Lotto {
         this.lottos = lottos;
     }
 
-    public void printLottoSize() {
-            System.out.println(lottos.size() + "개를 구입했습니다.");
-    }
-
     public  List<LottoTicket> getLottos() {
         return Collections.unmodifiableList(lottos);
     }
@@ -26,5 +22,9 @@ public class Lotto {
         return "Lotto{" +
                 "lottos=" + lottos + "\n"+
                 '}';
+    }
+
+    public static void print(Lotto lottos, int manual) {
+        System.out.printf("수동으로 %d장 자동으로 %d장 구입했습니다.\n",manual,(lottos.getSize()-manual));
     }
 }
