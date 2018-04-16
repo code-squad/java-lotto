@@ -1,6 +1,6 @@
 package lotto;
 
-import lotto.vo.BonusNumber;
+import lotto.vo.LottoNumber;
 
 import java.util.*;
 
@@ -12,7 +12,7 @@ public class LottoGame {
     }
 
     public GameResult play(List<Integer> numbers, int number) {
-        WinningLotto winningLotto = new WinningLotto(Lotto.of(numbers), BonusNumber.of(number));
+        WinningLotto winningLotto = new WinningLotto(Lotto.of(numbers), LottoNumber.of(number));
         return play(winningLotto);
     }
 

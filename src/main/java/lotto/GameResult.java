@@ -25,11 +25,11 @@ public class GameResult {
         return winningLottos.get(rank);
     }
 
-    public String rateOfReturn(int money) {
+    String rateOfReturn(int money) {
         return Long.toUnsignedString(Long.parseUnsignedLong(totalWinMoney() + "00") / money);
     }
 
-    private int totalWinMoney() {
+    int totalWinMoney() {
         int total = 0;
         for (Rank rank : Rank.values()) {
             total += getRankCount(rank) * rank.getWinningMoney();

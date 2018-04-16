@@ -1,41 +1,75 @@
 package lotto;
 
-import lotto.vo.BonusNumber;
 import lotto.vo.LottoNumber;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Lotto {
-    private LottoNumber lottoNumber;
+    private static final int FIRST_IDX = 0;
+    private static final int LOTTO_NUMBER_SIZE = 6;
 
-    private Lotto(LottoNumber lottoNumber) {
-        this.lottoNumber = lottoNumber;
+    private static final List<Integer> seedNumbers;
+
+    static {
+        seedNumbers = IntStream
+                .rangeClosed(1, 45)
+                .boxed()
+                .collect(Collectors.toList());
+    }
+
+    private Set<LottoNumber> lottoNumbers;
+
+    private Lotto(Set<LottoNumber> lottoNumbers) {
+        if (validateLottoNumber(lottoNumbers)) {
+            throw new IllegalArgumentException();
+        }
+        this.lottoNumbers = lottoNumbers;
     }
 
     static Lotto of() {
-        return new Lotto(LottoNumber.of());
-    }
-
-    static Lotto of(LottoNumber lottoNumber) {
-        return new Lotto(lottoNumber);
+        Collections.shuffle(seedNumbers);
+        return Lotto.of(seedNumbers.subList(FIRST_IDX, LOTTO_NUMBER_SIZE));
     }
 
     static Lotto of(List<Integer> numbers) {
-        return new Lotto(LottoNumber.of(numbers));
+        return Lotto.of(numbers.stream().map(LottoNumber::new).collect(Collectors.toSet()));
     }
 
-    int matchCount(Lotto winLotto) {
-        return lottoNumber.matchCount(winLotto.lottoNumber);
+    private static Lotto of(Set<LottoNumber> numbers) {
+        return new Lotto(numbers);
     }
 
-    boolean matchBonus(BonusNumber bonusNumber) {
-        return lottoNumber.matchBonus(bonusNumber);
+    private boolean validateLottoNumber(Set<LottoNumber> lottoNumbers) {
+        return lottoNumbers
+                .stream()
+                .filter(lottoNumber -> seedNumbers.contains(lottoNumber.toNumber()))
+                .count() < LOTTO_NUMBER_SIZE;
+    }
+
+    int matchCount(Lotto winningLotto) {
+        return (int) lottoNumbers
+                .stream()
+                .filter(number -> winningLotto.lottoNumbers.contains(number))
+                .count();
+    }
+
+    boolean matchBonus(LottoNumber bonusNumber) {
+        return this.lottoNumbers.contains(bonusNumber);
     }
 
     @Override
     public String toString() {
-        return this.lottoNumber.toString();
+        return lottoNumbers
+                .stream()
+                .map(lottoNumber -> lottoNumber.toNumber())
+                .sorted()
+                .map(number -> String.valueOf(number))
+                .collect(Collectors.joining(", "));
     }
 
     @Override
@@ -43,11 +77,11 @@ public class Lotto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lotto that = (Lotto) o;
-        return lottoNumber.equals(that.lottoNumber);
+        return lottoNumbers.containsAll(that.lottoNumbers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lottoNumber);
+        return Objects.hash(lottoNumbers);
     }
 }

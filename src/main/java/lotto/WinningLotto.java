@@ -1,12 +1,12 @@
 package lotto;
 
-import lotto.vo.BonusNumber;
+import lotto.vo.LottoNumber;
 
 class WinningLotto {
     private Lotto winLotto;
-    private BonusNumber bonusNumber;
+    private LottoNumber bonusNumber;
 
-    WinningLotto(Lotto winLotto, BonusNumber bonusNumber) {
+    WinningLotto(Lotto winLotto, LottoNumber bonusNumber) {
         this.winLotto = winLotto;
         this.bonusNumber = bonusNumber;
     }
