@@ -46,4 +46,9 @@ public class LottoTest {
         Set<LottoNo> set = new HashSet<>(Arrays.asList(new LottoNo(3),new LottoNo(3),new LottoNo(3),new LottoNo(3),new LottoNo(3),new LottoNo(3)));
         assertThat(set.size()).isEqualTo(1);
     }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void 로또번호1이상45이하번호아닐시예외확인() {
+        Lotto lotto = new Lotto(Arrays.asList(new LottoNo(1),new LottoNo(4),new LottoNo(24),new LottoNo(6),new LottoNo(46)));
+    }
 }
