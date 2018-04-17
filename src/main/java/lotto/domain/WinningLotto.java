@@ -4,9 +4,9 @@ import java.util.List;
 
 public class WinningLotto {
     private Lotto winningNumbers;
-    private int bonusNumber;
+    private LottoNumber bonusNumber;
 
-    public WinningLotto(Lotto winningNumbers, int bonusNumber) {
+    public WinningLotto(Lotto winningNumbers, LottoNumber bonusNumber) {
         if (winningNumbers.contains(bonusNumber)) {
             throw new IllegalArgumentException();
         }
@@ -14,11 +14,11 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public boolean contains(int number) {
+    public boolean contains(LottoNumber number) {
         return winningNumbers.contains(number);
     }
 
-    public boolean matchBonusNumber(List<Integer> numbers) {
+    public boolean matchBonusNumber(List<LottoNumber> numbers) {
         return numbers.contains(bonusNumber);
     }
 }

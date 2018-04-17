@@ -7,19 +7,21 @@ import java.util.stream.IntStream;
 public class LottoMachine {
 
     public static final int COUNT_OF_SELECT_LOTTO = 6;
-    public static final int LOTTO_PRICE = 1000;
-    private static List<Integer> number;
+    private static List<LottoNumber> lottoNumbers;
     public static Map<Rank, Integer> countOfMatch;
 
-    private long money;
+    private Money money;
 
     static {
-         number = IntStream.rangeClosed(1, 45).boxed().collect(Collectors.toList());
+         List<Integer> numbers = IntStream.rangeClosed(1, 45).boxed().collect(Collectors.toList());
+         lottoNumbers = numbers.stream()
+                               .map(LottoNumber::of)
+                               .collect(Collectors.toList());
          countOfMatch = new HashMap<Rank, Integer>();
     }
 
     public LottoMachine(long money) {
-        this.money = money;
+        this.money = Money.of(money);
     }
 
     public static Lotto getLottoNumber() {
@@ -27,10 +29,10 @@ public class LottoMachine {
     }
 
     private static Lotto createLottoNumbers() {
-        List<Integer> result = new ArrayList<>();
-        Collections.shuffle(number);
+        List<LottoNumber> result = new ArrayList<>();
+        Collections.shuffle(lottoNumbers);
         for (int index = 0; index < COUNT_OF_SELECT_LOTTO; index++) {
-            result.add(number.get(index));
+            result.add(lottoNumbers.get(index));
         }
         Collections.sort(result);
         return new Lotto(result);
@@ -50,6 +52,6 @@ public class LottoMachine {
         for (Rank rank : winPrice.keySet()) {
             price += winPrice.get(rank) * rank.getMoney();
         }
-        return (double) price / money * 100;
+        return Money.getRateOfInvestment(price);
     }
 }

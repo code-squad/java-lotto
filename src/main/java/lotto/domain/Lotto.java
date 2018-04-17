@@ -1,15 +1,23 @@
 package lotto.domain;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Lotto {
-    private List<Integer> numbers;
+    private List<LottoNumber> numbers;
 
-    public Lotto(List<Integer> numbers) {
+    public Lotto(List<LottoNumber> numbers) {
         this.numbers = numbers;
     }
 
-    public Collection<Integer> getNumbers() {
+    public static Lotto of(List<Integer> numbers) {
+        return new Lotto(numbers
+                .stream()
+                .map(LottoNumber::of)
+                .collect(Collectors.toList()));
+    }
+
+    public Collection<LottoNumber> getNumbers() {
         return Collections.unmodifiableCollection(numbers);
     }
 
@@ -19,7 +27,7 @@ public class Lotto {
                 .count()), winningLotto.matchBonusNumber(numbers));
     }
 
-    public boolean contains(int lottoNumber) {
+    public boolean contains(LottoNumber lottoNumber) {
         return numbers.stream()
                 .anyMatch(number -> number.equals(lottoNumber));
     }

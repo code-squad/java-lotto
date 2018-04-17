@@ -29,10 +29,10 @@ public class LottoMachineTest {
     @Test
     public void 로또_매치() {
         List<Lotto> myLottos = new ArrayList<Lotto>();
-        myLottos.add(new Lotto(Arrays.asList(1, 2, 3, 7, 8, 9))); // 3개 일치
-        myLottos.add(new Lotto(Arrays.asList(1, 2, 3, 8, 10, 20))); // 3개 일치
-        myLottos.add(new Lotto(Arrays.asList(1, 2, 3, 9, 10, 30))); // 3개 일치
-        Lotto winLotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+        myLottos.add(Lotto.of(Arrays.asList(1, 2, 3, 7, 8, 9))); // 3개 일치
+        myLottos.add(Lotto.of(Arrays.asList(1, 2, 3, 8, 10, 20))); // 3개 일치
+        myLottos.add(Lotto.of(Arrays.asList(1, 2, 3, 9, 10, 30))); // 3개 일치
+        Lotto winLotto = Lotto.of(Arrays.asList(1, 2, 3, 4, 5, 6));
 
         //int actual = lottoMachine.calculate(myLottos, winLotto).getMatchCount(3);
         int expected = 3;

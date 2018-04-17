@@ -13,7 +13,7 @@ public class LottoApplication {
         ResultView.printPurchasedLotto(lotto.purchaseLottos(money));
 
         Lotto winLottoNumber = InputView.inputWinNumber();
-        int bonusNumber = InputView.inputBonus();
+        LottoNumber bonusNumber = LottoNumber.of(InputView.inputBonus());
         WinningLotto winLotto = new WinningLotto(winLottoNumber, bonusNumber);
         GameResult gameResult = lottoMachine.calculate(lotto.getPurchasedLottos(), winLotto);
         ResultView.printWinLotto2(gameResult);

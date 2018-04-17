@@ -11,7 +11,7 @@ public class LottoProvider {
     }
 
     public List<Lotto> purchaseLottos(long money) {
-        int countOfLotto = (int) money / LottoMachine.LOTTO_PRICE;
+        int countOfLotto = Money.getCountOfPurchasedLotto(money);
         for (int index = 0; index < countOfLotto; index++) {
             lottos.add(LottoMachine.getLottoNumber());
         }

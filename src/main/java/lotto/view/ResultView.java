@@ -2,6 +2,7 @@ package lotto.view;
 
 import lotto.domain.GameResult;
 import lotto.domain.Lotto;
+import lotto.domain.LottoNumber;
 import lotto.domain.Rank;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class ResultView {
         StringBuilder sb = new StringBuilder();
 
         for (Lotto lotto : lottos) {
-            List<Integer> purchasedLotto = new ArrayList<Integer>(lotto.getNumbers());
+            List<LottoNumber> purchasedLotto = new ArrayList<LottoNumber>(lotto.getNumbers());
                   sb.append("[")
                     .append(purchasedLotto.stream().map(Object::toString).collect(Collectors.joining(", ")))
                     .append("]").append("\n");
