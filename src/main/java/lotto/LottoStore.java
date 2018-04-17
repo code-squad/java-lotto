@@ -20,9 +20,11 @@ class LottoStore {
     public static List<Lotto> buyLotto(int money, List<Lotto> lottos) {
         money = deductionMoney(money, lottos.size());
 
-        lottos.addAll(LottoStore.buyLotto(money));
+        List<Lotto> purchasedLotto = new ArrayList<>();
+        purchasedLotto.addAll(lottos);
+        purchasedLotto.addAll(LottoStore.buyLotto(money));
 
-        return lottos;
+        return purchasedLotto;
     }
 
     private static int deductionMoney(int money, int size) {
