@@ -13,20 +13,26 @@ public class LottoMachine {
         }
     }
 
-    public List<Lotto> giveLottoTiket(int totalTiketPrice) {
+    public List<Lotto> getLottoTiket(int totalTiketPrice, int handOperatedLottoCount) {
 
         List<Lotto> lottoes = new ArrayList<>();
 
-        for(int i = 0; i < caculateLottoTiketCnt(totalTiketPrice); i++) {
+        for(int i = 0; i < caculateLottoTiketCount(totalTiketPrice, handOperatedLottoCount); i++) {
             lottoes.add(new Lotto(makeLottoNumbers()));
         }
 
         return lottoes;
     }
 
-    int caculateLottoTiketCnt(int totalTiketPrice) {
+    int caculateLottoTiketCount(int totalTiketPrice, int handOperatedLottoCount) {
 
-        return totalTiketPrice / TIKETPAY;
+        int autoTotalTiketPrice = (totalTiketPrice / TIKETPAY) - (handOperatedLottoCount);
+
+        if(autoTotalTiketPrice < 0) {
+            throw new IllegalArgumentException("로또 금액은 수동으로 입력한 갯수보다 적어야 합니다.");
+        }
+
+        return autoTotalTiketPrice;
     }
 
     Set<LottoNo> makeLottoNumbers() {

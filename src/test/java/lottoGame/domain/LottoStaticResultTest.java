@@ -20,7 +20,7 @@ public class LottoStaticResultTest {
        lottoes.add(lotto);
 
        LottoStaticResult lottoStaticResult = LottoStaticResult.makeLottoStaticResult(lottoes, new WinningLotto(new Lotto(3,4,11,17,38,42),new LottoNo(1)));
-       assertThat(lottoStaticResult.getLottoStatisticsCntResult(LottoRank.FIFTH)).isEqualTo(1);
+       assertThat(lottoStaticResult.getLottoStatisticsCountResult(LottoRank.FIFTH)).isEqualTo(1);
     }
 
     @Test
@@ -33,8 +33,8 @@ public class LottoStaticResultTest {
        lottoes.add(lotto2);
 
        LottoStaticResult lottoStaticResult = LottoStaticResult.makeLottoStaticResult(lottoes, new WinningLotto(new Lotto(33,42,11,30,22,9),new LottoNo(3)));
-       assertThat(lottoStaticResult.getLottoStatisticsCntResult(LottoRank.THIRD)).isEqualTo(1);
-       assertThat(lottoStaticResult.getLottoStatisticsCntResult(LottoRank.SECOND)).isEqualTo(1);
+       assertThat(lottoStaticResult.getLottoStatisticsCountResult(LottoRank.THIRD)).isEqualTo(1);
+       assertThat(lottoStaticResult.getLottoStatisticsCountResult(LottoRank.SECOND)).isEqualTo(1);
 
     }
 

@@ -8,14 +8,17 @@ import java.util.List;
 
 public class ResultView {
 
-    public static void printLottoTiketCnt(List<Lotto> lottoes) {
-        int lottoTiketCnt = 0;
+    public static void printLottoTiketCount(List<Lotto> lottoes,int handOperatedLottoCount) {
+        System.out.println();
+        int totalLottoTiketCount = 0;
 
         if(lottoes != null) {
-            lottoTiketCnt = lottoes.size();
+            totalLottoTiketCount = lottoes.size();
         }
 
-        System.out.println(lottoTiketCnt+"개를 구매했습니다.");
+        int autoLottoTiketCount = lottoes.size() - handOperatedLottoCount;
+
+        System.out.println("수동으로 "+handOperatedLottoCount+"장, "+"자동으로 "+autoLottoTiketCount+"개를 구매했습니다.");
     }
 
     public static void printLottoNumbers(List<Lotto> lottoes) {
@@ -38,7 +41,7 @@ public class ResultView {
             if (isSecondRank(lottoStaticResult, sb, lottoRank))
                 continue;
             if (isNotMissRank(lottoRank))
-                sb.append(lottoRank.getCountOfMatch()).append("개 일치 (").append(lottoRank.getWinningMoney()).append("원)- ").append(lottoStaticResult.getLottoStatisticsCntResult(lottoRank)).append("개\n");
+                sb.append(lottoRank.getCountOfMatch()).append("개 일치 (").append(lottoRank.getWinningMoney()).append("원)- ").append(lottoStaticResult.getLottoStatisticsCountResult(lottoRank)).append("개\n");
         }
 
         sb.append("총 수익률은 ").append(lottoStaticResult.getProfitPercent(investment)).append("% 입니다.\n");
@@ -51,7 +54,7 @@ public class ResultView {
 
     private static boolean isSecondRank(LottoStaticResult lottoStaticResult, StringBuilder sb, LottoRank lottoRank) {
         if(lottoRank == LottoRank.SECOND) {
-            sb.append(lottoRank.getCountOfMatch()).append("개 일치, 보너스 볼 일치 (").append(lottoRank.getWinningMoney()).append("원)- ").append(lottoStaticResult.getLottoStatisticsCntResult(lottoRank)).append("개\n");
+            sb.append(lottoRank.getCountOfMatch()).append("개 일치, 보너스 볼 일치 (").append(lottoRank.getWinningMoney()).append("원)- ").append(lottoStaticResult.getLottoStatisticsCountResult(lottoRank)).append("개\n");
             return true;
         }
         return false;
