@@ -1,5 +1,7 @@
 package lotto;
 
+import lotto.vo.LottoNumber;
+
 import java.util.*;
 
 public class LottoGame {
@@ -9,18 +11,17 @@ public class LottoGame {
         purchasedLotto = LottoStore.buyLotto(money);
     }
 
-    public GameResult play(List<Integer> winningNumber) {
-        Lotto winningLotto = new Lotto(winningNumber);
-
-        GameResult result = new GameResult();
-        for (Lotto lotto : purchasedLotto) {
-            accumulateWinLottoCount(winningLotto, result, lotto);
-        }
-        return result;
+    public GameResult play(List<Integer> numbers, int number) {
+        WinningLotto winningLotto = new WinningLotto(Lotto.of(numbers), LottoNumber.of(number));
+        return play(winningLotto);
     }
 
-    private void accumulateWinLottoCount(Lotto winningLotto, GameResult result, Lotto lotto) {
-        result.accumulateWinLottoCount(lotto.matcherNumber(winningLotto));
+    private GameResult play(WinningLotto winningLotto) {
+        GameResult result = new GameResult();
+        for (Lotto lotto : purchasedLotto) {
+            result.accumulateWinLotto(winningLotto.rank(lotto));
+        }
+        return result;
     }
 
     List<Lotto> getPurchasedLotto() {
