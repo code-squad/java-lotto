@@ -38,6 +38,11 @@ public class LottoTest {
         Lotto.of(Stream.of(1, 2, 3, 4, 5, 6, 7).collect(Collectors.toList()));
     }
 
+    @Test
+    public void 로또_생성_문자열파싱() {
+        assertThat(Lotto.of("1, 2, 3, 4, 5, 6")).isEqualTo(Lotto.of(Stream.of(1, 2, 3, 4, 5, 6).collect(Collectors.toList())));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void 로또번호중_중복된_번호가_있다면_예외() {
         Lotto.of(Stream.of(1, 2, 3, 3, 5, 6).collect(Collectors.toList()));
