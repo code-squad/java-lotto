@@ -36,7 +36,11 @@ public class LottoNo {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(no);
+    }
+
+    @Override
+    public String toString() {
+        return no + " ";
     }
 }
