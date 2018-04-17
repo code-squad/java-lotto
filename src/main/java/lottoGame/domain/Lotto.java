@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Lotto {
 
+    private static final int LOTTO_STANDARD_SIZE = 6;
     private Set<LottoNo> lottoNumbers;
 
     public Lotto(Set<LottoNo> lottoNums) {
@@ -41,8 +42,8 @@ public class Lotto {
     }
 
     private Set<LottoNo> vaildLottoSize(Set<LottoNo> lottoNums) {
-        if(lottoNums.size() != 6) {
-            throw new IllegalArgumentException();
+        if(lottoNums.size() != LOTTO_STANDARD_SIZE) {
+            throw new IllegalArgumentException("LOTTO의 숫자는 6개를 만족해야 합니다.");
         }
         return lottoNums;
     }

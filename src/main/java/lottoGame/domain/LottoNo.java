@@ -3,6 +3,8 @@ package lottoGame.domain;
 import java.util.Objects;
 
 public class LottoNo implements Comparable<LottoNo> {
+    private static final int MAX_LOTTO_NUM = 45;
+    private static final int MIN_LOTTO_NUM = 1;
 
     private int lottoNo;
 
@@ -13,8 +15,8 @@ public class LottoNo implements Comparable<LottoNo> {
 
     private int vaildLottoNo(int lottoNo) {
 
-        if(lottoNo > 45 || lottoNo < 1) {
-            throw new IllegalArgumentException();
+        if(lottoNo > MAX_LOTTO_NUM || lottoNo < MIN_LOTTO_NUM) {
+            throw new IllegalArgumentException("LOTTO번호는 1이상 45이하의 수입니다.");
         }
         return lottoNo;
     }

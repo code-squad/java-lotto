@@ -16,19 +16,19 @@ public class WinningLotto {
         this.bonusBall = bonusBall;
     }
 
-    public int getSameLuckNumCnt(Lotto lotto) {
-        int cnt = 0;
+    public int getSameLuckNumCount(Lotto lotto) {
+        int Count = 0;
         for(LottoNo lottoNum : lotto.getLottoNums()) {
-            cnt += addContainLuckyNum(cnt, lottoNum);
+            Count += addContainLuckyNum(Count, lottoNum);
         }
-        return cnt;
+        return Count;
     }
 
     public boolean isContainBonusNum(Lotto lotto) {
         return lotto.isContainBonusNum(bonusBall);
     }
 
-    private int addContainLuckyNum(int cnt, LottoNo lottoNum) {
+    private int addContainLuckyNum(int Count, LottoNo lottoNum) {
         if(isContainWinningNum(lottoNum)) {
             return 1;
         }
@@ -40,7 +40,7 @@ public class WinningLotto {
     }
 
     private void isDuplicateBonusBall(Lotto winningLottoNumbers, LottoNo bonusBall) {
-        if(winningLottoNumbers.isContainBonusNum(bonusBall)==true)
+        if(winningLottoNumbers.isContainBonusNum(bonusBall))
             throw new IllegalArgumentException();
     }
 

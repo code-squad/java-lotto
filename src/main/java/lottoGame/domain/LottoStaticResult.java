@@ -4,11 +4,11 @@ import java.util.*;
 
 public class LottoStaticResult {
 
-    private Map<LottoRank,Integer> lottoStatisticsCntResult = new EnumMap<LottoRank, Integer>(LottoRank.class);
+    private Map<LottoRank,Integer> lottoStatisticsCountResult = new EnumMap<LottoRank, Integer>(LottoRank.class);
 
     {
         for(LottoRank lottoRank: LottoRank.values()) {
-            lottoStatisticsCntResult.put(lottoRank,0);
+            lottoStatisticsCountResult.put(lottoRank,0);
         }
     }
 
@@ -20,15 +20,15 @@ public class LottoStaticResult {
         LottoStaticResult lottoResult = new LottoStaticResult();
 
         for (Lotto lotto : lottoes) {
-            lottoResult.addLuckyNum(winningLotto.getSameLuckNumCnt(lotto),winningLotto.isContainBonusNum(lotto));
+            lottoResult.addLuckyNum(winningLotto.getSameLuckNumCount(lotto),winningLotto.isContainBonusNum(lotto));
         }
 
         return lottoResult;
     }
 
     public int getProfitPercent(int investment) {
-        if(investment == 0)
-            throw new IllegalArgumentException();
+        if(investment <= 0)
+            throw new IllegalArgumentException("투자금액은 0보단 커야합니다.");
 
         long result = getResultSum();
         result  = (result * 100) / investment;
@@ -36,27 +36,27 @@ public class LottoStaticResult {
         return (int)result;
     }
 
-    public int getLottoStatisticsCntResult(LottoRank lottoRank) {
-        return lottoStatisticsCntResult.get(lottoRank);
+    public int getLottoStatisticsCountResult(LottoRank lottoRank) {
+        return lottoStatisticsCountResult.get(lottoRank);
     }
 
     private void addLuckyNum(int sameLuckyNums,boolean matchBonus) {
         LottoRank lottoRank = LottoRank.valueOf(sameLuckyNums,matchBonus);
-        if(lottoStatisticsCntResult.get(lottoRank) != null) {
-            int cnt = lottoStatisticsCntResult.get(lottoRank);
-            cnt += 1;
-            lottoStatisticsCntResult.put(lottoRank,cnt);
+        if(lottoStatisticsCountResult.get(lottoRank) != null) {
+            int Count = lottoStatisticsCountResult.get(lottoRank);
+            Count += 1;
+            lottoStatisticsCountResult.put(lottoRank,Count);
         }
     }
 
     private long getResultSum() {
         long result = 0;
 
-        Iterator<LottoRank> it = lottoStatisticsCntResult.keySet().iterator();
+        Iterator<LottoRank> it = lottoStatisticsCountResult.keySet().iterator();
         while(it.hasNext()) {
             LottoRank lottoRank = it.next();
-            int cnt = lottoStatisticsCntResult.get(lottoRank);
-            result += (lottoRank.getWinningMoney() * cnt);
+            int Count = lottoStatisticsCountResult.get(lottoRank);
+            result += (lottoRank.getWinningMoney() * Count);
         }
 
         return result;

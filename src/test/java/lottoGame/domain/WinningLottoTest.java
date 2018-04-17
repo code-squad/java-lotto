@@ -22,8 +22,8 @@ public class WinningLottoTest {
         Lotto lotto = new Lotto(3,4,11,5,24,43);
         Lotto lotto2 = new Lotto(3,4,11,41,42,43);
 
-        assertThat(winningLotto.getSameLuckNumCnt(lotto)).isEqualTo(6);
-        assertThat(winningLotto.getSameLuckNumCnt(lotto2)).isEqualTo(4);
+        assertThat(winningLotto.getSameLuckNumCount(lotto)).isEqualTo(6);
+        assertThat(winningLotto.getSameLuckNumCount(lotto2)).isEqualTo(4);
     }
 
     @Test
