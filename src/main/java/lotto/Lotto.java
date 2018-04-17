@@ -2,10 +2,7 @@ package lotto;
 
 import lotto.vo.LottoNumber;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -38,6 +35,12 @@ public class Lotto {
 
     static Lotto of(List<Integer> numbers) {
         return Lotto.of(numbers.stream().map(LottoNumber::new).collect(Collectors.toSet()));
+    }
+
+    public static Lotto of(String numbers) {
+        return Lotto.of(Arrays.stream(numbers.split(", "))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList()));
     }
 
     private static Lotto of(Set<LottoNumber> numbers) {
