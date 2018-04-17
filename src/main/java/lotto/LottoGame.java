@@ -5,10 +5,19 @@ import lotto.vo.LottoNumber;
 import java.util.*;
 
 public class LottoGame {
+    private int manualLottoCount;
+    private int automaticLottoCount;
     private List<Lotto> purchasedLotto;
 
-    public LottoGame(int money) {
+    LottoGame(int money) {
         purchasedLotto = LottoStore.buyLotto(money);
+        this.automaticLottoCount = purchasedLotto.size();
+    }
+
+    public LottoGame(int money, List<Lotto> manualLottos) {
+        purchasedLotto = LottoStore.buyLotto(money, manualLottos);
+        this.manualLottoCount = manualLottos.size();
+        this.automaticLottoCount = purchasedLotto.size() - this.manualLottoCount;
     }
 
     public GameResult play(List<Integer> numbers, int number) {
@@ -26,5 +35,13 @@ public class LottoGame {
 
     List<Lotto> getPurchasedLotto() {
         return this.purchasedLotto;
+    }
+
+    int getManualLottoCount() {
+        return this.manualLottoCount;
+    }
+
+    int getAutomaticLottoCount() {
+        return this.automaticLottoCount;
     }
 }
