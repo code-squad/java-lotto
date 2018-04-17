@@ -2,6 +2,10 @@ package lotto;
 
 public class ResultView {
     public static void printLotto(LottoGame lottoGame) {
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다\n",
+                lottoGame.getManualLottoCount(),
+                lottoGame.getAutomaticLottoCount());
+
         for (Lotto lotto : lottoGame.getPurchasedLotto()) {
             System.out.println(lotto);
         }
