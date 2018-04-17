@@ -14,15 +14,15 @@ public class LottoMachineTest {
     @Test
     public void 로또금액을입력하면로또를발권한다() {
         LottoMachine lm = new LottoMachine();
-        assertThat(lm.caculateLottoTiketCount(14000,0)).isEqualTo(14);
+        assertThat(lm.caculateLottoTiketCount(14000,3)).isEqualTo(11);
     }
 
     @Test
     public void 발권받은로또를받아서로또를생성한다() {
 
         LottoMachine lm = new LottoMachine();
-        List<Lotto> lottoes = lm.getLottoTiket(14000,0);
-        assertThat(lottoes.size()).isEqualTo(14);
+        List<Lotto> lottoes = lm.getLottoTiket(14000,2);
+        assertThat(lottoes.size()).isEqualTo(12);
     }
 
     @Test
