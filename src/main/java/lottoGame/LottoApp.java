@@ -55,7 +55,7 @@ public class LottoApp {
         }
     }
 
-    private static int getMatchCnt(Lotto lotto,LottoNumbers[] winningLottoNums) {
+    private static int getMatchCnt(Lotto lotto, LottoNumbers[] winningLottoNums) {
         int matchCnt = 0;
         for(LottoNumbers number : winningLottoNums) {
             if(lotto.isNumberMatch(number))
