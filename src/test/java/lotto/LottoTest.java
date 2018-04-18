@@ -44,6 +44,13 @@ public class LottoTest {
         assertThat(matchCount).isEqualTo(5);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또수동숫자6개초과() {
+        Lotto lotto = new Lotto("1, 2, 3, 4, 5, 6, 7");
+    }
 
-
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또수동숫자6개미만() {
+        Lotto lotto = new Lotto("1, 2, 3, 4, 5");
+    }
 }

@@ -14,6 +14,10 @@ public class Lotto {
         List<LottoNo> newLotto = new ArrayList<>();
         String[] lottoNumbers = paramLottoNumbers.split(",");
 
+        if(lottoNumbers.length != 6){
+            throw new IllegalArgumentException();
+        }
+
         for(String winToken:lottoNumbers){
             newLotto.add( new LottoNo(Integer.parseInt(winToken.trim()) ) );
         }

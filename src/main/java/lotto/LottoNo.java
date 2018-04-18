@@ -6,6 +6,10 @@ public class LottoNo {
     private int lottoNo;
 
     public LottoNo(int lottoNo){
+
+        if(lottoNo < 1 || lottoNo > 45){
+            throw new IllegalArgumentException();
+        }
         this.lottoNo = lottoNo;
     }
 
