@@ -10,13 +10,20 @@ public class LottoGames {
     Lottos lottos;
     WinLotto winLotto;
 
-    public LottoGames(long buyAmt){
+    public LottoGames(long buyAmt, String [] manualNumbers){
         lottos = new Lottos();
 
         checkPriceValidation(buyAmt);
         long ticketCounts = buyAmt / LOTTO_PRICE_PER_TICKET;
-        buyLottoNCounts(ticketCounts);
+        buyManually(manualNumbers);
+        buyLottoNCounts(ticketCounts - manualNumbers.length);
 
+    }
+
+    private void buyManually(String[] manualNumbers){
+        for(String manualNumber : manualNumbers){
+            lottos.add(new Lotto(manualNumber));
+        }
     }
 
     private List<String> generateRandomLottoNumbers(){
