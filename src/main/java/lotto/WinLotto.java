@@ -10,7 +10,9 @@ public class WinLotto {
             throw new IllegalArgumentException();
         }
 
-        if(winLotto.contains(bonusNumber)){
+        LottoNo bunusLottoNo = new LottoNo(bonusNumber);
+
+        if(winLotto.contains(bunusLottoNo)){
             throw new IllegalArgumentException();
         }
 
@@ -27,6 +29,7 @@ public class WinLotto {
     }
 
     public boolean contain(Integer number) {
-        return winLotto.contains(number);
+        LottoNo lottoNo = new LottoNo(number);
+        return winLotto.contains(lottoNo);
     }
 }

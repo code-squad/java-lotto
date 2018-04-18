@@ -3,22 +3,22 @@ package lotto;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
 
-    private List<Integer> lotto;
+    private List<LottoNo> lotto;
 
-    public Lotto(String lottoNumbers){
-        List<Integer> newLotto = new ArrayList<>();
-        String[] winStringNumbers = lottoNumbers.split(",");
+    public Lotto(String paramLottoNumbers){
+        List<LottoNo> newLotto = new ArrayList<>();
+        String[] lottoNumbers = paramLottoNumbers.split(",");
 
-        for(String singleNumber:winStringNumbers){
-            int lottoNumber = getLottoSingleNumber(singleNumber.trim());
-            newLotto.add(lottoNumber);
+        for(String winToken:lottoNumbers){
+            newLotto.add( new LottoNo(Integer.parseInt(winToken.trim()) ) );
         }
 
-        checkConstructorValidation(winStringNumbers, newLotto);
+        checkConstructorValidation(lottoNumbers, newLotto);
         lotto = newLotto;
     }
 
@@ -34,8 +34,8 @@ public class Lotto {
         return lottoNumber;
     }
 
-    private void checkConstructorValidation(String[] winStringNumbers, List<Integer> winNumbers) {
-        if(winStringNumbers.length != 6){
+    private void checkConstructorValidation(String[] lottoNumbers, List<LottoNo> winNumbers) {
+        if(lottoNumbers.length != 6){
             throw new IllegalArgumentException();
         }
 
@@ -46,11 +46,16 @@ public class Lotto {
         }
     }
 
+    public List<LottoNo> getLotto() {
+        List<LottoNo> unModifiableLotto = Collections.unmodifiableList(lotto);
+        return unModifiableLotto;
+    }
+
     public int getMatchCount(WinLotto winLotto){
         int winCount = 0;
 
-        for(Integer number : lotto){
-            if( winLotto.contain(number) ) {
+        for(LottoNo winNumber:winLotto.getWinLotto().getLotto()) {
+            if( lotto.contains(winNumber) ){
                 winCount++;
             }
         }
@@ -63,17 +68,20 @@ public class Lotto {
     }
 
 
-    public boolean contains(Integer number) {
+    public boolean contains(LottoNo number) {
+
         return lotto.contains(number);
     }
 
     @Override
     public String toString() {
-        String str = "";
-        for(Integer integer : lotto){
-            str += integer + ", ";
+
+        String[] lottoNumbers = new String[lotto.size()];
+
+        for(int i=0; i<lotto.size(); i++){
+            lottoNumbers[i] = new String(lotto.get(i).getLottoNo() + "");
         }
 
-        return "[" + str.substring(0, str.length()-2) + "]";
+        return "[" + String.join(",", lottoNumbers) + "]";
     }
 }
