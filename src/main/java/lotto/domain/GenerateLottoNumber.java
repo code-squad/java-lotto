@@ -1,4 +1,4 @@
-package lotto;
+package lotto.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,7 +6,7 @@ import java.util.List;
 
 public class GenerateLottoNumber {
 
-    public Lotto generateRandomNumber(ArrayList<Integer> ranNumber){
+    public Lotto generateRandomNumber(List<Integer> ranNumber){
 
         try {
             Collections.shuffle(ranNumber);
@@ -22,7 +22,7 @@ public class GenerateLottoNumber {
 
     }
 
-    private List<Integer> pickRandomNumber(ArrayList<Integer> ranNumber) {
+    private List<Integer> pickRandomNumber(List<Integer> ranNumber) {
         List<Integer> selectedNumbers = new ArrayList<>();
 
         for (int k = 0; k <= 5; k++)
