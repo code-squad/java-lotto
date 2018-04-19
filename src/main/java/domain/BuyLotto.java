@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BuyLotto {
@@ -9,10 +10,23 @@ public class BuyLotto {
 
     private List<Lotto> lottos;
 
-    public BuyLotto(int totalPrice) {
+    public BuyLotto(int totalPrice, List<String> manualLotto) {
         priceCheck(totalPrice);
-        int ticketNum = totalPrice / LOTTO_PRICE;
-        this.lottos = buyingLottos(ticketNum);
+        this.lottos = buyLotto(totalPrice, manualLotto);
+    }
+
+    private List<Lotto> buyLotto(int totalPrice, List<String> manualLotto) {
+        int ticketNum = totalPrice / LOTTO_PRICE - manualLotto.size();
+        List<Lotto> lottos = buyManualLotto(manualLotto);
+        return this.lottos = buyAutoLotto(ticketNum, lottos);
+    }
+
+    private static List<Lotto> buyManualLotto(List<String> manualLotto) {
+        List<Lotto> manualLottos = new ArrayList<>();
+        for (String lotto : manualLotto) {
+            manualLottos.add(Lotto.of(lotto));
+        }
+        return manualLottos;
     }
 
     private void priceCheck(int lottoPrice) {
@@ -23,13 +37,11 @@ public class BuyLotto {
             throw new IllegalArgumentException("로또는 한장에 1000원 입니다.");
         }
     }
-
-    private List<Lotto> buyingLottos(int buyingNum) {
-        List<Lotto> lotto = new ArrayList<>();
+    private List<Lotto> buyAutoLotto(int buyingNum, List<Lotto> lottos) {
         for (int i = 0; i < buyingNum; i++) {
-            lotto.add(Lotto.buyingLottos());
+            lottos.add(Lotto.buyingLottos());
         }
-        return lotto;
+        return lottos;
     }
 
     public List<Lotto> getLottos() {

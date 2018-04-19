@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Output {
-    public static void allLottoNum(List<Lotto> lottos) {
-        System.out.println(lottos.size() + "개를 구매했습니다.");
+    public static void allLottoNum(int manualLottoCount, List<Lotto> lottos) {
+        int autoLottoCount = lottos.size() - manualLottoCount;
+        System.out.println("수동으로 " + manualLottoCount + "장, 자동으로 " + autoLottoCount + "개를 구매했습니다.");
         for (Lotto lotto : lottos) {
             printLotto(lotto.getLotto());
         }

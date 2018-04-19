@@ -15,11 +15,13 @@ public class LottoExe {
         Scanner scanner = new Scanner(System.in);
 
         int totalPay = UserInput.purchasePrice(scanner);
+        int manualLottoCount = UserInput.manualCount(scanner);
+        List<String> manualLotto = UserInput.manualLottoNumbs(manualLottoCount);
 
-        BuyLotto purchaseLotto = new BuyLotto(totalPay);
+        BuyLotto purchaseLotto = new BuyLotto(totalPay, manualLotto);
         List<Lotto> lottos = purchaseLotto.getLottos();
 
-        Output.allLottoNum(lottos);
+        Output.allLottoNum(manualLottoCount, lottos);
 
         String winningNum = UserInput.winningNumber(scanner);
 
