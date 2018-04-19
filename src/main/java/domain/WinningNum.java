@@ -7,14 +7,44 @@ import java.util.Map;
 
 public class WinningNum {
 
+<<<<<<< HEAD
+=======
+    private static final int PREVIOUS_WINNER_NUMBER_LENGTH = 6;
+
+>>>>>>> JosephChun
     private List<Integer> preWinNums;
     private int bonusBall;
 
     public WinningNum(String preWinNum, int bonusBall) {
+<<<<<<< HEAD
         Parser parser = new Parser();
         preWinNums = parser.parsing(preWinNum);
         this.bonusBall = bonusBall;
     }
+
+    /*
+    public Rank matchCount(List<Integer> lotto) {
+        int matchCount = lotto.matchCount(preWinNums);
+        boolean matchBonus = lotto.matchBonus(bonusBall);
+        return Rank.valueOf(matchCount, matchBonus);
+=======
+        String[] winNum = preWinNum.split(",");
+        numLengthCheck(winNum);
+        preWinNums = new ArrayList<>();
+        for (String winningNum : winNum) {
+            preWinNums.add(Integer.parseInt(winningNum));
+        }
+        this.bonusBall = bonusBall;
+    }
+
+    private void numLengthCheck(String[] previousWinNum) {
+        if (previousWinNum.length != PREVIOUS_WINNER_NUMBER_LENGTH) {
+            throw new IllegalArgumentException("지난 주 당첨 번호는 숫자 6개입니다.");
+        }
+>>>>>>> JosephChun
+    }
+    */
+
 
     /*
     public Rank matchCount(List<Integer> lotto) {

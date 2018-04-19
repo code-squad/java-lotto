@@ -30,11 +30,13 @@ public class BuyLotto {
     }
 
     private void priceCheck(int lottoPrice) {
+        if (lottoPrice < LOTTO_PRICE) {
+            throw new IllegalArgumentException("잔고가 부족합니다.");
+        }
         if (lottoPrice % LOTTO_PRICE != ZERO) {
             throw new IllegalArgumentException("로또는 한장에 1000원 입니다.");
         }
     }
-
     private List<Lotto> buyAutoLotto(int buyingNum, List<Lotto> lottos) {
         for (int i = 0; i < buyingNum; i++) {
             lottos.add(Lotto.buyingLottos());
