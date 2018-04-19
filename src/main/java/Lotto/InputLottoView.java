@@ -17,6 +17,10 @@ public class InputLottoView {
             throw new IllegalArgumentException();
         }
 
+        if (money % 1000 != 0) {
+            throw new IllegalArgumentException();
+        }
+
         return money;
     }
 
@@ -24,6 +28,19 @@ public class InputLottoView {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         Scanner scanner = new Scanner(System.in);
         return stringToList(scanner.nextLine());
+    }
+
+    public static int inputBonus() {
+        System.out.println("보너스 볼을 입력해 주세요");
+        Scanner scanner = new Scanner(System.in);
+        return checkBonusNumber(scanner.nextInt());
+    }
+
+    public static int checkBonusNumber(int bonus) {
+        if (bonus < 1 || bonus > 45) {
+            throw new IllegalArgumentException();
+        }
+        return bonus;
     }
 
     private static List<String> stringToList(String winnerNumber) {

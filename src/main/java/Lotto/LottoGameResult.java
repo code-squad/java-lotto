@@ -1,51 +1,55 @@
 package Lotto;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LottoGameResult {
 
-    private static final int THREE_MATCH_MONEY = 5000;
-    private static final int FOUR_MATCH_MONEY = 50000;
-    private static final int FIVE_MATCH_MONEY = 1500000;
-    private static final int SIX_MATCH_MONEY = 2000000000;
+    private static Map<Rank, Integer> prizeCounts;
 
-    private static int threeMatchCount = 0;
-    private static int fourMatchCount = 0;
-    private static int fiveMatchCount = 0;
-    private static int sixMatchCount = 0;
-
-    public static void setMatchCount(int matchCount) {
-        if (matchCount == 3) {
-            threeMatchCount++;
-        } else if (matchCount == 4) {
-            fourMatchCount++;
-        } else if (matchCount == 5) {
-            fiveMatchCount++;
-        } else if (matchCount == 6) {
-            sixMatchCount++;
+    static {
+        prizeCounts = new HashMap<>();
+        for (Rank rank : Rank.values()) {
+            prizeCounts.put(rank, 0);
         }
-    }
-
-    public static int getThreeMatchCount() {
-        return threeMatchCount;
-    }
-
-    public static int getFourMatchCount() {
-        return fourMatchCount;
-    }
-
-    public static int getFiveMatchCount() {
-        return fiveMatchCount;
-    }
-
-    public static int getSixMatchCount() {
-        return sixMatchCount;
     }
 
     public static int getYield(int money) {
         return Math.round(totalYieldMoney() / money * 100);
     }
 
-    private static float totalYieldMoney() {
-        return THREE_MATCH_MONEY * threeMatchCount + FOUR_MATCH_MONEY * fourMatchCount + FIVE_MATCH_MONEY * fiveMatchCount + SIX_MATCH_MONEY * sixMatchCount;
+    public static float totalYieldMoney() {
+        float total = 0;
+        for (Rank rank : Rank.values()) {
+            total += rank.getWinningMoney() * prizeCounts.get(rank);
+        }
+
+        return total;
+    }
+
+    public static void setPrizeCount(Rank rank) {
+        int count = prizeCounts.get(rank);
+        prizeCounts.put(rank, ++count);
+    }
+
+    public int getFirstPrizeCount() {
+        return prizeCounts.get(Rank.FIRST);
+    }
+
+    public int getSecondPrizeCount() {
+        return prizeCounts.get(Rank.SECOND);
+    }
+
+    public int getThirdPrizeCount() {
+        return prizeCounts.get(Rank.THIRD);
+    }
+
+    public int getFourthPrizeCount() {
+        return prizeCounts.get(Rank.FOURTH);
+    }
+
+    public int getFifthPrizeCount() {
+        return prizeCounts.get(Rank.FIFTH);
     }
 
 }

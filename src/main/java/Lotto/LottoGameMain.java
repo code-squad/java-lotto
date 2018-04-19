@@ -11,7 +11,8 @@ public class LottoGameMain {
         OutputLottoView.printPurchaseLotto(lottoGame);
 
         List<String> winningNumber = InputLottoView.inputWinnerNumber();
-        LottoGameResult lottoGameResult = lottoGame.playLottoGame(winningNumber);
+        int bonus = InputLottoView.inputBonus();
+        LottoGameResult lottoGameResult = lottoGame.playLottoGame(winningNumber, bonus);
         OutputLottoView.winStat(lottoGameResult, money);
     }
 }
