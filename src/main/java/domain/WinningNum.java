@@ -7,25 +7,13 @@ import java.util.Map;
 
 public class WinningNum {
 
-    private static final int PREVIOUS_WINNER_NUMBER_LENGTH = 6;
-
     private List<Integer> preWinNums;
     private int bonusBall;
 
     public WinningNum(String preWinNum, int bonusBall) {
-        String[] winNum = preWinNum.split(",");
-        numLengthCheck(winNum);
-        preWinNums = new ArrayList<>();
-        for (String winningNum : winNum) {
-            preWinNums.add(Integer.parseInt(winningNum));
-        }
+        Parser parser = new Parser();
+        preWinNums = parser.parsing(preWinNum);
         this.bonusBall = bonusBall;
-    }
-
-    private void numLengthCheck(String[] previousWinNum) {
-        if (previousWinNum.length != PREVIOUS_WINNER_NUMBER_LENGTH) {
-            throw new IllegalArgumentException("지난 주 당첨 번호는 숫자 6개입니다.");
-        }
     }
 
     /*
