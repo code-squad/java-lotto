@@ -7,11 +7,14 @@ public class Lotto {
     private List<LottoNumber> lottoTicket;
 
     public Lotto(List<LottoNumber> lotto) {
-        if (lotto.isEmpty()
-                || lotto == null
-                || lotto.size() != LOTTO_SIZE) {
+        if (lotto.isEmpty() || lotto == null) {
             throw new IllegalArgumentException();
         }
+
+        if (lotto.size() != LOTTO_SIZE) {
+            throw new IllegalArgumentException();
+        }
+
         this.lottoTicket = lotto;
     }
 

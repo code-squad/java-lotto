@@ -10,7 +10,7 @@ public class InputLottoView {
         System.out.println("구입금액을 입력해 주세요.");
         Scanner scanner = new Scanner(System.in);
         return checkInputMoney(scanner.nextInt());
-    }해
+    }
 
     public static int checkInputMoney(int money) {
         if (money < 1000) {

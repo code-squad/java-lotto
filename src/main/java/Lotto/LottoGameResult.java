@@ -19,11 +19,12 @@ public class LottoGameResult {
     }
 
     public static float totalYieldMoney() {
-        return Rank.FIRST.getWinningMoney() * prizeCounts.get(Rank.FIRST)
-                + Rank.SECOND.getWinningMoney() * prizeCounts.get(Rank.SECOND)
-                + Rank.THIRD.getWinningMoney() * prizeCounts.get(Rank.THIRD)
-                + Rank.FOURTH.getWinningMoney() * prizeCounts.get(Rank.FOURTH)
-                + Rank.FIFTH.getWinningMoney() * prizeCounts.get(Rank.FIFTH);
+        float total = 0;
+        for (Rank rank : Rank.values()) {
+            total += rank.getWinningMoney() * prizeCounts.get(rank);
+        }
+
+        return total;
     }
 
     public static void setPrizeCount(Rank rank) {
