@@ -70,4 +70,10 @@ public class WinTypeTest {
         final boolean isWin = type.isWin();
         assertThat(isWin).isFalse();
     }
+
+    @Test
+    public void 일치6개_당첨2개_40억() {
+        final Money prize = WinType.SIX.calculatePrize(2);
+        assertThat(prize).isEqualTo(new Money(4_000_000_000L));
+    }
 }

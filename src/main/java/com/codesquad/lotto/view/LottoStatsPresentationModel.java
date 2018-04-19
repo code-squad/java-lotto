@@ -1,7 +1,8 @@
 package com.codesquad.lotto.view;
 
-import com.codesquad.lotto.domain.LottoGameResult;
+import com.codesquad.lotto.application.LottoGameResult;
 import com.codesquad.lotto.domain.WinType;
+import com.codesquad.lotto.domain.WinningMatchResult;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,8 @@ public class LottoStatsPresentationModel {
     }
 
     public String winCountMessage(final WinType winType) {
-        final int winingCount = stats.getWiningCount(winType);
+        final WinningMatchResult matchResult = stats.getMatchResult();
+        final int winingCount = matchResult.getCountByWinType(winType);
         return String.format("%s- %d개", winType, winingCount);
     }
 
@@ -29,6 +31,6 @@ public class LottoStatsPresentationModel {
     }
 
     public String profitMessage() {
-        return String.format("총 수익률은 %d%%입니다.", stats.getProfitRate());
+        return String.format("총 수익률은 %d%%입니다.", stats.calcProfitRate());
     }
 }

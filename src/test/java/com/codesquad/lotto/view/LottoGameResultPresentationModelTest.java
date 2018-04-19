@@ -1,8 +1,9 @@
 package com.codesquad.lotto.view;
 
-import com.codesquad.lotto.domain.LottoGameResult;
+import com.codesquad.lotto.application.LottoGameResult;
 import com.codesquad.lotto.domain.Money;
 import com.codesquad.lotto.domain.WinType;
+import com.codesquad.lotto.domain.WinningMatchResult;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -94,6 +95,8 @@ public class LottoGameResultPresentationModelTest {
         map.put(WinType.FIVE, five);
         map.put(WinType.SIX, six);
 
-        return new LottoGameResult(map, new Money(payment));
+        final WinningMatchResult result = new WinningMatchResult(map);
+
+        return new LottoGameResult(result, new Money(payment));
     }
 }

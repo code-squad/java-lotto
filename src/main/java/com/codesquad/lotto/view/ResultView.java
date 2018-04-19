@@ -1,18 +1,13 @@
 package com.codesquad.lotto.view;
 
-import com.codesquad.lotto.domain.LottoGame;
-import com.codesquad.lotto.domain.LottoGameResult;
+import com.codesquad.lotto.application.LottoGame;
+import com.codesquad.lotto.application.LottoGameResult;
 
 public class ResultView {
-//    public static void printLotto(final LottoGame lottoGame) {
-//        final LottoReceiptPresentationModel receipt = lottoGame.getReceiptModel();
-//        System.out.println(receipt.countMessage());
-//        System.out.println(receipt.lottoList());
-//    }
-
     public static void printLotto(final LottoGame lottoGame) {
-        System.out.println(lottoGame.countMessage());
-        System.out.println(lottoGame.lottoList());
+        final LottoReceiptPresentationModel receipt = new LottoReceiptPresentationModel(lottoGame.getBundle());
+        System.out.println(receipt.countMessage());
+        System.out.println(receipt.lottoList());
     }
 
     public static void statistic(final LottoGameResult result) {

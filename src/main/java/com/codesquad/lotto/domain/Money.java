@@ -3,20 +3,20 @@ package com.codesquad.lotto.domain;
 import java.util.Objects;
 
 public class Money {
-    private final int value;
+    private final long value;
 
-    public Money(final int value) {
+    public Money(final long value) {
         if (value < 0) {
             throw new IllegalArgumentException("마이너스 금액은 생성할 수 없습니다.");
         }
         this.value = value;
     }
 
-    public static int calculateProfitRate(final Money winMoney, final Money payment) {
-        return (int) ((double) (winMoney.value - payment.value) / payment.value * 100);
+    public static int calculateProfitRate(final Money prize, final Money payment) {
+        return (int) ((double) (prize.value - payment.value) / payment.value * 100);
     }
 
-    public int getValue() {
+    public long getValue() {
         return this.value;
     }
 
@@ -32,7 +32,7 @@ public class Money {
         if (money.getValue() == 0) {
             throw new IllegalArgumentException("0으로 나눌 수 없습니다.");
         }
-        return this.value / money.getValue();
+        return (int) (this.value / money.getValue());
     }
 
     @Override

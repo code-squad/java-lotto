@@ -1,7 +1,7 @@
 package com.codesquad.lotto.app;
 
-import com.codesquad.lotto.domain.LottoGame;
-import com.codesquad.lotto.domain.LottoGameResult;
+import com.codesquad.lotto.application.LottoGame;
+import com.codesquad.lotto.application.LottoGameResult;
 import com.codesquad.lotto.infrastructure.DefaultShuffler;
 import com.codesquad.lotto.view.InputView;
 import com.codesquad.lotto.view.ResultView;

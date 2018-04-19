@@ -1,13 +1,16 @@
-package com.codesquad.lotto.domain;
+package com.codesquad.lotto.application;
+
+import com.codesquad.lotto.domain.*;
 
 import java.util.List;
 import java.util.Objects;
 
 public class LottoGame {
+    private final Money payment;
     private final LottoBundle bundle;
 
     public LottoGame(final int amount, final Shuffler shuffler) {
-        final Money payment = new Money(amount);
+        payment = new Money(amount);
         final LottoMachine machine = prepareLottoMachine(shuffler);
         bundle = machine.buy(payment);
     }
@@ -18,16 +21,12 @@ public class LottoGame {
 
     public LottoGameResult play(final List<String> winningNumber) {
         final Lotto winningLotto = Lotto.fromComma(winningNumber.get(0));
-        return bundle.match(winningLotto);
+        final WinningMatchResult matchResult = bundle.match(winningLotto);
+        return new LottoGameResult(matchResult, payment);
     }
 
-    public String countMessage() {
-        return String.format("%d개를 구매했습니다.", bundle.count());
-    }
-
-    public String lottoList() {
-        final List<String> list = bundle.lotteriesString();
-        return String.join("\r\n", list);
+    public LottoBundle getBundle() {
+        return this.bundle;
     }
 
     @Override
@@ -39,12 +38,13 @@ public class LottoGame {
             return false;
         }
         final LottoGame lottoGame = (LottoGame) o;
-        return Objects.equals(bundle, lottoGame.bundle);
+        return Objects.equals(payment, lottoGame.payment) &&
+                Objects.equals(bundle, lottoGame.bundle);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(bundle);
+        return Objects.hash(payment, bundle);
     }
 }
