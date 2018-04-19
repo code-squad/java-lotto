@@ -13,11 +13,8 @@ public class Lotto {
     private List<Integer> lotto;
 
     // 생성자 내에서 유효성을 체크하는 것이 더 좋다.
-<<<<<<< HEAD
     // List는 순서를 보장하고 Set은 중복제거를 보장한다.
-=======
 
->>>>>>> JosephChun
     private Lotto(List<Integer> lotto) {
         lottoSizeCheck(lotto.size());
         lottoNumbCheck(lotto);
@@ -25,7 +22,6 @@ public class Lotto {
         this.lotto = lotto;
     }
 
-<<<<<<< HEAD
     private static Lotto of(List<Integer> manualLotto) {
         return new Lotto(manualLotto);
     }
@@ -34,8 +30,6 @@ public class Lotto {
         return of(Parser.parsing(manualLotto));
     }
 
-=======
->>>>>>> JosephChun
     private void lottoSizeCheck(int num) {
         if (num != LOTTO_SIZE) {
             throw new RuntimeException("로또 한 장은 6개의 번호여야 한다.");
@@ -73,10 +67,6 @@ public class Lotto {
         for (Integer num : winningLotto) {
             count = countMatchedNumbs(num, count);
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> JosephChun
         //winningNum.matchCount(lotto);
         //굳이 모든 for문에서 처리할 필요가 있나?
         //for문이 끝난 후 마지막에 한번 확인하면 되지 않을까?
