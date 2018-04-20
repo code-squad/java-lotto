@@ -20,7 +20,7 @@ public class LottoGame {
     }
 
     public LottoGameResult play(final List<String> winningNumber) {
-        final Lotto winningLotto = Lotto.fromComma(winningNumber.get(0));
+        final WinningLotto winningLotto = WinningLotto.fromComma(winningNumber.get(0), winningNumber.get(1));
         final WinningMatchResult matchResult = bundle.match(winningLotto);
         return new LottoGameResult(matchResult, payment);
     }

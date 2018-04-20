@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 public class Lotto {
     public static final int NUMBER_SIZE = 6;
 
-    private final List<LottoNumber> numbers;
+    protected final List<LottoNumber> numbers;
 
-    private Lotto(final List<LottoNumber> numbers) {
+    protected Lotto(final List<LottoNumber> numbers) {
 
         if (numbers == null) {
             throw new IllegalArgumentException("6자리 숫자목록이 필요합니다.");
@@ -48,6 +48,10 @@ public class Lotto {
     }
 
     public static Lotto fromComma(final String numbers) {
+        return new Lotto(parseLottoNumbers(numbers));
+    }
+
+    protected static List<LottoNumber> parseLottoNumbers(final String numbers) {
         if (numbers == null) {
             throw new IllegalArgumentException();
         }
@@ -57,10 +61,10 @@ public class Lotto {
         }
 
         final String[] split = numbers.split(", ");
-        return new Lotto(Arrays.stream(split)
+        return Arrays.stream(split)
                 .map(Integer::parseInt)
                 .map(LottoNumber::of)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
     }
 
     public static Lotto of(final int... numbers) {

@@ -14,7 +14,7 @@ public class LottoBundle {
         this.lotteries = lotteries;
     }
 
-    public WinningMatchResult match(final Lotto winLotto) {
+    public WinningMatchResult match(final WinningLotto winLotto) {
         if (winLotto == null) {
             throw new IllegalArgumentException();
         }
@@ -30,10 +30,13 @@ public class LottoBundle {
         return winTypes.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
-    private Stream<WinType> matchedWinTypes(final Lotto winLotto) {
+    private Stream<WinType> matchedWinTypes(final WinningLotto winLotto) {
         return lotteries.stream()
-                .map(lotto -> lotto.matchedCount(winLotto))
-                .map(WinType::valueOf)
+                .map(lotto -> {
+                    final int matchedCount = lotto.matchedCount(winLotto);
+                    final boolean matchedBonus = winLotto.matchedBonus(lotto);
+                    return WinType.valueOf(matchedCount, matchedBonus);
+                })
                 .filter(WinType::isWin);
     }
 
