@@ -27,14 +27,14 @@ public class MoneyTest {
     @Test
     public void 조회_3000() {
         final Money money = new Money(3000);
-        final int value = money.getValue();
+        final long value = money.getValue();
         assertThat(value).isEqualTo(3000);
     }
 
     @Test
     public void 조회_5000() {
         final Money money = new Money(5000);
-        final int value = money.getValue();
+        final long value = money.getValue();
         assertThat(value).isEqualTo(5000);
     }
 
@@ -93,5 +93,11 @@ public class MoneyTest {
         final Money payment = new Money(1000);
         final int profitRate = Money.calculateProfitRate(winMoney, payment);
         assertThat(profitRate).isEqualTo(400);
+    }
+
+    @Test
+    public void 돈크기40억() {
+        final Money money = new Money(4_000_000_000L);
+        assertThat(money.getValue()).isEqualTo(4_000_000_000L);
     }
 }

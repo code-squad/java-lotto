@@ -14,34 +14,30 @@ public class LottoBundle {
         this.lotteries = lotteries;
     }
 
-    public LottoGameResult match(final Lotto winLotto) {
+    public WinningMatchResult match(final WinningLotto winLotto) {
         if (winLotto == null) {
             throw new IllegalArgumentException();
         }
-
-        final Money payment = calculatePayment();
 
         final Stream<WinType> winTypes = matchedWinTypes(winLotto);
 
         final Map<WinType, Long> winTypeCount = groupByWinType(winTypes);
 
-        return new LottoGameResult(winTypeCount, payment);
+        return new WinningMatchResult(winTypeCount);
     }
 
     private Map<WinType, Long> groupByWinType(final Stream<WinType> winTypes) {
         return winTypes.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
-    private Stream<WinType> matchedWinTypes(final Lotto winLotto) {
+    private Stream<WinType> matchedWinTypes(final WinningLotto winLotto) {
         return lotteries.stream()
-                .map(lotto -> lotto.matchedCount(winLotto))
-                .map(WinType::valueOf)
+                .map(lotto -> {
+                    final int matchedCount = lotto.matchedCount(winLotto);
+                    final boolean matchedBonus = winLotto.matchedBonus(lotto);
+                    return WinType.valueOf(matchedCount, matchedBonus);
+                })
                 .filter(WinType::isWin);
-    }
-
-    private Money calculatePayment() {
-        final int purchasedCount = lotteries.size();
-        return LottoMachine.LIST_PRICE.multiply(purchasedCount);
     }
 
     @Override

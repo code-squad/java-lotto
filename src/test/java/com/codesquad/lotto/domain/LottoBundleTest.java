@@ -27,11 +27,11 @@ public class LottoBundleTest {
         );
         final LottoBundle lottoBundle = new LottoBundle(lotteries);
 
-        final LottoGameResult stats = lottoBundle.match(Lotto.of(1, 2, 3, 4, 5, 6));
+        final WinningMatchResult result = lottoBundle.match(WinningLotto.fromComma("1, 2, 3, 4, 5, 6", "7"));
 
         final Map<WinType, Long> map = new HashMap<>();
         map.put(WinType.SIX, 1L);
-        assertThat(stats).isEqualTo(new LottoGameResult(map, new Money(1000)));
+        assertThat(result).isEqualTo(new WinningMatchResult(map));
     }
 
     @Test
@@ -42,11 +42,11 @@ public class LottoBundleTest {
         );
         final LottoBundle lottoBundle = new LottoBundle(lotteries);
 
-        final LottoGameResult stats = lottoBundle.match(Lotto.of(1, 2, 3, 4, 5, 6));
+        final WinningMatchResult result = lottoBundle.match(WinningLotto.fromComma("1, 2, 3, 4, 5, 6", "7"));
 
         final Map<WinType, Long> map = new HashMap<>();
         map.put(WinType.SIX, 2L);
-        assertThat(stats).isEqualTo(new LottoGameResult(map, new Money(2000)));
+        assertThat(result).isEqualTo(new WinningMatchResult(map));
     }
 
     @Test
@@ -58,10 +58,10 @@ public class LottoBundleTest {
         );
         final LottoBundle lottoBundle = new LottoBundle(lotteries);
 
-        final LottoGameResult stats = lottoBundle.match(Lotto.of(11, 12, 13, 14, 15, 16));
+        final WinningMatchResult result = lottoBundle.match(WinningLotto.fromComma("11, 12, 13, 14, 15, 16", "17"));
 
         final Map<WinType, Long> map = new HashMap<>();
-        assertThat(stats).isEqualTo(new LottoGameResult(map, new Money(3000)));
+        assertThat(result).isEqualTo(new WinningMatchResult(map));
     }
 
     @Test
@@ -71,11 +71,11 @@ public class LottoBundleTest {
         );
         final LottoBundle lottoBundle = new LottoBundle(lotteries);
 
-        final LottoGameResult stats = lottoBundle.match(Lotto.of(1, 2, 3, 7, 8, 9));
+        final WinningMatchResult result = lottoBundle.match(WinningLotto.fromComma("1, 2, 3, 7, 8, 9", "10"));
 
         final Map<WinType, Long> map = new HashMap<>();
         map.put(WinType.THREE, 1L);
-        assertThat(stats).isEqualTo(new LottoGameResult(map, new Money(1000)));
+        assertThat(result).isEqualTo(new WinningMatchResult(map));
     }
 
     @Test
@@ -86,10 +86,10 @@ public class LottoBundleTest {
         );
         final LottoBundle lottoBundle = new LottoBundle(lotteries);
 
-        final LottoGameResult stats = lottoBundle.match(Lotto.of(1, 2, 3, 7, 8, 9));
+        final WinningMatchResult result = lottoBundle.match(WinningLotto.fromComma("1, 2, 3, 7, 8, 9", "10"));
 
         final Map<WinType, Long> map = new HashMap<>();
         map.put(WinType.THREE, 2L);
-        assertThat(stats).isEqualTo(new LottoGameResult(map, new Money(2000)));
+        assertThat(result).isEqualTo(new WinningMatchResult(map));
     }
 }

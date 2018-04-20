@@ -1,18 +1,19 @@
 package com.codesquad.lotto.domain;
 
+import com.codesquad.lotto.vo.LottoNumber;
+
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Lotto {
     public static final int NUMBER_SIZE = 6;
-    public static final int MIN_NUMBER = 1;
-    public static final int MAX_NUMBER = 45;
 
-    private final List<Integer> numbers;
+    protected final List<LottoNumber> numbers;
 
-    private Lotto(final List<Integer> numbers) {
+    protected Lotto(final List<LottoNumber> numbers) {
 
         if (numbers == null) {
             throw new IllegalArgumentException("6자리 숫자목록이 필요합니다.");
@@ -22,24 +23,35 @@ public class Lotto {
             throw new IllegalArgumentException("6자리 숫자가 입력되어야 합니다.");
         }
 
-        if (isIncludeLessThanMin(numbers)) {
-            throw new IllegalArgumentException(String.format("입력가능한 최소값은 '%d'입니다.", MIN_NUMBER));
-        }
-
-        if (isIncludeGreaterThanMax(numbers)) {
-            throw new IllegalArgumentException(String.format("입력가능한 최대값은 '%d' 입니다.", MAX_NUMBER));
-        }
-
         this.numbers = numbers.stream()
-                .sorted()
+                .sorted(Comparator.comparingInt(LottoNumber::getValue))
                 .collect(Collectors.toList());
     }
 
-    public static Lotto fromList(final List<Integer> numbers) {
+    public static Lotto fromLottoNumbers(final List<LottoNumber> numbers) {
+        if (numbers == null) {
+            throw new IllegalArgumentException();
+        }
+
         return new Lotto(numbers);
     }
 
+    public static Lotto fromList(final List<Integer> numbers) {
+        if (numbers == null) {
+            throw new IllegalArgumentException();
+        }
+
+        final List<LottoNumber> lottoNumbers = numbers.stream().map(LottoNumber::of)
+                .collect(Collectors.toList());
+
+        return new Lotto(lottoNumbers);
+    }
+
     public static Lotto fromComma(final String numbers) {
+        return new Lotto(parseLottoNumbers(numbers));
+    }
+
+    protected static List<LottoNumber> parseLottoNumbers(final String numbers) {
         if (numbers == null) {
             throw new IllegalArgumentException();
         }
@@ -49,31 +61,24 @@ public class Lotto {
         }
 
         final String[] split = numbers.split(", ");
-        return new Lotto(Arrays.stream(split)
+        return Arrays.stream(split)
                 .map(Integer::parseInt)
-                .collect(Collectors.toList()));
+                .map(LottoNumber::of)
+                .collect(Collectors.toList());
     }
 
     public static Lotto of(final int... numbers) {
         return new Lotto(Arrays.stream(numbers)
                 .boxed()
+                .map(LottoNumber::of)
                 .collect(Collectors.toList()));
     }
 
-
-    private boolean isIncludeGreaterThanMax(final List<Integer> numbers) {
-        return numbers.stream().anyMatch(num -> num > MAX_NUMBER);
-    }
-
-    private boolean isIncludeLessThanMin(final List<Integer> numbers) {
-        return numbers.stream().anyMatch(num -> num < MIN_NUMBER);
-    }
-
-    private boolean isCorrectSize(final List<Integer> numbers) {
+    private boolean isCorrectSize(final List<LottoNumber> numbers) {
         return numbers.size() == NUMBER_SIZE;
     }
 
-    public List<Integer> getNumbers() {
+    public List<LottoNumber> getNumbers() {
         return this.numbers;
     }
 
@@ -83,7 +88,7 @@ public class Lotto {
                 .count();
     }
 
-    public boolean contains(final Integer number) {
+    public boolean contains(final LottoNumber number) {
         return numbers.contains(number);
     }
 
