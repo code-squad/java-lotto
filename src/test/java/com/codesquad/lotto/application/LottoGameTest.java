@@ -1,11 +1,14 @@
 package com.codesquad.lotto.application;
 
 import com.codesquad.lotto.domain.*;
+import com.codesquad.lotto.vo.LottoNumber;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,7 +31,9 @@ public class LottoGameTest {
     public void 번호6개일치_1회_게임결과() {
         final LottoGame game = new LottoGame(1000, (numbers) -> {
             numbers.clear();
-            numbers.addAll(Arrays.asList(2, 3, 4, 5, 6, 7));
+            numbers.addAll(Stream.of(2, 3, 4, 5, 6, 7)
+                    .map(LottoNumber::of)
+                    .collect(Collectors.toList()));
         });
 
         final LottoGameResult gameResult = game.play(Arrays.asList("2, 3, 4, 5, 6, 7"));
@@ -45,7 +50,9 @@ public class LottoGameTest {
     public void 번호5개일치_2회_게임결과() {
         final LottoGame game = new LottoGame(2000, (numbers) -> {
             numbers.clear();
-            numbers.addAll(Arrays.asList(3, 4, 5, 6, 7, 8));
+            numbers.addAll(Stream.of(3, 4, 5, 6, 7, 8)
+                    .map(LottoNumber::of)
+                    .collect(Collectors.toList()));
         });
 
         final LottoGameResult gameResult = game.play(Arrays.asList("2, 3, 4, 5, 6, 8"));

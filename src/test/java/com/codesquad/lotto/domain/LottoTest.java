@@ -1,5 +1,6 @@
 package com.codesquad.lotto.domain;
 
+import com.codesquad.lotto.vo.LottoNumber;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,21 +20,15 @@ public class LottoTest {
 
     @Test
     public void 조회() {
-        final List<Integer> numbers = lotto.getNumbers();
-        assertThat(numbers).contains(1, 10, 40, 33, 17, 45);
+        final List<LottoNumber> numbers = lotto.getNumbers();
+        assertThat(numbers).isEqualTo(Lotto.of(1, 10, 40, 33, 17, 45).getNumbers());
     }
 
     @Test
     public void 다른숫자조회() {
         final Lotto otherLotto = Lotto.fromList(Arrays.asList(3, 11, 40, 32, 28, 1));
-        final List<Integer> numbers = otherLotto.getNumbers();
-        assertThat(numbers).contains(3, 11, 40, 32, 28, 1);
-    }
-
-    @Test
-    public void 정렬된조회() {
-        final List<Integer> numbers = this.lotto.getNumbers();
-        assertThat(numbers).containsExactly(1, 10, 17, 33, 40, 45);
+        final List<LottoNumber> numbers = otherLotto.getNumbers();
+        assertThat(numbers).isEqualTo(Lotto.of(3, 11, 40, 32, 28, 1).getNumbers());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -78,15 +73,13 @@ public class LottoTest {
     @Test
     public void 콤마로_생성() {
         final Lotto lotto = Lotto.fromComma("10, 11, 12, 13, 14, 15");
-        final List<Integer> numbers = lotto.getNumbers();
-        assertThat(numbers).contains(10, 11, 12, 13, 14, 15);
+        assertThat(lotto).isEqualTo(Lotto.of(10, 11, 12, 13, 14, 15));
     }
 
     @Test
     public void 콤마로_다른생성() {
         final Lotto lotto = Lotto.fromComma("20, 21, 22, 23, 24, 25");
-        final List<Integer> numbers = lotto.getNumbers();
-        assertThat(numbers).contains(20, 21, 22, 23, 24, 25);
+        assertThat(lotto).isEqualTo(Lotto.of(20, 21, 22, 23, 24, 25));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -97,22 +90,31 @@ public class LottoTest {
     @Test
     public void 숫자나열로_생성() {
         final Lotto lotto = Lotto.of(1, 2, 3, 4, 5, 6);
-        final List<Integer> numbers = lotto.getNumbers();
-        assertThat(numbers).contains(1, 2, 3, 4, 5, 6);
+        assertThat(lotto).isEqualTo(Lotto.of(1, 2, 3, 4, 5, 6));
     }
 
     @Test
     public void 숫자나열로_다른생성() {
         final Lotto lotto = Lotto.of(11, 12, 13, 14, 15, 16);
-        final List<Integer> numbers = lotto.getNumbers();
-        assertThat(numbers).contains(11, 12, 13, 14, 15, 16);
+        assertThat(lotto).isEqualTo(Lotto.of(11, 12, 13, 14, 15, 16));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 숫자나열로_생성_숫자부족() {
-        final Lotto lotto = Lotto.of(11, 12, 13, 14, 15);
-        final List<Integer> numbers = lotto.getNumbers();
-        assertThat(numbers).contains(11, 12, 13, 14, 15);
+        Lotto.of(11, 12, 13, 14, 15);
+    }
+
+    @Test
+    public void 로또번호목록으로_생성() {
+        final Lotto otherLotto = Lotto.fromLottoNumbers(Arrays.asList(
+                LottoNumber.of(1),
+                LottoNumber.of(10),
+                LottoNumber.of(40),
+                LottoNumber.of(33),
+                LottoNumber.of(17),
+                LottoNumber.of(45)
+        ));
+        assertThat(otherLotto).isEqualTo(this.lotto);
     }
 
     @Test
@@ -138,42 +140,42 @@ public class LottoTest {
 
     @Test
     public void 포함확인_1() {
-        assertThat(lotto.contains(1)).isTrue();
+        assertThat(lotto.contains(LottoNumber.of(1))).isTrue();
     }
 
     @Test
     public void 포함확인_10() {
-        assertThat(lotto.contains(1)).isTrue();
+        assertThat(lotto.contains(LottoNumber.of(10))).isTrue();
     }
 
     @Test
     public void 포함확인_40() {
-        assertThat(lotto.contains(1)).isTrue();
+        assertThat(lotto.contains(LottoNumber.of(40))).isTrue();
     }
 
     @Test
     public void 포함확인_33() {
-        assertThat(lotto.contains(1)).isTrue();
+        assertThat(lotto.contains(LottoNumber.of(33))).isTrue();
     }
 
     @Test
     public void 포함확인_17() {
-        assertThat(lotto.contains(1)).isTrue();
+        assertThat(lotto.contains(LottoNumber.of(17))).isTrue();
     }
 
     @Test
     public void 포함확인_45() {
-        assertThat(lotto.contains(1)).isTrue();
+        assertThat(lotto.contains(LottoNumber.of(45))).isTrue();
     }
 
     @Test
     public void 미포함확인_2() {
-        assertThat(lotto.contains(2)).isFalse();
+        assertThat(lotto.contains(LottoNumber.of(2))).isFalse();
     }
 
     @Test
-    public void 미포함확인_45() {
-        assertThat(lotto.contains(44)).isFalse();
+    public void 미포함확인_44() {
+        assertThat(lotto.contains(LottoNumber.of(44))).isFalse();
     }
 
     @Test

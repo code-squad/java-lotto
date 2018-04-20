@@ -33,7 +33,7 @@ public class LottoMachine {
     private List<Lotto> generateLotteries(final int quotient) {
         return IntStream.range(0, quotient)
                 .mapToObj(n -> numberGenerator.generate())
-                .map(Lotto::fromList)
+                .map(Lotto::fromLottoNumbers)
                 .collect(Collectors.toList());
     }
 }
