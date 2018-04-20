@@ -1,34 +1,47 @@
 package com.codesquad.lotto.vo;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class LottoNumber {
     public static final int MIN_NUMBER = 1;
     public static final int MAX_NUMBER = 45;
+    private static final Map<Integer, LottoNumber> LOTTO_NUMBER_MAP = new HashMap<>();
+
+    static {
+        IntStream.rangeClosed(MIN_NUMBER, MAX_NUMBER)
+                .forEach(i -> LOTTO_NUMBER_MAP.put(i, new LottoNumber(i)));
+    }
+
     private final int number;
 
     private LottoNumber(final int number) {
-        this.isLessThanMin(number);
-        this.isGreaterThanMax(number);
+        isLessThanMin(number);
+        isGreaterThanMax(number);
 
         this.number = number;
     }
 
     public static LottoNumber from(final String number) {
-        return new LottoNumber(Integer.parseInt(number));
+        return of(Integer.parseInt(number));
     }
 
     public static LottoNumber of(final int number) {
-        return new LottoNumber(number);
+        isLessThanMin(number);
+        isGreaterThanMax(number);
+
+        return LOTTO_NUMBER_MAP.get(number);
     }
 
-    private void isGreaterThanMax(final int number) {
+    private static void isGreaterThanMax(final int number) {
         if (number > MAX_NUMBER) {
             throw new IllegalArgumentException();
         }
     }
 
-    private void isLessThanMin(final int number) {
+    private static void isLessThanMin(final int number) {
         if (number < MIN_NUMBER) {
             throw new IllegalArgumentException();
         }
