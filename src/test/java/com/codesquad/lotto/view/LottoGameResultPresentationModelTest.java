@@ -44,6 +44,7 @@ public class LottoGameResultPresentationModelTest {
         sb.append("3개 일치 (5000원)- 1개\r\n");
         sb.append("4개 일치 (50000원)- 1개\r\n");
         sb.append("5개 일치 (1500000원)- 1개\r\n");
+        sb.append("5개 일치, 보너스 볼 일치 (30000000원)- 0개\r\n");
         sb.append("6개 일치 (2000000000원)- 1개");
         final String expected = sb.toString();
         assertThat(msg).isEqualTo(expected);
@@ -61,6 +62,7 @@ public class LottoGameResultPresentationModelTest {
         sb.append("3개 일치 (5000원)- 2개\r\n");
         sb.append("4개 일치 (50000원)- 2개\r\n");
         sb.append("5개 일치 (1500000원)- 2개\r\n");
+        sb.append("5개 일치, 보너스 볼 일치 (30000000원)- 0개\r\n");
         sb.append("6개 일치 (2000000000원)- 2개");
         final String expected = sb.toString();
         assertThat(msg).isEqualTo(expected);

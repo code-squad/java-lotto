@@ -36,7 +36,7 @@ public class LottoGameTest {
                     .collect(Collectors.toList()));
         });
 
-        final LottoGameResult gameResult = game.play(Arrays.asList("2, 3, 4, 5, 6, 7"));
+        final LottoGameResult gameResult = game.play(Arrays.asList("2, 3, 4, 5, 6, 7", "8"));
 
         final HashMap<WinType, Long> countMap = new HashMap<>();
         countMap.put(WinType.SIX, 1L);
@@ -55,7 +55,7 @@ public class LottoGameTest {
                     .collect(Collectors.toList()));
         });
 
-        final LottoGameResult gameResult = game.play(Arrays.asList("2, 3, 4, 5, 6, 8"));
+        final LottoGameResult gameResult = game.play(Arrays.asList("2, 3, 4, 5, 6, 8", "9"));
 
         final HashMap<WinType, Long> countMap = new HashMap<>();
         countMap.put(WinType.FIVE, 2L);

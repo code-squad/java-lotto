@@ -17,25 +17,36 @@ public class WinTypeTest {
 
     @Test
     public void 일치3에서_enum으로() {
-        final WinType type = WinType.valueOf(3);
+        final WinType type = WinType.valueOf(3, false);
         assertThat(type).isEqualTo(WinType.THREE);
     }
 
     @Test
     public void 일치6에서_enum으로() {
-        final WinType type = WinType.valueOf(6);
+        final WinType type = WinType.valueOf(6, false);
         assertThat(type).isEqualTo(WinType.SIX);
     }
 
     @Test
+    public void 일치5에서_enum으로() {
+        final WinType type = WinType.valueOf(5, false);
+        assertThat(type).isEqualTo(WinType.FIVE);
+    }
+
+//    @Test
+//    public void 일치5개_보너스일치에서_enum으로() {
+//        WinType type = Win
+//    }
+
+    @Test
     public void 일치0개면() {
-        final WinType type = WinType.valueOf(0);
+        final WinType type = WinType.valueOf(0, false);
         assertThat(type).isEqualTo(WinType.OUT);
     }
 
     @Test
     public void 일치2개면() {
-        final WinType type = WinType.valueOf(2);
+        final WinType type = WinType.valueOf(2, false);
         assertThat(type).isEqualTo(WinType.OUT);
     }
 
