@@ -19,15 +19,8 @@ public class GameResult {
     public long getEarnedMoney() {
         long money = 0;
 
-        money += 2000000000 * winningLottos.get(Rank.FIRST);
-
-        money += 30000000 * winningLottos.get(Rank.SECOND);
-
-        money += 1500000 * winningLottos.get(Rank.THIRD);
-
-        money += 50000 * winningLottos.get(Rank.FOURTH);
-
-        money += 5000 * winningLottos.get(Rank.FIFTH);
+        for (Rank rank : Rank.values())
+            money += rank.getWinningMoney() * winningLottos.get(rank);
 
         return money;
     }
