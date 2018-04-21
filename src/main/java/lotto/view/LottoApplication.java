@@ -2,11 +2,10 @@ package lotto.view;
 
 import lotto.domain.LottoGame;
 import lotto.domain.GameResult;
-import lotto.domain.GenerateLottoNumber;
 import lotto.domain.Lotto;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import static lotto.domain.GenerateLottoNumber.generateRandomNumber;
 
 
 public class LottoApplication {
@@ -14,33 +13,16 @@ public class LottoApplication {
     public static void main(String[] args) {
 
         LottoInput lottoInput = new LottoInput();
-
         int price = lottoInput.startLotto();
         int times = price / 1000;
 
         ResultView resultView = new ResultView();
         resultView.showAmount(times);
 
-        List<Lotto> selectedLottos = new ArrayList<>();
-        GenerateLottoNumber gl = new GenerateLottoNumber();
-
-        ArrayList<Integer> range = gl.getNumberRange();
-
-        for (int i = 0; i < times; i++) {
-            Lotto lotto = gl.generateRandomNumber(range);
-
-            if (lotto == null) continue;
-
-            selectedLottos.add(lotto);
-        }
-
+        List<Lotto> selectedLottos = generateRandomNumber(times);
         resultView.printGeneratedLotto(selectedLottos);
 
-        String[] inputLastWeekNumber = lottoInput.inputLastWeekNumber();
-        int bonus = lottoInput.inputBonus();
-
-        LottoGame game = new LottoGame(selectedLottos, inputLastWeekNumber, bonus);
-
+        LottoGame game = new LottoGame(selectedLottos, lottoInput.inputLastWeekNumber(), lottoInput.inputBonus());
         resultView.showResult(game.saveResult(new GameResult()), price);
 
     }

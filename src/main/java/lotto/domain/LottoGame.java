@@ -1,12 +1,8 @@
 package lotto.domain;
 
 
-import lotto.domain.GameResult;
-import lotto.domain.Lotto;
-
 import java.util.Arrays;
 import java.util.List;
-
 
 /**
  * 로또 구입 금액을 입력하면 구입 금액에 해당하는 로또를 발급해야 한다.
@@ -16,9 +12,9 @@ import java.util.List;
 
 public class LottoGame {
 
-    List<Lotto> selectedLottos;
+    private List<Lotto> selectedLottos;
 
-    String[] lastWeekNumber;
+    private String[] lastWeekNumber;
 
     int bonus;
 
@@ -28,11 +24,8 @@ public class LottoGame {
         this.bonus = bonus;
     }
 
-    public Lotto matchNumber(Lotto result, final String[] arr) {
-
-        int[] ints = convertStringArrayToIntArray(arr);
-
-        return result.getMatchNumber(ints, bonus);
+    public WinningLotto matchNumber(Lotto result) {
+        return result.getWinningLotto(bonus);
     }
 
     public int[] convertStringArrayToIntArray(String[] strs) {
@@ -48,28 +41,9 @@ public class LottoGame {
 
     public GameResult saveResult(GameResult result) {
         for (Lotto lotto : selectedLottos) {
-            Lotto result_lotto =  matchNumber(lotto, lastWeekNumber);
+            WinningLotto winningLotto =  matchNumber(lotto);
 
-            switch (result_lotto.getRank()) {
-                case FIRST:
-                    result.addFirstRank(result_lotto);
-                    break;
-                case SECOND:
-                    result.addSecondRank(result_lotto);
-                    break;
-                case THIRD:
-                    result.addThirdRank(result_lotto);
-                    break;
-                case FOURTH:
-                    result.addFourthRank(result_lotto);
-                    break;
-                case FIFTH:
-                    result.addFifthRank(result_lotto);
-                    break;
-                default:
-                    result.addMiss(result_lotto);
-            }
-
+            result.addWinningLotto(winningLotto.matchRank(convertStringArrayToIntArray(lastWeekNumber)));
         }
 
         return result;

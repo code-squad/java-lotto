@@ -11,7 +11,6 @@ public enum Rank {
     SECOND(5, 30_000_000, true),
     FIRST(6, 2_000_000_000, false);
 
-    private static final int WINNING_MIN_COUNT = 3;
 
     private int countOfMatch;
     private int winningMoney;
