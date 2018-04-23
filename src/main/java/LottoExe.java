@@ -1,3 +1,4 @@
+/*
 import domain.BuyLotto;
 import domain.Lotto;
 import domain.Rank;
@@ -32,3 +33,4 @@ public class LottoExe {
         Output.resultView(result);
     }
 }
+*/
