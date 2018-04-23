@@ -1,3 +1,4 @@
+/*
 import domain.BuyLotto;
 import domain.Lotto;
 import domain.Rank;
@@ -5,7 +6,6 @@ import domain.WinningNum;
 import view.Output;
 import view.UserInput;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -33,3 +33,4 @@ public class LottoExe {
         Output.resultView(result);
     }
 }
+*/
