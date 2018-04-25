@@ -18,9 +18,8 @@ public class LottoTest {
 
     @Test
     public void test_Lotto_ofComma(){
-        assertThat(Lotto.ofComma("1,2,3,4,5,6").getLottoNumbersToIntArray()).contains(1);
-        assertThat(Lotto.ofComma("45,23,12,32,42,11").getLottoNumbersToIntArray()).contains(45);
-        assertThat(Lotto.ofComma("45,23,12,32,42,11").getLottoNumbersToArray()).contains(LottoNumbers.of(42));
+        assertThat(Lotto.ofComma("1,2,3,4,5,6").getLottoNumbersToList()).contains(new LottoNumbers(1));
+        assertThat(Lotto.ofComma("45,23,12,32,42,11").getLottoNumbersToList()).contains(LottoNumbers.of(42));
 
     }
 

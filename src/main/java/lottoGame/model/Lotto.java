@@ -1,7 +1,6 @@
 package lottoGame.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Lotto {
 
@@ -28,23 +27,8 @@ public class Lotto {
         return numbers.split(",");
     }
 
-    public int[] getLottoNumbersToIntArray() {
-        return  toInts(lottoNums);
-    }
-
-    private int[] toInts(Set<LottoNumbers> lottoNums) {
-        int[] numberValues= new int[lottoNums.size()];
-        int i = 0;
-        for(LottoNumbers lottoNumbers : getLottoNumbersToArray()) {
-            numberValues[i] = lottoNumbers.getInteger();
-            i++;
-        }
-
-        return numberValues;
-    }
-
-    public LottoNumbers[] getLottoNumbersToArray() {
-        return  lottoNums.toArray(new LottoNumbers[lottoNums.size()]);
+    public List<LottoNumbers> getLottoNumbersToList() {
+        return Arrays.asList(lottoNums.toArray(new LottoNumbers[lottoNums.size()]));
     }
 
     public boolean isNumberMatch(LottoNumbers otherNumber) {

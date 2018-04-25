@@ -1,26 +1,38 @@
 package lottoGame.view;
 
-import lottoGame.model.Money;
-import lottoGame.model.Rank;
+import lottoGame.model.*;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OutputView {
 
-    public static void printLottoNumbers (String[] numbers) {
-        System.out.println("[" + String.join(" ,", Arrays.asList(numbers)) + "]");
+    public static void printLottoGameResult(List<Lotto> lottoGames) {
+        for(int i = 0; i < lottoGames.size(); i++) {
+            OutputView.printLottoNumbers(numberToStrings(lottoGames.get(i).getLottoNumbersToList()));;
+        }
     }
 
-    public static void printLottoGameResult(int money) {
+    private static void printLottoNumbers (List<String> lottoNumbers) {
+        System.out.println("[" + String.join(" ,", lottoNumbers + "]"));
+    }
+
+    public static void printLottoGameResult(GameResult result) {
         System.out.println("당첨통계");
         System.out.println("---------");
 
-        int rewardSum = 0;
-        for(Rank rank : Rank.values()) {
-            System.out.println(rank.getMatchCnt()+"개 일치 (" + rank.getReward() + ") - " + rank.getCnt() + "개 일치");
-            rewardSum += rank.getReward()*rank.getCnt();
+        for(int i = 0; i< result.resultStrings.size(); i++) {
+            System.out.println(result.resultStrings.get(i));
         }
 
-        System.out.println("총 수익률은 : " + Money.getLottoProfitPer(rewardSum,money) + "%입니다.");
+        System.out.println("총 수익률은 : " + result.profitMoney + "%입니다.");
+    }
+
+    private static List<String> numberToStrings(List<LottoNumbers> numbers) {
+        List<String> numbersValues = new ArrayList<String>();
+        for(int i = 0; i < numbers.size(); i++) {
+            numbersValues.add(numbers.get(i).toString());
+        }
+        return numbersValues;
     }
 }

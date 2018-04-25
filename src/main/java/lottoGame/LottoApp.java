@@ -3,48 +3,33 @@ package lottoGame;
 import lottoGame.model.*;
 import lottoGame.view.InputView;
 import lottoGame.view.OutputView;
-
 import java.util.List;
 
 public class LottoApp {
 
     public static void main(String[] args) {
-        LottoApp.start();
-    }
-
-    public static void start() {
         int money = InputView.getInputMoney();
-        int lottoCnt = Money.getLottoCnt(money);
-        List<Lotto> lottoGames = LottoMachine.createLottoGame(lottoCnt);
+        List<Lotto> lottoGames = LottoMachine.createLottoGame(Money.getLottoCnt(money));
+        OutputView.printLottoGameResult(lottoGames);
 
-        printLottoList(lottoGames);
-        playLottoGame(lottoGames);
-        printResult(money);
-
+        String inputWinNums = InputView.getWinningNumberString();
+        GameResult result = LottoApp.lottoGamesPlay(lottoGames, LottoApp.getWinningLottoValues(inputWinNums), money);
+        OutputView.printLottoGameResult(result);
     }
 
-    private static void printLottoList(List<Lotto> lottoGames) {
-        for(int i = 0; i < lottoGames.size(); i++) {
-            OutputView.printLottoNumbers(numberToStrings(lottoGames.get(i).getLottoNumbersToIntArray()));;
-        }
-    }
 
-    private static void playLottoGame(List<Lotto> lottoGames) {
-        LottoNumbers[] winningLottoNums = getWinningLottoValues();
-
+    public static GameResult lottoGamesPlay(List<Lotto> lottoGames, List<LottoNumbers> winningLottoNums, int money) {
         for(int i = 0; i < lottoGames.size(); i++) {
             Lotto lotto = lottoGames.get(i);
             matchRank(getMatchCnt(lotto,winningLottoNums));
         }
+
+        return getGameResult(money);
     }
 
-    private static void printResult(int money) {
-        OutputView.printLottoGameResult(money);
-    }
-
-    private static LottoNumbers[] getWinningLottoValues() {
-        Lotto winningLotto = Lotto.ofComma(InputView.getWinningNumberString());
-        return winningLotto.getLottoNumbersToArray();
+    public static List<LottoNumbers> getWinningLottoValues(String winNums) {
+        Lotto winningLotto = Lotto.ofComma(winNums);
+        return winningLotto.getLottoNumbersToList();
     }
 
     private static void matchRank(int matchCnt) {
@@ -55,22 +40,20 @@ public class LottoApp {
         }
     }
 
-    private static int getMatchCnt(Lotto lotto, LottoNumbers[] winningLottoNums) {
-        int matchCnt = 0;
-        for(LottoNumbers number : winningLottoNums) {
-            if(lotto.isNumberMatch(number))
-                matchCnt++;
-        }
-        return matchCnt;
+    private static int getMatchCnt(Lotto lotto, List<LottoNumbers> winningLottoNums) {
+        return (int)winningLottoNums.stream().filter(number -> lotto.isNumberMatch(number)).count();
+
     }
 
-
-    private static String[] numberToStrings(int[] numbers) {
-        String[] numbersValues = new String[numbers.length];
-        for(int i = 0; i < numbers.length; i++) {
-            numbersValues[i] = Integer.toString(numbers[i]);
+    private static GameResult getGameResult(int money) {
+        GameResult result = new GameResult();
+        for(Rank rank : Rank.values()) {
+            result.resultStrings.add(rank.getMatchCnt()+"개 일치 (" + rank.getReward() + ") - " + rank.getCnt() + "개 일치");
+            result.sumMoney += rank.getReward()*rank.getCnt();
         }
-        return  numbersValues;
+        result.profitMoney = Money.getLottoProfitPer(result.sumMoney, money);
+
+        return result;
     }
 
 }

@@ -41,4 +41,9 @@ public class LottoNumbers {
     public int getInteger() {
         return lottoNum;
     }
+
+    @Override
+    public String toString(){
+        return lottoNum+"";
+    }
 }
