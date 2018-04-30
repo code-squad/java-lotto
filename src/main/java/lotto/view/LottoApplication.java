@@ -16,11 +16,21 @@ public class LottoApplication {
         int price = lottoInput.startLotto();
         int times = price / 1000;
 
-        ResultView resultView = new ResultView();
-        resultView.showAmount(times);
+        List<Lotto> manualLottos = null;
+        int manualTimes = lottoInput.getManualTimes();
+        if (manualTimes > 0)
+            manualLottos = lottoInput.getManualLottoNumbers(manualTimes);
 
-        List<Lotto> selectedLottos = generateRandomNumber(times);
-        resultView.printGeneratedLotto(selectedLottos);
+        int autoTimes = times - (manualTimes > 0 ? manualTimes : 0);
+
+        ResultView resultView = new ResultView();
+        resultView.showAmount(manualTimes, autoTimes);
+
+        List<Lotto> selectedLottos = generateRandomNumber(autoTimes);
+        resultView.printGeneratedLotto(manualLottos, selectedLottos);
+
+        if (manualLottos != null)
+            selectedLottos.addAll(manualLottos);
 
         LottoGame game = new LottoGame(selectedLottos, lottoInput.inputLastWeekNumber(), lottoInput.inputBonus());
         resultView.showResult(game.saveResult(new GameResult()), price);
