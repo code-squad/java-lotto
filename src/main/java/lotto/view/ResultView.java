@@ -11,8 +11,20 @@ import static lotto.domain.LottoGame.getEarnRate;
 
 public class ResultView {
 
-    public void showAmount(int times) {
-        System.out.println(times + "개를 구매했습니다.");
+    public void showAmount(int manualTimes, int autoTimes) {
+
+        StringBuilder builder = new StringBuilder();
+        if (manualTimes > 0) {
+            builder.append("수동으로 ");
+            builder.append(3);
+            builder.append("장 ");
+        }
+
+        builder.append("자동으로 ");
+        builder.append(autoTimes);
+        builder.append("개를 구매했습니다.");
+
+        System.out.println(builder.toString());
     }
 
     public static void printSingleLotto(Lotto lotto) {
@@ -24,8 +36,12 @@ public class ResultView {
         System.out.println(singleLotto);
     }
 
-    public void printGeneratedLotto(List<Lotto> lottos) {
-        lottos.stream()
+    public void printGeneratedLotto(List<Lotto> manuallyGenLottos, List<Lotto> autoGenLottos) {
+        if (manuallyGenLottos != null)
+            manuallyGenLottos.stream()
+                .forEach(ResultView::printSingleLotto);
+
+        autoGenLottos.stream()
                 .forEach(ResultView::printSingleLotto);
     }
 
