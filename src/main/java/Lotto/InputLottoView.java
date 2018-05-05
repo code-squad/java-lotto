@@ -1,5 +1,6 @@
 package Lotto;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -22,6 +23,34 @@ public class InputLottoView {
         }
 
         return money;
+    }
+
+    public static List<Lotto> inputPurchaseManualLotto(int count) {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        List<Lotto> manualLottoNumbers = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Scanner scanner = new Scanner(System.in);
+            manualLottoNumbers.add(lottoToList(stringToList(scanner.nextLine())));
+        }
+
+        return manualLottoNumbers;
+    }
+
+    public static Lotto lottoToList(List<String> lottoNumbers) {
+        return Lotto.makeManualLottoNumber(lottoNumbers);
+    }
+
+    public static int inputPurchaseManualLottoCount(int money) {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        Scanner scanner = new Scanner(System.in);
+        return checkPurchaseManualLottoCount(scanner.nextInt(), money);
+    }
+
+    public static int checkPurchaseManualLottoCount(int manualCount, int money) {
+        if (manualCount < 0 || (money / 1000 < manualCount)) {
+            throw new IllegalArgumentException();
+        }
+        return manualCount;
     }
 
     public static List<String> inputWinnerNumber() {

@@ -1,27 +1,39 @@
 package Lotto;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class LottoGame {
-    private int count;
+    private int autoCount;
+    private int manualCount;
+    private int totalCount;
     private int money;
 
     private List<Lotto> userLottoNumbers;
 
-    public LottoGame(int money) {
-        this.count = money / 1000;
+    public LottoGame(int money, List<Lotto> manualLottoNumbers) {
+        this.manualCount = manualLottoNumbers.size();
+        this.autoCount = (money / 1000) - manualCount;
+        this.totalCount = autoCount + manualCount;
         this.money = money;
 
         userLottoNumbers = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
+        userLottoNumbers.addAll(manualLottoNumbers);
+        for (int i = 0; i < autoCount; i++) {
             userLottoNumbers.add(Lotto.makeLottoNumber());
         }
     }
 
-    public int getCount() {
-        return this.count;
+    public int getAutoCount() {
+        return this.autoCount;
+    }
+
+    public int getManualCount() {
+        return this.manualCount;
+    }
+
+    public int getTotalCount() {
+        return this.totalCount;
     }
 
     public String getUserLottoNumber(int i) {
@@ -31,7 +43,7 @@ public class LottoGame {
     public LottoGameResult playLottoGame(List<String> winningNumber, int bonus) {
         LottoGameResult lottoGameResult = new LottoGameResult();
 
-        Lotto winningLottoNumber = Lotto.makeWinningNumber(winningNumber);
+        Lotto winningLottoNumber = Lotto.makeManualLottoNumber(winningNumber);
         winningLottoNumber.checkBonusNumber(bonus);
 
         for (Lotto userLottoNumber : userLottoNumbers) {

@@ -5,7 +5,9 @@ import java.util.List;
 public class LottoGameMain {
     public static void main(String[] args) {
         int money = InputLottoView.inputMoney();
-        LottoGame lottoGame = new LottoGame(money);
+        int manualPurchaseCount = InputLottoView.inputPurchaseManualLottoCount(money);
+
+        LottoGame lottoGame = new LottoGame(money, InputLottoView.inputPurchaseManualLotto(manualPurchaseCount));
 
         OutputLottoView.printNumberOfLottoPurchase(lottoGame);
         OutputLottoView.printPurchaseLotto(lottoGame);

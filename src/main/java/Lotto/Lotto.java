@@ -7,7 +7,7 @@ public class Lotto {
     private List<LottoNumber> lottoTicket;
 
     public Lotto(List<LottoNumber> lotto) {
-        if (lotto.isEmpty() || lotto == null) {
+        if (lotto == null || lotto.isEmpty()) {
             throw new IllegalArgumentException();
         }
 
@@ -30,9 +30,9 @@ public class Lotto {
         return (int) (Math.random() * 45) + 1;
     }
 
-    public static Lotto makeWinningNumber(List<String> winningNumber) {
+    public static Lotto makeManualLottoNumber(List<String> manualLottoNumber) {
         Set<LottoNumber> lottoNumber = new HashSet<>();
-        for (String number : winningNumber) {
+        for (String number : manualLottoNumber) {
             lottoNumber.add(LottoNumber.getLottoNumber(number));
         }
         return new Lotto(setToList(lottoNumber));

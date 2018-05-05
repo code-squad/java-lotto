@@ -3,11 +3,11 @@ package Lotto;
 public class OutputLottoView {
 
     public static void printNumberOfLottoPurchase(LottoGame lottoGame) {
-        System.out.println(lottoGame.getCount() + "개를 구매했습니다.");
+        System.out.println("수동으로 " + lottoGame.getManualCount() + "장, 자동으로 " + lottoGame.getAutoCount() + "장 구매했습니다.");
     }
 
     public static void printPurchaseLotto(LottoGame lottoGame) {
-        for (int i = 0; i < lottoGame.getCount(); i++) {
+        for (int i = 0; i < lottoGame.getTotalCount(); i++) {
             System.out.println(lottoGame.getUserLottoNumber(i));
         }
     }
