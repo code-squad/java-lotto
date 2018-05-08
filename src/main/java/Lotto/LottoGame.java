@@ -4,28 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoGame {
-    private int autoCount;
     private int manualCount;
-    private int totalCount;
     private int money;
 
     private List<Lotto> userLottoNumbers;
 
     public LottoGame(int money, List<Lotto> manualLottoNumbers) {
         this.manualCount = manualLottoNumbers.size();
-        this.autoCount = (money / 1000) - manualCount;
-        this.totalCount = autoCount + manualCount;
         this.money = money;
 
         userLottoNumbers = new ArrayList<>();
         userLottoNumbers.addAll(manualLottoNumbers);
-        for (int i = 0; i < autoCount; i++) {
+        for (int i = 0; i < getAutoCount(); i++) {
             userLottoNumbers.add(Lotto.makeLottoNumber());
         }
     }
 
     public int getAutoCount() {
-        return this.autoCount;
+        return (this.money / 1000) - this.manualCount;
     }
 
     public int getManualCount() {
@@ -33,7 +29,7 @@ public class LottoGame {
     }
 
     public int getTotalCount() {
-        return this.totalCount;
+        return this.userLottoNumbers.size();
     }
 
     public String getUserLottoNumber(int i) {

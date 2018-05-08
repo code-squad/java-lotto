@@ -55,8 +55,8 @@ public class LottoTest {
         }
 
         LottoGame lottoGame = new LottoGame(14000, manualLottoNumber);
-        assertThat(lottoGame.getAutoCount()).isEqualTo(3);
-        assertThat(lottoGame.getManualCount()).isEqualTo(11);
+        assertThat(lottoGame.getManualCount()).isEqualTo(3);
+        assertThat(lottoGame.getAutoCount()).isEqualTo(11);
     }
 
     @Test
