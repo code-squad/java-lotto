@@ -1,7 +1,6 @@
 package lotttoOlder;
 
-import java.util.Map;
-
+//TODO 사용하자...
 public interface Match {
-  Map<String,Integer> checkMatch(int i);
+  public int countSameNumber(Lotto jackpot);
 }

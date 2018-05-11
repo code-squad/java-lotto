@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lotttoOlder.LottoResult.MatchKey;
 
 public class Lottos {
 
@@ -12,7 +11,7 @@ public class Lottos {
 
   public Lottos(int lottoNum) {
     lottos = new ArrayList<>();
-    for(int i = 0; i < lottoNum; i++){
+    for (int i = 0; i < lottoNum; i++) {
       lottos.add(new Lotto());
     }
   }
@@ -27,33 +26,25 @@ public class Lottos {
   }
 
   public Map<String, Integer> match(Lotto jackpot) {
-    Map<String,Integer> result = new HashMap<>();
+    Map<String, Integer> result = new HashMap<>();
     for (Lotto l : lottos) {
+      int sameNumCount = l.countSameNumber(jackpot);
 
-      new Match() {
-        @Override
-        public Map<String, Integer> checkMatch(int i) {
-
-          return null;
+      for(LottoInfo li : LottoInfo.values()){
+        if(li.getMatchNum() == sameNumCount){
+          result.merge(li.getMapKey(),1,Integer::sum);
         }
-      };
-
-      //TODO 중복된 것처럼 보이는 코드 고치기? -> enum? 3,MatchKey.MATCH_3NUM_KEY
-      if (l.countSameNum(jackpot) == 3) {
-        result.put(MatchKey.MATCH_3NUM_KEY, result.getOrDefault(MatchKey.MATCH_3NUM_KEY, 0) + 1);
-      } else if (l.countSameNum(jackpot) == 4) {
-        result.put(MatchKey.MATCH_4NUM_KEY, result.getOrDefault(MatchKey.MATCH_4NUM_KEY, 0) + 1);
-      } else if (l.countSameNum(jackpot) == 5) {
-        result.put(MatchKey.MATCH_5NUM_KEY, result.getOrDefault(MatchKey.MATCH_5NUM_KEY, 0) + 1);
-      } else if (l.countSameNum(jackpot) == 6) {
-        result.put(MatchKey.MATCH_6NUM_KEY, result.getOrDefault(MatchKey.MATCH_6NUM_KEY, 0) + 1);
       }
-
-
-
     }
-    return null;
+    return result;
   }
 
-
+  //TODO change to java8 style
+  public List<String> showNums(String delimiter) {
+    List<String> nums = new ArrayList<>();
+    for(Lotto l : lottos){
+      nums.add(l.showNum(delimiter));
+    }
+    return nums;
+  }
 }
