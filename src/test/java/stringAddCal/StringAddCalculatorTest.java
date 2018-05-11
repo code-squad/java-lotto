@@ -1,10 +1,9 @@
-package step0_2;
+package stringAddCal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
-import step0_2.StringAddCalculator;
 
 public class StringAddCalculatorTest {
 

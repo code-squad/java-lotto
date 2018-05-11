@@ -1,12 +1,10 @@
-package step0_2;
+package stringAddCal;
 
-import static step0_1.Regex.CUSTOM_DELIMITER_REGEX;
-import static step0_1.Regex.DEFAULT_DELIMITER_REGEX;
-import static step0_1.Regex.WITH_CUSTOM_DELIMITER_REGEX;
-import static step0_1.Regex.WITH_DEFAULT_DELIMITER_REGEX;
+import static stringAddCal.Regex.CUSTOM_DELIMITER_REGEX;
+import static stringAddCal.Regex.DEFAULT_DELIMITER_REGEX;
+import static stringAddCal.Regex.WITH_CUSTOM_DELIMITER_REGEX;
+import static stringAddCal.Regex.WITH_DEFAULT_DELIMITER_REGEX;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,15 +18,9 @@ import java.util.regex.Pattern;
  */
 public class Parser {
 
-//  TODO idea! interface로 하면 타입 바뀌어도 편할까?
-
-  public List<Positive> doSplit(String input){
-    List<Positive> positives = new ArrayList<>();
-
-    for(String num : getPlainInput(input).split(getDelim(input))){
-      positives.add(new Positive(num));
-    }
-    return positives;
+  public String[] doSplit(String input){
+    ValidaitonUtil.checkBlank(input);
+    return validateStrings(getPlainInput(input).split(getDelim(input)));
   }
 
   String getPlainInput(String input) {
@@ -62,5 +54,12 @@ public class Parser {
       throw new IllegalArgumentException("정의돤 구분자와 실제 데이터의 구분자가 다릅니다.");
     }
     return delim;
+  }
+
+  String[] validateStrings(String[] texts) {
+    for(String s : texts){
+      ValidaitonUtil.validatePositive(s);
+    }
+    return texts;
   }
 }

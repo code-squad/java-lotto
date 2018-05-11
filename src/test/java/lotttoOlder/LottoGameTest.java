@@ -1,4 +1,4 @@
-package step1;
+package lotttoOlder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.junit.Before;
 import org.junit.Test;
-import step1.Lotto.Parser;
-import step1.LottoResult.MatchKey;
+import lotttoOlder.Lotto.Parser;
+import lotttoOlder.LottoResult.MatchKey;
 
 public class LottoGameTest {
   Parser parserInLotto;

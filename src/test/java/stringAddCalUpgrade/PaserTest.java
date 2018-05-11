@@ -1,4 +1,4 @@
-package step0_2;
+package stringAddCalUpgrade;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

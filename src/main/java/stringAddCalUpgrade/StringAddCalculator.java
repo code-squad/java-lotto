@@ -1,4 +1,4 @@
-package step0_2;
+package stringAddCalUpgrade;
 
 public class StringAddCalculator {
 

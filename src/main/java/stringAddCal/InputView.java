@@ -1,4 +1,4 @@
-package step0_1;
+package stringAddCal;
 
 import java.util.Scanner;
 

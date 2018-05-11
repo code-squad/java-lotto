@@ -1,8 +1,8 @@
-package step0_2;
+package stringAddCalUpgrade;
 
-import static step0_2.ValidaitonUtil.checkBlank;
-import static step0_2.ValidaitonUtil.checkDigit;
-import static step0_2.ValidaitonUtil.checkNotNegative;
+import static stringAddCalUpgrade.ValidaitonUtil.checkBlank;
+import static stringAddCalUpgrade.ValidaitonUtil.checkDigit;
+import static stringAddCalUpgrade.ValidaitonUtil.checkNotNegative;
 
 public class Positive {
 

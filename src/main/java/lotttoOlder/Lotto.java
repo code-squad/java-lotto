@@ -1,4 +1,4 @@
-package step1;
+package lotttoOlder;
 
 import com.google.common.primitives.Ints;
 import java.util.ArrayList;
@@ -13,10 +13,13 @@ import java.util.stream.IntStream;
 public class Lotto {
 
   private List<Integer> nums;
+  //  private static final List<Integer> lottoNum = IntStream.rangeClosed(Rule.LOTTO_NUM_START, Rule.LOTTO_NUM_END).boxed()
+//      .collect(Collectors.toCollection(ArrayList::new));
+  private List<Integer> lottoNum = IntStream.rangeClosed(Rule.LOTTO_NUM_START, Rule.LOTTO_NUM_END)
+      .boxed()
+      .collect(Collectors.toCollection(ArrayList::new));
 
   public Lotto() {
-    List<Integer> lottoNum = IntStream.rangeClosed(Rule.LOTTO_NUM_START, Rule.LOTTO_NUM_END).boxed()
-        .collect(Collectors.toCollection(ArrayList::new));
     Collections.shuffle(lottoNum);
     this.nums = new ArrayList<>(lottoNum.subList(0, Rule.LOTTO_NUM_COUNT - 1));
   }
@@ -33,12 +36,27 @@ public class Lotto {
     this.nums = new Parser().splitor(s);
   }
 
-  public List<Integer> getNums() {
+  private List<Integer> getNums() {
     return nums;
   }
 
-  static class Rule {
+  public int countSameNum(Lotto jackpot) {
+    List<Integer> notSameNum = nums;
+    notSameNum.removeAll(jackpot.getNums());
 
+    return Rule.LOTTO_NUM_COUNT - notSameNum.size();
+  }
+
+  public int countSame(Lotto jackpot) {
+    int count = 0;
+    return count += isSame(jackpot);
+  }
+
+  private int isSame(Lotto jackpot) {
+    return nums.contains(jackpot)? 1 : 0;
+  }
+
+  static class Rule {
     private static final String DELIMINTER = ",";
     private static final int LOTTO_NUM_COUNT = 6;
     private static final int LOTTO_NUM_START = 1;

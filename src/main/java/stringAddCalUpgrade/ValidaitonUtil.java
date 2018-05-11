@@ -1,7 +1,7 @@
-package step0_2;
+package stringAddCalUpgrade;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
-import static step0_1.Regex.FLOATING_POINT_REGEX;
+import static stringAddCal.Regex.FLOATING_POINT_REGEX;
 
 import com.google.common.base.CharMatcher;
 

@@ -1,8 +1,7 @@
-package step0_2;
+package stringAddCalUpgrade;
 
 import org.junit.Before;
 import org.junit.Test;
-import step0_2.ValidaitonUtil;
 
 public class ValidationUtilTest {
 
