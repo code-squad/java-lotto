@@ -37,8 +37,7 @@ public class LottoGameTest {
     @Test
     public void 원하는수량만큼추가여부확인() {
         String [] manualLotto = {};
-        LottoGames lottoGames = new LottoGames(0, manualLotto);
-        lottoGames.buyLottoNCounts(11);
+        LottoGames lottoGames = new LottoGames(11000, manualLotto);
         assertThat(lottoGames.getHavingCount()).isEqualTo(11);
     }
 
@@ -61,7 +60,7 @@ public class LottoGameTest {
         List<String> winNumbers = new ArrayList<>();
         winNumbers.add("1, 2, 3, 4, 5, 6");
         winNumbers.add("7");
-        lottoGames.setWinnerLotto(winNumbers);
+        lottoGames.setWinLotto(winNumbers);
 
         int winCount = 0;
         Map<Rank, Integer> rankMap = lottoGames.getRankMap();
@@ -81,7 +80,7 @@ public class LottoGameTest {
         List<String> winNumbers = new ArrayList<>();
         winNumbers.add("1, 2, 3, 4, 5, 6");
         winNumbers.add("7");
-        lottoGames.setWinnerLotto(winNumbers);
+        lottoGames.setWinLotto(winNumbers);
 
         Map<Rank, Integer> rankMap = lottoGames.getRankMap();
         assertThat(rankMap.get(Rank.MISS)).isEqualTo(2);

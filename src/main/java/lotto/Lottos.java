@@ -16,6 +16,12 @@ public class Lottos {
         lottos.add(lotto);
     }
 
+    public void addLottos(Lottos lottos){
+        for(Lotto lotto : lottos.getLottos()){
+            this.lottos.add(lotto);
+        }
+    }
+
     public int getLottosCount() {
         return lottos.size();
     }

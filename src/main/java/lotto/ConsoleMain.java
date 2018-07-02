@@ -14,7 +14,7 @@ public class ConsoleMain {
         LottoGames lottoGames = new LottoGames(buyAmt, manualNumbers);
 
         List<String> winNumbers = InputView.getWinNumbers();
-        lottoGames.setWinnerLotto(winNumbers);
+        lottoGames.setWinLotto(winNumbers);
 
         ResultView.printHavingLotto(lottoGames);
         ResultView.printWinResult(buyAmt, lottoGames.getRankMap());
