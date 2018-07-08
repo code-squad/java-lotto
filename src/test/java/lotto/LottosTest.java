@@ -35,4 +35,18 @@ public class LottosTest {
 
         assertThat(map.get(Rank.FIRST)).isEqualTo(1);
     }
+
+    @Test
+    public void addLottos에_널체크여부테스트() {
+        Lottos lottos = new Lottos();
+        lottos.addLottos(null);
+        assertThat(lottos.getLottosCount()).isEqualTo(0);
+    }
+
+    @Test
+    public void add에_널체크여부테스트() {
+        Lottos lottos = new Lottos();
+        lottos.add(null);
+        assertThat(lottos.getLottosCount()).isEqualTo(0);
+    }
 }

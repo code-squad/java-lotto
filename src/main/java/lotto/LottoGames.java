@@ -1,8 +1,7 @@
 package lotto;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public class LottoGames {
     public static final int LOTTO_PRICE_PER_TICKET = 1000;
@@ -10,7 +9,7 @@ public class LottoGames {
     Lottos lottos;
     WinLotto winLotto;
 
-    public LottoGames(long buyAmt, String [] manualNumbers){
+    public LottoGames(long buyAmt, String[] manualNumbers) {
         lottos = new Lottos();
         checkPriceValidation(buyAmt);
         long ticketCounts = buyAmt / LOTTO_PRICE_PER_TICKET;
@@ -19,20 +18,17 @@ public class LottoGames {
     }
 
 
-
-
-    public void addSingleLotto(String lottoNumbers){
+    public void addSingleLotto(String lottoNumbers) {
         lottos.add(new Lotto(lottoNumbers));
     }
 
-    public int getHavingCount(){
+    public int getHavingCount() {
         return lottos.getLottosCount();
     }
 
 
-
     private void checkPriceValidation(long price) {
-        if(price % 1000 != 0){
+        if (price % 1000 != 0) {
             throw new IllegalArgumentException();
         }
     }
@@ -43,7 +39,7 @@ public class LottoGames {
     }
 
 
-    public Map<Rank, Integer> getRankMap(){
+    public Map<Rank, Integer> getRankMap() {
 
         return lottos.makeRankCountMap(winLotto);
     }

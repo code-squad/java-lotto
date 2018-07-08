@@ -17,4 +17,5 @@ public class LottoMachineTest {
         Lottos lottos = LottoMachine.buyManually(str);
         assertThat(lottos.getLottosCount()).isEqualTo(2);
     }
+
 }
