@@ -13,7 +13,7 @@ public class InputView {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         if(userInput == null || userInput.isEmpty() || userInput.trim().isEmpty() || !StringUtils.isNumeric(userInput))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("구매금액을 입력해주세요.");
         return Long.parseLong(userInput);
     }
 

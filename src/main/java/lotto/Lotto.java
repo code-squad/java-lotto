@@ -19,10 +19,8 @@ public class Lotto {
                 checkNumberDuplication(lottoNo);
                 lotto.add( lottoNo );
             }
-
         }catch(IllegalArgumentException illegalArgumentException){
             lotto = null;
-            System.out.println("Illegal Parameter!");
             throw illegalArgumentException;
         }
 
@@ -30,13 +28,13 @@ public class Lotto {
 
     private void checkParameterCount(String[] lottoNumbers) {
         if(lottoNumbers.length != 6){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("숫자가 6개만 입력이 되어야 합니다.");
         }
     }
 
     public void checkNumberDuplication(LottoNo lottoNo) {
         if( lotto.contains(lottoNo) ) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("번호가 중복되었습니다.");
         }
     }
 
@@ -63,15 +61,12 @@ public class Lotto {
 
 
     public boolean contains(LottoNo number) {
-
         return lotto.contains(number);
     }
 
     @Override
     public String toString() {
-
         String[] lottoNumbers = new String[lotto.size()];
-
         for(int i=0; i<lotto.size(); i++){
             lottoNumbers[i] = new String(lotto.get(i).getLottoNo() + "");
         }

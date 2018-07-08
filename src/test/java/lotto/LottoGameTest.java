@@ -74,7 +74,7 @@ public class LottoGameTest {
     @Test
     public void 두개모두전체꽝인경우_Map0이2인지확인() {
         String [] manualLotto = {};
-        LottoGames lottoGames = new LottoGames(0, manualLotto);
+        LottoGames lottoGames = new LottoGames(2000, manualLotto);
         lottoGames.addSingleLotto("11, 12, 13, 14, 15, 16");
         lottoGames.addSingleLotto("21, 22, 23, 24, 25, 26");
         List<String> winNumbers = new ArrayList<>();
@@ -87,4 +87,10 @@ public class LottoGameTest {
 
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void 금액보다_수동구매수량이_큼() {
+        String [] manualLotto = {"11, 12, 13, 14, 15, 16", "21, 22, 23, 24, 25, 26"};
+        LottoGames lottoGames = new LottoGames(0, manualLotto);
+
+    }
 }

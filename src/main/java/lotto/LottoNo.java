@@ -6,9 +6,8 @@ public class LottoNo {
     private int lottoNo;
 
     public LottoNo(int lottoNo){
-
         if(lottoNo < 1 || lottoNo > 45){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("입력된 숫자가 1~45 사이어야합니다.");
         }
         this.lottoNo = lottoNo;
     }
