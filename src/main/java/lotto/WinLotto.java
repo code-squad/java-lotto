@@ -21,8 +21,4 @@ public class WinLotto {
         return bonusNumber;
     }
 
-    public boolean contain(Integer number) {
-        LottoNo lottoNo = new LottoNo(number);
-        return winLotto.contains(lottoNo);
-    }
 }

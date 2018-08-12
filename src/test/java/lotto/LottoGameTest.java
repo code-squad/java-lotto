@@ -73,10 +73,8 @@ public class LottoGameTest {
 
     @Test
     public void 두개모두전체꽝인경우_Map0이2인지확인() {
-        String [] manualLotto = {};
+        String [] manualLotto = {"11, 12, 13, 14, 15, 16", "21, 22, 23, 24, 25, 26"};
         LottoGames lottoGames = new LottoGames(2000, manualLotto);
-        lottoGames.addSingleLotto("11, 12, 13, 14, 15, 16");
-        lottoGames.addSingleLotto("21, 22, 23, 24, 25, 26");
         List<String> winNumbers = new ArrayList<>();
         winNumbers.add("1, 2, 3, 4, 5, 6");
         winNumbers.add("7");

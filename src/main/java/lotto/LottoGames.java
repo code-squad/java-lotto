@@ -11,15 +11,10 @@ public class LottoGames {
 
     public LottoGames(long buyAmt, String[] manualNumbers) {
         lottos = new Lottos();
-        try {
-            checkPriceValidation(buyAmt, manualNumbers);
-            long ticketCounts = buyAmt / LOTTO_PRICE_PER_TICKET;
-            lottos.addLottos(LottoMachine.buyManually(manualNumbers));
-            lottos.addLottos(LottoMachine.buyAutomatic(ticketCounts - manualNumbers.length));
-        }catch(IllegalArgumentException e){
-            lottos = null;
-            throw e;
-        }
+        checkPriceValidation(buyAmt, manualNumbers);
+        long ticketCounts = buyAmt / LOTTO_PRICE_PER_TICKET;
+        lottos.addLottos(LottoGenerator.buyManually(manualNumbers));
+        lottos.addLottos(LottoGenerator.buyAutomatic(ticketCounts - manualNumbers.length));
     }
 
 
@@ -37,7 +32,7 @@ public class LottoGames {
             throw new IllegalArgumentException("금액이상. 1000 단위로 입력가능해야합니다.");
         }
 
-        if(price / 1000 < manualNumbers.length){
+        if (price / 1000 < manualNumbers.length) {
             throw new IllegalArgumentException("금액이상. 구매금액 : " + price + " 수동구매수량 : " + manualNumbers.length);
         }
     }

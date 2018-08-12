@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LottoMachine {
+public class LottoGenerator {
     public static Lottos buyAutomatic(long ticketCounts) {
         Lottos lottos = new Lottos();
         for(int i=0; i<ticketCounts; i++){
