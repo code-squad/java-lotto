@@ -1,5 +1,8 @@
-package lotto;
+package lotto.domain;
 
+import lotto.domain.Lotto;
+import lotto.domain.LottoNo;
+import lotto.domain.WinLotto;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

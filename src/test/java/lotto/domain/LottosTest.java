@@ -1,5 +1,9 @@
-package lotto;
+package lotto.domain;
 
+import lotto.domain.Lotto;
+import lotto.domain.Lottos;
+import lotto.domain.Rank;
+import lotto.domain.WinLotto;
 import org.junit.Test;
 
 import java.util.Map;

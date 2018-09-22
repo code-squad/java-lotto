@@ -1,7 +1,11 @@
-package lotto;
+package lotto.view;
+
+import lotto.domain.Lotto;
+import lotto.service.LottoGames;
+import lotto.domain.Lottos;
+import lotto.domain.Rank;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

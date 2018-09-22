@@ -1,12 +1,14 @@
-package lotto;
+package lotto.service;
 
+import lotto.domain.Rank;
+import lotto.service.LottoGames;
 import org.junit.Test;
 
 import java.util.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class LottoGameTest {
+public class LottoGamesTest {
 
     @Test
     public void 천원단위구매() {

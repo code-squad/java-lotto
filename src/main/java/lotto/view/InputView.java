@@ -1,4 +1,4 @@
-package lotto;
+package lotto.view;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.util.StringUtil;

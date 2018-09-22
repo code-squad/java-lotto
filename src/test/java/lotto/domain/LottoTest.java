@@ -1,10 +1,8 @@
-package lotto;
+package lotto.domain;
 
+import lotto.domain.Lotto;
+import lotto.domain.WinLotto;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 

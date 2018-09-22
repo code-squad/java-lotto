@@ -1,8 +1,12 @@
-package lotto;
+package lotto.controller;
+
+import lotto.service.LottoGames;
+import lotto.view.ResultView;
+import lotto.view.InputView;
 
 import java.util.List;
 
-import static lotto.LottoGames.LOTTO_PRICE_PER_TICKET;
+import static lotto.service.LottoGames.LOTTO_PRICE_PER_TICKET;
 
 public class ConsoleMain {
 
