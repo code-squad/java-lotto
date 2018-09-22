@@ -8,8 +8,10 @@ public class ConsoleMain {
 
     public static void main(String[] args) {
         LottoGames lottoGames = getInputAndPlayGame();
-
         ResultView.printHavingLotto(lottoGames);
+
+        setWinNumbers(lottoGames);
+
         ResultView.printWinResult(lottoGames.getHavingCount() * LOTTO_PRICE_PER_TICKET , lottoGames.getRankMap());
 
     }
@@ -33,6 +35,17 @@ public class ConsoleMain {
         }
 
         return lottoGames;
+
+    }
+
+    public static void setWinNumbers(LottoGames lottoGames){
+        try{
+            List<String> winNumbers = InputView.getWinNumbers();
+            lottoGames.setWinLotto(winNumbers);
+        }catch (IllegalArgumentException e){
+            System.out.println("ERROR : " + e.getMessage());
+            setWinNumbers(lottoGames);
+        }
 
     }
 
