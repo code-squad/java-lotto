@@ -1,61 +1,71 @@
 package Lotto;
 
-import java.util.Arrays;
+import Lotto.Exception.IllegalMonetaryUnitException;
+import Lotto.Exception.ManualPurchaseLessThanZeroException;
+import Lotto.Exception.NotEnoughMoneyException;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class InputLottoView {
 
-    public static int inputMoney() {
+    public static Money inputMoney() throws IllegalArgumentException {
         System.out.println("구입금액을 입력해 주세요.");
         Scanner scanner = new Scanner(System.in);
-        return checkInputMoney(scanner.nextInt());
+        return checkInputMoney(new Money(scanner.nextInt()));
     }
 
-    public static int checkInputMoney(int money) {
-        if (money < 1000) {
-            throw new IllegalArgumentException();
+    public static Money checkInputMoney(Money money) {
+        if (money.isUnavailablePurchase()) {
+            throw new NotEnoughMoneyException();
         }
 
-        if (money % 1000 != 0) {
-            throw new IllegalArgumentException();
+        if (money.isExistRemainder()) {
+            throw new IllegalMonetaryUnitException();
         }
 
         return money;
     }
 
-    public static List<String> inputWinnerNumber() {
+    public static List<Lotto> inputPurchaseManualLotto(int count) throws IllegalArgumentException {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        List<Lotto> manualLottoNumbers = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Scanner scanner = new Scanner(System.in);
+            manualLottoNumbers.add(Lotto.makeManualLottoNumber(scanner.nextLine()));
+        }
+        return manualLottoNumbers;
+    }
+
+    public static int inputPurchaseManualLottoCount(Money money) throws IllegalArgumentException {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        Scanner scanner = new Scanner(System.in);
+        return checkPurchaseManualLottoCount(scanner.nextInt(), money);
+    }
+
+    public static int checkPurchaseManualLottoCount(int manualCount, Money money) {
+        if (manualCount < 0) {
+            throw new ManualPurchaseLessThanZeroException();
+        }
+
+        if (money.isExceedMoney(manualCount)) {
+            throw new NotEnoughMoneyException();
+        }
+
+        return manualCount;
+    }
+
+    public static Lotto inputWinnerNumber() throws IllegalArgumentException {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         Scanner scanner = new Scanner(System.in);
-        return stringToList(scanner.nextLine());
+        return Lotto.makeManualLottoNumber(scanner.nextLine());
     }
 
-    public static int inputBonus() {
+    public static int inputBonus(Lotto lotto) throws IllegalArgumentException {
         System.out.println("보너스 볼을 입력해 주세요");
         Scanner scanner = new Scanner(System.in);
-        return checkBonusNumber(scanner.nextInt());
-    }
-
-    public static int checkBonusNumber(int bonus) {
-        if (bonus < 1 || bonus > 45) {
-            throw new IllegalArgumentException();
-        }
-        return bonus;
-    }
-
-    private static List<String> stringToList(String winnerNumber) {
-        return split(winnerNumber);
-    }
-
-    private static List<String> split(String winnerNumber) {
-        return Arrays.asList(trim(winnerNumber.split(",")));
-    }
-
-    private static String[] trim(String[] winnerNumbers) {
-        for (String winnerNumber : winnerNumbers) {
-            winnerNumber.trim();
-        }
-        return winnerNumbers;
+        return lotto.checkDuplicateBonusNumber(LottoNumber.checkLottoNumberRange(scanner.nextInt()));
     }
 
 }

@@ -1,21 +1,24 @@
 package Lotto;
 
+import Lotto.Exception.DuplicatedBonusNumberException;
+import Lotto.Exception.IllegalLottoNumberFormatException;
+
 import java.util.*;
 
 public class Lotto {
     private static final int LOTTO_SIZE = 6;
     private List<LottoNumber> lottoTicket;
 
-    public Lotto(List<LottoNumber> lotto) {
-        if (lotto.isEmpty() || lotto == null) {
+    public Lotto(List<LottoNumber> lottoTicket) {
+        if (lottoTicket == null || lottoTicket.isEmpty()) {
             throw new IllegalArgumentException();
         }
 
-        if (lotto.size() != LOTTO_SIZE) {
-            throw new IllegalArgumentException();
+        if (lottoTicket.size() != LOTTO_SIZE) {
+            throw new IllegalLottoNumberFormatException();
         }
 
-        this.lottoTicket = lotto;
+        this.lottoTicket = lottoTicket;
     }
 
     public static Lotto makeLottoNumber() {
@@ -26,16 +29,20 @@ public class Lotto {
         return new Lotto(setToList(lottoNumber));
     }
 
+    public static Lotto makeLottoNumber(List<String> manualLottoNumber) throws IllegalArgumentException {
+        Set<LottoNumber> lottoNumber = new HashSet<>();
+        for (String number : manualLottoNumber) {
+            lottoNumber.add(LottoNumber.getLottoNumber(number));
+        }
+        return new Lotto(setToList(lottoNumber));
+    }
+
     private static Integer randomNumber() {
         return (int) (Math.random() * 45) + 1;
     }
 
-    public static Lotto makeWinningNumber(List<String> winningNumber) {
-        Set<LottoNumber> lottoNumber = new HashSet<>();
-        for (String number : winningNumber) {
-            lottoNumber.add(LottoNumber.getLottoNumber(number));
-        }
-        return new Lotto(setToList(lottoNumber));
+    public static Lotto makeManualLottoNumber(String inputLottoNumber) throws IllegalArgumentException {
+        return makeLottoNumber(stringToList(inputLottoNumber));
     }
 
     public static List<LottoNumber> setToList(Set<LottoNumber> lottoNumber) {
@@ -47,18 +54,18 @@ public class Lotto {
         return lottoNumber;
     }
 
-    public boolean makeBonusNumber(int bonus) {
-        return this.lottoTicket.contains(new LottoNumber(bonus));
-    }
-
-    public int checkBonusNumber(int bonus) {
-        if (this.lottoTicket.contains(new LottoNumber(bonus))) {
-            throw new IllegalArgumentException();
+    public int checkDuplicateBonusNumber(int bonus) {
+        if (isContainsBonusNumber(bonus)) {
+            throw new DuplicatedBonusNumberException();
         }
         return bonus;
     }
 
-    public int contains(Lotto lotto) {
+    public boolean isContainsBonusNumber(int bonus) {
+        return this.lottoTicket.contains(new LottoNumber(bonus));
+    }
+
+    public int countMatchLottoNumber(Lotto lotto) {
         int matchCount = 0;
         for (LottoNumber lottoNumber : this.lottoTicket) {
             matchCount += containsLottoNumber(lottoNumber, lotto);
@@ -66,12 +73,27 @@ public class Lotto {
         return matchCount;
     }
 
-    public int containsLottoNumber(LottoNumber lottoNumber1, Lotto lotto) {
-        return lotto.lottoTicket.contains(lottoNumber1) ? 1 : 0;
+    public int containsLottoNumber(LottoNumber lottoNumber, Lotto lotto) {
+        return lotto.lottoTicket.contains(lottoNumber) ? 1 : 0;
     }
 
     public String toString() {
         return lottoTicket.toString();
+    }
+
+    private static List<String> stringToList(String winnerNumber) {
+        return split(winnerNumber);
+    }
+
+    private static List<String> split(String winnerNumber) {
+        return Arrays.asList(trim(winnerNumber.split(",")));
+    }
+
+    private static String[] trim(String[] winnerNumbers) {
+        for (String winnerNumber : winnerNumbers) {
+            winnerNumber.trim();
+        }
+        return winnerNumbers;
     }
 
 }

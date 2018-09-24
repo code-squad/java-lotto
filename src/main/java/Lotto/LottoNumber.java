@@ -1,16 +1,18 @@
 package Lotto;
 
+import Lotto.Exception.OutOfRangeLottoNumberException;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class LottoNumber implements Comparable<LottoNumber> {
 
-    public static Map<Integer, LottoNumber> lottoNumber;
+    public static Map<Integer, LottoNumber> lottoNumbers;
 
     static {
-        lottoNumber = new HashMap<>();
+        lottoNumbers = new HashMap<>();
         for (int i = 1; i < 46; i++) {
-            lottoNumber.put(i, new LottoNumber(i));
+            lottoNumbers.put(i, new LottoNumber(i));
         }
     }
 
@@ -21,20 +23,20 @@ public class LottoNumber implements Comparable<LottoNumber> {
     }
 
     public static LottoNumber getLottoNumber(Integer number) {
-        return lottoNumber.get(checkLottoNumberRange(number));
+        return lottoNumbers.get(checkLottoNumberRange(number));
     }
 
-    public static LottoNumber getLottoNumber(String number) {
-        return lottoNumber.get(checkLottoNumberRange(stringToInteger(number.trim())));
+    public static LottoNumber getLottoNumber(String number) throws IllegalArgumentException {
+        return lottoNumbers.get(checkLottoNumberRange(stringToInteger(number.trim())));
     }
 
     private static Integer stringToInteger(String number) {
         return Integer.valueOf(number);
     }
 
-    private static Integer checkLottoNumberRange(Integer number) {
+    public static Integer checkLottoNumberRange(Integer number) {
         if (number < 1 || number > 45) {
-            throw new IllegalArgumentException();
+            throw new OutOfRangeLottoNumberException();
         }
         return number;
     }
@@ -45,7 +47,10 @@ public class LottoNumber implements Comparable<LottoNumber> {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         LottoNumber lottoNumber = (LottoNumber) o;
         return number == lottoNumber.number;
     }
@@ -54,4 +59,5 @@ public class LottoNumber implements Comparable<LottoNumber> {
     public int compareTo(LottoNumber lottoNumber) {
         return this.number - lottoNumber.number;
     }
+
 }

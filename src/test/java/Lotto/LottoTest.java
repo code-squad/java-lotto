@@ -1,66 +1,97 @@
 package Lotto;
 
+import Lotto.Exception.IllegalMonetaryUnitException;
+import Lotto.Exception.ManualPurchaseLessThanZeroException;
+import Lotto.Exception.NotEnoughMoneyException;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    private static final String manualLottoTicket = "1, 2, 3, 4, 5, 6";
+    private static final String winningLottoTicket = "1, 2, 3, 4, 5, 6";
+
+    @Test(expected = NotEnoughMoneyException.class)
     public void 천원미만_입력() {
-        assertThat(InputLottoView.checkInputMoney(1));
+        Money money = new Money(1);
+        assertThat(InputLottoView.checkInputMoney(money));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalMonetaryUnitException.class)
     public void 천원단위_입력() {
-        assertThat(InputLottoView.checkInputMoney(1100));
+        Money money = new Money(1100);
+        assertThat(InputLottoView.checkInputMoney(money));
+    }
+
+    @Test(expected = NotEnoughMoneyException.class)
+    public void 수동_개수_금액초과() {
+        Money money = new Money(2000);
+        assertThat(InputLottoView.checkPurchaseManualLottoCount(3, money));
+    }
+
+    @Test(expected = ManualPurchaseLessThanZeroException.class)
+    public void 수동_구매_0_이하() {
+        Money money = new Money(1000);
+        assertThat(InputLottoView.checkPurchaseManualLottoCount(-1, money));
     }
 
     @Test
-    public void 개수_반환() {
-        LottoGame lottoGame = new LottoGame(14000);
-        assertThat(lottoGame.getCount()).isEqualTo(14);
+    public void 자동_개수_반환() {
+        Money money = new Money(14000);
+
+        List<Lotto> lottoNumbers = new ArrayList<>();
+        LottoGame lottoGame = new LottoGame(money, lottoNumbers);
+        assertThat(lottoGame.getAutoCount()).isEqualTo(14);
+    }
+
+    @Test
+    public void 수동_개수_반환() {
+        Money money = new Money(14000);
+
+        List<Lotto> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(Lotto.makeLottoNumber());
+        manualLottoNumbers.add(Lotto.makeLottoNumber());
+        LottoGame lottoGame = new LottoGame(money, manualLottoNumbers);
+        assertThat(lottoGame.getManualCount()).isEqualTo(2);
+    }
+
+    @Test
+    public void 수동_자동_개수_반환() {
+        Money money = new Money(14000);
+
+        List<Lotto> manualLottoNumber = new ArrayList<>();
+        for (int i = 0; i < 11; i++) {
+            manualLottoNumber.add(Lotto.makeManualLottoNumber(manualLottoTicket));
+        }
+
+        LottoGame lottoGame = new LottoGame(money, manualLottoNumber);
+        assertThat(lottoGame.getAutoCount()).isEqualTo(3);
+        assertThat(lottoGame.getManualCount()).isEqualTo(11);
     }
 
     @Test
     public void 숫자_일치_개수() {
-        List<String> winningNumber = new ArrayList<>();
-        List<String> lottoNumber = new ArrayList<>();
-        for (int i = 1; i <= 6; i++) {
-            winningNumber.add(String.valueOf(i));
-            lottoNumber.add(String.valueOf(i));
-        }
-        Lotto winningLotto = Lotto.makeWinningNumber(winningNumber);
-        Lotto lotto = Lotto.makeWinningNumber(lottoNumber);
+        Lotto winningLotto = Lotto.makeManualLottoNumber(winningLottoTicket);
+        Lotto lotto = Lotto.makeManualLottoNumber(manualLottoTicket);
 
-        assertThat(winningLotto.contains(lotto)).isEqualTo(6);
+        assertThat(winningLotto.countMatchLottoNumber(lotto)).isEqualTo(6);
     }
 
     @Test
     public void 보너스포함() {
-        List<String> lottoNumber = new ArrayList<>();
-        for (int i = 1; i <= 6; i++) {
-            lottoNumber.add(String.valueOf(i));
-        }
-        Lotto userLottoNumbers = Lotto.makeWinningNumber(lottoNumber);
-        assertThat(userLottoNumbers.makeBonusNumber(6)).isEqualTo(true);
+        Lotto userLottoNumbers = Lotto.makeManualLottoNumber(manualLottoTicket);
+        assertThat(userLottoNumbers.isContainsBonusNumber(6)).isEqualTo(true);
     }
 
     @Test
     public void 총_수익률() {
-        List<String> winningNumber = new ArrayList<>();
-        List<String> lottoNumber = new ArrayList<>();
-        for (int i = 1; i <= 6; i++) {
-            winningNumber.add(String.valueOf(i));
-            lottoNumber.add(String.valueOf(i));
-        }
-        Lotto winningLotto = Lotto.makeWinningNumber(winningNumber);
-        Lotto lotto = Lotto.makeWinningNumber(lottoNumber);
-        LottoGameResult.setPrizeCount(Rank.valueOf(winningLotto.contains(lotto), false));
+        Lotto winningLotto = Lotto.makeManualLottoNumber(winningLottoTicket);
+        Lotto lotto = Lotto.makeManualLottoNumber(manualLottoTicket);
+        LottoGameResult.setPrizeCount(Rank.valueOf(winningLotto.countMatchLottoNumber(lotto), false));
 
         assertThat(LottoGameResult.totalYieldMoney()).isEqualTo(Rank.FIRST.getWinningMoney());
     }

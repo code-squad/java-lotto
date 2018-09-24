@@ -14,8 +14,8 @@ public class LottoGameResult {
         }
     }
 
-    public static int getYield(int money) {
-        return Math.round(totalYieldMoney() / money * 100);
+    public static int getYield(Money money) {
+        return Math.round(money.rateOfReturn(totalYieldMoney()));
     }
 
     public static float totalYieldMoney() {
