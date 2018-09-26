@@ -18,7 +18,9 @@ public class LottoGames {
         lottos = new Lottos();
         checkPriceValidation(buyAmt, manualNumbers);
         long ticketCounts = buyAmt / LOTTO_PRICE_PER_TICKET;
-        lottos.addLottos(LottoGenerator.buyManually(manualNumbers));
+        if(manualNumbers.length > 0) {
+            lottos.addLottos(LottoGenerator.buyManually(manualNumbers));
+        }
         lottos.addLottos(LottoGenerator.buyAutomatic(ticketCounts - manualNumbers.length));
     }
 

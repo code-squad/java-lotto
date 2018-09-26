@@ -32,6 +32,7 @@ public class ResultView {
         for(Rank rank : ranks){
             if(rank == Rank.SECOND){
                 System.out.println( Rank.SECOND.getCountOfMatch() + "개 일치, 보너스볼 일치 (" + Rank.SECOND.getWinningMoney() + "원) - " + rankCountMap.get(rank) + "개");
+                awardAmt += rank.getWinningMoney();
                 continue;
             }
 
