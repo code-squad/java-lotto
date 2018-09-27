@@ -1,4 +1,4 @@
-package Lotto;
+package lotto;
 
 import java.util.HashMap;
 import java.util.Map;

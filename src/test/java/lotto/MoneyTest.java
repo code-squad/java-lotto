@@ -1,33 +1,33 @@
-package Lotto;
+package lotto;
 
+import lotto.exception.IllegalMonetaryUnitException;
+import lotto.exception.NotEnoughMoneyException;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MoneyTest {
 
-    @Test
+    @Test(expected = NotEnoughMoneyException.class)
     public void 구매_금액_부족() {
         Money money = new Money(1);
-        assertThat(money.isUnavailablePurchase()).isEqualTo(true);
     }
 
     @Test
     public void 구매_가능() {
         Money money = new Money(1000);
-        assertThat(money.isUnavailablePurchase()).isEqualTo(false);
+        assertThat(money.isUnavailablePurchase(1000)).isEqualTo(false);
     }
 
-    @Test
+    @Test(expected = IllegalMonetaryUnitException.class)
     public void 천원_미만_단위_입력() {
         Money money = new Money(1100);
-        assertThat(money.isExistRemainder()).isEqualTo(true);
     }
 
     @Test
     public void 정상_단위_입력() {
         Money money = new Money(1000);
-        assertThat(money.isExistRemainder()).isEqualTo(false);
+        assertThat(money.isExistRemainder(1000)).isEqualTo(false);
     }
 
     @Test

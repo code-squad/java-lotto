@@ -1,6 +1,6 @@
-package Lotto;
+package lotto;
 
-import Lotto.Exception.OutOfRangeLottoNumberException;
+import lotto.exception.OutOfRangeLottoNumberException;
 
 import java.util.HashMap;
 import java.util.Map;

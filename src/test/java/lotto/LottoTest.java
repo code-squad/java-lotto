@@ -1,8 +1,7 @@
-package Lotto;
+package lotto;
 
-import Lotto.Exception.IllegalMonetaryUnitException;
-import Lotto.Exception.ManualPurchaseLessThanZeroException;
-import Lotto.Exception.NotEnoughMoneyException;
+import lotto.exception.ManualPurchaseLessThanZeroException;
+import lotto.exception.NotEnoughMoneyException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,18 +13,6 @@ public class LottoTest {
 
     private static final String manualLottoTicket = "1, 2, 3, 4, 5, 6";
     private static final String winningLottoTicket = "1, 2, 3, 4, 5, 6";
-
-    @Test(expected = NotEnoughMoneyException.class)
-    public void 천원미만_입력() {
-        Money money = new Money(1);
-        assertThat(InputLottoView.checkInputMoney(money));
-    }
-
-    @Test(expected = IllegalMonetaryUnitException.class)
-    public void 천원단위_입력() {
-        Money money = new Money(1100);
-        assertThat(InputLottoView.checkInputMoney(money));
-    }
 
     @Test(expected = NotEnoughMoneyException.class)
     public void 수동_개수_금액초과() {
@@ -53,8 +40,8 @@ public class LottoTest {
         Money money = new Money(14000);
 
         List<Lotto> manualLottoNumbers = new ArrayList<>();
-        manualLottoNumbers.add(Lotto.makeLottoNumber());
-        manualLottoNumbers.add(Lotto.makeLottoNumber());
+        manualLottoNumbers.add(Lotto.makeAutoLottoNumber());
+        manualLottoNumbers.add(Lotto.makeAutoLottoNumber());
         LottoGame lottoGame = new LottoGame(money, manualLottoNumbers);
         assertThat(lottoGame.getManualCount()).isEqualTo(2);
     }
@@ -63,10 +50,12 @@ public class LottoTest {
     public void 수동_자동_개수_반환() {
         Money money = new Money(14000);
 
-        List<Lotto> manualLottoNumber = new ArrayList<>();
+        List<String> manualLottoNumbers = new ArrayList<>();
         for (int i = 0; i < 11; i++) {
-            manualLottoNumber.add(Lotto.makeManualLottoNumber(manualLottoTicket));
+            manualLottoNumbers.add(manualLottoTicket);
         }
+
+        List<Lotto> manualLottoNumber = Lotto.makeManualLottoNumbers(manualLottoNumbers);
 
         LottoGame lottoGame = new LottoGame(money, manualLottoNumber);
         assertThat(lottoGame.getAutoCount()).isEqualTo(3);
