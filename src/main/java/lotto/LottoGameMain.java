@@ -9,12 +9,12 @@ public class LottoGameMain {
                 Money money = InputLottoView.inputMoney();
                 int manualPurchaseCount = InputLottoView.inputPurchaseManualLottoCount(money);
                 List<String> manualLottoNumbers = InputLottoView.inputPurchaseManualLotto(manualPurchaseCount);
-                LottoGame lottoGame = new LottoGame(money, Lotto.makeManualLottoNumbers(manualLottoNumbers));
+                LottoGame lottoGame = new LottoGame(money, LottoFactory.makeManualLottoNumbers(manualLottoNumbers));
 
                 OutputLottoView.printNumberOfLottoPurchase(lottoGame);
                 OutputLottoView.printPurchaseLotto(lottoGame);
 
-                Lotto winningLottoNumber = Lotto.makeManualLottoNumber(InputLottoView.inputWinnerNumber());
+                Lotto winningLottoNumber = LottoFactory.makeManualLottoNumber(InputLottoView.inputWinnerNumber());
                 int bonus = InputLottoView.inputBonus(winningLottoNumber);
                 LottoGameResult lottoGameResult = lottoGame.playLottoGame(winningLottoNumber, bonus);
                 OutputLottoView.winStat(lottoGameResult, money);

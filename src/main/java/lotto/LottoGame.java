@@ -16,7 +16,7 @@ public class LottoGame {
         userLottoNumbers = new ArrayList<>();
         userLottoNumbers.addAll(manualLottoNumbers);
         for (int i = 0; i < getAutoCount(); i++) {
-            userLottoNumbers.add(Lotto.makeAutoLottoNumber());
+            userLottoNumbers.add(LottoFactory.makeAutoLottoNumber());
         }
     }
 

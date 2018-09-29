@@ -40,8 +40,8 @@ public class LottoTest {
         Money money = new Money(14000);
 
         List<Lotto> manualLottoNumbers = new ArrayList<>();
-        manualLottoNumbers.add(Lotto.makeAutoLottoNumber());
-        manualLottoNumbers.add(Lotto.makeAutoLottoNumber());
+        manualLottoNumbers.add(LottoFactory.makeAutoLottoNumber());
+        manualLottoNumbers.add(LottoFactory.makeAutoLottoNumber());
         LottoGame lottoGame = new LottoGame(money, manualLottoNumbers);
         assertThat(lottoGame.getManualCount()).isEqualTo(2);
     }
@@ -55,7 +55,7 @@ public class LottoTest {
             manualLottoNumbers.add(manualLottoTicket);
         }
 
-        List<Lotto> manualLottoNumber = Lotto.makeManualLottoNumbers(manualLottoNumbers);
+        List<Lotto> manualLottoNumber = LottoFactory.makeManualLottoNumbers(manualLottoNumbers);
 
         LottoGame lottoGame = new LottoGame(money, manualLottoNumber);
         assertThat(lottoGame.getAutoCount()).isEqualTo(3);
@@ -64,22 +64,22 @@ public class LottoTest {
 
     @Test
     public void 숫자_일치_개수() {
-        Lotto winningLotto = Lotto.makeManualLottoNumber(winningLottoTicket);
-        Lotto lotto = Lotto.makeManualLottoNumber(manualLottoTicket);
+        Lotto winningLotto = LottoFactory.makeManualLottoNumber(winningLottoTicket);
+        Lotto lotto = LottoFactory.makeManualLottoNumber(manualLottoTicket);
 
         assertThat(winningLotto.countMatchLottoNumber(lotto)).isEqualTo(6);
     }
 
     @Test
     public void 보너스포함() {
-        Lotto userLottoNumbers = Lotto.makeManualLottoNumber(manualLottoTicket);
+        Lotto userLottoNumbers = LottoFactory.makeManualLottoNumber(manualLottoTicket);
         assertThat(userLottoNumbers.isContainsBonusNumber(6)).isEqualTo(true);
     }
 
     @Test
     public void 총_수익률() {
-        Lotto winningLotto = Lotto.makeManualLottoNumber(winningLottoTicket);
-        Lotto lotto = Lotto.makeManualLottoNumber(manualLottoTicket);
+        Lotto winningLotto = LottoFactory.makeManualLottoNumber(winningLottoTicket);
+        Lotto lotto = LottoFactory.makeManualLottoNumber(manualLottoTicket);
         LottoGameResult.setPrizeCount(Rank.valueOf(winningLotto.countMatchLottoNumber(lotto), false));
 
         assertThat(LottoGameResult.totalYieldMoney()).isEqualTo(Rank.FIRST.getWinningMoney());
