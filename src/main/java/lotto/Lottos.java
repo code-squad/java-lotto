@@ -13,7 +13,17 @@ public class Lottos {
     }
 
     public void add(Lotto lotto) {
+        if(lotto == null)
+            return;
         lottos.add(lotto);
+    }
+
+    public void addLottos(Lottos lottos){
+        if(lottos == null)
+            return;
+        for(Lotto lotto : lottos.getLottos()){
+            this.lottos.add(lotto);
+        }
     }
 
     public int getLottosCount() {

@@ -21,6 +21,7 @@ public class WinLottoTest {
     public void 보너스번호_정상세팅() {
         Lotto lotto = new Lotto("1, 2, 3, 4, 5, 6");
         WinLotto winLotto = new WinLotto(lotto, 10);
-        assertThat(winLotto.getBonusNumber()).isEqualTo(10);
+        LottoNo lottoNo = new LottoNo(10);
+        assertThat(winLotto.getBonusNumber()).isEqualTo(lottoNo);
     }
 }

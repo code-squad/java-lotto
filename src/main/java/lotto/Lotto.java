@@ -1,56 +1,48 @@
 package lotto;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Lotto {
 
-    private List<Integer> lotto;
+    private Set<LottoNo> lotto;
 
-    public Lotto(String lottoNumbers){
-        List<Integer> newLotto = new ArrayList<>();
-        String[] winStringNumbers = lottoNumbers.split(",");
+    public Lotto(String paramLottoNumbers) {
+        lotto = new HashSet<>();
+        String[] lottoNumbers = paramLottoNumbers.split(",");
 
-        for(String singleNumber:winStringNumbers){
-            int lottoNumber = getLottoSingleNumber(singleNumber.trim());
-            newLotto.add(lottoNumber);
-        }
-
-        checkConstructorValidation(winStringNumbers, newLotto);
-        lotto = newLotto;
-    }
-
-    private int getLottoSingleNumber(String singleNumber) {
-        if(singleNumber == null || singleNumber.isEmpty() || singleNumber.trim().isEmpty() || !StringUtils.isNumeric(singleNumber)){
-            throw new IllegalArgumentException();
-        }
-
-        int lottoNumber = Integer.parseInt(singleNumber.trim());
-        if(lottoNumber < 1 || lottoNumber > 45){
-            throw new IllegalArgumentException();
-        }
-        return lottoNumber;
-    }
-
-    private void checkConstructorValidation(String[] winStringNumbers, List<Integer> winNumbers) {
-        if(winStringNumbers.length != 6){
-            throw new IllegalArgumentException();
-        }
-
-        for(int i=0; i<winNumbers.size()-1; i++) {
-            if( winNumbers.subList(i+1, winNumbers.size() ).contains(winNumbers.get(i)) ) {
-                throw new IllegalArgumentException();
-            }
+        checkParameterCount(lottoNumbers);
+        for (String paramLottoNo : lottoNumbers) {
+            LottoNo lottoNo = new LottoNo(Integer.parseInt(paramLottoNo.trim()));
+            checkNumberDuplication(lottoNo);
+            lotto.add(lottoNo);
         }
     }
 
-    public int getMatchCount(WinLotto winLotto){
+    private void checkParameterCount(String[] lottoNumbers) {
+        if (lottoNumbers.length != 6) {
+            throw new IllegalArgumentException("숫자가 6개만 입력이 되어야 합니다.");
+        }
+    }
+
+    public void checkNumberDuplication(LottoNo lottoNo) {
+        if (lotto.contains(lottoNo)) {
+            throw new IllegalArgumentException("번호가 중복되었습니다.");
+        }
+    }
+
+    public Set<LottoNo> getLotto() {
+        Set<LottoNo> unModifiableLotto = Collections.unmodifiableSet(lotto);
+        return unModifiableLotto;
+    }
+
+    public int getMatchCount(WinLotto winLotto) {
         int winCount = 0;
 
-        for(Integer number : lotto){
-            if( winLotto.contain(number) ) {
+        for (LottoNo winNumber : winLotto.getWinLotto().getLotto()) {
+            if (lotto.contains(winNumber)) {
                 winCount++;
             }
         }
@@ -58,22 +50,24 @@ public class Lotto {
     }
 
 
-    public Rank calculateRank(WinLotto winLotto){
+    public Rank calculateRank(WinLotto winLotto) {
         return Rank.valueOf(getMatchCount(winLotto), lotto.contains(winLotto.getBonusNumber()));
     }
 
 
-    public boolean contains(Integer number) {
+    public boolean contains(LottoNo number) {
         return lotto.contains(number);
     }
 
     @Override
     public String toString() {
-        String str = "";
-        for(Integer integer : lotto){
-            str += integer + ", ";
+        String[] lottoNumbers = new String[lotto.size()];
+        Iterator<LottoNo> iterator = lotto.iterator();
+        int i = 0;
+        while (lotto.iterator().hasNext()) {
+            lottoNumbers[i++] = iterator.next() + "";
         }
 
-        return "[" + str.substring(0, str.length()-2) + "]";
+        return "[" + String.join(",", lottoNumbers) + "]";
     }
 }

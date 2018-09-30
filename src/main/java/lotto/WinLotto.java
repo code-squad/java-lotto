@@ -2,31 +2,23 @@ package lotto;
 
 public class WinLotto {
     private Lotto winLotto;
-    private int bonusNumber;
+    private LottoNo bonusNumber;    //LottoNo를 사용하면 Range Check가 불필요하다.
 
     public WinLotto(Lotto winLotto, int bonusNumber){
-
-        if (bonusNumber < 1) {
+        LottoNo bunusLottoNo = new LottoNo(bonusNumber);
+        if(winLotto.contains(bunusLottoNo)){
             throw new IllegalArgumentException();
         }
-
-        if(winLotto.contains(bonusNumber)){
-            throw new IllegalArgumentException();
-        }
-
         this.winLotto = winLotto;
-        this.bonusNumber = bonusNumber;
+        this.bonusNumber = new LottoNo(bonusNumber);
     }
 
     public Lotto getWinLotto() {
         return winLotto;
     }
 
-    public int getBonusNumber() {
+    public LottoNo getBonusNumber() {
         return bonusNumber;
     }
 
-    public boolean contain(Integer number) {
-        return winLotto.contains(number);
-    }
 }

@@ -1,8 +1,7 @@
 package lotto;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public class LottoGames {
     public static final int LOTTO_PRICE_PER_TICKET = 1000;
@@ -10,76 +9,41 @@ public class LottoGames {
     Lottos lottos;
     WinLotto winLotto;
 
-    public LottoGames(long buyAmt){
+    public LottoGames(long buyAmt, String[] manualNumbers) {
         lottos = new Lottos();
-
-        checkPriceValidation(buyAmt);
+        checkPriceValidation(buyAmt, manualNumbers);
         long ticketCounts = buyAmt / LOTTO_PRICE_PER_TICKET;
-        buyLottoNCounts(ticketCounts);
-
+        lottos.addLottos(LottoGenerator.buyManually(manualNumbers));
+        lottos.addLottos(LottoGenerator.buyAutomatic(ticketCounts - manualNumbers.length));
     }
 
-    private List<String> generateRandomLottoNumbers(){
-        List<String> candidateNumbers = new ArrayList<>();
-        List<String> lottoNumber;
 
-        for(int i=0; i<45; i++){
-            candidateNumbers.add(  (i+1) + "" );
-        }
-
-        Collections.shuffle(candidateNumbers);
-        lottoNumber = candidateNumbers.subList(0, 6);
-        Collections.sort(lottoNumber);
-        return lottoNumber;
-    }
-
-    public void addSingleLotto(String lottoNumbers){
+    public void addSingleLotto(String lottoNumbers) {
         lottos.add(new Lotto(lottoNumbers));
     }
 
-    WinLotto getWinLotto(){
-        return winLotto;
-    }
-
-    public int getHavingCount(){
+    public int getHavingCount() {
         return lottos.getLottosCount();
     }
 
-    void buyLottoNCounts(long ticketCounts) {
-        for(int i=0; i<ticketCounts; i++){
-            List<String> randomNumbers = generateRandomLottoNumbers();
-            String numbers = String.join(", ", randomNumbers.toArray(new String[randomNumbers.size()]) );
 
-            lottos.add(new Lotto(numbers));
+    private void checkPriceValidation(long price, String[] manualNumbers) {
+        if (price % 1000 != 0) {
+            throw new IllegalArgumentException("금액이상. 1000 단위로 입력가능해야합니다.");
         }
-    }
 
-    private void checkPriceValidation(long price) {
-
-        if(price % 1000 != 0){
-            throw new IllegalArgumentException();
+        if (price / 1000 < manualNumbers.length) {
+            throw new IllegalArgumentException("금액이상. 구매금액 : " + price + " 수동구매수량 : " + manualNumbers.length);
         }
     }
 
 
-    public void setWinnerLotto(List<String> winNumbers) {
-        checkIsNotNullAndIsNumber(winNumbers.get(1));
+    public void setWinLotto(List<String> winNumbers) {
         winLotto = new WinLotto(new Lotto(winNumbers.get(0)), Integer.parseInt(winNumbers.get(1)));
     }
 
-    private void checkIsNotNullAndIsNumber(String inputNumber) {
-        if(inputNumber == null || inputNumber.isEmpty() || inputNumber.trim().isEmpty()){
-            throw new IllegalArgumentException();
-        }
 
-        if(!StringUtils.isNumeric(inputNumber)){
-            throw new IllegalArgumentException();
-        }
-    }
-
-
-    public Map<Rank, Integer> getRankMap(){
-
+    public Map<Rank, Integer> getRankMap() {
         return lottos.makeRankCountMap(winLotto);
     }
 

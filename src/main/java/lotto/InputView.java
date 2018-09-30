@@ -13,7 +13,7 @@ public class InputView {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         if(userInput == null || userInput.isEmpty() || userInput.trim().isEmpty() || !StringUtils.isNumeric(userInput))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("구매금액을 입력해주세요.");
         return Long.parseLong(userInput);
     }
 
@@ -28,6 +28,30 @@ public class InputView {
         winNumbers.add(scanner.nextLine());
 
         return winNumbers;
+    }
+
+    public static long getManualCount(){
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+
+        if(userInput == null || userInput.isEmpty() || userInput.trim().isEmpty() || Integer.parseInt(userInput) < 0){
+            throw new IllegalArgumentException();
+        }
+
+        return Long.parseLong(userInput);
+    }
+
+    public static String[] getManualNumbers(long manualCount){
+
+        int manualBuyCount = (int)manualCount;
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        Scanner scanner = new Scanner(System.in);
+        List<String> userInputs = new ArrayList<>();
+        for(int i=0; i<manualBuyCount; i++) {
+            userInputs.add(scanner.nextLine());
+        }
+        return userInputs.toArray(new String[userInputs.size()]);
     }
 
 
