@@ -5,6 +5,7 @@ import lotto.domain.Lottos;
 import lotto.domain.Rank;
 import lotto.domain.WinLotto;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,22 @@ public class LottoGames {
         }
 
         return awardAmt;
+    }
+
+    public List<String> getResultViewString(){
+        List<Rank> ranks = Arrays.asList(Rank.values());
+        List<String> rankText = new ArrayList<>();
+
+        for(Rank rank : ranks){
+            if (rank == Rank.SECOND) {
+                rankText.add(Rank.SECOND.getCountOfMatch() + "개 일치, 보너스볼 일치 (" + Rank.SECOND.getWinningMoney() + "원) - " + getRankMap().get(rank) + "개");
+                continue;
+            }
+            rankText.add(rank.getCountOfMatch() + "개 일치 (" + rank.getWinningMoney() + "원) - " + getRankMap().get(rank) + "개");
+        }
+
+        return rankText;
+
     }
 
 

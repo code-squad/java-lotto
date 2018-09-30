@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static lotto.service.LottoGames.LOTTO_PRICE_PER_TICKET;
+
 public class ResultView {
     public static void printHavingLotto(LottoGames lottoGames){
 
@@ -20,20 +22,21 @@ public class ResultView {
         }
     }
 
-    public static void printWinResult(long buyAmt, Map<Rank, Integer> rankCountMap, int awardAmt) {
+    public static void printWinResult(LottoGames lottoGames) {
+
+        long buyAmt = lottoGames.getHavingCount() * LOTTO_PRICE_PER_TICKET;
+        Map<Rank, Integer> rankCountMap = lottoGames.getRankMap();
+        int awardAmt = lottoGames.getAwardAmt();
 
         System.out.println("당첨통계");
         System.out.println("---------");
 
         List<Rank> ranks = Arrays.asList(Rank.values());
 
-        for(Rank rank : ranks){
-            if (rank == Rank.SECOND) {
-                System.out.println(Rank.SECOND.getCountOfMatch() + "개 일치, 보너스볼 일치 (" + Rank.SECOND.getWinningMoney() + "원) - " + rankCountMap.get(rank) + "개");
-                continue;
-            }
+        List<String> resultTexts = lottoGames.getResultViewString();
 
-            System.out.println(rank.getCountOfMatch() + "개 일치 (" + rank.getWinningMoney() + "원) - " + rankCountMap.get(rank) + "개");
+        for(String resultText : resultTexts){
+            System.out.println(resultText);
         }
 
         System.out.println();

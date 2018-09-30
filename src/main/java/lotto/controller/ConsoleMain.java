@@ -18,7 +18,7 @@ public class ConsoleMain {
 
         int awardAmt = lottoGames.getAwardAmt();
 
-        ResultView.printWinResult(lottoGames.getHavingCount() * LOTTO_PRICE_PER_TICKET , lottoGames.getRankMap(), awardAmt);
+        ResultView.printWinResult(lottoGames);
 
     }
 
