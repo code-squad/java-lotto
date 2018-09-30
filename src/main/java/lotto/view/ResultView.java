@@ -20,29 +20,23 @@ public class ResultView {
         }
     }
 
-    public static void printWinResult(long buyAmt, Map<Rank, Integer> rankCountMap) {
+    public static void printWinResult(long buyAmt, Map<Rank, Integer> rankCountMap, int awardAmt) {
 
         System.out.println("당첨통계");
         System.out.println("---------");
 
-        int awardAmt = 0;
-
         List<Rank> ranks = Arrays.asList(Rank.values());
 
         for(Rank rank : ranks){
-            if(rank == Rank.SECOND){
-                System.out.println( Rank.SECOND.getCountOfMatch() + "개 일치, 보너스볼 일치 (" + Rank.SECOND.getWinningMoney() + "원) - " + rankCountMap.get(rank) + "개");
-                awardAmt += rank.getWinningMoney();
+            if (rank == Rank.SECOND) {
+                System.out.println(Rank.SECOND.getCountOfMatch() + "개 일치, 보너스볼 일치 (" + Rank.SECOND.getWinningMoney() + "원) - " + rankCountMap.get(rank) + "개");
                 continue;
             }
 
-            System.out.println( rank.getCountOfMatch() + "개 일치 (" + rank.getWinningMoney() + "원) - " + rankCountMap.get(rank) + "개");
-
-            if(rankCountMap.get(rank) > 0)
-                awardAmt += rank.getWinningMoney();
+            System.out.println(rank.getCountOfMatch() + "개 일치 (" + rank.getWinningMoney() + "원) - " + rankCountMap.get(rank) + "개");
         }
 
         System.out.println();
-        System.out.println("총 수익률은 " + (awardAmt * 100 / buyAmt) + "%입니다.");
+        System.out.println("총 수익률은 " + ((long)awardAmt * 100l / (long)buyAmt) + "%입니다.");
     }
 }

@@ -5,6 +5,7 @@ import lotto.domain.Lottos;
 import lotto.domain.Rank;
 import lotto.domain.WinLotto;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,20 @@ public class LottoGames {
 
     public Map<Rank, Integer> getRankMap() {
         return lottos.makeRankCountMap(winLotto);
+    }
+
+    public int getAwardAmt(){
+        List<Rank> ranks = Arrays.asList(Rank.values());
+        Map<Rank, Integer> rankCountMap = getRankMap();
+        int awardAmt = 0;
+
+        for(Rank rank : ranks){
+            if(rankCountMap.get(rank) > 0) {
+                awardAmt += rank.getWinningMoney();
+            }
+        }
+
+        return awardAmt;
     }
 
 

@@ -84,7 +84,6 @@ public class LottoGamesTest {
 
         Map<Rank, Integer> rankMap = lottoGames.getRankMap();
         assertThat(rankMap.get(Rank.MISS)).isEqualTo(2);
-
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -92,5 +91,29 @@ public class LottoGamesTest {
         String [] manualLotto = {"11, 12, 13, 14, 15, 16", "21, 22, 23, 24, 25, 26"};
         LottoGames lottoGames = new LottoGames(0, manualLotto);
 
+    }
+
+    @Test
+    public void 전부미스_당첨금0() {
+        String [] manualLotto = {"11, 12, 13, 14, 15, 16", "21, 22, 23, 24, 25, 26"};
+        LottoGames lottoGames = new LottoGames(2000, manualLotto);
+        List<String> winNumbers = new ArrayList<>();
+        winNumbers.add("1, 2, 3, 4, 5, 6");
+        winNumbers.add("7");
+        lottoGames.setWinLotto(winNumbers);
+
+        assertThat(lottoGames.getAwardAmt()).isEqualTo(Rank.MISS.getWinningMoney());
+    }
+
+    @Test
+    public void 당첨1등_당첨금_확인() {
+        String [] manualLotto = {"1, 2, 3, 4, 5, 6", "21, 22, 23, 24, 25, 26"};
+        LottoGames lottoGames = new LottoGames(2000, manualLotto);
+        List<String> winNumbers = new ArrayList<>();
+        winNumbers.add("1, 2, 3, 4, 5, 6");
+        winNumbers.add("7");
+        lottoGames.setWinLotto(winNumbers);
+
+        assertThat(lottoGames.getAwardAmt()).isEqualTo(Rank.FIRST.getWinningMoney());
     }
 }

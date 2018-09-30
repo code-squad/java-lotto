@@ -56,29 +56,26 @@ public class WebMain {
 
             int buyAmt = lottoGames.getHavingCount() * LottoGames.LOTTO_PRICE_PER_TICKET;
 
-
-            int awardAmt = 0;
-
             List<Rank> ranks = Arrays.asList(Rank.values());
             Map<Rank, Integer> rankCountMap = lottoGames.getRankMap();
 
             List<String> rankText = new ArrayList<>();
 
             for(Rank rank : ranks){
-                if(rank == Rank.SECOND){
-                    rankText.add( Rank.SECOND.getCountOfMatch() + "개 일치, 보너스볼 일치 (" + Rank.SECOND.getWinningMoney() + "원) - " + rankCountMap.get(rank) + "개");
-                    awardAmt += rank.getWinningMoney();
+                    if (rank == Rank.SECOND) {
+                    rankText.add(Rank.SECOND.getCountOfMatch() + "개 일치, 보너스볼 일치 (" + Rank.SECOND.getWinningMoney() + "원) - " + rankCountMap.get(rank) + "개");
                     continue;
                 }
 
-                rankText.add( rank.getCountOfMatch() + "개 일치 (" + rank.getWinningMoney() + "원) - " + rankCountMap.get(rank) + "개");
-                if(rankCountMap.get(rank) > 0)
-                    awardAmt += rank.getWinningMoney();
+                rankText.add(rank.getCountOfMatch() + "개 일치 (" + rank.getWinningMoney() + "원) - " + rankCountMap.get(rank) + "개");
             }
+
+            int awardAmt = lottoGames.getAwardAmt();
+
 
             Map<String, Object> model = new HashMap<>();
             model.put("rankText", rankText);
-            model.put("incomeRate", awardAmt * 100 / buyAmt);
+            model.put("incomeRate", (long)awardAmt * 100l / (long)buyAmt);
 
             return webView.render(model, "/result.html");
         });
