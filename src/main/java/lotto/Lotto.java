@@ -3,7 +3,7 @@ package lotto;
 import lotto.exception.DuplicatedBonusNumberException;
 import lotto.exception.IllegalLottoNumberFormatException;
 
-import java.util.*;
+import java.util.List;
 
 public class Lotto {
     protected static final int LOTTO_SIZE = 6;

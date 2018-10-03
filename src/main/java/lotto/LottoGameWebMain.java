@@ -3,7 +3,7 @@ package lotto;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +12,7 @@ import static spark.Spark.*;
 public class LottoGameWebMain {
 
     private static LottoGame lottoGame;
+    private static Money money;
 
     public static void main(String[] args) {
         port(8080);
@@ -21,19 +22,35 @@ public class LottoGameWebMain {
         });
 
         post("/buyLotto", (request, response) -> {
-            String inputMoney = request.queryParams("inputMoney");
-            Money money = new Money(Integer.parseInt(inputMoney));
+            try {
+                money = InputLottoWebView.inputMoney(request.queryParams("inputMoney"));
+                List<String> manualLottoNumbers = InputLottoWebView.inputPurchaseManualLotto(request.queryParams("manualNumber"), money);
+                lottoGame = new LottoGame(money, LottoFactory.makeManualLottoNumbers(manualLottoNumbers));
 
-            String[] inputManualLottoNumbers = split(request.queryParams("manualNumber"));
+                Map<String, Object> model = new HashMap<>();
+                model.put("totalLottoNumbers", OutputLottoWebView.printPurchaseLotto(lottoGame));
+                model.put("totalPurchasedLottoCount", OutputLottoWebView.printNumberOfLottoPurchase(lottoGame));
 
-            List<String> manualLottoNumbers = new ArrayList<>();
-            for (String inputManualLottoNumber : inputManualLottoNumbers) {
-                manualLottoNumbers.add(inputManualLottoNumber);
+                return render(model, "show.html");
+            } catch (IllegalArgumentException e) {
+                notFound(alert(e.getMessage(), "/"));
+                return null;
             }
+        });
 
-            lottoGame = new LottoGame(money, LottoFactory.makeManualLottoNumbers(manualLottoNumbers));
+        post("/matchLotto", (request, response) -> {
+            try {
+                Lotto winningLottoNumber = LottoFactory.makeManualLottoNumber(request.queryParams("winningNumber"));
+                int bonus = InputLottoWebView.inputBonus(winningLottoNumber, request.queryParams("bonusNumber"));
+                LottoGameResult lottoGameResult = lottoGame.playLottoGame(winningLottoNumber, bonus);
 
-            return render("show.html");
+                Map<String, Object> model = OutputLottoWebView.winStat(lottoGameResult, money);
+
+                return render(model, "result.html");
+            } catch (IllegalArgumentException e) {
+                notFound(alert(e.getMessage(), "/"));
+                return null;
+            }
         });
 
     }
@@ -46,8 +63,8 @@ public class LottoGameWebMain {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 
-    private static String[] split(String input) {
-        return input.split("<br>");
+    private static String alert(String message, String redirectUrl) {
+        return "<script>alert('" + message + "'); location.href='" + redirectUrl + "'</script>";
     }
 
 }
