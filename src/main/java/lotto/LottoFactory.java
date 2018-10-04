@@ -20,8 +20,8 @@ public class LottoFactory extends Lotto {
         return (int) (Math.random() * 45) + 1;
     }
 
-    public static List<Lotto> makeManualLottoNumbers(java.util.List<String> inputLottoNumbers) throws IllegalArgumentException {
-        List<lotto.Lotto> manualLottoNumbers = new ArrayList<>();
+    public static List<Lotto> makeManualLottoNumbers(List<String> inputLottoNumbers) throws IllegalArgumentException {
+        List<Lotto> manualLottoNumbers = new ArrayList<>();
         for (String inputLottoNumber : inputLottoNumbers) {
             manualLottoNumbers.add(makeLottoNumber(stringToList(inputLottoNumber)));
         }
