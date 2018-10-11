@@ -1,4 +1,4 @@
-package lotto;
+package lotto.domain;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -64,8 +64,8 @@ public class Lotto {
         String[] lottoNumbers = new String[lotto.size()];
         Iterator<LottoNo> iterator = lotto.iterator();
         int i = 0;
-        while (lotto.iterator().hasNext()) {
-            lottoNumbers[i++] = iterator.next() + "";
+        while (iterator.hasNext()) {
+            lottoNumbers[i++] = iterator.next().getLottoNo() + "";
         }
 
         return "[" + String.join(",", lottoNumbers) + "]";

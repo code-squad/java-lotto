@@ -1,16 +1,24 @@
-package lotto;
+package lotto.controller;
+
+import lotto.service.LottoGames;
+import lotto.view.ResultView;
+import lotto.view.InputView;
 
 import java.util.List;
 
-import static lotto.LottoGames.LOTTO_PRICE_PER_TICKET;
+import static lotto.service.LottoGames.LOTTO_PRICE_PER_TICKET;
 
 public class ConsoleMain {
 
     public static void main(String[] args) {
         LottoGames lottoGames = getInputAndPlayGame();
-
         ResultView.printHavingLotto(lottoGames);
-        ResultView.printWinResult(lottoGames.getHavingCount() * LOTTO_PRICE_PER_TICKET , lottoGames.getRankMap());
+
+        setWinNumbers(lottoGames);
+
+        int awardAmt = lottoGames.getAwardAmt();
+
+        ResultView.printWinResult(lottoGames);
 
     }
 
@@ -33,6 +41,17 @@ public class ConsoleMain {
         }
 
         return lottoGames;
+
+    }
+
+    public static void setWinNumbers(LottoGames lottoGames){
+        try{
+            List<String> winNumbers = InputView.getWinNumbers();
+            lottoGames.setWinLotto(winNumbers);
+        }catch (IllegalArgumentException e){
+            System.out.println("ERROR : " + e.getMessage());
+            setWinNumbers(lottoGames);
+        }
 
     }
 

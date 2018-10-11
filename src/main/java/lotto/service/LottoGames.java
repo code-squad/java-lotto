@@ -1,5 +1,12 @@
-package lotto;
+package lotto.service;
 
+import lotto.domain.Lotto;
+import lotto.domain.Lottos;
+import lotto.domain.Rank;
+import lotto.domain.WinLotto;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +20,9 @@ public class LottoGames {
         lottos = new Lottos();
         checkPriceValidation(buyAmt, manualNumbers);
         long ticketCounts = buyAmt / LOTTO_PRICE_PER_TICKET;
-        lottos.addLottos(LottoGenerator.buyManually(manualNumbers));
+        if(manualNumbers.length > 0) {
+            lottos.addLottos(LottoGenerator.buyManually(manualNumbers));
+        }
         lottos.addLottos(LottoGenerator.buyAutomatic(ticketCounts - manualNumbers.length));
     }
 
@@ -45,6 +54,36 @@ public class LottoGames {
 
     public Map<Rank, Integer> getRankMap() {
         return lottos.makeRankCountMap(winLotto);
+    }
+
+    public int getAwardAmt(){
+        List<Rank> ranks = Arrays.asList(Rank.values());
+        Map<Rank, Integer> rankCountMap = getRankMap();
+        int awardAmt = 0;
+
+        for(Rank rank : ranks){
+            if(rankCountMap.get(rank) > 0) {
+                awardAmt += rank.getWinningMoney();
+            }
+        }
+
+        return awardAmt;
+    }
+
+    public List<String> getResultViewString(){
+        List<Rank> ranks = Arrays.asList(Rank.values());
+        List<String> rankText = new ArrayList<>();
+
+        for(Rank rank : ranks){
+            if (rank == Rank.SECOND) {
+                rankText.add(Rank.SECOND.getCountOfMatch() + "개 일치, 보너스볼 일치 (" + Rank.SECOND.getWinningMoney() + "원) - " + getRankMap().get(rank) + "개");
+                continue;
+            }
+            rankText.add(rank.getCountOfMatch() + "개 일치 (" + rank.getWinningMoney() + "원) - " + getRankMap().get(rank) + "개");
+        }
+
+        return rankText;
+
     }
 
 

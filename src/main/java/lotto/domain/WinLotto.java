@@ -1,4 +1,7 @@
-package lotto;
+package lotto.domain;
+
+import lotto.domain.Lotto;
+import lotto.domain.LottoNo;
 
 public class WinLotto {
     private Lotto winLotto;

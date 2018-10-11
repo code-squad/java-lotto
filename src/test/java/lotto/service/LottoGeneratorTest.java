@@ -1,5 +1,7 @@
-package lotto;
+package lotto.service;
 
+import lotto.domain.Lottos;
+import lotto.service.LottoGenerator;
 import org.junit.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
