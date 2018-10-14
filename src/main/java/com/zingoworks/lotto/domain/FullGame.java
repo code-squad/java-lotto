@@ -6,19 +6,20 @@ import java.util.List;
 import static com.zingoworks.lotto.controller.LottoMain.PRICE_OF_GAME;
 
 public class FullGame {
-    private List<Game> fullGame = new ArrayList<>();
+    private List<Game> fullGame;
 
     public FullGame(int purchaseAmount) {
         generateFullGames(purchaseAmount);
     }
 
     public List<Game> getFullGame() {
-        return fullGame;
+        return this.fullGame;
     }
 
     private void generateFullGames(int purchaseAmount) {
+        this.fullGame = new ArrayList<>();
         for (int i = 0; i < purchaseAmount / PRICE_OF_GAME; i++) {
-            fullGame.add(new Game());
+            this.fullGame.add(new Game());
         }
     }
 }

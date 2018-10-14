@@ -7,6 +7,7 @@ import java.util.List;
 public class Game {
     private final int MIN_RANGE = 1;
     private final int MAX_RANGE = 45;
+    private final int MAX_REGULAR_NUMBER = 6;
     private List<Integer> gameNumber;
 
     public Game() {
@@ -20,7 +21,7 @@ public class Game {
 
     private void generateGameNumber(List<Integer> shuffledNumber) {
         this.gameNumber = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < MAX_REGULAR_NUMBER; i++) {
             gameNumber.add(shuffledNumber.get(i));
         }
     }
