@@ -24,6 +24,7 @@ public class LottoResults {
         earn += this.results.get(2) * 1500000;
         earn += this.results.get(3) * 2000000000;
         return earn;
+        //
     }
 
     private void generateLastWinningNumbers(String str) {
