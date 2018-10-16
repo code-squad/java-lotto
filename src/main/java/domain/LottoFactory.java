@@ -1,6 +1,4 @@
-package controller;
-
-import domain.Lotto;
+package domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,8 +13,12 @@ public class LottoFactory {
         }
     }
 
-    public static Lotto generateALotto(){
+    static Lotto generateRandomLotto(){
         Collections.shuffle(lottoNumbers);
-        return new Lotto(lottoNumbers.subList(0, 6));
+        return new Lotto(new ArrayList<>(lottoNumbers.subList(0, Lotto.LOTTO_NUMBERS_SIZE)));
+    }
+
+    public static Lotto generateTheLotto(List<Integer> numbers){
+        return new Lotto(new ArrayList<>(numbers));
     }
 }
