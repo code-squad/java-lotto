@@ -12,7 +12,11 @@ public class Lottery {
     private List<Integer> lotteryNumbers;
 
     Lottery() {
-        this.lotteryNumbers = getSortedNumbers(getLotteryNumbers());
+        this.lotteryNumbers = getSortedNumbers(getRandomLotteryNumbers());
+    }
+
+    public List<Integer> getLotteryNumbers() {
+        return lotteryNumbers;
     }
 
     List<Integer> getBasicNumbers() {
@@ -23,7 +27,7 @@ public class Lottery {
         return numbers;
     }
 
-    List<Integer> getLotteryNumbers() {
+    List<Integer> getRandomLotteryNumbers() {
         List<Integer> numbers = new ArrayList<>();
         List<Integer> numbersToAdd = getShuffledNumbers(getBasicNumbers());
         for (int i = 0; i < REGULAR_CHOICE; i++) {

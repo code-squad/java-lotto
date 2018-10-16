@@ -20,7 +20,7 @@ public class EveryLotteryTest {
     }
 
     @Test
-    public void testGenerateEveryLottoSet() {
+    public void testGenerateEveryLottoSet() throws Exception {
         assertEquals(Lotteries.getAllLotteries(5000).size(), 5);
         assertEquals(Lotteries.getAllLotteries(10000).size(), 10);
         assertEquals(Lotteries.getAllLotteries(0).size(), 0);

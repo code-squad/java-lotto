@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lotteries {
-    static final int PRICE_LOTTERY = 1000;
+    public static final int PRICE_LOTTERY = 1000;
 
     private List<Lottery> lotteries;
 
     private Lotteries(int purchaseAmount) {
+        if (purchaseAmount < 0) {
+            throw new IllegalArgumentException("<경고> 구매금액은 0원 이상입니다.");
+        }
         this.lotteries = generateLotteries(purchaseAmount);
     }
 

@@ -38,8 +38,8 @@ public class LotteryTest {
     @Test
     public void testLottoNumbers() {
         Lottery lottery = new Lottery();
-        assertEquals(lottery.getLotteryNumbers().size(), 6);
-        assertEquals(new HashSet<>(lottery.getLotteryNumbers()).size(), 6);
+        assertEquals(lottery.getRandomLotteryNumbers().size(), 6);
+        assertEquals(new HashSet<>(lottery.getRandomLotteryNumbers()).size(), 6);
     }
 
     @Test
