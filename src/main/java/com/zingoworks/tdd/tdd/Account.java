@@ -1,4 +1,4 @@
-package com.zingoworks.lotto.tdd;
+package com.zingoworks.tdd.tdd;
 
 public class Account {
     private int balance;

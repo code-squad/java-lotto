@@ -3,7 +3,6 @@ package com.zingoworks.lotto.domain;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 Test the program before you write it.
 Clean code that works.
 
-Lotto Class 테스트
+Lottery Class 테스트
 1. 6개의 랜덤숫자 발생
 1-1) 1~45까지의 basic number set 생성
 1-2) 1~45까지의 숫자 중 6개만 추출하여 로또넘버 생성
@@ -21,55 +20,55 @@ Lotto Class 테스트
 2. 6개의 숫자 중 적중개수 구하기
 */
 
-public class LottoTest {
+public class LotteryTest {
     @Test
     public void testLotto() throws Exception {
-        Lotto lotto = new Lotto();
+        Lottery lottery = new Lottery();
     }
 
     @Test
     public void testBasicNumbers() {
-        Lotto lotto = new Lotto();
-        assertEquals(lotto.getBasicNumbers().size(), 45);
+        Lottery lottery = new Lottery();
+        assertEquals(lottery.getBasicNumbers().size(), 45);
         for (int i = 1; i <= 45; i++) {
-            assert(lotto.getBasicNumbers().contains(i));
+            assert(lottery.getBasicNumbers().contains(i));
         }
     }
 
     @Test
     public void testLottoNumbers() {
-        Lotto lotto = new Lotto();
-        assertEquals(lotto.getLottoNumbers().size(), 6);
-        assertEquals(new HashSet<>(lotto.getLottoNumbers()).size(), 6);
+        Lottery lottery = new Lottery();
+        assertEquals(lottery.getLotteryNumbers().size(), 6);
+        assertEquals(new HashSet<>(lottery.getLotteryNumbers()).size(), 6);
     }
 
     @Test
     public void testCollectionsSort() {
-        Lotto lotto = new Lotto();
+        Lottery lottery = new Lottery();
         List<Integer> list = new ArrayList<>();
         list.add(3);
         list.add(2);
         list.add(1);
         System.out.println(list);
-        lotto.getSortedNumbers(list);
+        lottery.getSortedNumbers(list);
         System.out.println(list);
     }
 
     @Test
     public void testCollectionSuffle() {
-        Lotto lotto = new Lotto();
+        Lottery lottery = new Lottery();
         List<Integer> list = new ArrayList<>();
         list.add(3);
         list.add(2);
         list.add(1);
         System.out.println(list);
-        lotto.getShuffledNumbers(list);
+        lottery.getShuffledNumbers(list);
         System.out.println(list);
-        lotto.getShuffledNumbers(list);
+        lottery.getShuffledNumbers(list);
         System.out.println(list);
-        lotto.getShuffledNumbers(list);
+        lottery.getShuffledNumbers(list);
         System.out.println(list);
-        lotto.getShuffledNumbers(list);
+        lottery.getShuffledNumbers(list);
         System.out.println(list);
     }
 
@@ -83,22 +82,22 @@ public class LottoTest {
         winning.add(5);
         winning.add(6);
 
-        Lotto lotto = new Lotto();
-        System.out.println(lotto.countMatchingNumbers(winning));
-        lotto = new Lotto();
-        System.out.println(lotto.countMatchingNumbers(winning));
-        lotto = new Lotto();
-        System.out.println(lotto.countMatchingNumbers(winning));
-        lotto = new Lotto();
-        System.out.println(lotto.countMatchingNumbers(winning));
-        lotto = new Lotto();
-        System.out.println(lotto.countMatchingNumbers(winning));
-        lotto = new Lotto();
-        System.out.println(lotto.countMatchingNumbers(winning));
+        Lottery lottery = new Lottery();
+        System.out.println(lottery.countMatchingNumbers(winning));
+        lottery = new Lottery();
+        System.out.println(lottery.countMatchingNumbers(winning));
+        lottery = new Lottery();
+        System.out.println(lottery.countMatchingNumbers(winning));
+        lottery = new Lottery();
+        System.out.println(lottery.countMatchingNumbers(winning));
+        lottery = new Lottery();
+        System.out.println(lottery.countMatchingNumbers(winning));
+        lottery = new Lottery();
+        System.out.println(lottery.countMatchingNumbers(winning));
     }
 
     public static void main(String[] args) {
-        Lotto testLotto = new Lotto();
+        Lottery testLottery = new Lottery();
     }
 
 }

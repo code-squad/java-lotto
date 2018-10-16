@@ -1,4 +1,4 @@
-package com.zingoworks.lotto.tdd;
+package com.zingoworks.tdd.tdd;
 
 import org.junit.Test;
 

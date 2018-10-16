@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>kr.codesquad</groupId>
-	<artifactId>java-lotto</artifactId>
+	<artifactId>java-lottery</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>java-lotto</name>
+	<name>java-lottery</name>
 	<description>로또</description>
 
 	<properties>
@@ -44,7 +44,7 @@
 			<artifactId>assertj-core</artifactId>
 			<version>3.9.0</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

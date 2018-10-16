@@ -4,25 +4,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Lotto {
-    private List<Integer> lottoNumbers;
+public class Lottery {
+    static final int MIN_RANGE = 1;
+    static final int MAX_RANGE = 45;
+    static final int REGULAR_CHOICE = 6;
 
-    Lotto() {
-        this.lottoNumbers = getSortedNumbers(getLottoNumbers());
+    private List<Integer> lotteryNumbers;
+
+    Lottery() {
+        this.lotteryNumbers = getSortedNumbers(getLotteryNumbers());
     }
 
     List<Integer> getBasicNumbers() {
         List<Integer> numbers = new ArrayList<>();
-        for (int i = 1; i <= 45; i++) {
+        for (int i = MIN_RANGE; i <= MAX_RANGE; i++) {
             numbers.add(i);
         }
         return numbers;
     }
 
-    List<Integer> getLottoNumbers() {
+    List<Integer> getLotteryNumbers() {
         List<Integer> numbers = new ArrayList<>();
         List<Integer> numbersToAdd = getShuffledNumbers(getBasicNumbers());
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < REGULAR_CHOICE; i++) {
             numbers.add(numbersToAdd.get(i));
         }
         return numbers;
@@ -47,7 +51,7 @@ public class Lotto {
     }
 
     private int increaseCount(int count, Integer winningNumber) {
-        if (this.lottoNumbers.contains(winningNumber)) {
+        if (this.lotteryNumbers.contains(winningNumber)) {
             count++;
         }
         return count;
