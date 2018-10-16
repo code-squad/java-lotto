@@ -9,7 +9,7 @@ public class ResultView {
     public static void printGames(FullGame fullGame, int purchaseAmount) {
         System.out.println(purchaseAmount / PRICE_OF_GAME + "게임을 구매했습니다.");
         for (int i = 0; i < fullGame.getFullGame().size(); i++) {
-            System.out.println(fullGame.getFullGame().get(i).getGameNumber());
+            System.out.println(fullGame.getFullGame().get(i).getGameNumbers());
         }
     }
 

@@ -50,6 +50,7 @@ public class LottoResults {
         int c = 0;
         int d = 0;
 
+        //지금까지 스텝 진행했던 것을 기반으로도 간결화가 가능한가요?
         for (Integer integer : wins) {
             if (integer == 3) {
                 a++;
@@ -64,6 +65,7 @@ public class LottoResults {
                 d++;
             }
         }
+
         List<Integer> results = new ArrayList<>();
         results.add(a);
         results.add(b);

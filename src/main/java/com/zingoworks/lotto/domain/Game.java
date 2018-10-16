@@ -11,21 +11,21 @@ public class Game {
     final int MAX_RANGE = 45;
     final int MAX_REGULAR_NUMBER = 6;
 
-    private List<Integer> gameNumber;
+    private List<Integer> gameNumbers;
 
     Game() {
-        generateGameNumber(shuffleNumbers());
-        sortGameNumber();
+        generateGameNumbers();
+        sortGameNumbers();
     }
 
-    public List<Integer> getGameNumber() {
-        return gameNumber;
+    public List<Integer> getGameNumbers() {
+        return gameNumbers;
     }
 
     int countWinning(List<Integer> lastWinningNumbers) {
         int count = 0;
         //인덴트 뎁스를 1로 줄이고자 하면 인자 3개인 메서드를 추출해야하는데 다른 방법은 없을까요?
-        for (Integer integer : gameNumber) {
+        for (Integer integer : gameNumbers) {
             if (lastWinningNumbers.contains(integer)) {
                 count++;
             }
@@ -33,14 +33,14 @@ public class Game {
         return count;
     }
 
-    private void generateGameNumber(List<Integer> shuffledNumber) {
-        this.gameNumber = new ArrayList<>();
+    private void generateGameNumbers() {
+        this.gameNumbers = new ArrayList<>();
         for (int i = 0; i < MAX_REGULAR_NUMBER; i++) {
-            gameNumber.add(shuffledNumber.get(i));
+            gameNumbers.add(shuffledBasicNumbers().get(i));
         }
     }
 
-    private List<Integer> shuffleNumbers() {
+    private List<Integer> shuffledBasicNumbers() {
         List<Integer> numberSet = new ArrayList<>();
         for (int i = MIN_RANGE; i < MAX_RANGE; i++) {
             numberSet.add(i);
@@ -49,7 +49,7 @@ public class Game {
         return numberSet;
     }
 
-    private void sortGameNumber() {
-        Collections.sort(this.gameNumber);
+    private void sortGameNumbers() {
+        Collections.sort(this.gameNumbers);
     }
 }
