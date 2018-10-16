@@ -1,6 +1,6 @@
 package com.zingoworks.lotto.controller;
 
-import com.zingoworks.lotto.domain.FullGame;
+import com.zingoworks.lotto.domain.FullLotto;
 import com.zingoworks.lotto.domain.LottoResults;
 import com.zingoworks.lotto.view.InputView;
 import com.zingoworks.lotto.view.ResultView;
@@ -8,12 +8,12 @@ import com.zingoworks.lotto.view.ResultView;
 public class LottoMain {
     public static void main(String[] args) {
         int purchaseAmount = InputView.inputPurchaseAmount();
-        FullGame fullGame = new FullGame(purchaseAmount);
+        FullLotto fullLotto = new FullLotto(purchaseAmount);
 
-        ResultView.printGames(fullGame, purchaseAmount);
+        ResultView.printGames(fullLotto, purchaseAmount);
 
         String lastWinningNumbers = InputView.inputLastWinningNumbers();
-        LottoResults lottoResults = new LottoResults(fullGame, lastWinningNumbers);
+        LottoResults lottoResults = new LottoResults(fullLotto, lastWinningNumbers);
 
         ResultView.printResults(lottoResults, purchaseAmount);
     }

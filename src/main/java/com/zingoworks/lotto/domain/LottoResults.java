@@ -1,26 +1,32 @@
 package com.zingoworks.lotto.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoResults {
-    private static final int PRIZE_FIRST = 2000000000;
-    private static final int PRIZE_SECOND = 1500000;
-    private static final int PRIZE_THIRD = 50000;
-    private static final int PRIZE_FORTH = 5000;
+    public static final int PRIZE_FIRST = 2000000000;
+    public static final int SCORE_FIRST = 6;
+    public static final int PRIZE_SECOND = 1500000;
+    public static final int SCORE_SECOND = 5;
+    public static final int PRIZE_THIRD = 50000;
+    public static final int SCORE_THIRD = 4;
+    public static final int PRIZE_FORTH = 5000;
+    public static final int SCORE_FORTH = 3;
 
     private static final String COMMA = ",";
 
     private List<Integer> lastWinningNumbers;
-    private List<Integer> results;
+    private Map<String, Integer> ranks;
 
-    public LottoResults(FullGame fullGame, String lastWinningNumbers) {
+    public LottoResults(FullLotto fullLotto, String lastWinningNumbers) {
         generateLastWinningNumbers(lastWinningNumbers);
-        this.results = countResults(fullGame.countFullWinning(this.lastWinningNumbers));
+        this.ranks = getRankMap(fullLotto.countFullWinning(this.lastWinningNumbers));
     }
 
-    public List<Integer> getResults() {
-        return results;
+    public Map<String, Integer> getRanks() {
+        return ranks;
     }
 
     public int getEarningRate(int purchaseAmount) {
@@ -29,10 +35,10 @@ public class LottoResults {
 
     private int earning() {
         int earn = 0;
-        earn += this.results.get(0) * PRIZE_FORTH;
-        earn += this.results.get(1) * PRIZE_THIRD;
-        earn += this.results.get(2) * PRIZE_SECOND;
-        earn += this.results.get(3) * PRIZE_FIRST;
+        earn += this.ranks.get("FORTH") * PRIZE_FORTH;
+        earn += this.ranks.get("THIRD") * PRIZE_THIRD;
+        earn += this.ranks.get("SECOND") * PRIZE_SECOND;
+        earn += this.ranks.get("FIRST") * PRIZE_FIRST;
         return earn;
     }
 
@@ -44,7 +50,7 @@ public class LottoResults {
         }
     }
 
-    private List<Integer> countResults(List<Integer> wins) {
+    private Map<String, Integer> getRankMap(List<Integer> wins) {
         int a = 0;
         int b = 0;
         int c = 0;
@@ -66,12 +72,12 @@ public class LottoResults {
             }
         }
 
-        List<Integer> results = new ArrayList<>();
-        results.add(a);
-        results.add(b);
-        results.add(c);
-        results.add(d);
+        Map<String, Integer> rankMapper = new HashMap<>();
+        rankMapper.put("FORTH", a);
+        rankMapper.put("THIRD", b);
+        rankMapper.put("SECOND", c);
+        rankMapper.put("FIRST", d);
 
-        return results;
+        return rankMapper;
     }
 }
