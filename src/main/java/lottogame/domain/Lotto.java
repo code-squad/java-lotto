@@ -8,7 +8,7 @@ public class Lotto {
     public static final int CORRECT_LOTTO_NUMBER_AMOUNT = 6;
     private Set<Integer> lottoNumber;
 
-    Lotto(List<Integer> lottoNumber) {
+    public Lotto(List<Integer> lottoNumber) {
         this.lottoNumber = new HashSet<>(lottoNumber);
         inspectNumberAmount(lottoNumber);
         inspectDuplication(lottoNumber);
@@ -26,10 +26,10 @@ public class Lotto {
         }
     }
 
-    int check(List<Integer> winningNumber) {
+    int check(Lotto winningNumber) {
         int cnt = 0;
-        for (Integer integer : winningNumber) {
-            if (lottoNumber.contains(integer)) {
+        for (Integer integer : winningNumber.lottoNumber) {
+            if (this.lottoNumber.contains(integer)) {
                 cnt++;
             }
         }

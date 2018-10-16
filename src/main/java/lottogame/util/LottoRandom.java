@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoRandom implements NumberGenerator{
-    private static final int MAXIMUM_LOTTO_NUMBER = 20;
+    private static final int MAXIMUM_LOTTO_NUMBER = 46;
     private static List<Integer> seed = IntStream
                                             .range(1, MAXIMUM_LOTTO_NUMBER)
                                             .boxed()

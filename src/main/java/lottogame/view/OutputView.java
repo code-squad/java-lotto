@@ -2,7 +2,7 @@ package lottogame.view;
 
 import lottogame.domain.Lotto;
 import lottogame.domain.PrizeRank;
-import lottogame.vo.ResultVO;
+import lottogame.dto.ResultDTO;
 
 import java.util.stream.Stream;
 
@@ -15,15 +15,16 @@ public class OutputView {
         readLotto.map(Lotto::toString).forEach(System.out::println);
     }
 
-    public static void printResult(int inputMoney, ResultVO resultVO) {
+    public static void printResult(int inputMoney, ResultDTO resultDTO) {
         System.out.println("당첨 통계");
         System.out.println("--------------------------");
         int priceMoney = 0;
-        for (PrizeRank value : PrizeRank.values()) {
-            System.out.println(value.getHitAmount() + "개 일치 ( "
-                    + value.getRewardMoney() + ")원 "
-                    + resultVO.hitCountOf(value) + "개");
-            priceMoney += value.getRewardMoney() * resultVO.hitCountOf(value);
+        PrizeRank[] values = PrizeRank.values();
+        for (int i = 0; i < values.length - 1; i++) {   //BOOM은 출력하지 않는다.
+            System.out.println(values[i].getHitAmount() + "개 일치 ( "
+                    + values[i].getRewardMoney() + ")원 "
+                    + resultDTO.getHitCountOf(values[i]) + "개");
+            priceMoney += values[i].getRewardMoney() * resultDTO.getHitCountOf(values[i]);
         }
         System.out.println("총 수익률은 " + priceMoney / inputMoney * 100 + "% 입니다.");
     }

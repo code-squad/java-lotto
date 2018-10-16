@@ -2,7 +2,7 @@ package lottogame.domain;
 
 import lottogame.util.LottoRandom;
 import lottogame.util.NumberGenerator;
-import lottogame.vo.ResultVO;
+import lottogame.dto.ResultDTO;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -31,10 +31,10 @@ public class LottoGameTest {
                 return Arrays.asList(1, 2, 3, 4, 5, 12);
             }
         });
-        ResultVO resultVO = lottoGame.result(Arrays.asList(1, 2, 3, 4, 5, 6));
-        assertThat(resultVO.hitCountOf(PrizeRank.FIRST_PLACE)).isEqualTo(0);
-        assertThat(resultVO.hitCountOf(PrizeRank.SECOND_PLACE)).isEqualTo(3);
-        assertThat(resultVO.hitCountOf(PrizeRank.THIRD_PLACE)).isEqualTo(3);
-        assertThat(resultVO.hitCountOf(PrizeRank.FOURTH_PLACE)).isEqualTo(3);
+        ResultDTO resultDTO = lottoGame.result(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
+        assertThat(resultDTO.getHitCountOf(PrizeRank.FIRST_PLACE)).isEqualTo(0);
+        assertThat(resultDTO.getHitCountOf(PrizeRank.SECOND_PLACE)).isEqualTo(3);
+        assertThat(resultDTO.getHitCountOf(PrizeRank.THIRD_PLACE)).isEqualTo(3);
+        assertThat(resultDTO.getHitCountOf(PrizeRank.FOURTH_PLACE)).isEqualTo(3);
     }
 }

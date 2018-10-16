@@ -1,7 +1,7 @@
 package lottogame.domain;
 
 import lottogame.util.NumberGenerator;
-import lottogame.vo.ResultVO;
+import lottogame.dto.ResultDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +24,7 @@ public class LottoGame {
         return lottos.size();
     }
 
-    public ResultVO result(List<Integer> winningNumber) {
+    public ResultDTO result(Lotto winningNumber) {
         Map<PrizeRank, Integer> map = getRewardAndHitCountMap();
 
         for (Lotto lotto : lottos) {
@@ -33,7 +33,7 @@ public class LottoGame {
         }
 
         map.remove(PrizeRank.BOOM);
-        return new ResultVO(map);
+        return new ResultDTO(map);
     }
 
     private Map<PrizeRank, Integer> getRewardAndHitCountMap() {
