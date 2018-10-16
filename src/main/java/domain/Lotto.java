@@ -2,6 +2,8 @@ package domain;
 
 import dto.LottoDto;
 
+import static util.RandomGenerator.*;
+
 import java.util.*;
 
 public class Lotto {
@@ -9,6 +11,7 @@ public class Lotto {
     private List<Integer> lotto;
 
     private Lotto(List<Integer> lotto) {
+        Collections.sort(lotto);
         this.lotto = lotto;
     }
 
@@ -29,15 +32,19 @@ public class Lotto {
         return new ArrayList<>(lotto);
     }
 
-    private static int generateLottoNum() {
-        return (int) (Math.random() * 45 + 1);
+    public int compareLottoNumbs(Lotto lotto) {
+        int result = 0;
+        for (int num : lotto.lotto) {
+            result += checkNum(num);
+        }
+
+        return result;
     }
 
-    public int compareLottoNumbs(Lotto winningLotto) {
-        Set<Integer> checkNumbs = new HashSet<Integer>(winningLotto.lotto);
-        checkNumbs.addAll(this.lotto);
-
-        return (this.lotto.size() * 2) - checkNumbs.size();
+    private int checkNum(int num) {
+        if(this.lotto.contains(num))
+            return 1;
+        return 0;
     }
 
     public LottoDto toLottoDto() {

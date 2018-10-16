@@ -14,18 +14,15 @@ public class WinResultDto {
     }
 
     public static WinResultDto init() {
-        return new WinResultDto(initValues());
-    }
-
-    private static Map<Rank, Integer> initValues() {
         Map<Rank, Integer> winResultDto = new HashMap<>();
 
-        winResultDto.put(Rank.FIRST, 0);
-        winResultDto.put(Rank.SECOND, 0);
-        winResultDto.put(Rank.THIRD, 0);
-        winResultDto.put(Rank.FOURTH, 0);
-        winResultDto.put(Rank.NONE, 0);
+        return new WinResultDto(initValues(winResultDto));
+    }
 
+    private static Map<Rank, Integer> initValues(Map<Rank, Integer> winResultDto) {
+        for (Rank rank : Rank.values()) {
+            winResultDto.put(rank, 0);
+        }
         return winResultDto;
     }
 
