@@ -13,6 +13,7 @@ public class Game {
 
     private List<Integer> gameNumbers;
 
+    //1~45의 셔플 된 숫자세트에서 6개를 추출한 뒤 오름차순 정렬
     Game() {
         generateGameNumbers();
         sortGameNumbers();
