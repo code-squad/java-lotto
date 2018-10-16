@@ -5,53 +5,51 @@ import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-    public static final int PRICE_OF_GAME = 1000;
-    public static final String NEWLINE = System.getProperty("line.separator");
-
-    final int MIN_RANGE = 1;
-    final int MAX_RANGE = 45;
-    final int MAX_REGULAR_NUMBER = 6;
-
     private List<Integer> lottoNumbers;
 
     Lotto() {
-        this.lottoNumbers = sortNumbers(generateLottoNumbers());
+        this.lottoNumbers = getSortedNumbers(getLottoNumbers());
     }
 
-    public List<Integer> getLottoNumbers() {
-        return lottoNumbers;
+    List<Integer> getBasicNumbers() {
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 1; i <= 45; i++) {
+            numbers.add(i);
+        }
+        return numbers;
     }
 
-    int countWinning(List<Integer> lastWinningNumbers) {
+    List<Integer> getLottoNumbers() {
+        List<Integer> numbers = new ArrayList<>();
+        List<Integer> numbersToAdd = getShuffledNumbers(getBasicNumbers());
+        for (int i = 0; i < 6; i++) {
+            numbers.add(numbersToAdd.get(i));
+        }
+        return numbers;
+    }
+
+    List<Integer> getSortedNumbers(List<Integer> list) {
+        Collections.sort(list);
+        return list;
+    }
+
+    List<Integer> getShuffledNumbers(List<Integer> list) {
+        Collections.shuffle(list);
+        return list;
+    }
+
+    int countMatchingNumbers(List<Integer> lastWinningNumbers) {
         int count = 0;
-        for (Integer integer : lottoNumbers) {
-            if (lastWinningNumbers.contains(integer)) {
-                count++;
-            }
+        for (Integer winningNumber : lastWinningNumbers) {
+            count = increaseCount(count, winningNumber);
         }
         return count;
     }
 
-    List<Integer> generateLottoNumbers() {
-        List<Integer> basicNumbers = getShuffledBasicNumbers();
-        List<Integer> lottoNumbers = new ArrayList<>();
-        for (int i = 0; i < MAX_REGULAR_NUMBER; i++) {
-            lottoNumbers.add(basicNumbers.get(i));
+    private int increaseCount(int count, Integer winningNumber) {
+        if (this.lottoNumbers.contains(winningNumber)) {
+            count++;
         }
-        return lottoNumbers;
-    }
-
-    List<Integer> getShuffledBasicNumbers() {
-        List<Integer> numberSet = new ArrayList<>();
-        for (int i = MIN_RANGE; i <= MAX_RANGE; i++) {
-            numberSet.add(i);
-        }
-        Collections.shuffle(numberSet);
-        return numberSet;
-    }
-
-    List<Integer> sortNumbers(List<Integer> numbers) {
-        Collections.sort(numbers);
-        return numbers;
+        return count;
     }
 }

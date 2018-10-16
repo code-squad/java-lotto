@@ -3,58 +3,102 @@ package com.zingoworks.lotto.domain;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+/*
+Test the program before you write it.
+Clean code that works.
+
+Lotto Class 테스트
+1. 6개의 랜덤숫자 발생
+1-1) 1~45까지의 basic number set 생성
+1-2) 1~45까지의 숫자 중 6개만 추출하여 로또넘버 생성
+1-3) 6개의 로또넘버를 오름차순 정렬
+2. 6개의 숫자 중 적중개수 구하기
+*/
 
 public class LottoTest {
+    @Test
+    public void testLotto() throws Exception {
+        Lotto lotto = new Lotto();
+    }
 
     @Test
-    public void 테스트_로또일치개수확인() {
-        List<Integer> lastWinningNumbers = new ArrayList<>();
+    public void testBasicNumbers() {
+        Lotto lotto = new Lotto();
+        assertEquals(lotto.getBasicNumbers().size(), 45);
         for (int i = 1; i <= 45; i++) {
-            lastWinningNumbers.add(i);
-        }
-
-        Lotto lt = new Lotto();
-        assertEquals(lt.countWinning(lastWinningNumbers), 6);
-    }
-
-    @Test
-    public void 테스트_로또생성() {
-        for (int i = 0; i < 10; i++) {
-            Lotto lt = new Lotto();
-            assertEquals(new HashSet<>(lt.generateLottoNumbers()).size(), 6);
+            assert(lotto.getBasicNumbers().contains(i));
         }
     }
 
     @Test
-    public void 테스트_기본숫자세트생성() {
-        Lotto lt = new Lotto();
-        List<Integer> shuffledNumberSet = lt.getShuffledBasicNumbers();
-
-        Set<Integer> verifyOverlappedNumbers = new HashSet<>();
-        for (Integer integer : shuffledNumberSet) {
-            verifyOverlappedNumbers.add(integer);
-        }
-
-        assertEquals(verifyOverlappedNumbers.size(), 45);
+    public void testLottoNumbers() {
+        Lotto lotto = new Lotto();
+        assertEquals(lotto.getLottoNumbers().size(), 6);
+        assertEquals(new HashSet<>(lotto.getLottoNumbers()).size(), 6);
     }
 
     @Test
-    public void 테스트_오름차순정렬() {
-        Lotto lt = new Lotto();
-        List<Integer> verifySotring = new ArrayList<>();
-        verifySotring.add(6);
-        verifySotring.add(5);
-        verifySotring.add(4);
-        verifySotring.add(3);
-        verifySotring.add(2);
-        verifySotring.add(1);
-
-        System.out.println(verifySotring);
-        System.out.println(lt.sortNumbers(verifySotring));
+    public void testCollectionsSort() {
+        Lotto lotto = new Lotto();
+        List<Integer> list = new ArrayList<>();
+        list.add(3);
+        list.add(2);
+        list.add(1);
+        System.out.println(list);
+        lotto.getSortedNumbers(list);
+        System.out.println(list);
     }
+
+    @Test
+    public void testCollectionSuffle() {
+        Lotto lotto = new Lotto();
+        List<Integer> list = new ArrayList<>();
+        list.add(3);
+        list.add(2);
+        list.add(1);
+        System.out.println(list);
+        lotto.getShuffledNumbers(list);
+        System.out.println(list);
+        lotto.getShuffledNumbers(list);
+        System.out.println(list);
+        lotto.getShuffledNumbers(list);
+        System.out.println(list);
+        lotto.getShuffledNumbers(list);
+        System.out.println(list);
+    }
+
+    @Test
+    public void testCountMatching() {
+        List<Integer> winning = new ArrayList<>();
+        winning.add(1);
+        winning.add(2);
+        winning.add(3);
+        winning.add(4);
+        winning.add(5);
+        winning.add(6);
+
+        Lotto lotto = new Lotto();
+        System.out.println(lotto.countMatchingNumbers(winning));
+        lotto = new Lotto();
+        System.out.println(lotto.countMatchingNumbers(winning));
+        lotto = new Lotto();
+        System.out.println(lotto.countMatchingNumbers(winning));
+        lotto = new Lotto();
+        System.out.println(lotto.countMatchingNumbers(winning));
+        lotto = new Lotto();
+        System.out.println(lotto.countMatchingNumbers(winning));
+        lotto = new Lotto();
+        System.out.println(lotto.countMatchingNumbers(winning));
+    }
+
+    public static void main(String[] args) {
+        Lotto testLotto = new Lotto();
+    }
+
 }
