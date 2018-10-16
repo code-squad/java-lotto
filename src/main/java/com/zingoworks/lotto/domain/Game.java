@@ -5,18 +5,32 @@ import java.util.Collections;
 import java.util.List;
 
 public class Game {
-    private final int MIN_RANGE = 1;
-    private final int MAX_RANGE = 45;
-    private final int MAX_REGULAR_NUMBER = 6;
+    public static final int PRICE_OF_GAME = 1000;
+
+    final int MIN_RANGE = 1;
+    final int MAX_RANGE = 45;
+    final int MAX_REGULAR_NUMBER = 6;
+
     private List<Integer> gameNumber;
 
-    public Game() {
-        generateGameNumber(shuffledNumberSet());
+    Game() {
+        generateGameNumber(shuffleNumbers());
         sortGameNumber();
     }
 
     public List<Integer> getGameNumber() {
         return gameNumber;
+    }
+
+    int countWinning(List<Integer> lastWinningNumbers) {
+        int count = 0;
+        //인덴트 뎁스를 1로 줄이고자 하면 인자 3개인 메서드를 추출해야하는데 다른 방법은 없을까요?
+        for (Integer integer : gameNumber) {
+            if (lastWinningNumbers.contains(integer)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     private void generateGameNumber(List<Integer> shuffledNumber) {
@@ -26,7 +40,7 @@ public class Game {
         }
     }
 
-    private List<Integer> shuffledNumberSet() {
+    private List<Integer> shuffleNumbers() {
         List<Integer> numberSet = new ArrayList<>();
         for (int i = MIN_RANGE; i < MAX_RANGE; i++) {
             numberSet.add(i);
