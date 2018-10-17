@@ -21,10 +21,9 @@ public class OutputView {
         int priceMoney = 0;
         PrizeRank[] values = PrizeRank.values();
         for (int i = 0; i < values.length - 1; i++) {   //BOOM은 출력하지 않는다.
-            System.out.println(values[i].getHitAmount() + "개 일치 ( "
-                    + values[i].getRewardMoney() + ")원 "
+            System.out.println(values[i].getMessage() + "-"
                     + resultDTO.getHitCountOf(values[i]) + "개");
-            priceMoney += values[i].getRewardMoney() * resultDTO.getHitCountOf(values[i]);
+            priceMoney += values[i].getReward() * resultDTO.getHitCountOf(values[i]);
         }
         System.out.println("총 수익률은 " + priceMoney / inputMoney * 100 + "% 입니다.");
     }
