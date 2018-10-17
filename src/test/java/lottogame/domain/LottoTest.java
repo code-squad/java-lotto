@@ -10,14 +10,14 @@ public class LottoTest {
     @Test
     public void check() {
         Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
-        int result = lotto.check(new Lotto(Arrays.asList(1, 2, 3, 10, 11, 12)));
+        int result = lotto.match(new Lotto(Arrays.asList(1, 2, 3, 10, 11, 12)));
         assertThat(result).isEqualTo(3);
     }
 
     @Test
     public void checkBoom() {
         Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
-        int result = lotto.check(new Lotto(Arrays.asList(7, 8, 9, 10, 11, 12)));
+        int result = lotto.match(new Lotto(Arrays.asList(7, 8, 9, 10, 11, 12)));
         assertThat(result).isEqualTo(0);
     }
 

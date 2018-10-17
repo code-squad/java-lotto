@@ -31,7 +31,7 @@ public class LottoGameTest {
                 return Arrays.asList(1, 2, 3, 4, 5, 12);
             }
         });
-        ResultDTO resultDTO = lottoGame.result(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)), 13);
+        ResultDTO resultDTO = lottoGame.result(WinnningLotto.of(Arrays.asList(1, 2, 3, 4, 5, 6), 13));
         assertThat(resultDTO.getHitCountOf(PrizeRank.NO_MISS)).isEqualTo(0);
         assertThat(resultDTO.getHitCountOf(PrizeRank.ONE_MISS)).isEqualTo(3);
         assertThat(resultDTO.getHitCountOf(PrizeRank.TWO_MISS)).isEqualTo(3);
@@ -52,7 +52,7 @@ public class LottoGameTest {
                 return Arrays.asList(1, 2, 3, 4, 5, 12);
             }
         });
-        ResultDTO resultDTO = lottoGame.result(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)),12);
+        ResultDTO resultDTO = lottoGame.result(WinnningLotto.of(Arrays.asList(1, 2, 3, 4, 5, 6),12));
         assertThat(resultDTO.getHitCountOf(PrizeRank.NO_MISS)).isEqualTo(0);
         assertThat(resultDTO.getHitCountOf(PrizeRank.ONE_MISS)).isEqualTo(0);
         assertThat(resultDTO.getHitCountOf(PrizeRank.ONE_MISS_BONUS_HIT)).isEqualTo(3);
