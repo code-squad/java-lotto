@@ -24,11 +24,11 @@ public class LottoGame {
         return lottos.size();
     }
 
-    public ResultDTO result(Lotto winningNumber) {
+    public ResultDTO result(Lotto winningNumber, int bonus) {
         Map<PrizeRank, Integer> map = getRewardAndHitCountMap();
 
         for (Lotto lotto : lottos) {
-            PrizeRank reward = PrizeRank.find(lotto.check(winningNumber));
+            PrizeRank reward = PrizeRank.find(lotto.check(winningNumber), lotto.isContain(bonus));
             map.put(reward, map.get(reward) + 1);
         }
 

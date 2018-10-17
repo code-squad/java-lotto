@@ -13,7 +13,9 @@ public class LottoGameLoader {
         LottoGame lottoGame = new LottoGame(inputMoney, new LottoRandom());
         OutputView.printLottoAmount(lottoGame.countLotto());
         OutputView.printLotto(lottoGame.readLotto());
-        ResultDTO resultDTO = lottoGame.result(new Lotto(InputView.getWinningNumber()));
+        ResultDTO resultDTO = lottoGame.result(
+                                        new Lotto(InputView.getWinningNumber()),
+                                        InputView.getBonusNum());
         OutputView.printResult(inputMoney, resultDTO);
     }
 }

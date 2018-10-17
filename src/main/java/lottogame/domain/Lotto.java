@@ -36,6 +36,10 @@ public class Lotto {
         return cnt;
     }
 
+    boolean isContain(int bonusNum) {
+        return lottoNumber.contains(bonusNum);
+    }
+
     @Override
     public String toString() {
         return lottoNumber.toString();
