@@ -13,7 +13,7 @@ public class ResultView {
     public static void printGames(List<Lottery> lotteries, int purchaseAmount) {
         System.out.println(purchaseAmount / PRICE_LOTTERY + "게임을 구매했습니다.");
         for (int i = 0; i < lotteries.size(); i++) {
-            System.out.println(lotteries.get(i).getLotteryNumbers());
+            System.out.println(lotteries.get(i).getSortedLotteryNumbers());
         }
     }
 

@@ -1,7 +1,8 @@
 package com.zingoworks.lotto.domain;
 
+import com.zingoworks.lotto.utils.ListIntegerUtils;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Lottery {
@@ -12,14 +13,14 @@ public class Lottery {
     private List<Integer> lotteryNumbers;
 
     Lottery() {
-        this.lotteryNumbers = getSortedNumbers(getRandomLotteryNumbers());
+        this.lotteryNumbers = generateRandomLotteryNumbers();
     }
 
-    public List<Integer> getLotteryNumbers() {
-        return lotteryNumbers;
+    public List<Integer> getSortedLotteryNumbers() {
+        return ListIntegerUtils.getSortedNumbers(lotteryNumbers);
     }
 
-    List<Integer> getBasicNumbers() {
+    List<Integer> generateBasicNumbers() {
         List<Integer> numbers = new ArrayList<>();
         for (int i = MIN_RANGE; i <= MAX_RANGE; i++) {
             numbers.add(i);
@@ -27,23 +28,13 @@ public class Lottery {
         return numbers;
     }
 
-    List<Integer> getRandomLotteryNumbers() {
+    List<Integer> generateRandomLotteryNumbers() {
         List<Integer> numbers = new ArrayList<>();
-        List<Integer> numbersToAdd = getShuffledNumbers(getBasicNumbers());
+        List<Integer> numbersToAdd = ListIntegerUtils.getShuffledNumbers(generateBasicNumbers());
         for (int i = 0; i < REGULAR_CHOICE; i++) {
             numbers.add(numbersToAdd.get(i));
         }
         return numbers;
-    }
-
-    List<Integer> getSortedNumbers(List<Integer> list) {
-        Collections.sort(list);
-        return list;
-    }
-
-    List<Integer> getShuffledNumbers(List<Integer> list) {
-        Collections.shuffle(list);
-        return list;
     }
 
     int countMatchingNumbers(List<Integer> lastWinningNumbers) {

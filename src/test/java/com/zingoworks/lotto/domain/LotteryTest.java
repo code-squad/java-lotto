@@ -3,6 +3,7 @@ package com.zingoworks.lotto.domain;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -29,48 +30,48 @@ public class LotteryTest {
     @Test
     public void testBasicNumbers() {
         Lottery lottery = new Lottery();
-        assertEquals(lottery.getBasicNumbers().size(), 45);
+        assertEquals(lottery.generateBasicNumbers().size(), 45);
         for (int i = 1; i <= 45; i++) {
-            assert(lottery.getBasicNumbers().contains(i));
+            assert(lottery.generateBasicNumbers().contains(i));
         }
     }
 
     @Test
     public void testLottoNumbers() {
         Lottery lottery = new Lottery();
-        assertEquals(lottery.getRandomLotteryNumbers().size(), 6);
-        assertEquals(new HashSet<>(lottery.getRandomLotteryNumbers()).size(), 6);
+        assertEquals(lottery.generateRandomLotteryNumbers().size(), 6);
+        assertEquals(new HashSet<>(lottery.generateRandomLotteryNumbers()).size(), 6);
     }
 
-    @Test
-    public void testCollectionsSort() {
-        Lottery lottery = new Lottery();
-        List<Integer> list = new ArrayList<>();
-        list.add(3);
-        list.add(2);
-        list.add(1);
-        System.out.println(list);
-        lottery.getSortedNumbers(list);
-        System.out.println(list);
-    }
-
-    @Test
-    public void testCollectionSuffle() {
-        Lottery lottery = new Lottery();
-        List<Integer> list = new ArrayList<>();
-        list.add(3);
-        list.add(2);
-        list.add(1);
-        System.out.println(list);
-        lottery.getShuffledNumbers(list);
-        System.out.println(list);
-        lottery.getShuffledNumbers(list);
-        System.out.println(list);
-        lottery.getShuffledNumbers(list);
-        System.out.println(list);
-        lottery.getShuffledNumbers(list);
-        System.out.println(list);
-    }
+//    @Test
+//    public void testCollectionsSort() {
+//        Lottery lottery = new Lottery();
+//        List<Integer> list = new ArrayList<>();
+//        list.add(3);
+//        list.add(2);
+//        list.add(1);
+//        System.out.println(list);
+//        lottery.getSortedNumbers(list);
+//        System.out.println(list);
+//    }
+//
+//    @Test
+//    public void testCollectionShuffle() {
+//        Lottery lottery = new Lottery();
+//        List<Integer> list = new ArrayList<>();
+//        list.add(3);
+//        list.add(2);
+//        list.add(1);
+//        System.out.println(list);
+//        lottery.getShuffledNumbers(list);
+//        System.out.println(list);
+//        lottery.getShuffledNumbers(list);
+//        System.out.println(list);
+//        lottery.getShuffledNumbers(list);
+//        System.out.println(list);
+//        lottery.getShuffledNumbers(list);
+//        System.out.println(list);
+//    }
 
     @Test
     public void testCountMatching() {

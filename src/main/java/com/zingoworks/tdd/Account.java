@@ -1,4 +1,4 @@
-package com.zingoworks.tdd.tdd;
+package com.zingoworks.tdd;
 
 public class Account {
     private int balance;
