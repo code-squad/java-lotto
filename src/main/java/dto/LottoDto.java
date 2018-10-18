@@ -4,17 +4,17 @@ import java.util.List;
 
 public class LottoDto {
 
-    List<Integer> lottoDto;
+    List<NoDto> lottoDto;
 
-    private LottoDto(List<Integer> lotto) {
+    private LottoDto(List<NoDto> lotto) {
         this.lottoDto = lotto;
     }
 
-    public static LottoDto init(List<Integer> lotto) {
+    public static LottoDto init(List<NoDto> lotto) {
         return new LottoDto(lotto);
     }
 
-    public List<Integer> getLottoDto() {
+    public List<NoDto> getLottoDto() {
         return this.lottoDto;
     }
 

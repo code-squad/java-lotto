@@ -2,6 +2,7 @@ package domain;
 
 import dto.LottoDto;
 import dto.LottoDtos;
+import dto.NoDto;
 import dto.WinResultDto;
 
 import java.util.ArrayList;
@@ -34,15 +35,15 @@ public class LottoGenerator {
         return lottos;
     }
 
-    public WinResultDto checkWins(LottoDto winningLottoDto) {
-        Lotto winningLotto = Lotto.initArtifitial(winningLottoDto.getLottoDto());
+    public WinResultDto checkWins(LottoDto winningLottoDto, NoDto bonusNo) {
+        WinningLotto winningLotto = WinningLotto.init(Lotto.initArtifitial(winningLottoDto.getLottoDto()), No.initInt(bonusNo.getNum()));
 
         return makeWinResultDto(winningLotto, WinResultDto.init());
     }
 
-    public WinResultDto makeWinResultDto(Lotto winningLotto, WinResultDto resultDto) {
+    public WinResultDto makeWinResultDto(WinningLotto winningLotto, WinResultDto resultDto) {
         for (Lotto lotto : lottos) {
-            resultDto.setRankAmt(Rank.findMatchRank(lotto.compareLottoNumbs(winningLotto)));
+            resultDto.setRankAmt(winningLotto.compareWinLottoNum(lotto));
         }
         return resultDto;
     }

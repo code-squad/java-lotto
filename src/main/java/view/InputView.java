@@ -1,7 +1,9 @@
 package view;
 
 import domain.LottoGenerator;
+import domain.No;
 import dto.LottoDto;
+import dto.NoDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class InputView {
         return lottoAmt;
     }
 
-    private static List<Integer> inputWinnningNumbs() {
+    private static List<NoDto> inputWinnningNumbs() {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
@@ -32,11 +34,18 @@ public class InputView {
         return makeIntNumbs(numbs.split(", "));
     }
 
-    private static List<Integer> makeIntNumbs(String[] numbs) {
-        List<Integer> result = new ArrayList<>();
+    public static NoDto inputBonusNum() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("보너스 번호를 입력해 주세요.");
+        return NoDto.init(Integer.parseInt(sc.nextLine()));
+    }
+
+    private static List<NoDto> makeIntNumbs(String[] numbs) {
+        List<NoDto> result = new ArrayList<>();
 
         for (String numb : numbs) {
-            result.add(Integer.parseInt(numb));
+            result.add(NoDto.init(Integer.parseInt(numb)));
         }
         return result;
     }

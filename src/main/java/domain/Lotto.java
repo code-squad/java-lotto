@@ -1,6 +1,7 @@
 package domain;
 
 import dto.LottoDto;
+import dto.NoDto;
 
 import static util.RandomGenerator.*;
 
@@ -8,9 +9,11 @@ import java.util.*;
 
 public class Lotto {
 
-    private List<Integer> lotto;
+    public static final int LOTTO_SIZE = 6;
 
-    private Lotto(List<Integer> lotto) {
+    private List<No> lotto;
+
+    private Lotto(List<No> lotto) {
         Collections.sort(lotto);
         this.lotto = lotto;
     }
@@ -19,14 +22,19 @@ public class Lotto {
         return new Lotto(makeLotto());
     }
 
-    public static Lotto initArtifitial(List<Integer> lotto) {
+    public static Lotto initArtifitial(List<NoDto> lottoDto) {
+        List<No> lotto = new ArrayList<>();
+
+        for (NoDto no : lottoDto) {
+            lotto.add(No.initInt(no.getNum()));
+        }
         return new Lotto(lotto);
     }
 
-    public static List<Integer> makeLotto() {
-        Set<Integer> lotto = new HashSet<>();
-        while (lotto.size() < 6) {
-            lotto.add(generateLottoNum());
+    public static List<No> makeLotto() {
+        Set<No> lotto = new HashSet<>();
+        while (lotto.size() < LOTTO_SIZE) {
+            lotto.add(No.initInt(generateLottoNum()));
         }
 
         return new ArrayList<>(lotto);
@@ -34,21 +42,30 @@ public class Lotto {
 
     public int compareLottoNumbs(Lotto lotto) {
         int result = 0;
-        for (int num : lotto.lotto) {
-            result += checkNum(num);
+        for (No num : lotto.lotto) {
+            result += checkNums(num);
         }
 
         return result;
     }
 
-    private int checkNum(int num) {
-        if(this.lotto.contains(num))
+    private int checkNums(No num) {
+        if (this.lotto.contains(num))
             return 1;
         return 0;
     }
 
+    public Boolean checkBonusNum(No BonusNum) {
+        return this.lotto.contains(BonusNum);
+    }
+
     public LottoDto toLottoDto() {
-        return LottoDto.init(this.lotto);
+        List<NoDto> lotto = new ArrayList<>();
+        for (No no : this.lotto) {
+            lotto.add(no.toDto());
+        }
+
+        return LottoDto.init(lotto);
     }
 
     @Override
