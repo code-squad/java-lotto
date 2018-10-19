@@ -1,6 +1,6 @@
 package utils;
 
-public class LottoGameValue {
+public class LottoGameValues {
     public static final int LOTTO_SIZE = 6;
     public static final int LOTTO_PRICE = 1000;
     public static final int LOTTO_NUM_START = 1;
@@ -10,9 +10,9 @@ public class LottoGameValue {
     public static final int FOUR_MATCH_PRIZE = 50000;
     public static final int FIVE_MATCH_PRIZE = 1500000;
     public static final int SIX_MATCH_PRIZE = 2000000000;
-    public static final int PRIZE_MATCH_MIN = 3;
-    public static final int PRIZE_MATCH_MAX = 6;
+    public static final int PRIZE_STRIKE_MIN = 3;
+    public static final int PRIZE_STRIKE_MAX = 6;
 
-    private LottoGameValue() {
+    private LottoGameValues() {
     }
 }

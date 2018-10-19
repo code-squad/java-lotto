@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoCheckerTest {
@@ -21,12 +20,12 @@ public class LottoCheckerTest {
 
     @Test
     public void matchCheck() {
-        assertThat(lottoChecker.matchCheck(2)).isEqualTo(1);
-        assertThat(lottoChecker.matchCheck(8)).isEqualTo(0);
+        assertThat(lottoChecker.strikeCheck(2)).isEqualTo(1);
+        assertThat(lottoChecker.strikeCheck(8)).isEqualTo(0);
     }
 
     @Test
     public void getMatchNum() {
-        assertThat(lottoChecker.getMatchNum(Arrays.asList(1,2,3,7,8,4))).isEqualTo(4);
+        assertThat(lottoChecker.getStrikeNum(Arrays.asList(1,2,3,7,8,4))).isEqualTo(4);
     }
 }

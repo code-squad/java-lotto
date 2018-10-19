@@ -1,16 +1,16 @@
 package view;
 
-import utils.LottoPrize;
+import utils.LottoPrizeMapper;
 import dto.LottoDto;
 import dto.ResultDto;
 
 import java.util.List;
 
-import static utils.LottoGameValue.PRIZE_MATCH_MAX;
-import static utils.LottoGameValue.PRIZE_MATCH_MIN;
+import static utils.LottoGameValues.PRIZE_STRIKE_MAX;
+import static utils.LottoGameValues.PRIZE_STRIKE_MIN;
 
 public class ResultView {
-    public static final String NEWLINE = System.getProperty("line.separator");
+    static final String NEWLINE = System.getProperty("line.separator");
 
     private ResultView() {
     }
@@ -25,10 +25,10 @@ public class ResultView {
         }
     }
 
-    public static void showResult(ResultDto resultDto) {
+    public static void showLottoResult(ResultDto resultDto) {
         System.out.println(NEWLINE + "당첨 통계" + NEWLINE + "---------");
-        for (int i = PRIZE_MATCH_MIN; i <= PRIZE_MATCH_MAX; i++) {
-            System.out.println(i + "개 일치 (" + LottoPrize.getLottoPrize(i) + ")원- " + resultDto.getMatchResult().get(i));
+        for (int i = PRIZE_STRIKE_MIN; i <= PRIZE_STRIKE_MAX; i++) {
+            System.out.println(i + "개 일치 (" + LottoPrizeMapper.get(i) + ")원- " + resultDto.getStrikeResults().get(i));
         }
         System.out.println("총 수익률은 " + resultDto.getProfitRate() + "%입니다.");
     }

@@ -2,8 +2,7 @@ package domain;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static utils.LottoGameValue.LOTTO_SIZE;
+import static utils.LottoGameValues.LOTTO_SIZE;
 
 public class LottoGameTest {
 

@@ -9,15 +9,15 @@ public class LottoChecker {
         this.winningNums = winningNums;
     }
 
-    public int getMatchNum(List<Integer> lotto) {
-        int matchPoint = 0;
+    public int getStrikeNum(List<Integer> lotto) {
+        int strikePoint = 0;
         for (Integer num : lotto) {
-            matchPoint += matchCheck(num);
+            strikePoint += strikeCheck(num);
         }
-        return matchPoint;
+        return strikePoint;
     }
 
-    int matchCheck(Integer num) {
+    int strikeCheck(Integer num) {
         if(winningNums.contains(num)) {
             return 1;
         }
