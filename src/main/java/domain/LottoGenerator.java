@@ -3,13 +3,12 @@ package domain;
 import dto.LottoDto;
 import dto.LottoDtos;
 import dto.WinResultDto;
+import vo.No;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LottoGenerator {
-
-    public static final int LOTTO_PRICE = 1000;
 
     private List<Lotto> lottos;
 
@@ -34,15 +33,15 @@ public class LottoGenerator {
         return lottos;
     }
 
-    public WinResultDto checkWins(LottoDto winningLottoDto) {
-        Lotto winningLotto = Lotto.initArtifitial(winningLottoDto.getLottoDto());
+    public WinResultDto checkWins(LottoDto winningLottoDto, No bonusNo) {
+        WinningLotto winningLotto = new WinningLotto(Lotto.initArtifitial(winningLottoDto.getLottoDto()), bonusNo);
 
         return makeWinResultDto(winningLotto, WinResultDto.init());
     }
 
-    public WinResultDto makeWinResultDto(Lotto winningLotto, WinResultDto resultDto) {
+    public WinResultDto makeWinResultDto(WinningLotto winningLotto, WinResultDto resultDto) {
         for (Lotto lotto : lottos) {
-            resultDto.setRankAmt(Rank.findMatchRank(lotto.compareLottoNumbs(winningLotto)));
+            resultDto.setRankAmt(winningLotto.compareWinLottoNum(lotto));
         }
         return resultDto;
     }

@@ -1,23 +1,23 @@
 package domain;
 
-import dto.LottoDto;
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
+import vo.No;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 public class LottoTest {
-    List<Integer> lotto;
+    List<No> lotto;
 
     @Before
     public void setUp() {
         lotto = new ArrayList<>();
         for (int i = 1; i <= 6; i++) {
-            lotto.add(i);
+            lotto.add(new No(i));
         }
     }
 
@@ -36,20 +36,20 @@ public class LottoTest {
 
     @Test
     public void equals2() {
-        List<Integer> lottoNumbs = new ArrayList<>(lotto);
+        List<No> lottoNumbs = new ArrayList<>(lotto);
         Lotto l1 = Lotto.initArtifitial(lottoNumbs);
 
-        for (Integer lottoNumb : lottoNumbs) {
+        for (No lottoNumb : lottoNumbs) {
             System.out.print(lottoNumb + " ");
         }
 
         System.out.println();
         Collections.shuffle(lottoNumbs);
 
-        List<Integer> lottoNumbs2 = new ArrayList<>(lottoNumbs.size());
-        for (int i : lottoNumbs) lottoNumbs2.add(i);
+        List<No> lottoNumbs2 = new ArrayList<>(lottoNumbs.size());
+        for (No i : lottoNumbs) lottoNumbs2.add(i);
 
-        for (Integer lottoNumb : lottoNumbs2) {
+        for (No lottoNumb : lottoNumbs2) {
             System.out.print(lottoNumb + " ");
         }
         System.out.println();
@@ -61,15 +61,22 @@ public class LottoTest {
 
     @Test
     public void compareLottoNumbs() {
-        List<Integer> numbs = new ArrayList<>(lotto);
+        List<No> numbs = new ArrayList<>(lotto);
 
         numbs.remove(1);
-        numbs.add(7);
+        numbs.add(new No(7));
 
         Lotto l1 = Lotto.initArtifitial(numbs);
         Lotto l2 = Lotto.initArtifitial(lotto);
 
         assertEquals(5, l1.compareLottoNumbs(l2));
+    }
+
+    @Test
+    public void checkBonusNum() {
+        No bonusNum = new No(3);
+        Lotto l = Lotto.initArtifitial(lotto);
+        assertEquals(true, l.checkBonusNum(bonusNum));
     }
 
 }

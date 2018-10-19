@@ -3,6 +3,7 @@ package domain;
 import dto.WinResultDto;
 import org.junit.Before;
 import org.junit.Test;
+import vo.No;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,8 @@ public class LottoGeneratorTest {
 
     @Test
     public void checkWins() {
-        WinResultDto result = lottoGenerator.checkWins(lotto1.toLottoDto());
+        No bonusNum = new No(3);
+        WinResultDto result = lottoGenerator.checkWins(lotto1.toLottoDto(), bonusNum);
 
         System.out.println(result);
     }

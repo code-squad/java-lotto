@@ -1,20 +1,22 @@
 package dto;
 
+import vo.No;
+
 import java.util.List;
 
 public class LottoDto {
 
-    List<Integer> lottoDto;
+    List<No> lottoDto;
 
-    private LottoDto(List<Integer> lotto) {
+    private LottoDto(List<No> lotto) {
         this.lottoDto = lotto;
     }
 
-    public static LottoDto init(List<Integer> lotto) {
+    public static LottoDto init(List<No> lotto) {
         return new LottoDto(lotto);
     }
 
-    public List<Integer> getLottoDto() {
+    public List<No> getLottoDto() {
         return this.lottoDto;
     }
 
