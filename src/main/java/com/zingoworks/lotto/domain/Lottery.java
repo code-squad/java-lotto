@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lottery {
-    static final int MIN_RANGE = 1;
-    static final int MAX_RANGE = 45;
-    static final int REGULAR_CHOICE = 6;
+    private static final int MIN_RANGE = 1;
+    private static final int MAX_RANGE = 45;
+    private static final int REGULAR_CHOICE = 6;
 
     private List<Integer> lotteryNumbers;
 

@@ -12,12 +12,13 @@ public class LottoMain {
     public static void main(String[] args) {
         try {
             int purchaseAmount = InputView.inputPurchaseAmount();
-
             List<Lottery> lotteries = Lotteries.getAllLotteries(purchaseAmount);
-            ResultView.printGames(lotteries, purchaseAmount);
+
+            ResultView.printLottoNumbers(lotteries, purchaseAmount);
 
             String lastWinningNumbers = InputView.inputLastWinningNumbers();
             LottoResult lottoResult = new LottoResult(lotteries, lastWinningNumbers);
+
             ResultView.printResults(lottoResult, purchaseAmount);
         } catch (Exception e) {
             System.out.println(e.getMessage());
