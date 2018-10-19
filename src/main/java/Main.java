@@ -1,8 +1,6 @@
-import domain.Lotto;
 import domain.LottoGenerator;
-import domain.No;
-import domain.WinningLotto;
-import dto.NoDto;
+import domain.Money;
+import dto.WinResultDto;
 
 import static view.ResultView.*;
 import static view.InputView.*;
@@ -10,12 +8,15 @@ import static view.InputView.*;
 public class Main {
 
     public static void main(String[] args) {
-        int purchaseAmt = inputCash();
+        Money money = new Money(inputCash());
 
-        LottoGenerator lottoGenerator = LottoGenerator.init(buyLotto(purchaseAmt));
+        LottoGenerator lottoGenerator = LottoGenerator.init(buyLotto(money.getLottoAmt()));
         printLottos(lottoGenerator.toLottoDtos());
 
-        winStats(lottoGenerator.checkWins(getWinningLotto(), inputBonusNum()), purchaseAmt);
+        WinResultDto winResult = lottoGenerator.checkWins(getWinningLotto(), inputBonusNum());
+
+        winStats(winResult);
+        printYield(money.getYield(winResult));
     }
 
 }

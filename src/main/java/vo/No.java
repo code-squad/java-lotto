@@ -1,6 +1,4 @@
-package domain;
-
-import dto.NoDto;
+package vo;
 
 import java.util.Objects;
 
@@ -11,26 +9,14 @@ public class No implements Comparable<No> {
 
     private int num;
 
-    private No(int num) throws IllegalArgumentException {
+    public No(int num) throws IllegalArgumentException {
         this.num = checkNo(num);
-    }
-
-    public static No initString(String num) throws IllegalArgumentException {
-        return new No(Integer.parseInt(num));
-    }
-
-    public static No initInt(int num) throws IllegalArgumentException {
-        return new No(num);
     }
 
     private static int checkNo(int num) {
         if (num < MIN_NUM || MAX_NUM < num)
             throw new IllegalArgumentException("잘못된 범위의 숫자가 입력되었습니다.");
         return num;
-    }
-
-    public NoDto toDto() {
-        return NoDto.init(this.num);
     }
 
     @Override
@@ -53,6 +39,11 @@ public class No implements Comparable<No> {
     @Override
     public int hashCode() {
         return Objects.hash(num);
+    }
+
+    @Override
+    public String toString() {
+        return this.num + "";
     }
 
 }

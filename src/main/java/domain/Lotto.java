@@ -1,7 +1,7 @@
 package domain;
 
 import dto.LottoDto;
-import dto.NoDto;
+import vo.No;
 
 import static util.RandomGenerator.*;
 
@@ -22,19 +22,14 @@ public class Lotto {
         return new Lotto(makeLotto());
     }
 
-    public static Lotto initArtifitial(List<NoDto> lottoDto) {
-        List<No> lotto = new ArrayList<>();
-
-        for (NoDto no : lottoDto) {
-            lotto.add(No.initInt(no.getNum()));
-        }
+    public static Lotto initArtifitial(List<No> lotto) {
         return new Lotto(lotto);
     }
 
     public static List<No> makeLotto() {
         Set<No> lotto = new HashSet<>();
         while (lotto.size() < LOTTO_SIZE) {
-            lotto.add(No.initInt(generateLottoNum()));
+            lotto.add(new No(generateLottoNum()));
         }
 
         return new ArrayList<>(lotto);
@@ -60,11 +55,6 @@ public class Lotto {
     }
 
     public LottoDto toLottoDto() {
-        List<NoDto> lotto = new ArrayList<>();
-        for (No no : this.lotto) {
-            lotto.add(no.toDto());
-        }
-
         return LottoDto.init(lotto);
     }
 

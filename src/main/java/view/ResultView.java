@@ -1,6 +1,6 @@
 package view;
 
-import domain.Rank;
+import vo.Rank;
 import dto.LottoDto;
 import dto.LottoDtos;
 import dto.WinResultDto;
@@ -16,11 +16,10 @@ public class ResultView {
         System.out.println();
     }
 
-    public static void winStats(WinResultDto result, int purchaseAmt) {
+    public static void winStats(WinResultDto result) {
         System.out.println("\n당첨통계\n-------");
 
         printMatchRank(result.getWinResultDto());
-        printYield(result, purchaseAmt);
     }
 
     public static void printMatchRank(Map<Rank, Integer> result) {
@@ -39,8 +38,8 @@ public class ResultView {
         return " (";
     }
 
-    public static void printYield(WinResultDto result, int purchaseAmt) {
-        System.out.println("총 수익률은 " + result.getYield(purchaseAmt) +"%입니다.");
+    public static void printYield(int yield) {
+        System.out.println("총 수익률은 " + yield +"%입니다.");
     }
 
 }

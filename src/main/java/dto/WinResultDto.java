@@ -1,6 +1,6 @@
 package dto;
 
-import domain.Rank;
+import vo.Rank;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,19 +34,6 @@ public class WinResultDto {
 
     public Map<Rank, Integer> getWinResultDto() {
         return this.winResultDto;
-    }
-
-    public int getYield(int purchaseAmt) {
-        return getRevenue() / purchaseAmt;
-    }
-
-    private int getRevenue() {
-        int sum = 0;
-        for (Rank rank : winResultDto.keySet()) {
-            sum += rank.getReward() * this.winResultDto.get(rank);
-        }
-
-        return sum;
     }
 
     @Override
