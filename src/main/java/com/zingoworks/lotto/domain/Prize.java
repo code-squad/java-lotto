@@ -7,16 +7,16 @@ public enum Prize {
     FOURTH(4, 50000),
     FIFTH(3, 5000);
 
-    private int countOfMatch;
+    private int countOfHit;
     private int winningMoney;
 
-    Prize(int countOfMatch, int winningMoney) {
-        this.countOfMatch = countOfMatch;
+    Prize(int countOfHit, int winningMoney) {
+        this.countOfHit = countOfHit;
         this.winningMoney = winningMoney;
     }
 
-    public int getCountOfMatch() {
-        return countOfMatch;
+    public int getCountOfHit() {
+        return countOfHit;
     }
 
     public int getWinningMoney() {

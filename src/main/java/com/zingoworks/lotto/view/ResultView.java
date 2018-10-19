@@ -21,8 +21,8 @@ public class ResultView {
     public static void printResults(LottoResult lottoResults, int purchaseAmount) {
         System.out.println("당첨통계" + NEWLINE + "---------");
         for (Prize prize : Prize.values()) {
-            System.out.println(prize.getCountOfMatch() + "개 일치 (" + prize.getWinningMoney() + "원) - " + lottoResults.getNumberOfWins(prize.getCountOfMatch()) + "개");
+            System.out.println(prize.getCountOfHit() + "개 일치 (" + prize.getWinningMoney() + "원) - " + lottoResults.getNumberOfWins(prize.getCountOfHit()) + "개");
         }
-        System.out.println("총 수익률은 " + lottoResults.getEarningRate(purchaseAmount) + "%입니다.");
+//        System.out.println("총 수익률은 " + lottoResults.getEarningRate(purchaseAmount) + "%입니다.");
     }
 }

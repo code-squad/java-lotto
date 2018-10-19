@@ -3,7 +3,6 @@ package com.zingoworks.lotto.domain;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -27,14 +26,14 @@ public class LotteryTest {
         Lottery lottery = new Lottery();
     }
 
-    @Test
-    public void testBasicNumbers() {
-        Lottery lottery = new Lottery();
-        assertEquals(lottery.generateBasicNumbers().size(), 45);
-        for (int i = 1; i <= 45; i++) {
-            assert(lottery.generateBasicNumbers().contains(i));
-        }
-    }
+//    @Test
+//    public void testBasicNumbers() {
+//        Lottery lottery = new Lottery();
+//        assertEquals(lottery.generateBasicNumbers().size(), 45);
+//        for (int i = 1; i <= 45; i++) {
+//            assert(lottery.generateBasicNumbers().contains(i));
+//        }
+//    }
 
     @Test
     public void testLottoNumbers() {
@@ -73,24 +72,21 @@ public class LotteryTest {
 //        System.out.println(list);
 //    }
 
-    @Test
-    public void testCountMatching() {
-        List<Integer> winning = new ArrayList<>();
-        winning.add(1);
-        winning.add(2);
-        winning.add(3);
-        winning.add(4);
-        winning.add(5);
-        winning.add(6);
-
-        Lottery lottery = new Lottery();
-        System.out.println(lottery.generateRandomLotteryNumbers());
-        System.out.println(lottery.countMatchingNumbers(winning));
-
-    }
+//    @Test
+//    public void testCountMatching() {
+//        List<Integer> winning = new ArrayList<>();
+//        winning.add(1);
+//        winning.add(2);
+//        winning.add(3);
+//        winning.add(4);
+//        winning.add(5);
+//        winning.add(6);
+//
+//        Lottery lottery = new Lottery();
+//        System.out.println(lottery.getCountOfHit(winning));
+//    }
 
     public static void main(String[] args) {
         Lottery testLottery = new Lottery();
     }
-
 }

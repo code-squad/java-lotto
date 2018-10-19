@@ -3,6 +3,7 @@ package com.zingoworks.lotto.controller;
 import com.zingoworks.lotto.domain.Lotteries;
 import com.zingoworks.lotto.domain.Lottery;
 import com.zingoworks.lotto.domain.LottoResult;
+import com.zingoworks.lotto.domain.WinningLottery;
 import com.zingoworks.lotto.view.InputView;
 import com.zingoworks.lotto.view.ResultView;
 
@@ -17,7 +18,9 @@ public class LottoMain {
             ResultView.printLottoNumbers(lotteries, purchaseAmount);
 
             String lastWinningNumbers = InputView.inputLastWinningNumbers();
-            LottoResult lottoResult = new LottoResult(lotteries, lastWinningNumbers);
+            int bonusNumber = InputView.inputBonusNumber();
+            WinningLottery winningLottery = new WinningLottery(lastWinningNumbers, bonusNumber);
+            LottoResult lottoResult = new LottoResult(lotteries, winningLottery);
 
             ResultView.printResults(lottoResult, purchaseAmount);
         } catch (Exception e) {
