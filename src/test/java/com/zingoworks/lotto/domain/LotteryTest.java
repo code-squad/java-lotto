@@ -84,17 +84,9 @@ public class LotteryTest {
         winning.add(6);
 
         Lottery lottery = new Lottery();
+        System.out.println(lottery.generateRandomLotteryNumbers());
         System.out.println(lottery.countMatchingNumbers(winning));
-        lottery = new Lottery();
-        System.out.println(lottery.countMatchingNumbers(winning));
-        lottery = new Lottery();
-        System.out.println(lottery.countMatchingNumbers(winning));
-        lottery = new Lottery();
-        System.out.println(lottery.countMatchingNumbers(winning));
-        lottery = new Lottery();
-        System.out.println(lottery.countMatchingNumbers(winning));
-        lottery = new Lottery();
-        System.out.println(lottery.countMatchingNumbers(winning));
+
     }
 
     public static void main(String[] args) {

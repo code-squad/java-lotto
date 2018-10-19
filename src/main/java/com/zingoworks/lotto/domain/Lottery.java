@@ -36,7 +36,7 @@ public class Lottery {
         }
         return numbers;
     }
-
+//적중카운트에 대한 테스트는 어떻게 만드는 게 좋은걸까? 접근방식이 잘못...? 랜덤으로 생성되는 것에 대해 테스트 어찌..?
     int countMatchingNumbers(List<Integer> lastWinningNumbers) {
         int count = 0;
         for (Integer winningNumber : lastWinningNumbers) {

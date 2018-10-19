@@ -2,11 +2,11 @@ package com.zingoworks.lotto.view;
 
 import com.zingoworks.lotto.domain.Lottery;
 import com.zingoworks.lotto.domain.LottoResult;
+import com.zingoworks.lotto.domain.Prize;
 
 import java.util.List;
 
 import static com.zingoworks.lotto.domain.Lotteries.PRICE_LOTTERY;
-import static com.zingoworks.lotto.domain.LottoResult.*;
 
 public class ResultView {
     private static final String NEWLINE = System.lineSeparator();
@@ -19,12 +19,10 @@ public class ResultView {
     }
 
     public static void printResults(LottoResult lottoResults, int purchaseAmount) {
-        System.out.println("당첨통계" + NEWLINE +
-                "---------" + NEWLINE +
-                3 + "개 일치 (" + PRIZE_FORTH + "원) - " + lottoResults.getNumberOfWins(3) + "개" + NEWLINE +
-                4 + "개 일치 (" + PRIZE_THIRD + "원) - " + lottoResults.getNumberOfWins(4) + "개" + NEWLINE +
-                5 + "개 일치 (" + PRIZE_SECOND + "원) - " + lottoResults.getNumberOfWins(5) + "개" + NEWLINE +
-                6 + "개 일치 (" + PRIZE_FIRST + "원) - " + lottoResults.getNumberOfWins(6) + "개" + NEWLINE +
-                "총 수익률은 " + lottoResults.getEarningRate(purchaseAmount) + "%입니다.");
+        System.out.println("당첨통계" + NEWLINE + "---------");
+        for (Prize prize : Prize.values()) {
+            System.out.println(prize.getCountOfMatch() + "개 일치 (" + prize.getWinningMoney() + "원) - " + lottoResults.getNumberOfWins(prize.getCountOfMatch()) + "개");
+        }
+        System.out.println("총 수익률은 " + lottoResults.getEarningRate(purchaseAmount) + "%입니다.");
     }
 }
