@@ -3,12 +3,16 @@ package com.zingoworks.lotto.domain;
 import java.util.Objects;
 
 public class Score {
-    private int countOfMatching;
-    private boolean isBonusScore;
+    private int countOfHit;
+    private boolean isBonusHit;
 
     Score(int countOfHit, boolean isBonusHit) {
-        this.countOfMatching = countOfHit;
-        this.isBonusScore = isBonusHit;
+        this.countOfHit = countOfHit;
+        this.isBonusHit = isBonusHit;
+    }
+
+    public int getCountOfHit() {
+        return countOfHit;
     }
 
     @Override
@@ -16,12 +20,12 @@ public class Score {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Score score = (Score) o;
-        return countOfMatching == score.countOfMatching &&
-                isBonusScore == score.isBonusScore;
+        return countOfHit == score.countOfHit &&
+                isBonusHit == score.isBonusHit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(countOfMatching, isBonusScore);
+        return Objects.hash(countOfHit, isBonusHit);
     }
 }

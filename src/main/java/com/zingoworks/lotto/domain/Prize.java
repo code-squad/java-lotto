@@ -1,22 +1,22 @@
 package com.zingoworks.lotto.domain;
 
 public enum Prize {
-    FIRST(6, 2000000000),
-    SECOND(5, 30000000),
-    THIRD(5, 1500000),
-    FOURTH(4, 50000),
-    FIFTH(3, 5000);
+    FIRST(new Score(6, false), 2000000000),
+    SECOND(new Score(5, true), 30000000),
+    THIRD(new Score(5, false), 1500000),
+    FOURTH(new Score(4, false), 50000),
+    FIFTH(new Score(3, false), 5000);
 
-    private int countOfHit;
+    private Score score;
     private int winningMoney;
 
-    Prize(int countOfHit, int winningMoney) {
-        this.countOfHit = countOfHit;
+    Prize(Score score, int winningMoney) {
+        this.score = score;
         this.winningMoney = winningMoney;
     }
 
-    public int getCountOfHit() {
-        return countOfHit;
+    public Score getScore() {
+        return score;
     }
 
     public int getWinningMoney() {

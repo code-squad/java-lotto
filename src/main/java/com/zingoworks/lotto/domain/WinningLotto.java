@@ -3,13 +3,13 @@ package com.zingoworks.lotto.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WinningLottery {
+public class WinningLotto {
     private static final String COMMA = ",";
 
     private List<Integer> winningNumbers;
     private int bonusNumber;
 
-    public WinningLottery(String lastWinningNumbers, int bonusNumber) {
+    public WinningLotto(String lastWinningNumbers, int bonusNumber) {
         this.winningNumbers = convertToListedNumbers(commaSeparator(lastWinningNumbers));
         this.bonusNumber = bonusNumber;
     }

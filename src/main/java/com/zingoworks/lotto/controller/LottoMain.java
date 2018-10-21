@@ -1,9 +1,9 @@
 package com.zingoworks.lotto.controller;
 
-import com.zingoworks.lotto.domain.Lotteries;
-import com.zingoworks.lotto.domain.Lottery;
+import com.zingoworks.lotto.domain.Lotto;
+import com.zingoworks.lotto.domain.Lottos;
 import com.zingoworks.lotto.domain.LottoResult;
-import com.zingoworks.lotto.domain.WinningLottery;
+import com.zingoworks.lotto.domain.WinningLotto;
 import com.zingoworks.lotto.view.InputView;
 import com.zingoworks.lotto.view.ResultView;
 
@@ -13,14 +13,14 @@ public class LottoMain {
     public static void main(String[] args) {
         try {
             int purchaseAmount = InputView.inputPurchaseAmount();
-            List<Lottery> lotteries = Lotteries.getAllLotteries(purchaseAmount);
+            List<Lotto> lotteries = Lottos.getAllLottos(purchaseAmount);
 
             ResultView.printLottoNumbers(lotteries, purchaseAmount);
 
             String lastWinningNumbers = InputView.inputLastWinningNumbers();
             int bonusNumber = InputView.inputBonusNumber();
-            WinningLottery winningLottery = new WinningLottery(lastWinningNumbers, bonusNumber);
-            LottoResult lottoResult = new LottoResult(lotteries, winningLottery);
+            WinningLotto winningLotto = new WinningLotto(lastWinningNumbers, bonusNumber);
+            LottoResult lottoResult = new LottoResult(lotteries, winningLotto);
 
             ResultView.printResults(lottoResult, purchaseAmount);
         } catch (Exception e) {

@@ -8,7 +8,7 @@ class PrizeTest {
     void getCountOfMatch() {
         for(Prize prize: Prize.values())
         {
-            System.out.println(prize.getCountOfHit());
+            System.out.println(prize.getScore());
         }
     }
 
