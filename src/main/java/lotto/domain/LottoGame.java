@@ -2,9 +2,8 @@ package lotto.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import static lotto.util.Constant.LOTTO_PRICE;
+import static lotto.domain.LottoConstant.LOTTO_PRICE;
 
 public class LottoGame {
     private int price = 0;
@@ -22,7 +21,7 @@ public class LottoGame {
         return lottos;
     }
 
-    public Map compare(String input){
+    public LottoMap compare(String input){
         Lotto winningLotto = Lotto.winningLotto(input);
         int count = 0;
         LottoMap map = new LottoMap();
@@ -30,6 +29,6 @@ public class LottoGame {
             count = lotto.compare(winningLotto);
             map.saveCountWinLotto(count);
         }
-        return map.getMap();
+        return map;
     }
 }

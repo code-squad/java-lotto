@@ -1,6 +1,6 @@
-package lotto.util;
+package lotto.domain;
 
-public class Constant {
+public class LottoConstant {
     public static final int LOTTO_MAX = 45;
     public static final int LOTTO_MIN = 1;
 

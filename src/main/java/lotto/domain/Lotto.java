@@ -1,12 +1,11 @@
 package lotto.domain;
 import java.util.*;
 
-import static lotto.util.Constant.LOTTO_MAX;
-import static lotto.util.Constant.LOTTO_MIN;
-import static lotto.util.Constant.MAX_LOTTO_COUNT;
+import static lotto.domain.LottoConstant.LOTTO_MAX;
+import static lotto.domain.LottoConstant.LOTTO_MIN;
+import static lotto.domain.LottoConstant.MAX_LOTTO_COUNT;
 
 public class Lotto  {
-    private List<LottoNumber> lotto;
     private static List<Integer> numbers = new ArrayList<>();
 
     static {
@@ -14,6 +13,8 @@ public class Lotto  {
             numbers.add(i);
         }
     }
+
+    private List<LottoNumber> lotto;
 
     private Lotto(List<Integer> numbers) {
         lotto = new ArrayList<>();
@@ -45,7 +46,7 @@ public class Lotto  {
         return other.compare(lotto);
     }
 
-    public int compare(List<LottoNumber> other) {
+    private int compare(List<LottoNumber> other) {
         int count = 0;
         for (LottoNumber lottoNumber : other) {
             if (lotto.contains(lottoNumber)) {

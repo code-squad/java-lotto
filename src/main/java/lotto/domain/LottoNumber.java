@@ -1,13 +1,12 @@
 package lotto.domain;
 
-import lotto.util.Constant;
 import java.util.Objects;
 
 public class LottoNumber implements Comparable<LottoNumber>  {
     private int number;
 
     public LottoNumber(int number) {
-        if (number < Constant.LOTTO_MIN || number > Constant.LOTTO_MAX) {
+        if (number < LottoConstant.LOTTO_MIN || number > LottoConstant.LOTTO_MAX) {
             throw new IllegalArgumentException();
         }
         this.number = number;

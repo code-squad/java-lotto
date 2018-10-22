@@ -1,20 +1,23 @@
 package lotto.view;
 
 import lotto.domain.Lotto;
-import lotto.util.Constant;
+import lotto.domain.LottoMap;
+import lotto.domain.LottoConstant;
 
 import java.util.List;
 import java.util.Map;
 
 public class ResultView {
 
-    public static void statisticsLottoWinnings(Map map, int price){
+    public static void statisticsLottoWinnings(LottoMap lottoMap, int price){
+        Map map = lottoMap.getMap();
+
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.println("3개 일치 (" + Constant.PRIZE_WINNER_5TH + "원) - " + map.get(3) + "개");
-        System.out.println("4개 일치 (" + Constant.PRIZE_WINNER_4TH + "원) - " + map.get(4) + "개");
-        System.out.println("5개 일치 (" + Constant.PRIZE_WINNER_3TH + "원) - " + map.get(5) + "개");
-        System.out.println("6개 일치 (" + Constant.PRIZE_WINNER_1TH + "원) - " + map.get(6) + "개");
+        System.out.println("3개 일치 (" + LottoConstant.PRIZE_WINNER_5TH + "원) - " + map.get(3) + "개");
+        System.out.println("4개 일치 (" + LottoConstant.PRIZE_WINNER_4TH + "원) - " + map.get(4) + "개");
+        System.out.println("5개 일치 (" + LottoConstant.PRIZE_WINNER_3TH + "원) - " + map.get(5) + "개");
+        System.out.println("6개 일치 (" + LottoConstant.PRIZE_WINNER_1TH + "원) - " + map.get(6) + "개");
 
         double profit = getProfit(map);
         int rateOfReturn = calculateProfits(price, profit);
@@ -30,10 +33,10 @@ public class ResultView {
     }
 
     public static double getProfit(Map map) {
-        return Constant.PRIZE_WINNER_5TH * (int)map.get(3)
-                + Constant.PRIZE_WINNER_4TH * (int)map.get(4)
-                + Constant.PRIZE_WINNER_3TH * (int)map.get(5)
-                + Constant.PRIZE_WINNER_1TH * (int)map.get(6);
+        return LottoConstant.PRIZE_WINNER_5TH * (int)map.get(3)
+                + LottoConstant.PRIZE_WINNER_4TH * (int)map.get(4)
+                + LottoConstant.PRIZE_WINNER_3TH * (int)map.get(5)
+                + LottoConstant.PRIZE_WINNER_1TH * (int)map.get(6);
     }
 
     public static void printBuyLotto(List<Lotto> lottos) {
