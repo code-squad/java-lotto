@@ -14,13 +14,9 @@ import static org.junit.Assert.assertEquals;
 
 public class EveryLottoTest {
 
-    @Test
-    public void testEveryLottoTest() {
-//        Lottos el = new Lottos(1000);
-    }
 
     @Test
-    public void testGenerateEveryLottoSet() throws Exception {
+    public void 모든로또생성() throws Exception {
         assertEquals(Lottos.getAllLottos(5000).size(), 5);
         assertEquals(Lottos.getAllLottos(10000).size(), 10);
         assertEquals(Lottos.getAllLottos(0).size(), 0);

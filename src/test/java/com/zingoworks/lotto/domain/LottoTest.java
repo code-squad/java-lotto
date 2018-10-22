@@ -2,7 +2,9 @@ package com.zingoworks.lotto.domain;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -70,19 +72,14 @@ public class LottoTest {
 //        System.out.println(list);
 //    }
 
-//    @Test
-//    public void testCountMatching() {
-//        List<Integer> winning = new ArrayList<>();
-//        winning.add(1);
-//        winning.add(2);
-//        winning.add(3);
-//        winning.add(4);
-//        winning.add(5);
-//        winning.add(6);
-//
-//        Lotto lottery = new Lotto();
-//        System.out.println(lottery.getScore(winning));
-//    }
+    @Test
+    public void testCountMatching() {
+        WinningLotto wn = new WinningLotto("1,2,3,4,5,6", 7);
+
+        Lotto lottery = new Lotto();
+        System.out.println(lottery.toString());
+        System.out.println(lottery.getScore(wn).getCountOfHit());
+    }
 
     public static void main(String[] args) {
         Lotto testLotto = new Lotto();

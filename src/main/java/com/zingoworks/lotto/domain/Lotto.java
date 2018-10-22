@@ -15,12 +15,12 @@ public class Lotto {
     }
 
     List<Integer> generateRandomLottoNumbers() {
-        List<Integer> lotteryNumbers = new ArrayList<>();
-        List<Integer> numbersToAdd = ListIntegerUtils.getShuffledNumbers(BasicNumber.getBasicNumberSet());
+        List<Integer> lottoNumbers = new ArrayList<>();
+        List<Integer> shuffledRandomNumbers = ListIntegerUtils.getShuffledNumbers(BasicNumber.getBasicNumberSet());
         for (int i = 0; i < REGULAR_CHOICE; i++) {
-            lotteryNumbers.add(numbersToAdd.get(i));
+            lottoNumbers.add(shuffledRandomNumbers.get(i));
         }
-        return lotteryNumbers;
+        return lottoNumbers;
     }
 
     Score getScore(WinningLotto winningLotto) {
