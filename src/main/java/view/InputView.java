@@ -1,7 +1,7 @@
 package view;
 
-import domaim.Lotto;
-import domaim.LottoFactory;
+import domain.Lotto;
+import domain.LottoFactory;
 import util.PriceException;
 import java.util.InputMismatchException;
 import java.util.Scanner;

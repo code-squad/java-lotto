@@ -1,6 +1,6 @@
 package dto;
 
-import domaim.Lotto;
+import domain.Lotto;
 import java.util.List;
 
 public class LottoDto {

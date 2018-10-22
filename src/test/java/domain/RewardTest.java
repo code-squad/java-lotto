@@ -1,6 +1,5 @@
 package domain;
 
-import domaim.Reward;
 import org.junit.Test;
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package domaim;
+package domain;
 
 import java.util.*;
 

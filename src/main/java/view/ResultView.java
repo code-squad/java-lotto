@@ -1,6 +1,6 @@
 package view;
 
-import domaim.Lotto;
+import domain.Lotto;
 import dto.LottoDto;
 import dto.RewardDto;
 import util.StringFormat;

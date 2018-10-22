@@ -1,6 +1,6 @@
 package Controller;
 
-import domaim.LottoGame;
+import domain.LottoGame;
 import dto.LottoDto;
 import dto.RewardDto;
 import view.InputView;

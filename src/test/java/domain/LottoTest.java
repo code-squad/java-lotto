@@ -1,8 +1,5 @@
 package domain;
 
-import domaim.Lotto;
-import domaim.LottoFactory;
-import domaim.LottoNum;
 import org.junit.Test;
 
 import java.util.ArrayList;

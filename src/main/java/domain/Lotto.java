@@ -1,4 +1,4 @@
-package domaim;
+package domain;
 
 import java.util.*;
 
@@ -6,7 +6,7 @@ public class Lotto {
     public static final int LOTTO_NUMBER_COUNT = 6;
     private List<LottoNum> lottos;
 
-    public Lotto(List<LottoNum> lottos) {
+    Lotto(List<LottoNum> lottos) {
         /* protected 할려했는데, 테스트를 위해서는 public 필요! 결국은 public으로 하고 유효성 검사를 하면된다!
          * 질문! String 입력받은건 팩토리, List 입력받은건 Lotto, 객체 생성하는 로직을 다른 클래스로 분리하는건 좋지 않는거죠? */
         if(isDuplicationLottoNumber(lottos)) {

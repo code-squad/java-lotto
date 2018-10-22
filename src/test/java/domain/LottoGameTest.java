@@ -1,5 +1,4 @@
 package domain;
-import domaim.LottoGame;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -1,7 +1,7 @@
 package util;
 
-import domaim.Lotto;
-import domaim.LottoFactory;
+import domain.Lotto;
+import domain.LottoFactory;
 import dto.RewardDto;
 
 public class StringFormat {
