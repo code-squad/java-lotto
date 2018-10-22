@@ -1,7 +1,6 @@
 package Controller;
 
 import domaim.LottoGame;
-import domaim.Reward;
 import dto.LottoDto;
 import dto.RewardDto;
 import view.InputView;
@@ -14,9 +13,7 @@ public class LottoController {
         ResultView.showLottoNum(lottoDto);
         ResultView.showLottoList(lottoDto);
 
-        Reward reward = new Reward(InputView.getWinningNum());
-        lottoGame.setLottoReward(reward);
-        RewardDto rewardDto = lottoGame.createRewardDto(reward);
+        RewardDto rewardDto = lottoGame.createRewardDto(InputView.getWinningNum());
         ResultView.showWinStats(rewardDto);
         ResultView.showProfit(rewardDto);
     }

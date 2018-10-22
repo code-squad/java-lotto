@@ -15,6 +15,11 @@ public class LottoFactory {
 
     /* 당첨번호 로또 생성하는 메소드 */
     public static Lotto createLotto(String lottoString) {
+        /* [피드백1] */
+        /* 로또의 유효성을 체크하는 내용은 Lotto 클래스에서 처리하는 것을 권장
+        *    --> Lotto 객체를 생성하는 방법은 2가지이다! 하나는, 팩토리의 create()메소드, 하나는 Lotto 생샹자를 통해 구현 가능
+        *    --> 하지만! 결국은! Lotto 생성자를 통해 최종적으로 생성된다! 그렇기 때문에 Lotto 생성자에서 유효성 체크!
+        *    --> 만약, 팩토리를 통해서만 Lotto객체를 생성하도록 하려고 한다면, Lotto 생성자의 접근제한자를 Default로 사용! */
         if(!isValidFormat(lottoString)) {
             try {
                 throw new LottoException("유효하지않는 형식의 당첨번호를 입력하셨습니다.");
@@ -41,14 +46,6 @@ public class LottoFactory {
             return false;
         }
         return true;
-    }
-
-    /* 당첨번호에 중복된 번호가 있는지 확인하는 메소드 --> 현재 사용하지 않지만, 일단 Hold */
-    public static boolean isDuplicationLottoNumber(List<LottoNum> lottoNums) {
-        if(new HashSet<LottoNum>(lottoNums).size() < Lotto.LOTTO_NUMBER_COUNT) {
-            return true;
-        }
-        return false;
     }
 
     /* 난수 발생 메소드 */

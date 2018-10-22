@@ -23,14 +23,4 @@ public class LottoFactoryTest {
             lottos.add(new LottoNum(i));
         }
     }
-
-    @Test
-    public void createLotto() {
-        assertThat(LottoFactory.createLotto("1, 2, 3, 4, 5, 6")).isEqualTo(new Lotto(lottos));
-    }
-
-    @Test
-    public void isDuplicationLottoNumberTest() {
-        assertThat(LottoFactory.isDuplicationLottoNumber(lottos)).isFalse();
-    }
 }
