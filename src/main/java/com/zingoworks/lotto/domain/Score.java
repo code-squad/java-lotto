@@ -15,6 +15,10 @@ public class Score {
         return countOfHit;
     }
 
+    public boolean isBonusHit() {
+        return isBonusHit;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
