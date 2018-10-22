@@ -1,8 +1,6 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class LottoFactory {
     private static final List<Integer> lottoNumbers;
@@ -13,12 +11,16 @@ public class LottoFactory {
         }
     }
 
-    static Lotto generateRandomLotto(){
+    public static Lotto generateRandomLotto(){
         Collections.shuffle(lottoNumbers);
-        return new Lotto(new ArrayList<>(lottoNumbers.subList(0, Lotto.LOTTO_NUMBERS_SIZE)));
+        return new Lotto(new HashSet<>(lottoNumbers.subList(0, Lotto.LOTTO_NUMBERS_SIZE)));
     }
 
-    public static Lotto generateTheLotto(List<Integer> numbers){
-        return new Lotto(new ArrayList<>(numbers));
+    public static Lotto generateTheLotto(Set<Integer> numbers){
+        return new Lotto(numbers);
+    }
+
+    public static WinningLotto generateWinningLotto(Set<Integer> numbers, int bonusNumber){
+        return new WinningLotto(numbers, bonusNumber);
     }
 }

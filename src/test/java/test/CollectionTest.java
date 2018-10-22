@@ -2,10 +2,8 @@ package test;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Arrays;
+import java.util.*;
+
 public class CollectionTest {
     @Test
     public void test(){
@@ -18,7 +16,5 @@ public class CollectionTest {
         list.set(0, 9);
         list.set(1, 8);
         System.out.println(list2);
-
     }
-
 }

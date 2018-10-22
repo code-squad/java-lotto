@@ -18,4 +18,9 @@ public class EnumTest {
         }
 
     }
+
+    @Test
+    public void isEqual(){
+        assertThat(TheEnum.FIRST).isEqualTo(TheEnum.valueOf("FIRST"));
+    }
 }

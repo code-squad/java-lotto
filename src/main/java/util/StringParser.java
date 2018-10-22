@@ -1,13 +1,13 @@
 package util;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class StringParser {
     private static final String COMMA = ",";
-    public static List<Integer> parseToNumbers(String input){
+    public static Set<Integer> parseToNumbers(String input){
         String[] texts = splitWithComma(trimSpace(input));
-        List<Integer> numbers = new ArrayList<>();
+        Set<Integer> numbers = new HashSet<>();
         for (String text : texts) {
             numbers.add(parseToNumber(text));
         }

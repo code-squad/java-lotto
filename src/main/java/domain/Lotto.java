@@ -2,33 +2,33 @@ package domain;
 
 import dto.LottoDto;
 
-import java.util.List;
+import java.util.Set;
 
 public class Lotto {
     static final int MAX = 45;
     static final int MIN = 1;
     static final int LOTTO_NUMBERS_SIZE = 6;
 
-    private List<Integer> numbers;
+    private Set<Integer> numbers;
 
-    Lotto(List<Integer> numbers) {
+    Lotto(Set<Integer> numbers) {
         this.numbers = numbers;
         this.isValid();
     }
 
     private void isValid(){
-        if(!this.isValidBoundary() || !isValidSize()) throw new IllegalArgumentException();
-    }
-
-    private boolean isValidSize(){
-        return this.numbers.size() == LOTTO_NUMBERS_SIZE;
-    }
-
-    private boolean isValidBoundary(){
+        this.isValidSize();
         for (Integer number : this.numbers) {
-            if(number > MAX || number < MIN) return false;
+            this.isValidBoundary(number);
         }
-        return true;
+    }
+
+    private void isValidSize(){
+        if(this.numbers.size() != LOTTO_NUMBERS_SIZE) throw new IllegalArgumentException();
+    }
+
+    protected void isValidBoundary(int number){
+        if(number > MAX || number < MIN) throw new IllegalArgumentException();
     }
 
     int calculateHitCount(Lotto other){
@@ -39,11 +39,11 @@ public class Lotto {
         return hitCount;
     }
 
-    private boolean isHit(Integer number){
+    protected boolean isHit(int number){
         return this.numbers.contains(number);
     }
 
-    LottoDto toDto(){
+    public LottoDto toDto(){
         return new LottoDto(this.numbers);
     }
 }

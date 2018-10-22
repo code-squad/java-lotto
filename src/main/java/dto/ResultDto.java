@@ -1,10 +1,14 @@
 package dto;
 
+import domain.Rank;
+
+import java.util.Map;
+
 public class ResultDto {
     private LottoBundleDto theLottoBundleDto;
-    private int[] winStats;
+    private Map<Rank, Integer> winStats;
 
-    public ResultDto(LottoBundleDto theLottoBundleDto, int[] winStats) {
+    public ResultDto(LottoBundleDto theLottoBundleDto, Map<Rank, Integer> winStats) {
         this.theLottoBundleDto = theLottoBundleDto;
         this.winStats = winStats;
     }
