@@ -9,9 +9,10 @@ public class Main {
 
     public static void main(String[] args) {
         Money money = new Money(inputCash());
+        int lottoManualAmt = inputLottoManualAmt();
 
-        LottoGenerator lottoGenerator = LottoGenerator.init(buyLotto(money.getLottoAmt()));
-        printLottos(lottoGenerator.toLottoDtos());
+        LottoGenerator lottoGenerator = LottoGenerator.initAutoAndArtifitial(buyLottoManual(lottoManualAmt), money.getLottoAmt());
+        printLottos(lottoGenerator.toLottoDtos(), lottoManualAmt);
 
         WinResultDto winResult = lottoGenerator.checkWins(getWinningLotto(), inputBonusNum());
 

@@ -1,6 +1,8 @@
 package domain;
 
 import dto.LottoDto;
+import exception.DuplicateNumberException;
+import exception.LottoSizeOutOfBoundException;
 import vo.No;
 
 import static util.RandomGenerator.*;
@@ -14,7 +16,7 @@ public class Lotto {
     private List<No> lotto;
 
     private Lotto(List<No> lotto) {
-        Collections.sort(lotto);
+        Collections.sort(checkLotto(lotto));
         this.lotto = lotto;
     }
 
@@ -34,6 +36,17 @@ public class Lotto {
 
         return new ArrayList<>(lotto);
     }
+
+    private List<No> checkLotto(List<No> lotto) {
+        Set<No> checker = new HashSet<>(lotto);
+
+        if (lotto.size() != LOTTO_SIZE)
+            throw new LottoSizeOutOfBoundException("로또 번호의 갯수가 6개가 아닙니다.");
+        if (checker.size() != lotto.size())
+            throw new DuplicateNumberException("중복된 로또번호 입니다.");
+        return lotto;
+    }
+
 
     public int compareLottoNumbs(Lotto lotto) {
         int result = 0;

@@ -16,12 +16,23 @@ public class LottoGenerator {
         this.lottos = lottos;
     }
 
-    public static LottoGenerator init(int lottoAmt) {
+    public static LottoGenerator initAuto(int lottoAmt) {
         return new LottoGenerator(generateLotto(lottoAmt));
     }
 
     public static LottoGenerator initArtifitial(List<Lotto> lottos) {
         return new LottoGenerator(lottos);
+    }
+
+    public static LottoGenerator initAutoAndArtifitial(LottoDtos lottos, int lottoAmt) {
+        List<LottoDto> lottoDtos = lottos.getLottoDtos();
+        List<Lotto> result = generateLotto(lottoAmt - lottoDtos.size());
+
+        for (LottoDto lottoDto : lottoDtos) {
+            result.add(Lotto.initArtifitial(lottoDto.getLottoDto()));
+        }
+
+        return new LottoGenerator(result);
     }
 
     private static List<Lotto> generateLotto(int lottoAmt) {

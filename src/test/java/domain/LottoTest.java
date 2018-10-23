@@ -2,6 +2,8 @@ package domain;
 
 import static org.junit.Assert.*;
 
+import exception.DuplicateNumberException;
+import exception.LottoSizeOutOfBoundException;
 import org.junit.Before;
 import org.junit.Test;
 import vo.No;
@@ -77,6 +79,21 @@ public class LottoTest {
         No bonusNum = new No(3);
         Lotto l = Lotto.initArtifitial(lotto);
         assertEquals(true, l.checkBonusNum(bonusNum));
+    }
+
+    @Test(expected = LottoSizeOutOfBoundException.class)
+    public void initTest1() {
+        lotto.add(new No(7));
+
+        Lotto l = Lotto.initArtifitial(lotto);
+    }
+
+    @Test(expected = DuplicateNumberException.class)
+    public void initTest2() {
+        lotto.remove(5);
+        lotto.add(new No(5));
+
+        Lotto l = Lotto.initArtifitial(lotto);
     }
 
 }
