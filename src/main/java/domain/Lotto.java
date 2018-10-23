@@ -1,49 +1,53 @@
 package domain;
 
 import dto.LottoDto;
+import vo.LottoNo;
 
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class Lotto {
-    static final int MAX = 45;
-    static final int MIN = 1;
+    public static final int MAX = 45;
+    public static final int MIN = 1;
     static final int LOTTO_NUMBERS_SIZE = 6;
 
-    private List<Integer> numbers;
+    private Set<LottoNo> numbers;
 
-    Lotto(List<Integer> numbers) {
-        this.numbers = numbers;
-        this.isValid();
+    Lotto(Set<LottoNo> numbers) {
+        this.numbers = isValidNumbersCount(numbers);
     }
 
-    private void isValid(){
-        if(!this.isValidBoundary() || !isValidSize()) throw new IllegalArgumentException();
-    }
-
-    private boolean isValidSize(){
-        return this.numbers.size() == LOTTO_NUMBERS_SIZE;
-    }
-
-    private boolean isValidBoundary(){
-        for (Integer number : this.numbers) {
-            if(number > MAX || number < MIN) return false;
-        }
-        return true;
+    private Set<LottoNo> isValidNumbersCount(Set<LottoNo> numbers){
+        if(numbers.size() != LOTTO_NUMBERS_SIZE) throw new IllegalArgumentException();
+        return numbers;
     }
 
     int calculateHitCount(Lotto other){
         int hitCount = 0;
-        for (Integer number : numbers) {
+        for (LottoNo number : numbers) {
             hitCount += other.isHit(number) ? 1 : 0;
         }
         return hitCount;
     }
 
-    private boolean isHit(Integer number){
+    protected boolean isHit(LottoNo number){
         return this.numbers.contains(number);
     }
 
-    LottoDto toDto(){
+    public LottoDto toDto(){
         return new LottoDto(this.numbers);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lotto lotto = (Lotto) o;
+        return Objects.equals(numbers, lotto.numbers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numbers);
     }
 }

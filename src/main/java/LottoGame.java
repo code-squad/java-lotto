@@ -1,36 +1,26 @@
-import domain.LottoBundle;
-import domain.LottoBundleFactory;
-import domain.LottoFactory;
-import dto.LottoBundleDto;
-import dto.ResultDto;
-import util.StringParser;
+import domain.*;
 import view.InputView;
 import view.ResultView;
 
-import java.util.List;
+import java.io.IOException;
 
 public class LottoGame {
     public static void main(String[] args) {
         try {
             goLotto();
-        } catch (Exception e){
-            System.out.println("##Exception##");
+        } catch (IllegalArgumentException|IOException e){
+            System.out.println("invalid input");
             e.printStackTrace();
         }
     }
 
-    private static void goLotto(){
-        LottoBundle theLottoBundle = LottoBundleFactory.generateRandomLottoBundle(InputView.inputCount());
-        LottoBundleDto theLottoBundleDto = theLottoBundle.toDto();
-        ResultView.showLottoBundles(theLottoBundleDto);
+    private static void goLotto() throws IOException {
+        LottoBundle theLottoBundle = LottoFactory.generateRandomLottoBundle(InputView.inputCount());
+        ResultView.showLottoBundles(theLottoBundle.toDto());
 
-        List<Integer> lottoNumbers = makeLottoNumber(InputView.inputWinLottoText());
-        int[] winStats = theLottoBundle.calculateWinStats(LottoFactory.generateTheLotto(lottoNumbers));
-        ResultDto theResultDto = new ResultDto(theLottoBundleDto, winStats);
-        ResultView.showEarningRate(theResultDto);
-    }
-
-    private static List<Integer> makeLottoNumber(String lottoText){
-        return StringParser.parseToNumbers(lottoText);
+        WinningLotto theWinningLotto =
+                LottoFactory.generateWinningLotto(InputView.inputWinningLottoNumbers(), InputView.inputBonusBall());
+        WinStats theWinStats = theLottoBundle.calculateWinStats(theWinningLotto);
+        ResultView.showResultMessage(theWinStats.toDto());
     }
 }

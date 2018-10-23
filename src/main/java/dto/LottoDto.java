@@ -1,10 +1,12 @@
 package dto;
 
-import java.util.List;
+import vo.LottoNo;
+
+import java.util.Set;
 
 public class LottoDto {
-    private List<Integer> numbers;
-    public LottoDto(List<Integer> numbers) {
+    private Set<LottoNo> numbers;
+    public LottoDto(Set<LottoNo> numbers) {
         this.numbers = numbers;
     }
 

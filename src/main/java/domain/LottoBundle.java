@@ -1,35 +1,41 @@
 package domain;
 
 import dto.LottoBundleDto;
+import vo.Rank;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LottoBundle {
-    private List<Lotto> theLottoBundle;
+    private List<Lotto> multiLotto;
 
     LottoBundle() {
-        this.theLottoBundle = new ArrayList<>();
+        this.multiLotto = new ArrayList<>();
     }
 
     void add(Lotto aLotto){
-        this.theLottoBundle.add(aLotto);
+        this.multiLotto.add(aLotto);
     }
 
     public LottoBundleDto toDto(){
         LottoBundleDto theLottoBundleDto = new LottoBundleDto();
-        for (Lotto theLotto : this.theLottoBundle) {
-            theLottoBundleDto.add(theLotto.toDto());
+        for (Lotto aLotto : multiLotto) {
+            theLottoBundleDto.add(aLotto.toDto());
         }
         return theLottoBundleDto;
     }
 
-    public int[] calculateWinStats(Lotto winLotto){
-        int[] hitCounts = new int[Lotto.LOTTO_NUMBERS_SIZE + 1];
-        for (Lotto theLotto : this.theLottoBundle) {
-            hitCounts[theLotto.calculateHitCount(winLotto)]++;
+    public WinStats calculateWinStats(WinningLotto theWinningLotto) {
+        WinStats theWinStats = new WinStats();
+        for (Lotto aLotto : this.multiLotto) {
+            Rank rank = Rank.valueOf(theWinningLotto.calculateHitCount(aLotto), theWinningLotto.isHitBonusBall(aLotto));
+            theWinStats.countRank(rank);
         }
-        return hitCounts;
+        theWinStats.calculateEarningRate(this.multiLotto.size() * 1000);
+        return theWinStats;
     }
 
+    Lotto getALotto(int index) {
+        return this.multiLotto.get(index);
+    }
 }
