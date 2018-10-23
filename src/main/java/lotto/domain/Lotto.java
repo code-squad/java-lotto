@@ -19,7 +19,7 @@ public class Lotto  {
     private Lotto(List<Integer> numbers) {
         lotto = new ArrayList<>();
         for (Integer number : numbers) {
-            lotto.add(new LottoNumber(number));
+            lotto.add(LottoNumber.ofInteger(number));
         }
         Collections.sort(lotto);
     }
@@ -40,6 +40,10 @@ public class Lotto  {
         }
 
         return new Lotto(new ArrayList<>(winLotto));
+    }
+
+    public boolean isContainBonusNumber(int number) {
+        return lotto.contains(LottoNumber.ofInteger(number));
     }
 
     public int compare(Lotto other){

@@ -6,12 +6,9 @@ import java.util.List;
 import static lotto.domain.LottoConstant.LOTTO_PRICE;
 
 public class LottoGame {
-    private int price = 0;
     private List<Lotto> lottos = new ArrayList<>();
 
     public LottoGame(int price) {
-        this.price = price;
-
         for (int i = 0; i < price/LOTTO_PRICE; i++) {
             lottos.add(Lotto.generateLottoNumber());
         }
@@ -21,14 +18,14 @@ public class LottoGame {
         return lottos;
     }
 
-    public LottoMap compare(String input){
-        Lotto winningLotto = Lotto.winningLotto(input);
-        int count = 0;
-        LottoMap map = new LottoMap();
+    public void compare(String input, int bonusNumber){
+        WinningNumbers winningNumbers = new WinningNumbers(input, bonusNumber);
+
         for (Lotto lotto : lottos) {
-            count = lotto.compare(winningLotto);
-            map.saveCountWinLotto(count);
+            int count = winningNumbers.compare(lotto);
+            boolean matchBonus = lotto.isContainBonusNumber(bonusNumber);
+
+            GameResult.countMatchLotto(count, matchBonus);
         }
-        return map;
     }
 }

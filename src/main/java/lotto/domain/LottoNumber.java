@@ -5,11 +5,19 @@ import java.util.Objects;
 public class LottoNumber implements Comparable<LottoNumber>  {
     private int number;
 
-    public LottoNumber(int number) {
+    private LottoNumber(int number) {
         if (number < LottoConstant.LOTTO_MIN || number > LottoConstant.LOTTO_MAX) {
             throw new IllegalArgumentException();
         }
         this.number = number;
+    }
+
+    public static LottoNumber ofInteger(int number){
+        return new LottoNumber(number);
+    }
+
+    public static LottoNumber ofString(String number){
+        return new LottoNumber(Integer.parseInt(number));
     }
 
     @Override

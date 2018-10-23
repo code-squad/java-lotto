@@ -1,30 +1,35 @@
 package lotto.view;
 
-import lotto.domain.Lotto;
-import lotto.domain.LottoMap;
-import lotto.domain.LottoConstant;
+import lotto.domain.*;
 
 import java.util.List;
 import java.util.Map;
 
 public class ResultView {
 
-    public static void statisticsLottoWinnings(LottoMap lottoMap, int price){
-        Map map = lottoMap.getMap();
+    public static void statisticsLottoWinnings(int price){
+        GameResult result = new GameResult();
+        Map map = result.getResults();
 
         System.out.println("당첨 통계");
-        System.out.println("---------");
-        System.out.println("3개 일치 (" + LottoConstant.PRIZE_WINNER_5TH + "원) - " + map.get(3) + "개");
-        System.out.println("4개 일치 (" + LottoConstant.PRIZE_WINNER_4TH + "원) - " + map.get(4) + "개");
-        System.out.println("5개 일치 (" + LottoConstant.PRIZE_WINNER_3TH + "원) - " + map.get(5) + "개");
-        System.out.println("6개 일치 (" + LottoConstant.PRIZE_WINNER_1TH + "원) - " + map.get(6) + "개");
+        System.out.println("----------");
+
+        for (Rank rank : Rank.values()) {
+            String explain = "";
+            if(Rank.SECOND == rank) {
+                explain = ", 보너스 볼 일치";
+            }
+            System.out.println(rank.getCountOfMatch() + "개 일치"
+                    + explain + "(" + rank.getWinningMoney() + "원)- "
+                    + map.get(rank) + "개");
+        }
 
         double profit = getProfit(map);
         int rateOfReturn = calculateProfits(price, profit);
 
         System.out.println("총 수익률은 " + rateOfReturn + "% 입니다.");
     }
-    public static int calculateProfits(double price, double profit) {
+    private static int calculateProfits(double price, double profit) {
         double result = 0;
         if(profit != 0) {
             result = (profit / price) * 100;
@@ -32,11 +37,12 @@ public class ResultView {
         return (int)result;
     }
 
-    public static double getProfit(Map map) {
-        return LottoConstant.PRIZE_WINNER_5TH * (int)map.get(3)
-                + LottoConstant.PRIZE_WINNER_4TH * (int)map.get(4)
-                + LottoConstant.PRIZE_WINNER_3TH * (int)map.get(5)
-                + LottoConstant.PRIZE_WINNER_1TH * (int)map.get(6);
+    private static double getProfit(Map map) {
+        int profit = 0;
+        for (Rank rank : Rank.values()) {
+            profit += rank.getWinningMoney() * (int)map.get(rank);
+        }
+        return profit;
     }
 
     public static void printBuyLotto(List<Lotto> lottos) {
