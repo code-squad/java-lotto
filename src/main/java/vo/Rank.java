@@ -1,4 +1,4 @@
-package domain;
+package vo;
 
 public enum Rank {
     FIRST(6, 2000000000),
@@ -22,5 +22,17 @@ public enum Rank {
             if(rank.matchCount == matchCount) return rank;
         }
         return null;
+    }
+
+    public int calculateTotalReward(int count) {
+        return this.reward * count;
+    }
+
+    public int getMatchCount() {
+        return matchCount;
+    }
+
+    public int getReward() {
+        return reward;
     }
 }

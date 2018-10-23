@@ -1,15 +1,15 @@
 import domain.Lotto;
 import domain.LottoFactory;
+import domain.WinStatsCalculator;
+import domain.WinningLotto;
 import dto.LottoBundleDto;
-import dto.ResultDto;
-import util.StringParser;
+import dto.WinStatsDto;
 import view.InputView;
 import view.ResultView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class LottoGame {
     public static void main(String[] args) {
@@ -23,18 +23,12 @@ public class LottoGame {
 
     private static void goLotto() throws IOException {
         List<Lotto> theLottoBundle = generateRandomLottoBundle(InputView.inputCount());
-        LottoBundleDto theLottoBundleDto = makeLottoBundleDto(theLottoBundle);
-        ResultView.showLottoBundles(theLottoBundleDto);
-
-        Set<Integer> lottoNumbers = makeLottoNumbers(InputView.inputWinLottoText());
-        int[] winStats = theLottoBundle.calculateWinStats(LottoFactory.generateWinningLotto(lottoNumbers, InputView.inputBonusBall()));
-        ResultDto theResultDto = new ResultDto(theLottoBundleDto, winStats);
-        ResultView.showEarningRate(theResultDto);
+        ResultView.showLottoBundles(makeLottoBundleDto(theLottoBundle));
+        WinningLotto theWinningLotto = LottoFactory.generateWinningLotto(InputView.inputWinningLottoNumbers(), InputView.inputBonusBall());
+        WinStatsCalculator theWinStats =  new WinStatsCalculator(theLottoBundle, theWinningLotto);
+        ResultView.showResultMessage(theWinStats.toDto());
     }
 
-    private static Set<Integer> makeLottoNumbers(String lottoText){
-        return StringParser.parseToNumbers(lottoText);
-    }
 
     public static List<Lotto> generateRandomLottoBundle(int count){
         List<Lotto> randomLottoBundle = new ArrayList<>();

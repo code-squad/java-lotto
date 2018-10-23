@@ -13,8 +13,4 @@ public class LottoBundleDto {
     public List<LottoDto> getTheBundle(){
         return this.theBundle;
     }
-
-    int getTheBundleSize(){
-        return this.theBundle.size();
-    }
 }
