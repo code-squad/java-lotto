@@ -1,32 +1,49 @@
 package domain;
 
+import dto.WinStatsDto;
+import org.junit.Before;
 import org.junit.Test;
+import vo.Rank;
 
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WinStatsCalculatorTest {
+    List<Lotto> randomLottoBundle;
+    WinningLotto theWinningLotto;
+    WinStatsCalculator wc;
 
-    @Test
-    public void WinStatsCalculator() {
-        List<Lotto> randomLottoBundle = new ArrayList<>();
+    @Before
+    public void setUp(){
+        randomLottoBundle = new ArrayList<>();
+        Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+
         Set<Integer> set1 = new HashSet<>(Arrays.asList(5, 6, 7, 8, 9, 10));
         Set<Integer> set2 = new HashSet<>(Arrays.asList(1, 2, 3, 9, 10, 11));
 
-        Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-
-        WinningLotto theWinningLotto = LottoFactory.generateWinningLotto(set, 7);
+        theWinningLotto = LottoFactory.generateWinningLotto(set, 7);
 
         randomLottoBundle.add(LottoFactory.generateTheLotto(set1));
         randomLottoBundle.add(LottoFactory.generateTheLotto(set1));
         randomLottoBundle.add(LottoFactory.generateTheLotto(set1));
         randomLottoBundle.add(LottoFactory.generateTheLotto(set1));
         randomLottoBundle.add(LottoFactory.generateTheLotto(set2));
-
-
-        WinStatsCalculator wc = new WinStatsCalculator(randomLottoBundle, theWinningLotto);
+        wc = new WinStatsCalculator(randomLottoBundle, theWinningLotto);
+    }
+    
+    @Test
+    public void WinStatsCalculator() {
         assertThat(wc.calculateEarningRate()).isEqualTo(100.0);
+    }
+
+    @Test
+    public void WinStatsDtoTest(){
+        WinStatsDto wd = wc.toDto();
+        for (Rank rank : Rank.values()){
+            if(rank.equals(Rank.FIFTH)) assertThat(wd.getNumberOfCounts(rank)).isEqualTo(1);
+            else assertThat(wd.getNumberOfCounts(rank)).isEqualTo(0);
+        }
     }
 
 }
