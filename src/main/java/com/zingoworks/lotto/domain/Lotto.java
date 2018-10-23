@@ -1,9 +1,9 @@
 package com.zingoworks.lotto.domain;
 
-import com.zingoworks.lotto.utils.ListIntegerUtils;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.zingoworks.lotto.utils.LottoUtils.*;
 
 public class Lotto {
     private static final int REGULAR_CHOICE = 6;
@@ -14,9 +14,13 @@ public class Lotto {
         this.lottoNumbers = generateRandomLottoNumbers();
     }
 
+    Lotto(String inputLottoNumber) {
+        this.lottoNumbers = convertToListedNumbers(commaSeparator(inputLottoNumber));
+    }
+
     List<Integer> generateRandomLottoNumbers() {
         List<Integer> lottoNumbers = new ArrayList<>();
-        List<Integer> shuffledRandomNumbers = ListIntegerUtils.getShuffledNumbers(BasicNumber.getBasicNumberSet());
+        List<Integer> shuffledRandomNumbers = getShuffledNumbers(BasicNumber.getBasicNumberSet());
         for (int i = 0; i < REGULAR_CHOICE; i++) {
             lottoNumbers.add(shuffledRandomNumbers.get(i));
         }
@@ -55,7 +59,7 @@ public class Lotto {
     }
 
     private String getSortedLottoNumbers() {
-        return ListIntegerUtils.getSortedNumbers(lottoNumbers).toString();
+        return getSortedNumbers(lottoNumbers).toString();
     }
 
     @Override

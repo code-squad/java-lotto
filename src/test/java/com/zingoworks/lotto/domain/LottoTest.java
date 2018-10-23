@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
 
@@ -84,4 +85,6 @@ public class LottoTest {
     public static void main(String[] args) {
         Lotto testLotto = new Lotto();
     }
+
+
 }

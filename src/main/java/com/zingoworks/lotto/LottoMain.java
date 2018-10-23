@@ -1,4 +1,4 @@
-package com.zingoworks.lotto.controller;
+package com.zingoworks.lotto;
 
 import com.zingoworks.lotto.domain.Lotto;
 import com.zingoworks.lotto.domain.Lottos;

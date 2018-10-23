@@ -1,16 +1,18 @@
 package com.zingoworks.lotto.domain;
 
+import com.zingoworks.lotto.utils.LottoUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WinningLotto {
-    private static final String COMMA = ",";
 
     private List<Integer> winningNumbers;
     private int bonusNumber;
 
     public WinningLotto(String lastWinningNumbers, int bonusNumber) {
-        this.winningNumbers = convertToListedNumbers(commaSeparator(lastWinningNumbers));
+        this.winningNumbers = LottoUtils.convertToListedNumbers
+                (LottoUtils.commaSeparator(lastWinningNumbers));
         this.bonusNumber = bonusNumber;
     }
 
@@ -22,15 +24,4 @@ public class WinningLotto {
         return bonusNumber;
     }
 
-    private String[] commaSeparator(String numbers) {
-        return numbers.split(COMMA);
-    }
-
-    private List<Integer> convertToListedNumbers(String[] commaSeparatedNumbers) {
-        List<Integer> listedNumbers = new ArrayList<>();
-        for (String number : commaSeparatedNumbers) {
-            listedNumbers.add(Integer.parseInt(number));
-        }
-        return listedNumbers;
-    }
 }
