@@ -17,7 +17,7 @@ public class ResultView {
     private static StringBuilder sb = new StringBuilder();
 
 
-    public static void echoCount(int count){
+    static void echoCount(int count){
         System.out.println(count + ECHO_COUNT_MESSAGE);
     }
 
@@ -27,24 +27,34 @@ public class ResultView {
     private static String makeLottoBundlesMessage(LottoBundleDto lottoBundles){
         sb.setLength(0);
         for (LottoDto theLottoDto : lottoBundles.getTheBundle()) {
-            sb.append(theLottoDto.toString() + ENTER);
+            sb.append(theLottoDto.toString());
+            sb.append(ENTER);
         }
         return sb.toString();
     }
 
     public static void showResultMessage(WinStatsDto theWinStatsDto){
         System.out.println(ENTER + EARNING_RATE_MESSAGE + ENTER + HYPHENS);
-        System.out.println(makeRankMessages(theWinStatsDto));
+        System.out.println(makeWinStatsMessage(theWinStatsDto));
         System.out.println("총 수익률은 " + String.format("%.1f", theWinStatsDto.getEarningRate()) + PERCENT + "입니다.");
     }
 
-    private static String makeRankMessages(WinStatsDto theWinStatsDto){
+    private static String makeWinStatsMessage(WinStatsDto theWinStatsDto){
         sb.setLength(0);
         for(Rank rank : Rank.values()){
-            sb.append(rank.getMatchCount() + HIT_COUNT_MESSAGE + "(" + rank.getReward() + ")- "
-                    + theWinStatsDto.getNumberOfCounts(rank) + COUNT_MESSAGE);
+            makeRankMessage(rank);
+            sb.append(theWinStatsDto.getNumberOfCounts(rank));
+            sb.append(COUNT_MESSAGE);
             sb.append(ENTER);
         }
         return sb.toString();
+    }
+
+    private static void makeRankMessage(Rank rank) {
+        sb.append(rank.getMatchCount());
+        sb.append(HIT_COUNT_MESSAGE);
+        sb.append("(");
+        sb.append(rank.getReward());
+        sb.append(")- ");
     }
 }

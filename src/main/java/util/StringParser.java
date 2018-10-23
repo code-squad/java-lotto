@@ -14,15 +14,15 @@ public class StringParser {
         return numbers;
     }
 
-    public static String[] splitWithComma(String wholeText){
+    private static String[] splitWithComma(String wholeText){
         return wholeText.split(COMMA);
     }
 
-    public static int parseToNumber(String text){
+    private static int parseToNumber(String text) throws NumberFormatException{
         return Integer.parseInt(text);
     }
 
-    public static String trimSpace(String wholeText){
+    private static String trimSpace(String wholeText){
         return wholeText.replaceAll("\\s", "");
     }
 

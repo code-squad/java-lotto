@@ -1,17 +1,23 @@
 package domain;
 
+import vo.LottoNo;
+
 import java.util.Set;
 
 public class WinningLotto extends Lotto {
-    private int bonusBall;
+    private LottoNo bonusBall;
 
-    WinningLotto(Set<Integer> numbers, int bonusBall) {
+    WinningLotto(Set<LottoNo> numbers, LottoNo bonusBall) {
         super(numbers);
-        isValidBoundary(bonusBall);
-        this.bonusBall = bonusBall;
+        this.bonusBall = isValidBonusBall(numbers, bonusBall);
     }
 
-    public boolean isHitBonusBall(Lotto other){
+    boolean isHitBonusBall(Lotto other){
         return other.isHit(this.bonusBall);
+    }
+
+    private LottoNo isValidBonusBall(Set<LottoNo> numbers, LottoNo bonusBall){
+        if(numbers.contains(bonusBall)) throw new IllegalArgumentException();
+        return bonusBall;
     }
 }

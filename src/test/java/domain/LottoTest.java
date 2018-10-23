@@ -18,42 +18,42 @@ public class LottoTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void boundaryException(){
-        Set<Integer> set = new HashSet<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5));
+        Set<Integer> set = new HashSet<>(Arrays.asList(0, 1, 2, 3, 4, 5));
         Lotto lotto = LottoFactory.generateTheLotto(set);
         System.out.println(lotto);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void boundaryException2(){
-        Set<Integer> set = new HashSet<Integer>(Arrays.asList(1, 2, 3, 4, 5, 46));
+        Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 46));
         Lotto lotto = LottoFactory.generateTheLotto(set);
         System.out.println(lotto);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void lengthException(){
-        Set<Integer> set = new HashSet<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+        Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
         Lotto lotto = LottoFactory.generateTheLotto(set);
         System.out.println(lotto);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void bothException(){
-        Set<Integer> set = new HashSet<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 46));
+        Set<Integer> set = new HashSet<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 46));
         Lotto lotto = LottoFactory.generateTheLotto(set);
         System.out.println(lotto);
     }
 
     @Test
     public void calculateHitCount(){
-        Set<Integer> set = new HashSet<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6));
+        Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
         Lotto lottoA = LottoFactory.generateTheLotto(set);
         Lotto lottoB = LottoFactory.generateTheLotto(set);
 
         assertThat(lottoA.calculateHitCount(lottoB)).isEqualTo(6);
 
-        Set<Integer> list2 = new HashSet<Integer>(Arrays.asList(1, 2, 3, 43, 44, 45));
-        Lotto lottoC = LottoFactory.generateTheLotto(list2);
+        Set<Integer> set2 = new HashSet<>(Arrays.asList(1, 2, 3, 43, 44, 45));
+        Lotto lottoC = LottoFactory.generateTheLotto(set2);
 
         assertThat(lottoA.calculateHitCount(lottoC)).isEqualTo(3);
         assertThat(lottoC.calculateHitCount(lottoA)).isEqualTo(3);
