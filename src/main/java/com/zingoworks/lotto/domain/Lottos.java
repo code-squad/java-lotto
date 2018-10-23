@@ -9,8 +9,8 @@ public class Lottos {
     private List<Lotto> lottos;
 
     private Lottos(int purchaseAmount) {
-        if (purchaseAmount < 0) {
-            throw new IllegalArgumentException("<경고> 구매금액은 0원 이상입니다.");
+        if (purchaseAmount < PRICE_LOTTERY) {
+            throw new IllegalArgumentException("<경고> 최소 구매금액은 1000원 이상입니다.");
         }
         this.lottos = generateLottos(purchaseAmount);
     }
