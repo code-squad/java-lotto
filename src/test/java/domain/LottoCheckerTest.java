@@ -1,31 +1,31 @@
 package domain;
 
+import dto.StrikeDto;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Arrays;
+
+import static org.junit.Assert.*;
 
 public class LottoCheckerTest {
     LottoChecker lottoChecker;
-    
+
     @Before
     public void setUp() throws Exception {
-        List<Integer> winningNums = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
-        lottoChecker = new LottoChecker(winningNums);
+        lottoChecker = new LottoChecker(new WinningLotto(Arrays.asList(1,2,3,4,5,6), 7));
     }
 
     @Test
-    public void matchCheck() {
-        assertThat(lottoChecker.strikeCheck(2)).isEqualTo(1);
-        assertThat(lottoChecker.strikeCheck(8)).isEqualTo(0);
+    public void checkLotto1() {
+        Lotto lotto = new Lotto(Arrays.asList(1,2,3,4,7,9));
+        assertThat(lottoChecker.checkLotto(lotto)).isEqualTo(new StrikeDto(4, true));
     }
 
     @Test
-    public void getMatchNum() {
-        assertThat(lottoChecker.getStrikeNum(Arrays.asList(1,2,3,7,8,4))).isEqualTo(4);
+    public void checkLotto2() {
+        Lotto lotto = new Lotto(Arrays.asList(1,2,13,14,17,19));
+        assertThat(lottoChecker.checkLotto(lotto)).isEqualTo(new StrikeDto(2, false));
     }
 }

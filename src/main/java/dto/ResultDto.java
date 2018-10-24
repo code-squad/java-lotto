@@ -1,18 +1,20 @@
 package dto;
 
+import utils.Rank;
+
 import java.util.Map;
 
 public class ResultDto {
-    private final Map<Integer, Integer> strikeResults;
+    private final Map<Rank, Integer> gameResults;
     private final int profitRate;
 
-    public ResultDto(Map<Integer, Integer> strikeResults, int profitRate) {
-        this.strikeResults = strikeResults;
+    public ResultDto(Map<Rank, Integer> gameResults, int profitRate) {
+        this.gameResults = gameResults;
         this.profitRate = profitRate;
     }
 
-    public Map<Integer, Integer> getStrikeResults() {
-        return strikeResults;
+    public Map<Rank, Integer> getGameResults() {
+        return gameResults;
     }
 
     public int getProfitRate() {

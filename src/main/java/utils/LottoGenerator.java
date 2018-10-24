@@ -1,5 +1,7 @@
 package utils;
 
+import domain.Lotto;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +10,7 @@ import static utils.LottoGameValues.LOTTO_NUM_END;
 import static utils.LottoGameValues.LOTTO_NUM_START;
 import static utils.LottoGameValues.LOTTO_SIZE;
 
-public class LottoNumGenerator {
+public class LottoGenerator {
     private static List<Integer> lottoNums = new ArrayList<>();
     
     static {
@@ -17,8 +19,8 @@ public class LottoNumGenerator {
         }
     }
 
-    public static List<Integer> generate() {
+    public static Lotto generate() {
         Collections.shuffle(lottoNums);
-        return new ArrayList<>(lottoNums.subList(0, LOTTO_SIZE));
+        return new Lotto(new ArrayList<>(lottoNums.subList(0, LOTTO_SIZE)));
     }
 }

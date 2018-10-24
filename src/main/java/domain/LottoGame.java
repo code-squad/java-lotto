@@ -1,9 +1,9 @@
 package domain;
 
 import dto.LottoDto;
-import dto.ResultDto;
-import utils.LottoNumGenerator;
-import utils.LottoPrizeMapper;
+import dto.StrikeDto;
+import utils.LottoGenerator;
+import utils.Rank;
 import utils.MathHandler;
 import utils.NumParser;
 
@@ -12,48 +12,54 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static utils.LottoGameValues.LOTTO_SIZE;
-import static utils.LottoGameValues.PRIZE_STRIKE_MAX;
-import static utils.LottoGameValues.PRIZE_STRIKE_MIN;
-
 public class LottoGame {
-    private List<List<Integer>> lottos = new ArrayList<>();
+    private List<Lotto> lottos = new ArrayList<>();
 
     public LottoDto generateLottos(int lottoTicketNum) {
         for (int i = 0; i < lottoTicketNum; i++) {
-            lottos.add(LottoNumGenerator.generate());
+            lottos.add(LottoGenerator.generate());
         }
         return new LottoDto(lottos);
     }
 
-    public int[] checkLottosNum(String inputWinningNum) {
-        LottoChecker lottoChecker = new LottoChecker(NumParser.parse(inputWinningNum));
-        int[] strikeNums = new int[LOTTO_SIZE + 1];
-        for (List<Integer> lotto : lottos) {
-            strikeNums[lottoChecker.getStrikeNum(lotto)]++;
+    // LottoChecker에게 이관
+    public List<StrikeDto> checkLottos(String inputWinningNum, int bonus) {
+        LottoChecker lottoChecker = new LottoChecker(new WinningLotto(NumParser.parse(inputWinningNum), bonus));
+        List<StrikeDto> strikeDtos = new ArrayList<>();
+        for (Lotto lotto : lottos) {
+            strikeDtos.add(lottoChecker.checkLotto(lotto));
         }
-        return strikeNums;
+        return strikeDtos;
     }
 
-    public ResultDto makeResultDto(int[] strikeNums, int purchaseAmount) {
-        Map<Integer, Integer> strikeResults = putStrikeNums(strikeNums);
-        int profitSum = calculateProfitNum(strikeNums);
-        return new ResultDto(strikeResults, MathHandler.getProfit(profitSum, purchaseAmount));
+    public Map<Rank, Integer> assignGameResult(List<StrikeDto> strikeDtos) {
+        Map<Rank, Integer> gameResult = new HashMap<>();
+        initGameResult(gameResult);
+        for (StrikeDto strikeDto : strikeDtos) {
+            Rank rank = Rank.valueOf(strikeDto.getStrikePoint(), strikeDto.getStrikeBonus());
+            putGameResult(gameResult, rank);
+        }
+        return gameResult;
     }
 
-    private int calculateProfitNum(int[] strikeNums) {
+    private void initGameResult(Map<Rank, Integer> gameResult) {
+        for (Rank rank : Rank.values()) {
+            gameResult.put(rank, 0);
+        }
+    }
+
+    private void putGameResult(Map<Rank, Integer> gameResult, Rank rank) {
+        if (rank != null) {
+            gameResult.put(rank, gameResult.get(rank) + 1);
+        }
+    }
+
+    public int calculateProfitRate(Map<Rank, Integer> gameResult, int purchaseAmount) {
         int tempProfitSum = 0;
-        for (int i = PRIZE_STRIKE_MIN; i <= PRIZE_STRIKE_MAX; i++) {
-            tempProfitSum += LottoPrizeMapper.get(i) * strikeNums[i];
+        for (Rank rank : gameResult.keySet()) {
+            tempProfitSum += rank.getWinningMoney() * gameResult.get(rank);
         }
-        return tempProfitSum;
+        return MathHandler.getProfit(tempProfitSum, purchaseAmount);
     }
 
-    private Map<Integer, Integer> putStrikeNums(int[] strikeNums) {
-        Map<Integer, Integer> tempStrikeNums = new HashMap<>();
-        for (int i = PRIZE_STRIKE_MIN; i <= PRIZE_STRIKE_MAX; i++) {
-            tempStrikeNums.put(i, strikeNums[i]);
-        }
-        return tempStrikeNums;
-    }
 }
