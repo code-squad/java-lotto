@@ -2,6 +2,8 @@ package util;
 
 import domain.Lotto;
 import domain.LottoFactory;
+import domain.LottoResult;
+import domain.Reward;
 import dto.RewardDto;
 
 public class StringFormat {
@@ -16,8 +18,11 @@ public class StringFormat {
         return num + LottoFactory.SPLIT_STANDARD;
     }
 
-    public static String winStatsFormat(int count, int price, int matchCount) {
-        return String.format("%d개 일치 (%d원) - %d개", count, price, matchCount);
+    public static String winStatsFormat(Reward reward, int matchCount) {
+        if(Reward.isSecond(reward)) {
+            return String.format("%d개 일치, 보너스볼 일치 (%d원) - %d개", Reward.getLottoHit(reward), Reward.getPrize(reward), matchCount);
+        }
+        return String.format("%d개 일치 (%d원) - %d개", Reward.getLottoHit(reward), Reward.getPrize(reward), matchCount);
     }
 
     public static void showProfit(RewardDto rewardDto) {

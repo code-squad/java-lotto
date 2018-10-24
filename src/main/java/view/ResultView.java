@@ -1,15 +1,16 @@
 package view;
 
 import domain.Lotto;
+import domain.Reward;
 import dto.LottoDto;
 import dto.RewardDto;
 import util.StringFormat;
 
-import java.util.Iterator;
+import java.util.*;
 
 public class ResultView {
     public static void showLottoList(LottoDto lottoDto) {
-        for(Lotto lotto : lottoDto.getLottos()) {
+        for (Lotto lotto : lottoDto.getLottos()) {
             showLotto(lotto);
         }
     }
@@ -27,10 +28,11 @@ public class ResultView {
     }
 
     public static void showWinStats(RewardDto rewardDto) {
-        Iterator<Integer> it = rewardDto.getRewardMapper().keySet().iterator();
+        Map<Reward, Integer> rewardResult = rewardDto.getRewardResult();
+        Iterator<Reward> it = rewardResult.keySet().iterator();
         while(it.hasNext()) {
-            int count = it.next();
-            System.out.println(StringFormat.winStatsFormat(count, rewardDto.getRewardMapper().get(count), rewardDto.getRewardResult().get(count)));
+            Reward reward = it.next();
+            System.out.println(StringFormat.winStatsFormat(reward, rewardDto.getRewardResult().get(reward)));
         }
     }
 

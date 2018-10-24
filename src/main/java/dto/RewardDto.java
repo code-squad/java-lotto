@@ -1,16 +1,16 @@
 package dto;
 
+import domain.Reward;
+
 import java.util.Map;
 
 public class RewardDto {
     private int profit;
-    private Map<Integer, Integer> rewardResult;
-    private Map<Integer, Integer> rewardMapper;
+    private Map<Reward, Integer> rewardResult;
 
-    public RewardDto(int profit, Map<Integer, Integer> rewardResult, Map<Integer, Integer> rewardMapper) {
+    public RewardDto(int profit, Map<Reward, Integer> rewardResult) {
         this.profit = profit;
         this.rewardResult = rewardResult;
-        this.rewardMapper = rewardMapper;
     }
 
     public int getProfit() {
@@ -21,19 +21,11 @@ public class RewardDto {
         this.profit = profit;
     }
 
-    public Map<Integer, Integer> getRewardResult() {
+    public Map<Reward, Integer> getRewardResult() {
         return rewardResult;
     }
 
-    public void setRewardResult(Map<Integer, Integer> rewardResult) {
+    public void setRewardResult(Map<Reward, Integer> rewardResult) {
         this.rewardResult = rewardResult;
-    }
-
-    public Map<Integer, Integer> getRewardMapper() {
-        return rewardMapper;
-    }
-
-    public void setRewardMapper(Map<Integer, Integer> rewardMapper) {
-        this.rewardMapper = rewardMapper;
     }
 }
