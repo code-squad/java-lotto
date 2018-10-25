@@ -17,8 +17,8 @@ public class LottoGame {
     }
 
     private void initRewardResult() {
-        for(int i = Lotto.LOTTO_NUMBER_COUNT - 1; i > 0; i--) {
-            rewardResult.put(Reward.obtainReward(i), 0);
+        for(int rank = Lotto.LOTTO_NUMBER_COUNT - 1; rank > 0; rank--) {
+            rewardResult.put(Reward.obtainReward(rank), 0);
         }
     }
 
@@ -34,27 +34,27 @@ public class LottoGame {
         }
     }
 
-    public void addRewardResult(LottoResult lottoResult) {
+    public void addRewardResult(Reward reward) {
         int value = 1;
-        if(rewardResult.containsKey(Reward.obtainReward(lottoResult))) {
-            value = rewardResult.get(Reward.obtainReward(lottoResult)) + 1;
+        if(rewardResult.containsKey(reward)) {
+            value = rewardResult.get(reward) + 1;
         }
-        if(isPossibleWinNumber(lottoResult)) {
-            rewardResult.put(Reward.obtainReward(lottoResult), value);
+        if(isPossibleWinNumber(reward)) {
+            rewardResult.put(reward, value);
         }
     }
 
     /*  3개 미만으로 맞힌 로또는 결과를 저장할 필요가 없기 때문에 3개 미만 체크하는 메소드 */
-    private boolean isPossibleWinNumber(LottoResult lottoResult) {
-        if (LottoResult.obtainLottoHit(lottoResult) < POSSIBLE_WIN_NUM) {
+    private boolean isPossibleWinNumber(Reward reward) {
+        if (reward.obtainLottoHit() < POSSIBLE_WIN_NUM) {
             return false;
         }
         return true;
     }
 
     /* 로또 결과 확인을 위한 메소드로서, 리턴값은 enum type LottoResult */
-    public static LottoResult matchLottoResult(Lotto lotto, WinningLotto winningLotto) {
-        return winningLotto.confirmLottoResult(lotto);
+    public static Reward matchLottoResult(Lotto lotto, WinningLotto winningLotto) {
+        return winningLotto.obtainReward(lotto);
     }
 
     /* 가격에 맞게 로또를 구매하는 메소드 */

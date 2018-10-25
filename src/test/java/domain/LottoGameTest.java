@@ -1,4 +1,6 @@
 package domain;
+import dto.LottoDto;
+import dto.RewardDto;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -25,6 +27,6 @@ public class LottoGameTest {
         winngig.add(new LottoNum(2)); winngig.add(new LottoNum(3)); winngig.add(new LottoNum(4));
         winngig.add(new LottoNum(5)); winngig.add(new LottoNum(6)); winngig.add(new LottoNum(7));
         WinningLotto winningLotto = new WinningLotto(winngig, new LottoNum(1));
-        assertThat(LottoGame.matchLottoResult(myLotto, winningLotto)).isEqualTo(LottoResult.SECOND);
+        assertThat(LottoGame.matchLottoResult(myLotto, winningLotto)).isEqualTo(Reward.SECOND_REWARD);
     }
 }

@@ -33,20 +33,20 @@ public class WinningLotto {
         return false;
     }
 
-    /* 로또 번호와 당첨번호 결과를 매칭해서 로또 결과를 반환 */
-    public LottoResult confirmLottoResult(Lotto lotto) {
+    /* 로또 번호와 당첨번호 결과를 매칭해서 로또 결과 Reward를 반환 */
+    public Reward obtainReward(Lotto lotto) {
         int cnt = 0;
         for(int i = 0; i < Lotto.LOTTO_NUMBER_COUNT; i++) {
             cnt = this.winningLottos.contains(lotto.getLottoNum(i)) ? cnt + 1 : cnt;
         }
-        return LottoResult.obtainLottoResult(cnt, confirmBonusHit(lotto));
+        return Reward.obtainReward(cnt, isBonusHit(lotto));
     }
 
     /* 보너즈 적중 유무 확인하는 메소드 */
-    public int confirmBonusHit(Lotto lotto) {
+    public boolean isBonusHit(Lotto lotto) {
         if(lotto.isContainLottoNum(bonusBall)) {
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 }

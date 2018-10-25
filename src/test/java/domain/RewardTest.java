@@ -23,4 +23,9 @@ public class RewardTest {
         rewardResult.put(Reward.REWARD_FIFTH, 2);
         assertThat(Reward.calculateProfit(1000, rewardResult)).isEqualTo(1000);
     }
+
+    @Test
+    public void isSecondTest() {
+        assertThat(Reward.isSecond(5, true)).isEqualTo(Reward.SECOND_REWARD);
+    }
 }
