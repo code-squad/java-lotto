@@ -1,7 +1,6 @@
 package domain;
 
 import dto.LottoDto;
-import dto.StrikeDto;
 import utils.LottoGenerator;
 import utils.Rank;
 import utils.MathHandler;
@@ -22,21 +21,12 @@ public class LottoGame {
         return new LottoDto(lottos);
     }
 
-    // LottoChecker에게 이관
-    public List<StrikeDto> checkLottos(String inputWinningNum, int bonus) {
-        LottoChecker lottoChecker = new LottoChecker(new WinningLotto(NumParser.parse(inputWinningNum), bonus));
-        List<StrikeDto> strikeDtos = new ArrayList<>();
-        for (Lotto lotto : lottos) {
-            strikeDtos.add(lottoChecker.checkLotto(lotto));
-        }
-        return strikeDtos;
-    }
-
-    public Map<Rank, Integer> assignGameResult(List<StrikeDto> strikeDtos) {
+    public Map<Rank, Integer> checkLottos(String inputWinningNum, int bonus) {
+        WinningLotto winningLotto = new WinningLotto(NumParser.parse(inputWinningNum), bonus);
         Map<Rank, Integer> gameResult = new HashMap<>();
         initGameResult(gameResult);
-        for (StrikeDto strikeDto : strikeDtos) {
-            Rank rank = Rank.valueOf(strikeDto.getStrikePoint(), strikeDto.getStrikeBonus());
+        for (Lotto lotto : lottos) {
+            Rank rank = Rank.valueOf(lotto.strikeCheck(winningLotto), winningLotto.bonusCheck(lotto));
             putGameResult(gameResult, rank);
         }
         return gameResult;
@@ -54,7 +44,7 @@ public class LottoGame {
         }
     }
 
-    public int calculateProfitRate(Map<Rank, Integer> gameResult, int purchaseAmount) {
+    public int calculateProfitRate(Map<Rank, Integer> gameResult, double purchaseAmount) {
         int tempProfitSum = 0;
         for (Rank rank : gameResult.keySet()) {
             tempProfitSum += rank.getWinningMoney() * gameResult.get(rank);

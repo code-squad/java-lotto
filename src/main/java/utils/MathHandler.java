@@ -10,7 +10,7 @@ public class MathHandler {
         return inputPurchaseAmount / LOTTO_PRICE;
     }
 
-    public static int getProfit(int profitSum, int purchaseAmount) {
-        return profitSum / purchaseAmount * 100;
+    public static int getProfit(int profitSum, double purchaseAmount) {
+        return (int)(profitSum / purchaseAmount * 100);
     }
 }

@@ -1,12 +1,10 @@
 import domain.LottoGame;
 import dto.LottoDto;
 import dto.ResultDto;
-import dto.StrikeDto;
 import utils.Rank;
 import view.InputView;
 import view.ResultView;
 
-import java.util.List;
 import java.util.Map;
 
 import static utils.LottoGameValues.LOTTO_PRICE;
@@ -21,17 +19,16 @@ public class Main {
         LottoDto lottoDto = lottoGame.generateLottos(lottoTicketNum);
         ResultView.showLottos(lottoDto);
 
-        List<StrikeDto> strikeDtos;
+        Map<Rank, Integer> gameResult;
         while (true) {
             try {
-                strikeDtos = lottoGame.checkLottos(InputView.inputWinningLottoNum(), InputView.inputBonusNum());
+                gameResult = lottoGame.checkLottos(InputView.inputWinningLottoNum(), InputView.inputBonusNum());
                 break;
             } catch(IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
-        Map<Rank, Integer> gameResult = lottoGame.assignGameResult(strikeDtos);
-        int profitRate = lottoGame.calculateProfitRate(gameResult, lottoTicketNum * LOTTO_PRICE);
+        int profitRate = lottoGame.calculateProfitRate(gameResult, (double)(lottoTicketNum * LOTTO_PRICE));
         ResultView.showLottoResult(new ResultDto(gameResult, profitRate));
     }
 }

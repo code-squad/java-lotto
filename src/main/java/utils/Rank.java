@@ -1,13 +1,11 @@
 package utils;
 
-import static utils.LottoGameValues.*;
-
 public enum Rank {
-    FIFTH(3, THREE_MATCH_PRIZE),
-    FOURTH(4, FOUR_MATCH_PRIZE),
-    THRID(5, FIVE_MATCH_PRIZE),
-    SECOND(5, FIVE_MATCH_BONUS_PRIZE),
-    FIRST(6, SIX_MATCH_PRIZE);
+    FIFTH(3, 5000),
+    FOURTH(4, 50000),
+    THRID(5, 1500000),
+    SECOND(5, 30000000),
+    FIRST(6, 2000000000);
 
     private int countOfStrike;
     private int winningMoney;
