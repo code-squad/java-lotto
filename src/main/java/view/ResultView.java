@@ -1,10 +1,9 @@
 package view;
 
-import utils.LottoPrizeMapper;
+import domain.Lotto;
+import utils.Rank;
 import dto.LottoDto;
 import dto.ResultDto;
-
-import java.util.List;
 
 import static utils.LottoGameValues.PRIZE_STRIKE_MAX;
 import static utils.LottoGameValues.PRIZE_STRIKE_MIN;
@@ -20,16 +19,22 @@ public class ResultView {
     }
 
     public static void showLottos(LottoDto lottoDto) {
-        for (List<Integer> lotto : lottoDto.getLottos()) {
+        for (Lotto lotto : lottoDto.getLottos()) {
             System.out.println(lotto);
         }
     }
 
     public static void showLottoResult(ResultDto resultDto) {
-        System.out.println(NEWLINE + "당첨 통계" + NEWLINE + "---------");
-        for (int i = PRIZE_STRIKE_MIN; i <= PRIZE_STRIKE_MAX; i++) {
-            System.out.println(i + "개 일치 (" + LottoPrizeMapper.get(i) + ")원- " + resultDto.getStrikeResults().get(i));
+        for (Rank value : Rank.values()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(value.getCountOfStrike() + "개 일치");
+            if(value.equals(Rank.SECOND)) {
+                sb.append(", 보너스 볼 일치");
+            }
+            sb.append(" (" + value.getWinningMoney() + "원) ");
+            sb.append("- " + resultDto.getGameResults().get(value) + "개");
+            System.out.println(sb.toString());
         }
-        System.out.println("총 수익률은 " + resultDto.getProfitRate() + "%입니다.");
+        System.out.printf("총 수익률은 %d%%입니다." + NEWLINE, resultDto.getProfitRate());
     }
 }

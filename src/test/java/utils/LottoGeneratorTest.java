@@ -6,14 +6,14 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class LottoNumGeneratorTest {
+public class LottoGeneratorTest {
 
     @Test
     public void generate() {
         List<Integer> lottoNums;
         for (int i = 0; i < 14; i++) {
-            lottoNums = LottoNumGenerator.generate();
-            System.out.println(lottoNums);
+//            lottoNums = LottoGenerator.generate();
+//            System.out.println(lottoNums);
         }
 
     }

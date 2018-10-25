@@ -1,15 +1,17 @@
 package dto;
 
+import domain.Lotto;
+
 import java.util.List;
 
 public class LottoDto {
-    private final List<List<Integer>> lottos;
+    private final List<Lotto> lottos;
 
-    public LottoDto(List<List<Integer>> lottos) {
+    public LottoDto(List<Lotto> lottos) {
         this.lottos = lottos;
     }
 
-    public List<List<Integer>> getLottos() {
+    public List<Lotto> getLottos() {
         return lottos;
     }
 }

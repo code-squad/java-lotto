@@ -10,10 +10,10 @@ public class NumParser {
     }
 
     public static List<Integer> parse(String inputWinningNums) {
-        List<Integer> winningNums = new ArrayList<>();
+        List<Integer> lottoNums = new ArrayList<>();
         for (String num : inputWinningNums.split(COMMA)) {
-            winningNums.add(Integer.parseInt(num.trim()));
+            lottoNums.add(Integer.parseInt(num.trim()));
         }
-        return winningNums;
+        return lottoNums;
     }
 }
