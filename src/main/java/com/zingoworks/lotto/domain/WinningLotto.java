@@ -2,22 +2,21 @@ package com.zingoworks.lotto.domain;
 
 import com.zingoworks.lotto.exception.DuplicateLottoNumberException;
 
-public class WinningLotto {
+import static com.zingoworks.lotto.domain.Lotto.MAX_RANGE;
+import static com.zingoworks.lotto.domain.Lotto.MIN_RANGE;
 
+public class WinningLotto {
     private Lotto winningLotto;
     private int bonusNumber;
 
     public WinningLotto(String lastWinningNumbers, int bonusNumber) {
         this.winningLotto = Lotto.generateManualLotto(lastWinningNumbers);
 
-        //메세지를 보내서 일을 하게 해라...ㅠㅠㅠㅠ
-        //if(this.winningLotto.getLottoNumbers().contains(bonusNumber)) { 기존의사고방식
-        //if(winningLotto.contains(bonusNumber)) { 객체지향적
         if(winningLotto.contains(bonusNumber)) {
             throw new DuplicateLottoNumberException("중복 된 보너스볼입니다.");
         }
 
-        if(bonusNumber < 1 || bonusNumber > 45) {
+        if(bonusNumber < MIN_RANGE || bonusNumber > MAX_RANGE) {
             throw new IllegalArgumentException("유효범위를 초과하였습니다.");
         }
 
@@ -34,7 +33,7 @@ public class WinningLotto {
 
     Prize match(Lotto lotto) {
         for (Prize prize : Prize.values()) {
-            if(prize.getCountOfHit() == lotto.getCountOfHit(getWinningLotto())
+            if(prize.getCountOfHit() == lotto.getCountOfHit(winningLotto)
                     && prize.isBonusHit() == isBonusHit(lotto)) {
                 return prize;
             }
@@ -43,7 +42,7 @@ public class WinningLotto {
     }
 
     private boolean isBonusHit(Lotto lotto) {
-        return (lotto.getCountOfHit(this.winningLotto) == Prize.SECOND.getCountOfHit())
-                && lotto.getLottoNumbers().contains(bonusNumber);
+        return (lotto.getCountOfHit(winningLotto) == Prize.SECOND.getCountOfHit())
+                && lotto.contains(bonusNumber);
     }
 }

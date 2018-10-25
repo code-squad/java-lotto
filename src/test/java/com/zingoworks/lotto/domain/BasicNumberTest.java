@@ -12,12 +12,12 @@
 //
 //    @Test
 //    public void 기본넘버세트생성_개수확인() {
-//        assertThat(BasicNumber.getBasicNumberSet().size()).isEqualTo(45);
+//        assertThat(BasicNumber.getBasicNumbers().size()).isEqualTo(45);
 //    }
 //
 //    @Test
 //    public void 기본넘버세트생성_중복유무확인() {
-//        List<Integer> temp = BasicNumber.getBasicNumberSet();
+//        List<Integer> temp = BasicNumber.getBasicNumbers();
 //        Set<Integer> verify = new HashSet<>();
 //        for (Integer integer : temp) {
 //            verify.add(integer);
@@ -27,7 +27,7 @@
 //
 //    @Test
 //    public void 기본넘버세트생성_출력() {
-//        System.out.println(BasicNumber.getBasicNumberSet());
+//        System.out.println(BasicNumber.getBasicNumbers());
 //    }
 //
 //}

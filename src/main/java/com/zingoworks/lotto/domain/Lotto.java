@@ -1,6 +1,7 @@
 package com.zingoworks.lotto.domain;
 
 import com.zingoworks.lotto.exception.DuplicateLottoNumberException;
+import com.zingoworks.lotto.exception.SizeOutOfBoundsException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,11 +11,10 @@ import java.util.stream.IntStream;
 import static com.zingoworks.lotto.utils.LottoUtils.*;
 
 public class Lotto {
-    private static final int MIN_RANGE = 1;
-    private static final int MAX_RANGE = 45;
+    static final int MIN_RANGE = 1;
+    static final int MAX_RANGE = 45;
+    static final List<Integer> BASIC_NUMBERS = getBasicNumbers();
     private static final int REGULAR_CHOICE = 6;
-    //final 처리하면 sort 안되는지 확인해보기!
-    static List<Integer> basicNumbers = getBasicNumberSet();
 
     private List<Integer> lottoNumbers;
 
@@ -28,6 +28,10 @@ public class Lotto {
         if (new HashSet(lottoNumbers).size() != LottoNumberParser.parse(inputLottoNumber).size()) {
             throw new DuplicateLottoNumberException("중복 된 숫자가 존재합니다.");
         }
+
+        if (lottoNumbers.size() != REGULAR_CHOICE) {
+            throw new SizeOutOfBoundsException("6개의 숫자를 입력해주세요.");
+        }
     }
 
     static Lotto generateAutomaticLotto() {
@@ -38,30 +42,26 @@ public class Lotto {
         return new Lotto(inputLottoNumber);
     }
 
+    //테스트 아니면 getter 없어도 되는데 좀 더 큰 단위를 테스트해야하는건가?
     List<Integer> getLottoNumbers() {
         return lottoNumbers;
     }
 
     boolean contains(int number) {
-        return this.lottoNumbers.contains(number);
+        return lottoNumbers.contains(number);
     }
 
     int getCountOfHit(Lotto winningLotto) {
         int count = 0;
-        for (Integer winningNumber : winningLotto.getLottoNumbers()) {
-            count = increaseCount(count, winningNumber);
+        for (Integer lottoNumber : lottoNumbers) {
+            if (winningLotto.contains(lottoNumber)) {
+                count++;
+            }
         }
         return count;
     }
 
-    private int increaseCount(int count, Integer winningNumber) {
-        if (this.lottoNumbers.contains(winningNumber)) {
-            count++;
-        }
-        return count;
-    }
-
-    static List<Integer> getBasicNumberSet() {
+    private static List<Integer> getBasicNumbers() {
         List<Integer> basicNumbers = new ArrayList<>();
         IntStream.range(MIN_RANGE, MAX_RANGE + 1).forEach(basicNumbers::add);
         return basicNumbers;
@@ -69,7 +69,7 @@ public class Lotto {
 
     private List<Integer> generateRandomLottoNumbers() {
         List<Integer> lottoNumbers = new ArrayList<>();
-        List<Integer> shuffledRandomNumbers = getShuffledNumbers(basicNumbers);
+        List<Integer> shuffledRandomNumbers = getShuffledNumbers(BASIC_NUMBERS);
         for (int i = 0; i < REGULAR_CHOICE; i++) {
             lottoNumbers.add(shuffledRandomNumbers.get(i));
         }
