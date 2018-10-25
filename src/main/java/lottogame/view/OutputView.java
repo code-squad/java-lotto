@@ -1,30 +1,28 @@
 package lottogame.view;
 
-import lottogame.domain.Lotto;
 import lottogame.domain.PrizeRank;
-import lottogame.dto.ResultDTO;
+import lottogame.dto.Result;
 
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class OutputView {
-    public static void printLottoAmount(int countLotto) {
-        System.out.println(countLotto + "개를 구입했습니다.");
-    }
 
-    public static void printLotto(Stream<Lotto> readLotto) {
-        readLotto.map(Lotto::toString).forEach(System.out::println);
-    }
+    public static final int HUNDRED = 100;
 
-    public static void printResult(int inputMoney, ResultDTO resultDTO) {
+    public static void printResult(int inputMoney, Result result) {
         System.out.println("당첨 통계");
         System.out.println("--------------------------");
-        int priceMoney = 0;
-        PrizeRank[] values = PrizeRank.values();
-        for (int i = 0; i < values.length - 1; i++) {   //BOOM은 출력하지 않는다.
-            System.out.println(values[i].getMessage() + "-"
-                    + resultDTO.getHitCountOf(values[i]) + "개");
-            priceMoney += values[i].getReward() * resultDTO.getHitCountOf(values[i]);
+        List<PrizeRank> prizeRanks = new ArrayList<>(Arrays.asList(PrizeRank.values()));
+        prizeRanks.remove(PrizeRank.BOOM);
+
+        for (PrizeRank prizeRank : prizeRanks) {
+            int hitCount = result.get(prizeRank);
+            System.out.println(prizeRank.getMessage() + "-" + hitCount + "개");
         }
-        System.out.println("총 수익률은 " + priceMoney / inputMoney * 100 + "% 입니다.");
+
+        System.out.println("총 수익률은 " + result.totalReward() / inputMoney * HUNDRED + "% 입니다.");
     }
 }

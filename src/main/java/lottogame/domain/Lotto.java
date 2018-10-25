@@ -7,34 +7,33 @@ import java.util.Set;
 
 public class Lotto {
     public static final int CORRECT_LOTTO_NUMBER_AMOUNT = 6;
-    public static final int MAXIMUM_LOTTO_NUM = 46;
-    private Set<LottoNumber> lotto = new HashSet<>();
+    private Set<LottoNumber> lottos = new HashSet<>();
 
-    Lotto(List<Integer> lottoNum) {
+    public Lotto(List<Integer> lottoNum) {
         for (Integer integer : lottoNum) {
-            lotto.add(new LottoNumber(integer));
+            lottos.add(LottoNumber.Of(integer));
         }
-        inspectNumberAmount();
         inspectDuplication(lottoNum);
-        this.lotto = Collections.unmodifiableSet(lotto);
+        inspectNumberAmount();
+        this.lottos = Collections.unmodifiableSet(lottos);
     }
 
     private void inspectNumberAmount() {
-        if (lotto.size() != CORRECT_LOTTO_NUMBER_AMOUNT) {
-            throw new IllegalArgumentException();
+        if (lottos.size() != CORRECT_LOTTO_NUMBER_AMOUNT) {
+            throw new IllegalArgumentException("로또의 숫자는 6개여야 합니다.");
         }
     }
 
     private void inspectDuplication(List<Integer> lottoNumber) {
-        if (this.lotto.size() != lottoNumber.size()) {
-            throw new IllegalArgumentException();
+        if (this.lottos.size() != lottoNumber.size()) {
+            throw new IllegalArgumentException("로또의 숫자는 중복되면 안됩니다.");
         }
     }
 
     int match(Lotto winningNumber) {
         int cnt = 0;
-        for (LottoNumber lottoNumber : winningNumber.lotto) {
-            if (this.lotto.contains(lottoNumber)) {
+        for (LottoNumber lottoNumber : winningNumber.lottos) {
+            if (this.lottos.contains(lottoNumber)) {
                 cnt++;
             }
         }
@@ -42,11 +41,11 @@ public class Lotto {
     }
 
     boolean isContain(LottoNumber bonusNum) {
-        return lotto.contains(bonusNum);
+        return lottos.contains(bonusNum);
     }
 
     @Override
     public String toString() {
-        return lotto.toString();
+        return lottos.toString();
     }
 }
