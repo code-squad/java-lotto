@@ -1,53 +1,60 @@
 package com.zingoworks.lotto.domain;
 
+import com.zingoworks.lotto.exception.DuplicateLottoNumberException;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static com.zingoworks.lotto.utils.LottoUtils.*;
 
 public class Lotto {
+    private static final int MIN_RANGE = 1;
+    private static final int MAX_RANGE = 45;
     private static final int REGULAR_CHOICE = 6;
 
     private List<Integer> lottoNumbers;
 
-    Lotto() {
+    private Lotto() {
         this.lottoNumbers = generateRandomLottoNumbers();
     }
 
-    Lotto(String inputLottoNumber) {
-        this.lottoNumbers = convertToListedNumbers(commaSeparator(inputLottoNumber));
+    private Lotto(String inputLottoNumber) {
+        this.lottoNumbers = LottoNumberParser.parse(inputLottoNumber);
+
+        if (new HashSet(lottoNumbers).size() != LottoNumberParser.parse(inputLottoNumber).size()) {
+            throw new DuplicateLottoNumberException("중복 된 숫자가 존재합니다.");
+        }
     }
 
-    List<Integer> generateRandomLottoNumbers() {
-        List<Integer> lottoNumbers = new ArrayList<>();
-        List<Integer> shuffledRandomNumbers = getShuffledNumbers(BasicNumber.getBasicNumberSet());
-        for (int i = 0; i < REGULAR_CHOICE; i++) {
-            lottoNumbers.add(shuffledRandomNumbers.get(i));
-        }
+    static Lotto generateAutomaticLotto() {
+        return new Lotto();
+    }
+
+    static Lotto generateManualLotto(String inputLottoNumber) {
+        return new Lotto(inputLottoNumber);
+    }
+
+    List<Integer> getLottoNumbers() {
         return lottoNumbers;
     }
 
-    Score getScore(WinningLotto winningLotto) {
-        return new Score(getCountOfHit(winningLotto), isBonusHit(winningLotto));
-    }
-
-    private boolean isBonusHit(WinningLotto winningLotto) {
-        if (getCountOfHit(winningLotto) == 5) {
-            return lottoNumbers.contains(winningLotto.getBonusNumber());
+    Prize getPrize(WinningLotto winningLotto) {
+        for (Prize prize : Prize.values()) {
+            if(prize.getCountOfHit() == getCountOfHit(winningLotto.getWinningLotto())
+                    && prize.isBonusHit() == winningLotto.isBonusHit(this)) {
+                return prize;
+            }
         }
-        return false;
+        return null;
     }
 
-    private int getCountOfHit(WinningLotto winningLotto) {
+    int getCountOfHit(Lotto winningLotto) {
         int count = 0;
-        for (Integer winningNumber : winningLotto.getWinningNumbers()) {
+        for (Integer winningNumber : winningLotto.getLottoNumbers()) {
             count = increaseCount(count, winningNumber);
         }
-
-        if(count < 3) {
-            return 0;
-        }
-
         return count;
     }
 
@@ -58,12 +65,23 @@ public class Lotto {
         return count;
     }
 
-    private String getSortedLottoNumbers() {
-        return getSortedNumbers(lottoNumbers).toString();
+    List<Integer> getBasicNumberSet() {
+        List<Integer> basicNumbers = new ArrayList<>();
+        IntStream.range(MIN_RANGE, MAX_RANGE + 1).forEach(basicNumbers::add);
+        return basicNumbers;
+    }
+
+    private List<Integer> generateRandomLottoNumbers() {
+        List<Integer> lottoNumbers = new ArrayList<>();
+        List<Integer> shuffledRandomNumbers = getShuffledNumbers(getBasicNumberSet());
+        for (int i = 0; i < REGULAR_CHOICE; i++) {
+            lottoNumbers.add(shuffledRandomNumbers.get(i));
+        }
+        return lottoNumbers;
     }
 
     @Override
     public String toString() {
-        return getSortedLottoNumbers();
+        return getSortedNumbers(lottoNumbers).toString();
     }
 }

@@ -16,17 +16,4 @@ public class LottoUtils {
         Collections.shuffle(list);
         return list;
     }
-
-    public static String[] commaSeparator(String numbers) {
-        return numbers.split(COMMA);
-    }
-
-    public static List<Integer> convertToListedNumbers(String[] commaSeparatedNumbers) {
-        List<Integer> listedNumbers = new ArrayList<>();
-        for (String number : commaSeparatedNumbers) {
-            listedNumbers.add(Integer.parseInt(number));
-        }
-        return listedNumbers;
-    }
-
 }
