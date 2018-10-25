@@ -5,12 +5,19 @@ import java.util.*;
 public class LottoResult {
     private Map<Prize, Integer> winningStatus;
 
-    LottoResult(Lottos lottos, WinningLotto winningLotto) {
-        this.winningStatus = computeTotalWinningStatus(lottos, winningLotto);
+    LottoResult() {
+        this.winningStatus = defaultWinningStatus();
     }
 
     public int getTotalWin(Prize prize) {
         return winningStatus.get(prize);
+    }
+
+    //if문 없애기 가능?
+    public void addPrize(Prize prize) {
+        if(prize != null) {
+            winningStatus.put(prize, winningStatus.get(prize) + 1);
+        }
     }
 
     public int getNetEarningRate(int purchaseAmount) {
@@ -29,10 +36,10 @@ public class LottoResult {
         return totalEarning;
     }
 
-    private Map<Prize, Integer> computeTotalWinningStatus(Lottos lottos, WinningLotto winningLotto) {
+    private Map<Prize, Integer> defaultWinningStatus() {
         Map<Prize, Integer> status = new HashMap<>();
         for (Prize prize : Prize.values()) {
-            status.put(prize, lottos.computeTotalWins(prize, winningLotto));
+            status.put(prize, 0);
         }
         return status;
     }

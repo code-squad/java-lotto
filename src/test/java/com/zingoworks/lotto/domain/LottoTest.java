@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.HashSet;
 
+import static com.zingoworks.lotto.domain.Lotto.basicNumbers;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
@@ -19,7 +20,7 @@ public class LottoTest {
 
     @Test
     public void 로또_기본숫자세트_크기() {
-        assertThat(Lotto.generateAutomaticLotto().getBasicNumberSet().size()).isEqualTo(45);
+        assertThat(basicNumbers).isEqualTo(45);
     }
 
     @Test

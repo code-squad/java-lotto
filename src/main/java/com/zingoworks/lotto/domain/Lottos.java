@@ -12,27 +12,20 @@ public class Lottos {
         if (purchaseAmount < PRICE_LOTTO) {
             throw new IllegalArgumentException("<경고> 최소 구매금액은 1000원 이상입니다.");
         }
-
         this.lottos = getAllLottos(purchaseAmount);
-    }
-
-    //어떤 유의미한 차이를 만들어주는지?
-    public LottoResult match(WinningLotto winningLotto) {
-        return new LottoResult(this, winningLotto);
     }
 
     public List<Lotto> getLottos() {
         return lottos;
     }
 
-    int computeTotalWins(Prize prize, WinningLotto winningLotto) {
-        int count = 0;
+    public LottoResult match(WinningLotto winningLotto) {
+        LottoResult result = new LottoResult();
         for (Lotto lotto : lottos) {
-            if(lotto.getPrize(winningLotto) == prize) {
-                count++;
-            }
+            Prize prize = winningLotto.match(lotto);
+            result.addPrize(prize);
         }
-        return count;
+        return result;
     }
 
     private List<Lotto> getAllLottos(int purchaseAmount) {

@@ -18,7 +18,6 @@ public class LottoMain {
             int bonusNumber = InputView.inputBonusNumber();
             WinningLotto winningLotto = new WinningLotto(lastWinningNumbers, bonusNumber);
             LottoResult lottoResult = lottos.match(winningLotto);
-            //위 행과 LottoResult lottoResult = new LottoResult(lottos, winningLotto);는 어떤 유의미한 차이 존재하는가?
 
             ResultView.printResults(lottoResult, purchaseAmount);
         } catch (Exception e) {

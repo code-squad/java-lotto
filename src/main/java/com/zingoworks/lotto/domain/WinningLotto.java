@@ -32,7 +32,17 @@ public class WinningLotto {
         return bonusNumber;
     }
 
-    boolean isBonusHit(Lotto lotto) {
+    Prize match(Lotto lotto) {
+        for (Prize prize : Prize.values()) {
+            if(prize.getCountOfHit() == lotto.getCountOfHit(getWinningLotto())
+                    && prize.isBonusHit() == isBonusHit(lotto)) {
+                return prize;
+            }
+        }
+        return null;
+    }
+
+    private boolean isBonusHit(Lotto lotto) {
         return (lotto.getCountOfHit(this.winningLotto) == Prize.SECOND.getCountOfHit())
                 && lotto.getLottoNumbers().contains(bonusNumber);
     }

@@ -13,6 +13,8 @@ public class Lotto {
     private static final int MIN_RANGE = 1;
     private static final int MAX_RANGE = 45;
     private static final int REGULAR_CHOICE = 6;
+    //final 처리하면 sort 안되는지 확인해보기!
+    static List<Integer> basicNumbers = getBasicNumberSet();
 
     private List<Integer> lottoNumbers;
 
@@ -44,16 +46,6 @@ public class Lotto {
         return this.lottoNumbers.contains(number);
     }
 
-    Prize getPrize(WinningLotto winningLotto) {
-        for (Prize prize : Prize.values()) {
-            if(prize.getCountOfHit() == getCountOfHit(winningLotto.getWinningLotto())
-                    && prize.isBonusHit() == winningLotto.isBonusHit(this)) {
-                return prize;
-            }
-        }
-        return null;
-    }
-
     int getCountOfHit(Lotto winningLotto) {
         int count = 0;
         for (Integer winningNumber : winningLotto.getLottoNumbers()) {
@@ -69,7 +61,7 @@ public class Lotto {
         return count;
     }
 
-    List<Integer> getBasicNumberSet() {
+    static List<Integer> getBasicNumberSet() {
         List<Integer> basicNumbers = new ArrayList<>();
         IntStream.range(MIN_RANGE, MAX_RANGE + 1).forEach(basicNumbers::add);
         return basicNumbers;
@@ -77,14 +69,12 @@ public class Lotto {
 
     private List<Integer> generateRandomLottoNumbers() {
         List<Integer> lottoNumbers = new ArrayList<>();
-        List<Integer> shuffledRandomNumbers = getShuffledNumbers(getBasicNumberSet());
+        List<Integer> shuffledRandomNumbers = getShuffledNumbers(basicNumbers);
         for (int i = 0; i < REGULAR_CHOICE; i++) {
             lottoNumbers.add(shuffledRandomNumbers.get(i));
         }
         return lottoNumbers;
     }
-
-
 
     @Override
     public String toString() {
