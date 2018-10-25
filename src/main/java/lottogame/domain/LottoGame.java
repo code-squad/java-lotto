@@ -1,5 +1,7 @@
 package lottogame.domain;
 
+import lottogame.dto.Result;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +14,7 @@ public class LottoGame {
         this.lottos = lottos;
     }
 
-    public Map<PrizeRank, Integer> result(WinnningLotto winningNumber) {
+    public Result result(WinnningLotto winningNumber) {
         Map<PrizeRank, Integer> resultMap = initRewardAndHitCountMap();
 
         for (Lotto lotto : lottos) {
@@ -22,7 +24,7 @@ public class LottoGame {
             resultMap.put(reward, resultMap.get(reward) + 1);
         }
 
-        return Collections.unmodifiableMap(resultMap);
+        return new Result(resultMap);
     }
 
     private Map<PrizeRank, Integer> initRewardAndHitCountMap() {

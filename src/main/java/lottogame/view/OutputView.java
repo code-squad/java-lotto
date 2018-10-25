@@ -1,25 +1,26 @@
 package lottogame.view;
 
 import lottogame.domain.PrizeRank;
+import lottogame.dto.Result;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class OutputView {
-    public static void printResult(int inputMoney, Map<PrizeRank, Integer> resultMap) {
+
+    public static final int HUNDRED = 100;
+
+    public static void printResult(int inputMoney, Result result) {
         System.out.println("당첨 통계");
         System.out.println("--------------------------");
-        int priceMoney = 0;
         List<PrizeRank> prizeRanks = Arrays.asList(PrizeRank.values());
         prizeRanks.remove(PrizeRank.BOOM);
 
         for (PrizeRank prizeRank : prizeRanks) {
-            int hitCount = resultMap.get(prizeRank);
+            int hitCount = result.get(prizeRank);
             System.out.println(prizeRank.getMessage() + "-" + hitCount + "개");
-            priceMoney += prizeRank.getReward() * hitCount;
         }
 
-        System.out.println("총 수익률은 " + priceMoney / inputMoney * 100 + "% 입니다.");
+        System.out.println("총 수익률은 " + result.totalReward() / inputMoney * HUNDRED + "% 입니다.");
     }
 }

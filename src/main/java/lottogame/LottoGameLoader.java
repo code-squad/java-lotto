@@ -3,6 +3,7 @@ package lottogame;
 import lottogame.domain.LottoGame;
 import lottogame.domain.PrizeRank;
 import lottogame.dto.InputDto;
+import lottogame.dto.Result;
 import lottogame.view.InputView;
 import lottogame.view.OutputView;
 
@@ -14,8 +15,8 @@ public class LottoGameLoader {
         try {
             InputDto inputDto = InputView.receiveInput();
             LottoGame lottoGame = new LottoGame(inputDto.getLottos());
-            Map<PrizeRank, Integer> resultMap = lottoGame.result(inputDto.getWinningLotto());
-            OutputView.printResult(inputDto.readMoney(), resultMap);
+            Result result = lottoGame.result(inputDto.getWinningLotto());
+            OutputView.printResult(inputDto.readMoney(), result);
         } catch (IllegalArgumentException | InputMismatchException e) {
             System.out.println(e.getMessage());
             InputView.clearBuffer();

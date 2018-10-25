@@ -13,7 +13,7 @@ public class WinnningLotto {
     }
 
     public static WinnningLotto of(Lotto winningLottolotto, int bonus) {
-        return new WinnningLotto(winningLottolotto, new LottoNumber(bonus));
+        return new WinnningLotto(winningLottolotto, LottoNumber.Of(bonus));
     }
 
 }

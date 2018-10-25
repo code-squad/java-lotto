@@ -11,7 +11,7 @@ public class Lotto {
 
     public Lotto(List<Integer> lottoNum) {
         for (Integer integer : lottoNum) {
-            lottos.add(new LottoNumber(integer));
+            lottos.add(LottoNumber.Of(integer));
         }
         inspectDuplication(lottoNum);
         inspectNumberAmount();
