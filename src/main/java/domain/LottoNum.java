@@ -1,7 +1,5 @@
 package domain;
 
-import util.LottoException;
-
 import java.util.Objects;
 
 public class LottoNum {
@@ -11,7 +9,7 @@ public class LottoNum {
 
     public LottoNum(int no) {
         if(no < LOTTO_MIN  || no > LOTTO_MAX) {
-            new LottoException(String.format("유효하지 않는 번호를 입력하셨습니다. Lotto 숫자 범위 %d ~ %d", LOTTO_MIN, LOTTO_MAX));
+            throw new IllegalArgumentException(String.format("유효하지 않는 번호를 입력하셨습니다. Lotto 숫자 범위 %d ~ %d", LOTTO_MIN, LOTTO_MAX));
         }
         this.no = no;
     }

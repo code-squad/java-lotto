@@ -1,7 +1,9 @@
 package domain;
 
 import org.junit.Test;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,16 +12,20 @@ public class RewardTest {
 
     @Test
     public void getSumTest() {
-        Map<Integer, Integer> rewardResult = new HashMap<>();
-        rewardResult.put(3, 1); // 5000
-        rewardResult.put(4, 2); // 100000
-        assertThat(Reward.getSum(rewardResult)).isEqualTo(105000);
+        Map<Reward, Integer> rewardResult = new HashMap<>();
+        rewardResult.put(Reward.REWARD_FIFTH, 2);
+        assertThat(Reward.calculateSum(rewardResult)).isEqualTo(10000);
     }
 
     @Test
-    public void calculateProfit() {
-        Map<Integer, Integer> rewardResult = new HashMap<>();
-        rewardResult.put(3, 1); // 5000
-        assertThat(Reward.calculateProfit(10000, rewardResult)).isEqualTo(50);
+    public void calculateProfitTest() {
+        Map<Reward, Integer> rewardResult = new HashMap<>();
+        rewardResult.put(Reward.REWARD_FIFTH, 2);
+        assertThat(Reward.calculateProfit(1000, rewardResult)).isEqualTo(1000);
+    }
+
+    @Test
+    public void isSecondTest() {
+        assertThat(Reward.isSecond(5, true)).isEqualTo(Reward.SECOND_REWARD);
     }
 }
