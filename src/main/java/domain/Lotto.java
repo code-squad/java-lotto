@@ -12,10 +12,13 @@ public class Lotto {
 
     private Lotto(List<LottoNum> nums) {
         this.lotto = nums;
+        if (this.lotto.size() != new HashSet<>(nums).size()) {
+            throw new IllegalArgumentException("중복된 숫자가 있습니다.");
+        }
         Collections.sort(lotto);
     }
 
-    static Lotto autoLottoCreate(List<LottoNum> nums) {
+    static Lotto autoLottoCreator(List<LottoNum> nums) {
         Collections.shuffle(nums);
         List<LottoNum> list = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
@@ -24,14 +27,11 @@ public class Lotto {
         return new Lotto(list);
     }
 
-    public static Lotto winnerLottoCreate(List<String> nums) {
-        List<LottoNum> list = new ArrayList<>();
+    public static Lotto winnerLottoCreator(List<String> nums) {
         Collections.shuffle(nums);
+        List<LottoNum> list = new ArrayList<>();
         for (String num : nums) {
             list.add(LottoNum.stringCreate(num));
-        }
-        if (list.size() != new HashSet<>(list).size()) {
-            throw new IllegalArgumentException("중복된 숫자가 있습니다.");
         }
         return new Lotto(list);
     }

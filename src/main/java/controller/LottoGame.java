@@ -28,7 +28,7 @@ public class LottoGame {
         Lotto winnerLotto;
         try {
             List<String> input = InputView.lotto();
-            winnerLotto = Lotto.winnerLottoCreate(input);
+            winnerLotto = Lotto.winnerLottoCreator(input);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return winnerLottoCreator();

@@ -2,9 +2,10 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class Rank {
+public class WinningRules {
 
     private enum Type {
         ONE(6, false), TWO(5, false), THREE(4, false), FOUR(3, false), BLANK(0, false);
@@ -32,16 +33,14 @@ public class Rank {
 
     private Map<Type, Integer> rankMap = new HashMap<>();
 
-    public Rank() {
+    public WinningRules() {
         // key 로또와 당첨번호와 같은 개수, value 등수와 같은 자동로또 수
-        rankMap.put(Type.ONE, 0);
-        rankMap.put(Type.TWO, 0);
-        rankMap.put(Type.THREE, 0);
-        rankMap.put(Type.FOUR, 0);
-        rankMap.put(Type.BLANK, 0);
+        for (Type type : Type.values()) {
+            rankMap.put(type,0);
+        }
     }
 
-    public void matchLotto(ArrayList<Lotto> lottos, Lotto winnerLotto) {
+    public void matchLotto(List<Lotto> lottos, Lotto winnerLotto) {
         for (Lotto lotto : lottos) {
             increase(winnerLotto.compareLotto(lotto));
         }

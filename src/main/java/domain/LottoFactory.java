@@ -20,11 +20,11 @@ public class LottoFactory {
 
     private void create(int num) {
         for (int i = 0; i < num; i++) {
-            lottos.add(Lotto.autoLottoCreate(nums));
+            lottos.add(Lotto.autoLottoCreator(nums));
         }
     }
 
-    public ArrayList<Lotto> getLottos() {
+    public List<Lotto> getLottos() {
         return lottos;
     }
 }
