@@ -1,5 +1,6 @@
 package lottogame.domain;
 
+import lottogame.dto.Result;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,20 +31,20 @@ public class LottoGameTest {
 
     @Test
     public void checkLotto() {
-        Map<PrizeRank, Integer> resultMap = lottoGame.result(WinnningLotto.of(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)), 13));
-        assertThat(resultMap.get(PrizeRank.NO_MISS)).isEqualTo(0);
-        assertThat(resultMap.get(PrizeRank.ONE_MISS)).isEqualTo(3);
-        assertThat(resultMap.get(PrizeRank.TWO_MISS)).isEqualTo(3);
-        assertThat(resultMap.get(PrizeRank.THREE_MISS)).isEqualTo(3);
+        Result result = lottoGame.result(WinnningLotto.of(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)), 13));
+        assertThat(result.get(PrizeRank.NO_MISS)).isEqualTo(0);
+        assertThat(result.get(PrizeRank.ONE_MISS)).isEqualTo(3);
+        assertThat(result.get(PrizeRank.TWO_MISS)).isEqualTo(3);
+        assertThat(result.get(PrizeRank.THREE_MISS)).isEqualTo(3);
     }
 
     @Test
     public void bonusPrize(){
-        Map<PrizeRank, Integer> resultMap= lottoGame.result(WinnningLotto.of(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)),12));
-        assertThat(resultMap.get(PrizeRank.NO_MISS)).isEqualTo(0);
-        assertThat(resultMap.get(PrizeRank.ONE_MISS)).isEqualTo(0);
-        assertThat(resultMap.get(PrizeRank.ONE_MISS_BONUS_HIT)).isEqualTo(3);
-        assertThat(resultMap.get(PrizeRank.TWO_MISS)).isEqualTo(3);
-        assertThat(resultMap.get(PrizeRank.THREE_MISS)).isEqualTo(3);
+        Result result= lottoGame.result(WinnningLotto.of(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)),12));
+        assertThat(result.get(PrizeRank.NO_MISS)).isEqualTo(0);
+        assertThat(result.get(PrizeRank.ONE_MISS)).isEqualTo(0);
+        assertThat(result.get(PrizeRank.ONE_MISS_BONUS_HIT)).isEqualTo(3);
+        assertThat(result.get(PrizeRank.TWO_MISS)).isEqualTo(3);
+        assertThat(result.get(PrizeRank.THREE_MISS)).isEqualTo(3);
     }
 }

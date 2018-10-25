@@ -17,8 +17,8 @@ public class Result {
 
     public int totalReward(){
         int totalReward = 0;
-        for (Integer value : map.values()) {
-            totalReward += value;
+        for (PrizeRank prizeRank : PrizeRank.values()){
+            totalReward += prizeRank.getReward() * map.get(prizeRank);
         }
         return totalReward;
     }
