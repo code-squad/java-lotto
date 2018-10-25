@@ -33,4 +33,10 @@ public class LottoTest {
     public void 로또_오름차순정렬확인() {
         assertThat(Lotto.generateManualLotto("1,2,3") == Lotto.generateManualLotto("3,2,1"));
     }
+
+    @Test
+    public void 로또_임의의숫자를포함하는가() {
+        Lotto lotto = Lotto.generateManualLotto("1,2,3,4,5,6");
+        assertThat(lotto.contains(6));
+    }
 }

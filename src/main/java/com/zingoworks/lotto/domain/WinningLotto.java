@@ -10,7 +10,10 @@ public class WinningLotto {
     public WinningLotto(String lastWinningNumbers, int bonusNumber) {
         this.winningLotto = Lotto.generateManualLotto(lastWinningNumbers);
 
-        if(this.winningLotto.getLottoNumbers().contains(bonusNumber)) {
+        //메세지를 보내서 일을 하게 해라...ㅠㅠㅠㅠ
+        //if(this.winningLotto.getLottoNumbers().contains(bonusNumber)) { 기존의사고방식
+        //if(winningLotto.contains(bonusNumber)) { 객체지향적
+        if(winningLotto.contains(bonusNumber)) {
             throw new DuplicateLottoNumberException("중복 된 보너스볼입니다.");
         }
 
@@ -21,8 +24,6 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    //getter를 줄일 순 없나...? 여기랑 Lotto랑...?
-    //WinningLotto 객체가 winningLotto라는 Lotto객체를 가지니까 자꾸 getLottoNumbers를 써야하는데... 굳이?
     Lotto getWinningLotto() {
         return winningLotto;
     }

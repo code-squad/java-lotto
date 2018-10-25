@@ -40,6 +40,10 @@ public class Lotto {
         return lottoNumbers;
     }
 
+    boolean contains(int number) {
+        return this.lottoNumbers.contains(number);
+    }
+
     Prize getPrize(WinningLotto winningLotto) {
         for (Prize prize : Prize.values()) {
             if(prize.getCountOfHit() == getCountOfHit(winningLotto.getWinningLotto())
@@ -79,6 +83,8 @@ public class Lotto {
         }
         return lottoNumbers;
     }
+
+
 
     @Override
     public String toString() {
