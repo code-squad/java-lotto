@@ -13,15 +13,14 @@ public class ResultView {
     private static final String HIT_COUNT_MESSAGE = "개 일치 ";
     private static final String COUNT_MESSAGE = "개";
     private static final String PERCENT = "%";
-    private static final String MANUAL = "수동으로";
-    private static final String AUTO = "자동으로";
-
+    private static final String COMMA = ", ";
+    private static final String MANUAL = "수동으로 ";
+    private static final String AUTO = "자동으로 ";
 
     private static StringBuilder sb = new StringBuilder();
 
-
     public static void echoCount(int manualCount, int autoCount){
-        System.out.println(MANUAL + " " + manualCount + COUNT_MESSAGE );
+        System.out.print(MANUAL + manualCount + COUNT_MESSAGE + COMMA);
         System.out.println(AUTO + autoCount + ECHO_COUNT_MESSAGE);
     }
 
