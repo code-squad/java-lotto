@@ -17,10 +17,6 @@ public class Num implements Comparable<Num> {
         return number;
     }
 
-    public Boolean isMatchNum(Num num) {
-        return number == num.number;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

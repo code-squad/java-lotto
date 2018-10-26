@@ -1,6 +1,5 @@
 package lotto;
 
-import dto.WinningLottoDto;
 import util.Utility;
 import vo.Num;
 
@@ -14,20 +13,10 @@ public class WinningLotto {
             winningLotto.add(new Num(Utility.fromStringToInteger(winningNumber)));
         }
         if (winningLotto.size() != 6)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("중복된 숫자가 있거나 숫자6개가 아닙니다.");
     }
 
     public Lotto makeWinningLotto() {
         return new Lotto(winningLotto);
     }
-
-//    public void matchNum(UserLottoDto userLottoDto) {
-//        Map<Integer, Integer> rank = new HashMap<>();
-//        for (int i = 0; i < userLottoDto.getUserLottoDto().size(); i++) {
-//            for (int j = 0; j < winningLotto.size(); j++) {
-//                userLottoDto.getUserLottoDto().get(j);
-//            }
-//        }
-//    }
-
 }

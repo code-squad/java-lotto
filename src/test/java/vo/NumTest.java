@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,13 +21,12 @@ public class NumTest {
 
     @Test
     public void valueCompareTest() {
-        TreeSet<Num> set = new TreeSet<>();
+        Set<Num> set = new TreeSet<>();
         set.add(new Num(1));
 
-        List<Num> list = new ArrayList<>();
+        Set<Num> list = new TreeSet<>();
         list.add(new Num(1));
 
-        assertThat(set.pollFirst()).isEqualTo(list.get(0)); // [== 로 비교X] [값을비교라 equal]
-
+        System.out.println(set.contains(((TreeSet<Num>) list).pollFirst()));
     }
 }

@@ -1,6 +1,8 @@
 import lotto.Lotto;
+import lotto.Reward;
 import lotto.UserLotto;
 import lotto.WinningLotto;
+import util.Utility;
 import view.InputView;
 import view.PrintView;
 import vo.Num;
@@ -15,6 +17,10 @@ public class LottoMain {
         UserLotto userLottos = new UserLotto(lottoCount);
         PrintView.printAutoLotto(userLottos.toDto());
 
-        Lotto lotto = new Lotto(InputView.intputWinningNumber());
+        WinningLotto winningLotto = new WinningLotto(InputView.intputWinningNumber());
+        Lotto winningNumber = winningLotto.makeWinningLotto();
+
+        PrintView.printResult(userLottos.matchNum(winningNumber), Utility.multiplyThousand(lottoCount));
+
     }
 }

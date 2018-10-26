@@ -56,22 +56,24 @@ public class LottoTest {
 
     @Test
     public void userMatchWinning(){
-        List<Integer> user = new ArrayList<>();
-        user.add(1);
-        user.add(2);
-        user.add(3);
-        user.add(4);
 
-        TreeSet<Num> win = new TreeSet<>();
+
+        List<Num> list = new ArrayList<>();
+        list.add(new Num(4));
+        list.add(new Num(2));
+        list.add(new Num(3));
+        list.add(new Num(7));
+
+        Set<Num> user = new TreeSet<>(list);
+
+
+        Set<Num> win = new TreeSet<>();
         win.add(new Num(4));
         win.add(new Num(2));
         win.add(new Num(3));
         win.add(new Num(7));
-        win.add(new Num(67));
-//        win.add(new Num(56));
-//        TreeSet<Integer> win1 = new TreeSet<>(win);
-        System.out.println(user);
-//        assertThat(user.size()).isEqualTo(treeSet.size());
+
+        System.out.println(user.contains(((TreeSet<Num>) win).pollFirst()));
 
     }
 

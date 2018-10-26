@@ -13,6 +13,16 @@ public class UserLotto {
         }
     }
 
+    public Map<Integer, Integer> matchNum(Lotto winningLotto) {
+        Map<Integer, Integer> gameResult = new Reward().lottoRewardCount();
+        for (Lotto userLotto : userLottos) {
+            int reward = userLotto.gameStart(winningLotto);
+            if (reward > 2)
+                gameResult.put(reward, gameResult.get(reward) + 1);
+        }
+        return gameResult;
+    }
+
     public UserLottoDto toDto() {
         List<LottoDto> userLottoDto = new ArrayList<>();
         for (Lotto lotto : userLottos) {
@@ -20,7 +30,6 @@ public class UserLotto {
         }
         return new UserLottoDto(userLottoDto);
     }
-
 }
 
 

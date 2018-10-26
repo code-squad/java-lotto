@@ -15,8 +15,8 @@ public class LottoDtoTest {
         set.add(new Num(12));
         set.add(new Num(13));
         set.add(new Num(13));
-        LottoDto lottoDto = new LottoDto(set);
-        System.out.println(lottoDto);
+
+        System.out.println(set);
 
     }
 }
