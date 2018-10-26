@@ -1,12 +1,14 @@
 package lotto.domain;
 
+import lotto.domain.dto.ResultDto;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class GameResult {
-    private static Map<Rank, Integer> results = new HashMap<>();
+    private Map<Rank, Integer> results = new HashMap<>();
 
-    static {
+    public GameResult() {
         results.put(Rank.FIRST, 0);
         results.put(Rank.SECOND, 0);
         results.put(Rank.THIRD, 0);
@@ -14,7 +16,7 @@ public class GameResult {
         results.put(Rank.FIFTH, 0);
     }
 
-    public static void countMatchLotto(int countOfMatch, boolean matchBonus) {
+    public void countMatchLotto(int countOfMatch, boolean matchBonus) {
         Rank rank = Rank.valueOf(countOfMatch, matchBonus);
         if(rank != null) {
             int count = results.get(rank);
@@ -22,7 +24,7 @@ public class GameResult {
         }
     }
 
-    public Map<Rank, Integer> getResults() {
-        return results;
+    public ResultDto createResultDto() {
+        return new ResultDto(results);
     }
 }

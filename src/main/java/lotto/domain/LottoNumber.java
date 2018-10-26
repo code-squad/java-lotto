@@ -7,7 +7,7 @@ public class LottoNumber implements Comparable<LottoNumber>  {
 
     private LottoNumber(int number) {
         if (number < LottoConstant.LOTTO_MIN || number > LottoConstant.LOTTO_MAX) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("0 ~ 45 사이의 값만 입력해주세요");
         }
         this.number = number;
     }

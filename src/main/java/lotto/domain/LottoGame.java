@@ -1,5 +1,8 @@
 package lotto.domain;
 
+import lotto.domain.dto.LottoDto;
+import lotto.domain.dto.ResultDto;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,18 +17,20 @@ public class LottoGame {
         }
     }
 
-    public List<Lotto> getLottos() {
-        return lottos;
-    }
-
-    public void compare(String input, int bonusNumber){
+    public ResultDto compare(String input, int bonusNumber){
         WinningNumbers winningNumbers = new WinningNumbers(input, bonusNumber);
+        GameResult result = new GameResult();
 
         for (Lotto lotto : lottos) {
             int count = winningNumbers.compare(lotto);
             boolean matchBonus = lotto.isContainBonusNumber(bonusNumber);
 
-            GameResult.countMatchLotto(count, matchBonus);
+            result.countMatchLotto(count, matchBonus);
         }
+        return result.createResultDto();
+    }
+
+    public LottoDto createDto() {
+        return new LottoDto(lottos);
     }
 }

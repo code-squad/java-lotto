@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.domain.dto.ResultDto;
 import org.junit.Test;
 
 import java.util.Map;
@@ -10,14 +11,16 @@ public class GameResultTest {
     @Test
     public void countMatchLotto() {
         GameResult result = new GameResult();
-        GameResult.countMatchLotto(3,false);
-        assertThat(result.getResults().get(Rank.FIFTH)).isEqualTo(1);
+        result.countMatchLotto(3,false);
+        ResultDto dto = result.createResultDto();
+        assertThat(dto.getResults().get(Rank.FIFTH)).isEqualTo(1);
     }
 
     @Test
     public void getMap() {
         GameResult result = new GameResult();
-        Map map = result.getResults();
+        ResultDto dto = result.createResultDto();
+        Map map = dto.getResults();
         assertThat(map.get(Rank.FIRST)).isEqualTo(0);
     }
 }

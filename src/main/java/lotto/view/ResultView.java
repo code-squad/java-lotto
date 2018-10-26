@@ -1,18 +1,17 @@
 package lotto.view;
 
 import lotto.domain.*;
+import lotto.domain.dto.LottoDto;
+import lotto.domain.dto.ResultDto;
 
-import java.util.List;
 import java.util.Map;
 
 public class ResultView {
 
-    public static void statisticsLottoWinnings(int price){
-        GameResult result = new GameResult();
+    public static void statisticsLottoWinnings(int price, ResultDto result){
         Map map = result.getResults();
 
-        System.out.println("당첨 통계");
-        System.out.println("----------");
+        System.out.println("당첨 통계 \n ---------- ");
 
         for (Rank rank : Rank.values()) {
             String explain = "";
@@ -45,9 +44,9 @@ public class ResultView {
         return profit;
     }
 
-    public static void printBuyLotto(List<Lotto> lottos) {
-        System.out.println(lottos.size() + "개를 구매했습니다.");
-        for (Lotto lotto : lottos) {
+    public static void printBuyLotto(LottoDto lottos) {
+        System.out.println(lottos.getLottos().size() + "개를 구매했습니다.");
+        for (Lotto lotto : lottos.getLottos()) {
             System.out.println(lotto);
         }
     }

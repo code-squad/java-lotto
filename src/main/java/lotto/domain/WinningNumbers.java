@@ -9,7 +9,7 @@ public class WinningNumbers {
     public WinningNumbers(String lottoNumbers, int bonusNumber) {
         winningLotto = Lotto.winningLotto(lottoNumbers);
         if(winningLotto.isContainBonusNumber(bonusNumber)) {
-            throw new IllegalArgumentException();
+            throw new NotTypeLottoException("정확한 보너스 번호를 입력해주세요");
         }
         this.bonusNumber = LottoNumber.ofInteger(bonusNumber);
     }
