@@ -17,10 +17,4 @@ public class LottosTest {
         Lottos lottos = new Lottos(5000);
         assertThat(lottos.getLottos().size()).isEqualTo(5);
     }
-
-    @Test
-    public void 모든로또_등수취합() {
-
-    }
-
 }

@@ -11,24 +11,9 @@ public class WinningLotto {
 
     public WinningLotto(String lastWinningNumbers, int bonusNumber) {
         this.winningLotto = Lotto.generateManualLotto(lastWinningNumbers);
-
-        if(winningLotto.contains(bonusNumber)) {
-            throw new DuplicateLottoNumberException("중복 된 보너스볼입니다.");
-        }
-
-        if(bonusNumber < MIN_RANGE || bonusNumber > MAX_RANGE) {
-            throw new IllegalArgumentException("유효범위를 초과하였습니다.");
-        }
-
+        verifyDuplicatedBonusNumber(bonusNumber);
+        verifyValidRangeOfBonusNumber(bonusNumber);
         this.bonusNumber = bonusNumber;
-    }
-
-    Lotto getWinningLotto() {
-        return winningLotto;
-    }
-
-    int getBonusNumber() {
-        return bonusNumber;
     }
 
     Prize match(Lotto lotto) {
@@ -44,5 +29,17 @@ public class WinningLotto {
     private boolean isBonusHit(Lotto lotto) {
         return (lotto.getCountOfHit(winningLotto) == Prize.SECOND.getCountOfHit())
                 && lotto.contains(bonusNumber);
+    }
+
+    private void verifyValidRangeOfBonusNumber(int bonusNumber) {
+        if(bonusNumber < MIN_RANGE || bonusNumber > MAX_RANGE) {
+            throw new IllegalArgumentException("유효범위를 초과하였습니다.");
+        }
+    }
+
+    private void verifyDuplicatedBonusNumber(int bonusNumber) {
+        if(winningLotto.contains(bonusNumber)) {
+            throw new DuplicateLottoNumberException("중복 된 보너스볼입니다.");
+        }
     }
 }

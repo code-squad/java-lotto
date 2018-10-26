@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lottos {
-    public static final int PRICE_OF_LOTTO = 1000;
+    private static final int PRICE_OF_LOTTO = 1000;
 
     private List<Lotto> lottos;
     private int numberOfLottos;
@@ -20,6 +20,7 @@ public class Lottos {
     }
 
     //by pobi...
+    //테스트코드 구현이 가능?
     public LottoResult match(WinningLotto winningLotto) {
         LottoResult result = new LottoResult();
         for (Lotto lotto : lottos) {
@@ -27,6 +28,10 @@ public class Lottos {
             result.addPrize(prize);
         }
         return result;
+    }
+
+    public String getPurchasePhrase() {
+        return numberOfLottos + "게임을 구매했습니다.";
     }
 
     private List<Lotto> getAllLottos() {

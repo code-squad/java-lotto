@@ -24,14 +24,8 @@ public class Lotto {
 
     private Lotto(String inputLottoNumber) {
         this.lottoNumbers = LottoNumberParser.parse(inputLottoNumber);
-
-        if (new HashSet(lottoNumbers).size() != LottoNumberParser.parse(inputLottoNumber).size()) {
-            throw new DuplicateLottoNumberException("중복 된 숫자가 존재합니다.");
-        }
-
-        if (lottoNumbers.size() != REGULAR_CHOICE) {
-            throw new SizeOutOfBoundsException("6개의 숫자를 입력해주세요.");
-        }
+        verifyDuplicatedNumber(inputLottoNumber);
+        verifySizeOfLotto();
     }
 
     static Lotto generateAutomaticLotto() {
@@ -42,11 +36,7 @@ public class Lotto {
         return new Lotto(inputLottoNumber);
     }
 
-    //테스트 아니면 getter 없어도 되는데 좀 더 큰 단위를 테스트해야하는건가?
-    List<Integer> getLottoNumbers() {
-        return lottoNumbers;
-    }
-
+    //by pobi...
     boolean contains(int number) {
         return lottoNumbers.contains(number);
     }
@@ -61,12 +51,6 @@ public class Lotto {
         return count;
     }
 
-    private static List<Integer> getBasicNumbers() {
-        List<Integer> basicNumbers = new ArrayList<>();
-        IntStream.range(MIN_RANGE, MAX_RANGE + 1).forEach(basicNumbers::add);
-        return basicNumbers;
-    }
-
     private List<Integer> generateRandomLottoNumbers() {
         List<Integer> lottoNumbers = new ArrayList<>();
         List<Integer> shuffledRandomNumbers = getShuffledNumbers(BASIC_NUMBERS);
@@ -74,6 +58,24 @@ public class Lotto {
             lottoNumbers.add(shuffledRandomNumbers.get(i));
         }
         return lottoNumbers;
+    }
+
+    private static List<Integer> getBasicNumbers() {
+        List<Integer> basicNumbers = new ArrayList<>();
+        IntStream.range(MIN_RANGE, MAX_RANGE + 1).forEach(basicNumbers::add);
+        return basicNumbers;
+    }
+
+    private void verifyDuplicatedNumber(String inputLottoNumber) {
+        if (new HashSet<>(lottoNumbers).size() != LottoNumberParser.parse(inputLottoNumber).size()) {
+            throw new DuplicateLottoNumberException("중복 된 숫자가 존재합니다.");
+        }
+    }
+
+    private void verifySizeOfLotto() {
+        if (lottoNumbers.size() != REGULAR_CHOICE) {
+            throw new SizeOutOfBoundsException("6개의 숫자를 입력해주세요.");
+        }
     }
 
     @Override

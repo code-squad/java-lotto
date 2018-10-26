@@ -12,7 +12,7 @@ public class LottoMain {
             int purchaseAmount = InputView.inputPurchaseAmount();
             Lottos lottos = new Lottos(purchaseAmount);
 
-            ResultView.printLottoNumbers(lottos, purchaseAmount);
+            ResultView.printLottoNumbers(lottos);
 
             String lastWinningNumbers = InputView.inputLastWinningNumbers();
             int bonusNumber = InputView.inputBonusNumber();

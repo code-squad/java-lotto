@@ -27,7 +27,6 @@ public class LottoTest {
         System.out.println(Lotto.generateAutomaticLotto());
         System.out.println(Lotto.generateAutomaticLotto());
         System.out.println(Lotto.generateAutomaticLotto());
-        assertThat(Lotto.generateManualLotto("1,2,3") == Lotto.generateManualLotto("3,2,1"));
     }
 
     @Test
@@ -35,8 +34,6 @@ public class LottoTest {
         Lotto lotto = Lotto.generateManualLotto("1,2,3,4,5,6");
         assertThat(lotto.contains(6));
     }
-
-
 
     @Test (expected = DuplicateLottoNumberException.class)
     public void 수동로또_중복유무() {
@@ -52,7 +49,4 @@ public class LottoTest {
     public void 수동로또_유효범위() {
         Lotto manualLotto = Lotto.generateManualLotto("0,13");
     }
-
-
-
 }
