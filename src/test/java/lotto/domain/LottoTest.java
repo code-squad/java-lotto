@@ -5,18 +5,9 @@ import org.junit.Test;
 import java.util.*;
 import java.util.ArrayList;
 
-public class LottoTest {
+import static org.assertj.core.api.Assertions.assertThat;
 
-    @Test
-    public void 비교() {
-        /*
-        Lotto lotto = new Lotto();
-        Lotto winLotto = new Lotto("1,2,3,4,5,6");
-        System.out.println(lotto);
-        System.out.println(winLotto);
-        System.out.println(lotto.compare(winLotto));
-        */
-    }
+public class LottoTest {
 
     @Test
     public void subList() {
@@ -24,20 +15,27 @@ public class LottoTest {
         for (int i = 0; i < 10; i++) {
             list.add(i);
         }
-
-        System.out.println(list.subList(0,3));
-
+        List<Integer> a = new ArrayList<>();
+        a.add(0);
+        a.add(1);
+        a.add(2);
+        assertThat(list.subList(0,3)).isEqualTo(a);
     }
 
     @Test
     public void generateLotto() {
         Lotto lotto = Lotto.generateLottoNumber();
-        System.out.println(lotto);
     }
 
     @Test
-    public void winningLotto() {
+    public void winningLotto보너스중복x() {
         Lotto lotto = Lotto.winningLotto("1,2,3,4,5,6");
-        System.out.println(lotto);
+        assertThat(lotto.isContainBonusNumber(7)).isFalse();
+    }
+
+    @Test
+    public void winningLotto보너스중복o() {
+        Lotto lotto = Lotto.winningLotto("1,2,3,4,5,6");
+        assertThat(lotto.isContainBonusNumber(1)).isTrue();
     }
 }

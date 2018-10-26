@@ -1,17 +1,39 @@
 package lotto;
 
 import lotto.domain.LottoGame;
-import lotto.domain.LottoMap;
+import lotto.domain.NotTypeLottoException;
+import lotto.domain.dto.ResultDto;
 import lotto.view.InputView;
 import lotto.view.ResultView;
 
 public class LottoMain {
     public static void main(String[] args) {
-        int price = InputView.buyLotto();
-        LottoGame lottoGame = new LottoGame(price);
+        LottoGame lottoGame = null;
+        int price = 0;
 
-        ResultView.printBuyLotto(lottoGame.getLottos());
-        LottoMap map = lottoGame.compare(InputView.getWinningNumber());
-        ResultView.statisticsLottoWinnings(map, price);
+        try{
+            price = InputView.buyLotto();
+            lottoGame = new LottoGame(price);
+            ResultView.printBuyLotto(lottoGame.createDto());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            main(args);
+        }
+
+        while(true) {
+            try{
+                compareWinningLotto(lottoGame, price);
+                break;
+            } catch (NotTypeLottoException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void compareWinningLotto(LottoGame lottoGame, int price) throws NotTypeLottoException {
+        if (lottoGame != null && price != 0) {
+            ResultDto result = lottoGame.compare(InputView.getWinningNumber(), InputView.getWinningBonusNumber());
+            ResultView.statisticsLottoWinnings(price, result);
+        }
     }
 }

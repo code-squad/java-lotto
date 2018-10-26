@@ -5,7 +5,7 @@ import static lotto.domain.LottoConstant.LOTTO_MAX;
 import static lotto.domain.LottoConstant.LOTTO_MIN;
 import static lotto.domain.LottoConstant.MAX_LOTTO_COUNT;
 
-public class Lotto  {
+public class Lotto {
     private static List<Integer> numbers = new ArrayList<>();
 
     static {
@@ -19,7 +19,7 @@ public class Lotto  {
     private Lotto(List<Integer> numbers) {
         lotto = new ArrayList<>();
         for (Integer number : numbers) {
-            lotto.add(new LottoNumber(number));
+            lotto.add(LottoNumber.ofInteger(number));
         }
         Collections.sort(lotto);
     }
@@ -36,10 +36,14 @@ public class Lotto  {
         }
 
         if(winLotto.size() != MAX_LOTTO_COUNT) {
-            throw new IllegalArgumentException();
+            throw new NotTypeLottoException("중복되지 않은 6개의 숫자를 입력하세요");
         }
 
         return new Lotto(new ArrayList<>(winLotto));
+    }
+
+    public boolean isContainBonusNumber(int number) {
+        return lotto.contains(LottoNumber.ofInteger(number));
     }
 
     public int compare(Lotto other){

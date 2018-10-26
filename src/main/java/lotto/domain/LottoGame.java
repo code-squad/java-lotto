@@ -1,34 +1,36 @@
 package lotto.domain;
 
+import lotto.domain.dto.LottoDto;
+import lotto.domain.dto.ResultDto;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static lotto.domain.LottoConstant.LOTTO_PRICE;
 
 public class LottoGame {
-    private int price = 0;
     private List<Lotto> lottos = new ArrayList<>();
 
     public LottoGame(int price) {
-        this.price = price;
-
         for (int i = 0; i < price/LOTTO_PRICE; i++) {
             lottos.add(Lotto.generateLottoNumber());
         }
     }
 
-    public List<Lotto> getLottos() {
-        return lottos;
+    public ResultDto compare(String input, int bonusNumber){
+        WinningNumbers winningNumbers = new WinningNumbers(input, bonusNumber);
+        GameResult result = new GameResult();
+
+        for (Lotto lotto : lottos) {
+            int count = winningNumbers.compare(lotto);
+            boolean matchBonus = lotto.isContainBonusNumber(bonusNumber);
+
+            result.countMatchLotto(count, matchBonus);
+        }
+        return result.createResultDto();
     }
 
-    public LottoMap compare(String input){
-        Lotto winningLotto = Lotto.winningLotto(input);
-        int count = 0;
-        LottoMap map = new LottoMap();
-        for (Lotto lotto : lottos) {
-            count = lotto.compare(winningLotto);
-            map.saveCountWinLotto(count);
-        }
-        return map;
+    public LottoDto createDto() {
+        return new LottoDto(lottos);
     }
 }
