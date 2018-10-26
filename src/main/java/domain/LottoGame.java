@@ -6,12 +6,14 @@ import dto.RewardDto;
 import java.util.*;
 
 public class LottoGame {
-    private static final int LOTTO_PRICE = 1000;
+    public static final int LOTTO_PRICE = 1000;
     private static final int POSSIBLE_WIN_NUM = 3;
     private Map<Reward, Integer> rewardResult = new TreeMap<>(Collections.reverseOrder());
-    private List<Lotto> lottos = new ArrayList<>();
+    private List<Lotto> autoLottos = new ArrayList<>();
+    private List<Lotto> handOperatedLottos;
 
-    public LottoGame(int pay) {
+    public LottoGame(int pay, List<Lotto> handOperatedLottos) {
+        this.handOperatedLottos = handOperatedLottos;
         buyLottos(pay);
         initRewardResult();
     }
@@ -23,13 +25,14 @@ public class LottoGame {
     }
 
     /* 가격에 맞게 구매할 수 있는 로또 갯수 구하는 메소드 */
-    public static int countGameNum(int pay) {
-        return pay / LOTTO_PRICE;
+    public int countGameNum(int pay) {
+        return (pay / LOTTO_PRICE) - handOperatedLottos.size();
     }
 
     /* 모든 로또에 대한 결과를 확인하는 메소드 */
     public void matchAllLottoResult(WinningLotto winningLotto) {
-        for(Lotto lotto : lottos) {
+        autoLottos.addAll(handOperatedLottos);
+        for(Lotto lotto : autoLottos) {
            addRewardResult(matchLottoResult(lotto, winningLotto));
         }
     }
@@ -60,13 +63,13 @@ public class LottoGame {
     /* 가격에 맞게 로또를 구매하는 메소드 */
     private void buyLottos(int pay) {
         for(int i = 0; i < countGameNum(pay); i++) {
-            lottos.add(LottoFactory.createLotto());
+            autoLottos.add(LottoFactory.createLotto());
         }
     }
 
     /* 결과값을 가지고 있는 LottoDto 생성 */
     public LottoDto createLottoDto() {
-        return new LottoDto(lottos);
+        return new LottoDto(autoLottos, handOperatedLottos);
     }
 
     public RewardDto createRewardDto() {
@@ -74,6 +77,6 @@ public class LottoGame {
     }
 
     private int getPay() {
-        return lottos.size() * LOTTO_PRICE;
+        return (autoLottos.size() + handOperatedLottos.size()) * LOTTO_PRICE;
     }
 }
