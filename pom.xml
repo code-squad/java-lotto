@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>kr.codesquad</groupId>
-	<artifactId>java-lottery</artifactId>
+	<artifactId>java-lotto</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>java-lottery</name>
+	<name>java-lotto</name>
 	<description>로또</description>
 
 	<properties>
