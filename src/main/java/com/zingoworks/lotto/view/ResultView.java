@@ -9,7 +9,8 @@ public class ResultView {
     private static final String NEWLINE = System.lineSeparator();
 
     public static void printLottoNumbers(Lottos lottos) {
-        System.out.println(lottos.getPurchasePhrase());
+        System.out.println(NEWLINE + lottos.getPurchasePhrase());
+
         for (Lotto lotto : lottos.getLottos()) {
             System.out.println(lotto);
         }

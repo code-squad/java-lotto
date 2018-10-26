@@ -2,15 +2,15 @@ package com.zingoworks.lotto.domain;
 
 import com.zingoworks.lotto.exception.DuplicateLottoNumberException;
 
-import static com.zingoworks.lotto.domain.Lotto.MAX_RANGE;
-import static com.zingoworks.lotto.domain.Lotto.MIN_RANGE;
+import static com.zingoworks.lotto.domain.Lotto.MAXIMUM_RANGE;
+import static com.zingoworks.lotto.domain.Lotto.MINIMUM_RANGE;
 
 public class WinningLotto {
     private Lotto winningLotto;
     private int bonusNumber;
 
     public WinningLotto(String lastWinningNumbers, int bonusNumber) {
-        this.winningLotto = Lotto.generateManualLotto(lastWinningNumbers);
+        this.winningLotto = new ManualLotto(lastWinningNumbers);
         verifyDuplicatedBonusNumber(bonusNumber);
         verifyValidRangeOfBonusNumber(bonusNumber);
         this.bonusNumber = bonusNumber;
@@ -32,7 +32,7 @@ public class WinningLotto {
     }
 
     private void verifyValidRangeOfBonusNumber(int bonusNumber) {
-        if(bonusNumber < MIN_RANGE || bonusNumber > MAX_RANGE) {
+        if(bonusNumber < MINIMUM_RANGE || bonusNumber > MAXIMUM_RANGE) {
             throw new IllegalArgumentException("유효범위를 초과하였습니다.");
         }
     }
