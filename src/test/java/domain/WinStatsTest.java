@@ -11,7 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WinStatsTest {
     private static WinStats wc;
     static{
-        LottoBundle randomLottoBundle = LottoFactory.generateRandomLottoBundle(0);
+        List<String> list = new ArrayList<>();
+        LottoBundle randomLottoBundle = LottoFactory.generateLottoBundle(0,list);
         Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
         Set<Integer> set1 = new HashSet<>(Arrays.asList(5, 6, 7, 8, 9, 10));
         Set<Integer> set2 = new HashSet<>(Arrays.asList(1, 2, 3, 9, 10, 11));

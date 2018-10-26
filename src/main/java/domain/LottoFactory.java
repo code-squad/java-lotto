@@ -1,5 +1,6 @@
 package domain;
 
+import util.StringParser;
 import vo.LottoNo;
 
 import java.util.ArrayList;
@@ -38,12 +39,24 @@ public class LottoFactory {
         return new Lotto(generateLottoNumbers(numbers));
     }
 
-    public static LottoBundle generateRandomLottoBundle(int count){
-        LottoBundle randomLottoBundle = new LottoBundle();
-        for(int i = 0; i < count; i++){
-            randomLottoBundle.add(LottoFactory.generateRandomLotto());
+
+    public static LottoBundle generateLottoBundle(int totalCount, List<String> lottoTexts){
+        LottoBundle theLottoBundle = new LottoBundle();
+        generateManualLottoBundle(theLottoBundle, lottoTexts);
+        generateRandomLottoBundle(theLottoBundle, totalCount - lottoTexts.size());
+        return theLottoBundle;
+    }
+
+    private static void generateManualLottoBundle(LottoBundle theLottoBundle, List<String> lottoTexts){
+        for (String lottoText : lottoTexts) {
+            theLottoBundle.add(generateTheLotto(StringParser.parseToNumbers(lottoText)));
         }
-        return randomLottoBundle;
+    }
+
+    private static void generateRandomLottoBundle(LottoBundle theLottoBundle, int count){
+        for(int i = 0; i < count; i++){
+            theLottoBundle.add(LottoFactory.generateRandomLotto());
+        }
     }
 
     public static WinningLotto generateWinningLotto(Set<Integer> numbers, int bonusNumber){

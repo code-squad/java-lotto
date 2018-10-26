@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoBundle {
+    private static final int LOTTO_PRICE = 1000;
+
     private List<Lotto> multiLotto;
 
     LottoBundle() {
@@ -31,7 +33,7 @@ public class LottoBundle {
             Rank rank = Rank.valueOf(theWinningLotto.calculateHitCount(aLotto), theWinningLotto.isHitBonusBall(aLotto));
             theWinStats.countRank(rank);
         }
-        theWinStats.calculateEarningRate(this.multiLotto.size() * 1000);
+        theWinStats.calculateEarningRate(this.multiLotto.size() * LOTTO_PRICE);
         return theWinStats;
     }
 

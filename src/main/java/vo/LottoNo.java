@@ -12,7 +12,7 @@ public class LottoNo {
     }
 
     private int isValidNumber(int number){
-        if(number < Lotto.MIN || number > Lotto.MAX) throw new IllegalArgumentException();
+        if(number < Lotto.MIN || number > Lotto.MAX) throw new IllegalArgumentException("Invalid number");
         return number;
     }
 

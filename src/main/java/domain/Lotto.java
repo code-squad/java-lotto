@@ -18,7 +18,7 @@ public class Lotto {
     }
 
     private Set<LottoNo> isValidNumbersCount(Set<LottoNo> numbers){
-        if(numbers.size() != LOTTO_NUMBERS_SIZE) throw new IllegalArgumentException();
+        if(numbers.size() != LOTTO_NUMBERS_SIZE) throw new IllegalArgumentException("Duplication.");
         return numbers;
     }
 
