@@ -27,15 +27,13 @@ public class LottoGame {
         int manualLottoCount = InputView.inputManualLottoCount();
         if(manualLottoCount > totalLottoCount)
             throw new IllegalArgumentException("Can't enter a number greater than the total number.");
-        LottoBundle theLottoBundle =
-                LottoFactory.generateLottoBundle(totalLottoCount, InputView.inputManualLottoTexts(manualLottoCount));
-        return theLottoBundle;
+        ResultView.echoCount(totalLottoCount, manualLottoCount);
+        return LottoFactory.generateLottoBundle(totalLottoCount, InputView.inputManualLottoTexts(manualLottoCount));
     }
 
     private static WinStats makeWinStats(LottoBundle theLottoBundle) throws IOException {
         WinningLotto theWinningLotto =
                 LottoFactory.generateWinningLotto(InputView.inputWinningLottoNumbers(), InputView.inputBonusBall());
-        WinStats theWinStats = theLottoBundle.calculateWinStats(theWinningLotto);
-        return theWinStats;
+        return theLottoBundle.calculateWinStats(theWinningLotto);
     }
 }

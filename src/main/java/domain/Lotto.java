@@ -34,7 +34,7 @@ public class Lotto {
         return this.numbers.contains(number);
     }
 
-    public LottoDto toDto(){
+    LottoDto toDto(){
         return new LottoDto(this.numbers);
     }
 
