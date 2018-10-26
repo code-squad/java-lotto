@@ -5,13 +5,13 @@ import com.zingoworks.lotto.domain.LottoResult;
 import com.zingoworks.lotto.domain.Lottos;
 import com.zingoworks.lotto.domain.Prize;
 
-import static com.zingoworks.lotto.domain.Lottos.PRICE_LOTTO;
+import static com.zingoworks.lotto.domain.Lottos.PRICE_OF_LOTTO;
 
 public class ResultView {
     private static final String NEWLINE = System.lineSeparator();
 
     public static void printLottoNumbers(Lottos lottos, int purchaseAmount) {
-        System.out.println(purchaseAmount / PRICE_LOTTO + "게임을 구매했습니다.");
+        System.out.println(purchaseAmount / PRICE_OF_LOTTO + "게임을 구매했습니다.");
         for (Lotto lotto : lottos.getLottos()) {
             System.out.println(lotto);
         }
