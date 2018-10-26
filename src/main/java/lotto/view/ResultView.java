@@ -11,10 +11,10 @@ public class ResultView {
     public static void winList(LottoManager lottoManager) {
         System.out.println("당첨 통계");
         System.out.println("-----------");
-        System.out.println("3개 일치 (" + SAME_THREE + "원)- " + lottoManager.sameThree() + "개");
-        System.out.println("4개 일치 (" + SAME_FOUR + "원)- " + lottoManager.sameFour() + "개");
-        System.out.println("5개 일치 (" + SAME_FIVE + "원)- " + lottoManager.sameFive() + "개");
-        System.out.println("6개 일치 (" + SAME_SIX + "원)- " + lottoManager.sameSix() + "개");
+        System.out.println("3개 일치 (" + SAME_THREE + "원)- " + lottoManager.getThreeMatchingCount() + "개");
+        System.out.println("4개 일치 (" + SAME_FOUR + "원)- " + lottoManager.getFourMatchingCount() + "개");
+        System.out.println("5개 일치 (" + SAME_FIVE + "원)- " + lottoManager.getFiveMatchingCount() + "개");
+        System.out.println("6개 일치 (" + SAME_SIX + "원)- " + lottoManager.getSixMatchingCount() + "개");
         System.out.println("총 수익률은 " + lottoManager.yield() + "%입니다.");
     }
 

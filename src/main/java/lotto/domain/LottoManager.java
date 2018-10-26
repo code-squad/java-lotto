@@ -22,7 +22,7 @@ public class LottoManager {
     private List<Lotto> lottos = new ArrayList<>();
     private int money;
 
-    public LottoManager(int money) {
+    private LottoManager(int money) {
         final int LOTTO_PRICE = 1000;
         this.money = money;
         int count = money / LOTTO_PRICE;
@@ -37,8 +37,7 @@ public class LottoManager {
     }
 
     public static LottoManager buyLotto(int myMoney) {
-        LottoManager lottos = new LottoManager(myMoney);
-        return lottos;
+        return new LottoManager(myMoney);
     }
 
     public void winLottoMatch(Lotto winLotto) {
@@ -48,14 +47,14 @@ public class LottoManager {
     }
 
     public void changeMap(Lotto winLotto, int index) {
-        LottoManager.map.put(winLotto.obtainMatchCount(getLotto(index)),
-                LottoManager.map.get(winLotto.obtainMatchCount(getLotto(index))) + 1);
+        map.put(winLotto.obtainMatchCount(getLotto(index)),
+                map.get(winLotto.obtainMatchCount(getLotto(index))) + 1);
     }
 
-    public LottoManager(int money, String lotto) { // 수동 추가
-        this.money = money;
-        addLotto(Lotto.ofWinLotto(lotto));
-    }
+//    public LottoManager(int money, String lotto) { // 수동 추가
+//        this.money = money;
+//        addLotto(Lotto.ofWinLotto(lotto));
+//    }
 
     public void addLotto(Lotto lotto) {
         lottos.add(lotto);
@@ -70,23 +69,23 @@ public class LottoManager {
     }
 
     public int yield() {  // 수익률
-        return ((ResultView.SAME_THREE * LottoManager.map.get(3)) + (ResultView.SAME_FOUR * LottoManager.map.get(4)) +
-                (ResultView.SAME_FIVE * LottoManager.map.get(5)) + (ResultView.SAME_SIX * LottoManager.map.get(6))) / money * 100;
+        return ((ResultView.SAME_THREE * map.get(3)) + (ResultView.SAME_FOUR * map.get(4)) +
+                (ResultView.SAME_FIVE * map.get(5)) + (ResultView.SAME_SIX * map.get(6))) / money * 100;
     }
 
-    public int sameThree() {
+    public int getThreeMatchingCount() {
         return map.get(3);
     }
 
-    public int sameFour() {
+    public int getFourMatchingCount() {
         return map.get(4);
     }
 
-    public int sameFive() {
+    public int getFiveMatchingCount() {
         return map.get(5);
     }
 
-    public int sameSix() {
+    public int getSixMatchingCount() {
         return map.get(6);
     }
 }
