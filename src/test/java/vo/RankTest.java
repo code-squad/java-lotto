@@ -1,7 +1,8 @@
-package domain;
+package vo;
 
 import org.junit.Test;
-import vo.Rank;
+
+import static org.junit.Assert.*;
 
 public class RankTest {
 

@@ -5,12 +5,16 @@ import dto.LottoDto;
 import dto.LottoDtos;
 import dto.WinResultDto;
 
+import java.util.List;
 import java.util.Map;
 
 public class ResultView {
 
-    public static void printLottos(LottoDtos lottoDtos) {
-        for (LottoDto lottoDto : lottoDtos.getLottoDtos()) {
+    public static void printLottos(LottoDtos lottoDtos, int lottoManualAmt) {
+        List<LottoDto> result = lottoDtos.getLottoDtos();
+
+        System.out.println("수동으로 " + lottoManualAmt + "장, 자동으로 " + (result.size() - lottoManualAmt) + "개를 구매했습니다.");
+        for (LottoDto lottoDto : result) {
             System.out.println(lottoDto);
         }
         System.out.println();
@@ -38,7 +42,7 @@ public class ResultView {
         return " (";
     }
 
-    public static void printYield(int yield) {
+    public static void printYield(double yield) {
         System.out.println("총 수익률은 " + yield +"%입니다.");
     }
 
