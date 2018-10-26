@@ -1,6 +1,5 @@
 package lotto.domain;
 
-import lotto.dto.LottoDto;
 import lotto.utill.Parser;
 
 import java.util.*;
@@ -33,7 +32,7 @@ public class Lotto {
     }
 
     public static Lotto ofWinLotto(String text) {
-        List<String> winText = new ArrayList<>(Arrays.asList(Parser.ofComma(text)));
+        List<String> winText = new ArrayList<>(Arrays.asList(Parser.ofComma(text.replace(" ", ""))));
         List<Integer> winNumber = new ArrayList<>();
         Set<Integer> overlapChecker = new HashSet<>();
 
@@ -41,7 +40,7 @@ public class Lotto {
             winNumber.add(Integer.parseInt(s));
             overlapChecker.add(Integer.parseInt(s));
         }
-        if(winNumber.size() != overlapChecker.size()){
+        if (winNumber.size() != overlapChecker.size()) {
             throw new IllegalArgumentException("중복된 값은 입력할 수 없습니다.");
         }
         if (winText.size() != 6) {
@@ -58,10 +57,6 @@ public class Lotto {
             }
         }
         return count;
-    }
-
-    public LottoDto toDto(){
-        return new LottoDto(lotto);
     }
 
     @Override

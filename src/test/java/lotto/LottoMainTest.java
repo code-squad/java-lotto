@@ -7,28 +7,19 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LottoTest {
+public class LottoMainTest {
     @Test
     public void 랜덤섞기() {
-        List<Integer> no = new ArrayList<>();
-        no.add(1);
-        no.add(1);
-        no.add(2);
-        no.add(6);
-        no.add(1);
-
+        String[] lotto = {"1","2","3","4","5","6"};
+        List<String> no = new ArrayList<>(Arrays.asList(lotto));
         Collections.shuffle(no);
         System.out.println(no);
     }
 
     @Test
     public void 중복제거() {
-        Set<Integer> no = new HashSet<>();
-        no.add(1);
-        no.add(1);
-        no.add(2);
-        no.add(6);
-        no.add(1);
+        String[] lotto = {"1","6","2","7","4","1"};
+        Set<String> no = new HashSet<>(Arrays.asList(lotto));
         System.out.println(no);
     }
 
