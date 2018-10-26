@@ -1,6 +1,6 @@
 package exception;
 
-public class DuplicateNumberException extends RuntimeException {
+public class DuplicateNumberException extends Exception {
 
     public DuplicateNumberException() {
         super();

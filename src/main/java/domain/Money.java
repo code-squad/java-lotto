@@ -19,14 +19,14 @@ public class Money {
         return this.purchaseAmt / LOTTO_PRICE;
     }
 
-    public int getYield(WinResultDto winResultDto) {
+    public long getYield(WinResultDto winResultDto) {
         return (getRevenue(winResultDto.getWinResultDto()) / this.purchaseAmt) * 100;
     }
 
-    private int getRevenue(Map<Rank, Integer> winResultDto) {
-        int sum = 0;
+    long getRevenue(Map<Rank, Integer> winResultDto) {
+        long sum = 0;
         for (Rank rank : winResultDto.keySet()) {
-            sum += rank.getReward() * winResultDto.get(rank);
+            sum += (long) rank.getReward() * (long) winResultDto.get(rank);
         }
 
         return sum;

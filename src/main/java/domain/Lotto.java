@@ -15,16 +15,16 @@ public class Lotto {
 
     private List<No> lotto;
 
-    private Lotto(List<No> lotto) {
+    private Lotto(List<No> lotto) throws Exception {
         Collections.sort(checkLotto(lotto));
         this.lotto = lotto;
     }
 
-    public static Lotto init() {
+    public static Lotto init() throws Exception {
         return new Lotto(makeLotto());
     }
 
-    public static Lotto initArtifitial(List<No> lotto) {
+    public static Lotto initArtifitial(List<No> lotto) throws Exception {
         return new Lotto(lotto);
     }
 
@@ -37,7 +37,7 @@ public class Lotto {
         return new ArrayList<>(lotto);
     }
 
-    private List<No> checkLotto(List<No> lotto) {
+    private List<No> checkLotto(List<No> lotto) throws Exception {
         Set<No> checker = new HashSet<>(lotto);
 
         if (lotto.size() != LOTTO_SIZE)

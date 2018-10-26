@@ -24,12 +24,12 @@ public class LottoTest {
     }
 
     @Test
-    public void makeLotto() {
+    public void makeLotto() throws Exception {
         System.out.println(Lotto.init());
     }
 
     @Test
-    public void equals1() {
+    public void equals1() throws Exception{
         Lotto l1 = Lotto.initArtifitial(lotto);
         Lotto l2 = Lotto.initArtifitial(lotto);
         System.out.println(l1 + " " + l2);
@@ -37,7 +37,7 @@ public class LottoTest {
     }
 
     @Test
-    public void equals2() {
+    public void equals2() throws Exception {
         List<No> lottoNumbs = new ArrayList<>(lotto);
         Lotto l1 = Lotto.initArtifitial(lottoNumbs);
 
@@ -62,7 +62,7 @@ public class LottoTest {
     }
 
     @Test
-    public void compareLottoNumbs() {
+    public void compareLottoNumbs() throws Exception {
         List<No> numbs = new ArrayList<>(lotto);
 
         numbs.remove(1);
@@ -75,21 +75,21 @@ public class LottoTest {
     }
 
     @Test
-    public void checkBonusNum() {
+    public void checkBonusNum() throws Exception {
         No bonusNum = new No(3);
         Lotto l = Lotto.initArtifitial(lotto);
         assertEquals(true, l.checkBonusNum(bonusNum));
     }
 
     @Test(expected = LottoSizeOutOfBoundException.class)
-    public void initTest1() {
+    public void initTest1() throws Exception {
         lotto.add(new No(7));
 
         Lotto l = Lotto.initArtifitial(lotto);
     }
 
     @Test(expected = DuplicateNumberException.class)
-    public void initTest2() {
+    public void initTest2() throws Exception {
         lotto.remove(5);
         lotto.add(new No(5));
 

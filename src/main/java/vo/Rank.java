@@ -11,15 +11,6 @@ public enum Rank {
         this.reward = reward;
     }
 
-    public static Rank findMatchRank(int matchNumAmt, Boolean matchBonums) {
-        for (Rank rank : Rank.values()) {
-            if (matchNumAmt == SECOND.getMatchNumAmt())
-                return matchBonums ? SECOND : THIRD;
-            if (matchNumAmt == rank.getMatchNumAmt()) return rank;
-        }
-        return Rank.NONE;
-    }
-
     public int getMatchNumAmt() {
         return this.matchNumAmt;
     }
