@@ -29,17 +29,18 @@ public class Lotto {
         return new Lotto(numbers.subList(0,MAX_LOTTO_COUNT));
     }
 
-    public static Lotto winningLotto(String winText) {
-        Set<Integer> winLotto = new HashSet<>();
-        for (String s : winText.split(",")) {
-            winLotto.add(Integer.parseInt(s));
+    public static Lotto enterNumberOfLotto(String input) {
+        String inputTrim = input.trim();
+        Set<Integer> lotto = new HashSet<>();
+        for (String s : inputTrim.split(",")) {
+            lotto.add(Integer.parseInt(s));
         }
 
-        if(winLotto.size() != MAX_LOTTO_COUNT) {
+        if(lotto.size() != MAX_LOTTO_COUNT) {
             throw new NotTypeLottoException("중복되지 않은 6개의 숫자를 입력하세요");
         }
 
-        return new Lotto(new ArrayList<>(winLotto));
+        return new Lotto(new ArrayList<>(lotto));
     }
 
     public boolean isContainBonusNumber(int number) {

@@ -1,6 +1,6 @@
 package lotto.domain;
 
-import lotto.domain.dto.ResultDto;
+import lotto.dto.ResultDto;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ public class GameResult {
         }
     }
 
-    public ResultDto createResultDto() {
-        return new ResultDto(results);
+    public ResultDto createResultDto(int money) {
+        return new ResultDto(results, money);
     }
 }

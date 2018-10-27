@@ -1,15 +1,16 @@
 package lotto.view;
 
 import lotto.domain.*;
-import lotto.domain.dto.LottoDto;
-import lotto.domain.dto.ResultDto;
+import lotto.dto.LottoDto;
+import lotto.dto.ResultDto;
 
 import java.util.Map;
 
 public class ResultView {
 
-    public static void statisticsLottoWinnings(int price, ResultDto result){
+    public static void statisticsLottoWinnings(ResultDto result){
         Map map = result.getResults();
+        int money = result.getMoney();
 
         System.out.println("당첨 통계 \n ---------- ");
 
@@ -24,7 +25,7 @@ public class ResultView {
         }
 
         double profit = getProfit(map);
-        int rateOfReturn = calculateProfits(price, profit);
+        int rateOfReturn = calculateProfits(money, profit);
 
         System.out.println("총 수익률은 " + rateOfReturn + "% 입니다.");
     }
@@ -45,7 +46,11 @@ public class ResultView {
     }
 
     public static void printBuyLotto(LottoDto lottos) {
+        System.out.println("수동으로 " + (lottos.getLottos().size() - lottos.getNumberOfLottoToBuyManually()) + "장, "
+                + "자동으로 " + lottos.getNumberOfLottoToBuyManually()
+                + "개를 구매했습니다.");
         System.out.println(lottos.getLottos().size() + "개를 구매했습니다.");
+
         for (Lotto lotto : lottos.getLottos()) {
             System.out.println(lotto);
         }

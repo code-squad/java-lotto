@@ -1,7 +1,8 @@
 package lotto.domain;
 
-import lotto.domain.dto.LottoDto;
-import lotto.domain.dto.ResultDto;
+import lotto.dto.InputDto;
+import lotto.dto.LottoDto;
+import lotto.dto.ResultDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +11,20 @@ import static lotto.domain.LottoConstant.LOTTO_PRICE;
 
 public class LottoGame {
     private List<Lotto> lottos = new ArrayList<>();
+    private int numberOfLottoToBuyRandom;
+    private int money;
 
-    public LottoGame(int price) {
-        for (int i = 0; i < price/LOTTO_PRICE; i++) {
+    public LottoGame(InputDto inputDto) {
+        money = inputDto.getMoney();
+        numberOfLottoToBuyRandom = (money/LOTTO_PRICE) - inputDto.getNumberOfLottoToBuyManually();
+
+        String[] numbers = inputDto.getEnterNumbers();
+
+        for (int i = 0; i < inputDto.getNumberOfLottoToBuyManually(); i++) {
+            lottos.add(Lotto.enterNumberOfLotto(numbers[i]));
+        }
+
+        for (int i = 0; i < numberOfLottoToBuyRandom; i++) {
             lottos.add(Lotto.generateLottoNumber());
         }
     }
@@ -27,10 +39,10 @@ public class LottoGame {
 
             result.countMatchLotto(count, matchBonus);
         }
-        return result.createResultDto();
+        return result.createResultDto(money);
     }
 
     public LottoDto createDto() {
-        return new LottoDto(lottos);
+        return new LottoDto(lottos, numberOfLottoToBuyRandom);
     }
 }
