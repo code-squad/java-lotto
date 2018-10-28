@@ -27,14 +27,10 @@ public class Lotto {
         lotto = new ArrayList<>(winningLotto);
     }
 
-    public Num getIndex(int index) {
-        return lotto.get(index);
-    }
-
     public int gameStart(Lotto winningLotto) {
         int count = 0;
-        for (int i = 0; i < 6; i++) {
-            if (lotto.contains(winningLotto.getIndex(i)))
+        for (Num num : winningLotto.lotto) {
+            if (lotto.contains(num))
                 count++;
         }
         return count;

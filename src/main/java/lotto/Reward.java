@@ -3,22 +3,26 @@ package lotto;
 import java.util.*;
 
 public class Reward {
+    private final int MAX_MATCH_COUNT = 6;
+    private final int MIN_MATCH_COUNT = 3;
     private Map<Integer, Integer> map = new HashMap<>();
 
     public Map<Integer, Integer> lottoRewardCount() {
-        map.put(3, 0);
-        map.put(4, 0);
-        map.put(5, 0);
-        map.put(6, 0);
+        int[] initMatchCount = {0, 0, 0, 0};
+        forStatement(initMatchCount);
         return map;
     }
 
     public Map<Integer, Integer> lottoPrice() {
-        map.put(3, 5000);
-        map.put(4, 50000);
-        map.put(5, 1500000);
-        map.put(6, 2000000000);
+        int[] priceManager = {5000, 50000, 1500000, 2000000000};
+        forStatement(priceManager);
         return map;
+    }
+
+    public void forStatement(int[] values) {
+        for (int i = MIN_MATCH_COUNT; i <= MAX_MATCH_COUNT; i++) {
+            map.put(i, values[i - MIN_MATCH_COUNT]);
+        }
     }
 
     public double earningRate(Map<Integer, Integer> lottoRewardCount) {

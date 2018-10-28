@@ -21,6 +21,5 @@ public class LottoMain {
         Lotto winningNumber = winningLotto.makeWinningLotto();
 
         PrintView.printResult(userLottos.matchNum(winningNumber), Utility.multiplyThousand(lottoCount));
-
     }
 }

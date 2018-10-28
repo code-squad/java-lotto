@@ -11,18 +11,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LottoTest {
     @Test
     public void FromListToSet() {
-        List<Num> list = new ArrayList<>();
-        list.add(new Num(1));
-        list.add(new Num(3));
-        list.add(new Num(6));
-        list.add(new Num(8));
+        Num[] num = {new Num(1),new Num(3),new Num(5),new Num(7)};
+        List<Num> list = new ArrayList<>(Arrays.asList(num));
+//        for (Num num1 : num) {
+//            list.add(num1);
+//        }
 
         List<Num> list2 = new ArrayList<>(list);
         List<Num> list3 = new ArrayList<>(list);
-//        System.out.println(set);
-//        System.out.println(((TreeSet<Num>) set).pollFirst());
-//        System.out.println(set.size());
-        System.out.println(list2.contains(list3.get(0)));
+        assertThat(list2).isEqualTo(list3);
     }
 
     @Test
@@ -50,15 +47,12 @@ public class LottoTest {
 
     @Test
     public void setContainTest() {
-        List<Num> a = new ArrayList<>();
-        a.add(new Num(1));
-        a.add(new Num(2));
-        a.add(new Num(3));
-        a.add(new Num(4));
-
+        List<Num> a ;
+        Num[] abc = {new Num(1),new Num(2),new Num(3),new Num(4)};
+        a = Arrays.asList(abc);                        // 얕은복사
+        a = new ArrayList<>(Arrays.asList(abc));       // 깊은복사
         List<Num> b = new ArrayList<>(a);
         List<Num> c = new ArrayList<>(a);
-
         System.out.println(b.contains(a.get(0)));   // set contains 메서드는 원하는 결과가 안나온다.
     }
 }

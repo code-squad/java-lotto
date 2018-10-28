@@ -5,6 +5,7 @@ import dto.UserLottoDto;
 import lotto.Reward;
 import util.Utility;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class PrintView {

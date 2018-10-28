@@ -28,4 +28,14 @@ public class PrintViewTest {
         System.out.println(intList);    // 정수배열을 리스트로 바꾸고 출력하면 주소값을 반환
         System.out.println(strList);    //   문자열을 리스트로 바꾸고 출력하면 값을 반환
     }
+
+    @Test
+    public void splitTest() {
+        String[] a = {"id", "cid", "refno"};
+        String b = "asdf wfda dafwfd fadf";
+        String[] c = b.split("\\|");
+        for (String s : c) {
+            System.out.print(s);
+        }
+    }
 }
