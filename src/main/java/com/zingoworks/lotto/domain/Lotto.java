@@ -3,10 +3,11 @@ package com.zingoworks.lotto.domain;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class Lotto {
+public abstract class Lotto implements LottosGenerator {
     static final int MINIMUM_RANGE = 1;
     static final int MAXIMUM_RANGE = 45;
 
+    //인스턴스 변수는 private을 구현한다.
     List<Integer> lottoNumbers;
 
     int getCountOfHit(Lotto winningLotto) {

@@ -8,6 +8,9 @@ import java.util.List;
 class ManualLotto extends Lotto {
     private static final int REGULAR_SIZE = 6;
 
+
+//    로또 숫자 하나를 추상화한 LottoNumber 객체를 추가하는 것은 어떨까?
+//    의미가 있을까? 너무 과한 것은 아닐까?
     ManualLotto(String inputNumbers) {
         lottoNumbers = refineInput(inputNumbers);
 
@@ -31,5 +34,10 @@ class ManualLotto extends Lotto {
         if(size != REGULAR_SIZE) {
             throw new SizeOutOfBoundsException("6개의 숫자를 입력하세요.");
         }
+    }
+
+    @Override
+    public List<Lotto> generate(Money money) {
+        return null;
     }
 }

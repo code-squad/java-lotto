@@ -5,7 +5,7 @@ import com.zingoworks.lotto.exception.SizeOutOfBoundsException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lottos {
+public class Lottos implements LottosGenerator {
     private static final int PRICE_OF_LOTTO = 1000;
 
     private List<Lotto> lottos = new ArrayList<>();
@@ -26,6 +26,10 @@ public class Lottos {
         return lottos;
     }
 
+
+//    이 미션의 가장 핵심 메소드는 이 메소드이다.
+//    이 메소드가 테스트 가능하도록 설계를 개선해 본다.
+//    설계를 개선하고 단위 테스트를 추가한다.
     public LottoResult match(WinningLotto winningLotto) {
         LottoResult result = new LottoResult();
         for (Lotto lotto : lottos) {
@@ -63,5 +67,10 @@ public class Lottos {
         if (numberOfManualLottos < 0 || numberOfManualLottos > numberOfLottos) {
             throw new SizeOutOfBoundsException("유효한 개수가 아닙니다.");
         }
+    }
+
+    @Override
+    public List<Lotto> generate(Money money) {
+        return null;
     }
 }

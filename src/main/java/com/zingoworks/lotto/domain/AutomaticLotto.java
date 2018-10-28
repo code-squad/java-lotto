@@ -33,4 +33,9 @@ class AutomaticLotto extends Lotto {
         IntStream.range(MINIMUM_RANGE, MAXIMUM_RANGE + 1).forEach(basicNumbers::add);
         return basicNumbers;
     }
+
+    @Override
+    public List<Lotto> generate(Money money) {
+        return null;
+    }
 }
