@@ -12,7 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoGame {
-    private List<Lotto> lottos = new ArrayList<>();
+    private List<Lotto> lottos;
+
+    public LottoGame(List<Lotto> manualLottos) {
+        lottos = new ArrayList<>(manualLottos);
+    }
 
     public LottoDto generateLottos(int lottoTicketNum) {
         for (int i = 0; i < lottoTicketNum; i++) {

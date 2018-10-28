@@ -9,9 +9,9 @@ public class NumParser {
     private NumParser() {
     }
 
-    public static List<Integer> parse(String inputWinningNums) {
+    public static List<Integer> parse(String inputLottoNum) {
         List<Integer> lottoNums = new ArrayList<>();
-        for (String num : inputWinningNums.split(COMMA)) {
+        for (String num : inputLottoNum.split(COMMA)) {
             lottoNums.add(Integer.parseInt(num.trim()));
         }
         return lottoNums;

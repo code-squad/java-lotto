@@ -21,6 +21,8 @@ public class LottoGenerator {
 
     public static Lotto generate() {
         Collections.shuffle(lottoNums);
-        return new Lotto(new ArrayList<>(lottoNums.subList(0, LOTTO_SIZE)));
+        List<Integer> tempLottoNums = lottoNums.subList(0, LOTTO_SIZE);
+        Collections.sort(tempLottoNums);
+        return new Lotto(new ArrayList<>(tempLottoNums));
     }
 }
