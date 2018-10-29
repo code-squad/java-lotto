@@ -9,7 +9,7 @@ import java.util.Set;
 public class Lotto {
     public static final int MAX = 45;
     public static final int MIN = 1;
-    static final int LOTTO_NUMBERS_SIZE = 6;
+    public static final int LOTTO_NUMBERS_SIZE = 6;
 
     private Set<LottoNo> numbers;
 

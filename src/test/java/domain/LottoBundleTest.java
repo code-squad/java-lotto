@@ -10,10 +10,11 @@ public class LottoBundleTest {
     @Test
     public void add(){
         List<String> lottoTexts = new ArrayList<>();
-        LottoBundle theLottoBundle = LottoFactory.generateLottoBundle(0, lottoTexts);
-        Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-        Lotto theLotto = LottoFactory.generateTheLotto(set);
-        theLottoBundle.add(theLotto);
+        LottoBundleFactory auto = new AutoLottoBundleFactory();
+        LottoBundleFactory manual = new ManualLottoBundleFactory(Arrays.asList("1,2,3,4,5,6"));
+
+        LottoBundle theLottoBundle = manual.generate(1).addAll(auto.generate(10));
+        Lotto theLotto = manual.generate(1).getALotto(0);
         assertThat(theLottoBundle.getALotto(0)).isEqualTo(theLotto);
     }
 }

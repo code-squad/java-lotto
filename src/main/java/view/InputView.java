@@ -22,15 +22,15 @@ public class InputView {
 
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    public static int inputCount() throws IOException {
+    public static int inputInvestedMoney() throws IOException {
         System.out.println(INPUT_PRICE_MESSAGE);
         try{
             int price = Integer.parseInt(br.readLine());
             if(price < LOTTO_PRICE) throw new IllegalArgumentException(INPUT_MINIMUM_EXCEPTION_MESSAGE);
-            return price / LOTTO_PRICE;
+            return price;
         }catch (NumberFormatException e){
             System.out.println(NUMBER_FORMAT_EXCEPTION_MESSAGE);
-            return inputCount();
+            return inputInvestedMoney();
         }
     }
 

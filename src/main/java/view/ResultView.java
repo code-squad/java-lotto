@@ -59,6 +59,7 @@ public class ResultView {
         sb.append(HIT_COUNT_MESSAGE);
         sb.append("(");
         sb.append(rank.getReward());
-        sb.append(")- ");
+        sb.append("원");
+        sb.append(") - ");
     }
 }

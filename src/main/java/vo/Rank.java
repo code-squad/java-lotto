@@ -1,16 +1,18 @@
 package vo;
 
+import domain.Money;
+
 public enum Rank {
-    FIRST(6, 2000000000),
-    SECOND(5, 30000000),
-    THIRD(5, 1500000),
-    FOURTH(4, 50000),
-    FIFTH(3, 5000);
+    FIRST(6, new Money(2000000000)),
+    SECOND(5, new Money(30000000)),
+    THIRD(5, new Money(1500000)),
+    FOURTH(4, new Money(50000)),
+    FIFTH(3, new Money(5000));
 
     private int matchCount;
-    private int reward;
+    private Money reward;
 
-    Rank(int matchCount, int reward) {
+    Rank(int matchCount, Money reward) {
         this.matchCount = matchCount;
         this.reward = reward;
     }
@@ -24,15 +26,15 @@ public enum Rank {
         return null;
     }
 
-    public int calculateTotalReward(int count) {
-        return this.reward * count;
+    public Money calculateTotalReward(int count) {
+        return this.reward.multi(count);
     }
 
     public int getMatchCount() {
         return matchCount;
     }
 
-    public int getReward() {
+    public Money getReward() {
         return reward;
     }
 }
