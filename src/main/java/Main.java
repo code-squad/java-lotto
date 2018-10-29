@@ -1,23 +1,31 @@
+import domain.GameResult;
 import domain.Lotto;
 import domain.LottoGame;
+import domain.LottoRules;
 import dto.LottoDto;
 import dto.ResultDto;
+import utils.MathHandler;
 import utils.NumParser;
-import utils.Rank;
 import view.InputView;
 import view.ResultView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static utils.LottoGameValues.LOTTO_PRICE;
-import static utils.MathHandler.getLottoTicketNum;
 
 public class Main {
     public static void main(String[] args) {
-        int lottoTicketCount = getLottoTicketNum(InputView.inputPurchaseAmount());
-        int manualLottoCount = InputView.inputManualLottoCount();
+        int lottoTicketCount = 0;
+        int manualLottoCount = 0;
+        try {
+            lottoTicketCount = LottoRules.checkLottoTicketCount(MathHandler.getLottoTicketNum(InputView.inputPurchaseAmount()));
+            manualLottoCount = LottoRules.checkManualLottoCount(lottoTicketCount, InputView.inputManualLottoCount());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+            main(args);
+        }
 
         List<Lotto> manualLottos = new ArrayList<>();
         while (true) {
@@ -29,7 +37,7 @@ public class Main {
                     manualLottos.add(lotto);
                 }
                 break;
-            } catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -39,7 +47,7 @@ public class Main {
         LottoDto lottoDto = lottoGame.generateLottos(lottoTicketCount - manualLottoCount);
         ResultView.showLottos(lottoDto);
 
-        Map<Rank, Integer> gameResult;
+        GameResult gameResult;
         while (true) {
             try {
                 gameResult = lottoGame.checkLottos(InputView.inputWinningLottoNum(), InputView.inputBonusNum());
@@ -48,7 +56,7 @@ public class Main {
                 System.out.println(e.getMessage());
             }
         }
-        int profitRate = lottoGame.calculateProfitRate(gameResult, (double) (lottoTicketCount * LOTTO_PRICE));
-        ResultView.showLottoResult(new ResultDto(gameResult, profitRate));
+        int profitRate = gameResult.calculateProfitRate((double) (lottoTicketCount * LOTTO_PRICE));
+        ResultView.showLottoResult(new ResultDto(gameResult.getGameResult(), profitRate));
     }
 }

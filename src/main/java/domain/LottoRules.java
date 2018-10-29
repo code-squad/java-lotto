@@ -4,11 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static utils.LottoGameValues.LOTTO_NUM_END;
-import static utils.LottoGameValues.LOTTO_NUM_START;
-import static utils.LottoGameValues.LOTTO_SIZE;
+import static utils.LottoGameValues.*;
 
-class LottoRules {
+public class LottoRules {
 
     private LottoRules() {
     }
@@ -47,6 +45,16 @@ class LottoRules {
         for (Integer lottoNum : lottoNums) {
             exceptionCheck(lottoNum == bonusNum, "[보너스 수와 로또 수 중 같은 값이 있습니다!]");
         }
+    }
+
+    public static int checkManualLottoCount(int lottoTicketCount, int manualLottoCount) {
+        exceptionCheck(lottoTicketCount < manualLottoCount, "[수동으로 구매할 로또 수가 구입금액으로 살 수 있는 로또 개수보다 많습니다.]");
+        return manualLottoCount;
+    }
+
+    public static int checkLottoTicketCount(int lottoTicketCount) {
+        exceptionCheck(lottoTicketCount < 1, "[돈이 모자랍니다.]");
+        return lottoTicketCount;
     }
 
     private static void exceptionCheck(boolean isException, String message) {
