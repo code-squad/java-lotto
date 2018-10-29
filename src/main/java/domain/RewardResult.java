@@ -4,12 +4,12 @@ import dto.RewardDto;
 
 import java.util.*;
 
-public class RewardMoney {
+public class RewardResult {
 
     private static final int POSSIBLE_WIN_NUM = 3;
     private Map<Reward, Integer> rewardResult = new TreeMap<>(Collections.reverseOrder());
 
-    public RewardMoney() {
+    public RewardResult() {
         initRewardResult();
     }
 
