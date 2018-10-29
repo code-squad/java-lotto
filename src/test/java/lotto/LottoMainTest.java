@@ -10,16 +10,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LottoMainTest {
     @Test
     public void 랜덤섞기() {
-        String[] lotto = {"1","2","3","4","5","6"};
-        List<String> no = new ArrayList<>(Arrays.asList(lotto));
+        List<Integer> no = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
         Collections.shuffle(no);
         System.out.println(no);
     }
 
     @Test
     public void 중복제거() {
-        String[] lotto = {"1","6","2","7","4","1"};
-        Set<String> no = new HashSet<>(Arrays.asList(lotto));
+        Set<Integer> no = new HashSet<>(Arrays.asList(1, 6, 2, 7, 4, 1));
         System.out.println(no);
     }
 
@@ -41,13 +39,13 @@ public class LottoMainTest {
     @Test
     public void map연습() {
         Map<Integer, Integer> map = new HashMap<>();
-        map.put(3,0);
-        map.put(4,0);
-        map.put(5,0);
-        map.put(6,0);
+        map.put(3, 0);
+        map.put(4, 0);
+        map.put(5, 0);
+        map.put(6, 0);
 
         assertThat(map.get(3)).isEqualTo(0);
-        map.put(3,1);
+        map.put(3, 1);
         assertThat(map.get(3)).isEqualTo(1);
     }
 }

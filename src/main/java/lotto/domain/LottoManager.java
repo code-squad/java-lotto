@@ -1,22 +1,16 @@
 package lotto.domain;
 
-import lotto.view.ResultView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LottoManager {
-    private static Map<Integer, Integer> map = new HashMap<>();
+    private static Map<Rank, Integer> map = new HashMap<>();
+
     static {
-        map.put(0, 0);
-        map.put(1, 0);
-        map.put(2, 0);
-        map.put(3, 0);
-        map.put(4, 0);
-        map.put(5, 0);
-        map.put(6, 0);
+        map.put(Rank.FIFTH, 0);
+        map.put(Rank.FOURTH, 0);
+        map.put(Rank.THIRD, 0);
+        map.put(Rank.SECOND, 0);
+        map.put(Rank.FIRST, 0);
     }
 
     private List<Lotto> lottos = new ArrayList<>();
@@ -40,15 +34,18 @@ public class LottoManager {
         return new LottoManager(myMoney);
     }
 
-    public void winLottoMatch(Lotto winLotto) {
+    public void winLottoMatch(Lotto winLotto, int bonusBall) {
         for (int i = 0; i < getSize(); i++) {
-            changeMap(winLotto, i);
+            changeMap(winLotto, i, bonusBall);
         }
     }
 
-    public void changeMap(Lotto winLotto, int index) {
-        map.put(winLotto.obtainMatchCount(getLotto(index)),
-                map.get(winLotto.obtainMatchCount(getLotto(index))) + 1);
+    public void changeMap(Lotto winLotto, int index, int bonusBall) {
+        int count = winLotto.obtainMatchCount(getLotto(index));
+        if(count >= Rank.FIFTH.getCountOfMatch() && count <= Rank.FIRST.getCountOfMatch()){
+            map.put(Rank.valueOf(count, getLotto(index).obtainMatchBonus(bonusBall)),
+                    map.get(Rank.valueOf(count, getLotto(index).obtainMatchBonus(bonusBall))) + 1);
+        }
     }
 
 //    public LottoManager(int money, String lotto) { // 수동 추가
@@ -68,24 +65,29 @@ public class LottoManager {
         return lottos.size();
     }
 
-    public int yield() {  // 수익률
-        return ((ResultView.SAME_THREE * map.get(3)) + (ResultView.SAME_FOUR * map.get(4)) +
-                (ResultView.SAME_FIVE * map.get(5)) + (ResultView.SAME_SIX * map.get(6))) / money * 100;
+    public long yield() {  // 수익률
+        return ((Rank.FIFTH.getWinningMoney() * map.get(Rank.FIFTH)) + (Rank.FOURTH.getWinningMoney() * map.get(Rank.FOURTH)) +
+                (Rank.THIRD.getWinningMoney() * map.get(Rank.THIRD)) + (Rank.SECOND.getWinningMoney() * map.get(Rank.SECOND))
+                + (Rank.FIRST.getWinningMoney() * map.get(Rank.FIRST))) * 100L / money;
     }
 
-    public int getThreeMatchingCount() {
-        return map.get(3);
+    public int getFifthRank() {
+        return map.get(Rank.FIFTH);
     }
 
-    public int getFourMatchingCount() {
-        return map.get(4);
+    public int getFourthRank() {
+        return map.get(Rank.FOURTH);
     }
 
-    public int getFiveMatchingCount() {
-        return map.get(5);
+    public int getThirdRank() {
+        return map.get(Rank.THIRD);
     }
 
-    public int getSixMatchingCount() {
-        return map.get(6);
+    public int getSecondRank() {
+        return map.get(Rank.SECOND);
+    }
+
+    public int getFirstRank() {
+        return map.get(Rank.FIRST);
     }
 }

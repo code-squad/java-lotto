@@ -1,20 +1,17 @@
 package lotto.view;
 
 import lotto.domain.LottoManager;
+import lotto.domain.Rank;
 
 public class ResultView {
-    public static final int SAME_THREE = 5000;
-    public static final int SAME_FOUR = 50000;
-    public static final int SAME_FIVE = 1500000;
-    public static final int SAME_SIX = 2000000000;
-
     public static void winList(LottoManager lottoManager) {
         System.out.println("당첨 통계");
         System.out.println("-----------");
-        System.out.println("3개 일치 (" + SAME_THREE + "원)- " + lottoManager.getThreeMatchingCount() + "개");
-        System.out.println("4개 일치 (" + SAME_FOUR + "원)- " + lottoManager.getFourMatchingCount() + "개");
-        System.out.println("5개 일치 (" + SAME_FIVE + "원)- " + lottoManager.getFiveMatchingCount() + "개");
-        System.out.println("6개 일치 (" + SAME_SIX + "원)- " + lottoManager.getSixMatchingCount() + "개");
+        System.out.println(Rank.FIFTH.getCountOfMatch() + "개 일치 (" + Rank.FIFTH.getWinningMoney() + "원)- " + lottoManager.getFifthRank() + "개");
+        System.out.println(Rank.FOURTH.getCountOfMatch() + "개 일치 (" + Rank.FOURTH.getWinningMoney() + "원)- " + lottoManager.getFourthRank() + "개");
+        System.out.println(Rank.THIRD.getCountOfMatch() + "개 일치 (" + Rank.THIRD.getWinningMoney() + "원)- " + lottoManager.getThirdRank() + "개");
+        System.out.println(Rank.SECOND.getCountOfMatch() + "개 일치, 보너스 볼 일치(" + Rank.SECOND.getWinningMoney() + "원)-" + lottoManager.getSecondRank() + "개");
+        System.out.println(Rank.FIRST.getCountOfMatch() + "개 일치 (" + Rank.FIRST.getWinningMoney() + "원)- " + lottoManager.getFirstRank() + "개");
         System.out.println("총 수익률은 " + lottoManager.yield() + "%입니다.");
     }
 

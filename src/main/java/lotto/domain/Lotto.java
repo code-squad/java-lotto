@@ -59,6 +59,10 @@ public class Lotto {
         return count;
     }
 
+    public boolean obtainMatchBonus(int bonusBall) {
+        return lotto.contains(bonusBall);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
