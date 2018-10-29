@@ -1,9 +1,9 @@
 package lottogame.domain;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import lottogame.vo.LottoNumber;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Lotto {
     public static final int CORRECT_LOTTO_NUMBER_AMOUNT = 6;
@@ -16,6 +16,12 @@ public class Lotto {
         inspectDuplication(lottoNum);
         inspectNumberAmount();
         this.lottos = Collections.unmodifiableSet(lottos);
+    }
+
+    public static Lotto ofText(String value){
+        return new Lotto(Arrays.stream(value.split(","))
+                            .map(Integer::parseInt)
+                            .collect(Collectors.toList()));
     }
 
     private void inspectNumberAmount() {

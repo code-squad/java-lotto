@@ -1,5 +1,7 @@
 package lottogame.domain;
 
+import lottogame.vo.LottoNumber;
+
 public class WinnningLotto {
     final Lotto winningLotto;
     final LottoNumber bonusNumber;
@@ -14,6 +16,12 @@ public class WinnningLotto {
 
     public static WinnningLotto of(Lotto winningLottolotto, int bonus) {
         return new WinnningLotto(winningLottolotto, LottoNumber.Of(bonus));
+    }
+
+    public static WinnningLotto of(String winningLotto, String bonus) {
+        return new WinnningLotto(
+                Lotto.ofText(winningLotto),
+                LottoNumber.Of(bonus));
     }
 
 }

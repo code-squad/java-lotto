@@ -1,7 +1,7 @@
 package lottogame.util;
 
 import lottogame.domain.Lotto;
-import lottogame.domain.LottoNumber;
+import lottogame.vo.LottoNumber;
 
 import java.util.Collections;
 import java.util.List;

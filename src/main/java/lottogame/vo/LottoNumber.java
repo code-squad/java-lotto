@@ -1,4 +1,4 @@
-package lottogame.domain;
+package lottogame.vo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +23,10 @@ public class LottoNumber {
         LottoNumber lottoNumber = new LottoNumber(num);
         map.put(num, lottoNumber);
         return lottoNumber;
+    }
+
+    public static LottoNumber Of(String num){
+        return LottoNumber.Of(Integer.parseInt(num));
     }
 
     @Override

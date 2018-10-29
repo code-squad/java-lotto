@@ -11,7 +11,7 @@ import java.util.InputMismatchException;
 public class LottoGameLoader {
     public static void main(String[] args) {
         try {
-            InputDto inputDto = InputView.receiveInput();
+            InputDto inputDto = InputView.console();
             LottoGame lottoGame = new LottoGame(inputDto.getLottos());
             Result result = lottoGame.result(inputDto.getWinningLotto());
             OutputView.printResult(inputDto.readMoney(), result);
