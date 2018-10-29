@@ -9,15 +9,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
-    public static int getPay() {
+    public static PurchaseMoney getPay() {
         System.out.println("구입금액을 입력해 주세요.");
         try {
-            int price = Parser.parseInteger(new Scanner(System.in).nextLine());
-            if(price < 1000) {
-                throw new InputMismatchException("구입할 수 없습니다. 1000원 미만입니다.");
-            }
-            return price;
-        } catch (InputMismatchException | NumberFormatException e) {
+            return new PurchaseMoney(new Scanner(System.in).nextLine());
+        } catch (ShortPurchaseMoneyException | NumberFormatException e) {
             System.out.println(e.getMessage());
             return getPay();
         }
@@ -43,23 +39,20 @@ public class InputView {
         }
     }
 
-    public static int getHandOperated(int pay) {
+    public static int getHandOperated(PurchaseMoney purchaseMoney) {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         try {
-            int handOperatedNum = new Scanner(System.in).nextInt();
-            if(pay / LottoGame.LOTTO_PRICE < handOperatedNum) {
-                throw new IllegalArgumentException("구입한 금액보다 더 많이 구매할 수 없습니다.");
-            }
-            return handOperatedNum;
-        } catch (InputMismatchException | IllegalArgumentException e) {
+            return purchaseMoney.obtainHandOperatedCount(new Scanner(System.in).nextLine());
+        } catch (ShortPurchaseMoneyException | NumberFormatException e) {
             System.out.println(e.getMessage());
-            return getHandOperated(pay);
+            return getHandOperated(purchaseMoney);
         }
     }
 
     public static List<Lotto> getHandOperatedLotto(int handOperatedNumber) {
-        System.out.println("수동으로 구매할 번호를 입력해주세요.");
         List<Lotto> lottos = new ArrayList<>();
+        if(handOperatedNumber == 0) return lottos;
+        System.out.println("수동으로 구매할 번호를 입력해주세요.");
         while(handOperatedNumber > 0) {
             try {
                 lottos.add(LottoFactory.createHandOperatedLotto(new Scanner(System.in).nextLine()));

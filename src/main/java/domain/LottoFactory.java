@@ -6,9 +6,18 @@ import java.util.regex.Pattern;
 public class LottoFactory {
     public static final String SPLIT_STANDARD = ", ";
 
+    private static List<LottoNum> shuffles = new ArrayList<>();
+    /* 피드백2-3) LottoNum 인스턴스를 매번 생성해야 하기 때문에 성능이 저하될 가능성 존재 Lotto 인스턴스를 재사용하는 방법이 필요 !!
+     *    --> 초기에 모두 생성한 후에, 생성한 객체를 재사용하는 방식 */
+    static {
+        for(int i = 1; i < LottoNum.LOTTO_MAX; i++) {
+            shuffles.add(new LottoNum(i));
+        }
+    }
+
     /* 로또 생성하는 메소드 */
     public static Lotto createLotto() {
-        List<LottoNum> lotto = shuffle().subList(0, Lotto.LOTTO_NUMBER_COUNT);
+        List<LottoNum> lotto = new ArrayList<>(shuffle().subList(0, Lotto.LOTTO_NUMBER_COUNT));
         Collections.sort(lotto);
         return new Lotto(lotto);
     }
@@ -49,10 +58,6 @@ public class LottoFactory {
 
     /* 난수 발생 메소드 */
     private static List<LottoNum> shuffle() {
-        List<LottoNum> shuffles = new ArrayList<>();
-        for(int i = 1; i < LottoNum.LOTTO_MAX; i++) {
-            shuffles.add(new LottoNum(i));
-        }
         Collections.shuffle(shuffles);
         return shuffles;
     }

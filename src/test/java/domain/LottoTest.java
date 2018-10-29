@@ -68,4 +68,28 @@ public class LottoTest {
         set.add(new LottoNum(1));
         System.out.println(set.toString());
     }
+
+    @Test
+    public void test3() {
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        for(String num : list.subList(0, 3)) {
+            System.out.print(num + "\t");
+        }
+        System.out.println();
+
+        List<String> subList = list.subList(0, 3);
+        subList.remove(1);
+        for(String num : subList) {
+            System.out.print(num + "\t");
+        }
+
+        System.out.println();
+        for(String s : list) {
+            System.out.print(s + "\t");
+        }
+    }
 }

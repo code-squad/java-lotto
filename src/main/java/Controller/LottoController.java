@@ -11,8 +11,9 @@ import java.util.List;
 
 public class LottoController {
     public static void main(String[] args) {
-        int pay = InputView.getPay();
-        LottoGame lottoGame = new LottoGame(pay, InputView.getHandOperatedLotto(InputView.getHandOperated(pay)));
+        PurchaseMoney purchaseMoney = InputView.getPay();
+        LottoGame lottoGame = new LottoGame(purchaseMoney,
+                InputView.getHandOperatedLotto(InputView.getHandOperated(purchaseMoney)));
         LottoDto lottoDto = lottoGame.createLottoDto();
         ResultView.showPurchaseReport(lottoDto);
         ResultView.showLottoList(lottoDto);
