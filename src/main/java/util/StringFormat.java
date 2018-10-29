@@ -31,4 +31,8 @@ public class StringFormat {
     public static String profitFormat(int profit) {
         return String.format("총 수익률은 %d%%입니다.", profit);
     }
+
+    public static String purchaseFormat(int handOperated, int auto) {
+        return String.format("수동으로 %d장, 자동으로 %d개를 구매했습니다.", handOperated, auto);
+    }
 }

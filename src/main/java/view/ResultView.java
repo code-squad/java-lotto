@@ -10,7 +10,7 @@ import java.util.*;
 
 public class ResultView {
     public static void showLottoList(LottoDto lottoDto) {
-        for (Lotto lotto : lottoDto.getLottos()) {
+        for (Lotto lotto : lottoDto.getAutoLottos()) {
             showLotto(lotto);
         }
     }
@@ -23,8 +23,8 @@ public class ResultView {
         System.out.println(StringFormat.lottoFormat(sb.toString()));
     }
 
-    public static void showLottoNum(LottoDto lottoDto) {
-        System.out.println(String.format("%d개를 구매했습니다.", lottoDto.getLottos().size()));
+    public static void showPurchaseReport(LottoDto lottoDto) {
+        System.out.println(StringFormat.purchaseFormat(lottoDto.getHandOperatedLottos().size(), lottoDto.getAutoLottos().size()));
     }
 
     public static void showWinStats(RewardDto rewardDto) {

@@ -3,10 +3,7 @@ package domain;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,6 +24,11 @@ public class LottoTest {
     public void isContainLottoNumTest() {
         assertThat(lotto.isContainLottoNum(new LottoNum(1))).isTrue();
         assertThat(lotto.isContainLottoNum(new LottoNum(9))).isFalse();
+    }
+
+    @Test
+    public void createHandOperatedLottoTest() {
+        assertThat(LottoFactory.createHandOperatedLotto("1, 2, 3, 4, 5, 6")).isEqualTo(lotto);
     }
 
     @Test
@@ -58,4 +60,36 @@ public class LottoTest {
         }
     }
 
+    @Test
+    public void test2() {
+        Set<LottoNum> set = new TreeSet<>();
+        set.add(new LottoNum(5));
+        set.add(new LottoNum(3));
+        set.add(new LottoNum(1));
+        System.out.println(set.toString());
+    }
+
+    @Test
+    public void test3() {
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        for(String num : list.subList(0, 3)) {
+            System.out.print(num + "\t");
+        }
+        System.out.println();
+
+        List<String> subList = list.subList(0, 3);
+        subList.remove(1);
+        for(String num : subList) {
+            System.out.print(num + "\t");
+        }
+
+        System.out.println();
+        for(String s : list) {
+            System.out.print(s + "\t");
+        }
+    }
 }
