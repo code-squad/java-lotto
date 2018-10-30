@@ -25,7 +25,9 @@ public class LottoFactory {
     private void of(int num) {
         for (int i = 0; i < num; i++) {
             Collections.shuffle(nums);
-            lottos.add(Lotto.ofAuto(nums.stream().limit(6).collect(Collectors.toList())));
+            lottos.add(Lotto.ofAuto(nums.stream()
+                    .limit(6)
+                    .collect(Collectors.toList())));
         }
     }
 
