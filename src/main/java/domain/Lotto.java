@@ -1,39 +1,50 @@
 package domain;
 
 import java.util.List;
-
-import static utils.LottoGameValues.LOTTO_SIZE;
+import java.util.Objects;
 
 public class Lotto {
-    private final List<Integer> lottoNums;
+    private final List<LottoNum> lottoNums;
 
-    public Lotto(List<Integer> lottoNums) {
+    public Lotto(List<LottoNum> lottoNums) {
         LottoRules.eligibleForLotto(lottoNums);
         this.lottoNums = lottoNums;
     }
 
     int strikeCheck(Lotto target) {
         int strikePoint = 0;
-        for (int i = 0; i < LOTTO_SIZE; i++) {
-            strikePoint += contains(target, lottoNums.get(i));
+        for (LottoNum lottoNum : lottoNums) {
+            strikePoint += addStrikePoint(target.lottoNums.contains(lottoNum));
         }
         return strikePoint;
     }
 
-    int contains(Lotto target, int num) {
-        if(target.lottoNums.contains(num)) {
+    int addStrikePoint(boolean isStrike) {
+        if(isStrike) {
             return 1;
         }
         return 0;
     }
 
-    boolean contains(int num) {
+    boolean contains(LottoNum num) {
         return lottoNums.contains(num);
     }
 
     @Override
     public String toString() {
-        return lottoNums.toString();
+        return String.valueOf(lottoNums);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lotto lotto = (Lotto) o;
+        return Objects.equals(lottoNums, lotto.lottoNums);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lottoNums);
+    }
 }

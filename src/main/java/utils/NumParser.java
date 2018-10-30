@@ -1,5 +1,7 @@
 package utils;
 
+import domain.LottoNum;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +11,10 @@ public class NumParser {
     private NumParser() {
     }
 
-    public static List<Integer> parse(String inputLottoNum) {
-        List<Integer> lottoNums = new ArrayList<>();
+    public static List<LottoNum> parse(String inputLottoNum) {
+        List<LottoNum> lottoNums = new ArrayList<>();
         for (String num : inputLottoNum.split(COMMA)) {
-            lottoNums.add(Integer.parseInt(num.trim()));
+            lottoNums.add(new LottoNum(Integer.parseInt(num.trim())));
         }
         return lottoNums;
     }

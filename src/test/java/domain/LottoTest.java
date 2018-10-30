@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static utils.IntegerToLottoNum.convertLottoNums;
 
 public class LottoTest {
     Lotto userLotto;
@@ -13,8 +14,8 @@ public class LottoTest {
 
     @Before
     public void setUp() throws Exception {
-        userLotto = new Lotto(Arrays.asList(6, 7, 45, 2, 9, 14));
-        winningLotto = new Lotto(Arrays.asList(30, 7, 32, 12, 45, 6));
+        userLotto = new Lotto(convertLottoNums(Arrays.asList(6, 7, 45, 2, 9, 14)));
+        winningLotto = new Lotto(convertLottoNums(Arrays.asList(30, 7, 32, 12, 45, 6)));
     }
 
     @Test
@@ -24,22 +25,23 @@ public class LottoTest {
 
     @Test
     public void addStrikePoint() {
-        assertThat(userLotto.contains(winningLotto, 3)).isEqualTo(0);
+        assertThat(userLotto.addStrikePoint(true)).isEqualTo(1);
+        assertThat(userLotto.addStrikePoint(false)).isEqualTo(0);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void isDuplicated() {
-        Lotto duplicatedLotto = new Lotto(Arrays.asList(1, 1, 3, 2, 5, 6));
+        Lotto duplicatedLotto = new Lotto(convertLottoNums(Arrays.asList(1, 1, 3, 2, 5, 6)));
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void isLottoSize() {
-        Lotto overSizeLotto = new Lotto(Arrays.asList(1, 2, 7, 3, 2, 5, 6));
+        Lotto overSizeLotto = new Lotto(convertLottoNums(Arrays.asList(1, 2, 7, 3, 2, 5, 6)));
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void isNotInRange() {
-        Lotto outRangeLotto = new Lotto(Arrays.asList(1, 2, 47, 22, 5, 6));
+        Lotto outRangeLotto = new Lotto(convertLottoNums(Arrays.asList(1, 2, 47, 22, 5, 6)));
     }
 
     @Test
@@ -49,7 +51,7 @@ public class LottoTest {
 
     @Test
     public void 몇개_동일한_원소_가지나2() {
-        userLotto = new Lotto(Arrays.asList(6, 7, 45, 2, 9, 30));
+        userLotto = new Lotto(convertLottoNums(Arrays.asList(6, 7, 45, 2, 9, 30)));
         assertThat(userLotto.strikeCheck(winningLotto)).isEqualTo(4);
     }
 }
