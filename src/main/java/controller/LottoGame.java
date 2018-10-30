@@ -1,7 +1,7 @@
 package controller;
 
-import domain.Lotto;
 import domain.LottoFactory;
+import domain.WinnerLotto;
 import view.InputView;
 
 import java.util.List;
@@ -24,11 +24,11 @@ public class LottoGame {
         return new LottoFactory(InputView.lottoSize(input));
     }
 
-    public static Lotto winnerLottoCreator() {
-        Lotto winnerLotto;
+    public static WinnerLotto winnerLottoCreator() {
+        WinnerLotto winnerLotto;
         try {
-            List<String> input = InputView.lotto();
-            winnerLotto = Lotto.winnerLottoCreator(input);
+            winnerLotto = WinnerLotto.of(InputView.winnigLotto(),InputView.bonusLotto());
+
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return winnerLottoCreator();

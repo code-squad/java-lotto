@@ -1,57 +1,59 @@
 package domain;
 
 
+import domain.vo.LottoNum;
+
 import java.util.ArrayList;
 import java.util.Collections;
-
 import java.util.HashSet;
 import java.util.List;
 
 public class Lotto {
     private List<LottoNum> lotto;
 
-    private Lotto(List<LottoNum> nums) {
-        this.lotto = nums;
-        if (this.lotto.size() != new HashSet<>(nums).size()) {
+    private Lotto(List<LottoNum> lotto) {
+        this.lotto = lotto;
+        if (this.lotto.size() != new HashSet<>(lotto).size()) {
             throw new IllegalArgumentException("중복된 숫자가 있습니다.");
         }
         Collections.sort(lotto);
     }
 
-    static Lotto autoLottoCreator(List<LottoNum> nums) {
-        Collections.shuffle(nums);
-        List<LottoNum> list = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            list.add(nums.get(i));
-        }
-        return new Lotto(list);
+    int compareLotto(Lotto otherLotto) {
+        return (int) lotto.stream().filter(otherLotto::contains).count();
     }
 
-    public static Lotto winnerLottoCreator(List<String> nums) {
-        Collections.shuffle(nums);
+    boolean contains(LottoNum lottoNum) {
+        return lotto.contains(lottoNum);
+    }
+
+    private static List<LottoNum> createLotto(List<String> nums) {
         List<LottoNum> list = new ArrayList<>();
         for (String num : nums) {
-            list.add(LottoNum.stringCreate(num));
+            list.add(LottoNum.ofString(num));
         }
-        return new Lotto(list);
+        return list;
     }
 
-    int compareLotto(Lotto otherLotto) {
-        int count = 0;
-        for (int i = 0; i < this.lotto.size(); i++) {
-            if (this.lotto.contains(otherLotto.getNum(i))) {
-                count++;
-            }
-        }
-        return count;
-    }
 
-    public LottoNum getNum(int i) {
+    LottoNum getNum(int i) {
         return lotto.get(i);
+    }
+
+    public List<LottoNum> getLotto() {
+        return lotto;
     }
 
     @Override
     public String toString() {
-        return "" + lotto;
+        return "" + getLotto();
+    }
+
+    static Lotto ofAuto(List<LottoNum> nums) {
+        return new Lotto(nums);
+    }
+
+    static Lotto ofManual(List<String> nums) {
+        return new Lotto(createLotto(nums));
     }
 }

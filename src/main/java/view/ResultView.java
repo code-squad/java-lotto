@@ -1,11 +1,13 @@
 package view;
 
 import domain.Lotto;
-import domain.WinningRules;
+import domain.LottoryManager;
+import domain.Rank;
 
-
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
+
 
 public class ResultView {
     public static void view(List<Lotto> lottos) {
@@ -14,22 +16,29 @@ public class ResultView {
         }
     }
 
-    public static void winView(WinningRules userWinnerLottos, int input) {
-        long percent = getPercent(userWinnerLottos, input);
+    public static void winView(LottoryManager manager, int input) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
-        System.out.println("3개 일치 (5000원)- " + userWinnerLottos.ranking(3) + "개");
-        System.out.println("4개 일치 (50000원)- " + userWinnerLottos.ranking(4) + "개");
-        System.out.println("5개 일치 (1500000원)- " + userWinnerLottos.ranking(5) + "개");
-        System.out.println("6개 일치 (2000000000원)- " + userWinnerLottos.ranking(6) + "개");
-        System.out.println("총 수익률은 "+ percent +"%입니다.");
 
+        Arrays.stream(Rank.values()).sorted(Comparator.reverseOrder())
+                .map(value -> result(value, manager))
+                .forEach(System.out::println);
+
+        System.out.println("총 수익률은 " + manager.percent(input) + "%입니다.");
     }
 
-    private static long getPercent(WinningRules winningRules, int input) {
-        return  (100L *(( 5000 * winningRules.ranking(3)
-                        + 50000 * winningRules.ranking(4)
-                        + 1500000 * winningRules.ranking(5)
-                        + 2000000000 * winningRules.ranking(6) ) / input));
+    private static String result(Rank value, LottoryManager manager) {
+        return value.getTrueNum()
+                + "개 일치"
+                + ifBouns(value)
+                + " ("
+                + value.getMoney()
+                + " 원)- "
+                + manager.ranking(value)
+                + "개";
+    }
+
+    private static String ifBouns(Rank value) {
+        return value == Rank.TWO ? ", 보너스 볼 일치" : "";
     }
 }
