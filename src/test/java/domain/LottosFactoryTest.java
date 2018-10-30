@@ -1,3 +1,5 @@
+package domain;
+
 import domain.Lotto;
 import domain.LottosFactory;
 import org.junit.Test;

@@ -14,13 +14,16 @@ public class Lotto {
     public int checkRank(Lotto lotto) {
         int cnt = 0;
         for (int i = 0; i < 6; i++) {
-            if (this.lotto.contains(lotto.getLottoValue(i))) cnt++;
+            if (lotto.isContains(this.lotto.get(i))) cnt++;
         }
         return cnt;
     }
 
-    public int getLottoValue(int index) {
-        return lotto.get(index);
+    private boolean isContains(int number) {
+        return this.lotto.contains(number);
     }
 
+    public List<Integer> getLotto() {
+        return lotto;
+    }
 }
