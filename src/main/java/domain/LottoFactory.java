@@ -22,6 +22,15 @@ public class LottoFactory {
         of(num);
     }
 
+    public LottoFactory(List<List> list, int num) {
+        // 수동 로또 생성
+        for (List list1 : list) {
+            lottos.add(Lotto.ofManual(list1));
+        }
+        of(num);
+    }
+
+
     private void of(int num) {
         for (int i = 0; i < num; i++) {
             Collections.shuffle(nums);

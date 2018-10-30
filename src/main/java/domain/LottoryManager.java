@@ -22,7 +22,7 @@ public class LottoryManager {
         }
     }
 
-    // 겟머니가 아니라 멀티플 머니 (ranking(value)) 하면 곱한 값이 인티져로 나오게?
+
     public long percent(int input) {
         return 100L * Arrays.stream(Rank.values())
                 .mapToInt(value -> value.multiplicationMoney(ranking(value)))
