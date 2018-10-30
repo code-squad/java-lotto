@@ -11,21 +11,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RewardTest {
 
     @Test
-    public void getSumTest() {
-        Map<Reward, Integer> rewardResult = new HashMap<>();
-        rewardResult.put(Reward.REWARD_FIFTH, 2);
-        assertThat(Reward.calculateSum(rewardResult)).isEqualTo(10000);
-    }
-
-    @Test
-    public void calculateProfitTest() {
-        Map<Reward, Integer> rewardResult = new HashMap<>();
-        rewardResult.put(Reward.REWARD_FIFTH, 2);
-        assertThat(Reward.calculateProfit(1000, rewardResult)).isEqualTo(1000);
-    }
-
-    @Test
     public void isSecondTest() {
         assertThat(Reward.isSecond(5, true)).isEqualTo(Reward.SECOND_REWARD);
+    }
+
+    @Test
+    public void obtainRewardByRankTest() {
+        assertThat(Reward.obtainReward(1)).isEqualTo(Reward.FIRST_REWARD);
+    }
+
+    @Test
+    public void obtainRewardByHitTest() {
+        assertThat(Reward.obtainReward(6, true)).isEqualTo(Reward.FIRST_REWARD);
+        assertThat(Reward.obtainReward(5, true)).isEqualTo(Reward.SECOND_REWARD);
+        assertThat(Reward.obtainReward(5, false)).isEqualTo(Reward.THIRD_REWARD);
+        assertThat(Reward.obtainReward(2, true)).isEqualTo(Reward.NONE_REWARD);
     }
 }

@@ -27,6 +27,11 @@ public class LottoTest {
     }
 
     @Test
+    public void getLottoNumTest() {
+        assertThat(lotto.getLottoNum(2)).isEqualTo(new LottoNum(3));
+    }
+
+    @Test
     public void createHandOperatedLottoTest() {
         assertThat(LottoFactory.createHandOperatedLotto("1, 2, 3, 4, 5, 6")).isEqualTo(lotto);
     }

@@ -2,8 +2,8 @@ package domain;
 
 import dto.LottoDto;
 import dto.RewardDto;
-
 import java.util.*;
+import java.util.stream.IntStream;
 
 
 public class LottoGame {
@@ -36,9 +36,12 @@ public class LottoGame {
 
     /* 가격에 맞게 로또를 구매하는 메소드 */
     private void buyLottos(PurchaseMoney purchaseMoney) {
-        for(int i = 0; i < purchaseMoney.countGame(handOperatedLottos.size()); i++) {
+        /* 스트림 변경 전 -->  */
+        /*for(int i = 0; i < purchaseMoney.countGame(handOperatedLottos.size()); i++) {
             autoLottos.add(LottoFactory.createLotto());
-        }
+        }*/
+        IntStream.range(0, purchaseMoney.countGame(handOperatedLottos.size()))
+                .forEach((num) -> autoLottos.add(LottoFactory.createLotto()));
     }
 
     /* 결과값을 가지고 있는 LottoDto 생성 */

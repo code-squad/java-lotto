@@ -12,12 +12,14 @@ public class Lotto {
 
     /* 로또 번호 가져오는 메소드 */
     public LottoNum getLottoNum(int index) {
-        return lottos.get(index);
+        /* 스트림 변경 전 --> return lottos.get(index); */
+        return lottos.stream().skip(index).findFirst().get();
     }
 
     /* 파라미터로 전달받은 로또 번호가 로또에 있는지 확인하는 메소드 */
     public boolean isContainLottoNum(LottoNum lottoNum) {
-        return lottos.contains(lottoNum);
+        /* 스트림 변경 전 --> return lottos.contains(lottoNum); */
+        return lottos.stream().anyMatch(lottoNumber -> lottoNum.equals(lottoNumber));
     }
 
     @Override

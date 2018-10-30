@@ -3,12 +3,13 @@ package domain;
 import dto.RewardDto;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public enum Reward {
-    /*  피드백1-2) 로또번호와 보너스번호의 정보를 매핑하는 LottoResult enum과 합쳐서 관리하는 것이 좋지 않을까? --> 하나로 통합 권장!*/
+    /*  피드백1-dl2) 로또번호와 보너스번호의 정보를 매핑하는 LottoResult enum과 합쳐서 관리하는 것이 좋지 않을까? --> 하나로 통합 권장!*/
     FIRST_REWARD(6, false, 2000000000), SECOND_REWARD(5, true, 30000000),
     THIRD_REWARD(5, false, 1500000), FOURTH_REWARD(4, false, 50000),
-    REWARD_FIFTH(3, false, 5000), REWARD_NONE(0, false, 0);
+    FIFTH_REWARD(3, false, 5000), NONE_REWARD(0, false, 0);
 
     private int lottoHit;
     private boolean bonusHit;
@@ -22,17 +23,24 @@ public enum Reward {
 
     /* 순위를 통해 Reward객체를 반환하는 메소드 */
     public static Reward obtainReward(int rank) {
-        for(Reward reward : values()) {
+        /* 스트림 적용 전 */
+        /*for(Reward reward : values()) {
             if(reward.ordinal() + 1 == rank) {
                 return reward;
             }
         }
-        return Reward.REWARD_NONE;
+        return Reward.NONE_REWARD;*/
+        return Arrays.stream(values())
+                .sorted((o1, o2) -> o2.prizeMoney - o1.prizeMoney)
+                .skip(rank - 1)
+                .findFirst()
+                .get();
     }
 
     /* 로또 정중수, 보너스볼 결과에 따라 Reward 객체를 반환하는 메소드 */
     public static Reward obtainReward(int lottoHit, boolean bonusHit) {
-        for(Reward reward : values()) {
+        /* 스트림 적용 전 --> */
+        /*for(Reward reward : values()) {
             if(isSecond(lottoHit, bonusHit)) {
                 return Reward.SECOND_REWARD;
             }
@@ -40,7 +48,16 @@ public enum Reward {
                 return reward;
             }
         }
-        return Reward.REWARD_NONE;
+        return Reward.NONE_REWARD; */
+        if(isSecond(lottoHit, bonusHit)) {
+            return Reward.SECOND_REWARD;
+        }
+
+        return Arrays.stream(values())
+                .filter(reward -> reward.lottoHit == lottoHit)
+                .filter(reward -> !reward.isSecond())
+                .findFirst()
+                .orElse(Reward.NONE_REWARD);
     }
 
     public static boolean isSecond(int lottoHit, boolean bonusHit) {
