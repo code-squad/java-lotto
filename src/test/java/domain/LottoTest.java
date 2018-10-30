@@ -6,57 +6,50 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class LottoTest {
     @Test
     public void create(){
-        Lotto lotto = LottoFactory.generateRandomLotto();
+        LottoBundleFactory lf = new AutoLottoBundleFactory();
+        Lotto lotto = lf.generate(1).getALotto(0);
         System.out.println(lotto);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void boundaryException(){
-        Set<Integer> set = new HashSet<>(Arrays.asList(0, 1, 2, 3, 4, 5));
-        Lotto lotto = LottoFactory.generateTheLotto(set);
-        System.out.println(lotto);
+        LottoBundleFactory manual = new ManualLottoBundleFactory(Arrays.asList("0,1,2,3,4,5"));
+        manual.generate(1);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void boundaryException2(){
-        Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 46));
-        Lotto lotto = LottoFactory.generateTheLotto(set);
-        System.out.println(lotto);
+        LottoBundleFactory manual = new ManualLottoBundleFactory(Arrays.asList("1,2,3,4,5,46"));
+        manual.generate(1);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void lengthException(){
-        Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
-        Lotto lotto = LottoFactory.generateTheLotto(set);
-        System.out.println(lotto);
+        LottoBundleFactory manual = new ManualLottoBundleFactory(Arrays.asList("1,2,3,4,5,6,7"));
+        manual.generate(1);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void bothException(){
-        Set<Integer> set = new HashSet<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 46));
-        Lotto lotto = LottoFactory.generateTheLotto(set);
-        System.out.println(lotto);
+        LottoBundleFactory manual = new ManualLottoBundleFactory(Arrays.asList("0,1,2,3,4,5,47"));
+        manual.generate(1);
     }
 
     @Test
     public void calculateHitCount(){
-        Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-        Lotto lottoA = LottoFactory.generateTheLotto(set);
-        Lotto lottoB = LottoFactory.generateTheLotto(set);
+        LottoBundleFactory manual = new ManualLottoBundleFactory(Arrays.asList("1,2,3,4,5,6", "1,2,3,4,5,6"));
+        LottoBundle lb = manual.generate(2);
 
-        assertThat(lottoA.calculateHitCount(lottoB)).isEqualTo(6);
+        assertThat(lb.getALotto(0).calculateHitCount(lb.getALotto(1))).isEqualTo(6);
 
-        Set<Integer> set2 = new HashSet<>(Arrays.asList(1, 2, 3, 43, 44, 45));
-        Lotto lottoC = LottoFactory.generateTheLotto(set2);
+        LottoBundleFactory manual2 = new ManualLottoBundleFactory(Arrays.asList("1, 2, 3, 43, 44, 45"));
+        Lotto lottoC = manual2.generate(1).getALotto(0);
 
-        assertThat(lottoA.calculateHitCount(lottoC)).isEqualTo(3);
-        assertThat(lottoC.calculateHitCount(lottoA)).isEqualTo(3);
+        assertThat(lb.getALotto(0).calculateHitCount(lottoC)).isEqualTo(3);
+        assertThat(lottoC.calculateHitCount(lb.getALotto(0))).isEqualTo(3);
     }
 
 

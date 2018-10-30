@@ -11,20 +11,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WinStatsTest {
     private static WinStats wc;
     static{
-        LottoBundle randomLottoBundle = LottoFactory.generateRandomLottoBundle(0);
+        List<String> list = Arrays.asList("5,6,7,8,9,10", "5,6,7,8,9,10", "5,6,7,8,9,10", "5,6,7,8,9,10", "1,2,3,9,10,11");
+
+        LottoBundleFactory manual = new ManualLottoBundleFactory(list);
+        LottoBundle randomLottoBundle = manual.generate(5);
+
+
         Set<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-        Set<Integer> set1 = new HashSet<>(Arrays.asList(5, 6, 7, 8, 9, 10));
-        Set<Integer> set2 = new HashSet<>(Arrays.asList(1, 2, 3, 9, 10, 11));
 
-        WinningLotto theWinningLotto = LottoFactory.generateWinningLotto(set, 7);
+        WinningLotto theWinningLotto = WinningLottoFactory.generateWinningLotto(set, 7);
 
-        randomLottoBundle.add(LottoFactory.generateTheLotto(set1));
-        randomLottoBundle.add(LottoFactory.generateTheLotto(set1));
-        randomLottoBundle.add(LottoFactory.generateTheLotto(set1));
-        randomLottoBundle.add(LottoFactory.generateTheLotto(set1));
-        randomLottoBundle.add(LottoFactory.generateTheLotto(set2));
-
-        wc = randomLottoBundle.calculateWinStats(theWinningLotto);
+        wc = randomLottoBundle.calculateWinStats(theWinningLotto, new Money(5000));
     }
 
     @Test

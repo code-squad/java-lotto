@@ -9,7 +9,7 @@ import java.util.Set;
 public class Lotto {
     public static final int MAX = 45;
     public static final int MIN = 1;
-    static final int LOTTO_NUMBERS_SIZE = 6;
+    public static final int LOTTO_NUMBERS_SIZE = 6;
 
     private Set<LottoNo> numbers;
 
@@ -18,7 +18,7 @@ public class Lotto {
     }
 
     private Set<LottoNo> isValidNumbersCount(Set<LottoNo> numbers){
-        if(numbers.size() != LOTTO_NUMBERS_SIZE) throw new IllegalArgumentException();
+        if(numbers.size() != LOTTO_NUMBERS_SIZE) throw new IllegalArgumentException("Duplication.");
         return numbers;
     }
 
@@ -34,7 +34,7 @@ public class Lotto {
         return this.numbers.contains(number);
     }
 
-    public LottoDto toDto(){
+    LottoDto toDto(){
         return new LottoDto(this.numbers);
     }
 

@@ -17,7 +17,7 @@ public class WinningLotto extends Lotto {
     }
 
     private LottoNo isValidBonusBall(Set<LottoNo> numbers, LottoNo bonusBall){
-        if(numbers.contains(bonusBall)) throw new IllegalArgumentException();
+        if(numbers.contains(bonusBall)) throw new IllegalArgumentException("Bonus ball is duplication.");
         return bonusBall;
     }
 }

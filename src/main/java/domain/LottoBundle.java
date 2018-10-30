@@ -13,8 +13,21 @@ public class LottoBundle {
         this.multiLotto = new ArrayList<>();
     }
 
+    private LottoBundle(List<Lotto> multiLotto) {
+        this.multiLotto = multiLotto;
+    }
+
     void add(Lotto aLotto){
         this.multiLotto.add(aLotto);
+    }
+
+    public LottoBundle addAll(LottoBundle otherLottoBundle){
+        return otherLottoBundle.addAll(this.multiLotto);
+    }
+
+    LottoBundle addAll(List<Lotto> multiLotto){
+        multiLotto.addAll(this.multiLotto);
+        return new LottoBundle(multiLotto);
     }
 
     public LottoBundleDto toDto(){
@@ -25,13 +38,13 @@ public class LottoBundle {
         return theLottoBundleDto;
     }
 
-    public WinStats calculateWinStats(WinningLotto theWinningLotto) {
+    public WinStats calculateWinStats(WinningLotto theWinningLotto, Money investedMoney) {
         WinStats theWinStats = new WinStats();
         for (Lotto aLotto : this.multiLotto) {
             Rank rank = Rank.valueOf(theWinningLotto.calculateHitCount(aLotto), theWinningLotto.isHitBonusBall(aLotto));
             theWinStats.countRank(rank);
         }
-        theWinStats.calculateEarningRate(this.multiLotto.size() * 1000);
+        theWinStats.calculateEarningRate(investedMoney);
         return theWinStats;
     }
 

@@ -25,12 +25,12 @@ public class WinStats {
         }
     }
 
-    void calculateEarningRate(int investedMoney){
-        double earningMoney = 0.0;
+    void calculateEarningRate(Money investedMoney){
+        Money earningMoney = new Money(0);
         for (Rank rank : Rank.values()) {
-            earningMoney += rank.calculateTotalReward(this.winStats.get(rank));
+            earningMoney = earningMoney.add(rank.calculateTotalReward(this.winStats.get(rank)));
         }
-        this.earningRate = earningMoney / (investedMoney) * 100;
+        this.earningRate = earningMoney.div(investedMoney) * 100;
     }
 
     public WinStatsDto toDto(){

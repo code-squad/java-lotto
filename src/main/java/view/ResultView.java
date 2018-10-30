@@ -13,17 +13,21 @@ public class ResultView {
     private static final String HIT_COUNT_MESSAGE = "개 일치 ";
     private static final String COUNT_MESSAGE = "개";
     private static final String PERCENT = "%";
+    private static final String COMMA = ", ";
+    private static final String MANUAL = "수동으로 ";
+    private static final String AUTO = "자동으로 ";
 
     private static StringBuilder sb = new StringBuilder();
 
-
-    static void echoCount(int count){
-        System.out.println(count + ECHO_COUNT_MESSAGE);
+    public static void echoCount(int manualCount, int autoCount){
+        System.out.print(MANUAL + manualCount + COUNT_MESSAGE + COMMA);
+        System.out.println(AUTO + autoCount + ECHO_COUNT_MESSAGE);
     }
 
     public static void showLottoBundles(LottoBundleDto lottoBundles) {
         System.out.println(makeLottoBundlesMessage(lottoBundles));
     }
+
     private static String makeLottoBundlesMessage(LottoBundleDto lottoBundles){
         sb.setLength(0);
         for (LottoDto theLottoDto : lottoBundles.getTheBundle()) {
@@ -55,6 +59,7 @@ public class ResultView {
         sb.append(HIT_COUNT_MESSAGE);
         sb.append("(");
         sb.append(rank.getReward());
-        sb.append(")- ");
+        sb.append("원");
+        sb.append(") - ");
     }
 }

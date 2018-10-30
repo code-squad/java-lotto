@@ -7,12 +7,12 @@ import java.util.Objects;
 public class LottoNo {
     private int number;
 
-    public LottoNo(int number) {
+    LottoNo(int number) {
         this.number = isValidNumber(number);
     }
 
     private int isValidNumber(int number){
-        if(number < Lotto.MIN || number > Lotto.MAX) throw new IllegalArgumentException();
+        if(number < Lotto.MIN || number > Lotto.MAX) throw new IllegalArgumentException("Invalid number");
         return number;
     }
 
@@ -32,5 +32,9 @@ public class LottoNo {
     @Override
     public String toString() {
         return String.valueOf(number);
+    }
+
+    public boolean isEqual(int no) {
+        return this.number == no;
     }
 }
