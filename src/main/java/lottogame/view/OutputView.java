@@ -5,12 +5,11 @@ import lottogame.dto.Result;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class OutputView {
 
-    public static final int HUNDRED = 100;
+    private static final int HUNDRED = 100;
 
     public static void printResult(int inputMoney, Result result) {
         System.out.println("당첨 통계");
