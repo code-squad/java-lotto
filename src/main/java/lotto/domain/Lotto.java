@@ -49,18 +49,12 @@ public class Lotto {
         return new Lotto(winNumber);
     }
 
-    public int obtainMatchCount(Lotto other) {
-        int count = 0;
-        for (Integer number : other.lotto) {
-            if (lotto.contains(number)) {
-                count++;
-            }
-        }
-        return count;
+    public int getOneLotto(int index){
+        return lotto.get(index);
     }
 
-    public boolean obtainMatchBonus(int bonusBall) {
-        return lotto.contains(bonusBall);
+    public int size(){
+        return lotto.size();
     }
 
     @Override
