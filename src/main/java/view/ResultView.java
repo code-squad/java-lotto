@@ -24,7 +24,7 @@ public class ResultView {
                 .map(value -> result(value, manager))
                 .forEach(System.out::println);
 
-        System.out.println("총 수익률은 " + manager.getPercent(input) + "%입니다.");
+        System.out.println("총 수익률은 " + manager.percent(input) + "%입니다.");
     }
 
     private static String result(Rank value, LottoryManager manager) {

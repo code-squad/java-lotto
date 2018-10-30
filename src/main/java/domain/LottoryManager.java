@@ -18,13 +18,14 @@ public class LottoryManager {
 
     void increase(int count, boolean bonus) {
         if (count >= 3 && count <= 6) {
-            rankMap.put(Rank.getRank(count, bonus), rankMap.get(Rank.getRank(count, bonus)) + 1);
+            rankMap.put(Rank.valueOf(count, bonus), rankMap.get(Rank.valueOf(count, bonus)) + 1);
         }
     }
 
-    public long getPercent(int input) {
+    // 겟머니가 아니라 멀티플 머니 (ranking(value)) 하면 곱한 값이 인티져로 나오게?
+    public long percent(int input) {
         return 100L * Arrays.stream(Rank.values())
-                .mapToInt(value -> value.getMoney() * ranking(value))
+                .mapToInt(value -> value.multiplicationMoney(ranking(value)))
                 .sum() / input;
     }
 

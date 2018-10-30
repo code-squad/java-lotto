@@ -12,7 +12,7 @@ public enum Rank {
         this.money = money;
     }
 
-    public static Rank getRank(int count, boolean bonus) {
+    public static Rank valueOf(int count, boolean bonus) {
         return Arrays.stream(Rank.values())
                 .filter(type -> type.matchNum(count, bonus))
                 .findFirst()
@@ -23,6 +23,10 @@ public enum Rank {
         return this.trueNum == TWO.trueNum ?
                 bonus ? this == TWO : this == THREE
                 : this.trueNum == count;
+    }
+
+    public int multiplicationMoney(int count) {
+        return money * count;
     }
 
     public int getMoney() {

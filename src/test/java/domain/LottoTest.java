@@ -28,7 +28,7 @@ public class LottoTest {
         WinnerLotto winnerLotto = WinnerLotto.of(InputView.separatorComa(input),7);
         Lotto lotto = Lotto.ofManual(InputView.separatorComa(input));
         int num = lotto.compareLotto(winnerLotto);
-        assertThat(num).isEqualTo(6);
+        assertThat(num).isEqualTo(lotto.compareLotto2(winnerLotto));
     }
    /* @Test
     public void winnerLotto생성() {
@@ -78,14 +78,14 @@ public class LottoTest {
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void LottoNumFalseTest() {
+    public void lottoNumFalseTest() {
         LottoNum lottoNum3 = LottoNum.ofString("50");
         LottoNum lottoNum2 = LottoNum.ofInt(0);
         LottoNum lottoNum = LottoNum.ofInt(50);
     }
 
     @Test
-    public void LottoNumTrueTest() {
+    public void lottoNumTrueTest() {
         LottoNum lottoNum = LottoNum.ofInt(45);
         LottoNum lottoNum2 = LottoNum.ofInt(1);
         LottoNum lottoNum3 = LottoNum.ofString("23");
