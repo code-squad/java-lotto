@@ -2,19 +2,19 @@ package domain;
 
 import dto.LottoDto;
 import dto.RewardDto;
-
 import java.util.*;
+import java.util.stream.IntStream;
 
 
 public class LottoGame {
     private List<Lotto> autoLottos = new ArrayList<>();
     private List<Lotto> handOperatedLottos;
-    private RewardMoney rewardMoney;
+    private RewardResult rewardMoney;
 
     public LottoGame(PurchaseMoney purchaseMoney, List<Lotto> handOperatedLottos) {
         this.handOperatedLottos = handOperatedLottos;
         buyLottos(purchaseMoney);
-        rewardMoney = new RewardMoney();
+        rewardMoney = new RewardResult();
     }
 
     /* 모든 로또에 대한 결과를 확인하는 메소드 */
@@ -36,9 +36,12 @@ public class LottoGame {
 
     /* 가격에 맞게 로또를 구매하는 메소드 */
     private void buyLottos(PurchaseMoney purchaseMoney) {
-        for(int i = 0; i < purchaseMoney.countGame(handOperatedLottos.size()); i++) {
+        /* 스트림 변경 전 -->  */
+        /*for(int i = 0; i < purchaseMoney.countGame(handOperatedLottos.size()); i++) {
             autoLottos.add(LottoFactory.createLotto());
-        }
+        }*/
+        IntStream.range(0, purchaseMoney.countGame(handOperatedLottos.size()))
+                .forEach((num) -> autoLottos.add(LottoFactory.createLotto()));
     }
 
     /* 결과값을 가지고 있는 LottoDto 생성 */
@@ -50,6 +53,7 @@ public class LottoGame {
         return rewardMoney.createRewardDto(getPurchaseMoney());
     }
 
+    /* 피드백4) 구매비용을 계속 계산을 하는 것이 아닌지..? PurchaseMoney 클래스에서 가지고 있으면 되지 않을까? */
     private int getPurchaseMoney() {
         return (autoLottos.size() + handOperatedLottos.size()) * PurchaseMoney.LOTTO_PRICE;
     }

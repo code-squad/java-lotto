@@ -3,20 +3,25 @@ package domain;
 import dto.RewardDto;
 
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
-public class RewardMoney {
+public class RewardResult {
 
     private static final int POSSIBLE_WIN_NUM = 3;
     private Map<Reward, Integer> rewardResult = new TreeMap<>(Collections.reverseOrder());
 
-    public RewardMoney() {
+    public RewardResult() {
         initRewardResult();
     }
 
     private void initRewardResult() {
-        for(int rank = Lotto.LOTTO_NUMBER_COUNT - 1; rank > 0; rank--) {
+        /* 스트림 적용 전 --> */
+        /*for(int rank = Lotto.LOTTO_NUMBER_COUNT - 1; rank > 0; rank--) {
             rewardResult.put(Reward.obtainReward(rank), 0);
-        }
+        }*/
+        IntStream.range(1, Lotto.LOTTO_NUMBER_COUNT)
+                .forEach(rank -> rewardResult.put(Reward.obtainReward(rank), 0));
     }
 
     public void addRewardResult(Reward reward) {
@@ -39,13 +44,17 @@ public class RewardMoney {
 
     /* 총 수익의 총합을 곅산하는 메소드 */
     public int calculateSum() {
-        int sum = 0;
+        /* 스트림 적용 전 --> */
+        /*int sum = 0;
         Iterator<Reward> it = rewardResult.keySet().iterator();
         while(it.hasNext()) {
             Reward reward = it.next();
             sum += (reward.obtainPrize() *  rewardResult.get(reward));
         }
-        return sum;
+        return sum;*/
+        return rewardResult.keySet()
+                .stream()
+                .mapToInt(reward -> (reward.obtainPrize() *  rewardResult.get(reward))).sum();
     }
 
     /* 수익률 계산하는 메소드 */
