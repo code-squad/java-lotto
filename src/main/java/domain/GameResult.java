@@ -15,7 +15,7 @@ public class GameResult {
     public int calculateProfitRate(double purchaseAmount) {
         int tempProfitSum = 0;
         for (Rank rank : gameResult.keySet()) {
-            tempProfitSum += rank.getWinningMoney() * gameResult.get(rank);
+            tempProfitSum += Rank.findWinningMoney(rank) * gameResult.get(rank);
         }
         return MathHandler.getProfit(tempProfitSum, purchaseAmount);
     }

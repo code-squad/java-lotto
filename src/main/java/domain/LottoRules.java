@@ -48,7 +48,7 @@ public class LottoRules {
     }
 
     public static int checkManualLottoCount(int lottoTicketCount, int manualLottoCount) {
-        exceptionCheck(lottoTicketCount < manualLottoCount, "[수동으로 구매할 로또 수가 구입금액으로 살 수 있는 로또 개수보다 많습니다.]");
+        exceptionCheck(lottoTicketCount < manualLottoCount || manualLottoCount < 0, "[수동으로 구매할 로또 수가 적절하지 않습니다.]");
         return manualLottoCount;
     }
 

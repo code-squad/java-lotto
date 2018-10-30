@@ -66,4 +66,29 @@ public class RankTest {
             System.out.println(sb.toString());
         }
     }
+
+    @Test
+    public void Rank에게_물어서_상금받기_1등() {
+        assertThat(Rank.findWinningMoney(Rank.FIRST)).isEqualTo(2000000000);
+    }
+
+    @Test
+    public void Rank에게_물어서_상금받기_2등() {
+        assertThat(Rank.findWinningMoney(Rank.SECOND)).isEqualTo(30000000);
+    }
+
+    @Test
+    public void Rank에게_물어서_상금받기_3등() {
+        assertThat(Rank.findWinningMoney(Rank.THRID)).isEqualTo(1500000);
+    }
+
+    @Test
+    public void Rank에게_물어서_상금받기_4등() {
+        assertThat(Rank.findWinningMoney(Rank.FOURTH)).isEqualTo(50000);
+    }
+
+    @Test
+    public void Rank에게_물어서_상금받기_5등() {
+        assertThat(Rank.findWinningMoney(Rank.FIFTH)).isEqualTo(5000);
+    }
 }

@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Arrays;
+
 public enum Rank {
     FIFTH(3, 5000),
     FOURTH(4, 50000),
@@ -15,8 +17,10 @@ public enum Rank {
         this.winningMoney = winningMoney;
     }
 
-    public boolean isEqual(int target) {
-        return countOfStrike == target;
+    public static int findWinningMoney(Rank rank) {
+        return Arrays.stream(values())
+                .filter(aRank -> aRank == rank)
+                .findAny().get().winningMoney;
     }
 
     public int getCountOfStrike() {
@@ -28,16 +32,17 @@ public enum Rank {
     }
 
     public static Rank valueOf(int strikePoint, boolean strikeBonus) {
-        for (Rank rank : values()) {
-            if (strikePoint == SECOND.countOfStrike) {
-                return strikeBonus ? SECOND : THRID;
-            }
+        return Arrays.stream(values())
+                .filter(rank -> strikePoint == SECOND.countOfStrike ? decideSecond(rank, strikeBonus) : rank.countOfStrike == strikePoint)
+                .findAny()
+                .orElse(null);
+    }
 
-            if (rank.isEqual(strikePoint)) {
-                return rank;
-            }
+    private static boolean decideSecond(Rank rank, boolean strikeBonus) {
+        if (strikeBonus) {
+            return rank == SECOND;
         }
-        return null;
+        return rank == THRID;
     }
 }
 
