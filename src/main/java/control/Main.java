@@ -9,7 +9,7 @@ import view.ResultView;
 
 import java.util.List;
 
-import static utils.LottoGameValues.LOTTO_PRICE;
+import static domain.Lotto.LOTTO_PRICE;
 
 public class Main {
     public static void main(String[] args) {

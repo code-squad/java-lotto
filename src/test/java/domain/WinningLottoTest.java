@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static utils.IntegerToLottoNum.convertLottoNums;
 

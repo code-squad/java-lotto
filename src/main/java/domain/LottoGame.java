@@ -5,10 +5,7 @@ import utils.LottoGenerator;
 import utils.Rank;
 import utils.NumParser;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LottoGame {
     private List<Lotto> lottos;
@@ -35,15 +32,14 @@ public class LottoGame {
         return new GameResult(gameResult);
     }
 
-    private void initGameResult(Map<Rank, Integer> gameResult) {
-        for (Rank rank : Rank.values()) {
-            gameResult.put(rank, 0);
-        }
+    void initGameResult(Map<Rank, Integer> gameResult) {
+        Arrays.stream(Rank.values()).forEach(rank -> gameResult.put(rank, 0));
     }
 
     private void putGameResult(Map<Rank, Integer> gameResult, Rank rank) {
-        if (rank != null) {
-            gameResult.put(rank, gameResult.get(rank) + 1);
+        Optional<Rank> optionalRank = Optional.ofNullable(rank);
+        if (optionalRank.isPresent()) {
+            gameResult.put(optionalRank.get(), gameResult.get(optionalRank.get()) + 1);
         }
     }
 

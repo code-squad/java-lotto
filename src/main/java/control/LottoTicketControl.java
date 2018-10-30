@@ -1,29 +1,31 @@
 package control;
 
-import domain.LottoRules;
 import utils.MathHandler;
 import view.InputView;
+
+import static view.ResultView.NEWLINE;
 
 public class LottoTicketControl {
 
     public static int getLottoTicketCount() {
         while (true) {
-            try {
-                return LottoRules.checkLottoTicketCount(MathHandler.getLottoTicketNum(InputView.inputPurchaseAmount()));
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-                System.out.println();
+            int lottoTicketCount = MathHandler.getLottoTicketNum(InputView.inputPurchaseAmount());
+            if (lottoTicketCount < 1) {
+                System.out.println("[돈이 모자랍니다.]" + NEWLINE);
+                getLottoTicketCount();
             }
+            return lottoTicketCount;
         }
     }
 
     public static int getManualLottoTicketCount(int lottoTicketCount) {
         while (true) {
-            try {
-                return LottoRules.checkManualLottoCount(lottoTicketCount, InputView.inputManualLottoCount());
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+            int manualLottoCount = InputView.inputManualLottoCount();
+            if (lottoTicketCount < manualLottoCount || manualLottoCount < 0) {
+                System.out.println("[수동 입력 로또 수가 적절하지 않습니다.]");
+                getManualLottoTicketCount(lottoTicketCount);
             }
+            return manualLottoCount;
         }
     }
 }

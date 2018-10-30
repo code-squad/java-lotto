@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static utils.LottoGameValues.LOTTO_NUM_END;
-import static utils.LottoGameValues.LOTTO_NUM_START;
-import static utils.LottoGameValues.LOTTO_SIZE;
+
+import static domain.Lotto.LOTTO_SIZE;
+import static domain.LottoNum.LOTTO_NUM_END;
+import static domain.LottoNum.LOTTO_NUM_START;
 
 public class LottoGenerator {
     private static List<LottoNum> lottoNums = new ArrayList<>();

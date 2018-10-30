@@ -5,11 +5,8 @@ import utils.Rank;
 import dto.LottoDto;
 import dto.ResultDto;
 
-import static utils.LottoGameValues.PRIZE_STRIKE_MAX;
-import static utils.LottoGameValues.PRIZE_STRIKE_MIN;
-
 public class ResultView {
-    static final String NEWLINE = System.getProperty("line.separator");
+    public static final String NEWLINE = System.getProperty("line.separator");
 
     private ResultView() {
     }
