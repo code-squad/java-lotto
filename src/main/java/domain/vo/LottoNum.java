@@ -1,4 +1,4 @@
-package domain;
+package domain.vo;
 
 import java.util.Objects;
 
@@ -13,13 +13,13 @@ public class LottoNum implements Comparable<LottoNum> {
     }
 
 
-    public static LottoNum stringCreate(String no) {
+    public static LottoNum ofString(String no) {
         int num = Integer.parseInt(no);
         return new LottoNum(num);
     }
 
 
-    public static LottoNum intCreate(int no) {
+    public static LottoNum ofInt(int no) {
         return new LottoNum(no);
     }
 

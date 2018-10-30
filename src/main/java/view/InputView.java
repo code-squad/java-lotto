@@ -17,13 +17,18 @@ public class InputView {
         return input / 1000;
     }
 
-    public static List<String> lotto() {
+    public static List<String> winnigLotto() {
         System.out.println("\n당첨 로또를 입력해 주세요");
         List<String> lotto = new ArrayList<>(Arrays.asList(scanner.nextLine().replace(" ", "").split(",")));
         if (lotto.size() != 6) {
             throw new IllegalArgumentException("로또 번호 개수가 6개가 아닙니다.");
         }
         return lotto;
+    }
+
+    public static int bonusLotto() {
+        System.out.println("보너스 로또를 입력해 주세요");
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public static List<String> separatorComa(String winnerLotto) {
