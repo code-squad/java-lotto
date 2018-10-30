@@ -17,4 +17,15 @@ public class InputView {
         System.out.println("보너스 볼을 입력해 주세요.");
         return new Scanner(System.in).nextInt();
     }
+
+    // 수동 로또
+    public static int buyManualLottoCount(){
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return new Scanner(System.in).nextInt();
+    }
+
+    public static String manualLotto(){
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        return new Scanner(System.in).nextLine().trim().replace(" ", "");
+    }
 }

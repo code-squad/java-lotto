@@ -16,7 +16,7 @@ public class LottoManager {
     private List<Lotto> lottos = new ArrayList<>();
     private int money;
 
-    private LottoManager(int money) {
+    private LottoManager(int money, List<String> manualLottos) {
         final int LOTTO_PRICE = 1000;
         this.money = money;
         int count = money / LOTTO_PRICE;
@@ -25,13 +25,21 @@ public class LottoManager {
             throw new IllegalArgumentException("돈이 부족합니다.");
         }
 
-        for (int i = 0; i < count; i++) {
+        if(manualLottos.size() > count){
+            throw new IllegalArgumentException("수동으로 구입할 개수를 정확하게 입력하세요.");
+        }
+
+        for (int i = 0; i < manualLottos.size(); i++) {
+            addLotto(Lotto.ofWinLotto(manualLottos.get(i)));
+        }
+
+        for (int i = 0; i < count - manualLottos.size(); i++) {
             addLotto(Lotto.ofAuto());
         }
     }
 
-    public static LottoManager buyLotto(int myMoney) {
-        return new LottoManager(myMoney);
+    public static LottoManager buyLotto(int myMoney, List<String> manualLottos) {
+        return new LottoManager(myMoney, manualLottos);
     }
 
     public void winLottoMatch(WinningLotto winLotto) {

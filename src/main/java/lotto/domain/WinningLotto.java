@@ -31,16 +31,16 @@ public class WinningLotto {
     public int obtainMatchCount(Lotto other) {
         int count = 0;
         for (int i = 0; i < other.size(); i++) {
-            if(winLotto.contains(other.getOneLotto(i))){
+            if (winLotto.contains(other.getOneLotto(i))) {
                 count++;
             }
         }
         return count;
     }
 
-    public boolean isContainBonusBall(Lotto other){
+    public boolean isContainBonusBall(Lotto other) {
         for (int i = 0; i < other.size(); i++) {
-            if(other.getOneLotto(i) == bonusBall){
+            if (other.getOneLotto(i) == bonusBall) {
                 return true;
             }
         }
