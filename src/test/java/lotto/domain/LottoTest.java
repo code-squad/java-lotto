@@ -5,36 +5,27 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoTest {
-//    @Test
-//    public void 일치하는값3개() {
-//        Lotto lotto = Lotto.ofWinLotto("1,2,3,4,5,6");
-//        Lotto lotto2 = Lotto.ofWinLotto("1,2,3,7,8,9");
-//        lotto.obtainMatchCount(lotto2);
-//        assertThat(lotto.obtainMatchCount(lotto2)).isEqualTo(3);
-//    }
-//
-//    @Test
-//    public void 일치하는값4개() {
-//        Lotto lotto = Lotto.ofWinLotto("1,2,3,4,5,6");
-//        Lotto lotto2 = Lotto.ofWinLotto("1,2,3,4,8,9");
-//        lotto.obtainMatchCount(lotto2);
-//        assertThat(lotto.obtainMatchCount(lotto2)).isEqualTo(4);
-//    }
-//
-//    @Test
-//    public void 일치하는값5개() {
-//        Lotto lotto = Lotto.ofWinLotto("1,2,3,4,5,6");
-//        Lotto lotto2 = Lotto.ofWinLotto("1,2,3,4,5,9");
-//        lotto.obtainMatchCount(lotto2);
-//        assertThat(lotto.obtainMatchCount(lotto2)).isEqualTo(5);
-//    }
-//
-//    @Test
-//    public void 일치하는값6개() {
-//        Lotto lotto = Lotto.ofWinLotto("1,2,3,4,5,6");
-//        Lotto lotto2 = Lotto.ofWinLotto("1,2,3,4,5,6");
-//        lotto.obtainMatchCount(lotto2);
-//        assertThat(lotto.obtainMatchCount(lotto2)).isEqualTo(6);
-//    }
+    @Test
+    public void 자동로또추출() {
+        Lotto lotto = LottoGenerator.createLotto();
+        System.out.println(lotto);
+    }
 
+    @Test
+    public void 수동로또추출() {
+        Lotto lotto = Lotto.ofManualLotto("1,2,3,4,5,6");
+        for (int i = 0; i < lotto.size(); i++) {
+            assertThat(lotto.getOneLotto(i)).isEqualTo(LottoNo.of(i+1));
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또생성개수초과() {
+        Lotto.ofManualLotto("1,2,3,4,5,6,7");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 로또생성개수미달() {
+        Lotto.ofManualLotto("1,2,3,4,5");
+    }
 }

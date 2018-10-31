@@ -27,19 +27,10 @@ public enum Rank {
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus){
         return Arrays.stream(values())
-                .filter(rank -> countOfMatch == SECOND.countOfMatch  ? (matchBonus? rank == Rank.SECOND : rank == Rank.THIRD)  : countOfMatch == rank.countOfMatch)
+                .filter(rank -> countOfMatch == SECOND.countOfMatch  ?
+                        (matchBonus? rank == Rank.SECOND : rank == Rank.THIRD)
+                        : countOfMatch == rank.countOfMatch)
                 .findFirst()
                 .orElse(null);
-
-//        for (Rank rank : values()) {
-//            if(countOfMatch == SECOND.countOfMatch){
-//                return matchBonus ? SECOND : THIRD;
-//            }
-//
-//            if(rank.countOfMatch == countOfMatch){
-//                return rank;
-//            }
-//        }
-//        return null;
     }
 }

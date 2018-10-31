@@ -5,51 +5,45 @@ import lotto.utill.Parser;
 import java.util.*;
 
 public class Lotto {
-    private static final int LOTTO_MIN = 1;
-    private static final int LOTTO_MAX = 45;
-    private static List<Integer> lottoNo = new ArrayList<>();
+    private List<LottoNo> lotto;
 
-    static {
-        for (int i = LOTTO_MIN; i <= LOTTO_MAX; i++) {
-            lottoNo.add(i);
+    private Lotto(List<LottoNo> seed) {
+        Collections.sort(seed);
+        lotto = seed;
+    }
+
+    public static Lotto ofAuto(List<LottoNo> seed) {
+        return new Lotto(seed);
+    }
+
+    public static Lotto ofManualLotto(String text) {
+        List<String> manualText = new ArrayList<>(Arrays.asList(Parser.ofComma(text.replace(" ", ""))));
+        sizeCheck(manualText);
+        return new Lotto(overlapCheck(manualText));
+    }
+
+    private static void sizeCheck(List<String> winText) {
+        if (winText.size() != 6) {
+            throw new IllegalArgumentException("번호를 정확히 입력하세요.");
         }
     }
 
-    private List<Integer> lotto;
+    private static List<LottoNo> overlapCheck(List<String> manualText) {
+        List<LottoNo> winNumber = new ArrayList<>();
+        Set<LottoNo> overlapChecker = new HashSet<>();
 
-    private Lotto() {
-        Collections.shuffle(lottoNo);
-        lotto = new ArrayList<>(lottoNo.subList(0, 6));
-        Collections.sort(lotto);
-    }
-
-    private Lotto(List winNumber) {
-        lotto = winNumber;
-    }
-
-    public static Lotto ofAuto() {
-        return new Lotto();
-    }
-
-    public static Lotto ofWinLotto(String text) {
-        List<String> winText = new ArrayList<>(Arrays.asList(Parser.ofComma(text.replace(" ", ""))));
-        List<Integer> winNumber = new ArrayList<>();
-        Set<Integer> overlapChecker = new HashSet<>();
-
-        for (String s : winText) {
-            winNumber.add(Integer.parseInt(s));
-            overlapChecker.add(Integer.parseInt(s));
+        for (String s : manualText) {
+            winNumber.add(LottoNo.of(s));
+            overlapChecker.add(LottoNo.of(s));
         }
+
         if (winNumber.size() != overlapChecker.size()) {
             throw new IllegalArgumentException("중복된 값은 입력할 수 없습니다.");
         }
-        if (winText.size() != 6) {
-            throw new IllegalArgumentException("당첨 번호를 정확히 입력하세요.");
-        }
-        return new Lotto(winNumber);
+        return winNumber;
     }
 
-    public int getOneLotto(int index){
+    public LottoNo getOneLotto(int index){
         return lotto.get(index);
     }
 
@@ -72,6 +66,6 @@ public class Lotto {
 
     @Override
     public String toString() {
-        return lotto.toString();
+        return lotto + "";
     }
 }
