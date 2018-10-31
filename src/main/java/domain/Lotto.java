@@ -5,8 +5,6 @@ import exception.DuplicateNumberException;
 import exception.LottoSizeOutOfBoundException;
 import vo.No;
 
-import static util.RandomGenerator.*;
-
 import java.util.*;
 
 public class Lotto {
@@ -20,21 +18,8 @@ public class Lotto {
         this.lotto = lotto;
     }
 
-    public static Lotto init() throws Exception {
-        return new Lotto(makeLotto());
-    }
-
     public static Lotto initArtifitial(List<No> lotto) throws Exception {
         return new Lotto(lotto);
-    }
-
-    public static List<No> makeLotto() {
-        Set<No> lotto = new HashSet<>();
-        while (lotto.size() < LOTTO_SIZE) {
-            lotto.add(new No(generateLottoNum()));
-        }
-
-        return new ArrayList<>(lotto);
     }
 
     private List<No> checkLotto(List<No> lotto) throws Exception {

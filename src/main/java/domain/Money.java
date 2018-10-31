@@ -15,6 +15,11 @@ public class Money {
         this.purchaseAmt = cash;
     }
 
+    public static Money initString(String inputMoney){
+        int purchaseAmt = Integer.parseInt(inputMoney);
+        return new Money(purchaseAmt);
+    }
+
     public int getLottoAmt() {
         return this.purchaseAmt / LOTTO_PRICE;
     }

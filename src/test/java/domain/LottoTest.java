@@ -25,7 +25,7 @@ public class LottoTest {
 
     @Test
     public void makeLotto() throws Exception {
-        System.out.println(Lotto.init());
+        System.out.println(Lotto.initArtifitial(lotto));
     }
 
     @Test

@@ -1,19 +1,17 @@
 package domain;
 
 import dto.LottoDto;
-import dto.LottoDtos;
+import dto.LottosDto;
 import dto.WinResultDto;
 import vo.No;
 import vo.Rank;
-
-import java.util.Random;
 
 public class WinningLotto {
     private Lotto winLotto;
     private No bonusNum;
 
-    public WinningLotto(Lotto winLotto, No bonusNum) {
-        this.winLotto = winLotto;
+    public WinningLotto(LottoDto winLottoDto, No bonusNum) throws Exception {
+        this.winLotto = Lotto.initArtifitial(winLottoDto.getLottoDto());
         this.bonusNum = checkWinningBonus(winLotto, bonusNum);
     }
 
@@ -23,7 +21,7 @@ public class WinningLotto {
         return bonusNum;
     }
 
-    public Rank compareWinLottoNum(Lotto lotto) {
+    private Rank compareWinLottoNum(Lotto lotto) {
         return findMatchRank(this.winLotto.compareLottoNumbs(lotto), lotto.checkBonusNum(this.bonusNum));
     }
 
@@ -36,7 +34,7 @@ public class WinningLotto {
         return Rank.NONE;
     }
 
-    public WinResultDto checkWins(LottoDtos lottos) throws Exception {
+    public WinResultDto checkWins(LottosDto lottos) throws Exception {
         WinResultDto resultDto = WinResultDto.init();
         for (LottoDto lottoDto : lottos.getLottoDtos()) {
             resultDto.setRankAmt(compareWinLottoNum(Lotto.initArtifitial(lottoDto.getLottoDto())));

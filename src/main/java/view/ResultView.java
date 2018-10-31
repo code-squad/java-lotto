@@ -2,7 +2,7 @@ package view;
 
 import vo.Rank;
 import dto.LottoDto;
-import dto.LottoDtos;
+import dto.LottosDto;
 import dto.WinResultDto;
 
 import java.util.List;
@@ -10,8 +10,8 @@ import java.util.Map;
 
 public class ResultView {
 
-    public static void printLottos(LottoDtos lottoDtos, int lottoManualAmt) {
-        List<LottoDto> result = lottoDtos.getLottoDtos();
+    public static void printLottos(LottosDto lottosDto, int lottoManualAmt) {
+        List<LottoDto> result = lottosDto.getLottoDtos();
 
         System.out.println("수동으로 " + lottoManualAmt + "장, 자동으로 " + (result.size() - lottoManualAmt) + "개를 구매했습니다.");
         for (LottoDto lottoDto : result) {

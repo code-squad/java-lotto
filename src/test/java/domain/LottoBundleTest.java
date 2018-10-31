@@ -10,9 +10,9 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class LottoGeneratorTest {
+public class LottoBundleTest {
 
-//    LottoGenerator lottoGenerator;
+//    LottoBundle lottoGenerator;
 //    Lotto lotto1;
 //    Lotto lotto2;
 //
@@ -25,7 +25,7 @@ public class LottoGeneratorTest {
 //        lottos.add(lotto1);
 //        lottos.add(lotto2);
 //
-//        lottoGenerator = LottoGenerator.initArtifitial(lottos);
+//        lottoGenerator = LottoBundle.initArtifitial(lottos);
 //    }
 
 
