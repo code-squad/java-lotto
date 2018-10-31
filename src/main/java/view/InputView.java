@@ -1,7 +1,7 @@
 package view;
 
 import dto.LottoDto;
-import dto.LottoDtos;
+import dto.LottosDto;
 import vo.No;
 
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ public class InputView {
         return sc.nextInt();
     }
 
-    public static LottoDtos buyLottoManual(int lottoManualAmt) {
+    public static LottosDto buyLottoManual(int lottoManualAmt) {
         if(lottoManualAmt != 0)
             System.out.println("수동으로 구매할 번호를 입력하세요.");
-        return LottoDtos.init(makeLottoDtos(lottoManualAmt));
+        return LottosDto.init(makeLottoDtos(lottoManualAmt));
     }
 
     private static List<LottoDto> makeLottoDtos(int lottoManualAmt) {
