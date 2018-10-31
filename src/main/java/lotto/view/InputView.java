@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.domain.Money;
 import lotto.dto.InputDto;
 
 import java.util.Scanner;
@@ -7,23 +8,16 @@ import java.util.Scanner;
 public class InputView {
 
     public static InputDto getInputData() {
-        int money = buyLotto();
+        Money inputMoney = new Money(buyLotto());
         int numberOfLottoToBuyManually = enterNumberOfLottoToBuyManully();
         String[] enterNumbers = enterNumbersOfLottoToBuyManully(numberOfLottoToBuyManually);
-        return new InputDto(money, numberOfLottoToBuyManually, enterNumbers);
+        return new InputDto(inputMoney, numberOfLottoToBuyManually, enterNumbers);
     }
 
     private static int buyLotto() {
         Scanner sc = new Scanner(System.in);
         System.out.println("구입금액을 입력해 주세요.");
-        return checkBuyMoney(checkInputTypeOfInteger(sc));
-    }
-
-    private static int checkBuyMoney(int money) {
-        if (money < 1000) {
-            throw new BelowLimitMoneyException("구입 금액은 1,000원 이상입니다.");
-        }
-        return money;
+        return checkInputTypeOfInteger(sc);
     }
 
     private static int enterNumberOfLottoToBuyManully() {

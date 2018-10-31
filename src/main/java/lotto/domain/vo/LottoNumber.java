@@ -1,12 +1,15 @@
-package lotto.domain;
+package lotto.domain.vo;
 
 import java.util.Objects;
 
 public class LottoNumber implements Comparable<LottoNumber>  {
+    private static final int MAX_LOTTO = 45;
+    private static final int MIN_LOTTO = 1;
+
     private int number;
 
     private LottoNumber(int number) {
-        if (number < LottoConstant.LOTTO_MIN || number > LottoConstant.LOTTO_MAX) {
+        if (number < MIN_LOTTO || number > MAX_LOTTO) {
             throw new IllegalArgumentException("0 ~ 45 사이의 값만 입력해주세요");
         }
         this.number = number;
@@ -14,10 +17,6 @@ public class LottoNumber implements Comparable<LottoNumber>  {
 
     public static LottoNumber ofInteger(int number){
         return new LottoNumber(number);
-    }
-
-    public static LottoNumber ofString(String number){
-        return new LottoNumber(Integer.parseInt(number));
     }
 
     @Override

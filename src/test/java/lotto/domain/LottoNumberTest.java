@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.domain.vo.LottoNumber;
 import org.junit.Test;
 
 public class LottoNumberTest {

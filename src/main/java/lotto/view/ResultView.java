@@ -10,7 +10,7 @@ public class ResultView {
 
     public static void statisticsLottoWinnings(ResultDto result){
         Map map = result.getResults();
-        int money = result.getMoney();
+        int rateOfReturn = result.getRateOfReturn();
 
         System.out.println("당첨 통계 \n ---------- ");
 
@@ -23,26 +23,7 @@ public class ResultView {
                     + explain + "(" + rank.getWinningMoney() + "원)- "
                     + map.get(rank) + "개");
         }
-
-        double profit = getProfit(map);
-        int rateOfReturn = calculateProfits(money, profit);
-
         System.out.println("총 수익률은 " + rateOfReturn + "% 입니다.");
-    }
-    private static int calculateProfits(double price, double profit) {
-        double result = 0;
-        if(profit != 0) {
-            result = (profit / price) * 100;
-        }
-        return (int)result;
-    }
-
-    private static double getProfit(Map map) {
-        int profit = 0;
-        for (Rank rank : Rank.values()) {
-            profit += rank.getWinningMoney() * (int)map.get(rank);
-        }
-        return profit;
     }
 
     public static void printBuyLotto(LottoDto lottos) {

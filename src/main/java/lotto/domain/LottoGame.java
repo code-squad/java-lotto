@@ -7,16 +7,14 @@ import lotto.dto.ResultDto;
 import java.util.ArrayList;
 import java.util.List;
 
-import static lotto.domain.LottoConstant.LOTTO_PRICE;
-
 public class LottoGame {
     private List<Lotto> lottos = new ArrayList<>();
     private int numberOfLottoToBuyRandom;
-    private int money;
+    private Money money;
 
     public LottoGame(InputDto inputDto) {
         money = inputDto.getMoney();
-        numberOfLottoToBuyRandom = (money/LOTTO_PRICE) - inputDto.getNumberOfLottoToBuyManually();
+        numberOfLottoToBuyRandom = money.getAvailableForPurchaseLotto() - inputDto.getNumberOfLottoToBuyManually();
 
         String[] numbers = inputDto.getEnterNumbers();
 
@@ -29,7 +27,7 @@ public class LottoGame {
         }
     }
 
-    public ResultDto compare(String input, int bonusNumber){
+    private GameResult compare(String input, int bonusNumber){
         WinningNumbers winningNumbers = new WinningNumbers(input, bonusNumber);
         GameResult result = new GameResult();
 
@@ -39,6 +37,11 @@ public class LottoGame {
 
             result.countMatchLotto(count, matchBonus);
         }
+        return result;
+    }
+
+    public ResultDto matchLotto(String input, int bonusNumber) {
+        GameResult result = compare(input, bonusNumber);
         return result.createResultDto(money);
     }
 

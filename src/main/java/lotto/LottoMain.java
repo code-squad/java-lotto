@@ -32,10 +32,8 @@ public class LottoMain {
         }
     }
 
-    public static void compareWinningLotto(LottoGame lottoGame) {
-        if (lottoGame != null) {
-            ResultDto result = lottoGame.compare(InputView.getWinningNumber(), InputView.getWinningBonusNumber());
-            ResultView.statisticsLottoWinnings(result);
-        }
+    private static void compareWinningLotto(LottoGame lottoGame) {
+        ResultDto result = lottoGame.matchLotto(InputView.getWinningNumber(), InputView.getWinningBonusNumber());
+        ResultView.statisticsLottoWinnings(result);
     }
 }

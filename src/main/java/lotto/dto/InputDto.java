@@ -1,19 +1,21 @@
 package lotto.dto;
 
+import lotto.domain.Money;
+
 import java.util.Arrays;
 
 public class InputDto {
-    private int money;
+    private Money money;
     private int numberOfLottoToBuyManually;
     private String[] enterNumbers;
 
-    public InputDto(int money, int numberOfLottoToBuyManually, String[] enterNumbers) {
+    public InputDto(Money money, int numberOfLottoToBuyManually, String[] enterNumbers) {
         this.money = money;
         this.numberOfLottoToBuyManually = numberOfLottoToBuyManually;
         this.enterNumbers = enterNumbers;
     }
 
-    public int getMoney() {
+    public Money getMoney() {
         return money;
     }
 

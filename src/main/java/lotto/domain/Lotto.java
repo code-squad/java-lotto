@@ -1,15 +1,16 @@
 package lotto.domain;
+import lotto.domain.vo.LottoNumber;
+
 import java.util.*;
 
-import static lotto.domain.LottoConstant.LOTTO_MAX;
-import static lotto.domain.LottoConstant.LOTTO_MIN;
-import static lotto.domain.LottoConstant.MAX_LOTTO_COUNT;
-
 public class Lotto {
+    private static final int MAX_LOTTO = 45;
+    private static final int MIN_LOTTO = 1;
+
     private static List<Integer> numbers = new ArrayList<>();
 
     static {
-        for (int i = LOTTO_MIN; i <= LOTTO_MAX; i++) {
+        for (int i = MIN_LOTTO; i <= MAX_LOTTO; i++) {
             numbers.add(i);
         }
     }
@@ -18,15 +19,13 @@ public class Lotto {
 
     private Lotto(List<Integer> numbers) {
         lotto = new ArrayList<>();
-        for (Integer number : numbers) {
-            lotto.add(LottoNumber.ofInteger(number));
-        }
+        numbers.forEach(number -> lotto.add(LottoNumber.ofInteger(number)));
         Collections.sort(lotto);
     }
 
     public static Lotto generateLottoNumber() {
         Collections.shuffle(numbers);
-        return new Lotto(numbers.subList(0,MAX_LOTTO_COUNT));
+        return new Lotto(numbers.subList(0,6));
     }
 
     public static Lotto enterNumberOfLotto(String input) {
@@ -36,7 +35,7 @@ public class Lotto {
             lotto.add(Integer.parseInt(s));
         }
 
-        if(lotto.size() != MAX_LOTTO_COUNT) {
+        if(lotto.size() != 6) {
             throw new NotTypeLottoException("중복되지 않은 6개의 숫자를 입력하세요");
         }
 
@@ -52,13 +51,7 @@ public class Lotto {
     }
 
     private int compare(List<LottoNumber> other) {
-        int count = 0;
-        for (LottoNumber lottoNumber : other) {
-            if (lotto.contains(lottoNumber)) {
-                count++;
-            }
-        }
-        return count;
+        return (int) other.stream().filter(number -> lotto.contains(number)).count();
     }
 
     @Override
