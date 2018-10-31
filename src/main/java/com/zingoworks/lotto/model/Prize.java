@@ -1,4 +1,4 @@
-package com.zingoworks.lotto.domain;
+package com.zingoworks.lotto.model;
 
 public enum Prize {
     FIRST(6, false, 2000000000),
@@ -32,18 +32,17 @@ public enum Prize {
     public int getEarnedMoney(int totalWinnings) {
         return winningMoney * totalWinnings;
     }
-}
 
-//예제코드
-//    public static Prize valueOf(int countOfHit, boolean isBonusHit) {
-//        for (Prize prize : Prize.values()) {
-//            if (countOfHit == SECOND.countOfHit) {
-//                return isBonusHit ? SECOND : THIRD;
-//            }
-//
-//            if (prize.countOfHit == countOfHit) {
-//                return prize;
-//            }
-//        }
-//        return null;
-//    }
+    public static Prize of(int countOfHit, boolean isBonusHit) {
+        for (Prize prize : Prize.values()) {
+            if (countOfHit == SECOND.countOfHit) {
+                return isBonusHit ? SECOND : THIRD;
+            }
+
+            if (prize.countOfHit == countOfHit) {
+                return prize;
+            }
+        }
+        return null;
+    }
+}

@@ -1,31 +1,32 @@
 package com.zingoworks.lotto.view;
 
-import com.zingoworks.lotto.domain.Lotto;
-import com.zingoworks.lotto.domain.LottoResult;
-import com.zingoworks.lotto.domain.Lottos;
-import com.zingoworks.lotto.domain.Prize;
+import com.zingoworks.lotto.model.LottoResult;
+import com.zingoworks.lotto.model.Money;
+import com.zingoworks.lotto.model.Prize;
+import com.zingoworks.lotto.model.lotto.Lotto;
+import com.zingoworks.lotto.model.lotto.lottoPack.LottoPack;
 
 public class ResultView {
     private static final String NEWLINE = System.lineSeparator();
 
-    public static void printLottoNumbers(Lottos lottos) {
-        System.out.println(NEWLINE + lottos.getPurchasePhrase());
+    public static void printLottoNumbers(LottoPack lottoPack) {
+        System.out.println(NEWLINE + lottoPack.getPurchasePhrase());
 
-        for (Lotto lotto : lottos.getLottos()) {
+        for (Lotto lotto : lottoPack.getLottoPack()) {
             System.out.println(lotto);
         }
         System.out.print(NEWLINE);
     }
 
-    public static void printResults(LottoResult lottoResults, int purchaseAmount) {
+    public static void printResults(LottoResult lottoResult, Money money) {
         System.out.println(NEWLINE + "당첨통계" + NEWLINE + "---------");
         for (Prize prize : Prize.values()) {
             System.out.println(prize.getCountOfHit()
                     + "개 일치" + getBonusPhrase(prize.isBonusHit())
                     + "(" +  prize.getWinningMoney() + "원) - "
-                    + lottoResults.getTotalWin(prize) + "개");
+                    + lottoResult.getTotalWin(prize) + "개");
         }
-        System.out.println("총 수익률은 " + lottoResults.getNetEarningRate(purchaseAmount) + "%입니다.");
+        System.out.println("총 수익률은 " + money.getNetEarningRate(lottoResult.getTotalEarning()) + "%입니다.");
     }
 
     private static String getBonusPhrase(boolean isBonusHit) {
