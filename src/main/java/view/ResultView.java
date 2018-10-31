@@ -5,17 +5,18 @@ import utils.Rank;
 import dto.LottoDto;
 import dto.ResultDto;
 
-import static utils.LottoGameValues.PRIZE_STRIKE_MAX;
-import static utils.LottoGameValues.PRIZE_STRIKE_MIN;
-
 public class ResultView {
-    static final String NEWLINE = System.getProperty("line.separator");
+    public static final String NEWLINE = System.getProperty("line.separator");
 
     private ResultView() {
     }
 
-    public static void showTicketAmount(int lottoTicketNum) {
-        System.out.println(lottoTicketNum + "개를 구매했습니다.");
+    public static void requestManualLottoNum() {
+        System.out.println(NEWLINE + "수동으로 구매할 번호를 입력해 주세요.");
+    }
+
+    public static void printKindsOfLottosCount(int lottoTicketCount, int manualLottoCount) {
+        System.out.printf(NEWLINE + "수동으로 %d장, 자동으로 %d개를 구매했습니다." + NEWLINE, manualLottoCount, lottoTicketCount - manualLottoCount);
     }
 
     public static void showLottos(LottoDto lottoDto) {
@@ -25,6 +26,8 @@ public class ResultView {
     }
 
     public static void showLottoResult(ResultDto resultDto) {
+        System.out.print(NEWLINE);
+        System.out.print("당첨 통계" + NEWLINE + "---------" + NEWLINE);
         for (Rank value : Rank.values()) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getCountOfStrike() + "개 일치");
@@ -37,4 +40,5 @@ public class ResultView {
         }
         System.out.printf("총 수익률은 %d%%입니다." + NEWLINE, resultDto.getProfitRate());
     }
+
 }
