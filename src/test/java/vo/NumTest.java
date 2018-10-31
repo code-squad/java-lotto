@@ -11,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class NumTest {
 
-
     @Test
     public void NumberTest() {
         Num number1 = new Num(3);

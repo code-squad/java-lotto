@@ -7,8 +7,6 @@ import view.InputView;
 import view.PrintView;
 import vo.Num;
 
-import java.util.TreeSet;
-
 public class LottoMain {
     public static void main(String[] args) {
         int lottoCount = InputView.inputPrice();
@@ -18,8 +16,9 @@ public class LottoMain {
         PrintView.printAutoLotto(userLottos.toDto());
 
         WinningLotto winningLotto = new WinningLotto(InputView.intputWinningNumber());
+        Num bonusNum = winningLotto.BonusCheck(new Num(InputView.inputBonusBall()));
         Lotto winningNumber = winningLotto.makeWinningLotto();
 
-        PrintView.printResult(userLottos.matchNum(winningNumber), Utility.multiplyThousand(lottoCount));
+        PrintView.printResult(userLottos.matchNum(winningNumber,bonusNum),Utility.multiplyThousand(lottoCount));
     }
 }

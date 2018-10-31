@@ -3,32 +3,23 @@ package lotto;
 import java.util.*;
 
 public class Reward {
-    private final int MAX_MATCH_COUNT = 6;
-    private final int MIN_MATCH_COUNT = 3;
-    private Map<Integer, Integer> map = new HashMap<>();
+    private Map<Rank, Integer> gameResult;
 
-    public Map<Integer, Integer> lottoRewardCount() {
-        int[] initMatchCount = {0, 0, 0, 0};
-        forStatement(initMatchCount);
-        return map;
+    public Map<Rank, Integer> getInitReward() {
+        gameResult = new HashMap<>();
+        gameResult.put(Rank.FIRST, 0);
+        gameResult.put(Rank.SECOND, 0);
+        gameResult.put(Rank.THIRD, 0);
+        gameResult.put(Rank.FOURTH, 0);
+        gameResult.put(Rank.FIFTH, 0);
+        return gameResult;
     }
 
-    public Map<Integer, Integer> lottoPrice() {
-        int[] priceManager = {5000, 50000, 1500000, 2000000000};
-        forStatement(priceManager);
-        return map;
-    }
-
-    public void forStatement(int[] values) {
-        for (int i = MIN_MATCH_COUNT; i <= MAX_MATCH_COUNT; i++) {
-            map.put(i, values[i - MIN_MATCH_COUNT]);
-        }
-    }
-
-    public double earningRate(Map<Integer, Integer> lottoRewardCount) {
+    public double earningRate(Map<Rank,Integer> gameResult) {
+        this.gameResult = gameResult;
         double rewardPrice = 0;
-        for (Integer integer : map.keySet()) {
-            rewardPrice += lottoPrice().get(integer) * lottoRewardCount.get(integer);
+        for (Rank lottoRank : this.gameResult.keySet()) {
+            rewardPrice += lottoRank.getWinningMoney() * this.gameResult.get(lottoRank);
         }
         return rewardPrice;
     }

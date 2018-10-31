@@ -1,7 +1,6 @@
 package lotto;
 
 import dto.LottoDto;
-import util.Utility;
 import vo.Num;
 
 import java.util.*;
@@ -27,13 +26,17 @@ public class Lotto {
         lotto = new ArrayList<>(winningLotto);
     }
 
-    public int gameStart(Lotto winningLotto) {
+    public int gameStart(Lotto winningLotto) {          // 유저가 (매개변수로 우승자로또)
         int count = 0;
         for (Num num : winningLotto.lotto) {
             if (lotto.contains(num))
                 count++;
         }
         return count;
+    }
+
+    public Boolean isMatchBonusNum(Num bonusNum){
+        return lotto.contains(bonusNum);
     }
 
     public LottoDto toDto() {
