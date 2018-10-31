@@ -23,8 +23,8 @@ public class LottoMainTest {
 //
 //    @Test
 //    public void 로또비교() {
-//        Lotto lotto = Lotto.ofWinLotto("1,2,3,4,5,6");
-//        Lotto lotto2 = Lotto.ofWinLotto("1,2,3,4,5,6");
+//        Lotto lotto = Lotto.ofManualLotto("1,2,3,4,5,6");
+//        Lotto lotto2 = Lotto.ofManualLotto("1,2,3,4,5,6");
 //        System.out.println(lotto.obtainMatchCount(lotto2));
 //    }
 //

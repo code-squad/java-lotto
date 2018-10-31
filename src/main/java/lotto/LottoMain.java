@@ -1,6 +1,7 @@
 package lotto;
 
 import lotto.domain.LottoManager;
+import lotto.domain.Money;
 import lotto.domain.WinningLotto;
 import lotto.view.InputView;
 import lotto.view.ResultView;
@@ -12,22 +13,15 @@ import java.util.List;
 public class LottoMain {
 
     public static void main(String[] args) {
-        int myMoney;
         LottoManager lottos;
         try {
-            myMoney = InputView.buyLotto();
-            List<String> manualLottos = new ArrayList<>();
-            int manualCount = InputView.buyManualLottoCount();
-            for (int i = 0; i < manualCount; i++) {
-                manualLottos.add(InputView.manualLotto());
-            }
-            lottos = LottoManager.buyLotto(myMoney, manualLottos);
+            Money money = InputView.buyLotto();
+            int createCount = InputView.buyManualLottoCount(money); // 수동 로또 생성 개수
+            lottos = LottoManager.buyLotto(money, InputView.manualLotto(createCount));
             ResultView.printLotto(lottos);
-
             WinningLotto winningLotto = new WinningLotto(InputView.lastWeekWinNumber(), InputView.bonusBall());
             lottos.winLottoMatch(winningLotto);
-
-            ResultView.winList(lottos);
+            ResultView.winList(lottos, money.yield(lottos));
         } catch (InputMismatchException | IllegalArgumentException e) { // 타입 에러
             System.out.println(e.getMessage());
             main(args);
