@@ -6,6 +6,7 @@ import java.util.*;
 public class Lotto {
     private static final int MAX_LOTTO = 45;
     private static final int MIN_LOTTO = 1;
+    private static final int COUNT_LOTTO = 6;
 
     private static List<Integer> numbers = new ArrayList<>();
 
@@ -25,7 +26,7 @@ public class Lotto {
 
     public static Lotto generateLottoNumber() {
         Collections.shuffle(numbers);
-        return new Lotto(numbers.subList(0,6));
+        return new Lotto(numbers.subList(0,COUNT_LOTTO));
     }
 
     public static Lotto enterNumberOfLotto(String input) {
@@ -35,7 +36,7 @@ public class Lotto {
             lotto.add(Integer.parseInt(s));
         }
 
-        if(lotto.size() != 6) {
+        if(lotto.size() != COUNT_LOTTO) {
             throw new NotTypeLottoException("중복되지 않은 6개의 숫자를 입력하세요");
         }
 
