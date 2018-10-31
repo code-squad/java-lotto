@@ -18,8 +18,8 @@ public class Main {
     public static void main(String[] args) {
         //구입금액 입력
         int purchasePrice = purchasePrice();
-        List<Lotto> massLotto = LottosFactory.makeLottos(purchasePrice / PRICE_OF_LOTTO_TICKET);
-        LottosDto lottosDto = new Lottos(massLotto).toDto();
+        List<Lotto> lottos = LottosFactory.makeLottos(purchasePrice / PRICE_OF_LOTTO_TICKET);
+        LottosDto lottosDto = new Lottos(lottos).toDto();
 
         //모든 로또 목록 출력
         printLottos(lottosDto);
@@ -28,7 +28,7 @@ public class Main {
         Lotto winnerLotto = new Lotto(Parser.makeWinnerLotto(WinnerLottoNumber()));
 
         //당첨 통계 출력
-        Statistic statistic = new Statistic(massLotto);
+        Statistic statistic = new Statistic(lottos);
         statistic.checkLottoRank(winnerLotto);
         StatisticDto statisticDto = statistic.toDto();
         printResult(statisticDto.getWinnerInfo(), purchasePrice);
