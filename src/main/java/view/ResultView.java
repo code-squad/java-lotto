@@ -16,7 +16,7 @@ public class ResultView {
         }
     }
 
-    public static void winView(LottoryManager manager, int input) {
+    public static void winView(LottoryManager manager) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
 
@@ -24,7 +24,7 @@ public class ResultView {
                 .map(value -> result(value, manager))
                 .forEach(System.out::println);
 
-        System.out.println("총 수익률은 " + manager.percent(input) + "%입니다.");
+        System.out.println("총 수익률은 " + manager.yield() + "%입니다.");
     }
 
     private static String result(Rank value, LottoryManager manager) {
@@ -34,7 +34,7 @@ public class ResultView {
                 + " ("
                 + value.getMoney()
                 + " 원)- "
-                + manager.ranking(value)
+                + manager.findRank(value)
                 + "개";
     }
 

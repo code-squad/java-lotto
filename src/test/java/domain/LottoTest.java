@@ -33,14 +33,14 @@ public class LottoTest {
 */
     @Test
     public void rankingTest() {
-        LottoryManager lottoryManager = new LottoryManager();
-        System.out.println(lottoryManager.ranking(Rank.FIVE));
+        LottoryManager lottoryManager = LottoryManager.of(1000);
+        System.out.println(lottoryManager.findRank(Rank.FIVE));
         lottoryManager.increase(5,true);
-        System.out.println(lottoryManager.ranking(Rank.THREE));
+        System.out.println(lottoryManager.findRank(Rank.THREE));
         int num = 0;
-        System.out.println(lottoryManager.ranking(null));
+        System.out.println(lottoryManager.findRank(null));
         lottoryManager.increase(num,false);
-        System.out.println(lottoryManager.ranking(null));
+        System.out.println(lottoryManager.findRank(null));
     }
 
     @Test

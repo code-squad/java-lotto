@@ -4,7 +4,6 @@ import domain.LottoFactory;
 import domain.WinnerLotto;
 import view.InputView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LottoGame {
@@ -35,25 +34,43 @@ public class LottoGame {
         return winnerLotto;
     }
 
-    public static LottoFactory Try(int input) {
+    public static LottoFactory inputManualcount(int input) {
         int manualCount;
         try {
             manualCount = InputView.manualCount(input);
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return Try(input);
+            return inputManualcount(input);
+        } catch (Exception e) {
+            System.out.println("숫자가 아닙니다.");
+            return inputManualcount(input);
         }
-        return makeLotto(input,manualCount);
+        return makeLottos(input, manualCount);
     }
 
-    private static LottoFactory makeLotto(int count, int manualCount) {
-        List<List> manualString = new ArrayList<>();
+    private static LottoFactory makeLottos(int count, int manualCount) {
+        LottoFactory lottoFactory = new LottoFactory();
+        //수동로또 add
         System.out.println("\n수동 로또를 입력해 주세요");
         for (int i = 0; i < manualCount; i++) {
-            manualString.add(InputView.manualLotto());
+            lottoFactory.addManualLotto(inputManualLotto());
         }
-        System.out.println("\n수동 "+ manualCount + "개 자동 " +  (count - manualCount) + "개를 구매 하셨습니다.");
-        return new LottoFactory(manualString, count - manualCount);
+        System.out.println("\n수동 " + manualCount + "개 자동 " + (count - manualCount) + "개를 구매 하셨습니다.");
+
+        // 자동로또 add
+        lottoFactory.addAutoLotto(count - manualCount);
+        return lottoFactory;
+    }
+
+    private static List<String> inputManualLotto() {
+        List<String> manualLotto;
+        try {
+            manualLotto = InputView.manualLotto();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return inputManualLotto();
+        }
+        return manualLotto;
     }
 }

@@ -8,12 +8,12 @@ public class LottoMain extends IllegalAccessException {
     public static void main(String[] args) {
         int input = LottoGame.inputMoney();
 
-        Lottos userAutoLottos = Lottos.of(LottoGame.Try(input).getLottos());
+        Lottos userAutoLottos = Lottos.of(LottoGame.inputManualcount(input).getLottos(),input);
         ResultView.view(userAutoLottos.getLottos());
 
         WinnerLotto winnerLotto = LottoGame.winnerLottoCreator();
         userAutoLottos.matchLotto(winnerLotto);
 
-        ResultView.winView(userAutoLottos.getLottoryManager(), input);
+        ResultView.winView(userAutoLottos.getLottoryManager());
     }
 }
