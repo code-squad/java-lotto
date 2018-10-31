@@ -10,7 +10,11 @@ public class Lotto {
     public static final int LOTTO_SIZE = 6;
     private final List<LottoNum> lottoNums;
 
-    public Lotto(List<LottoNum> lottoNums) {
+    protected Lotto(List<LottoNum> lottoNums) {
+        this.lottoNums = lottoNums;
+    }
+
+    public static Lotto ofLotto(List<LottoNum> lottoNums) {
         Set<LottoNum> nums = new HashSet<>(lottoNums);
         if (lottoNums.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("[로또 수가 6개가 아닙니다!]");
@@ -18,7 +22,7 @@ public class Lotto {
         if (nums.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("[로또 수 중 중복되는 수가 있습니다.]");
         }
-        this.lottoNums = lottoNums;
+        return new Lotto(lottoNums);
     }
 
     int strikeCheck(Lotto target) {

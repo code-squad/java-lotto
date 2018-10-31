@@ -17,14 +17,14 @@ public class LottoGenerator {
     
     static {
         for (int i = LOTTO_NUM_START; i <= LOTTO_NUM_END; i++) {
-            lottoNums.add(new LottoNum(i));
+            lottoNums.add(LottoNum.ofLottoNum(i));
         }
     }
 
     public static Lotto generate() {
         Collections.shuffle(lottoNums);
         List<LottoNum> tempLottoNums = lottoNums.subList(0, LOTTO_SIZE);
-//        Collections.sort(tempLottoNums);
-        return new Lotto(new ArrayList<>(tempLottoNums));
+        Collections.sort(tempLottoNums);
+        return Lotto.ofLotto(new ArrayList<>(tempLottoNums));
     }
 }

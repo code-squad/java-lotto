@@ -4,16 +4,20 @@ package domain;
 import java.util.Objects;
 
 
-public class LottoNum {
+public class LottoNum implements Comparable<LottoNum> {
     public static final int LOTTO_NUM_START = 1;
     public static final int LOTTO_NUM_END = 45;
     private final int lottoNum;
 
-    public LottoNum(int lottoNum) {
-        if(lottoNum < LOTTO_NUM_START || lottoNum > LOTTO_NUM_END) {
+    private LottoNum(int lottoNum) {
+        this.lottoNum = lottoNum;
+    }
+
+    public static LottoNum ofLottoNum(int lottoNum) {
+        if (lottoNum < LOTTO_NUM_START || lottoNum > LOTTO_NUM_END) {
             throw new IllegalArgumentException("[로또 수가 범위 내에 있지 않은 것이 있습니다!]");
         }
-        this.lottoNum = lottoNum;
+        return new LottoNum(lottoNum);
     }
 
     @Override
@@ -32,5 +36,10 @@ public class LottoNum {
     @Override
     public String toString() {
         return String.valueOf(lottoNum);
+    }
+
+    @Override
+    public int compareTo(LottoNum o) {
+        return lottoNum - o.lottoNum;
     }
 }

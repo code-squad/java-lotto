@@ -31,12 +31,12 @@ public class LottoTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void isDuplicated() {
-        Lotto duplicatedLotto = new Lotto(convertLottoNums(Arrays.asList(1, 1, 3, 2, 5, 6)));
+        Lotto duplicatedLotto = Lotto.ofLotto(convertLottoNums(Arrays.asList(1, 1, 3, 2, 5, 6)));
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void isLottoSize() {
-        Lotto overSizeLotto = new Lotto(convertLottoNums(Arrays.asList(1, 2, 7, 3, 2, 5, 6)));
+        Lotto overSizeLotto = Lotto.ofLotto(convertLottoNums(Arrays.asList(1, 2, 7, 3, 2, 5, 6)));
     }
 
     @Test (expected = IllegalArgumentException.class)

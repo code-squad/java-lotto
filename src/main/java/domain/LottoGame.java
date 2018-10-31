@@ -22,7 +22,7 @@ public class LottoGame {
     }
 
     public GameResult checkLottos(String inputWinningNum, int bonus) {
-        WinningLotto winningLotto = new WinningLotto(NumParser.parse(inputWinningNum), bonus);
+        WinningLotto winningLotto = WinningLotto.ofWinningLotto(NumParser.parse(inputWinningNum), bonus);
         Map<Rank, Integer> gameResult = new HashMap<>();
         initGameResult(gameResult);
         for (Lotto lotto : lottos) {

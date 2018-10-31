@@ -10,7 +10,7 @@ public class IntegerToLottoNum {
     public static List<LottoNum> convertLottoNums(List<Integer> Integers) {
         List<LottoNum> LottoNums = new ArrayList<>();
         for (Integer integer : Integers) {
-            LottoNums.add(new LottoNum(integer));
+            LottoNums.add(LottoNum.ofLottoNum(integer));
         }
         return LottoNums;
     }

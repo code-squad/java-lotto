@@ -14,7 +14,7 @@ public class NumParser {
     public static List<LottoNum> parse(String inputLottoNum) {
         List<LottoNum> lottoNums = new ArrayList<>();
         for (String num : inputLottoNum.split(COMMA)) {
-            lottoNums.add(new LottoNum(Integer.parseInt(num.trim())));
+            lottoNums.add(LottoNum.ofLottoNum(Integer.parseInt(num.trim())));
         }
         return lottoNums;
     }

@@ -13,18 +13,18 @@ public class WinningLottoTest {
 
     @Before
     public void setUp() throws Exception {
-        winningLotto = new WinningLotto(convertLottoNums(Arrays.asList(1, 2, 3, 4, 5, 6)), 7);
+        winningLotto = WinningLotto.ofWinningLotto(convertLottoNums(Arrays.asList(1, 2, 3, 4, 5, 6)), 7);
     }
 
     @Test
     public void 보너스_boolean_체크_가진다() {
-        Lotto lotto = new Lotto(convertLottoNums(Arrays.asList(11, 12, 13, 14, 15, 7)));
+        Lotto lotto = Lotto.ofLotto(convertLottoNums(Arrays.asList(11, 12, 13, 14, 15, 7)));
         assertThat(winningLotto.bonusCheck(lotto)).isEqualTo(true);
     }
 
     @Test
     public void 보너스_boolean_체크_안가진다() {
-        Lotto lotto = new Lotto(convertLottoNums(Arrays.asList(11, 12, 13, 14, 15, 17)));
+        Lotto lotto = Lotto.ofLotto(convertLottoNums(Arrays.asList(11, 12, 13, 14, 15, 17)));
         assertThat(winningLotto.bonusCheck(lotto)).isEqualTo(false);
     }
 }

@@ -17,7 +17,7 @@ public class LottoControl {
             manualLottos.clear();
             try {
                 for (int i = 0; i < manualLottoTicketCount; i++) {
-                    Lotto lotto = new Lotto(NumParser.parse(InputView.inputManualLottoNum()));
+                    Lotto lotto = Lotto.ofLotto(NumParser.parse(InputView.inputManualLottoNum()));
                     manualLottos.add(lotto);
                 }
                 break;
