@@ -19,15 +19,13 @@ public class Main {
         //구입금액 입력
         int purchasePrice = purchasePrice();
         List<Lotto> massLotto = LottosFactory.makeLottos(purchasePrice / PRICE_OF_LOTTO_TICKET);
-        Lottos lottos = new Lottos(massLotto);
-        LottosDto lottosDto = lottos.toDto();
+        LottosDto lottosDto = new Lottos(massLotto).toDto();
 
         //모든 로또 목록 출력
         printLottos(lottosDto);
 
         //당첨 번호 입력
         Lotto winnerLotto = new Lotto(Parser.makeWinnerLotto(WinnerLottoNumber()));
-        LottoDto winnerLottoDto = winnerLotto.toDto();
 
         //당첨 통계 출력
         Statistic statistic = new Statistic(massLotto);

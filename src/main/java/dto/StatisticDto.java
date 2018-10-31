@@ -2,11 +2,10 @@ package dto;
 
 import vo.Prize;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class StatisticDto {
-    private Map<Prize, Integer> winnerInfo = new LinkedHashMap<>();
+    private Map<Prize, Integer> winnerInfo;
 
     public StatisticDto(Map<Prize, Integer> winnerInfo) {
         this.winnerInfo = winnerInfo;

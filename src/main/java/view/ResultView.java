@@ -9,9 +9,9 @@ import java.util.Map;
 public class ResultView {
     static final int PERCENTAGE = 100;
 
-    public static void printLottos(LottosDto lottos) {
-        System.out.println(lottos.getSize() + "개를 구매했습니다.");
-        for (LottoDto lottoDto : lottos.getLottos()) {
+    public static void printLottos(LottosDto lottosDto) {
+        System.out.println(lottosDto.getSize() + "개를 구매했습니다.");
+        for (LottoDto lottoDto : lottosDto.getLottos()) {
             System.out.println(lottoDto.toString());
         }
     }
