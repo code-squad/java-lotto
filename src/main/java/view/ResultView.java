@@ -1,18 +1,18 @@
 package view;
 
-import domain.Lotto;
-import domain.Prize;
+import vo.Prize;
+import dto.LottoDto;
+import dto.LottosDto;
 
-import java.util.List;
 import java.util.Map;
 
 public class ResultView {
     static final int PERCENTAGE = 100;
 
-    public static void printLottos(List<Lotto> lottos) {
-        System.out.println(lottos.size() + "개를 구매했습니다.");
-        for (Lotto lotto : lottos) {
-            System.out.println(lotto.getLotto());
+    public static void printLottos(LottosDto lottos) {
+        System.out.println(lottos.getSize() + "개를 구매했습니다.");
+        for (LottoDto lottoDto : lottos.getLottos()) {
+            System.out.println(lottoDto.toString());
         }
     }
 

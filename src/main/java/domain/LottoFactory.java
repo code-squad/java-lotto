@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class LottoFactory {
-    static final int FIRST = 0;
-    static final int LAST = 6;
+    private static final int FIRST = 0;
+    private static final int LAST = 6;
 
     public static List<Integer> makeRandNumber() {
         List<Integer> randNumber = new ArrayList<>();

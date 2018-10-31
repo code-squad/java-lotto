@@ -1,12 +1,14 @@
 package domain;
 
-import java.util.HashMap;
+import dto.StatisticDto;
+import vo.Prize;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Statistic {
-    private final int THREE = 3;
+    private final int MIN = 3;
 
     private List<Lotto> lottos;
     private Map<Prize, Integer> winnerInfo = new LinkedHashMap<>();
@@ -30,14 +32,17 @@ public class Statistic {
         }
     }
 
-    public Map<Prize, Integer> checkLottoRank(Lotto winnerLotto) {
+    public void checkLottoRank(Lotto winnerLotto) {
         initWinnerInfo();
         for (Lotto lotto : lottos) {
             int cnt = lotto.checkRank(winnerLotto);     //당첨번호 일치 개수
-            if (cnt >= THREE) {
+            if (cnt >= MIN) {
                 plusPrizeNumber(cnt);
             }
         }
-        return winnerInfo;
+    }
+
+    public StatisticDto toDto() {
+        return new StatisticDto(this.winnerInfo);
     }
 }

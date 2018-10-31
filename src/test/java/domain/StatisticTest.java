@@ -1,6 +1,7 @@
 package domain;
 
 import org.junit.Test;
+import vo.Prize;
 
 import java.util.*;
 
@@ -25,5 +26,6 @@ public class StatisticTest {
         winnerInfo.put(Prize.FIVE, 0);
         winnerInfo.put(Prize.SIX, 0);
         System.out.println(winnerInfo.keySet());
+        assertThat(winnerInfo.size()).isEqualTo(4);
     }
 }
