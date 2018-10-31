@@ -1,6 +1,11 @@
 package lotto.domain;
 
+import com.sun.tools.javac.util.List;
 import org.junit.Test;
+
+import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

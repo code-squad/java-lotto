@@ -2,27 +2,29 @@ package lotto;
 
 import lotto.domain.LottoGame;
 import lotto.domain.NotTypeLottoException;
-import lotto.domain.dto.ResultDto;
+import lotto.dto.InputDto;
+import lotto.dto.ResultDto;
+import lotto.view.BelowLimitMoneyException;
+import lotto.view.InputTypeException;
 import lotto.view.InputView;
 import lotto.view.ResultView;
 
 public class LottoMain {
     public static void main(String[] args) {
         LottoGame lottoGame = null;
-        int price = 0;
 
         try{
-            price = InputView.buyLotto();
-            lottoGame = new LottoGame(price);
+            InputDto inputDto = InputView.getInputData();
+            lottoGame = new LottoGame(inputDto);
             ResultView.printBuyLotto(lottoGame.createDto());
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | BelowLimitMoneyException | InputTypeException | NotTypeLottoException e) {
             System.out.println(e.getMessage());
             main(args);
         }
 
         while(true) {
             try{
-                compareWinningLotto(lottoGame, price);
+                compareWinningLotto(lottoGame);
                 break;
             } catch (NotTypeLottoException e) {
                 System.out.println(e.getMessage());
@@ -30,10 +32,8 @@ public class LottoMain {
         }
     }
 
-    public static void compareWinningLotto(LottoGame lottoGame, int price) throws NotTypeLottoException {
-        if (lottoGame != null && price != 0) {
-            ResultDto result = lottoGame.compare(InputView.getWinningNumber(), InputView.getWinningBonusNumber());
-            ResultView.statisticsLottoWinnings(price, result);
-        }
+    private static void compareWinningLotto(LottoGame lottoGame) {
+        ResultDto result = lottoGame.matchLotto(InputView.getWinningNumber(), InputView.getWinningBonusNumber());
+        ResultView.statisticsLottoWinnings(result);
     }
 }
