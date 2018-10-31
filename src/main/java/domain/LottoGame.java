@@ -8,24 +8,22 @@ import utils.NumParser;
 import java.util.*;
 
 public class LottoGame {
-    private List<Lotto> lottos;
 
-    public LottoGame(List<Lotto> manualLottos) {
-        lottos = new ArrayList<>(manualLottos);
-    }
-
-    public LottoDto generateLottos(int lottoTicketNum) {
-        for (int i = 0; i < lottoTicketNum; i++) {
-            lottos.add(LottoGenerator.generate());
+    public LottoDto generateLottos(int lottoTicketNum, int manualLottoTicketCount) {
+        LottoMachineAbstract lottoMachine;
+        if (manualLottoTicketCount == 0) {
+            lottoMachine = new AutoLottoMachine(lottoTicketNum - manualLottoTicketCount);
+            return new LottoDto(lottoMachine.getLottos());
         }
-        return new LottoDto(lottos);
+        int autoLottoCount = lottoTicketNum - manualLottoTicketCount;
+        lottoMachine = new MixLottoMachine(autoLottoCount, manualLottoTicketCount);
+        return new LottoDto(lottoMachine.getLottos());
     }
 
-    public GameResult checkLottos(String inputWinningNum, int bonus) {
-        WinningLotto winningLotto = WinningLotto.ofWinningLotto(NumParser.parse(inputWinningNum), bonus);
+    public GameResult checkLottos(WinningLotto winningLotto, LottoDto lottos) {
         Map<Rank, Integer> gameResult = new HashMap<>();
         initGameResult(gameResult);
-        for (Lotto lotto : lottos) {
+        for (Lotto lotto : lottos.getLottos()) {
             Rank rank = Rank.valueOf(lotto.strikeCheck(winningLotto), winningLotto.bonusCheck(lotto));
             putGameResult(gameResult, rank);
         }

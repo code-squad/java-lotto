@@ -1,6 +1,6 @@
-package control;
+package domain;
 
-import domain.Lotto;
+
 import utils.NumParser;
 import view.InputView;
 import view.ResultView;
@@ -8,15 +8,22 @@ import view.ResultView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LottoControl {
+public class MixLottoMachine extends LottoMachineAbstract implements Manually {
+    private int manualLottoCount;
 
-    public static List<Lotto> getManualLottos(int manualLottoTicketCount) {
+    public MixLottoMachine(int autoLottoCount, int manualLottoCount) {
+        super(autoLottoCount);
+        this.manualLottoCount = manualLottoCount;
+    }
+
+    @Override
+    public void gerateManualLottos(int num) {
         List<Lotto> manualLottos = new ArrayList<>();
         while (true) {
             ResultView.requestManualLottoNum();
             manualLottos.clear();
             try {
-                for (int i = 0; i < manualLottoTicketCount; i++) {
+                for (int i = 0; i < num; i++) {
                     Lotto lotto = Lotto.ofLotto(NumParser.parse(InputView.inputManualLottoNum()));
                     manualLottos.add(lotto);
                 }
@@ -25,6 +32,13 @@ public class LottoControl {
                 System.out.println(e.getMessage());
             }
         }
-        return manualLottos;
+        lottos.addAll(manualLottos);
+    }
+
+    @Override
+    public List<Lotto> getLottos() {
+        gerateManualLottos(manualLottoCount);
+        gerateAutoLottos(autoLottoCount);
+        return lottos;
     }
 }
