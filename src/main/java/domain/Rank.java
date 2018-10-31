@@ -19,9 +19,9 @@ public enum Rank {
                 .orElse(null);
     }
 
-    private boolean matchNum(int count, boolean bonus) {
-        return this.trueNum == TWO.trueNum ?
-                bonus ? this == TWO : this == THREE
+    public boolean matchNum(int count, boolean bonus) {
+        return count == TWO.trueNum ?
+                (bonus ? this == TWO : this == THREE)
                 : this.trueNum == count;
     }
 

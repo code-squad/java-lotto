@@ -10,25 +10,14 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class LottoTest {
 
-    //step2
-    /*
-    * 2등을 위한 조건인 보너스볼 조건생성해야함 (0)
-    * 1. winnerLotto 클래스를 만들어 보너스 볼 까지 입력 받게하자. (0)
-    * - lotto를 상속받게 할까 인터페이스를 생성시킬까? -> 일단 상속시켜생성해보자.(추상클래스)
-    * 2. winnerLotto 와 autolotto 를 비교해 winningRulas에 몇등인지 저장하자.
-    * 3. 이름을 userLottoResult 가 좋을듯 함. -> Lottery result
-    * - 룰판과 결과를 저장 가저가서 출력하면 될듯
-    *
-    *
-    * */
 
     @Test
     public void winnerLotto와lotto추상클래스태스트() {
         String input = "1,2,3,4,5,6";
         WinnerLotto winnerLotto = WinnerLotto.of(InputView.separatorComa(input),7);
         Lotto lotto = Lotto.ofManual(InputView.separatorComa(input));
-        int num = lotto.compareLotto(winnerLotto);
-        assertThat(num).isEqualTo(lotto.compareLotto2(winnerLotto));
+        int num = winnerLotto.compareLotto(lotto);
+        assertThat(num).isEqualTo(6);
     }
    /* @Test
     public void winnerLotto생성() {
@@ -44,14 +33,14 @@ public class LottoTest {
 */
     @Test
     public void rankingTest() {
-        LottoryManager lottoryManager = new LottoryManager();
-        System.out.println(lottoryManager.ranking(Rank.FIVE));
+        LottoryManager lottoryManager = LottoryManager.of(1000);
+        System.out.println(lottoryManager.findRank(Rank.FIVE));
         lottoryManager.increase(5,true);
-        System.out.println(lottoryManager.ranking(Rank.THREE));
+        System.out.println(lottoryManager.findRank(Rank.THREE));
         int num = 0;
-        System.out.println(lottoryManager.ranking(null));
+        System.out.println(lottoryManager.findRank(null));
         lottoryManager.increase(num,false);
-        System.out.println(lottoryManager.ranking(null));
+        System.out.println(lottoryManager.findRank(null));
     }
 
     @Test

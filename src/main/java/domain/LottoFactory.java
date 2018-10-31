@@ -18,11 +18,20 @@ public class LottoFactory {
 
     private ArrayList<Lotto> lottos = new ArrayList<>();
 
-    public LottoFactory(int num) {
-        of(num);
+    public LottoFactory() {
+        // 수동 로또 생성
     }
 
-    private void of(int num) {
+    LottoFactory(int num) {
+        addAutoLotto(num);
+    }
+
+    public void addManualLotto(List<String> list) {
+        lottos.add(Lotto.ofManual(list));
+    }
+
+
+    public void addAutoLotto(int num) {
         for (int i = 0; i < num; i++) {
             Collections.shuffle(nums);
             lottos.add(Lotto.ofAuto(nums.stream()
