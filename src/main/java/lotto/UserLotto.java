@@ -1,7 +1,6 @@
 package lotto;
 
 import dto.*;
-import vo.Num;
 
 import java.util.*;
 
@@ -14,18 +13,16 @@ public class UserLotto {
         }
     }
 
-    public Map<Rank, Integer> matchNum(Lotto winningLotto, Num bonusNum) {
-        Map<Rank, Integer> gameResult = new Reward().getInitReward();
+    public Reward matchNum(WinningLotto winningLotto) {
+        Reward rewards = new Reward();
         for (Lotto userLotto : userLottos) {
-            int reward = userLotto.gameStart(winningLotto);
-            boolean matchBonus = userLotto.isMatchBonusNum(bonusNum);
+            int reward = userLotto.gameStart(winningLotto.makeWinningLotto());
+            boolean matchBonus = userLotto.isMatchBonusNum();
             if (reward > 2) {
-                Rank grade = Rank.valueOf(reward, matchBonus);
-                int matchCount = gameResult.get(grade);
-                gameResult.put(grade, matchCount + 1);
+                rewards.changeReward(Rank.valueOf(reward, matchBonus));
             }
         }
-        return gameResult;
+        return rewards;
     }
 
     public UserLottoDto toDto() {
@@ -36,18 +33,3 @@ public class UserLotto {
         return new UserLottoDto(userLottoDto);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

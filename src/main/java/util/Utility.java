@@ -24,5 +24,4 @@ public class Utility {
     public static int multiplyHundred(double rate) {
         return (int)rate * 100;
     }
-
 }

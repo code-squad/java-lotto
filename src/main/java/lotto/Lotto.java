@@ -9,6 +9,7 @@ public class Lotto {
     private static final int LOTTO_NUMBER_COUNT = 45;
     private static List<Num> initLottoNumber = new ArrayList<>();
     private List<Num> lotto;
+    private Num bonusNum;
 
     static {
         for (int i = 1; i <= LOTTO_NUMBER_COUNT; i++) {
@@ -22,11 +23,13 @@ public class Lotto {
         Collections.sort(lotto);
     }
 
-    Lotto(Set<Num> winningLotto) {
+    Lotto(Set<Num> winningLotto, Num bonusNum) {
         lotto = new ArrayList<>(winningLotto);
+        this.bonusNum = bonusNum;
     }
 
-    public int gameStart(Lotto winningLotto) {          // 유저가 (매개변수로 우승자로또)
+    public int gameStart(Lotto winningLotto) {
+        this.bonusNum = winningLotto.bonusNum;
         int count = 0;
         for (Num num : winningLotto.lotto) {
             if (lotto.contains(num))
@@ -35,7 +38,7 @@ public class Lotto {
         return count;
     }
 
-    public Boolean isMatchBonusNum(Num bonusNum){
+    public Boolean isMatchBonusNum(){
         return lotto.contains(bonusNum);
     }
 

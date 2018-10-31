@@ -41,7 +41,7 @@ public class LottoTest {
             System.out.println(lottodto);
         }
         String[] num = {"10","20","24","25","16","30"};
-        Lotto lotto = new WinningLotto(num).makeWinningLotto();
+        Lotto lotto = new WinningLotto(num,new Num(4)).makeWinningLotto();
         System.out.println(userLotto.toDto().getUserLottoDto().contains(lotto.toDto()));
     }
 
