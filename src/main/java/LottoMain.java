@@ -1,13 +1,9 @@
-import lotto.Lotto;
-import lotto.Reward;
 import lotto.UserLotto;
 import lotto.WinningLotto;
 import util.Utility;
 import view.InputView;
 import view.PrintView;
 import vo.Num;
-
-import java.util.TreeSet;
 
 public class LottoMain {
     public static void main(String[] args) {
@@ -17,9 +13,8 @@ public class LottoMain {
         UserLotto userLottos = new UserLotto(lottoCount);
         PrintView.printAutoLotto(userLottos.toDto());
 
-        WinningLotto winningLotto = new WinningLotto(InputView.intputWinningNumber());
-        Lotto winningNumber = winningLotto.makeWinningLotto();
+        WinningLotto winningLotto = new WinningLotto(InputView.intputWinningNumber(),new Num(InputView.inputBonusBall()));
 
-        PrintView.printResult(userLottos.matchNum(winningNumber), Utility.multiplyThousand(lottoCount));
+        PrintView.printResult(userLottos.matchNum(winningLotto),Utility.multiplyThousand(lottoCount));
     }
 }

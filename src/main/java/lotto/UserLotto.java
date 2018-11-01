@@ -13,14 +13,16 @@ public class UserLotto {
         }
     }
 
-    public Map<Integer, Integer> matchNum(Lotto winningLotto) {
-        Map<Integer, Integer> gameResult = new Reward().lottoRewardCount();
+    public Reward matchNum(WinningLotto winningLotto) {
+        Reward rewards = new Reward();
         for (Lotto userLotto : userLottos) {
-            int reward = userLotto.gameStart(winningLotto);
-            if (reward > 2)
-                gameResult.put(reward, gameResult.get(reward) + 1);
+            int reward = userLotto.gameStart(winningLotto.makeWinningLotto());
+            boolean matchBonus = userLotto.isMatchBonusNum();
+            if (reward > 2) {
+                rewards.changeReward(Rank.valueOf(reward, matchBonus));
+            }
         }
-        return gameResult;
+        return rewards;
     }
 
     public UserLottoDto toDto() {
@@ -31,18 +33,3 @@ public class UserLotto {
         return new UserLottoDto(userLottoDto);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

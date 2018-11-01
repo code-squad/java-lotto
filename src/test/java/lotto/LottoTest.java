@@ -11,8 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LottoTest {
     @Test
     public void FromListToSet() {
-        Num[] num = {new Num(1),new Num(3),new Num(5),new Num(7)};
-        List<Num> list = new ArrayList<>(Arrays.asList(num));
+//        Num[] num = {};
+        List<Num> list = new ArrayList<>(Arrays.asList(new Num(1),new Num(3),new Num(5),new Num(7)));
 //        for (Num num1 : num) {
 //            list.add(num1);
 //        }
@@ -41,16 +41,15 @@ public class LottoTest {
             System.out.println(lottodto);
         }
         String[] num = {"10","20","24","25","16","30"};
-        Lotto lotto = new WinningLotto(num).makeWinningLotto();
+        Lotto lotto = new WinningLotto(num,new Num(4)).makeWinningLotto();
         System.out.println(userLotto.toDto().getUserLottoDto().contains(lotto.toDto()));
     }
 
     @Test
     public void setContainTest() {
         List<Num> a ;
-        Num[] abc = {new Num(1),new Num(2),new Num(3),new Num(4)};
-        a = Arrays.asList(abc);                        // 얕은복사
-        a = new ArrayList<>(Arrays.asList(abc));       // 깊은복사
+        a = Arrays.asList(new Num(1),new Num(2),new Num(3),new Num(4));                        // 얕은복사
+        a = new ArrayList<>(Arrays.asList(new Num(1),new Num(2),new Num(3),new Num(4)));       // 깊은복사
         List<Num> b = new ArrayList<>(a);
         List<Num> c = new ArrayList<>(a);
         System.out.println(b.contains(a.get(0)));   // set contains 메서드는 원하는 결과가 안나온다.

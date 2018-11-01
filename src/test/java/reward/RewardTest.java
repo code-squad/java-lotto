@@ -9,6 +9,5 @@ public class RewardTest {
     @Test
     public void arrayListinitializeTest() {
         List<Integer> list = new ArrayList<>();
-
     }
 }
