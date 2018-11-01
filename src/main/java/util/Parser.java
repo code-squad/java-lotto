@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parser {
-
     public static List<Integer> makeWinnerLotto(String input) {
         String[] str = input.split(",");
         return StringToInteger(str);

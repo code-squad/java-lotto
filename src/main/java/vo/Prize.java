@@ -11,6 +11,13 @@ public enum Prize {
         this.money = money;
     }
 
+    public static Prize getPrize(int cnt) {
+        for (Prize prize : values()) {
+            if (prize.number == cnt) return prize;
+        }
+        return null;
+    }
+
     public int getMoney() {
         return money;
     }

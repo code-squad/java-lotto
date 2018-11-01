@@ -20,7 +20,7 @@ public class LottoTest {
         }
         Lotto lotto = new Lotto(sample1);
         Lotto lotto2 = new Lotto(sample2);
-        int cnt = lotto.checkRank(lotto2);
+        int cnt = lotto.countMatchedNumber(lotto2);
         assertThat(cnt).isEqualTo(4);
     }
 }

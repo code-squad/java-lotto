@@ -21,10 +21,9 @@ public class StatisticTest {
     @Test
     public void initWinnerInfo(){
         Map<Prize,Integer> winnerInfo = new LinkedHashMap<>();
-        winnerInfo.put(Prize.THREE, 0);
-        winnerInfo.put(Prize.FOUR, 0);
-        winnerInfo.put(Prize.FIVE, 0);
-        winnerInfo.put(Prize.SIX, 0);
+        for (Prize value : Prize.values()) {
+            winnerInfo.put(value,0);
+        }
         System.out.println(winnerInfo.keySet());
         assertThat(winnerInfo.size()).isEqualTo(4);
     }

@@ -1,7 +1,5 @@
 package domain;
 
-import dto.LottoDto;
-
 import java.util.List;
 
 public class Lotto {
@@ -9,22 +7,24 @@ public class Lotto {
     private List<Integer> lotto;
 
     public Lotto(List<Integer> lotto) {
+        if (lotto.size() != MAX_LOTTO_NUM) throw new IllegalArgumentException("잘 못 입력하였습니다.");
         this.lotto = lotto;
     }
 
-    int checkRank(Lotto lotto) {
-        int cnt = 0;
+    int countMatchedNumber(Lotto winningLotto) {
+        int matchedNumberCnt = 0;
         for (int i = 0; i < MAX_LOTTO_NUM; i++) {
-            if (lotto.isContains(this.lotto.get(i))) cnt++;
+            if (winningLotto.isContains(this.lotto.get(i))) matchedNumberCnt++;
         }
-        return cnt;
+        return matchedNumberCnt;
     }
 
     private boolean isContains(int number) {
         return this.lotto.contains(number);
     }
 
-    public LottoDto toDto() {
-        return new LottoDto(this.lotto);
+    @Override
+    public String toString() {
+        return "" + lotto;
     }
 }

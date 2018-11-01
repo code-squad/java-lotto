@@ -1,9 +1,5 @@
 package domain;
 
-import dto.LottoDto;
-import dto.LottosDto;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Lottos {
@@ -13,15 +9,20 @@ public class Lottos {
         this.lottos = lottos;
     }
 
-    public LottosDto toDto() {
-        return new LottosDto(makeLottosDto());
+    public Statistic match(Lotto winnerLotto) {
+        Statistic statistic = new Statistic();
+        statistic.initWinnerInfo();
+        for (Lotto lotto : lottos) {
+            statistic.makeResult(lotto.countMatchedNumber(winnerLotto));
+        }
+        return statistic;
     }
 
-    private List<LottoDto> makeLottosDto() {
-        List<LottoDto> lottosDtos = new ArrayList<>();
-        for (Lotto lotto : lottos) {
-            lottosDtos.add(lotto.toDto());
-        }
-        return lottosDtos;
+    public int getSize() {
+        return lottos.size();
+    }
+
+    public Lotto getLotto(int index) {
+        return lottos.get(index);
     }
 }
