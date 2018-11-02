@@ -2,6 +2,7 @@ package domain;
 
 import dto.WinStatsDto;
 import org.junit.Test;
+import vo.Money;
 import vo.Rank;
 
 import java.util.*;
@@ -21,7 +22,7 @@ public class WinStatsTest {
 
         WinningLotto theWinningLotto = WinningLottoFactory.generateWinningLotto(set, 7);
 
-        wc = randomLottoBundle.calculateWinStats(theWinningLotto, new Money(5000));
+        wc = randomLottoBundle.calculateWinStats(theWinningLotto, Money.of(5000));
     }
 
     @Test

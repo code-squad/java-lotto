@@ -1,11 +1,11 @@
-package domain;
+package vo;
 
 public class Money {
     private static final int LOTTO_PRICE = 1000;
 
     private int cash;
 
-    public Money(int cash) {
+    private Money(int cash) {
         if(cash < 0) throw new IllegalArgumentException("Can't enter under 0");
         this.cash = cash;
     }
@@ -14,7 +14,7 @@ public class Money {
         return this.cash / LOTTO_PRICE;
     }
 
-    public Money multi(int count){
+    Money multi(int count){
         return new Money(this.cash * count);
     }
 
@@ -30,8 +30,16 @@ public class Money {
         return investedMoney.div(this.cash);
     }
 
-    public double div(int earningMoney){
+    private double div(int earningMoney){
         return earningMoney / (double)this.cash;
+    }
+
+    public static Money of(int cash){
+        return new Money(cash);
+    }
+
+    public static Money ofText(String cashText){
+        return new Money(Integer.parseInt(cashText));
     }
 
     @Override

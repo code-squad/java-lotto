@@ -1,6 +1,7 @@
 package domain;
 
 import dto.WinStatsDto;
+import vo.Money;
 import vo.Rank;
 
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class WinStats {
     }
 
     void calculateEarningRate(Money investedMoney){
-        Money earningMoney = new Money(0);
+        Money earningMoney = Money.of(0);
         for (Rank rank : Rank.values()) {
             earningMoney = earningMoney.add(rank.calculateTotalReward(this.winStats.get(rank)));
         }

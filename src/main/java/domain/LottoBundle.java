@@ -1,6 +1,7 @@
 package domain;
 
 import dto.LottoBundleDto;
+import vo.Money;
 import vo.Rank;
 
 import java.util.ArrayList;
@@ -19,6 +20,10 @@ public class LottoBundle {
 
     void add(Lotto aLotto){
         this.multiLotto.add(aLotto);
+    }
+
+    public void clear(){
+        this.multiLotto.clear();
     }
 
     public LottoBundle addAll(LottoBundle otherLottoBundle){

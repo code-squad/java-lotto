@@ -18,7 +18,7 @@ public class StringParser {
         return wholeText.split(COMMA);
     }
 
-    private static int parseToNumber(String text) throws NumberFormatException{
+    public static int parseToNumber(String text) throws NumberFormatException{
         return Integer.parseInt(text);
     }
 

@@ -10,6 +10,10 @@ public class LottoDto {
         this.numbers = numbers;
     }
 
+    public Set<LottoNo> getNumbers() {
+        return numbers;
+    }
+
     @Override
     public String toString() {
         return numbers.toString();
