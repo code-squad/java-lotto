@@ -7,6 +7,7 @@ public class Money {
 
     private Money(int cash) {
         if(cash < 0) throw new IllegalArgumentException("Can't enter under 0");
+        if(cash % LOTTO_PRICE != 0) throw new IllegalArgumentException("Only enter multiple of 1000");
         this.cash = cash;
     }
 
