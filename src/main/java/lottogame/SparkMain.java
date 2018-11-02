@@ -1,5 +1,6 @@
 package lottogame;
 
+import lottogame.dao.LottoDao;
 import lottogame.domain.Lotto;
 import lottogame.domain.LottoGame;
 import lottogame.domain.WinnningLotto;
@@ -23,7 +24,7 @@ public class SparkMain {
     public static void main(String[] args) {
         port(8080);
 
-        List<Lotto> lottos = new ArrayList<>();
+        LottoDao dao = new LottoDao();
 
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -34,8 +35,8 @@ public class SparkMain {
             String inputMoney = req.queryParams("inputMoney");
             String manualNumber = req.queryParams("manualNumber");
 
-            lottos.clear();
-            lottos.addAll(InputView.web(inputMoney, manualNumber));
+            List<Lotto> lottos = InputView.web(inputMoney, manualNumber);
+            dao.insertLotto(lottos);
 
             Map<String, Object> model = new HashMap<>();
             model.put("amount", lottos.size());
@@ -47,8 +48,10 @@ public class SparkMain {
             String winningNumber = req.queryParams("winningNumber");
             String bonusNumber = req.queryParams("bonusNumber");
 
+            List<Lotto> lottos = dao.selectLotto();
             LottoGame game = new LottoGame(lottos);
             Result result = game.result(WinnningLotto.of(winningNumber, bonusNumber));
+            dao.insertResult(result);
 
             int rate = (result.totalReward() / (Money.LOTTO_PRICE * lottos.size())) * 100;
             List<ResultDto> resultDtos = ResultDto.listOf(result);
