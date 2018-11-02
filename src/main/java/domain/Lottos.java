@@ -9,11 +9,11 @@ public class Lottos {
         this.lottos = lottos;
     }
 
-    public Statistic match(Lotto winnerLotto) {
+    public Statistic match(Lotto winnerLotto, int bonus) {
         Statistic statistic = new Statistic();
         statistic.initWinnerInfo();
         for (Lotto lotto : lottos) {
-            statistic.makeResult(lotto.countMatchedNumber(winnerLotto));
+            statistic.makeResult(lotto.countMatchedNumber(winnerLotto), lotto.checkBonusNumber(bonus));
         }
         return statistic;
     }

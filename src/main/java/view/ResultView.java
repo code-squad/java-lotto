@@ -17,6 +17,10 @@ public class ResultView {
         System.out.println("당첨 통계");
         System.out.println("---------");
         for (Prize prize : Prize.values()) {
+            if (prize == Prize.SECOND) {
+                System.out.println(prize.getNumber() + "개 일치, 보너스 볼 일치(" + prize.getMoney() + "원)-" + statistic.AccumulatedNumber(prize) + "개");
+                continue;
+            }
             System.out.println(prize.getNumber() + "개 일치 (" + prize.getMoney() + "원)-" + statistic.AccumulatedNumber(prize) + "개");
         }
         System.out.println("총 수익률은 " + Calculator.calculateProfitRate(statistic, purchasePrice) + "%입니다");

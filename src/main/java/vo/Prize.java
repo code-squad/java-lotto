@@ -1,7 +1,7 @@
 package vo;
 
 public enum Prize {
-    THREE(3, 5000), FOUR(4, 50000), FIVE(5, 1500000), SIX(6, 2000000000);
+    FIFTH(3, 5_000), FOURTH(4, 50_000), THIRD(5, 1_500_000), SECOND(5, 30_000_000), FIRST(6, 2_000_000_000);
 
     private int number;
     private int money;
@@ -11,8 +11,11 @@ public enum Prize {
         this.money = money;
     }
 
-    public static Prize getPrize(int cnt) {
+    public static Prize getPrize(int cnt, boolean bonus) {
         for (Prize prize : values()) {
+            if (prize.number == SECOND.number) {
+                return bonus ? SECOND : THIRD;
+            }
             if (prize.number == cnt) return prize;
         }
         return null;

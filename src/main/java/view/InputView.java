@@ -10,6 +10,11 @@ public class InputView {
         return sc.nextInt();
     }
 
+    public static int inputBonus(){
+        System.out.println("보너스 볼을 입력 해 주세요");
+        return sc.nextInt();
+    }
+
     public static String WinnerLottoNumber() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         sc.nextLine();

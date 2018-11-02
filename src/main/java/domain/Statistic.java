@@ -15,9 +15,9 @@ public class Statistic {
         }
     }
 
-    void makeResult(int matchedNumberCnt) {
+    void makeResult(int matchedNumberCnt, boolean bonus) {
         if (matchedNumberCnt >= MIN) {
-            Prize prize = Prize.getPrize(matchedNumberCnt);
+            Prize prize = Prize.getPrize(matchedNumberCnt, bonus);
             winnerInfo.put(prize, winnerInfo.get(prize) + 1);
         }
     }

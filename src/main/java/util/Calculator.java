@@ -4,10 +4,10 @@ import domain.Statistic;
 import vo.Prize;
 
 public class Calculator {
-    static final int PERCENTAGE = 100;
+    static final long PERCENTAGE = 100;
 
-    public static int calculateProfitRate(Statistic statistic, int purchasePrice) {
-        int sum = 0;
+    public static long calculateProfitRate(Statistic statistic, int purchasePrice) {
+        long sum = 0;
         for (Prize prize : Prize.values()) {
             sum += prize.getMoney() * statistic.AccumulatedNumber(prize);
         }

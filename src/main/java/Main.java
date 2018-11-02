@@ -21,7 +21,8 @@ public class Main {
             printLottos(lottos);
 
             Lotto winnerLotto = new Lotto(Parser.makeWinnerLotto(WinnerLottoNumber()));
-            Statistic statistic = lottos.match(winnerLotto);
+            int bonus = inputBonus();
+            Statistic statistic = lottos.match(winnerLotto, bonus);
             printResult(statistic, purchasePrice);
 
         } catch (IllegalArgumentException e) {
