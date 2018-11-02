@@ -30,4 +30,11 @@ public class LottoTest {
     public void inspectCorrectNumberAmount() {
         new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
     }
+
+    @Test
+    public void joinTest(){
+        Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+        System.out.println(lotto.toString());
+    }
+
 }

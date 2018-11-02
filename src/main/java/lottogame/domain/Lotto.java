@@ -52,6 +52,10 @@ public class Lotto {
 
     @Override
     public String toString() {
-        return lottos.toString();
+        ArrayList<String> LottoString = new ArrayList<>();
+        for (LottoNumber lotto : lottos) {
+            LottoString.add(lotto.toString());
+        }
+        return String.join(",", new ArrayList<>(LottoString));
     }
 }
