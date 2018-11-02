@@ -5,7 +5,6 @@ import dto.LottosDto;
 import org.junit.Test;
 import vo.No;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -26,5 +25,11 @@ public class ParserTest {
         LottosDto lottoDtos = Parser.strValueToLottoDto(test);
 
         lottoDtos.getLottoDtos().stream().forEach(System.out::println);
+    }
+
+    @Test
+    public void parseDbRow() {
+        String test = "[12,2,3,4,5,6]";
+        assertEquals(Parser.parseDbRow(test), "12,2,3,4,5,6");
     }
 }

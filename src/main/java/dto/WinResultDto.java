@@ -13,7 +13,11 @@ public class WinResultDto {
         this.winResultDto = winResultDto;
     }
 
-    public static WinResultDto init() {
+    public static WinResultDto initArtifitial(Map<Rank, Integer> winResultDto) {
+        return new WinResultDto(winResultDto);
+    }
+
+    public static WinResultDto initAuto() {
         Map<Rank, Integer> winResultDto = new HashMap<>();
 
         return new WinResultDto(initValues(winResultDto));

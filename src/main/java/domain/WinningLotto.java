@@ -35,7 +35,7 @@ public class WinningLotto {
     }
 
     public WinResultDto checkWins(LottosDto lottos) throws Exception {
-        WinResultDto resultDto = WinResultDto.init();
+        WinResultDto resultDto = WinResultDto.initAuto();
         for (LottoDto lottoDto : lottos.getLottoDtos()) {
             resultDto.setRankAmt(compareWinLottoNum(Lotto.initArtifitial(lottoDto.getLottoDto())));
         }

@@ -1,15 +1,22 @@
-package domain;
+package dao;
 
+import domain.WinningLotto;
 import dto.LottoDto;
 import dto.LottosDto;
+import dto.WinResultDto;
 import org.junit.Before;
 import org.junit.Test;
 import vo.No;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WinningLottoTest {
+import static org.junit.Assert.*;
+
+public class WinResultDaoTest {
+
+    WinResultDao winResultDao;
 
     No bonusNum;
     LottoDto winLottoDto;
@@ -17,6 +24,8 @@ public class WinningLottoTest {
 
     @Before
     public void setUp() throws Exception {
+        winResultDao = new WinResultDao();
+
         bonusNum = new No(7);
 
         List<No> lotto = new ArrayList<>();
@@ -27,21 +36,23 @@ public class WinningLottoTest {
 
         winningLotto = new WinningLotto(winLottoDto, bonusNum);
     }
-//
-//    @Test
-//    public void compareWinLotto() throws Exception {
-//        List<No> nums = new ArrayList<>();
-//
-//        for (int i = 2; i < 8; i++) {
-//            nums.add(new No(i));
-//        }
-//        Lotto test = Lotto.initArtifitial(nums);
-//
-//        System.out.println(winningLotto.compareWinLottoNum(test));
-//    }
-//
+
     @Test
-    public void checkWins() throws Exception {
+    public void insertAll() throws Exception {
+        winResultDao.insertAll(winningLotto.checkWins(sampleLottosDto()));
+    }
+
+    @Test
+    public void clear() throws SQLException {
+        winResultDao.clear();
+    }
+
+    @Test
+    public void selectAll() throws SQLException {
+        System.out.println(winResultDao.selectAll());
+    }
+
+    public LottosDto sampleLottosDto() {
         List<LottoDto> lottosDto = new ArrayList<>();
         List<No> lotto = new ArrayList<>();
 
@@ -55,9 +66,7 @@ public class WinningLottoTest {
         lottosDto.add(LottoDto.init(lotto));
         lottosDto.add(LottoDto.init(lotto));
 
-        LottosDto resultLottosDto = LottosDto.init(lottosDto);
-
-        System.out.println(winningLotto.checkWins(resultLottosDto));
+        return LottosDto.init(lottosDto);
     }
 
 }

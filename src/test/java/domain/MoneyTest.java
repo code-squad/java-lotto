@@ -25,12 +25,12 @@ public class MoneyTest {
 //            lottoNums.add(new No(i));
 //        }
 //
-//        lottosDto.add(LottoDto.init(lottoNums));
-//        lottosDto.add(LottoDto.init(lottoNums));
-//        lottosDto.add(LottoDto.init(lottoNums));
+//        lottosDto.add(LottoDto.initAuto(lottoNums));
+//        lottosDto.add(LottoDto.initAuto(lottoNums));
+//        lottosDto.add(LottoDto.initAuto(lottoNums));
 //
 //        WinningLotto winningLotto = new WinningLotto(Lotto.initArtifitial(lottoNums), new No(7));
-//        LottoBundle lottoBundle = LottoBundle.initArtifitial(LottosDto.init(lottosDto));
+//        LottoBundle lottoBundle = LottoBundle.initArtifitial(LottosDto.initAuto(lottosDto));
 //
 //        winResultDto = winningLotto.checkWins(lottoBundle.toLottoDtos());
 //    }

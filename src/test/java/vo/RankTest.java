@@ -9,7 +9,7 @@ public class RankTest {
     @Test
     public void print() {
         for (Rank rank : Rank.values()) {
-            System.out.println(rank);
+            System.out.println(rank.toString());
         }
     }
 

@@ -19,8 +19,8 @@ public class LottoBundleTest {
 //    @Before
 //    public void setUp() throws Exception {
 //        List<Lotto> lottos = new ArrayList<>();
-//        lotto1 = Lotto.init();
-//        lotto2 = Lotto.init();
+//        lotto1 = Lotto.initAuto();
+//        lotto2 = Lotto.initAuto();
 //
 //        lottos.add(lotto1);
 //        lottos.add(lotto2);
