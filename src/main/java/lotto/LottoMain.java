@@ -6,12 +6,10 @@ import lotto.domain.WinningLotto;
 import lotto.view.InputView;
 import lotto.view.ResultView;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
+
 
 public class LottoMain {
-
     public static void main(String[] args) {
         LottoManager lottos;
         try {

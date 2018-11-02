@@ -51,6 +51,10 @@ public class Lotto {
         return lotto.size();
     }
 
+    public String getLotto() {
+        return lotto.toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
