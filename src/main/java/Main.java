@@ -1,10 +1,7 @@
-import domain.Lotto;
-import domain.LottoBundle;
+import dao.LottoDao;
+import dao.WinResultDao;
 import domain.Money;
 import domain.WinningLotto;
-import dto.LottoDto;
-import dto.LottosDto;
-import dto.WinResultDto;
 
 import static spark.Spark.*;
 
@@ -13,11 +10,9 @@ import factory.LottoBundleFactory;
 import factory.ManualCreateLottoBundleFactory;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-import util.Parser;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static util.Parser.*;
@@ -26,13 +21,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // db 대신?
-        List<LottoDto> lottosDto = new ArrayList<>();
+        // db
+        LottoDao lottoDao = new LottoDao();
+        WinResultDao winResultDao = new WinResultDao();
 
         port(8080);
 
         get("/", (request, response) -> {
-            lottosDto.clear();
+            lottoDao.clear();
+            winResultDao.clear();
             return render(null, "/index.html");
         });
 
@@ -41,11 +38,11 @@ public class Main {
 
             LottoBundleFactory manualCreateLottoBundle = ManualCreateLottoBundleFactory.initManualCreateLotto(request.queryParams("manualNumber"));
 
-            lottosDto.addAll(manualCreateLottoBundle.createLottoBunddle().toLottoDtos().getLottoDtos());
+            lottoDao.insertAll(manualCreateLottoBundle.createLottoBunddle().toLottoDtos());
 
             model.put("inputMoney", request.queryParams("inputMoney"));
-            model.put("manualAmt", lottosDto.size());
-            model.put("manualCreateLottoBundle", lottosDto);
+            model.put("manualAmt", lottoDao.count());
+            model.put("manualCreateLottoBundle", lottoDao.selectAll().getLottoDtos());
 
             return render(model, "show.html");
         });
@@ -54,16 +51,17 @@ public class Main {
             Map<String, Object> model = new HashMap<>();
 
             Money money = Money.initString(request.queryParams("inputMoney"));
-            int autoLottoBundleAmt = money.getLottoAmt() - lottosDto.size();
+            int autoLottoBundleAmt = money.getLottoAmt() - lottoDao.count();
             LottoBundleFactory autoCreateLottoBundleFactory = AutoCreateLottoBudleFactory.initAutoCreateLottoAmt(autoLottoBundleAmt);
 
-            lottosDto.addAll(autoCreateLottoBundleFactory.createLottoBunddle().toLottoDtos().getLottoDtos());
+            lottoDao.insertAll(autoCreateLottoBundleFactory.createLottoBunddle().toLottoDtos());
 
             WinningLotto winningLotto = new WinningLotto(strToInt(request.queryParams("winningNumber")), strToNo(request.queryParams("bonusNumber")));
 
-            WinResultDto winResultDto = winningLotto.checkWins(LottosDto.init(lottosDto));
-            model.put("winResultDto", winResultDto.getWinResultDto());
-            model.put("yield", money.getYield(winResultDto));
+            winResultDao.insertAll(winningLotto.checkWins(lottoDao.selectAll()));
+
+            model.put("winResultDto", winResultDao.selectAll().getWinResultDto());
+            model.put("yield", money.getYield(winResultDao.selectAll()));
 
             return render(model, "result.html");
         });

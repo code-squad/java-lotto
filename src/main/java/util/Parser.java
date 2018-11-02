@@ -29,4 +29,12 @@ public class Parser {
         return new No(Integer.parseInt(value));
     }
 
+    public static LottoDto parseDbRow(String value) {
+        return LottoDto.init((List<No>) Arrays.asList(value.substring(1,value.length()-1).split(", "))
+                .stream()
+                .map(Integer::parseInt)
+                .map(No::new)
+                .collect(Collectors.toList()));
+    }
+
 }
