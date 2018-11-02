@@ -1,17 +1,22 @@
 package domain;
 
+import utils.NumParser;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 public class Lotto {
-    public static final int LOTTO_PRICE = 1000;
     public static final int LOTTO_SIZE = 6;
     private final List<LottoNum> lottoNums;
 
     protected Lotto(List<LottoNum> lottoNums) {
         this.lottoNums = lottoNums;
+    }
+
+    public List<LottoNum> getLottoNums() {
+        return lottoNums;
     }
 
     public static Lotto ofLotto(List<LottoNum> lottoNums) {
@@ -23,6 +28,10 @@ public class Lotto {
             throw new IllegalArgumentException("[로또 수 중 중복되는 수가 있습니다.]");
         }
         return new Lotto(lottoNums);
+    }
+
+    public static Lotto ofComma(String lottoText) {
+        return ofLotto(NumParser.parse(lottoText));
     }
 
     int strikeCheck(Lotto target) {

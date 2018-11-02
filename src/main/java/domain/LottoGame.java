@@ -9,15 +9,8 @@ import java.util.*;
 
 public class LottoGame {
 
-    public LottoDto generateLottos(int lottoTicketNum, int manualLottoTicketCount) {
-        LottoMachineAbstract lottoMachine;
-        if (manualLottoTicketCount == 0) {
-            lottoMachine = new AutoLottoMachine(lottoTicketNum - manualLottoTicketCount);
-            return new LottoDto(lottoMachine.getLottos());
-        }
-        int autoLottoCount = lottoTicketNum - manualLottoTicketCount;
-        lottoMachine = new MixLottoMachine(autoLottoCount, manualLottoTicketCount);
-        return new LottoDto(lottoMachine.getLottos());
+    public LottoDto generateLottos(Money money, LottoMachine lottoMachine) {
+        return new LottoDto(lottoMachine.generate(money));
     }
 
     public GameResult checkLottos(WinningLotto winningLotto, LottoDto lottos) {
