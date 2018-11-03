@@ -64,8 +64,4 @@ public class LottoManager {
     public int getRank(Rank value){
         return map.get(value);
     }
-
-    public String getMap() {
-        return map.toString();
-    }
 }

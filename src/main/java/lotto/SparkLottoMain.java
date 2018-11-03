@@ -23,11 +23,14 @@ public class SparkLottoMain {
         });
         post("/buyLotto", (req, res) -> {
             money[0] = new Money(Integer.parseInt(req.queryParams("inputMoney")));
-            for (String lotto : req.queryParams("manualNumber").split("\r?\n")) {
+            String[] lottoList = req.queryParams("manualNumber").split("\r?\n");
+            money[0].isOverCount(lottoList.length);
+            for (String lotto : lottoList) {
                 lottos.add(Lotto.ofManualLotto(lotto));
             }
             Map<String, Object> model = new HashMap<>();
             model.put("lottos", lottos);
+            model.put("count", lottos.size());
             return render(model, "show.html");
         });
         post("/matchLotto", (req, res) -> {
@@ -36,8 +39,12 @@ public class SparkLottoMain {
             lottoManager.winLottoMatch(winningLotto);
 
             Map<String, Object> model = new HashMap<>();
-            model.put("winLottoCount", 1);
-            model.put("yield", 2);
+            model.put("FIFTH", lottoManager.getRank(Rank.FIFTH));
+            model.put("FOURTH", lottoManager.getRank(Rank.FOURTH));
+            model.put("THIRD", lottoManager.getRank(Rank.THIRD));
+            model.put("SECOND", lottoManager.getRank(Rank.SECOND));
+            model.put("FIRST", lottoManager.getRank(Rank.FIRST));
+            model.put("yield", money[0].yield(lottoManager));
 
             return render(model, "result.html");
         });
