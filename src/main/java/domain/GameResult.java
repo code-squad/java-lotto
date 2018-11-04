@@ -3,6 +3,9 @@ package domain;
 import utils.MathHandler;
 import utils.Rank;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GameResult {
@@ -22,5 +25,20 @@ public class GameResult {
 
     public Map<Rank, Integer> getGameResult() {
         return gameResult;
+    }
+
+    public List<String> getResultMessage() {
+        List<String> resultMessage = new ArrayList<>();
+        for (Rank rank : Rank.values()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(rank.getCountOfStrike() + "개 일치");
+            if(rank.equals(Rank.SECOND)) {
+                sb.append(", 보너스 볼 일치");
+            }
+            sb.append(" (" + rank.getWinningMoney() + "원) ");
+            sb.append("- " + gameResult.get(rank) + "개");
+            resultMessage.add(sb.toString());
+        }
+        return resultMessage;
     }
 }
