@@ -13,7 +13,7 @@ public class Lottos {
         Statistic statistic = new Statistic();
         statistic.initWinnerInfo();
         for (Lotto lotto : lottos) {
-            statistic.makeResult(lotto.countMatchedNumber(winnerLotto), lotto.checkBonusNumber(bonus));
+            statistic.makeResult(lotto.countMatchedNumber(winnerLotto), lotto.isContains(bonus));
         }
         return statistic;
     }

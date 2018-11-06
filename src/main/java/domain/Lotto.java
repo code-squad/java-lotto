@@ -19,14 +19,7 @@ public class Lotto {
         return matchedNumberCnt;
     }
 
-    boolean checkBonusNumber(int bonus) {
-        for (int i = 0; i < MAX_LOTTO_NUM; i++) {
-            if (this.lotto.contains(bonus)) return true;
-        }
-        return false;
-    }
-
-    private boolean isContains(int number) {
+    boolean isContains(int number) {
         return this.lotto.contains(number);
     }
 
