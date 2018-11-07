@@ -1,7 +1,4 @@
-import domain.Lotto;
-import domain.Lottos;
-import domain.LottosFactory;
-import domain.Statistic;
+import domain.*;
 import util.Parser;
 
 import static view.InputView.*;
@@ -16,13 +13,12 @@ public class Main {
 
     private static void start() {
         try {
-            int purchasePrice = purchasePrice();
-            Lottos lottos = new Lottos(LottosFactory.makeLottos(purchasePrice / PRICE_OF_LOTTO_TICKET));
+            int purchasePrice = inputPurchasePrice();
+            Lottos lottos = LottosFactory.makeLottos(purchasePrice / PRICE_OF_LOTTO_TICKET);
             printLottos(lottos);
 
-            Lotto winnerLotto = new Lotto(Parser.makeWinnerLotto(WinnerLottoNumber()));
-            int bonus = inputBonus();
-            Statistic statistic = lottos.match(winnerLotto, bonus);
+            Lotto winnerLotto = LottoFactory.makeWinnerLotto(Parser.makeIntegerList(inputWinnerLottoNumber()));
+            Statistic statistic = lottos.match(winnerLotto, inputBonus());
             printResult(statistic, purchasePrice);
 
         } catch (IllegalArgumentException e) {

@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class InputView {
     static Scanner sc = new Scanner(System.in);
 
-    public static int purchasePrice() {
+    public static int inputPurchasePrice() {
         System.out.println("구입금액을 입력하세요");
         return sc.nextInt();
     }
@@ -15,7 +15,7 @@ public class InputView {
         return sc.nextInt();
     }
 
-    public static String WinnerLottoNumber() {
+    public static String inputWinnerLottoNumber() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         sc.nextLine();
         return sc.nextLine();

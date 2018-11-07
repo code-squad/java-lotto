@@ -15,7 +15,7 @@ public class ParserTest {
         for(int i = 1 ; i<=6;i++){
             sample.add(i);
         }
-        List<Integer> winnerLotto = Parser.makeWinnerLotto(str);
+        List<Integer> winnerLotto = Parser.makeIntegerList(str);
         assertThat(winnerLotto.size()).isEqualTo(6);
         assertThat(winnerLotto).isEqualTo(sample);
     }

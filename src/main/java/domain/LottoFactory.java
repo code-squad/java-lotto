@@ -23,4 +23,12 @@ public class LottoFactory {
         Collections.sort(lottoNumber);
         return lottoNumber;
     }
+
+    public static Lotto makeRandLotto(){
+        return new Lotto(makeLottoNumber());
+    }
+
+    public static Lotto makeWinnerLotto(List<Integer> winnerLotto){
+        return new Lotto(winnerLotto);
+    }
 }
