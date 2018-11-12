@@ -6,13 +6,19 @@ public class Lottos {
     private List<Lotto> Lottos;
     private LottoryManager lottoryManager;
 
-    private Lottos(List<Lotto> lottos, int input) {
+    private Lottos(List<Lotto> lottos, Money money) {
         this.Lottos = lottos;
-        this.lottoryManager = LottoryManager.of(input);
+        this.lottoryManager = LottoryManager.of(money);
     }
 
-    public static Lottos of(List<Lotto> lottos, int input) {
-        return new Lottos(lottos, input);
+    public static Lottos of(List<Lotto> lottos, Money money) {
+        return new Lottos(lottos, money);
+    }
+
+    public static Lottos ofString(List<String> manualNumbers, String input) {
+        int money =Integer.parseInt(input);
+        List<Lotto> lottos =  LottoFactory.of(manualNumbers, money/1_000).getLottos();
+        return new Lottos(lottos, Money.of(money));
     }
 
     public void matchLotto(WinnerLotto winnerLotto) {

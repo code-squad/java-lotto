@@ -6,6 +6,9 @@ public class Money {
     private int money;
     private int income = 0;
 
+    public int count() {
+        return money / 1_000;
+    }
 
     private Money(int money) {
         this.money = money;
@@ -21,6 +24,10 @@ public class Money {
 
     static Money of(int input) {
         return new Money(input);
+    }
+
+    public static Money ofString(String input) {
+        return new Money(Integer.parseInt(input));
     }
 
     int getMoney() {
