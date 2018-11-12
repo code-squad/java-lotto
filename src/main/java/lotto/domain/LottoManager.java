@@ -19,6 +19,10 @@ public class LottoManager {
         makeAutoLotto(money.autoLottoCount(manualLottos));
     }
 
+    public LottoManager(List<Lotto> manualLotto){
+        lottos.addAll(manualLotto);
+    }
+
     private void makeAutoLotto(int count) {
         for (int i = 0; i < count; i++) {
             lottos.add((LottoGenerator.createLotto()));
@@ -41,7 +45,7 @@ public class LottoManager {
         }
     }
 
-    public void changeMap(WinningLotto winLotto, int index) {
+    private void changeMap(WinningLotto winLotto, int index) {
         int count = winLotto.obtainMatchCount(getLotto(index));
         Rank rank = Rank.valueOf(count, winLotto.isContainBonusBall(getLotto(index)));
         if (count >= Rank.FIFTH.getCountOfMatch() && count <= Rank.FIRST.getCountOfMatch()) {

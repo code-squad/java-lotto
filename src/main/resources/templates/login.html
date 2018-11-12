@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+<h1>회원 가입</h1>
+<form action="/users" method="post">
+    {{#users}}
+    이름 : {{name}} , 나이 : {{age}}
+    <br />
+    {{/users}}
+</form>
+</body>
+</html>
