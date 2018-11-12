@@ -1,30 +1,50 @@
 package control;
 
-import domain.GameResult;
-import domain.Lotto;
-import domain.LottoGame;
-import domain.WinningLotto;
+import domain.*;
 import dto.LottoDto;
-import dto.ResultDto;
-import view.ResultView;
+import spark.ModelAndView;
+import spark.template.handlebars.HandlebarsTemplateEngine;
+import utils.NumParser;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static domain.Lotto.LOTTO_PRICE;
+import static domain.Money.LOTTO_PRICE;
+import static spark.Spark.port;
+import static spark.Spark.post;
+import static spark.Spark.staticFiles;
+
 
 public class Main {
     public static void main(String[] args) {
-        int lottoTicketCount = LottoTicketControl.getLottoTicketCount();
-        int manualLottoTicketCount = LottoTicketControl.getManualLottoTicketCount(lottoTicketCount);
+        port(8080);
+        staticFiles.location("/templates");
 
+        LottoDto[] lottoDto = new LottoDto[1];
         LottoGame lottoGame = new LottoGame();
-        LottoDto lottoDto = lottoGame.generateLottos(lottoTicketCount, manualLottoTicketCount);
+        post("/buyLotto", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            Money money = new Money(Integer.parseInt(req.queryParams("inputMoney")));
+            LottoMachine lottoMachine = new ManualLottoMachine(req.queryParams("manualNumber"));
+            lottoDto[0] = lottoGame.generateLottos(money, lottoMachine);
+            model.put("size", lottoDto[0]);
+            model.put("lottoDto", lottoDto[0].getLottos());
+            return render(model, "show.html");
+        });
+        post("/matchLotto", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            WinningLotto winningLotto = WinningLotto.ofWinningLotto(NumParser.parse(req.queryParams("winningNumber")), Integer.parseInt(req.queryParams("bonusNumber")));
+            GameResult gameResult = lottoGame.checkLottos(winningLotto, lottoDto[0]);
+            List<String> gameResultMessage = gameResult.getResultMessage();
+            int profitRate = gameResult.calculateProfitRate((double) (lottoDto[0].getLottosSize() * LOTTO_PRICE));
+            model.put("gameResults", gameResultMessage);
+            model.put("profitRate", profitRate);
+            return render(model, "result.html");
+        });
+    }
 
-        ResultView.printKindsOfLottosCount(lottoTicketCount, manualLottoTicketCount);
-        ResultView.showLottos(lottoDto);
-
-        GameResult gameResult = lottoGame.checkLottos(WinningLottoControl.getWinningLotto(), lottoDto);
-        int profitRate = gameResult.calculateProfitRate((double) (lottoTicketCount * LOTTO_PRICE));
-        ResultView.showLottoResult(new ResultDto(gameResult.getGameResult(), profitRate));
+    public static String render(Map<String, Object> model, String templatePath) {
+        return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 }

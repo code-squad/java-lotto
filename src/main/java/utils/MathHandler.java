@@ -1,6 +1,6 @@
 package utils;
 
-import static domain.Lotto.LOTTO_PRICE;
+import static domain.Money.LOTTO_PRICE;
 
 public class MathHandler {
     private MathHandler() {
