@@ -16,8 +16,8 @@ public class Lottos {
     }
 
     public static Lottos ofString(List<String> manualNumbers, String input) {
-        int money =Integer.parseInt(input);
-        List<Lotto> lottos =  LottoFactory.of(manualNumbers, money/1_000).getLottos();
+        int money = Integer.parseInt(input);
+        List<Lotto> lottos = LottoFactory.of(manualNumbers, money / 1_000).getLottos();
         return new Lottos(lottos, Money.of(money));
     }
 

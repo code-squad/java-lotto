@@ -7,13 +7,14 @@ import java.util.List;
 public class WinnerLotto {
     private LottoNum bonus;
     private Lotto lotto;
-    private WinnerLotto(List<String> nums,int bonus) {
+
+    private WinnerLotto(List<String> nums, int bonus) {
         this.lotto = Lotto.ofManual(nums);
         this.bonus = setBonus(bonus);
     }
 
-    public static WinnerLotto of(List<String> nums , int bonus) {
-        return new WinnerLotto(nums,bonus);
+    public static WinnerLotto of(List<String> nums, int bonus) {
+        return new WinnerLotto(nums, bonus);
     }
 
     boolean compareBonus(Lotto lotto) {

@@ -26,7 +26,6 @@ public class LottoSparkMain {
             // lottosMap 생성 이유 resultMap은 lottos로 제내릭 선언을 안했더니 get을 하고 메서드를 호출 불가능
             resultMap.put("lottos", userLottos);
             resultMap.put("count", userLottos.getLottoryManager().count());
-
             return render(resultMap, "show.html");
         });
 
