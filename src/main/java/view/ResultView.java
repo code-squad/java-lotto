@@ -27,7 +27,7 @@ public class ResultView {
         System.out.println("총 수익률은 " + manager.yield() + "%입니다.");
     }
 
-    private static String result(Rank value, LottoryManager manager) {
+    public static String result(Rank value, LottoryManager manager) {
         return value.getTrueNum()
                 + "개 일치"
                 + ifBouns(value)

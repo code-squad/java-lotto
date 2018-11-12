@@ -40,7 +40,7 @@ public class Lotto {
         return lotto.get(i);
     }
 
-    private List<LottoNum> getLotto() {
+    public List<LottoNum> getLotto() {
         return lotto;
     }
 

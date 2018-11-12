@@ -1,6 +1,7 @@
 package controller;
 
 import domain.LottoFactory;
+import domain.Money;
 import domain.WinnerLotto;
 import view.InputView;
 
@@ -8,10 +9,10 @@ import java.util.List;
 
 public class LottoGame {
 
-    public static int inputMoney() {
-        int count;
+    public static Money inputMoney() {
+        Money money;
         try {
-            count = InputView.lottoSize(InputView.input());
+            money = Money.ofString(InputView.input());
         } catch (NumberFormatException e) {
             System.out.println("숫자가 아닙니다.");
             return inputMoney();
@@ -19,7 +20,7 @@ public class LottoGame {
             System.out.println(e.getMessage());
             return inputMoney();
         }
-        return count;
+        return money;
     }
 
     public static WinnerLotto winnerLottoCreator() {
@@ -34,19 +35,19 @@ public class LottoGame {
         return winnerLotto;
     }
 
-    public static LottoFactory inputManualcount(int input) {
+    public static LottoFactory inputManualCount(int count) {
         int manualCount;
         try {
-            manualCount = InputView.manualCount(input);
+            manualCount = InputView.manualCount(count);
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return inputManualcount(input);
+            return inputManualCount(count);
         } catch (Exception e) {
             System.out.println("숫자가 아닙니다.");
-            return inputManualcount(input);
+            return inputManualCount(count);
         }
-        return makeLottos(input, manualCount);
+        return makeLottos(count, manualCount);
     }
 
     private static LottoFactory makeLottos(int count, int manualCount) {
