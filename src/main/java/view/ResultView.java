@@ -23,5 +23,4 @@ public class ResultView {
     public static void printResultRatio(int ratio) {
         System.out.println("총 수익률은 " + ratio + "%입니다.");
     }
-
 }

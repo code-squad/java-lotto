@@ -36,7 +36,7 @@ public class Lotto {
         return inputLotto;
     }
 
-    public int checkNum(Lotto winnerLotto) {
+    int checkNum(Lotto winnerLotto) {
         int checkNum =0;
         for (Num lottoNumber : lottoNumbers) {
             if (winnerLotto.lottoNumbers.contains(lottoNumber)) checkNum++;

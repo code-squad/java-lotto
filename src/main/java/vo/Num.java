@@ -37,6 +37,4 @@ public class Num implements Comparable<Num> {
         if (this.num > o.num) return 1;
         return -1;
     }
-
-
 }

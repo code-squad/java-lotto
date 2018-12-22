@@ -12,5 +12,4 @@ public class LottoBundleDto {
     public List<LottoDto> getLottos() {
         return lottos;
     }
-
 }
