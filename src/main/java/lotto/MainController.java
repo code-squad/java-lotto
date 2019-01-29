@@ -3,13 +3,12 @@ package lotto;
 import lotto.domain.Lotto;
 import lotto.domain.Rank;
 import lotto.util.LottoUtil;
-import lotto.util.RankUtil;
+import lotto.util.MoneyUtil;
 import lotto.util.SplitUtil;
 import lotto.view.InputView;
 import lotto.view.ResultView;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -19,29 +18,18 @@ public class MainController {
     private static final Logger log = getLogger(MainController.class);
 
     public static void main(String[] args) {
-
-        RankUtil rankUtil = new RankUtil();
-        LottoUtil lottoUtil = new LottoUtil();
-
         int money = InputView.money();
-        List<Lotto> lottos = lottoUtil.lottoObject(ResultView.price(money));
+        List<Lotto> lottos = LottoUtil.lottoObject(ResultView.price(money));
         ResultView.count(money);
 
         ResultView.lottoOutput(lottos);
         List<Integer> prize = SplitUtil.prizeList(InputView.prizeNum());
         ResultView.prizeStatement();
 
-        List<Integer> prizePageSize = rankUtil.pageMoney(lottos, prize);
+        List<Rank> ranks = LottoUtil.ranks();
+        List<Integer> pageSize = MoneyUtil.grade(ranks, lottos, prize);
+        int profitRate = MoneyUtil.profitRate(ranks, pageSize, money);
 
-        System.out.println(prizePageSize);
-
-        List<Integer> pageMoney = rankUtil.pageMoney(lottos, prize);
-
-        double amount = rankUtil.amount(pageMoney, money);
-
-
-        ResultView.prizeRank(prizePageSize, amount);
-
-
+        ResultView.prizeRank(pageSize, profitRate);
     }
 }

@@ -7,30 +7,12 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.registerCustomDateFormat;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-public class RankUtilTest {
+public class MoneyUtilTest {
 
-    private RankUtil rankUtil = new RankUtil();
-
-    @Test
-    public void 사(){
-        //5등 확인 완료
-        List<Lotto> lottos = getLottos();
-
-//        System.out.println(rankUtil.pageMoney(lottos, xx()));
-
-//        int a = rankUtil.rackFourth(lottos, xx());
-
-
-        System.out.println("확인" +rankUtil.rackFourth(lottos, xx()));
-
-        System.out.println(rankUtil.rackFourth(lottos, xx()));
-
-
-//        assertThat(rankUtil.rackFourth(lottos, xx())).isEqualTo(3);
-    }
-
+    private MoneyUtil moneyUtil = new MoneyUtil();
     private List<Lotto> getLottos() {
         List<Integer> a= new ArrayList<>();
         a.add(1);
@@ -56,10 +38,19 @@ public class RankUtilTest {
         c.add(10);
         c.add(11);
 
+        List<Integer> d = new ArrayList<>();
+        d.add(1);
+        d.add(27);
+        d.add(28);
+        d.add(4);
+        d.add(10);
+        d.add(11);
+
         List<Lotto> lottos = new ArrayList<>();
         lottos.add(new Lotto(a));
         lottos.add(new Lotto(b));
         lottos.add(new Lotto(c));
+        lottos.add(new Lotto(d));
         return lottos;
     }
 
@@ -69,19 +60,41 @@ public class RankUtilTest {
         a.add(2);
         a.add(3);
         a.add(4);
-        a.add(14);
+        a.add(24);
         a.add(15);
         return a;
 
     }
 
     @Test
-    public void maxArray(){
-        List<Lotto> lottos = getLottos();
-        List<Integer> a = xx();
+    public void b() {
+        List<Rank> a = LottoUtil.ranks();
 
-        List<Integer>b = rankUtil.pageMoney(lottos, a);
-        System.out.println(rankUtil.pageMoney(lottos, a));
-        System.out.println(rankUtil.pageMoney(lottos, b));
+        System.out.println(MoneyUtil.grade(a, getLottos(), xx()));
+
+        assertThat(MoneyUtil.grade(a, getLottos(), xx()).get(1)).isEqualTo(3);
     }
+
+
+    @Test
+    public void a() {
+        List<Rank> a = LottoUtil.ranks();
+
+        assertThat(MoneyUtil.maxMoney(a, MoneyUtil.grade(a, getLottos(), xx()))).isEqualTo(150000);
+
+    }
+
+    @Test
+    public void profitRate() {
+        List<Rank> a = LottoUtil.ranks();
+        List<Integer> x = MoneyUtil.grade(a, getLottos(), xx());
+
+        int b = 3000;
+
+        assertThat(MoneyUtil.profitRate(a, x, b)).isEqualTo(50);
+
+    }
+
+
+
 }

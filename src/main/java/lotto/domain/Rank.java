@@ -1,11 +1,8 @@
 package lotto.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public enum Rank {
     FIRST(6, 2000000000),
-    SECOND(5, 30000000),
+    //    SECOND(5, 30000000),
     THIRD(5, 1500000),
     FOURTH(4, 50000),
     FIFTH(3, 5000);
@@ -13,7 +10,7 @@ public enum Rank {
     private int countOfMatch;
     private int winningMoney;
 
-    private Rank(int countOfMatch, int winningMoney){
+    private Rank(int countOfMatch, int winningMoney) {
         this.countOfMatch = countOfMatch;
         this.winningMoney = winningMoney;
     }
@@ -34,7 +31,7 @@ public enum Rank {
 //            }
 
             if (rank.countOfMatch == countOfMatch) {
-                    return rank;
+                return rank;
             }
         }
         return null;

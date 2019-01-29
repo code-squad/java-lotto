@@ -1,7 +1,6 @@
 package lotto.util;
 
 import lotto.domain.Lotto;
-import lotto.domain.Money;
 import lotto.domain.Rank;
 import org.slf4j.Logger;
 
@@ -18,7 +17,7 @@ public class LottoUtil {
 
     private static final Logger log = getLogger(LottoUtil.class);
 
-    public List<Integer> lottoNumber() {
+    public static List<Integer> lottoNumber() {
         List<Integer> lotto = new ArrayList<>();
         for (int i = 1; i <= MAX_NUM; i++) {
             lotto.add(i);
@@ -26,13 +25,13 @@ public class LottoUtil {
         return lotto;
     }
 
-    private List<Integer> lottoRandom() {
+    private static List<Integer> lottoRandom() {
         List<Integer> input = lottoNumber();
         Collections.shuffle(input);
         return input;
     }
 
-    private List<Integer> oneLottoPage() {
+    private static List<Integer> oneLottoPage() {
         List<Integer> randomNum = lottoRandom();
         List<Integer> lotto = new ArrayList<>();
         for (int i = 0; i < LOTTO_DIGITS; i++) {
@@ -42,7 +41,7 @@ public class LottoUtil {
         return lotto;
     }
 
-    public List<Lotto> lottoObject(int page) {
+    public static List<Lotto> lottoObject(int page) {
         List<Lotto> lotto = new ArrayList<>();
         for (int i = 0; i < page; i++) {
             lotto.add(new Lotto(oneLottoPage()));
@@ -50,13 +49,11 @@ public class LottoUtil {
         return lotto;
     }
 
-    public static List<Rank> ranks(){
+    public static List<Rank> ranks() {
         List<Rank> ranks = new ArrayList<>();
-        ranks.add(Rank.FIFTH);
-        ranks.add(Rank.FOURTH);
-        ranks.add(Rank.THIRD);
-        ranks.add(Rank.FIRST);
+        for (int i = 3; i <= LOTTO_DIGITS; i++) {
+            ranks.add(Rank.valueOf(i));
+        }
         return ranks;
     }
-
 }
