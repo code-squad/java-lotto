@@ -24,12 +24,14 @@ public class MainController {
 
         ResultView.lottoOutput(lottos);
         List<Integer> prize = SplitUtil.prizeList(InputView.prizeNum());
+        int bonusNum = InputView.bonusNum();
         ResultView.prizeStatement();
 
         List<Rank> ranks = LottoUtil.ranks();
-        List<Integer> pageSize = MoneyUtil.grade(ranks, lottos, prize);
-        int profitRate = MoneyUtil.profitRate(ranks, pageSize, money);
+        List<Integer> pageSize = MoneyUtil.grade(lottos, prize, bonusNum);
 
-        ResultView.prizeRank(pageSize, profitRate);
+        int amount= MoneyUtil.profitRate(ranks, pageSize, ResultView.price(money));
+
+        ResultView.prizeRank(pageSize, amount);
     }
 }

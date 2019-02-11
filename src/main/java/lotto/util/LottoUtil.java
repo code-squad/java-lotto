@@ -51,8 +51,12 @@ public class LottoUtil {
 
     public static List<Rank> ranks() {
         List<Rank> ranks = new ArrayList<>();
-        for (int i = 3; i <= LOTTO_DIGITS; i++) {
-            ranks.add(Rank.valueOf(i));
+        for (int i = 3; i <= 6; i++) {
+            ranks.add(Rank.valueOf(i, false));
+
+            if(i == 5){
+                ranks.add(Rank.valueOf(i, true));
+            }
         }
         return ranks;
     }

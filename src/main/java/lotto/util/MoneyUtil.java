@@ -19,22 +19,29 @@ public class MoneyUtil {
         return maxMoney;
     }
 
-    public static List<Integer> grade(List<Rank> ranks, List<Lotto> lottos, List<Integer> prize) {
+    public static List<Integer> grade(List<Lotto> lottos, List<Integer> prize, int bonus) {
         List<Integer> gradeList = new ArrayList<>();
-        for (int i = 0; i < ranks.size(); i++) {
-            int grade = onePageCheck(ranks.get(i), lottos, prize);
-            gradeList.add(grade);
-        }
-        return gradeList;
-    }
 
-    private static int onePageCheck(Rank ranks, List<Lotto> lottos, List<Integer> prize) {
-        int grade = 0;
-        for (int j = 0; j < lottos.size(); j++) {
-            if (lottos.get(j).matchNum(prize) == ranks.getCountOfMatch()) {
-                grade++;
+        for (int i = 3; i <= 6; i++) {
+            int grade = 0;
+            for (int j = 0; j < lottos.size(); j++) {
+                if (lottos.get(j).matchNum(prize) == Rank.valueOf(i, false).getCountOfMatch()
+                        && !lottos.get(j).bonusCheck(prize, bonus)) {
+                    grade++;
+                }
+            }
+            gradeList.add(grade);
+
+            if (i == 5) {
+                int gradeSecond = 0;
+                for (int j = 0; j < lottos.size(); j++) {
+                    if (lottos.get(j).bonusCheck(prize, bonus)) {
+                        gradeSecond++;
+                    }
+                }
+                gradeList.add(gradeSecond);
             }
         }
-        return grade;
+        return gradeList;
     }
 }
