@@ -21,14 +21,14 @@ public class LottoTest {
     public void matchNum() {
         List<Integer> b = Arrays.asList(1, 2, 5, 8, 3, 11);
         getLog(b);
-        assertThat(getLotto().matchNum(b)).isEqualTo(4);
+        assertThat(getLotto().matchNum(b, BONUS)).isEqualTo(4);
     }
 
     @Test
     public void matchList() {
         List<Integer> b = Arrays.asList(1, 2, 3, 4, 5, 11);
         getLog(b);
-        log.debug("확인용 : {}", getLotto().matchList(b));
+//        log.debug("확인용 : {}", getLotto().matchList(b));
     }
 
     @Test

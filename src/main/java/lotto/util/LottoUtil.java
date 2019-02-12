@@ -17,7 +17,7 @@ public class LottoUtil {
 
     private static final Logger log = getLogger(LottoUtil.class);
 
-    public static List<Integer> lottoNumber() {
+   private static List<Integer> lottoNumber() {
         List<Integer> lotto = new ArrayList<>();
         for (int i = 1; i <= MAX_NUM; i++) {
             lotto.add(i);

@@ -14,7 +14,6 @@ import java.util.List;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class MainController {
-
     private static final Logger log = getLogger(MainController.class);
 
     public static void main(String[] args) {
