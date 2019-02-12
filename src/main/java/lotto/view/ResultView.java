@@ -8,6 +8,8 @@ import java.util.List;
 
 public class ResultView {
     private static final int PRICE = 1000;
+    private static final int FIFTH_KEY = 3;
+    private static final String WON = "원) - ";
 
     public static int price(int input) {
         return input / PRICE;
@@ -32,9 +34,25 @@ public class ResultView {
     public static void prizeRank(List<Integer> pageSize, int amount) {
         List<Rank> ranks = LottoUtil.ranks();
         for (int i = 0; i < ranks.size(); i++) {
-            System.out.println(ranks.get(i).getCountOfMatch() + "개 일치 ("
-                    + ranks.get(i).getWinningMoney() + "원) - " + pageSize.get(i));
+
+            if(i == FIFTH_KEY){
+                printBonus(pageSize.get(i), ranks.get(i));
+            }
+
+            if(i != FIFTH_KEY) {
+                printRank(pageSize.get(i), ranks.get(i));
+            }
         }
         System.out.println("총 수익률은 " + amount + "%입니다.");
+    }
+
+    private static void printRank(int pageSize, Rank ranks) {
+        System.out.println(ranks.getCountOfMatch() + "개 일치 ("
+                + ranks.getWinningMoney() + WON + pageSize);
+    }
+
+    private static void printBonus(int pageSize, Rank ranks) {
+        System.out.println(ranks.getCountOfMatch() + "개 일치, 보너스 볼 일치 ("
+                + ranks.getWinningMoney() + WON + pageSize);
     }
 }

@@ -1,62 +1,67 @@
 package lotto.domain;
 
-import lotto.util.LottoUtil;
 import org.junit.Test;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.extractProperty;
+import static org.assertj.core.api.AssertionsForClassTypes.fail;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class LottoTest {
 
     private static final Logger log = getLogger(LottoTest.class);
+    private static final int BONUS = 11;
 
     @Test
     public void matchNum() {
-        List<Integer> a = new ArrayList<>();
-        List<Integer> b = new ArrayList<>();
+        List<Integer> b = Arrays.asList(1, 2, 5, 8, 3, 11);
+        getLog(b);
+        assertThat(getLotto().matchNum(b, BONUS)).isEqualTo(4);
+    }
 
-        for (int i = 1; i <= 6; i++) {
-            a.add(i);
-        }
-        log.debug("로또값:{}", a);
+    @Test
+    public void matchList() {
+        List<Integer> b = Arrays.asList(1, 2, 3, 4, 5, 11);
+        getLog(b);
+//        log.debug("확인용 : {}", getLotto().matchList(b));
+    }
 
-        b.add(1);
-        b.add(2);
-        b.add(5);
-        b.add(3);
-        b.add(8);
-        b.add(11);
-
-        log.debug("b:{}", b);
-
-        Lotto lotto = new Lotto(a);
-        assertThat(lotto.matchNum(b)).isEqualTo(4);
+    @Test
+    public void bonusNumber() {
+        List<Integer> b = Arrays.asList(1, 2, 3, 4, 5, 11);
+        getLog(b);
+        assertThat(getLotto().bonusCheck(getA(), BONUS)).isEqualTo(false);
     }
 
     @Test
     public void matchNumXX() {
-        List<Integer> a = new ArrayList<>();
-        List<Integer> b = new ArrayList<>();
+        List<Integer> b = Arrays.asList(1, 2, 7, 8, 9, 11);
+        getLog(b);
+        assertThat(getLotto().bonusCheck(getA(), BONUS)).isEqualTo(false);
+    }
 
-        for (int i = 1; i <= 6; i++) {
-            a.add(i);
-        }
-        log.debug("로또값:{}", a);
+    @Test
+    public void matchNumX2() {
+        List<Integer> b = Arrays.asList(1, 2, 3, 4, 5, 13);
+        getLog(b);
+        assertThat(getLotto().bonusCheck(getA(), BONUS)).isEqualTo(false);
+    }
 
-        b.add(1);
-        b.add(2);
-        b.add(7);
-        b.add(8);
-        b.add(9);
-        b.add(11);
+    private List<Integer> getA() {
+        return Arrays.asList(1, 2, 3, 4, 5, 6);
+    }
 
-        log.debug("b:{}", b);
+    private Lotto getLotto() {
+        return new Lotto(getA());
+    }
 
-        Lotto lotto = new Lotto(a);
-        assertThat(lotto.matchNum(b)).isEqualTo(0);
+    private void getLog(List<Integer> b) {
+        log.debug("로또값:{}", getA());
+        log.debug("추첨:{}", b);
     }
 }
