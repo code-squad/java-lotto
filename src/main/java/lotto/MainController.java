@@ -1,14 +1,11 @@
 package lotto;
 
-import lotto.domain.Lotto;
-import lotto.domain.Rank;
-import lotto.util.LottoUtil;
-import lotto.util.MoneyUtil;
+import lotto.domain.*;
 import lotto.util.SplitUtil;
 import lotto.view.InputView;
 import lotto.view.ResultView;
 import org.slf4j.Logger;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -18,19 +15,34 @@ public class MainController {
 
     public static void main(String[] args) {
         int money = InputView.money();
-        List<Lotto> lottos = LottoUtil.lottoObject(ResultView.price(money));
-        ResultView.count(money);
+        int manualNum = InputView.manualNum();
 
-        ResultView.lottoOutput(lottos);
+        InputView.manualMessage();
+
+        List<Lotto> manualLotto = LottoPlay.manualLottoObject(manualLottos(manualNum));
+
+        List<Lotto> lottos = LottoPlay.lottoObject(ResultView.price(money), manualNum);
+        ResultView.count(money, manualLotto.size());
+        ResultView.lottoOutput(lottos, manualLotto);
+
         List<Integer> prize = SplitUtil.prizeList(InputView.prizeNum());
         int bonusNum = InputView.bonusNum();
         ResultView.prizeStatement();
 
-        List<Rank> ranks = LottoUtil.ranks();
-        List<Integer> pageSize = MoneyUtil.grade(lottos, prize, bonusNum);
+        List<Rank> ranks = LottoPlay.ranks();
 
-        int amount= MoneyUtil.profitRate(ranks, pageSize, ResultView.price(money));
+        Grade grade = new Grade(lottos, manualLotto, prize, bonusNum);
 
+        List<Integer> pageSize = MoneyCheck.grade(grade);
+        long amount = MoneyCheck.profitRate(ranks, pageSize, ResultView.price(money));
         ResultView.prizeRank(pageSize, amount);
+    }
+
+    public static List<String> manualLottos(int manualNum) {
+        List<String> manualLotto = new ArrayList<>();
+        for (int i = 0; i < manualNum; i++) {
+            manualLotto.add(InputView.manualLottoNum());
+        }
+        return manualLotto;
     }
 }

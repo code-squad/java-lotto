@@ -1,8 +1,8 @@
 package lotto.view;
 
 import lotto.domain.Lotto;
+import lotto.domain.LottoPlay;
 import lotto.domain.Rank;
-import lotto.util.LottoUtil;
 
 import java.util.List;
 
@@ -15,11 +15,20 @@ public class ResultView {
         return input / PRICE;
     }
 
-    public static void count(int input) {
-        System.out.println(price(input) + "개를 구매했습니다.");
+    public static int randomPrice(int input, int manualNum) {
+        return price(input) - manualNum;
     }
 
-    public static void lottoOutput(List<Lotto> lottos) {
+    public static void count(int input, int manualNum) {
+        System.out.println();
+        System.out.println("수동으로 " + manualNum + "장, 자동으로 " + randomPrice(input, manualNum) + "장을 구매했습니다.");
+    }
+
+    public static void lottoOutput(List<Lotto> lottos, List<Lotto> manualLottos) {
+        for (Lotto manualLotto : manualLottos) {
+            System.out.println(manualLotto);
+        }
+
         for (Lotto lotto : lottos) {
             System.out.println(lotto);
         }
@@ -31,15 +40,15 @@ public class ResultView {
         System.out.println("---------");
     }
 
-    public static void prizeRank(List<Integer> pageSize, int amount) {
-        List<Rank> ranks = LottoUtil.ranks();
+    public static void prizeRank(List<Integer> pageSize, long amount) {
+        List<Rank> ranks = LottoPlay.ranks();
         for (int i = 0; i < ranks.size(); i++) {
 
-            if(i == FIFTH_KEY){
+            if (i == FIFTH_KEY) {
                 printBonus(pageSize.get(i), ranks.get(i));
             }
 
-            if(i != FIFTH_KEY) {
+            if (i != FIFTH_KEY) {
                 printRank(pageSize.get(i), ranks.get(i));
             }
         }
