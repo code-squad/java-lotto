@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Lotto {
 
+    private static final int FIFTH_RANK = 3;
+
     private List<Integer> lotto;
 
     public Lotto(List<Integer> lotto) {
@@ -16,7 +18,7 @@ public class Lotto {
     }
 
     public Rank matchNum(List<Integer> prize, int bonus) {
-        if (matchList(prize).size() < 3) {
+        if (matchList(prize).size() < FIFTH_RANK) {
             return Rank.valueOf(0, bonusCheck(prize, bonus));
         }
         return Rank.valueOf(matchList(prize).size(), bonusCheck(prize, bonus));

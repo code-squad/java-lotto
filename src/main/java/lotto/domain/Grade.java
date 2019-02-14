@@ -15,19 +15,23 @@ public class Grade {
         this.bonus = bonus;
     }
 
-    public List<Lotto> getRandomLotto() {
-        return randomLotto;
+    public int getGrade(int winnerMoneyList) {
+        int grade =0;
+        for (int j = 0; j < randomLotto.size(); j++) {
+            if (randomLotto.get(j).winnerMoney(prize, bonus) == winnerMoneyList) {
+                grade++;
+            }
+        }
+        return grade;
     }
 
-    public List<Lotto> getManualLotto() {
-        return manualLotto;
-    }
-
-    public List<Integer> getPrize() {
-        return prize;
-    }
-
-    public int getBonus() {
-        return bonus;
+    public int getManualGrade(int winnerMoneyList) {
+        int grade =0;
+        for (int j = 0; j < manualLotto.size(); j++) {
+            if (manualLotto.get(j).winnerMoney(prize, bonus) == winnerMoneyList) {
+                grade++;
+            }
+        }
+        return grade;
     }
 }

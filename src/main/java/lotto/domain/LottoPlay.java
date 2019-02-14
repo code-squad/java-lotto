@@ -2,6 +2,7 @@ package lotto.domain;
 
 import lotto.util.SplitUtil;
 import org.slf4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -51,9 +52,9 @@ public class LottoPlay {
         return lotto;
     }
 
-    public static List<Lotto> lottoObject(int page, int manualNum) {
+    public static List<Lotto> lottoObject(int randomLottoNum, int manualNum) {
         List<Lotto> lotto = new ArrayList<>();
-        for (int i = 0; i < page - manualNum; i++) {
+        for (int i = 0; i < randomLottoNum - manualNum; i++) {
             lotto.add(new Lotto(oneLottoPage()));
         }
         return lotto;

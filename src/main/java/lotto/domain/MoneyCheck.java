@@ -21,33 +21,15 @@ public class MoneyCheck {
         for (int i = 0; i < getWinnerMoneyList().size(); i++) {
             int grade = 0;
 
-            grade = getManualGrade(checkGrade, i, grade);
-            grade = getGrade(checkGrade, i, grade);
+            grade = checkGrade.getManualGrade(getWinnerMoneyList().get(i));
+            grade += checkGrade.getGrade(getWinnerMoneyList().get(i));
 
             gradeList.add(grade);
         }
         return gradeList;
     }
 
-    private static int getGrade(Grade checkGrade, int i, int grade) {
-        for (int j = 0; j < checkGrade.getRandomLotto().size(); j++) {
-            if (checkGrade.getRandomLotto().get(j).winnerMoney(checkGrade.getPrize(), checkGrade.getBonus()) == getWinnerMoneyList().get(i)) {
-                grade++;
-            }
-        }
-        return grade;
-    }
-
-    private static int getManualGrade(Grade checkGrade, int i, int grade) {
-        for (int j = 0; j < checkGrade.getManualLotto().size(); j++) {
-            if (checkGrade.getManualLotto().get(j).winnerMoney(checkGrade.getPrize(), checkGrade.getBonus()) == getWinnerMoneyList().get(i)) {
-                grade++;
-            }
-        }
-        return grade;
-    }
-
-    private static List<Integer> getWinnerMoneyList() {
+    public static List<Integer> getWinnerMoneyList() {
         List<Integer> winnerMoney = new ArrayList<>();
         for (int i = 3; i <= 6; i++) {
             winnerMoney.add(Rank.valueOf(i, false).getWinningMoney());
