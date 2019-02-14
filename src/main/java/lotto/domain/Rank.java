@@ -37,4 +37,15 @@ public enum Rank {
         }
         return null;
     }
+
+    public static Rank valueOfWinning(int winningMoney){
+        Rank[] ranks= values();
+
+        for (int i = 0; i < ranks.length; i++) {
+            if(ranks[i].getWinningMoney() == winningMoney){
+                return ranks[i];
+            }
+        }
+        return null;
+    }
 }

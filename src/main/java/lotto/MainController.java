@@ -29,13 +29,15 @@ public class MainController {
         int bonusNum = InputView.bonusNum();
         ResultView.prizeStatement();
 
-        List<Rank> ranks = LottoPlay.ranks();
+        List<Integer> winnerMoneyList = MoneyCheck.getWinnerMoneyList();
+
+        List<Rank> ranks = LottoPlay.ranks(winnerMoneyList);
 
         Grade grade = new Grade(lottos, manualLotto, prize, bonusNum);
 
         List<Integer> pageSize = MoneyCheck.grade(grade);
         long amount = MoneyCheck.profitRate(ranks, pageSize, ResultView.price(money));
-        ResultView.prizeRank(pageSize, amount);
+        ResultView.prizeRank(pageSize, amount, ranks);
     }
 
     public static List<String> manualLottos(int manualNum) {

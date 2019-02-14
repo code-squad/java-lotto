@@ -40,8 +40,7 @@ public class ResultView {
         System.out.println("---------");
     }
 
-    public static void prizeRank(List<Integer> pageSize, long amount) {
-        List<Rank> ranks = LottoPlay.ranks();
+    public static void prizeRank(List<Integer> pageSize, long amount, List<Rank> ranks) {
         for (int i = 0; i < ranks.size(); i++) {
 
             if (i == FIFTH_KEY) {

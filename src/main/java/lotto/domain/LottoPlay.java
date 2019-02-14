@@ -60,15 +60,12 @@ public class LottoPlay {
         return lotto;
     }
 
-    public static List<Rank> ranks() {
+    public static List<Rank> ranks(List<Integer> winnerMoneyList) {
         List<Rank> ranks = new ArrayList<>();
-        for (int i = 3; i <= 6; i++) {
-            ranks.add(Rank.valueOf(i, false));
-
-            if (i == 5) {
-                ranks.add(Rank.valueOf(i, true));
-            }
+        for (int i = 0; i < winnerMoneyList.size(); i++) {
+            ranks.add(Rank.valueOfWinning(winnerMoneyList.get(i)));
         }
+
         return ranks;
     }
 }

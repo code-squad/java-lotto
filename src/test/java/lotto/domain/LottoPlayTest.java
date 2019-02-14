@@ -11,13 +11,8 @@ public class LottoPlayTest {
     private static final Logger log = getLogger(LottoPlayTest.class);
     private static final int BONUS = 11;
     private LottoPlay lottoPlay = new LottoPlay();
-    private List<Rank> ranks = LottoPlay.ranks();
-
-    @Test
-    public void lottoNumber() {
-//        assertThat(lottoPlay.lottoNumber().size()).isEqualTo(45);
-    }
-
+    private List<Rank> ranks = LottoPlay.ranks(MoneyCheck.getWinnerMoneyList());
+    
     @Test
     public void grade() {
         Grade grade = new Grade(getLottos(), getUser(), xx(), BONUS);

@@ -39,12 +39,7 @@ public class Lotto {
     }
 
     public boolean bonusCheck(List<Integer> prize, int bonus) {
-        if (!matchList(prize).contains(bonus) && matchList(prize).size() == 5) {
-            if (lotto.contains(bonus)) {
-                return true;
-            }
-        }
-        return false;
+       return !matchList(prize).contains(bonus) && matchList(prize).size() == 5 && lotto.contains(bonus);
     }
 
     @Override
