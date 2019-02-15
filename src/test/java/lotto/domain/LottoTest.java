@@ -2,13 +2,8 @@ package lotto.domain;
 
 import org.junit.Test;
 import org.slf4j.Logger;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.assertj.core.api.AssertionsForClassTypes.extractProperty;
-import static org.assertj.core.api.AssertionsForClassTypes.fail;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.slf4j.LoggerFactory.getLogger;
 

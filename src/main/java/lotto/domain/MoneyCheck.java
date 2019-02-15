@@ -1,15 +1,11 @@
-package lotto.util;
-
-import lotto.domain.Lotto;
-import lotto.domain.Rank;
+package lotto.domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class MoneyUtil {
-    public static int profitRate(List<Rank> ranks, List<Integer> pageMoney, int purchaseSum) {
-        return maxMoney(ranks, pageMoney) / purchaseSum;
+public class MoneyCheck {
+    public static long profitRate(List<Rank> ranks, List<Integer> pageMoney, int purchaseSum) {
+        return (long) maxMoney(ranks, pageMoney) / purchaseSum;
     }
 
     private static int maxMoney(List<Rank> ranks, List<Integer> pageMoney) {
@@ -20,27 +16,25 @@ public class MoneyUtil {
         return maxMoney;
     }
 
-    public static List<Integer> grade(List<Lotto> lottos, List<Integer> prize, int bonus) {
+    public static List<Integer> grade(Grade checkGrade) {
         List<Integer> gradeList = new ArrayList<>();
         for (int i = 0; i < getWinnerMoneyList().size(); i++) {
             int grade = 0;
 
-            for (int j = 0; j < lottos.size(); j++) {
-                if(lottos.get(j).winnerMoney(prize, bonus) == getWinnerMoneyList().get(i)){
-                    grade++;
-                }
-            }
+            grade = checkGrade.getManualGrade(getWinnerMoneyList().get(i));
+            grade += checkGrade.getGrade(getWinnerMoneyList().get(i));
+
             gradeList.add(grade);
         }
         return gradeList;
     }
 
-    private static List<Integer> getWinnerMoneyList() {
+    public static List<Integer> getWinnerMoneyList() {
         List<Integer> winnerMoney = new ArrayList<>();
         for (int i = 3; i <= 6; i++) {
             winnerMoney.add(Rank.valueOf(i, false).getWinningMoney());
 
-            if(i == 5){
+            if (i == 5) {
                 winnerMoney.add(Rank.valueOf(i, true).getWinningMoney());
             }
         }

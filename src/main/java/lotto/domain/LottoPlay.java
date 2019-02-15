@@ -1,7 +1,6 @@
-package lotto.util;
+package lotto.domain;
 
-import lotto.domain.Lotto;
-import lotto.domain.Rank;
+import lotto.util.SplitUtil;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
@@ -10,14 +9,26 @@ import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class LottoUtil {
-
+public class LottoPlay {
     private static final int MAX_NUM = 45;
     private static final int LOTTO_DIGITS = 6;
+    private static final Logger log = getLogger(LottoPlay.class);
 
-    private static final Logger log = getLogger(LottoUtil.class);
+    public static List<Integer> manualSort(String manualLotto) {
+        List<Integer> manualSort = SplitUtil.prizeList(manualLotto);
+        Collections.sort(manualSort);
+        return manualSort;
+    }
 
-   private static List<Integer> lottoNumber() {
+    public static List<Lotto> manualLottoObject(List<String> manualLotto) {
+        List<Lotto> userInputLotto = new ArrayList<>();
+        for (int i = 0; i < manualLotto.size(); i++) {
+            userInputLotto.add(new Lotto(manualSort(manualLotto.get(i))));
+        }
+        return userInputLotto;
+    }
+
+    private static List<Integer> lottoNumber() {
         List<Integer> lotto = new ArrayList<>();
         for (int i = 1; i <= MAX_NUM; i++) {
             lotto.add(i);
@@ -41,23 +52,20 @@ public class LottoUtil {
         return lotto;
     }
 
-    public static List<Lotto> lottoObject(int page) {
+    public static List<Lotto> lottoObject(int randomLottoNum, int manualNum) {
         List<Lotto> lotto = new ArrayList<>();
-        for (int i = 0; i < page; i++) {
+        for (int i = 0; i < randomLottoNum - manualNum; i++) {
             lotto.add(new Lotto(oneLottoPage()));
         }
         return lotto;
     }
 
-    public static List<Rank> ranks() {
+    public static List<Rank> ranks(List<Integer> winnerMoneyList) {
         List<Rank> ranks = new ArrayList<>();
-        for (int i = 3; i <= 6; i++) {
-            ranks.add(Rank.valueOf(i, false));
-
-            if(i == 5){
-                ranks.add(Rank.valueOf(i, true));
-            }
+        for (int i = 0; i < winnerMoneyList.size(); i++) {
+            ranks.add(Rank.valueOfWinning(winnerMoneyList.get(i)));
         }
+
         return ranks;
     }
 }

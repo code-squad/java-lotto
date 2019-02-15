@@ -1,12 +1,13 @@
 package lotto.domain;
 
-import java.io.PipedReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lotto {
 
-    private List<Integer> lotto = new ArrayList<>();
+    private static final int FIFTH_RANK = 3;
+
+    private List<Integer> lotto;
 
     public Lotto(List<Integer> lotto) {
         this.lotto = lotto;
@@ -17,15 +18,13 @@ public class Lotto {
     }
 
     public Rank matchNum(List<Integer> prize, int bonus) {
-        if(matchList(prize).size() <3){
+        if (matchList(prize).size() < FIFTH_RANK) {
             return Rank.valueOf(0, bonusCheck(prize, bonus));
         }
-
-
         return Rank.valueOf(matchList(prize).size(), bonusCheck(prize, bonus));
     }
 
-    public int winnerMoney(List<Integer> prize, int bonus){
+    public int winnerMoney(List<Integer> prize, int bonus) {
         return matchNum(prize, bonus).getWinningMoney();
     }
 
@@ -40,12 +39,7 @@ public class Lotto {
     }
 
     public boolean bonusCheck(List<Integer> prize, int bonus) {
-        if (!matchList(prize).contains(bonus) && matchList(prize).size() == 5) {
-            if (lotto.contains(bonus)) {
-                return true;
-            }
-        }
-        return false;
+       return matchList(prize).size() == 5 && lotto.contains(bonus);
     }
 
     @Override

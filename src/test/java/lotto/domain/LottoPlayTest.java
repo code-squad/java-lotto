@@ -1,40 +1,22 @@
-package lotto.util;
+package lotto.domain;
 
-import lotto.domain.Lotto;
-
-import lotto.domain.Rank;
 import org.junit.Test;
 import org.slf4j.Logger;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class LottoUtilTest {
-    private static final Logger log = getLogger(LottoUtilTest.class);
+public class LottoPlayTest {
+    private static final Logger log = getLogger(LottoPlayTest.class);
     private static final int BONUS = 11;
-    private LottoUtil lottoUtil = new LottoUtil();
-    private List<Rank> ranks = LottoUtil.ranks();
-
-    @Test
-    public void lottoNumber() {
-//        assertThat(lottoUtil.lottoNumber().size()).isEqualTo(45);
-    }
-
-    @Test
-    public void lotto() {
-        int a = 5;
-        for (Lotto lotto : lottoUtil.lottoObject(a)) {
-            log.debug("로또:{}", lotto);
-        }
-    }
-
+    private LottoPlay lottoPlay = new LottoPlay();
+    private List<Rank> ranks = LottoPlay.ranks(MoneyCheck.getWinnerMoneyList());
+    
     @Test
     public void grade() {
-        List<Integer> a = MoneyUtil.grade(getLottos(), xx(), BONUS);
+        Grade grade = new Grade(getLottos(), getUser(), xx(), BONUS);
+        List<Integer> a = MoneyCheck.grade(grade);
         log.debug("{}", a);
     }
 
@@ -47,6 +29,14 @@ public class LottoUtilTest {
             log.debug("rank:{}", rank.getCountOfMatch());
             log.debug("money:{}", rank.getWinningMoney());
         }
+    }
+
+    private List<Lotto> getUser() {
+        List<Integer> a = Arrays.asList(1, 2, 3, 4, 5, 11);
+        List<Integer> b = Arrays.asList(1, 2, 3, 4, 5, 11);
+        List<Integer> c = Arrays.asList(1, 2, 3, 4, 5, 11);
+        List<Lotto> lottos = Arrays.asList(new Lotto(a), new Lotto(b), new Lotto(c));
+        return lottos;
     }
 
     private List<Lotto> getLottos() {

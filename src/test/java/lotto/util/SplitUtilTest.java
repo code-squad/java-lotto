@@ -1,8 +1,6 @@
 package lotto.util;
 
 import org.junit.Test;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -29,7 +27,7 @@ public class SplitUtilTest {
         for (int i = 0; i < 6; i++) {
             assertThat(list.get(i) instanceof Integer).isTrue();
 //            타입 비교하는 것 instanceof => 타입을 추론하는 것.
-            assertThat(list.get(i)).isEqualTo(i+1);
+            assertThat(list.get(i)).isEqualTo(i + 1);
         }
     }
 }
