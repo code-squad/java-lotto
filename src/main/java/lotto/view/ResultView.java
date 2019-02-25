@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.InvalidInputException;
 import lotto.domain.Lotto;
 import lotto.domain.LottoPlay;
 import lotto.domain.Rank;
@@ -11,17 +12,21 @@ public class ResultView {
     private static final int FIFTH_KEY = 3;
     private static final String WON = "원) - ";
 
-    public static int price(int input) {
+    public static int price(int input) throws InvalidInputException {
+        if (input % 1000 != 0) {
+            throw new InvalidInputException("금액을 잘못 입력하였습니다.");
+        }
+
         return input / PRICE;
     }
 
-    public static int randomPrice(int input, int manualNum) {
-        return price(input) - manualNum;
+    private static int randomPrice(int price, int manualNum) {
+        return price - manualNum;
     }
 
-    public static void count(int input, int manualNum) {
+    public static void count(int price, int manualNum) {
         System.out.println();
-        System.out.println("수동으로 " + manualNum + "장, 자동으로 " + randomPrice(input, manualNum) + "장을 구매했습니다.");
+        System.out.println("수동으로 " + manualNum + "장, 자동으로 " + randomPrice(price, manualNum) + "장을 구매했습니다.");
     }
 
     public static void lottoOutput(List<Lotto> lottos, List<Lotto> manualLottos) {
