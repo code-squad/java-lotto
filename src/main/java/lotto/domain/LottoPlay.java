@@ -1,6 +1,8 @@
 package lotto.domain;
 
+import lotto.InvalidInputException;
 import lotto.util.SplitUtil;
+import lotto.view.InputView;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;

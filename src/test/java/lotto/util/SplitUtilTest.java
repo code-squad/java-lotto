@@ -1,6 +1,7 @@
 package lotto.util;
 
 import org.junit.Test;
+
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -11,7 +12,10 @@ public class SplitUtilTest {
 
     @Test
     public void prizeSplit() {
-//        assertThat(SplitUtil.prizeSplit(Main).length).isEqualTo(6);
+        String a = "a,b,c,d,e,f";
+        String b = "1,2,3,4,5,6";
+        String c = "1,2,3,4,f,g";
+
     }
 
     @Test

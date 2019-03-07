@@ -1,5 +1,7 @@
 package lotto.util;
 
+import lotto.InvalidInputException;
+
 import java.util.ArrayList;
 import java.util.List;
 

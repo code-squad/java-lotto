@@ -5,13 +5,13 @@ import java.util.List;
 
 public class MoneyCheck {
     public static long profitRate(List<Rank> ranks, List<Integer> pageMoney, int purchaseSum) {
-        return (long) maxMoney(ranks, pageMoney) / purchaseSum;
+        return (long) maxMoney(ranks, pageMoney) / purchaseSum * 100;
     }
 
-    private static int maxMoney(List<Rank> ranks, List<Integer> pageMoney) {
-        int maxMoney = 0;
+    private static long maxMoney(List<Rank> ranks, List<Integer> pageMoney) {
+        long maxMoney = 0;
         for (int i = 0; i < ranks.size(); i++) {
-            maxMoney += ranks.get(i).getWinningMoney() * pageMoney.get(i);
+            maxMoney += (long)ranks.get(i).getWinningMoney() * pageMoney.get(i);
         }
         return maxMoney;
     }

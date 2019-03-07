@@ -12,6 +12,23 @@ public class MoneyCheckTest {
     private MoneyCheck moneyCheck = new MoneyCheck();
     private static final Logger log = getLogger(MoneyCheckTest.class);
 
+    @Test
+    public void maxMoney(){
+        int bonus = 11;
+        Grade grade = new Grade(getLottos(), getUser(), xx(), bonus);
+
+        List<Integer> winnerMoneyList = MoneyCheck.getWinnerMoneyList();
+        List<Rank> ranks = LottoPlay.ranks(winnerMoneyList);
+
+        List<Integer> pageSize = MoneyCheck.grade(grade);
+
+        int x = 7000;
+//        long a =MoneyCheck.maxMoney(ranks, pageSize);
+
+        System.out.println(MoneyCheck.profitRate(ranks, pageSize, x));
+
+    }
+
     private List<Lotto> getLottos() {
         List<Integer> a = Arrays.asList(1, 2, 3, 4, 5, 11);
         List<Integer> b = Arrays.asList(1, 2, 3, 4, 5, 11);
