@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import lotto.InvalidInputException;
+import lotto.WrongAmountException;
 import lotto.domain.*;
 import lotto.util.SplitUtil;
 import lotto.view.InputView;
@@ -16,26 +17,11 @@ public class MainController {
     private static final Logger log = getLogger(MainController.class);
 
     public static void main(String[] args) {
-        int money = InputView.money();
+        int money = getMoney();
+        int getPrice = ResultView.price(money);
 
-        int getPrice = 0;
+        int manualNum = getManualNum(InputView.manualNum(), getPrice);
 
-        try {
-            getPrice = ResultView.price(money);
-        } catch (InvalidInputException e) {
-            System.out.print(e.getMessage() + " ");
-            money = InputView.money();
-        }
-
-
-        int manualNum = InputView.manualNum();
-
-        try {
-            manualNum = manualNumException(manualNum, getPrice);
-        } catch (InvalidInputException e) {
-            System.out.print(e.getMessage());
-            manualNum = InputView.manualNum();
-        }
 
         InputView.manualMessage();
 
@@ -43,19 +29,11 @@ public class MainController {
 
         List<Lotto> lottos = LottoPlay.lottoObject(getPrice, manualNum);
 
-
         ResultView.count(money, manualLotto.size());
         ResultView.lottoOutput(lottos, manualLotto);
 
         List<Integer> prize = SplitUtil.prizeList(InputView.prizeNum());
-        int bonusNum = InputView.bonusNum();
-
-        try {
-            bonusNum = bonusNumException(bonusNum);
-        } catch (InvalidInputException e) {
-            System.out.println(e.getMessage());
-            bonusNum = InputView.bonusNum();
-        }
+        int bonusNum = getBonusNum(InputView.bonusNum());
 
         ResultView.prizeStatement();
 
@@ -70,18 +48,65 @@ public class MainController {
         ResultView.prizeRank(pageSize, amount, ranks);
     }
 
-    public static int bonusNumException(int bonus) throws InvalidInputException {
-        if (bonus < 1 || bonus > 45) {
-            throw new InvalidInputException("숫자가 잘못되었습니다. 범위 안에서 입력해주세요(1~45)");
+    private static int getBonusNum(int bonusNum) {
+        try {
+            bonusNum = ExceptionCheck.bonusNumException(bonusNum);
+        } catch (WrongAmountException e) {
+            bonusNum = catchBonusNum(e);
+            while (!ExceptionCheck.bonusNum(bonusNum)) {
+                bonusNum = catchBonusNum(e);
+            }
         }
-        return bonus;
+        return bonusNum;
     }
 
-    public static int manualNumException(int manualNum, int getPrice) throws InvalidInputException {
-        if (manualNum > getPrice) {
-            throw new InvalidInputException("구매한 금액보다 Lotto 장수가 많습니다.");
+    private static int catchBonusNum(WrongAmountException e) {
+        int bonusNum;
+        System.out.println(e.getMessage());
+        bonusNum = InputView.bonusNum();
+        return bonusNum;
+    }
+
+    private static int getManualNum(int manualNum, int getPrice) {
+        try {
+            manualNum = ExceptionCheck.manualNumException(manualNum, getPrice);
+        } catch (InvalidInputException e) {
+
+            manualNum = catchManualNum(e);
+            while (!ExceptionCheck.manualNum(manualNum, getPrice)) {
+                manualNum = catchManualNum(e);
+            }
         }
         return manualNum;
+    }
+
+    private static int catchManualNum(InvalidInputException e) {
+        int manualNum;
+        System.out.print(e.getMessage());
+        manualNum = InputView.manualNum();
+        return manualNum;
+    }
+
+    private static int getMoney() {
+        InputView.money();
+        int money = InputView.moneyInput();
+        try {
+            money = ExceptionCheck.moneyNumException(money);
+        } catch (InvalidInputException e) {
+            money = catchMoney(e);
+            while (!ExceptionCheck.money(money)) {
+                money = catchMoney(e);
+            }
+        }
+        return money;
+    }
+
+    private static int catchMoney(InvalidInputException e) {
+        int money;
+        System.out.println(e.getMessage());
+        InputView.money();
+        money = InputView.moneyInput();
+        return money;
     }
 
     public static List<String> manualLottos(int manualNum) {

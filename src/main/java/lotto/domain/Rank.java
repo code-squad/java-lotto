@@ -30,7 +30,7 @@ public enum Rank {
             if (countOfMatch == SECOND.countOfMatch) {
                 return matchBonus ? SECOND : THIRD;
             }
-
+            boolean a = false;
             if (rank.countOfMatch == countOfMatch) {
                 return rank;
             }
@@ -48,4 +48,5 @@ public enum Rank {
         }
         return null;
     }
+
 }

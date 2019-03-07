@@ -12,11 +12,7 @@ public class ResultView {
     private static final int FIFTH_KEY = 3;
     private static final String WON = "원) - ";
 
-    public static int price(int input) throws InvalidInputException {
-        if (input % 1000 != 0) {
-            throw new InvalidInputException("금액을 잘못 입력하였습니다.");
-        }
-
+    public static int price(int input){
         return input / PRICE;
     }
 
