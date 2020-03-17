@@ -4,11 +4,11 @@ import domain.Rank;
 
 import java.util.Map;
 
-public class AnalyzeDto {
+public class StatisticsDto {
     private Map<Rank, Integer> rankCount;
     private int totalRateOfReturn;
 
-    public AnalyzeDto(Map<Rank, Integer> rankCount, int totalRateOfReturn) {
+    public StatisticsDto(Map<Rank, Integer> rankCount, int totalRateOfReturn) {
         this.rankCount = rankCount;
         this.totalRateOfReturn = totalRateOfReturn;
     }

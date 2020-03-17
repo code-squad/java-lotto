@@ -1,6 +1,6 @@
 package domain;
 
-import dto.AnalyzeDto;
+import dto.StatisticsDto;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,15 +8,16 @@ import java.util.Map;
 
 import static domain.Lotto.LOTTO_PRICE;
 
-public class Analyze {
+public class Statistics {
     private Map<Rank, Integer> rankCount;
     private int totalRateOfReturn;
 
-    public Analyze(List<Lotto> lottos, Lotto winningLotto) {
+    public Statistics(List<Lotto> lottos, Lotto winningLotto) {
         this.rankCount = calculateRankCount(lottos, winningLotto);
         this.totalRateOfReturn = calculateTotalRateOfReturn(lottos.size());
     }
 
+    // TODO : 리턴시 없는 값은 null 대신 0 반환
     private Map<Rank, Integer> calculateRankCount(List<Lotto> lottos, Lotto winningLotto) {
         Map<Rank, Integer> rankCount = new HashMap<>();
         for (Lotto lotto : lottos) {
@@ -35,7 +36,7 @@ public class Analyze {
         return (int) (sum / (numOfLotto * LOTTO_PRICE));
     }
 
-    public AnalyzeDto toDto() {
-        return new AnalyzeDto(rankCount, totalRateOfReturn);
+    public StatisticsDto toDto() {
+        return new StatisticsDto(rankCount, totalRateOfReturn);
     }
 }

@@ -4,6 +4,7 @@ import dto.LottoDto;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Lotto {
     public static final int LOTTO_SIZE = 6;
@@ -15,10 +16,10 @@ public class Lotto {
 
     public Lotto(List<LottoNumber> numbers) {
         if(!isValidSize(numbers)) {
-            throw new RuntimeException(INVALID_SIZE_MSG);
+            throw new IllegalArgumentException(INVALID_SIZE_MSG);
         }
         if(!hasDuplicate(numbers)) {
-            throw new RuntimeException(HAS_DUPLICATE_NUMBER_MSG);
+            throw new IllegalArgumentException(HAS_DUPLICATE_NUMBER_MSG);
         }
 
         Collections.sort(numbers);
@@ -41,5 +42,25 @@ public class Lotto {
         return (int) numbers.stream()
                 .filter(number -> winningLotto.numbers.contains(number))
                 .count();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lotto lotto = (Lotto) o;
+        return Objects.equals(numbers, lotto.numbers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numbers);
+    }
+
+    @Override
+    public String toString() {
+        return "Lotto{" +
+                "numbers=" + numbers +
+                '}';
     }
 }

@@ -11,6 +11,7 @@ public class LottoPurchaseInfo {
     private int numOfLotto;
     private List<Lotto> lottos = new ArrayList<>();
 
+    // TODO : purchaseAmount 금액확인로직 필요
     public LottoPurchaseInfo(int purchaseAmount, LottoGenerator lottoGenerator) {
         this.numOfLotto = purchaseAmount / LOTTO_PRICE;
         generateLottos(lottoGenerator);

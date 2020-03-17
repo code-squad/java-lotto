@@ -1,7 +1,7 @@
 package view;
 
 import domain.Rank;
-import dto.AnalyzeDto;
+import dto.StatisticsDto;
 import dto.LottoDto;
 import dto.LottoPurchaseInfoDto;
 
@@ -24,12 +24,12 @@ public class OutputView {
         }
     }
 
-    public static void printMatchingResult(AnalyzeDto analyzeDto) {
+    public static void printMatchingResult(StatisticsDto statisticsDto) {
         System.out.println();
         System.out.println(STATISTICS_OF_RESULT_MSG);
         System.out.println(DIVISION_LINE);
 
-        Map<Rank, Integer> rankCount = analyzeDto.getRankCount();
+        Map<Rank, Integer> rankCount = statisticsDto.getRankCount();
         Rank[] rank = Rank.values();
         for (int i = rank.length - 2; i >= 0; i--) {
             System.out.printf(EACH_RANK_MATCHING_NUM_MSG,

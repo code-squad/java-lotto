@@ -8,7 +8,7 @@ public class ConsoleApplication {
     public static void main(String[] args) {
         int purchaseAmount = InputView.inputPurchaseAmount();
 
-        AutoLottoGenerator autoLottoGenerator = new AutoLottoGenerator();
+        LottoGenerator autoLottoGenerator = new AutoLottoGenerator();
         LottoPurchaseInfo lottoPurchaseInfo = new LottoPurchaseInfo(purchaseAmount, autoLottoGenerator);
 
         OutputView.printPurchaseLottoSize(lottoPurchaseInfo.toDto().getNumOfLotto());
@@ -16,11 +16,11 @@ public class ConsoleApplication {
 
         String winningLottoNumbers = InputView.inputWinningLottoNumbers();
 
-        ManualLottoGenerator manualLottoGenerator = new ManualLottoGenerator(winningLottoNumbers);
+        LottoGenerator manualLottoGenerator = new ManualLottoGenerator(winningLottoNumbers);
         Lotto winningLotto = manualLottoGenerator.generateLotto();
-        Analyze analyze = new Analyze(lottoPurchaseInfo.getLottos(), winningLotto);
+        Statistics statistics = new Statistics(lottoPurchaseInfo.getLottos(), winningLotto);
 
-        OutputView.printMatchingResult(analyze.toDto());
-        OutputView.printTotalRateOfReturn(analyze.toDto().getTotalRateOfReturn());
+        OutputView.printMatchingResult(statistics.toDto());
+        OutputView.printTotalRateOfReturn(statistics.toDto().getTotalRateOfReturn());
     }
 }
