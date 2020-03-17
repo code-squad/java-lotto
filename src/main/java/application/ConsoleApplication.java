@@ -15,10 +15,11 @@ public class ConsoleApplication {
         OutputView.printPurchaseLottos(lottoPurchaseInfo.toDto());
 
         String winningLottoNumbers = InputView.inputWinningLottoNumbers();
+        LottoNumber bonusNumber = new LottoNumber(InputView.inputBonusNumber());
 
         LottoGenerator manualLottoGenerator = new ManualLottoGenerator(winningLottoNumbers);
         Lotto winningLotto = manualLottoGenerator.generateLotto();
-        Statistics statistics = new Statistics(lottoPurchaseInfo.getLottos(), winningLotto);
+        Statistics statistics = new Statistics(lottoPurchaseInfo.getLottos(), winningLotto, bonusNumber);
 
         OutputView.printMatchingResult(statistics.toDto());
         OutputView.printTotalRateOfReturn(statistics.toDto().getTotalRateOfReturn());

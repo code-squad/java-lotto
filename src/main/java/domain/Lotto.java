@@ -44,6 +44,10 @@ public class Lotto {
                 .count();
     }
 
+    public boolean hasBonusNumber(LottoNumber bonusNumber) {
+        return numbers.contains(bonusNumber);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

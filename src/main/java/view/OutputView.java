@@ -11,7 +11,8 @@ public class OutputView {
     private static final String NUM_OF_PERCHASE_LOTTO_MSG = " 개를 구매했습니다";
     private static final String STATISTICS_OF_RESULT_MSG = "당첨통계";
     private static final String DIVISION_LINE = "---------";
-    private static final String EACH_RANK_MATCHING_NUM_MSG = "%d개 일치 (%d원)- %d개\n";
+    private static final String EACH_RANK_MATCHING_NUM_MSG = "%d개 일치 %s(%d원)- %d개\n";
+    private static final String BONUS_BALL_MATCH_MSG = "보너스 볼 일치";
     private static final String TOTAL_RATE_OF_RETURN_MSG = "총 수익률은 %d%%입니다.";
 
     public static void printPurchaseLottoSize(int lottosDtoSize) {
@@ -34,6 +35,7 @@ public class OutputView {
         for (int i = rank.length - 2; i >= 0; i--) {
             System.out.printf(EACH_RANK_MATCHING_NUM_MSG,
                     rank[i].getCountOfMatch(),
+                    (i == 1) ? BONUS_BALL_MATCH_MSG : "",
                     rank[i].getWinningMoney(),
                     rankCount.getOrDefault(rank[i], 0)
             );

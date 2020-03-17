@@ -2,6 +2,7 @@ package domain;
 
 import dto.StatisticsDto;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,26 +13,33 @@ public class Statistics {
     private Map<Rank, Integer> rankCount;
     private int totalRateOfReturn;
 
-    public Statistics(List<Lotto> lottos, Lotto winningLotto) {
-        this.rankCount = calculateRankCount(lottos, winningLotto);
+    public Statistics(List<Lotto> lottos, Lotto winningLotto, LottoNumber bonusNumber) {
+        this.rankCount = calculateRankCount(lottos, winningLotto, bonusNumber);
         this.totalRateOfReturn = calculateTotalRateOfReturn(lottos.size());
     }
 
-    // TODO : 리턴시 없는 값은 null 대신 0 반환
-    private Map<Rank, Integer> calculateRankCount(List<Lotto> lottos, Lotto winningLotto) {
+    private Map<Rank, Integer> calculateRankCount(List<Lotto> lottos, Lotto winningLotto, LottoNumber bonusNumber) {
         Map<Rank, Integer> rankCount = new HashMap<>();
+        Arrays.stream(Rank.values()).forEach(value -> rankCount.put(value, 0));
+
         for (Lotto lotto : lottos) {
             int count = lotto.countNumberOfMatch(winningLotto);
-            Rank rank = Rank.valueOf(count);
-            rankCount.put(rank, rankCount.getOrDefault(rank, 0) + 1);
+            boolean matchBonus = lotto.hasBonusNumber(bonusNumber);
+            calculateEachLottoRank(rankCount, count, matchBonus);
         }
+
         return rankCount;
+    }
+
+    private void calculateEachLottoRank(Map<Rank, Integer> rankCount, int count, boolean matchBonus) {
+        Rank rank = Rank.valueOf(count, matchBonus);
+        rankCount.put(rank, rankCount.get(rank) + 1);
     }
 
     private int calculateTotalRateOfReturn(int numOfLotto) {
         long sum = 0;
         for (Rank value : Rank.values()) {
-            sum += value.calculateTotalEarningMoney(rankCount.getOrDefault(value, 0));
+            sum += value.calculateTotalEarningMoney(rankCount.get(value));
         }
         return (int) (sum / (numOfLotto * LOTTO_PRICE));
     }
