@@ -50,10 +50,10 @@ public class MoneyTest {
         rankCount.put(FIFTH, 0);
         rankCount.put(FAIL, 3);
         Money money = new Money(5000);
-        int expectedResult = (SECOND.getWinningMoney() + FOURTH.getWinningMoney()) / (5 * LOTTO_PRICE);
+        double expectedResult = ((double) SECOND.getWinningMoney() + FOURTH.getWinningMoney()) / (double) (5 * LOTTO_PRICE) * 100;
 
         //when
-        int totalRateOfReturn = money.calculateTotalRateOfReturn(rankCount);
+        double totalRateOfReturn = money.calculateTotalRateOfReturn(rankCount);
 
         //then
         assertThat(totalRateOfReturn).isEqualTo(expectedResult);

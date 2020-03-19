@@ -1,6 +1,6 @@
 package domain;
 
-import dto.StatisticsDto;
+import dto.LottosResult;
 import vo.LottoNumber;
 import vo.Rank;
 
@@ -18,7 +18,7 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public StatisticsDto calculateWinningCount(List<Lotto> lottos) {
+    public Map<Rank, Integer> calculateWinningCount(List<Lotto> lottos) {
         Map<Rank, Integer> rankCount = new HashMap<>();
         Arrays.stream(Rank.values()).forEach(value -> rankCount.put(value, 0));
 
@@ -28,9 +28,7 @@ public class WinningLotto {
             calculateEachLottoWinningCount(rankCount, count, matchBonus);
         }
 
-        StatisticsDto statisticsDto = new StatisticsDto();
-        statisticsDto.setRankCount(rankCount);
-        return statisticsDto;
+        return rankCount;
     }
 
     private void calculateEachLottoWinningCount(Map<Rank, Integer> rankCount, int count, boolean matchBonus) {

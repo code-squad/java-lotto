@@ -1,6 +1,6 @@
 package domain;
 
-import dto.StatisticsDto;
+import dto.LottosResult;
 import org.junit.Test;
 import vo.LottoNumber;
 import vo.Rank;
@@ -34,10 +34,9 @@ public class WinningLottoTest {
         List<Lotto> lottos = new ArrayList<>(Arrays.asList(first, second, second, fifth, fail, fail));
 
         //when
-        StatisticsDto dto = winningLotto.calculateWinningCount(lottos);
+        Map<Rank, Integer> rankCount = winningLotto.calculateWinningCount(lottos);
 
         //then
-        Map<Rank, Integer> rankCount = dto.getRankCount();
         assertThat(rankCount.get(Rank.FIRST)).isEqualTo(1);
         assertThat(rankCount.get(Rank.SECOND)).isEqualTo(2);
         assertThat(rankCount.get(Rank.THIRD)).isEqualTo(0);

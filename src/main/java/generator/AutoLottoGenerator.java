@@ -30,7 +30,7 @@ public class AutoLottoGenerator implements LottoGenerator {
         List<Integer> baseNumbers = IntStream.rangeClosed(MIN_NUMBER, MAX_NUMBER)
                 .boxed()
                 .collect(Collectors.toList());
-        List<LottoNumber> baseLottoNumbers = convertToLottoNumber(baseNumbers);
+        List<LottoNumber> baseLottoNumbers = LottoGenerator.convertToLottoNumber(baseNumbers);
         Collections.shuffle(baseLottoNumbers);
 
         return baseLottoNumbers;

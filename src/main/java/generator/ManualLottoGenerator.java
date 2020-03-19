@@ -13,7 +13,7 @@ public class ManualLottoGenerator implements LottoGenerator {
 
     public ManualLottoGenerator(List<String> manualLottos) {
         this.lottoNumbers = manualLottos.stream()
-                .map(m -> convertToLottoNumber(convertToInt(split(m))))
+                .map(m -> LottoGenerator.convertToLottoNumber(convertToInt(split(m))))
                 .map(Lotto::new)
                 .collect(Collectors.toList());
     }

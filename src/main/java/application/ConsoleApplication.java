@@ -1,7 +1,7 @@
 package application;
 
 import domain.*;
-import dto.StatisticsDto;
+import dto.LottosResult;
 import generator.AutoLottoGenerator;
 import generator.IntegratedLottoGenerator;
 import generator.LottoGenerator;
@@ -9,8 +9,10 @@ import generator.ManualLottoGenerator;
 import view.InputView;
 import view.OutputView;
 import domain.WinningLotto;
+import vo.Rank;
 
 import java.util.List;
+import java.util.Map;
 
 public class ConsoleApplication {
     public static void main(String[] args) {
@@ -33,11 +35,12 @@ public class ConsoleApplication {
         String winningLottoNumbers = InputView.inputWinningLottoNumbers();
         int bonusNumber = InputView.inputBonusNumber();
 
-        WinningLotto winningLotto = integratedLottoGenerator.generateWinningLotto(winningLottoNumbers, bonusNumber);
-        StatisticsDto statisticsDto = winningLotto.calculateWinningCount(integratedLottoGenerator.getLottos());
-        int totalRateOfReturn = money.calculateTotalRateOfReturn(statisticsDto.getRankCount());
+        WinningLotto winningLotto = LottoGenerator.generateWinningLotto(winningLottoNumbers, bonusNumber);
+        Map<Rank, Integer> rankCount = winningLotto.calculateWinningCount(integratedLottoGenerator.getLottos());
+        double totalRateOfReturn = money.calculateTotalRateOfReturn(rankCount);
+        LottosResult lottosResult = new LottosResult(rankCount, totalRateOfReturn);
 
-        OutputView.printMatchingResult(statisticsDto);
-        OutputView.printTotalRateOfReturn(totalRateOfReturn);
+        OutputView.printMatchingResult(lottosResult.getRankCount());
+        OutputView.printTotalRateOfReturn(lottosResult.getTotalRateOfReturn());
     }
 }

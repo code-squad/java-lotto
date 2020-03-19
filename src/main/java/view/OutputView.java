@@ -1,7 +1,7 @@
 package view;
 
 import vo.Rank;
-import dto.StatisticsDto;
+import dto.LottosResult;
 import dto.LottoDto;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class OutputView {
     private static final String DIVISION_LINE = "---------";
     private static final String EACH_RANK_MATCHING_NUM_MSG = "%d개 일치 %s(%d원)- %d개\n";
     private static final String BONUS_BALL_MATCH_MSG = "보너스 볼 일치";
-    private static final String TOTAL_RATE_OF_RETURN_MSG = "총 수익률은 %d%%입니다.";
+    private static final String TOTAL_RATE_OF_RETURN_MSG = "총 수익률은 %f%%입니다.";
 
     public static void printPurchaseLottoSize(int manualLottoSize, int autoLottoSize) {
         System.out.println();
@@ -27,12 +27,11 @@ public class OutputView {
         }
     }
 
-    public static void printMatchingResult(StatisticsDto statisticsDto) {
+    public static void printMatchingResult(Map<Rank, Integer> rankCount) {
         System.out.println();
         System.out.println(STATISTICS_OF_RESULT_MSG);
         System.out.println(DIVISION_LINE);
 
-        Map<Rank, Integer> rankCount = statisticsDto.getRankCount();
         Rank[] rank = Rank.values();
         for (int i = rank.length - 2; i >= 0; i--) {
             System.out.printf(EACH_RANK_MATCHING_NUM_MSG,
@@ -44,7 +43,7 @@ public class OutputView {
         }
     }
 
-    public static void printTotalRateOfReturn(int totalRateOfReturn) {
+    public static void printTotalRateOfReturn(double totalRateOfReturn) {
         System.out.printf(TOTAL_RATE_OF_RETURN_MSG, totalRateOfReturn);
     }
 }

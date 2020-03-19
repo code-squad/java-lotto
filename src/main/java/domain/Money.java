@@ -25,11 +25,11 @@ public class Money {
         return amount / LOTTO_PRICE;
     }
 
-    public int calculateTotalRateOfReturn(Map<Rank, Integer> rankCount) {
+    public double calculateTotalRateOfReturn(Map<Rank, Integer> rankCount) {
         long sum = 0;
         for (Rank value : Rank.values()) {
             sum += value.calculateTotalEarningMoney(rankCount.get(value));
         }
-        return (int) (sum / amount);
+        return (sum / (double) amount) * 100;
     }
 }

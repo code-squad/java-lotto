@@ -13,13 +13,13 @@ import static util.StringUtil.split;
 public interface LottoGenerator {
     List<Lotto> generateLotto();
 
-    default List<LottoNumber> convertToLottoNumber(List<Integer> numbers) {
+    static List<LottoNumber> convertToLottoNumber(List<Integer> numbers) {
         return numbers.stream()
                 .map(LottoNumber::new)
                 .collect(Collectors.toList());
     }
 
-    default WinningLotto generateWinningLotto(final String numbers, int bonusBall) {
+    static WinningLotto generateWinningLotto(final String numbers, int bonusBall) {
         return new WinningLotto(
                 new Lotto(convertToLottoNumber(convertToInt(split(numbers)))),
                 new LottoNumber(bonusBall)
