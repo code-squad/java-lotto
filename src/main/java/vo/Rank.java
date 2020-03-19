@@ -1,4 +1,4 @@
-package domain;
+package vo;
 
 public enum Rank {
     FIRST(6, 2_000_000_000),
@@ -14,15 +14,6 @@ public enum Rank {
     Rank(int countOfMatch, int winningMoney) {
         this.countOfMatch = countOfMatch;
         this.winningMoney = winningMoney;
-    }
-
-    public static Rank valueOf(int countOfMatch) {
-        for (Rank rank : values()) {
-            if(rank.countOfMatch == countOfMatch) {
-                return rank;
-            }
-        }
-        return FAIL;
     }
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {

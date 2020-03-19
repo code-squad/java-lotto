@@ -1,26 +1,28 @@
 package view;
 
-import domain.Rank;
+import vo.Rank;
 import dto.StatisticsDto;
 import dto.LottoDto;
-import dto.LottoPurchaseInfoDto;
 
+import java.util.List;
 import java.util.Map;
 
 public class OutputView {
-    private static final String NUM_OF_PERCHASE_LOTTO_MSG = " 개를 구매했습니다";
+    private static final String NUM_OF_PERCHASE_LOTTO_MSG = "수동으로 %d장, 자동으로 %d개를 구매했습니다";
     private static final String STATISTICS_OF_RESULT_MSG = "당첨통계";
     private static final String DIVISION_LINE = "---------";
     private static final String EACH_RANK_MATCHING_NUM_MSG = "%d개 일치 %s(%d원)- %d개\n";
     private static final String BONUS_BALL_MATCH_MSG = "보너스 볼 일치";
     private static final String TOTAL_RATE_OF_RETURN_MSG = "총 수익률은 %d%%입니다.";
 
-    public static void printPurchaseLottoSize(int lottosDtoSize) {
-        System.out.println(lottosDtoSize + NUM_OF_PERCHASE_LOTTO_MSG);
+    public static void printPurchaseLottoSize(int manualLottoSize, int autoLottoSize) {
+        System.out.println();
+        System.out.printf(NUM_OF_PERCHASE_LOTTO_MSG, manualLottoSize, autoLottoSize);
     }
 
-    public static void printPurchaseLottos(LottoPurchaseInfoDto lottoPurchaseInfoDto) {
-        for (LottoDto lottoDto : lottoPurchaseInfoDto.getLottos()) {
+    public static void printPurchaseLottos(List<LottoDto> lottoDtos) {
+        System.out.println();
+        for (LottoDto lottoDto : lottoDtos) {
             System.out.println(lottoDto.getNumbers());
         }
     }

@@ -1,11 +1,10 @@
 package dto;
 
-import domain.LottoNumber;
+import vo.LottoNumber;
 
 import java.util.List;
 
 public class LottoDto {
-
     private List<LottoNumber> numbers;
 
     public LottoDto(List<LottoNumber> numbers) {
